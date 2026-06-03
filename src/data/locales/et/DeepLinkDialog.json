@@ -1,0 +1,55 @@
+{
+  "dialogContent": {
+    "generatingDeeplink": "Süvalingi genereerimine...",
+    "withAccount": "Kontoga: {{username}} ({{userID}})",
+    "readyToBroadcast": "Teie Bitshares Beet toiming on edastamiseks valmis!",
+    "chooseMethod": "Valige oma rahakotti edastamiseks allolevate meetodite hulgast.",
+    "bitsharesBEETMultiwallet": "Bitshares BEET multirahakott",
+    "errorOccurred": "Ilmnes viga. Vabandust. Sulgege see dialoog ja proovige uuesti.",
+    "beetWallet": "Bitshares BEET multirahakott"
+  },
+  "tabs": {
+    "viewTRXObject": "Vaadake TRX objekti",
+    "rawDeeplink": "Toores sügavlink",
+    "localJSONFile": "Kohalik JSON-fail",
+    "qrCode": "QR-kood",
+    "propose": "Ettepanek"
+  },
+  "tabsContent": {
+    "transactionObjectJSON": "Tehinguobjekti JSON",
+    "operationType": "Toimingu tüüp:",
+    "copyOperationJSON": "Kopeerimistoimingu JSON",
+    "usingDeeplink": "Süvalingi kasutamine edastuseks Beet multiwalleti kaudu",
+    "step1": "Käivitage BEET rahakott ja navigeerige menüüs 'Raw Link', rahakott peab jääma ülekande ajaks lukustamata.",
+    "step2": "Sellel lehel saate lubada kõik toimingud või ainult toimingu \"{{operationName}}\", samuti \"injectedCall\" (seejärel klõpsake nuppu Salvesta).",
+    "step3": "Kui Beetis kuvatakse teade „Toores linkide jaoks valmis”, võite jätkata jätkamiseks klõpsata alloleval nupul.",
+    "step4": "Kuvatakse BEET-viip, kontrollige sisu, taotlege soovi korral Beet-kviitungit ja edastage tehing plokiahelasse.",
+    "step5": "Te ei saa selles aknas kinnitust, kuid teie toiming töödeldakse plokiahelas mõne sekundi jooksul.",
+    "triggerRawBeet": "Käivitage töötlemata peedi sügavlink",
+    "viaLocalFile": "Kohaliku faili üleslaadimise kaudu – jätkamiseks valmis",
+    "step1Local": "Käivitage BEET rahakott ja navigeerige menüüs jaotisse „Kohalik”.",
+    "step2Local": "Sellel lehel kas lubage kõik või lubage ainult toiming \"{{operationName}}'.",
+    "step3Local": "Kui olete kohalikul üleslaadimislehel, klõpsake JSON-faili arvutisse allalaadimiseks allolevat nuppu.",
+    "step4Local": "Laadige lehelt BEET Local üles JSON-fail, seejärel peaks ilmuma viip.",
+    "step5Local": "Kontrollige enne mis tahes toimingu kinnitamist viiba sisu põhjalikult ning kaaluge ka valikulise kviitungi vahetamist saatejärgse analüüsi ja kontrollimise eesmärgil.",
+    "downloading": "Allalaadimine...",
+    "downloadBeetOperationJSON": "Laadige alla suhkrupeedi operatsiooni JSON",
+    "propose": "Uue ettepaneku koostamine",
+    "proposeDescription": "Kui te ei ole kavandatava toimingu koostamiseks kasutatava konto omanik (või olete kaasomanik), saate luua konto omanikule ettepaneku, mille ta oma äranägemise järgi üle vaatab ja edastab."
+  },
+  "qr": {
+    "ecl": "Veaparanduse tase",
+    "size": "Suurus",
+    "padding": "Polsterdus",
+    "style": "Stiil",
+    "bgc": "Taustavärv",
+    "fgc": "Esiplaani värv",
+    "generating": "QR-sisu genereerimine..."
+  },
+  "proposal": {
+    "targetContent": "See on konto, mida saate kasutada ettepaneku loomiseks, lõppkasutajana Astro kasutajaliideses operatsioonide loomiseks ja seejärel oma ettepaneku tasu maksmise konto sisestamiseks siin.",
+    "targetHeader": "Ettepaneku tasu maksmise konto",
+    "revisionPeriodSecondsContent": "Määrake läbivaatamise periood sekundites.",
+    "revisionPeriodSecondsHeader": "Läbivaatamise periood (sekundites)"
+  }
+}

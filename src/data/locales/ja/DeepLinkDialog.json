@@ -1,0 +1,55 @@
+{
+  "dialogContent": {
+    "generatingDeeplink": "ディープリンクを生成中...",
+    "withAccount": "アカウントの場合: {{username}} ({{userID}})",
+    "readyToBroadcast": "Bitshares Beet オペレーションをブロードキャストする準備ができました。",
+    "chooseMethod": "以下の方法から選択して、選択したウォレットにブロードキャストします。",
+    "bitsharesBEETMultiwallet": "Bitshares BEET マルチウォレット",
+    "errorOccurred": "エラーが発生しました。申し訳ありませんが、このダイアログを閉じて、もう一度お試しください。",
+    "beetWallet": "Bitshares BEET マルチウォレット"
+  },
+  "tabs": {
+    "viewTRXObject": "TRX オブジェクトの表示",
+    "rawDeeplink": "生のディープリンク",
+    "localJSONFile": "ローカルJSONファイル",
+    "qrCode": "QRコード",
+    "propose": "提案"
+  },
+  "tabsContent": {
+    "transactionObjectJSON": "トランザクションオブジェクトJSON",
+    "operationType": "操作タイプ:",
+    "copyOperationJSON": "コピー操作 JSON",
+    "usingDeeplink": "ディープリンクを使用して Beet マルチウォレット経由でブロードキャストする",
+    "step1": "BEET ウォレットを起動し、メニューの「Raw Link」に移動します。ブロードキャスト中はウォレットのロックが解除されている必要があります。",
+    "step2": "このページから、すべての操作を許可することも、操作のみを許可することもできます。{{operationName}}' と 'injectedCall' (その後、[保存] をクリックします)。",
+    "step3": "Beet に「Ready for raw links」と表示されたら、下のボタンをクリックして続行できます。",
+    "step4": "BEET プロンプトが表示され、内容を確認し、オプションで Beet の領収書を要求してから、トランザクションをブロックチェーンにブロードキャストします。",
+    "step5": "このウィンドウには確認は表示されませんが、操作はブロックチェーン上で数秒以内に処理されます。",
+    "triggerRawBeet": "raw Beet ディープリンクをトリガーする",
+    "viaLocalFile": "ローカル ファイル アップロード経由 - 続行する準備ができました",
+    "step1Local": "BEETウォレットを起動し、メニューの「ローカル」に移動します。",
+    "step2Local": "このページでは、すべてを許可するか、操作のみを許可します。{{operationName}}'。",
+    "step3Local": "ローカル アップロード ページにアクセスしたら、下のボタンをクリックして JSON ファイルをコンピュータにダウンロードします。",
+    "step4Local": "BEET ローカル ページから JSON ファイルをアップロードすると、プロンプトが表示されます。",
+    "step5Local": "操作を承認する前にプロンプ​​トの内容を徹底的に確認し、ブロードキャスト後の分析と検証の目的でオプションの受信を切り替えることも検討してください。",
+    "downloading": "ダウンロード中...",
+    "downloadBeetOperationJSON": "ビート操作 JSON をダウンロード",
+    "propose": "新しい提案書の作成",
+    "proposeDescription": "提案された操作の構築に使用しているアカウントの所有者ではない (または共同所有者) 場合は、アカウント所有者が自らの裁量でレビューおよびブロードキャストできる提案を作成できます。"
+  },
+  "qr": {
+    "ecl": "誤り訂正レベル",
+    "size": "サイズ",
+    "padding": "パディング",
+    "style": "スタイル",
+    "bgc": "背景色",
+    "fgc": "前景色",
+    "generating": "QRコンテンツを生成中..."
+  },
+  "proposal": {
+    "targetContent": "これは、プロポーザルを作成し、エンド ユーザーとして Astro UI で操作を構築し、プロポーザル料金支払いアカウントをここに指定するために使用するアカウントです。",
+    "targetHeader": "提案料支払い口座",
+    "revisionPeriodSecondsContent": "改訂期間を秒単位で指定します。",
+    "revisionPeriodSecondsHeader": "修正期間 (秒)"
+  }
+}

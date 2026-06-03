@@ -1,0 +1,23 @@
+{
+  "select": "アセットを選択してください",
+  "change": "アセットの変更",
+  "replacing": "交換中 {{assetSymbol}}",
+  "selecting": "新しいアセットの選択",
+  "noType": "以下でアセットを検索してください",
+  "baseType": "新しいベースアセットを選択してください",
+  "quoteType": "新しい見積資産を選択してください",
+  "search": "アセットを検索する",
+  "issued": "発行者 {{user}}",
+  "search2": "検索",
+  "favourites": "お気に入り",
+  "backingType": "新しいバッキング資産を選択してください",
+  "price": "の価格を提供します {{symbol}}",
+  "addCollateral": "collat​​e担体を追加します",
+  "missingLendingAsset": "貸し出し資産なし",
+  "whichCollateral": "どの担保資産？",
+  "collateralSearch": "以下の新しい担保資産を検索してください",
+  "addAsset": "資産を追加します",
+  "featured": "注目の資産",
+  "borrowed": "借りた",
+  "balance": "残高"
+}

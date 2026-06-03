@@ -1,0 +1,23 @@
+{
+  "select": "Wählen Sie ein Asset aus",
+  "change": "Vermögenswert ändern",
+  "replacing": "Ersetzen {{assetSymbol}}",
+  "selecting": "Auswählen eines neuen Assets",
+  "noType": "Bitte suchen Sie unten nach einem Vermögenswert",
+  "baseType": "Bitte wählen Sie ein neues Basis-Asset aus",
+  "quoteType": "Bitte wählen Sie ein neues Angebots-Asset aus",
+  "search": "Suchen Sie nach einem Vermögenswert",
+  "issued": "Ausgestellt von {{user}}",
+  "search2": "Suchen",
+  "favourites": "Favoriten",
+  "backingType": "Bitte wählen Sie ein neues Backing -Asset aus",
+  "price": "Preis für {{symbol}}",
+  "addCollateral": "➕ Kollateral hinzufügen",
+  "missingLendingAsset": "⛔ Kein Kreditvermögen",
+  "whichCollateral": "Welches Kollateral -Asset?",
+  "collateralSearch": "Bitte suchen Sie unten nach einem neuen Kollateral -Asset",
+  "addAsset": "Asset hinzufügen",
+  "featured": "Ausgewählte Assets",
+  "borrowed": "Ausgeliehen",
+  "balance": "Guthaben"
+}

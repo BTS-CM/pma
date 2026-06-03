@@ -1,0 +1,23 @@
+{
+  "select": "Seleziona una risorsa",
+  "change": "Cambia risorsa",
+  "replacing": "Sostituzione {{assetSymbol}}",
+  "selecting": "Selezione di una nuova risorsa",
+  "noType": "Cerca una risorsa di seguito",
+  "baseType": "Seleziona una nuova risorsa di base",
+  "quoteType": "Seleziona una nuova risorsa preventivo",
+  "search": "Cerca una risorsa",
+  "issued": "Rilasciato da {{user}}",
+  "search2": "Ricerca",
+  "favourites": "Preferiti",
+  "backingType": "Seleziona una nuova risorsa di supporto",
+  "price": "Fornire il prezzo per {{symbol}}",
+  "addCollateral": "➕ Aggiungi garanzia",
+  "missingLendingAsset": "⛔ Nessuna risorsa di prestito",
+  "whichCollateral": "Quale attività collaterale?",
+  "collateralSearch": "Si prega di cercare una nuova risorsa collaterale di seguito",
+  "addAsset": "Aggiungi risorsa",
+  "featured": "Risorse in evidenza",
+  "borrowed": "Preso in prestito",
+  "saldo": "Saldo"
+}

@@ -1,0 +1,23 @@
+{
+  "select": "Selecione um ativo",
+  "change": "Alterar recurso",
+  "replacing": "Substituindo {{assetSymbol}}",
+  "selecting": "Selecionando um novo ativo",
+  "noType": "Procure um ativo abaixo",
+  "baseType": "Selecione um novo recurso base",
+  "quoteType": "Selecione um novo ativo de cotação",
+  "search": "Procure um ativo",
+  "issued": "Emitida pela {{user}}",
+  "search2": "찾다",
+  "favourites": "즐겨찾기",
+  "backingType": "Selecione um novo ativo de apoio",
+  "price": "Fornecer preço para {{symbol}}",
+  "addCollateral": "➕ Adicione garantia",
+  "missingLendingAsset": "⛔ Sem ativo de empréstimo",
+  "whichCollateral": "Qual ativo colateral?",
+  "collateralSearch": "Por favor, procure um novo ativo colateral abaixo",
+  "addAsset": "Adicione ativo",
+  "featured": "Ativos em destaque",
+  "borrowed": "Emprestado",
+  "balance": "Saldo"
+}

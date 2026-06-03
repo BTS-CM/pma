@@ -5,6 +5,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+.pnpm-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -56,6 +57,12 @@ web_modules/
 # Optional stylelint cache
 .stylelintcache
 
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
 # Optional REPL history
 .node_repl_history
 
@@ -67,8 +74,10 @@ web_modules/
 
 # dotenv environment variable files
 .env
-.env.*
-!.env.example
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -80,8 +89,6 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
-.output
 
 # Gatsby files
 .cache/
@@ -92,17 +99,9 @@ dist
 # vuepress build output
 .vuepress/dist
 
-# vuepress v2.x temp directory
+# vuepress v2.x temp and cache directory
 .temp
-
-# Sveltekit cache directory
-.svelte-kit/
-
-# vitepress build output
-**/.vitepress/dist
-
-# vitepress cache directory
-**/.vitepress/cache
+.cache
 
 # Docusaurus cache and generated files
 .docusaurus
@@ -116,28 +115,73 @@ dist
 # DynamoDB Local files
 .dynamodb/
 
-# Firebase cache directory
-.firebase/
-
 # TernJS port file
 .tern-port
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-# pnpm
-.pnpm-store
-
-# yarn v3
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
 .pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
 
-# Vite files
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
-.vite/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+.vercel
+data/bitshares_testnet/pools.json
+data/bitshares_testnet/dynamicData.json
+data/bitshares_testnet/assetIssuers.json
+data/bitshares_testnet/allPools.json
+data/bitshares_testnet/allAssets.json
+data/bitshares/pools.json
+data/bitshares/dynamicData.json
+data/bitshares/assetIssuers.json
+data/bitshares/allPools.json
+data/bitshares/allAssets.json
+src/data/bitshares_testnet/pools.json
+src/data/bitshares_testnet/dynamicData.json
+src/data/bitshares_testnet/assetIssuers.json
+src/data/bitshares_testnet/allPools.json
+src/data/bitshares_testnet/allAssets.json
+src/data/bitshares/pools.json
+src/data/bitshares/dynamicData.json
+src/data/bitshares/assetIssuers.json
+src/data/bitshares/allPools.json
+src/data/bitshares/allAssets.json
+src/data/bitshares/allOffers.json
+src/data/bitshares/bitassetData.json
+src/data/bitshares/fees.json
+src/data/bitshares/minAssets.json
+src/data/bitshares/minBitassetData.json
+src/data/bitshares/minPools.json
+src/data/bitshares_testnet/allOffers.json
+src/data/bitshares_testnet/bitassetData.json
+src/data/bitshares_testnet/fees.json
+src/data/bitshares_testnet/minAssets.json
+src/data/bitshares_testnet/minBitassetData.json
+src/data/bitshares_testnet/minPools.json
+
+astroDist
+dist
+/src/lib/_non_virtual_op_examples
+/src/lib/_virtual_op_examples

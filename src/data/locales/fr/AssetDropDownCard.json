@@ -1,0 +1,23 @@
+{
+  "select": "Sélectionnez un actif",
+  "change": "Changer l'actif",
+  "replacing": "Remplacement {{assetSymbol}}",
+  "selecting": "Sélection d'un nouvel actif",
+  "noType": "Veuillez rechercher un actif ci-dessous",
+  "baseType": "Veuillez sélectionner un nouvel actif de base",
+  "quoteType": "Veuillez sélectionner un nouvel actif de devis",
+  "search": "Rechercher un bien",
+  "issued": "Délivré par {{user}}",
+  "search2": "Recherche",
+  "favourites": "Favoris",
+  "backingType": "Veuillez sélectionner un nouvel actif de support",
+  "price": "Fournir un prix à {{symbol}}",
+  "addCollateral": "➕ Ajouter des garanties",
+  "missingLendingAsset": "⛔ Pas d'actif de prêt",
+  "whichCollateral": "Quel actif collatéral?",
+  "collateralSearch": "Veuillez rechercher un nouvel actif collatéral ci-dessous",
+  "addAsset": "Ajouter un actif",
+  "featured": "Actifs en vedette",
+  "borrowed": "Emprunté",
+  "balance": "Solde"
+}
