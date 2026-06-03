@@ -1,0 +1,19 @@
+{
+  "buyOrders": "Kaufaufträge (Gebote)",
+  "sellOrders": "Verkaufsaufträge (fragt)",
+  "quoteAsset": "Angebotsvermögenswert",
+  "baseAsset": "Basisvermögenswert",
+  "loading": "Wird geladen...",
+  "controls": "Marktkontrollen",
+  "bitsharesMarketExplorer": "🔎 bitshares-Marktforscher",
+  "marketSummary": "Marktübersicht",
+  "latestPrice": "Letzter Preis:",
+  "24HrChange": "24-Stunden-Wechsel:",
+  "24HrBaseVolume": "24-Stunden-Basisvolumen:",
+  "24HrQuoteVolume": "24-Stunden-Angebotsvolumen:",
+  "lowestAsk": "Niedrigste Frage:",
+  "highestBid": "Höchstes Gebot:",
+  "externalMarketLinks": "Externe Marktlinks",
+  "buy": "Kaufen",
+  "sell": "Verkaufen"
+}

@@ -123,96 +123,26 @@ export default function PageHeader(properties) {
       description: "Home:dex.subtitle",
     },
     {
-      title: "Home:instant_trade.title",
-      href: "/instant_trade/index.html",
-      description: "Home:instant_trade.subtitle",
-    },
-    {
-      title: "Home:swap.title",
-      href: "/swap/index.html",
-      description: "Home:swap.subtitle",
-    },
-    {
-      title: "Home:stake.title",
-      href: "/stake/index.html",
-      description: "Home:stake.subtitle",
-    },
-    {
-      title: "Home:barter.title",
-      href: "/barter/index.html",
-      description: "Home:barter.subtitle",
-    },
-    {
-      title: "Home:tfund_user.title",
-      href: "/tfund_user/index.html",
-      description: "Home:tfund_user.subtitle",
-    },
-    {
       title: "Home:prediction_markets.title",
       href: "/predictions/index.html",
       description: "Home:prediction_markets.subtitle",
     },
-  ];
-
-  const transferFundsHeading = [
     {
-      title: "Home:transfer.title",
-      href: "/transfer/index.html",
-      description: "Home:transfer.subtitle",
+      title: "Home:dex.title",
+      href: "/order/index.html",
+      description: "Home:dex.subtitle",
     },
     {
-      title: "Home:timed_transfer.title",
-      href: "/timed_transfer/index.html",
-      description: "Home:timed_transfer.subtitle",
+      title: "Home:prediction_markets.title",
+      href: "/settlement/index.html",
+      description: "Home:prediction_markets.subtitle",
     },
     {
-      title: "Home:htlc.title",
-      href: "/htlc/index.html",
-      description: "Home:htlc.subtitle",
-    },
-    {
-      title: "Home:withdraw_permission.title",
-      href: "/withdraw_permissions/index.html",
-      description: "Home:withdraw_permission.subtitle",
-    },
-    {
-      title: "Home:create_vesting.title",
-      href: "/create_vesting/index.html",
-      description: "Home:create_vesting.subtitle",
+      title: "Home:create_prediction.title",
+      href: "/create_prediction/index.html",
+      description: "Home:create_prediction.subtitle",
     },
   ];
-
-  const formsOfDebtHeading = [
-    {
-      title: "Home:borrow.title",
-      href: "/borrow/index.html",
-      description: "Home:borrow.subtitle",
-    },
-    {
-      title: "Home:lend.title",
-      href: "/lend/index.html",
-      description: "Home:lend.subtitle",
-    },
-    {
-      title: "Home:smartcoins.title",
-      href: "/smartcoins/index.html",
-      description: "Home:smartcoins.subtitle",
-    },
-    {
-      title: "Home:tfunds.title",
-      href: "/tfunds/index.html",
-      description: "Home:tfunds.subtitle",
-    },
-  ];
-
-  /*
-    // Removed for now due to domain issues
-    {
-      title: "Home:portfolio_recent_activity.title",
-      href: "/recent-activity/index.html",
-      description: "Home:portfolio_recent_activity.subtitle",
-    },
-  */
 
   const accountOverviewsHeading = [
     {
@@ -235,126 +165,9 @@ export default function PageHeader(properties) {
       href: "/issued_assets/index.html",
       description: "Home:issued_assets.subtitle",
     },
-    {
-      title: "Home:offers.title",
-      href: "/offers/index.html",
-      description: "Home:offers.subtitle",
-    },
-    {
-      title: "Home:deals.title",
-      href: "/deals/index.html",
-      description: "Home:deals.subtitle",
-    },
-    {
-      title: "Home:vesting.title",
-      href: "/vesting/index.html",
-      description: "Home:vesting.subtitle",
-    },
-    {
-      title: "Home:proposals.title",
-      href: "/proposals/index.html",
-      description: "Home:proposals.subtitle",
-    },
-  ];
-
-  /*
-    // Removed for now...
-    {
-      title: "Home:featured.title",
-      href: "/featured/index.html",
-      description: "Home:featured.subtitle",
-    },
-  */
-  const blockchainOverviewsHeading = [
-    {
-      title: "Home:blocks.title",
-      href: "/blocks/index.html",
-      description: "Home:blocks.subtitle",
-    },
-    {
-      title: "Home:custom_pool_tracker.title",
-      href: "/custom_pool_overview/index.html",
-      description: "Home:custom_pool_tracker.subtitle",
-    },
-    {
-      title: "Home:pools.title",
-      href: "/pools/index.html",
-      description: "Home:pools.subtitle",
-    },
-  ];
-
-  const assetCreation = [
-    {
-      title: "Home:create_prediction.title",
-      href: "/create_prediction/index.html",
-      description: "Home:create_prediction.subtitle",
-    },
-    {
-      title: "Home:create_uia.title",
-      href: "/create_uia/index.html",
-      description: "Home:create_uia.subtitle",
-    },
-    {
-      title: "Home:create_smartcoin.title",
-      href: "/create_smartcoin/index.html",
-      description: "Home:create_smartcoin.subtitle",
-    },
-    {
-      title: "Home:create_liquidity_pool.title",
-      href: "/create_pool/index.html",
-      description: "Home:create_liquidity_pool.subtitle",
-    },
-  ];
-
-  const governanceHeading = [
-    {
-      title: "Home:vote.title",
-      href: "/vote/index.html",
-      description: "Home:vote.subtitle",
-    },
-    {
-      title: "Home:witnesses.title",
-      href: "/witnesses/index.html",
-      description: "Home:witnesses.subtitle",
-    },
-    {
-      title: "Home:committee.title",
-      href: "/committee/index.html",
-      description: "Home:committee.subtitle",
-    },
-    {
-      title: "Home:governance.title",
-      href: "/governance/index.html",
-      description: "Home:governance.subtitle",
-    },
-    {
-      title: "Home:create_worker.title",
-      href: "/create_worker/index.html",
-      description: "Home:create_worker.subtitle",
-    },
-    {
-      title: "Home:create_ticket.title",
-      href: "/create_ticket/index.html",
-      description: "Home:create_ticket.subtitle",
-    },
-    {
-      title: "Home:ticket_leaderboard.title",
-      href: "/ticket_leaderboard/index.html",
-      description: "Home:ticket_leaderboard.subtitle",
-    },
   ];
 
   const settingsHeading = [
-    {
-      title: "Home:accountLists.title",
-      href: "/account_lists/index.html",
-      description: "Home:accountLists.subtitle",
-    },
-    {
-      title: "Home:ltm.title",
-      href: "/ltm/index.html",
-      description: "Home:ltm.subtitle",
-    },
     {
       title: "Home:nodes.title",
       href: "/nodes/index.html",
@@ -364,29 +177,6 @@ export default function PageHeader(properties) {
       title: "Home:create_account.title",
       href: "/create_account/index.html",
       description: "Home:create_account.subtitle",
-    },
-  ];
-
-  const invoicingHeading = [
-    {
-      title: "Home:invoice_inventory.title",
-      href: "/invoice_inventory/index.html",
-      description: "Home:invoice_inventory.subtitle",
-    },
-    {
-      title: "Home:create_invoice.title",
-      href: "/create_invoice/index.html",
-      description: "Home:create_invoice.subtitle",
-    },
-    {
-      title: "Home:pay_invoice.title",
-      href: "/pay_invoice/index.html",
-      description: "Home:pay_invoice.subtitle",
-    },
-    {
-      title: "Home:stored_invoices.title",
-      href: "/stored_invoices/index.html",
-      description: "Home:stored_invoices.subtitle",
     },
   ];
 
@@ -586,156 +376,12 @@ export default function PageHeader(properties) {
                   className="hover:bg-slate-200 hover:text-black"
                 >
                   <NavigationMenuTrigger>
-                    {t("PageHeader:transferFundsHeading")}
-                  </NavigationMenuTrigger>
-                </Badge>
-                <NavigationMenuContent>
-                  <ul className="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px] p-2">
-                    {transferFundsHeading.map((component) => (
-                      <ListItem
-                        key={t(component.title)}
-                        title={t(component.title)}
-                        href={component.href}
-                      >
-                        {t(component.description)}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Badge
-                  variant="secondary"
-                  className="hover:bg-slate-200 hover:text-black"
-                >
-                  <NavigationMenuTrigger>
-                    {t("PageHeader:formsOfDebtHeading")}
-                  </NavigationMenuTrigger>
-                </Badge>
-                <NavigationMenuContent>
-                  <ul className="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px] p-2">
-                    {formsOfDebtHeading.map((component) => (
-                      <ListItem
-                        key={t(component.title)}
-                        title={t(component.title)}
-                        href={component.href}
-                      >
-                        {t(component.description)}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Badge
-                  variant="secondary"
-                  className="hover:bg-slate-200 hover:text-black"
-                >
-                  <NavigationMenuTrigger>
-                    {t("PageHeader:assetCreation")}
-                  </NavigationMenuTrigger>
-                </Badge>
-                <NavigationMenuContent>
-                  <ul className="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px] p-2">
-                    {assetCreation.map((component) => (
-                      <ListItem
-                        key={t(component.title)}
-                        title={t(component.title)}
-                        href={component.href}
-                      >
-                        {t(component.description)}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Badge
-                  variant="secondary"
-                  className="hover:bg-slate-200 hover:text-black"
-                >
-                  <NavigationMenuTrigger>
                     {t("PageHeader:accountOverviewsHeading")}
                   </NavigationMenuTrigger>
                 </Badge>
                 <NavigationMenuContent>
                   <ul className="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px] p-2">
                     {accountOverviewsHeading.map((component) => (
-                      <ListItem
-                        key={t(component.title)}
-                        title={t(component.title)}
-                        href={component.href}
-                      >
-                        {t(component.description)}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Badge
-                  variant="secondary"
-                  className="hover:bg-slate-200 hover:text-black"
-                >
-                  <NavigationMenuTrigger>
-                    {t("PageHeader:blockchainOverviewsHeading")}
-                  </NavigationMenuTrigger>
-                </Badge>
-                <NavigationMenuContent>
-                  <ul className="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px] p-2">
-                    {blockchainOverviewsHeading.map((component) => (
-                      <ListItem
-                        key={t(component.title)}
-                        title={t(component.title)}
-                        href={component.href}
-                      >
-                        {t(component.description)}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Badge
-                  variant="secondary"
-                  className="hover:bg-slate-200 hover:text-black"
-                >
-                  <NavigationMenuTrigger>
-                    {t("PageHeader:governanceHeading")}
-                  </NavigationMenuTrigger>
-                </Badge>
-                <NavigationMenuContent>
-                  <ul className="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px] p-2">
-                    {governanceHeading.map((component) => (
-                      <ListItem
-                        key={t(component.title)}
-                        title={t(component.title)}
-                        href={component.href}
-                      >
-                        {t(component.description)}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Badge
-                  variant="secondary"
-                  className="hover:bg-slate-200 hover:text-black"
-                >
-                  <NavigationMenuTrigger>
-                    {t("PageHeader:invoicingHeading")}
-                  </NavigationMenuTrigger>
-                </Badge>
-                <NavigationMenuContent>
-                  <ul className="grid gap-2 sm:w-[400px] md:w-[500px] md:grid-cols-2 lg:w-[600px] p-2">
-                    {invoicingHeading.map((component) => (
                       <ListItem
                         key={t(component.title)}
                         title={t(component.title)}
