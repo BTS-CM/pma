@@ -376,7 +376,13 @@
     }
   },
   "waveHero": {
-    "title": "ไคลเอนต์ Bitshares รุ่นต่อไป!",
+    "title": "A Next Generation Bitshares Client!",
     "subtitle": "สร้างขึ้นด้วยเทคโนโลยีล่าสุด ออกแบบมาเพื่อให้ใช้งานง่าย!"
+  },
+  "about": {
+    "title": "ℹ️ About",
+    "subtitle": "Learn more about the features",
+    "hover1": "View the features of the platform.",
+    "hover2": "Learn about the supported blockchains, wallets and languages."
   }
 }

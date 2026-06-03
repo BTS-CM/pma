@@ -169,6 +169,11 @@ export default function PageHeader(properties) {
 
   const settingsHeading = [
     {
+      title: "Home:about.title",
+      href: "/about/index.html",
+      description: "Home:about.subtitle",
+    },
+    {
       title: "Home:nodes.title",
       href: "/nodes/index.html",
       description: "Home:nodes.subtitle",

@@ -376,7 +376,13 @@
     }
   },
   "waveHero": {
-    "title": "Un client Bitshares di prossima generazione!",
+    "title": "A Next Generation Bitshares Client!",
     "subtitle": "Costruito con la tecnologia più recente, progettato per la facilità d'uso!"
+  },
+  "about": {
+    "title": "ℹ️ About",
+    "subtitle": "Learn more about the features",
+    "hover1": "View the features of the platform.",
+    "hover2": "Learn about the supported blockchains, wallets and languages."
   }
 }

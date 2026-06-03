@@ -46,6 +46,7 @@ export default function AppSidebar() {
   ];
 
   const settingsHeading = [
+    { title: "Home:about.title", href: "/about/index.html" },
     { title: "Home:nodes.title", href: "/nodes/index.html" },
     { title: "Home:create_account.title", href: "/create_account/index.html" },
   ];

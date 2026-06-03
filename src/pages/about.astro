@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader';
+import PageFooter from '../components/PageFooter';
+import About from '../components/About.jsx';
+---
+
+<Layout title="Bitshares Astro UI - about page">
+	<main>
+		<PageHeader client:only="react" page="about" backURL="../index.html" />
+		<About client:only="react" />
+		<PageFooter client:only="react" sourceURL="https://github.com/BTS-CM/astro-ui/blob/main/src/pages/about.astro" />
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		width: 100%;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+		min-height: 100vh;
+	}
+</style>

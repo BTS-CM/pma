@@ -16,23 +16,6 @@ import {
 } from "@/components/ui/card";
 
 import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-  ItemGroup,
-} from "@/components/ui/item";
-
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
-import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
@@ -237,6 +220,13 @@ export default function Home(properties) {
       headingKey: "PageHeader:settingsHeading",
       cards: [
         {
+          key: "about",
+          href: "/about/index.html",
+          titleKey: "Home:about.title",
+          subtitleKey: "Home:about.subtitle",
+          hoverKeys: ["Home:about.hover1", "Home:about.hover2"],
+        },
+        {
           key: "nodes",
           href: "/nodes/index.html",
           titleKey: "Home:nodes.title",
@@ -285,155 +275,20 @@ export default function Home(properties) {
         <WaveHero />
       </div>
       <div className="container mx-auto mt-3 mb-5 px-3 sm:px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-5">
-          <div className="col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-3">
-            <h3 className="scroll-m-20 text-xl sm:text-2xl font-semibold tracking-tight mb-4 sm:mb-5">
-              {t("Home:features.heading")}
-            </h3>
-          </div>
-
-          <Item key="feature-1" variant="outline" className="w-full bg-white">
-            <ItemMedia variant="icon">⛓️‍💥</ItemMedia>
-            <ItemContent>
-              <ItemTitle className="text-black">
-                {t("Home:features.zeroAuth.title")}
-              </ItemTitle>
-              <ItemDescription>
-                {t("Home:features.zeroAuth.description")}
-              </ItemDescription>
-            </ItemContent>
-          </Item>
-
-          <Item key="feature-2" variant="outline" className="w-full bg-white">
-            <ItemMedia variant="icon">📡</ItemMedia>
-            <ItemContent>
-              <ItemTitle className="text-black">
-                {t("Home:features.multiBroadcast.title")}
-              </ItemTitle>
-              <ItemDescription>
-                {t("Home:features.multiBroadcast.description")}
-              </ItemDescription>
-            </ItemContent>
-          </Item>
-
-          <Item key="feature-3" variant="outline" className="w-full bg-white">
-            <ItemMedia variant="icon">🧑‍🔬</ItemMedia>
-            <ItemContent>
-              <ItemTitle className="text-black">
-                {t("Home:features.supportsLatest.title")}
-              </ItemTitle>
-              <ItemDescription>
-                {t("Home:features.supportsLatest.description")}
-              </ItemDescription>
-            </ItemContent>
-          </Item>
-
-          <Item key="feature-4" variant="outline" className="w-full bg-white">
-            <ItemMedia variant="icon">🌐</ItemMedia>
-            <ItemContent>
-              <ItemTitle className="text-black">
-                {t("Home:features.switchChains.title")}
-              </ItemTitle>
-              <ItemDescription>
-                {t("Home:features.switchChains.description")}
-              </ItemDescription>
-            </ItemContent>
-          </Item>
-
-          <Item key="feature-5" variant="outline" className="w-full bg-white">
-            <ItemMedia variant="icon">🚀</ItemMedia>
-            <ItemContent>
-              <ItemTitle className="text-black">
-                {t("Home:features.nearInstant.title")}
-              </ItemTitle>
-              <ItemDescription>
-                {t("Home:features.nearInstant.description")}
-              </ItemDescription>
-            </ItemContent>
-          </Item>
-
-          <Item key="feature-6" variant="outline" className="w-full bg-white">
-            <ItemMedia variant="icon">🌲</ItemMedia>
-            <ItemContent>
-              <ItemTitle className="text-black">
-                {t("Home:features.evergreen.title")}
-              </ItemTitle>
-              <ItemDescription>
-                {t("Home:features.evergreen.description")}
-              </ItemDescription>
-            </ItemContent>
-          </Item>
-
-          <Item key="feature-7" variant="outline" className="w-full bg-white">
-            <ItemMedia variant="icon">👛</ItemMedia>
-            <ItemContent>
-              <ItemTitle className="text-black">
-                {t("Home:features.multiWallets.title")}
-              </ItemTitle>
-              <ItemDescription>
-                {t("Home:features.multiWallets.description")}
-              </ItemDescription>
-            </ItemContent>
-          </Item>
-
-          <Item key="feature-8" variant="outline" className="w-full bg-white">
-            <ItemMedia variant="icon">🌍</ItemMedia>
-            <ItemContent>
-              <ItemTitle className="text-black">
-                {t("Home:features.localized.title")}
-              </ItemTitle>
-              <ItemDescription>
-                {t("Home:features.localized.description")}
-              </ItemDescription>
-            </ItemContent>
-          </Item>
-
-          <Item key="feature-9" variant="outline" className="w-full bg-white">
-            <ItemMedia variant="icon">🤚</ItemMedia>
-            <ItemContent>
-              <ItemTitle className="text-black">
-                {t("Home:features.blockActors.title")}
-              </ItemTitle>
-              <ItemDescription>
-                {t("Home:features.blockActors.description")}
-              </ItemDescription>
-            </ItemContent>
-          </Item>
-        </div>
-
-        <br />
-
         <h3 className="scroll-m-20 text-xl sm:text-2xl font-semibold tracking-tight mb-4 sm:mb-5 text-center mt-8 sm:mt-10">
           {t("Home:features.functionalityHeading")}
         </h3>
 
-        <Item variant="outline">
-          <ItemContent>
-            <ItemDescription>
-              <Accordion
-                type="single"
-                collapsible
-                className="w-full"
-                defaultValue="item-1"
-              >
-                {accordionSections.map((section) => (
-                  <AccordionItem key={section.value} value={section.value}>
-                    <AccordionTrigger>
-                      <h4 className="mt-3 mb-2 scroll-m-20 text-xl font-semibold tracking-tight text-white">
-                        {section.icon} {t(section.headingKey)}
-                      </h4>
-                    </AccordionTrigger>
-                    <AccordionContent className="flex flex-col gap-4 text-balance">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-                        {section.cards.map((card) => renderHoverCard(card))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </ItemDescription>
-          </ItemContent>
-        </Item>
+        {accordionSections.map((section) => (
+          <div key={section.value} className="mb-6">
+            <h4 className="mt-3 mb-2 scroll-m-20 text-xl font-semibold tracking-tight text-white">
+              {section.icon} {t(section.headingKey)}
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+              {section.cards.map((card) => renderHoverCard(card))}
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );

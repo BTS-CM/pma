@@ -376,7 +376,13 @@
     }
   },
   "waveHero": {
-    "title": "Järgmise põlvkonna Bitsharesi klient!",
+    "title": "A Next Generation Bitshares Client!",
     "subtitle": "Ehitatud uusima tehnoloogiaga, mõeldud kasutusmugavuseks!"
+  },
+  "about": {
+    "title": "ℹ️ About",
+    "subtitle": "Learn more about the features",
+    "hover1": "View the features of the platform.",
+    "hover2": "Learn about the supported blockchains, wallets and languages."
   }
 }
