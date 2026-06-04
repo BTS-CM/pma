@@ -93,7 +93,7 @@ function getAccountLimitOrders(
   });
 }
 
-const [createAccountLimitOrderStore] = nanoquery({
+const [createAccountLimitOrderStore, , nanoqueryHelpers] = nanoquery({
   fetcher: async (...args: unknown[]) => {
     const chain = args[0] as string;
     const account_id = args[1] as string;
@@ -116,4 +116,18 @@ const [createAccountLimitOrderStore] = nanoquery({
   },
 });
 
-export { createAccountLimitOrderStore, getAccountLimitOrders };
+function revalidateAccountLimitOrders(chain, accountID) {
+  nanoqueryHelpers.revalidateKeys(
+    (key) =>
+      Array.isArray(key) &&
+      key.length >= 2 &&
+      key[0] === chain &&
+      key[1] === accountID,
+  );
+}
+
+export {
+  createAccountLimitOrderStore,
+  getAccountLimitOrders,
+  revalidateAccountLimitOrders,
+};

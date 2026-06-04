@@ -397,7 +397,7 @@ export default function IssuedAssets(properties) {
               ) : null}
               {loading ? (
                 <div className="text-center mt-5">
-                  {t("CreditBorrow:common.loading")}
+                  {t("Market:loading")}
                 </div>
               ) : null}
               {(!loading && !predictionMarkets) || !predictionMarkets.length ? (
@@ -439,7 +439,7 @@ export default function IssuedAssets(properties) {
                     </>
                   ) : (
                     <div className="text-center mt-5">
-                      {t("CreditBorrow:common.loading")}
+                      {t("Market:loading")}
                     </div>
                   )}
                 </>

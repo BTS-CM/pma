@@ -41,6 +41,9 @@ const pages = [
   "InstantTrade",
   "About",
   "Visuals",
+  "PortfolioTabs",
+  "Transfer",
+  "Smartcoin"
 ];
 
 const locale = persistentAtom("locale", "en");

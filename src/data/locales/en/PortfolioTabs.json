@@ -52,5 +52,18 @@
   "orderIdHeader": "Order ID",
   "expirationHeader": "Expiration",
   "priceHeader": "Price",
-  "actionsHeader": "Actions"
+  "actionsHeader": "Actions",
+  "refreshOpenOrdersTooltip": "Refresh open orders",
+  "copyOrderIdTooltip": "Copy order ID",
+  "expiryStatusHealthy": "Healthy",
+  "expiryStatusSoon": "Expiring soon",
+  "expiryStatusImminent": "Less than 24 hours",
+  "expiryStatusExpired": "Expired",
+  "noOpenOrdersTitle": "No open orders",
+  "noOpenOrdersDescription": "You don't have any open limit orders on the DEX right now.",
+  "noOpenOrdersCta": "Place a new order",
+  "badgeSell": "Sell",
+  "badgeBuy": "Buy",
+  "orderSummaryCount": "{{count}} open orders",
+  "orderIdCopied": "Order ID copied"
 }

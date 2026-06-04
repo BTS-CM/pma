@@ -88,66 +88,6 @@ function RowHyperlink({
   );
 }
 
-function PoolDialog({ poolArray, dialogTitle, dialogDescription, t }) {
-  if (!poolArray || !poolArray.length) return null;
-
-  const PoolRow = ({ index, style }) => {
-    const pool = poolArray[index];
-    return (
-      <a
-        style={style}
-        href={`/swap/index.html?pool=${pool.id}`}
-        key={`a_${pool.id}`}
-      >
-        <RowHyperlink
-          id={pool.id}
-          share_asset_symbol={pool.share_asset_symbol}
-          asset_a_symbol={pool.asset_a_symbol}
-          asset_b_symbol={pool.asset_b_symbol}
-        />
-      </a>
-    );
-  };
-
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="bg-white hover:shadow-lg">
-          {t("PortfolioTabs:pools")}
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[800px] bg-white">
-        <DialogHeader>
-          <DialogTitle>{dialogTitle}</DialogTitle>
-          <DialogDescription>{dialogDescription}</DialogDescription>
-        </DialogHeader>
-        <div className="grid grid-cols-1">
-          <div className="grid grid-cols-10">
-            <div className="col-span-1">{t("PoolDialogs:idColumnTitle")}</div>
-            <div className="col-span-3">
-              {t("PoolDialogs:shareAssetColumnTitle")}
-            </div>
-            <div className="col-span-3">
-              {t("PoolDialogs:assetAColumnTitle")}
-            </div>
-            <div className="col-span-3">
-              {t("PoolDialogs:assetBColumnTitle")}
-            </div>
-          </div>
-          <div className="w-full max-h-[300px] overflow-auto">
-            <List
-              rowComponent={PoolRow}
-              rowCount={poolArray.length}
-              rowHeight={35}
-              rowProps={{}}
-            />
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
 export default function PortfolioBalances({
   _assetsBTS,
   _assetsTEST,
@@ -331,49 +271,6 @@ export default function PortfolioBalances({
             {t("PortfolioTabs:tradeButton")}
           </Button>
         </a>
-
-        <a
-          href={`/borrow/index.html?tab=searchOffers&searchTab=borrow&searchText=${currentAsset.symbol}`}
-        >
-          <Button variant="outline" className="mr-2 hover:shadow-lg bg-white">
-            {t("IssuedAssets:creditBorrow")}
-          </Button>
-        </a>
-
-        <a href={`/lend/index.html?asset=${currentAsset.symbol}`}>
-          <Button variant="outline" className="mr-2 hover:shadow-lg bg-white">
-            {t("IssuedAssets:creditLend")}
-          </Button>
-        </a>
-
-        {currentAsset.bitasset_data_id ? (
-          <a href={`/smartcoin/index.html?id=${currentAsset.id}`}>
-            <Button variant="outline" className="mr-2 hover:shadow-lg bg-white">
-              {t("IssuedAssets:proceedToBorrow")}
-            </Button>
-          </a>
-        ) : null}
-
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <PoolDialog
-              poolArray={relevantPools}
-              t={t}
-              dialogTitle={t("PoolDialogs:assetAPoolsDialogTitle", {
-                assetA: currentAsset.symbol,
-              })}
-              dialogDescription={t("PoolDialogs:assetAPoolsDialogDescription", {
-                assetA: currentAsset.symbol,
-                assetAId: currentAsset.id,
-              })}
-            />
-          </HoverCardTrigger>
-          <HoverCardContent className="w-60 bg-white">
-            {t("PoolDialogs:assetAHoverCardContent", {
-              assetA: currentAsset.symbol,
-            })}
-          </HoverCardContent>
-        </HoverCard>
       </>
     );
 
