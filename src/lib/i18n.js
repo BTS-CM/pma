@@ -40,6 +40,7 @@ const pages = [
   "Favourites",
   "InstantTrade",
   "About",
+  "Visuals",
 ];
 
 const locale = persistentAtom("locale", "en");

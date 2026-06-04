@@ -292,6 +292,10 @@
     "hover1": "Create a free account using a public faucet.",
     "hover2": "Generate a premium account using an existing LTM account."
   },
+  "configure_visuals": {
+    "title": "🎨 Configure Visuals",
+    "subtitle": "Customize the wave animation in the page header."
+  },
   "invoice_inventory": {
     "title": "📦 Invoice Inventory",
     "subtitle": "Manage items and prices used for invoicing",

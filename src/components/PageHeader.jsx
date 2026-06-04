@@ -45,6 +45,7 @@ import { Badge } from "@/components/ui/badge";
 
 import { Button } from "@/components/ui/button";
 import CurrentUser from "./common/CurrentUser.jsx";
+import WaveBackground from "./WaveBackground.jsx";
 
 import { $currentUser } from "@/stores/users.ts";
 import { NavigationMenuIndicator } from "@radix-ui/react-navigation-menu";
@@ -183,14 +184,26 @@ export default function PageHeader(properties) {
       href: "/create_account/index.html",
       description: "Home:create_account.subtitle",
     },
+    {
+      title: "Home:configure_visuals.title",
+      href: "/visuals/index.html",
+      description: "Home:configure_visuals.subtitle",
+    },
   ];
 
   return (
-    <div key={`header`} className="container mx-auto mb-3 px-3 sm:px-4">
-      <div className="grid grid-cols-12">
-        <div className="col-span-12">
-          <div className="grid grid-cols-12 gap-3 mb-3">
-            <div className="col-span-12 md:col-span-3 mt-2 flex items-center gap-2">
+    <div key={`header`}>
+      <div className="mb-3 relative min-h-[195px]">
+        <div
+          className="absolute inset-0 overflow-hidden rounded-lg"
+          style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}
+        >
+          <WaveBackground />
+        </div>
+        <div className="container mx-auto px-3 sm:px-4 relative z-10">
+          <div className="grid grid-cols-12 gap-3 items-center min-h-[195px]">
+            <div className="col-span-12 md:col-span-3 mt-2 flex items-center gap-2 relative z-10">
+              <div className="inline-flex items-center rounded-md border border-white/10 bg-white/10 backdrop-blur-md p-1 hover:bg-white/20 transition-colors">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button>
@@ -308,46 +321,53 @@ export default function PageHeader(properties) {
                   <path d="M3 4h18M3 12h18M3 20h18" />
                 </svg>
               </Button>
+              </div>
             </div>
 
-            <div className="col-span-12 md:col-span-6 text-center">
-              <h2>
-                <a
-                  href="/index.html"
-                  onClick={() => {
-                    if (window.location.pathname === "/blocks/index.html") {
-                      window.electron.stopBlocks({});
-                    }
-                  }}
-                >
-                  {page && page === "index"
-                    ? t("PageHeader:welcomeMessage")
-                    : ""}
-                  <span
-                    style={{
-                      backgroundImage: "var(--accent-gradient)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundSize: "400%",
-                      backgroundPosition: "0%",
+            <div className="col-span-12 md:col-span-6 text-center relative z-10">
+              <div className="relative">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white [text-shadow:_0_1px_2px_rgba(0,0,0,0.9),_0_2px_12px_rgba(0,0,0,0.7),_0_0_24px_rgba(0,0,0,0.5)]">
+                  <a
+                    href="/index.html"
+                    onClick={() => {
+                      if (window.location.pathname === "/blocks/index.html") {
+                        window.electron.stopBlocks({});
+                      }
                     }}
                   >
-                    {t("PageHeader:uiName")}
-                  </span>
-                </a>
-              </h2>
-              <h4 className="text-sm sm:text-base text-muted-foreground">
-                {t(`PageHeader:descText.${page}`)}
-              </h4>
+                    {page && page === "index"
+                      ? t("PageHeader:welcomeMessage")
+                      : ""}
+                    <span>
+                      {t("PageHeader:uiName")}
+                    </span>
+                  </a>
+                </h2>
+                <span
+                  aria-hidden="true"
+                  className="mx-auto mt-2 block h-[3px] w-2/5 max-w-[220px] rounded-full"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(99,102,241,0) 0%, rgba(99,102,241,0.95) 25%, rgba(34,211,238,0.95) 50%, rgba(236,72,153,0.95) 75%, rgba(236,72,153,0) 100%)",
+                    boxShadow:
+                      "0 0 10px rgba(99,102,241,0.7), 0 0 20px rgba(34,211,238,0.5), 0 0 30px rgba(236,72,153,0.35)",
+                  }}
+                />
+                <h4 className="mt-1 text-sm sm:text-base font-medium text-white [text-shadow:_0_1px_2px_rgba(0,0,0,0.9),_0_2px_12px_rgba(0,0,0,0.7),_0_0_24px_rgba(0,0,0,0.5)]">
+                  {t(`PageHeader:descText.${page}`)}
+                </h4>
+              </div>
             </div>
 
-            <div className="col-span-12 md:col-span-3 text-center md:text-right mt-2">
+            <div className="col-span-12 md:col-span-3 text-center md:text-right mt-2 relative z-10">
               {usr && usr.username && usr.username.length ? (
                 <CurrentUser usr={usr} />
               ) : null}
             </div>
           </div>
         </div>
+      </div>
+      <div className="container mx-auto mb-3 px-3 sm:px-4">
         <div className="col-span-12">
           <NavigationMenu className="hidden lg:block">
             <NavigationMenuList className="gap-2">

@@ -6,7 +6,6 @@ import React, {
 } from "react";
 import { List } from "react-window";
 import { useStore } from "@nanostores/react";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 import { useTranslation } from "react-i18next";
 import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
@@ -36,13 +35,6 @@ import {
 } from "@/components/ui/dialog";
 
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider,
-} from "@/components/ui/tooltip";
-
-import {
   Empty,
   EmptyHeader,
   EmptyTitle,
@@ -57,15 +49,11 @@ import { useInitCache } from "@/nanoeffects/Init.ts";
 import { createIssuedAssetsStore } from "@/nanoeffects/IssuedAssets.ts";
 import { createObjectStore } from "@/nanoeffects/Objects.ts";
 
-import { $currentUser, $userStorage } from "@/stores/users.ts";
+import { $currentUser } from "@/stores/users.ts";
 import { $currentNode } from "@/stores/node.ts";
 
-import AssetIssuerActions from "./AssetIssuerActions.jsx";
-
-const activeTabStyle = { backgroundColor: "#252526", color: "white" };
-
 export default function IssuedAssets(properties) {
-  const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
+  const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
   const usr = useSyncExternalStore(
     $currentUser.subscribe,
     $currentUser.get,
@@ -110,66 +98,31 @@ export default function IssuedAssets(properties) {
     }
 
     if (usr && usr.id && currentNode && currentNode.url) {
-      console.log("Fetching issued assets...");
       setLoading(true);
       fetching();
     }
   }, [usr, currentNode]);
 
-  const [activeTab, setActiveTab] = useState("uia");
-
-  const relevantAssets = useMemo(() => {
+  const predictionMarkets = useMemo(() => {
     if (!issuedAssets || !issuedAssets.length) {
       return [];
     }
 
-    console.log("Filtering relevant assets...");
-
-    switch (activeTab) {
-      case "uia":
-        return issuedAssets.filter(
-          (asset) =>
-            !asset.bitasset_data_id &&
-            !asset.options.description.includes("nft_object") &&
-            !asset.for_liquidity_pool
-        );
-      case "pools":
-        const foundPools = issuedAssets.filter(
-          (asset) => asset.for_liquidity_pool
-        );
-        return foundPools;
-      case "smartcoins":
-        return issuedAssets.filter(
-          (asset) =>
-            asset.bitasset_data_id &&
-            !asset.options.description.includes("condition") &&
-            !asset.options.description.includes("expiry")
-        );
-      case "prediction":
-        return issuedAssets.filter(
-          (asset) =>
-            asset.bitasset_data_id &&
-            asset.options.description.includes("condition") &&
-            asset.options.description.includes("expiry")
-        );
-      case "nft":
-        return issuedAssets.filter(
-          (asset) =>
-            !asset.bitasset_data_id &&
-            asset.options.description.includes("nft_object")
-        );
-      default:
-        return [];
-    }
-  }, [issuedAssets, activeTab]);
+    return issuedAssets.filter(
+      (asset) =>
+        asset.bitasset_data_id &&
+        asset.options.description.includes("condition") &&
+        asset.options.description.includes("expiry")
+    );
+  }, [issuedAssets]);
 
   const dynamicDataIDs = useMemo(() => {
-    if (!issuedAssets) {
+    if (!predictionMarkets) {
       return [];
     }
 
-    return issuedAssets.map((asset) => asset.dynamic_asset_data_id);
-  }, [issuedAssets]);
+    return predictionMarkets.map((asset) => asset.dynamic_asset_data_id);
+  }, [predictionMarkets]);
 
   const [dynamicData, setDynamicData] = useState([]);
   useEffect(() => {
@@ -193,16 +146,16 @@ export default function IssuedAssets(properties) {
   }, [dynamicDataIDs]);
 
   const bitassetDataIDs = useMemo(() => {
-    if (!issuedAssets) {
+    if (!predictionMarkets) {
       return [];
     }
 
-    const bitassetIDs = issuedAssets
+    const bitassetIDs = predictionMarkets
       .filter((asset) => asset.bitasset_data_id)
       .map((asset) => asset.bitasset_data_id);
 
     return bitassetIDs;
-  }, [issuedAssets]);
+  }, [predictionMarkets]);
 
   const [bitassetData, setBitassetData] = useState([]);
   useEffect(() => {
@@ -225,41 +178,8 @@ export default function IssuedAssets(properties) {
     }
   }, [bitassetDataIDs]);
 
-  const priceFeederAccountIDs = useMemo(() => {
-    if (!bitassetData) {
-      return [];
-    }
-
-    const priceFeeders = Array.from(
-      new Set(bitassetData.flatMap((data) => data.feeds.map((feed) => feed[0])))
-    );
-
-    return priceFeeders;
-  }, [bitassetData]);
-
-  const [priceFeederAccounts, setPriceFeederAccounts] = useState([]);
-  useEffect(() => {
-    async function fetching() {
-      const requiredStore = createObjectStore([
-        usr.chain,
-        JSON.stringify(priceFeederAccountIDs),
-        currentNode ? currentNode.url : null,
-      ]);
-
-      requiredStore.subscribe(({ data, error, loading }) => {
-        if (data && !error && !loading) {
-          setPriceFeederAccounts(data);
-        }
-      });
-    }
-
-    if (priceFeederAccountIDs && priceFeederAccountIDs.length) {
-      fetching();
-    }
-  }, [priceFeederAccountIDs]);
-
   const AssetRow = ({ index, style }) => {
-    const issuedAsset = relevantAssets[index];
+    const issuedAsset = predictionMarkets[index];
     if (!issuedAsset) {
       return null;
     }
@@ -279,7 +199,7 @@ export default function IssuedAssets(properties) {
       try {
         _desc = JSON.parse(description);
       } catch (e) {
-        console.log({ e, id: issuedAsset.id, description });
+        // description is not JSON
       }
       if (_desc && _desc.hasOwnProperty("main")) {
         parsedDescription = _desc;
@@ -316,18 +236,6 @@ export default function IssuedAssets(properties) {
             >
               {t("IssuedAssets:issuedDynamicData")}
             </DropdownMenuItem>
-            {parsedDescription &&
-            parsedDescription.hasOwnProperty("nft_object") ? (
-              <DropdownMenuItem
-                className="hover:shadow-inner"
-                onClick={() => {
-                  setJSON(parsedDescription.nft_object);
-                  setViewJSON(true);
-                }}
-              >
-                {t("IssuedAssets:issuedNFTObject")}
-              </DropdownMenuItem>
-            ) : null}
             {relevantBitassetData ? (
               <DropdownMenuItem
                 className="hover:shadow-inner"
@@ -375,59 +283,13 @@ export default function IssuedAssets(properties) {
               </DropdownMenuItem>
             </a>
 
-            {activeTab === "smartcoins" ? (
-              <a href={`/smartcoin/index.html?id=${issuedAsset.id}`}>
-                <DropdownMenuItem className="hover:shadow-inner">
-                  {t("IssuedAssets:proceedToBorrow")}
-                </DropdownMenuItem>
-              </a>
-            ) : null}
-
-            {activeTab === "smartcoins" &&
-            relevantBitassetData &&
-            ((relevantBitassetData.current_feed.settlement_price.base.amount ===
-              0 &&
-              relevantBitassetData.current_feed.settlement_price.quote
-                .amount === 0) ||
-              !relevantBitassetData.feeds.length ||
-              (parseInt(relevantBitassetData.settlement_price.base.amount) >
-                0 &&
-                parseInt(relevantBitassetData.settlement_price.quote.amount)) ||
-              parseInt(relevantBitassetData.settlement_fund) > 0) ? (
-              <a href={`/settlement/index.html?id=${issuedAsset.id}`}>
-                <DropdownMenuItem className="hover:shadow-inner">
-                  {t("IssuedAssets:collateralBid")}
-                </DropdownMenuItem>
-              </a>
-            ) : null}
-
-            {activeTab === "prediction" ? (
-              <a href={`/predictions/index.html?id=${issuedAsset.id}`}>
-                <DropdownMenuItem className="hover:shadow-inner">
-                  {t("IssuedAssets:pmaBet")}
-                </DropdownMenuItem>
-              </a>
-            ) : null}
+            <a href={`/predictions/index.html?id=${issuedAsset.id}`}>
+              <DropdownMenuItem className="hover:shadow-inner">
+                {t("IssuedAssets:pmaBet")}
+              </DropdownMenuItem>
+            </a>
           </DropdownMenuContent>
         </DropdownMenu>
-
-        {!["prediction"].includes(activeTab) ? (
-          <span className="mt-2">
-            <AssetIssuerActions
-              asset={issuedAsset}
-              assets={assets}
-              chain={_chain}
-              currentUser={usr}
-              node={currentNode}
-              dynamicAssetData={relevantDynamicData}
-              bitassetData={relevantBitassetData}
-              priceFeederAccounts={priceFeederAccounts}
-              buttonVariant="outline"
-              buttonSize="sm"
-              className="h-8 hover:shadow-inner"
-            />
-          </span>
-        ) : null}
 
         {viewJSON && json ? (
           <Dialog
@@ -462,28 +324,6 @@ export default function IssuedAssets(properties) {
       </>
     );
 
-    const smartcoinCheck =
-      activeTab === "smartcoins" &&
-      relevantBitassetData &&
-      ((relevantBitassetData.current_feed.settlement_price.base.amount === 0 &&
-        relevantBitassetData.current_feed.settlement_price.quote.amount ===
-          0) ||
-        !relevantBitassetData.feeds.length ||
-        (parseInt(relevantBitassetData.settlement_price.base.amount) > 0 &&
-          parseInt(relevantBitassetData.settlement_price.quote.amount)) ||
-        parseInt(relevantBitassetData.settlement_fund) > 0) ? (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <ExclamationTriangleIcon className="ml-3 mt-1 w-6 h-6" />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{t("IssuedAssets:inactiveSmartcoin")}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      ) : null;
-
     return (
       <div style={{ ...style }} key={`acard-${issuedAsset.id}`}>
         <div className="hidden lg:block">
@@ -492,7 +332,6 @@ export default function IssuedAssets(properties) {
               <CardTitle>
                 <div className="lg:grid lg:grid-cols-2 lg:gap-5">
                   <div className="hidden lg:block pb-2">
-                    {smartcoinCheck}
                     {issuedAsset.symbol}
                     <br />
                     {" ("}
@@ -514,7 +353,7 @@ export default function IssuedAssets(properties) {
                 <CardHeader className="pb-1">
                   <CardTitle>
                     <div className="text-sm pb-2">
-                      {smartcoinCheck} {issuedAsset.symbol} ({issuedAsset.id})
+                      {issuedAsset.symbol} ({issuedAsset.id})
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -549,215 +388,42 @@ export default function IssuedAssets(properties) {
               <CardDescription>{t("IssuedAssets:description")}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="w-full mb-3">
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-2">
-                  <Button
-                    variant="outline"
-                    style={activeTab === "uia" ? activeTabStyle : {}}
-                    onClick={() => {
-                      setActiveTab("uia");
-                      window.history.replaceState({}, "", `?tab=uia`);
-                    }}
-                  >
-                    {t("IssuedAssets:uiaButton")}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    style={activeTab === "pools" ? activeTabStyle : {}}
-                    onClick={() => {
-                      setActiveTab("pools");
-                      window.history.replaceState({}, "", `?tab=pools`);
-                    }}
-                  >
-                    {t("IssuedAssets:poolsButton")}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    style={activeTab === "smartcoins" ? activeTabStyle : {}}
-                    onClick={() => {
-                      setActiveTab("smartcoins");
-                      window.history.replaceState({}, "", `?tab=smartcoins`);
-                    }}
-                  >
-                    {t("IssuedAssets:smartcoinsButton")}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    style={activeTab === "prediction" ? activeTabStyle : {}}
-                    onClick={() => {
-                      setActiveTab("prediction");
-                      window.history.replaceState({}, "", `?tab=prediction`);
-                    }}
-                  >
-                    {t("IssuedAssets:predictionButton")}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    style={activeTab === "nft" ? activeTabStyle : {}}
-                    onClick={() => {
-                      setActiveTab("nft");
-                      window.history.replaceState({}, "", `?tab=nft`);
-                    }}
-                  >
-                    {t("IssuedAssets:nftButton")}
-                  </Button>
+              {predictionMarkets.length > 0 ? (
+                <h5 className="mb-2 text-center">
+                  {t("IssuedAssets:listingPredictionMarkets", {
+                    count: predictionMarkets.length,
+                  })}
+                </h5>
+              ) : null}
+              {loading ? (
+                <div className="text-center mt-5">
+                  {t("CreditBorrow:common.loading")}
                 </div>
-              </div>
-
-              {activeTab === "uia" && (
-                <div className="mt-2">
-                  {relevantAssets.length > 0 ? (
-                    <h5 className="mb-2 text-center">
-                      {t("IssuedAssets:listingUIA", {
-                        count: relevantAssets.length,
-                      })}
-                    </h5>
-                  ) : null}
-                  {loading ? (
-                    <div className="text-center mt-5">
-                      {t("CreditBorrow:common.loading")}
-                    </div>
-                  ) : null}
-                  {(!loading && !relevantAssets) || !relevantAssets.length ? (
-                    <Empty className="mt-5">
-                      <EmptyHeader>
-                        <EmptyMedia variant="icon">❔</EmptyMedia>
-                        <EmptyTitle>{t("IssuedAssets:noUIA")}</EmptyTitle>
-                      </EmptyHeader>
-                      <EmptyContent>
-                        <Button asChild>
-                          <a href="/create_uia/index.html">
-                            {t("PageHeader:create_uia")}
-                          </a>
-                        </Button>
-                      </EmptyContent>
-                    </Empty>
-                  ) : (
-                    <>
-                      {dynamicData && dynamicData.length ? (
-                        <>
-                          <div className="w-full max-h-[500px] min-h-[500px] overflow-auto block md:hidden">
-                            <List
-                              rowComponent={AssetRow}
-                              rowCount={relevantAssets.length}
-                              rowHeight={90}
-                              rowProps={{}}
-                            />
-                          </div>
-                          <div className="w-full max-h-[500px] min-h-[500px] overflow-auto hidden md:block">
-                            <List
-                              rowComponent={AssetRow}
-                              rowCount={relevantAssets.length}
-                              rowHeight={90}
-                              rowProps={{}}
-                            />
-                          </div>
-                        </>
-                      ) : (
-                        <div className="text-center mt-5">
-                          {t("CreditBorrow:common.loading")}
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              )}
-
-              {activeTab === "pools" && (
-                <div className="mt-2">
-                  {relevantAssets.length > 0 ? (
-                    <h5 className="mb-2 text-center">
-                      {t("IssuedAssets:listingPools", {
-                        count: relevantAssets.length,
-                      })}
-                    </h5>
-                  ) : null}
-                  {loading ? (
-                    <div className="text-center mt-5">
-                      {t("CreditBorrow:common.loading")}
-                    </div>
-                  ) : null}
-                  {(!loading && !relevantAssets) || !relevantAssets.length ? (
-                    <Empty className="mt-5">
-                      <EmptyHeader>
-                        <EmptyMedia variant="icon">❔</EmptyMedia>
-                        <EmptyTitle>{t("IssuedAssets:noPools")}</EmptyTitle>
-                      </EmptyHeader>
-                      <EmptyContent>
-                        <Button asChild>
-                          <a href="/create_pool/index.html">
-                            {t("PageHeader:create_pool")}
-                          </a>
-                        </Button>
-                      </EmptyContent>
-                    </Empty>
-                  ) : (
-                    <>
-                      {dynamicData && dynamicData.length ? (
-                        <>
-                          <div className="w-full max-h-[500px] min-h-[500px] overflow-auto block md:hidden">
-                            <List
-                              rowComponent={AssetRow}
-                              rowCount={relevantAssets.length}
-                              rowHeight={90}
-                              rowProps={{}}
-                            />
-                          </div>
-                          <div className="w-full max-h-[500px] min-h-[500px] overflow-auto hidden md:block">
-                            <List
-                              rowComponent={AssetRow}
-                              rowCount={relevantAssets.length}
-                              rowHeight={90}
-                              rowProps={{}}
-                            />
-                          </div>
-                        </>
-                      ) : (
-                        <div className="text-center mt-5">
-                          {t("CreditBorrow:common.loading")}
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              )}
-
-              {activeTab === "smartcoins" && (
-                <div className="mt-2">
-                  {relevantAssets.length > 0 ? (
-                    <h5 className="mb-2 text-center">
-                      {t("IssuedAssets:listingSmartcoins", {
-                        count: relevantAssets.length,
-                      })}
-                    </h5>
-                  ) : null}
-                  {loading ? (
-                    <div className="text-center mt-5">
-                      {t("CreditBorrow:common.loading")}
-                    </div>
-                  ) : null}
-                  {(!loading && !relevantAssets) || !relevantAssets.length ? (
-                    <Empty className="mt-5">
-                      <EmptyHeader>
-                        <EmptyMedia variant="icon">❔</EmptyMedia>
-                        <EmptyTitle>
-                          {t("IssuedAssets:noSmartcoins")}
-                        </EmptyTitle>
-                      </EmptyHeader>
-                      <EmptyContent>
-                        <Button asChild>
-                          <a href="/create_smartcoin/index.html">
-                            {t("PageHeader:create_smartcoin")}
-                          </a>
-                        </Button>
-                      </EmptyContent>
-                    </Empty>
-                  ) : (
+              ) : null}
+              {(!loading && !predictionMarkets) || !predictionMarkets.length ? (
+                <Empty className="mt-5">
+                  <EmptyHeader>
+                    <EmptyMedia variant="icon">❔</EmptyMedia>
+                    <EmptyTitle>
+                      {t("IssuedAssets:noPredictionMarkets")}
+                    </EmptyTitle>
+                  </EmptyHeader>
+                  <EmptyContent>
+                    <Button asChild>
+                      <a href="/create_prediction/index.html">
+                        {t("PageHeader:createPrediction")}
+                      </a>
+                    </Button>
+                  </EmptyContent>
+                </Empty>
+              ) : (
+                <>
+                  {dynamicData && dynamicData.length ? (
                     <>
                       <div className="w-full max-h-[500px] min-h-[500px] overflow-auto block md:hidden">
                         <List
                           rowComponent={AssetRow}
-                          rowCount={relevantAssets.length}
+                          rowCount={predictionMarkets.length}
                           rowHeight={90}
                           rowProps={{}}
                         />
@@ -765,111 +431,18 @@ export default function IssuedAssets(properties) {
                       <div className="w-full max-h-[500px] min-h-[500px] overflow-auto hidden md:block">
                         <List
                           rowComponent={AssetRow}
-                          rowCount={relevantAssets.length}
+                          rowCount={predictionMarkets.length}
                           rowHeight={90}
                           rowProps={{}}
                         />
                       </div>
                     </>
-                  )}
-                </div>
-              )}
-
-              {activeTab === "prediction" && (
-                <div className="mt-2">
-                  {relevantAssets.length > 0 ? (
-                    <h5 className="mb-2 text-center">
-                      {t("IssuedAssets:listingPredictionMarkets", {
-                        count: relevantAssets.length,
-                      })}
-                    </h5>
-                  ) : null}
-                  {loading ? (
+                  ) : (
                     <div className="text-center mt-5">
                       {t("CreditBorrow:common.loading")}
                     </div>
-                  ) : null}
-                  {(!loading && !relevantAssets) || !relevantAssets.length ? (
-                    <Empty className="mt-5">
-                      <EmptyHeader>
-                        <EmptyMedia variant="icon">❔</EmptyMedia>
-                        <EmptyTitle>
-                          {t("IssuedAssets:noPredictionMarkets")}
-                        </EmptyTitle>
-                      </EmptyHeader>
-                      <EmptyContent>
-                        <Button asChild>
-                          <a href="/create_prediction/index.html">
-                            {t("PageHeader:createPrediction")}
-                          </a>
-                        </Button>
-                      </EmptyContent>
-                    </Empty>
-                  ) : (
-                    <>
-                      <div className="w-full max-h-[500px] min-h-[500px] overflow-auto block md:hidden">
-                        <List
-                          rowComponent={AssetRow}
-                          rowCount={relevantAssets.length}
-                          rowHeight={90}
-                          rowProps={{}}
-                        />
-                      </div>
-                      <div className="w-full max-h-[500px] min-h-[500px] overflow-auto hidden md:block">
-                        <List
-                          rowComponent={AssetRow}
-                          rowCount={relevantAssets.length}
-                          rowHeight={90}
-                          rowProps={{}}
-                        />
-                      </div>
-                    </>
                   )}
-                </div>
-              )}
-
-              {activeTab === "nft" && (
-                <div className="mt-2">
-                  {relevantAssets.length > 0 ? (
-                    <h5 className="mb-2 text-center">
-                      {t("IssuedAssets:listingNFTs", {
-                        count: relevantAssets.length,
-                      })}
-                    </h5>
-                  ) : null}
-                  {loading ? (
-                    <div className="text-center mt-5">
-                      {t("CreditBorrow:common.loading")}
-                    </div>
-                  ) : null}
-                  {(!loading && !relevantAssets) || !relevantAssets.length ? (
-                    <Empty className="mt-5">
-                      <EmptyHeader>
-                        <EmptyMedia variant="icon">❔</EmptyMedia>
-                        <EmptyTitle>{t("IssuedAssets:noNFTs")}</EmptyTitle>
-                      </EmptyHeader>
-                    </Empty>
-                  ) : (
-                    <>
-                      <div className="w-full max-h-[500px] min-h-[500px] overflow-auto block md:hidden">
-                        <List
-                          rowComponent={AssetRow}
-                          rowCount={relevantAssets.length}
-                          rowHeight={90}
-                          rowProps={{}}
-                        />
-                      </div>
-                      <div className="w-full max-h-[500px] min-h-[500px] overflow-auto hidden md:block">
-                        <List
-                          rowComponent={AssetRow}
-                          rowCount={relevantAssets.length}
-                          rowHeight={90}
-                          rowProps={{}}
-                        />
-                      </div>
-                    </>
-                  )}
-                </div>
+                </>
               )}
             </CardContent>
           </Card>

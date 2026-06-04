@@ -69,7 +69,7 @@ export default function CurrentUser(properties) {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Item variant="outline" className="bg-white inline-flex w-auto">
+                <Item variant="outline" className="bg-white/85 backdrop-blur-md border-white/30 shadow-lg shadow-black/30 inline-flex w-auto">
                   <ItemMedia>
                     <InView onChange={setInView}>
                       {inView ? (

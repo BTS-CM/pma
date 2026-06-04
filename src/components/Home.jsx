@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from "react";
-import WaveHero from "./WaveHero";
 import { useStore } from "@nanostores/react";
 import { useSyncExternalStore } from "react";
 
@@ -76,32 +75,6 @@ export default function Home(properties) {
     }
   }, [usr, currentNode]);
 
-  /*
-    // Removed for now due to domain issues
-    {
-      key: "portfolio_recent_activity",
-      href: "/recent-activity/index.html",
-      titleKey: "Home:portfolio_recent_activity.title",
-      subtitleKey: "Home:portfolio_recent_activity.subtitle",
-      hoverKeys: [
-        "Home:portfolio_recent_activity.hover1",
-        "Home:portfolio_recent_activity.hover2",
-        "Home:portfolio_recent_activity.hover3",
-      ],
-    },
-    {
-      key: "featured",
-      href: "/featured/index.html",
-      titleKey: "Home:featured.title",
-      subtitleKey: "Home:featured.subtitle",
-      hoverKeys: [
-        "Home:featured.hover1",
-        "Home:featured.hover2",
-        "Home:featured.hover3",
-      ],
-    },
-  */
-
   const accordionSections = [
     {
       value: "item-1",
@@ -123,29 +96,6 @@ export default function Home(properties) {
         {
           key: "predictions",
           href: "/predictions/index.html",
-          titleKey: "Home:prediction_markets.title",
-          subtitleKey: "Home:prediction_markets.subtitle",
-          hoverKeys: [
-            "Home:prediction_markets.hover1",
-            "Home:prediction_markets.hover2",
-            "Home:prediction_markets.hover3",
-          ],
-        },
-        {
-          key: "order",
-          href: "/order/index.html",
-          titleKey: "Home:dex.title",
-          subtitleKey: "Home:dex.subtitle",
-          hoverKeys: [
-            "Home:dex.hover1",
-            "Home:dex.hover2",
-            "Home:dex.hover3",
-            "Home:dex.hover4",
-          ],
-        },
-        {
-          key: "settlement",
-          href: "/settlement/index.html",
           titleKey: "Home:prediction_markets.title",
           subtitleKey: "Home:prediction_markets.subtitle",
           hoverKeys: [
@@ -271,9 +221,6 @@ export default function Home(properties) {
 
   return (
     <>
-      <div className="w-full overflow-hidden">
-        <WaveHero />
-      </div>
       <div className="container mx-auto mt-3 mb-5 px-3 sm:px-4">
         <h3 className="scroll-m-20 text-xl sm:text-2xl font-semibold tracking-tight mb-4 sm:mb-5 text-center mt-8 sm:mt-10">
           {t("Home:features.functionalityHeading")}

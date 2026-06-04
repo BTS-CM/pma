@@ -98,6 +98,7 @@
     "proposals": "View the approvals for your account below, and either approve or reject them after thoroughly evaluating them.",
     "pool_tracker": "Easily monitor the Honest Liquidity Pool and relevant interesting stats!",
     "create_account": "Use the form below to create a new cloud account on the Bitshares blockchain.",
+    "configure_visuals": "Tune the wave animation appearance, colours, and effects. Settings are saved automatically.",
     "tfund_user": "Use the form below to craft complex chains of Bitshares limit orders and same-t fund borrow/repay operations.",
     "custom_pool_overview": "Create your own multi-pool trackers for advanced liquidity pool monitoring purposes!",
     "custom_pool_tracker": "Monitoring your custom liquidity pool tracker data, tailored to your preferences!",
