@@ -129,19 +129,14 @@ export default function PageHeader(properties) {
       description: "Home:prediction_markets.subtitle",
     },
     {
-      title: "Home:dex.title",
-      href: "/order/index.html",
-      description: "Home:dex.subtitle",
-    },
-    {
-      title: "Home:prediction_markets.title",
-      href: "/settlement/index.html",
-      description: "Home:prediction_markets.subtitle",
-    },
-    {
       title: "Home:create_prediction.title",
       href: "/create_prediction/index.html",
       description: "Home:create_prediction.subtitle",
+    },
+    {
+      title: "Home:transfer.title",
+      href: "/transfer/index.html",
+      description: "Home:transfer.subtitle",
     },
   ];
 

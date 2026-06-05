@@ -1855,7 +1855,7 @@ export default function Predictions(properties) {
                                     variant="outline"
                                     className="ml-3 mt-1"
                                   >
-                                    ➕ {t("CreditOfferEditor:addUser")}
+                                    ➕ {t("Favourites:addUser")}
                                   </Button>
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[375px] bg-white">

@@ -58,13 +58,12 @@ export default function AssetFlag({
   };
 
   return (
-    <span className="grid grid-cols-12">
+    <span className="grid grid-cols-12 items-center gap-2 pl-3">
       <span>
         {alreadyDisabled || !permission ? (
           <Checkbox
             checked={false}
             id={id}
-            className="align-middle mr-2"
             disabled
           />
         ) : (
@@ -75,7 +74,7 @@ export default function AssetFlag({
               setFlag(!isChecked);
             }}
             id={id}
-            className={`align-middle mr-2 ${disabledClass}`}
+            className={disabledClass}
             checked={flag}
           />
         )}
@@ -91,7 +90,7 @@ export default function AssetFlag({
         </MakeHover>
       </span>
       <MakeHover>
-        <InfoCircledIcon className="text-gray-400 mt-3" />
+        <InfoCircledIcon className="text-gray-400" />
       </MakeHover>
     </span>
   );

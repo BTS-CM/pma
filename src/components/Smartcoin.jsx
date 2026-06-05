@@ -79,7 +79,6 @@ import DeepLinkDialog from "./common/DeepLinkDialog";
 import ExternalLink from "./common/ExternalLink.jsx";
 
 import AboutAssetCard from "@/components/Smartcoin/AboutAssetCard.jsx";
-import RisksCard from "@/components/Smartcoin/RisksCard.jsx";
 import UsrMarginPositionCard from "@/components/Smartcoin/UsrMarginPositionCard.jsx";
 import EmptyRow from "./common/EmptyRow.jsx";
 
@@ -2886,8 +2885,6 @@ export default function Smartcoin(properties) {
           </Card>
         </div>
       ) : null}
-
-      <RisksCard />
     </div>
   );
 }
