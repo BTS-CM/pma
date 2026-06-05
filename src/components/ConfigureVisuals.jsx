@@ -310,6 +310,32 @@ export default function ConfigureVisuals() {
               </span>
             </div>
           </SettingRow>
+
+          <div className="pt-6 pb-2">
+            <h3 className="text-lg font-semibold tracking-tight">
+              {t("Visuals:externalServices.heading")}
+            </h3>
+            <p className="text-xs text-muted-foreground mt-1">
+              {t("Visuals:externalServices.description")}
+            </p>
+          </div>
+
+          <SettingRow
+            label={t("Visuals:externalServices.ipfsGateway.header")}
+            description={t("Visuals:externalServices.ipfsGateway.help")}
+          >
+            <Input
+              type="text"
+              value={settings.ipfsGateway ?? "https://ipfs.io/ipfs/"}
+              onChange={(e) =>
+                setVisualSetting("ipfsGateway", e.target.value)
+              }
+              placeholder={t(
+                "Visuals:externalServices.ipfsGateway.placeholder"
+              )}
+              className="font-mono"
+            />
+          </SettingRow>
         </CardContent>
       </Card>
 

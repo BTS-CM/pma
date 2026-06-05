@@ -27,5 +27,14 @@
   "particlesDesc": "Toggle the small floating particles drifting across the header.",
   "on": "On",
   "off": "Off",
-  "resetToDefaults": "Reset to defaults"
+  "resetToDefaults": "Reset to defaults",
+  "externalServices": {
+    "heading": "External services",
+    "description": "Configure the third-party services used to fetch assets across the site.",
+    "ipfsGateway": {
+      "header": "IPFS gateway",
+      "help": "Gateway used to resolve IPFS links for NFT images and other content. Use a public gateway you trust.",
+      "placeholder": "https://ipfs.io/ipfs/"
+    }
+  }
 }

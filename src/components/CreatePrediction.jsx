@@ -96,36 +96,6 @@ import {
 import { blockchainFloat } from "@/bts/common";
 import ExternalLink from "./common/ExternalLink.jsx";
 
-function getImages(nft_object) {
-  if (!nft_object) return [];
-  const object_keys = Object.keys(nft_object);
-  if (
-    object_keys.find((x) => x.includes("media_") && x.includes("_multihashes"))
-  ) {
-    return (
-      object_keys
-        .filter((key) => key.includes("media_") && key.includes("_multihashes"))
-        .map((key) => {
-          const current = nft_object[key];
-          const type = key.split("_")[1].toUpperCase();
-          return current.map((image) => ({ url: image.url, type }));
-        })
-        .flat() || []
-    );
-  }
-
-  return (
-    object_keys
-      .filter((key) => key.includes("media_") && !key.includes("_multihash"))
-      .map((key) => {
-        const current = nft_object[key];
-        const type = key.split("_")[1].toUpperCase();
-        return { url: current, type };
-      })
-      .flat() || []
-  );
-}
-
 function SectionHeader({ icon: Icon, title, description, step, optional }) {
   return (
     <div className="flex items-start gap-3 border-b border-border px-6 py-4">

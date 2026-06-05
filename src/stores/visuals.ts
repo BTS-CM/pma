@@ -10,6 +10,7 @@ const DEFAULTS = {
   auroraIntensity: 1.0,
   particlesEnabled: true,
   blurAmount: 2,
+  ipfsGateway: "https://ipfs.io/ipfs/",
 };
 
 const STORAGE_PREFIX = "visualSettings:";
