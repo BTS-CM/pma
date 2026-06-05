@@ -124,9 +124,29 @@ export default function PageHeader(properties) {
       description: "Home:dex.subtitle",
     },
     {
-      title: "Home:prediction_markets.title",
-      href: "/predictions/index.html",
-      description: "Home:prediction_markets.subtitle",
+      title: "Home:prediction_markets_active.title",
+      href: "/active-predictions/index.html",
+      description: "Home:prediction_markets_active.subtitle",
+    },
+    {
+      title: "Home:prediction_markets_expired.title",
+      href: "/expired-predictions/index.html",
+      description: "Home:prediction_markets_expired.subtitle",
+    },
+    {
+      title: "Home:prediction_markets_mine.title",
+      href: "/my-predictions/index.html",
+      description: "Home:prediction_markets_mine.subtitle",
+    },
+    {
+      title: "Home:prediction_markets_portfolio.title",
+      href: "/prediction-portfolio/index.html",
+      description: "Home:prediction_markets_portfolio.subtitle",
+    },
+    {
+      title: "Home:prediction_markets_margin.title",
+      href: "/prediction-margin/index.html",
+      description: "Home:prediction_markets_margin.subtitle",
     },
     {
       title: "Home:create_prediction.title",

@@ -19,8 +19,20 @@
   "margin": "Margin",
   "bettingAsset": "Betting Asset",
   "card": {
-    "title": "Prediction Market Assets",
-    "description": "Check out the potential betting opportunities below!",
+    "title": {
+      "active": "Active Prediction Markets",
+      "expired": "Expired Prediction Markets",
+      "mine": "My Prediction Markets",
+      "portfolio": "Prediction Portfolio",
+      "margin": "Prediction Margin Positions"
+    },
+    "description": {
+      "active": "Browse live, unresolved prediction market assets accepting bets.",
+      "expired": "Browse past prediction market assets awaiting resolution by price feeders.",
+      "mine": "Prediction market assets you've created or interacted with.",
+      "portfolio": "Prediction market assets currently held in your account balance.",
+      "margin": "Active margin (call) positions on prediction market assets."
+    },
     "emptyActive": "No active predictions available at the moment.",
     "emptyMine": "You have no predictions at the moment.",
     "emptyPortfolio": "You have no prediction market assets in your portfolio balance at the moment.",

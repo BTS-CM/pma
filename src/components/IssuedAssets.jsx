@@ -283,7 +283,7 @@ export default function IssuedAssets(properties) {
               </DropdownMenuItem>
             </a>
 
-            <a href={`/predictions/index.html?id=${issuedAsset.id}`}>
+            <a href={`/my-predictions/index.html?id=${issuedAsset.id}`}>
               <DropdownMenuItem className="hover:shadow-inner">
                 {t("IssuedAssets:pmaBet")}
               </DropdownMenuItem>

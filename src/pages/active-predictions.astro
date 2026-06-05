@@ -18,17 +18,18 @@ const marketSearchBTS = btsMarketData.map(collection => collection.data);
 const marketSearchTEST = testMarketData.map(collection => collection.data);
 ---
 
-<Layout title="Bitshares Beet Astro UI - Viewing prediction market assets">
+<Layout title="Bitshares Beet Astro UI - Active prediction markets">
 	<main>
-		<PageHeader client:only="react" page="predictions" backURL="" />
+		<PageHeader client:only="react" page="active_predictions" backURL="" />
 		<Predictions
 			client:only="react"
+			view="active"
 			_assetsBTS={btsAssets}
 			_assetsTEST={testAssets}
 			_marketSearchBTS={marketSearchBTS}
 			_marketSearchTEST={marketSearchTEST}
 		/>
-		<PageFooter client:only="react" sourceURL="https://github.com/BTS-CM/astro-ui/blob/main/src/predictions/index.astro" />
+		<PageFooter client:only="react" sourceURL="https://github.com/BTS-CM/astro-ui/blob/main/src/components/Predictions.jsx" />
 	</main>
 </Layout>
 

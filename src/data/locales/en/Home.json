@@ -195,12 +195,47 @@
     "hover1": "Check your vesting balances.",
     "hover2": "Claim your vested balances."
   },
-  "prediction_markets": {
-    "title": "🎲 Predictions",
-    "subtitle": "Browse predictions, manage bets, perform prediction admin.",
-    "hover1": "Browse the available prediction market assets.",
-    "hover2": "Prediction markets can be about anything.",
-    "hover3": "Each prediction market asset has an unique fee."
+  "settlement": {
+    "title": "🏦 Smartcoin Settlement",
+    "subtitle": "Bid on smartcoin global settlement funds.",
+    "hover1": "View assets that are currently in global settlement.",
+    "hover2": "Place bids on settlement funds at a discount to face value.",
+    "hover3": "Force-settle individual assets for their pro-rata share of the settlement pool."
+  },
+  "prediction_markets_active": {
+    "title": "🎲 Active Predictions",
+    "subtitle": "Browse live, unresolved prediction market assets.",
+    "hover1": "View prediction market assets that are still active and accepting bets.",
+    "hover2": "Each prediction market asset has a unique fee and expiry date.",
+    "hover3": "Bet on the outcome of any active prediction market asset."
+  },
+  "prediction_markets_expired": {
+    "title": "⏳ Expired Predictions",
+    "subtitle": "Browse past prediction market assets awaiting resolution.",
+    "hover1": "View prediction market assets whose expiry date has passed.",
+    "hover2": "Expired markets can be resolved by price feeders once the outcome is known.",
+    "hover3": "Settle your positions on expired markets to claim winnings."
+  },
+  "prediction_markets_mine": {
+    "title": "🪪 My Predictions",
+    "subtitle": "Prediction market assets you've created or interacted with.",
+    "hover1": "View all prediction market assets you've created on the blockchain.",
+    "hover2": "Resolve your expired predictions or manage their price feeders.",
+    "hover3": "Re-issue or update your prediction market assets from this view."
+  },
+  "prediction_markets_portfolio": {
+    "title": "💼 Prediction Portfolio",
+    "subtitle": "Prediction market assets in your account balance.",
+    "hover1": "View all prediction market asset tokens currently held in your balance.",
+    "hover2": "Track your unrealised PnL across all open prediction market positions.",
+    "hover3": "Settle or sell your prediction market asset tokens from this view."
+  },
+  "prediction_markets_margin": {
+    "title": "📈 Prediction Margin",
+    "subtitle": "Active margin positions on prediction market assets.",
+    "hover1": "View prediction market assets where you have an open margin (call) position.",
+    "hover2": "Monitor your collateral ratio for each margin position.",
+    "hover3": "Adjust or close your prediction market margin positions."
   },
   "proposals": {
     "title": "🤔 Proposed Operations",

@@ -26,9 +26,28 @@ export default function AppSidebar() {
 
   const exchangingFundsHeading = [
     { title: "Home:dex.title", href: "/dex/index.html" },
-    { title: "Home:prediction_markets.title", href: "/predictions/index.html" },
+    {
+      title: "Home:prediction_markets_active.title",
+      href: "/active-predictions/index.html",
+    },
+    {
+      title: "Home:prediction_markets_expired.title",
+      href: "/expired-predictions/index.html",
+    },
+    {
+      title: "Home:prediction_markets_mine.title",
+      href: "/my-predictions/index.html",
+    },
+    {
+      title: "Home:prediction_markets_portfolio.title",
+      href: "/prediction-portfolio/index.html",
+    },
+    {
+      title: "Home:prediction_markets_margin.title",
+      href: "/prediction-margin/index.html",
+    },
     { title: "Home:dex.title", href: "/order/index.html" },
-    { title: "Home:prediction_markets.title", href: "/settlement/index.html" },
+    { title: "Home:settlement.title", href: "/settlement/index.html" },
     {
       title: "Home:create_prediction.title",
       href: "/create_prediction/index.html",

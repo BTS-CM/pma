@@ -131,7 +131,7 @@ export default function Predictions(properties) {
   );
   const currentNode = useStore($currentNode);
 
-  const [view, setView] = useState("active"); // active, expired, mine
+  const view = properties.view || "active"; // active, expired, mine, portfolio, margin
 
   const { _assetsBTS, _assetsTEST, _marketSearchBTS, _marketSearchTEST } =
     properties;
@@ -390,17 +390,11 @@ export default function Predictions(properties) {
     } else if (view === "margin") {
       return marginPMAs;
     }
-  }, [view, activePMAs, expiredPMAs, myPMAs]);
+    return [];
+  }, [view, activePMAs, expiredPMAs, myPMAs, balancePMAs, marginPMAs]);
 
   const PredictionRow = ({ index, style }) => {
-    let res;
-    if (view === "active") {
-      res = activePMAs[index];
-    } else if (view === "expired") {
-      res = expiredPMAs[index];
-    } else if (view === "mine") {
-      res = myPMAs[index];
-    }
+    const res = chosenPMAs[index];
 
     const relevantBitassetData = completedPMAs.find(
       (x) => x.id === res.bitasset_data_id
@@ -2074,64 +2068,17 @@ export default function Predictions(properties) {
     );
   };
 
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlSearchParams.entries());
-
-    if (params.hasOwnProperty("id")) {
-      setView("mine");
-    }
-  }, []);
-
   return (
     <div className="container mx-auto mt-5 mb-5">
       <div className="grid grid-cols-1 gap-3">
         <Card>
           <CardHeader className="pb-1">
-            <CardTitle>{t("Predictions:card.title")}</CardTitle>
+            <CardTitle>{t(`Predictions:card.title.${view}`)}</CardTitle>
             <CardDescription>
-              {t("Predictions:card.description")}
+              {t(`Predictions:card.description.${view}`)}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-2 mt-2 mb-2">
-              <Button
-                onClick={() => setView("active")}
-                variant={view === "active" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:active")}
-              </Button>
-              <Button
-                onClick={() => setView("expired")}
-                variant={view === "expired" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:expired")}
-              </Button>
-              <Button
-                onClick={() => setView("mine")}
-                variant={view === "mine" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:mine")}
-              </Button>
-              <Button
-                onClick={() => setView("portfolio")}
-                variant={view === "portfolio" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:portfolio")}
-              </Button>
-              <Button
-                onClick={() => setView("margin")}
-                variant={view === "margin" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:margin")}
-              </Button>
-            </div>
-
             <>
               {chosenPMAs && chosenPMAs.length ? (
                 <>
