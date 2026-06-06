@@ -53,7 +53,7 @@
     "hover1": "Erstellen Sie manuell Limit-Orders.",
     "hover2": "Verwenden Sie ein beliebiges Asset-Trading-Paar.",
     "hover3": "Geben Sie das Ablaufdatum der Bestellung an.",
-    "hover4": "Komplexer, aber günstiger als Pool-Swaps."
+    "hover4": "Peer-to-Peer-Handel mit voller Preiskontrolle."
   },
   "pool": {
     "title": "💱 Liquiditätspool-Austausch",
@@ -216,8 +216,8 @@
     "hover3": "Zusammengefasste Durchschnitts- und Gesamtwerte der Blockchain-Daten."
   },
   "create_prediction": {
-    "title": "Vorhersage des Marktwerts",
-    "subtitle": "Erstellen Sie eine Wette über alles",
+    "title": "Prognosemarkt-Asset erstellen",
+    "subtitle": "Erstellen Sie eine neue On-Chain-Wette zu jedem Thema",
     "hover1": "Erstellen Sie Wetten über buchstäblich alles.",
     "hover2": "Seien Sie der Buchmacher und legen Sie Ihre eigene Provision fest.",
     "hover3": "Es sind sowohl Kurz- als auch Langzeitwetten möglich."
@@ -468,9 +468,11 @@
     "account": "Konto",
     "moreTools": "Weitere Werkzeuge",
     "settings": "Einstellungen",
+    "exchange": "Börse",
     "predictionMarketsSubtitle": "Prognosemärkte durchsuchen, handeln und erstellen",
     "accountSubtitle": "Portfolio, Aufträge und Favoriten verwalten",
-    "moreToolsSubtitle": "DEX-Handel, Einstellungen und Werkzeuge"
+    "moreToolsSubtitle": "Einstellungen, Nodes und Konto-Tools",
+    "exchangeSubtitle": "Handel und Überweisung auf der DEX"
   },
   "settlement": {
     "title": "Smartcoin-Abwicklung",

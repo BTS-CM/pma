@@ -53,7 +53,7 @@
     "hover1": "Limiittellimuste käsitsi koostamine.",
     "hover2": "Kasutage mis tahes varakauplemispaari.",
     "hover3": "Määrake tellimuse aegumiskuupäevad.",
-    "hover4": "Keerulisem, kuid odavam kui basseinivahetus."
+    "hover4": "Kaubelda peer-to-peer täieliku hinnakontrolliga."
   },
   "pool": {
     "title": "💱 Likviidsusbasseini börs",
@@ -216,8 +216,8 @@
     "hover3": "Summeeritud plokiahela andmete keskmised ja kogusummad."
   },
   "create_prediction": {
-    "title": "Ennustusturu vara",
-    "subtitle": "Tehke panus ükskõik mille kohta",
+    "title": "Loo ennustusturu vara",
+    "subtitle": "Loo uus on-chain panus mis tahes teemal",
     "hover1": "Tehke panuseid sõna otseses mõttes kõige kohta.",
     "hover2": "Olge kihlveovahendaja ja määrake oma vahendustasu.",
     "hover3": "Võimalikud on nii lühi- kui ka pikaajalised panused."
@@ -468,9 +468,11 @@
     "account": "Konto",
     "moreTools": "Rohkem tööriistu",
     "settings": "Seaded",
+    "exchange": "Börs",
     "predictionMarketsSubtitle": "Sirvi, kaubelda ja loo ennustusturge",
     "accountSubtitle": "Halda portfelli, tellimusi ja lemmikuid",
-    "moreToolsSubtitle": "DEX-kauplemine, seaded ja tööriistad"
+    "moreToolsSubtitle": "Seaded, sõlmed ja konto tööriistad",
+    "exchangeSubtitle": "Kaubelda ja kanna üle DEX-is"
   },
   "settlement": {
     "title": "Smartcoin'i arveldus",

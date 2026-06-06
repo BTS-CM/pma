@@ -53,7 +53,7 @@
     "hover1": "Manually craft limit orders.",
     "hover2": "Use any asset trading pair.",
     "hover3": "Specify order expiration dates.",
-    "hover4": "More complex but cheaper than pool swaps."
+    "hover4": "Trade peer-to-peer with full price control."
   },
   "pool": {
     "title": "💱 Liquidity Pool Exchange",
@@ -251,8 +251,8 @@
     "hover3": "Summarized blockchain data averages and totals."
   },
   "create_prediction": {
-    "title": "Prediction Market Asset",
-    "subtitle": "Create a bet about anything",
+    "title": "Create Prediction Market Asset",
+    "subtitle": "Mint a new on-chain bet on any topic",
     "hover1": "Create bets about literally anything.",
     "hover2": "Be the bookie and set your own commission.",
     "hover3": "Both short and long term bets are possible."
@@ -462,9 +462,11 @@
     "account": "Account",
     "moreTools": "More tools",
     "settings": "Settings",
+    "exchange": "Exchange",
     "predictionMarketsSubtitle": "Browse, trade and create prediction markets",
     "accountSubtitle": "Manage your portfolio, orders and favourites",
-    "moreToolsSubtitle": "DEX trading, settings and utilities"
+    "moreToolsSubtitle": "Settings, nodes and account utilities",
+    "exchangeSubtitle": "Trade and transfer on the DEX"
   },
   "about": {
     "title": "About",

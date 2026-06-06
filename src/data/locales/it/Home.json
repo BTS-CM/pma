@@ -53,7 +53,7 @@
     "hover1": "Crea manualmente ordini limite.",
     "hover2": "Utilizza qualsiasi coppia di asset trading.",
     "hover3": "Specificare le date di scadenza dell'ordine.",
-    "hover4": "Più complesso ma più economico dello scambio di pool."
+    "hover4": "Scambia peer-to-peer con pieno controllo del prezzo."
   },
   "pool": {
     "title": "💱 Scambio di pool di liquidità",
@@ -216,8 +216,8 @@
     "hover3": "Medie e totali riepilogativi dei dati blockchain."
   },
   "create_prediction": {
-    "title": "Asset di mercato di previsione",
-    "subtitle": "Crea una scommessa su qualsiasi cosa",
+    "title": "Crea asset del mercato delle previsioni",
+    "subtitle": "Crea una nuova scommessa on-chain su qualsiasi argomento",
     "hover1": "Crea scommesse letteralmente su qualsiasi cosa.",
     "hover2": "Diventa il bookmaker e stabilisci la tua commissione.",
     "hover3": "Sono possibili sia scommesse a breve che a lungo termine."
@@ -468,9 +468,11 @@
     "account": "Account",
     "moreTools": "Altri strumenti",
     "settings": "Impostazioni",
+    "exchange": "Exchange",
     "predictionMarketsSubtitle": "Esplora, fai trading e crea mercati di previsione",
     "accountSubtitle": "Gestisci portafoglio, ordini e preferiti",
-    "moreToolsSubtitle": "Trading DEX, impostazioni e strumenti"
+    "moreToolsSubtitle": "Impostazioni, nodi e utilità dell'account",
+    "exchangeSubtitle": "Scambia e trasferisci sulla DEX"
   },
   "settlement": {
     "title": "Regolamento smartcoin",

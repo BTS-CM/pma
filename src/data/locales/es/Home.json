@@ -53,7 +53,7 @@
     "hover1": "Elaborar manualmente órdenes límite.",
     "hover2": "Utilice cualquier par de negociación de activos.",
     "hover3": "Especifique las fechas de vencimiento del pedido.",
-    "hover4": "Más complejo pero más barato que los swaps de grupos."
+    "hover4": "Opera entre pares con control total de precios."
   },
   "pool": {
     "title": "💱 Intercambio de fondos comunes de liquidez",
@@ -216,8 +216,8 @@
     "hover3": "Promedios y totales de datos resumidos de blockchain."
   },
   "create_prediction": {
-    "title": "Activo del mercado de predicción",
-    "subtitle": "Crea una apuesta sobre cualquier cosa.",
+    "title": "Crear activo de mercado de predicciones",
+    "subtitle": "Crea una nueva apuesta on-chain sobre cualquier tema",
     "hover1": "Crea apuestas sobre literalmente cualquier cosa.",
     "hover2": "Sea el corredor de apuestas y establezca su propia comisión.",
     "hover3": "Son posibles apuestas tanto a corto como a largo plazo."
@@ -468,9 +468,11 @@
     "account": "Cuenta",
     "moreTools": "Más herramientas",
     "settings": "Ajustes",
+    "exchange": "Mercado",
     "predictionMarketsSubtitle": "Explora, comercia y crea mercados de predicciones",
     "accountSubtitle": "Gestiona tu cartera, órdenes y favoritos",
-    "moreToolsSubtitle": "Comercio DEX, ajustes y herramientas"
+    "moreToolsSubtitle": "Ajustes, nodos y utilidades de cuenta",
+    "exchangeSubtitle": "Opera y transfiere en la DEX"
   },
   "settlement": {
     "title": "Liquidación de smartcoin",

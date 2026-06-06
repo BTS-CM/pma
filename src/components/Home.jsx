@@ -101,6 +101,19 @@ const SECTION_STYLES = {
     blobB: "bg-fuchsia-500/20",
     underline: "from-indigo-500/0 via-indigo-400/60 to-fuchsia-500/0",
   },
+  exchange: {
+    icon: Repeat,
+    titleKey: "Home:sections.exchange",
+    subtitleKey: "Home:sections.exchangeSubtitle",
+    border: "border-cyan-400/20",
+    bg: "from-cyan-500/15 via-slate-900/20 to-blue-500/10",
+    iconBg: "bg-cyan-500/15",
+    iconBorder: "border-cyan-400/25",
+    iconText: "text-cyan-200",
+    blobA: "bg-cyan-500/30",
+    blobB: "bg-blue-500/20",
+    underline: "from-cyan-500/0 via-cyan-400/60 to-blue-500/0",
+  },
   account: {
     icon: Wallet,
     titleKey: "Home:sections.account",
@@ -192,17 +205,6 @@ export default function Home(properties) {
       ],
     },
     {
-      key: "prediction_markets_expired",
-      href: "/expired-predictions/index.html",
-      titleKey: "Home:prediction_markets_expired.title",
-      subtitleKey: "Home:prediction_markets_expired.subtitle",
-      hoverKeys: [
-        "Home:prediction_markets_expired.hover1",
-        "Home:prediction_markets_expired.hover2",
-        "Home:prediction_markets_expired.hover3",
-      ],
-    },
-    {
       key: "prediction_markets_mine",
       href: "/my-predictions/index.html",
       titleKey: "Home:prediction_markets_mine.title",
@@ -211,6 +213,28 @@ export default function Home(properties) {
         "Home:prediction_markets_mine.hover1",
         "Home:prediction_markets_mine.hover2",
         "Home:prediction_markets_mine.hover3",
+      ],
+    },
+    {
+      key: "create_prediction",
+      href: "/create_prediction/index.html",
+      titleKey: "Home:create_prediction.title",
+      subtitleKey: "Home:create_prediction.subtitle",
+      hoverKeys: [
+        "Home:create_prediction.hover1",
+        "Home:create_prediction.hover2",
+        "Home:create_prediction.hover3",
+      ],
+    },
+    {
+      key: "prediction_markets_expired",
+      href: "/expired-predictions/index.html",
+      titleKey: "Home:prediction_markets_expired.title",
+      subtitleKey: "Home:prediction_markets_expired.subtitle",
+      hoverKeys: [
+        "Home:prediction_markets_expired.hover1",
+        "Home:prediction_markets_expired.hover2",
+        "Home:prediction_markets_expired.hover3",
       ],
     },
     {
@@ -235,16 +259,27 @@ export default function Home(properties) {
         "Home:prediction_markets_margin.hover3",
       ],
     },
+  ];
+
+  const exchangeFunds = [
     {
-      key: "create_prediction",
-      href: "/create_prediction/index.html",
-      titleKey: "Home:create_prediction.title",
-      subtitleKey: "Home:create_prediction.subtitle",
+      key: "dex",
+      href: "/dex/index.html",
+      titleKey: "Home:dex.title",
+      subtitleKey: "Home:dex.subtitle",
       hoverKeys: [
-        "Home:create_prediction.hover1",
-        "Home:create_prediction.hover2",
-        "Home:create_prediction.hover3",
+        "Home:dex.hover1",
+        "Home:dex.hover2",
+        "Home:dex.hover3",
+        "Home:dex.hover4",
       ],
+    },
+    {
+      key: "transfer",
+      href: "/transfer/index.html",
+      titleKey: "Home:transfer.title",
+      subtitleKey: "Home:transfer.subtitle",
+      hoverKeys: ["Home:transfer.hover1"],
     },
   ];
 
@@ -281,18 +316,6 @@ export default function Home(properties) {
   ];
 
   const moreTools = [
-    {
-      key: "dex",
-      href: "/dex/index.html",
-      titleKey: "Home:dex.title",
-      subtitleKey: "Home:dex.subtitle",
-      hoverKeys: [
-        "Home:dex.hover1",
-        "Home:dex.hover2",
-        "Home:dex.hover3",
-        "Home:dex.hover4",
-      ],
-    },
     {
       key: "about",
       href: "/about/index.html",
@@ -515,6 +538,7 @@ export default function Home(properties) {
       <Separator className="my-10 sm:my-12 bg-white/10" />
 
       {renderSection(predictionMarkets, "predictionMarkets")}
+      {renderSection(exchangeFunds, "exchange")}
       {renderSection(accountOverviews, "account")}
       {renderSection(moreTools, "moreTools")}
     </div>

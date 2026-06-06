@@ -53,7 +53,7 @@
     "hover1": "수동으로 지정가 주문을 제작합니다.",
     "hover2": "자산 거래 쌍을 사용하십시오.",
     "hover3": "주문 만료 날짜를 지정합니다.",
-    "hover4": "풀 스왑보다 더 복잡하지만 저렴합니다."
+    "hover4": "완전한 가격 통제로 피어 투 피어 거래."
   },
   "pool": {
     "title": "💱 유동성 풀 교환",
@@ -216,8 +216,8 @@
     "hover3": "요약된 블록체인 데이터 평균 및 합계입니다."
   },
   "create_prediction": {
-    "title": "예측 시장 자산",
-    "subtitle": "무엇이든 내기를 걸어보세요",
+    "title": "예측 시장 자산 생성",
+    "subtitle": "모든 주제에 대한 새로운 온체인 베팅 생성",
     "hover1": "말 그대로 무엇이든 베팅하세요.",
     "hover2": "마권업자가 되어 자신만의 커미션을 설정하세요.",
     "hover3": "단기 및 장기 베팅이 모두 가능합니다."
@@ -468,9 +468,11 @@
     "account": "계정",
     "moreTools": "더 많은 도구",
     "settings": "설정",
+    "exchange": "거래소",
     "predictionMarketsSubtitle": "예측 시장 탐색, 거래 및 생성",
     "accountSubtitle": "포트폴리오, 주문, 즐겨찾기 관리",
-    "moreToolsSubtitle": "DEX 거래, 설정, 도구"
+    "moreToolsSubtitle": "설정, 노드 및 계정 유틸리티",
+    "exchangeSubtitle": "DEX에서 거래 및 송금"
   },
   "settlement": {
     "title": "스마트코인 정산",

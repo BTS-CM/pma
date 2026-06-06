@@ -53,7 +53,7 @@
     "hover1": "Crie pedidos com limite manualmente.",
     "hover2": "Use qualquer par de negociação de ativos.",
     "hover3": "Especifique as datas de vencimento do pedido.",
-    "hover4": "Mais complexo, mas mais barato que os pool swaps."
+    "hover4": "Negocie ponto a ponto com controle total de preço."
   },
   "pool": {
     "title": "💱 Troca de pool de liquidez",
@@ -216,8 +216,8 @@
     "hover3": "Médias e totais resumidos de dados de blockchain."
   },
   "create_prediction": {
-    "title": "Previsão de ativos de mercado",
-    "subtitle": "Crie uma aposta sobre qualquer coisa",
+    "title": "Criar ativo do mercado de previsões",
+    "subtitle": "Crie uma nova aposta on-chain sobre qualquer tema",
     "hover1": "Crie apostas sobre literalmente qualquer coisa.",
     "hover2": "Seja o agenciador de apostas e defina sua própria comissão.",
     "hover3": "São possíveis apostas de curto e longo prazo."
@@ -468,9 +468,11 @@
     "account": "Conta",
     "moreTools": "Mais ferramentas",
     "settings": "Configurações",
+    "exchange": "Exchange",
     "predictionMarketsSubtitle": "Procure, negocie e crie mercados de previsões",
     "accountSubtitle": "Gerencie portfólio, ordens e favoritos",
-    "moreToolsSubtitle": "Negociação DEX, configurações e ferramentas"
+    "moreToolsSubtitle": "Configurações, nós e utilitários de conta",
+    "exchangeSubtitle": "Negocie e transfira na DEX"
   },
   "settlement": {
     "title": "Liquidação de smartcoin",

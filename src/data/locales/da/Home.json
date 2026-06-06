@@ -53,7 +53,7 @@
     "hover1": "Lav manuelt begrænsede ordrer.",
     "hover2": "Brug ethvert aktivhandelspar.",
     "hover3": "Angiv ordrens udløbsdatoer.",
-    "hover4": "Mere kompleks, men billigere end poolbytte."
+    "hover4": "Handel peer-to-peer med fuld priskontrol."
   },
   "pool": {
     "title": "💱 Liquidity Pool Exchange",
@@ -216,8 +216,8 @@
     "hover3": "Opsummerede blockchain-datagennemsnit og totaler."
   },
   "create_prediction": {
-    "title": "Forudsigelsesmarkedsaktiv",
-    "subtitle": "Lav et væddemål om hvad som helst",
+    "title": "Opret predictionsmarkedsaktiv",
+    "subtitle": "Opret en ny on-chain indsats om ethvert emne",
     "hover1": "Lav væddemål om bogstaveligt talt alt.",
     "hover2": "Vær bookmaker og sæt din egen kommission.",
     "hover3": "Både kort- og langsigtede væddemål er mulige."
@@ -468,9 +468,11 @@
     "account": "Konto",
     "moreTools": "Flere værktøjer",
     "settings": "Indstillinger",
+    "exchange": "Børs",
     "predictionMarketsSubtitle": "Gennemse, handl og opret predictionsmarkeder",
     "accountSubtitle": "Administrer portefølje, ordrer og favoritter",
-    "moreToolsSubtitle": "DEX-handel, indstillinger og værktøjer"
+    "moreToolsSubtitle": "Indstillinger, noder og kontoværktøjer",
+    "exchangeSubtitle": "Handl og overfør på DEX"
   },
   "settlement": {
     "title": "Smartcoin-afvikling",
