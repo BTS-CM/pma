@@ -234,6 +234,14 @@
     "bitassetData": "Bitasset Data",
     "descriptionData": "Description Data",
     "copy": "Copy",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "blockIssuer": "Block this issuer",
+    "unblockIssuer": "Unblock this issuer"
+  },
+  "blockConfirm": {
+    "title": "Block this issuer?",
+    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
+    "cancel": "Cancel",
+    "confirm": "Block issuer"
   }
 }

@@ -26,6 +26,7 @@ import {
   Filter,
   ArrowUpDown,
   X as XIcon,
+  Ban,
 } from "lucide-react";
 
 import { useTranslation } from "react-i18next";
@@ -85,6 +86,17 @@ import {
 } from "@/components/ui/dialog";
 
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -99,7 +111,12 @@ import {
 } from "@/components/ui/tooltip";
 
 import { $currentUser } from "@/stores/users.ts";
-import { $blockList } from "@/stores/blocklist.ts";
+import {
+  $blockList,
+  $userBlockList,
+  addBlockedUser,
+  removeBlockedUser,
+} from "@/stores/blocklist.ts";
 import { $currentNode } from "@/stores/node.ts";
 import { $visualSettings } from "@/stores/visuals.ts";
 
@@ -354,6 +371,11 @@ export default function Predictions(properties) {
     $blockList.get,
     () => true
   );
+  const userBlockList = useSyncExternalStore(
+    $userBlockList.subscribe,
+    $userBlockList.get,
+    () => true
+  );
   const currentNode = useStore($currentNode);
   const visuals = useStore($visualSettings);
 
@@ -411,6 +433,15 @@ export default function Predictions(properties) {
     }
     return [];
   }, [_assetsBTS, _assetsTEST, _chain]);
+
+  // Set of account IDs the current user has personally blocked (per chain).
+  // Used as a second filter pass to hide PMAs whose issuer is in the user blocklist.
+  const userBlockedIDs = useMemo(() => {
+    if (!userBlockList || !_chain) return new Set();
+    const chainList = userBlockList[_chain];
+    if (!chainList || !chainList.length) return new Set();
+    return new Set(chainList.map((u) => u.id));
+  }, [userBlockList, _chain]);
 
   const [combinedAssets, setCombinedAssets] = useState([]);
   useEffect(() => {
@@ -742,6 +773,13 @@ export default function Predictions(properties) {
     if (!chosenPMAs || !chosenPMAs.length) return [];
     let result = [...chosenPMAs];
 
+    // Second filter pass: drop PMAs whose issuer is in the user's personal
+    // blocklist. This is intentionally separate from the committee blocklist
+    // (which only feeds the committee reference view, not the prediction list).
+    if (userBlockedIDs && userBlockedIDs.size) {
+      result = result.filter((p) => !userBlockedIDs.has(p.issuer));
+    }
+
     if (searchQuery && searchQuery.trim().length) {
       const q = searchQuery.trim().toLowerCase();
       result = result.filter((p) => {
@@ -808,7 +846,7 @@ export default function Predictions(properties) {
     }
 
     return result;
-  }, [chosenPMAs, searchQuery, filterBy, sortBy, now, callOrders, view]);
+  }, [chosenPMAs, searchQuery, filterBy, sortBy, now, callOrders, view, userBlockedIDs]);
 
   const PredictionRow = ({ res }) => {
     // All hooks must be called unconditionally, before any early return.
@@ -886,6 +924,9 @@ export default function Predictions(properties) {
     const [jsonDialogOpen, setJsonDialogOpen] = useState(false);
     const [jsonPayload, setJsonPayload] = useState(null);
 
+    // Block-issuer confirmation prompt
+    const [blockConfirmOpen, setBlockConfirmOpen] = useState(false);
+
     // ----- Safe data lookups -----
     const relevantBitassetData = res
       ? completedPMAs.find((x) => x.id === res.bitasset_data_id)
@@ -910,6 +951,18 @@ export default function Predictions(properties) {
           ? marketSearch.find((x) => x.u.includes(`(${house})`)).u
           : null;
     }
+
+    // The marketSearch `u` field is formatted as `name (id) (LTM)` (LTM optional)
+    // so we split out the parts to: (a) avoid rendering `(LTM)` twice when we
+    // already show a dedicated LTM badge, and (b) extract a clean account
+    // name to seed the Avatar.
+    const issuerIsLtm = !!(username && username.includes("(LTM)"));
+    const issuerDisplayLabel = username
+      ? username.replace(/\s*\(LTM\)\s*$/, "").trim()
+      : null;
+    const issuerDisplayName = issuerDisplayLabel
+      ? issuerDisplayLabel.split(" (")[0]
+      : null;
 
     const _desc = JSON.parse(res.options.description);
 
@@ -1109,8 +1162,30 @@ export default function Predictions(properties) {
                 </div>
               </div>
               <div className="md:text-right text-xs flex flex-wrap items-center md:justify-end gap-x-2 gap-y-1">
-                <span className="text-muted-foreground">{username ?? house}</span>
-                {username ? (
+                <Badge
+                  variant="outline"
+                  className="gap-1.5 pl-1 pr-2 py-0.5 text-[11px] font-medium"
+                >
+                  <span className="inline-flex h-5 w-5 overflow-hidden rounded-full">
+                    <Avatar
+                      size={20}
+                      name={issuerDisplayName ?? house}
+                      extra="Issuer"
+                      expression={{ eye: "normal", mouth: "open" }}
+                      colors={[
+                        "#92A1C6",
+                        "#146A7C",
+                        "#F0AB3D",
+                        "#C271B4",
+                        "#C20D90",
+                      ]}
+                    />
+                  </span>
+                  <span className="text-muted-foreground">
+                    {issuerDisplayLabel ?? house}
+                  </span>
+                </Badge>
+                {issuerIsLtm ? (
                   <Badge variant="secondary" className="text-[10px] py-0">
                     LTM
                   </Badge>
@@ -1249,7 +1324,114 @@ export default function Predictions(properties) {
                     ) : null}
                   </DropdownMenuContent>
                 </DropdownMenu>
+                {usr && usr.id && house && house !== usr.id ? (
+                  <TooltipProvider delayDuration={200}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className={cn(
+                            "h-7 w-7",
+                            userBlockedIDs.has(house)
+                              ? "text-red-600 hover:text-red-700"
+                              : "text-muted-foreground hover:text-red-600",
+                          )}
+                          onClick={() => {
+                            if (userBlockedIDs.has(house)) {
+                              removeBlockedUser(usr.chain, {
+                                name: issuerDisplayLabel ?? username ?? house,
+                                id: house,
+                              });
+                            } else {
+                              setBlockConfirmOpen(true);
+                            }
+                          }}
+                          aria-label={
+                            userBlockedIDs.has(house)
+                              ? t("Predictions:json.unblockIssuer")
+                              : t("Predictions:json.blockIssuer")
+                          }
+                        >
+                          <Ban className="h-3.5 w-3.5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">
+                        {userBlockedIDs.has(house)
+                          ? t("Predictions:json.unblockIssuer")
+                          : t("Predictions:json.blockIssuer")}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                ) : null}
               </div>
+
+              {usr && usr.id && house && house !== usr.id ? (
+                <AlertDialog
+                  open={blockConfirmOpen}
+                  onOpenChange={setBlockConfirmOpen}
+                >
+                  <AlertDialogContent className="bg-white">
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        {t("Predictions:blockConfirm.title")}
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        {t("Predictions:blockConfirm.description")}
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <div className="flex items-center gap-3 rounded-md border border-border bg-muted/40 p-3">
+                      <span className="inline-flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full">
+                        <Avatar
+                          size={40}
+                          name={issuerDisplayName ?? house}
+                          extra="BlockConfirm"
+                          expression={{ eye: "normal", mouth: "unhappy" }}
+                          colors={[
+                            "#92A1C6",
+                            "#146A7C",
+                            "#F0AB3D",
+                            "#C271B4",
+                            "#C20D90",
+                          ]}
+                        />
+                      </span>
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold text-foreground truncate">
+                          {issuerDisplayName ?? house}
+                        </div>
+                        <div className="font-mono text-xs text-muted-foreground">
+                          {house}
+                        </div>
+                      </div>
+                      {issuerIsLtm ? (
+                        <Badge
+                          variant="secondary"
+                          className="ml-auto text-[10px] py-0"
+                        >
+                          LTM
+                        </Badge>
+                      ) : null}
+                    </div>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>
+                        {t("Predictions:blockConfirm.cancel")}
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                        className="bg-red-600 hover:bg-red-700 text-white"
+                        onClick={() => {
+                          addBlockedUser(usr.chain, {
+                            name: issuerDisplayLabel ?? username ?? house,
+                            id: house,
+                          });
+                        }}
+                      >
+                        {t("Predictions:blockConfirm.confirm")}
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              ) : null}
 
               {rowView === "overview" ? (
                 <div className="grid grid-cols-1 gap-3">
