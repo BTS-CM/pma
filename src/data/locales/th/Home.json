@@ -467,7 +467,10 @@
     "predictionMarkets": "ตลาดทำนาย",
     "account": "บัญชี",
     "moreTools": "เครื่องมือเพิ่มเติม",
-    "settings": "การตั้งค่า"
+    "settings": "การตั้งค่า",
+    "predictionMarketsSubtitle": "เรียกดู ซื้อขาย และสร้างตลาดการทำนาย",
+    "accountSubtitle": "จัดการพอร์ตโฟลิโอ คำสั่งซื้อ และรายการโปรด",
+    "moreToolsSubtitle": "การซื้อขาย DEX การตั้งค่า และเครื่องมือ"
   },
   "settlement": {
     "title": "การชำระบัญชี Smartcoin",

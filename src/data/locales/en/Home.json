@@ -461,7 +461,10 @@
     "predictionMarkets": "Prediction markets",
     "account": "Account",
     "moreTools": "More tools",
-    "settings": "Settings"
+    "settings": "Settings",
+    "predictionMarketsSubtitle": "Browse, trade and create prediction markets",
+    "accountSubtitle": "Manage your portfolio, orders and favourites",
+    "moreToolsSubtitle": "DEX trading, settings and utilities"
   },
   "about": {
     "title": "About",

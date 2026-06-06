@@ -15,9 +15,7 @@ import { Separator } from "@/components/ui/separator";
 
 import Hero from "./home/Hero";
 import QuickJumps from "./home/QuickJumps";
-import ForCreators from "./home/ForCreators";
 import HowItWorks from "./home/HowItWorks";
-import TrustStrip from "./home/TrustStrip";
 import { useLiveStats } from "./home/useLiveStats";
 
 import {
@@ -39,6 +37,7 @@ import {
   Palette,
   ArrowUpRight,
   Repeat,
+  Wrench,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -70,28 +69,64 @@ const ITEM_ICONS = {
 };
 
 const ITEM_ACCENTS = {
-  dex: { bar: "from-indigo-500/80 to-cyan-500/80", chip: "bg-indigo-500/15 text-indigo-300 border-indigo-400/20", glow: "bg-indigo-500/20", text: "text-indigo-300" },
-  prediction_markets_active: { bar: "from-cyan-500/80 to-sky-500/80", chip: "bg-cyan-500/15 text-cyan-300 border-cyan-400/20", glow: "bg-cyan-500/20", text: "text-cyan-300" },
-  prediction_markets_expired: { bar: "from-slate-500/80 to-zinc-500/80", chip: "bg-slate-500/15 text-slate-200 border-slate-400/20", glow: "bg-slate-500/20", text: "text-slate-200" },
-  prediction_markets_mine: { bar: "from-emerald-500/80 to-teal-500/80", chip: "bg-emerald-500/15 text-emerald-300 border-emerald-400/20", glow: "bg-emerald-500/20", text: "text-emerald-300" },
-  prediction_markets_portfolio: { bar: "from-fuchsia-500/80 to-pink-500/80", chip: "bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-400/20", glow: "bg-fuchsia-500/20", text: "text-fuchsia-300" },
-  prediction_markets_margin: { bar: "from-amber-500/80 to-orange-500/80", chip: "bg-amber-500/15 text-amber-300 border-amber-400/20", glow: "bg-amber-500/20", text: "text-amber-300" },
-  create_prediction: { bar: "from-violet-500/80 to-purple-500/80", chip: "bg-violet-500/15 text-violet-300 border-violet-400/20", glow: "bg-violet-500/20", text: "text-violet-300" },
-  transfer: { bar: "from-sky-500/80 to-blue-500/80", chip: "bg-sky-500/15 text-sky-300 border-sky-400/20", glow: "bg-sky-500/20", text: "text-sky-300" },
-  portfolio_balances: { bar: "from-emerald-500/80 to-teal-500/80", chip: "bg-emerald-500/15 text-emerald-300 border-emerald-400/20", glow: "bg-emerald-500/20", text: "text-emerald-300" },
-  portfolio_open_orders: { bar: "from-cyan-500/80 to-sky-500/80", chip: "bg-cyan-500/15 text-cyan-300 border-cyan-400/20", glow: "bg-cyan-500/20", text: "text-cyan-300" },
-  favourites: { bar: "from-amber-500/80 to-yellow-500/80", chip: "bg-amber-500/15 text-amber-300 border-amber-400/20", glow: "bg-amber-500/20", text: "text-amber-300" },
-  about: { bar: "from-blue-500/80 to-indigo-500/80", chip: "bg-blue-500/15 text-blue-300 border-blue-400/20", glow: "bg-blue-500/20", text: "text-blue-300" },
-  nodes: { bar: "from-slate-500/80 to-zinc-500/80", chip: "bg-slate-500/15 text-slate-200 border-slate-400/20", glow: "bg-slate-500/20", text: "text-slate-200" },
-  blocked_users: { bar: "from-rose-500/80 to-red-500/80", chip: "bg-rose-500/15 text-rose-300 border-rose-400/20", glow: "bg-rose-500/20", text: "text-rose-300" },
-  create_account: { bar: "from-emerald-500/80 to-green-500/80", chip: "bg-emerald-500/15 text-emerald-300 border-emerald-400/20", glow: "bg-emerald-500/20", text: "text-emerald-300" },
-  configure_visuals: { bar: "from-violet-500/80 to-fuchsia-500/80", chip: "bg-violet-500/15 text-violet-300 border-violet-400/20", glow: "bg-violet-500/20", text: "text-violet-300" },
+  dex: { bar: "from-indigo-500 to-cyan-500", chip: "bg-indigo-500/30 text-indigo-100 border-indigo-400/50", glow: "bg-indigo-500/30", text: "text-indigo-100" },
+  prediction_markets_active: { bar: "from-cyan-500 to-sky-500", chip: "bg-cyan-500/30 text-cyan-100 border-cyan-400/50", glow: "bg-cyan-500/30", text: "text-cyan-100" },
+  prediction_markets_expired: { bar: "from-sky-500 to-blue-500", chip: "bg-sky-500/30 text-sky-100 border-sky-400/50", glow: "bg-sky-500/30", text: "text-sky-100" },
+  prediction_markets_mine: { bar: "from-emerald-500 to-teal-500", chip: "bg-emerald-500/30 text-emerald-100 border-emerald-400/50", glow: "bg-emerald-500/30", text: "text-emerald-100" },
+  prediction_markets_portfolio: { bar: "from-fuchsia-500 to-pink-500", chip: "bg-fuchsia-500/30 text-fuchsia-100 border-fuchsia-400/50", glow: "bg-fuchsia-500/30", text: "text-fuchsia-100" },
+  prediction_markets_margin: { bar: "from-amber-500 to-orange-500", chip: "bg-amber-500/30 text-amber-100 border-amber-400/50", glow: "bg-amber-500/30", text: "text-amber-100" },
+  create_prediction: { bar: "from-violet-500 to-purple-500", chip: "bg-violet-500/30 text-violet-100 border-violet-400/50", glow: "bg-violet-500/30", text: "text-violet-100" },
+  transfer: { bar: "from-sky-500 to-blue-500", chip: "bg-sky-500/30 text-sky-100 border-sky-400/50", glow: "bg-sky-500/30", text: "text-sky-100" },
+  portfolio_balances: { bar: "from-emerald-500 to-teal-500", chip: "bg-emerald-500/30 text-emerald-100 border-emerald-400/50", glow: "bg-emerald-500/30", text: "text-emerald-100" },
+  portfolio_open_orders: { bar: "from-cyan-500 to-sky-500", chip: "bg-cyan-500/30 text-cyan-100 border-cyan-400/50", glow: "bg-cyan-500/30", text: "text-cyan-100" },
+  favourites: { bar: "from-amber-500 to-yellow-500", chip: "bg-amber-500/30 text-amber-100 border-amber-400/50", glow: "bg-amber-500/30", text: "text-amber-100" },
+  about: { bar: "from-blue-500 to-indigo-500", chip: "bg-blue-500/30 text-blue-100 border-blue-400/50", glow: "bg-blue-500/30", text: "text-blue-100" },
+  nodes: { bar: "from-teal-500 to-cyan-500", chip: "bg-teal-500/30 text-teal-100 border-teal-400/50", glow: "bg-teal-500/30", text: "text-teal-100" },
+  blocked_users: { bar: "from-rose-500 to-red-500", chip: "bg-rose-500/30 text-rose-100 border-rose-400/50", glow: "bg-rose-500/30", text: "text-rose-100" },
+  create_account: { bar: "from-emerald-500 to-green-500", chip: "bg-emerald-500/30 text-emerald-100 border-emerald-400/50", glow: "bg-emerald-500/30", text: "text-emerald-100" },
+  configure_visuals: { bar: "from-violet-500 to-fuchsia-500", chip: "bg-violet-500/30 text-violet-100 border-violet-400/50", glow: "bg-violet-500/30", text: "text-violet-100" },
 };
 
 const SECTION_STYLES = {
-  predictionMarkets: { bar: "from-indigo-500 via-cyan-400 to-fuchsia-500", eyebrow: "text-indigo-300" },
-  account: { bar: "from-emerald-500 via-cyan-400 to-sky-500", eyebrow: "text-emerald-300" },
-  moreTools: { bar: "from-violet-500 via-fuchsia-500 to-rose-500", eyebrow: "text-violet-300" },
+  predictionMarkets: {
+    icon: TrendingUp,
+    titleKey: "Home:sections.predictionMarkets",
+    subtitleKey: "Home:sections.predictionMarketsSubtitle",
+    border: "border-indigo-400/20",
+    bg: "from-indigo-500/15 via-slate-900/20 to-fuchsia-500/10",
+    iconBg: "bg-indigo-500/15",
+    iconBorder: "border-indigo-400/25",
+    iconText: "text-indigo-200",
+    blobA: "bg-indigo-500/30",
+    blobB: "bg-fuchsia-500/20",
+    underline: "from-indigo-500/0 via-indigo-400/60 to-fuchsia-500/0",
+  },
+  account: {
+    icon: Wallet,
+    titleKey: "Home:sections.account",
+    subtitleKey: "Home:sections.accountSubtitle",
+    border: "border-emerald-400/20",
+    bg: "from-emerald-500/15 via-slate-900/20 to-sky-500/10",
+    iconBg: "bg-emerald-500/15",
+    iconBorder: "border-emerald-400/25",
+    iconText: "text-emerald-200",
+    blobA: "bg-emerald-500/30",
+    blobB: "bg-sky-500/20",
+    underline: "from-emerald-500/0 via-emerald-400/60 to-sky-500/0",
+  },
+  moreTools: {
+    icon: Wrench,
+    titleKey: "Home:sections.moreTools",
+    subtitleKey: "Home:sections.moreToolsSubtitle",
+    border: "border-violet-400/20",
+    bg: "from-violet-500/15 via-slate-900/20 to-rose-500/10",
+    iconBg: "bg-violet-500/15",
+    iconBorder: "border-violet-400/25",
+    iconText: "text-violet-200",
+    blobA: "bg-violet-500/30",
+    blobB: "bg-rose-500/20",
+    underline: "from-violet-500/0 via-violet-400/60 to-rose-500/0",
+  },
 };
 
 export default function Home(properties) {
@@ -146,7 +181,7 @@ export default function Home(properties) {
 
   const predictionMarkets = [
     {
-      key: "active_predictions",
+      key: "prediction_markets_active",
       href: "/active-predictions/index.html",
       titleKey: "Home:prediction_markets_active.title",
       subtitleKey: "Home:prediction_markets_active.subtitle",
@@ -157,7 +192,7 @@ export default function Home(properties) {
       ],
     },
     {
-      key: "expired_predictions",
+      key: "prediction_markets_expired",
       href: "/expired-predictions/index.html",
       titleKey: "Home:prediction_markets_expired.title",
       subtitleKey: "Home:prediction_markets_expired.subtitle",
@@ -168,7 +203,7 @@ export default function Home(properties) {
       ],
     },
     {
-      key: "my_predictions",
+      key: "prediction_markets_mine",
       href: "/my-predictions/index.html",
       titleKey: "Home:prediction_markets_mine.title",
       subtitleKey: "Home:prediction_markets_mine.subtitle",
@@ -179,7 +214,7 @@ export default function Home(properties) {
       ],
     },
     {
-      key: "prediction_portfolio",
+      key: "prediction_markets_portfolio",
       href: "/prediction-portfolio/index.html",
       titleKey: "Home:prediction_markets_portfolio.title",
       subtitleKey: "Home:prediction_markets_portfolio.subtitle",
@@ -190,7 +225,7 @@ export default function Home(properties) {
       ],
     },
     {
-      key: "prediction_margin",
+      key: "prediction_markets_margin",
       href: "/prediction-margin/index.html",
       titleKey: "Home:prediction_markets_margin.title",
       subtitleKey: "Home:prediction_markets_margin.subtitle",
@@ -366,10 +401,28 @@ export default function Home(properties) {
           </a>
         </HoverCardTrigger>
         {card.hoverKeys && card.hoverKeys.length ? (
-          <HoverCardContent className="w-80 text-sm pt-1">
-            <ul className="ml-2 list-disc [&>li]:mt-2">
+          <HoverCardContent
+            sideOffset={10}
+            align="center"
+            style={{ backgroundColor: "#020617" }}
+            className={cn(
+              "w-80 overflow-hidden rounded-2xl border border-white/10 p-4 text-sm",
+              "!bg-slate-950 text-white/75",
+              "shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.04)]"
+            )}
+          >
+            <div
+              aria-hidden="true"
+              className={cn(
+                "pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r opacity-80",
+                accent.bar
+              )}
+            />
+            <ul className="ml-4 list-disc [&>li]:mt-2 marker:text-white/40">
               {card.hoverKeys.map((hoverKey, index) => (
-                <li key={`${card.key}-hover-${index}`}>{t(hoverKey)}</li>
+                <li key={`${card.key}-hover-${index}`} className="leading-relaxed">
+                  {t(hoverKey)}
+                </li>
               ))}
             </ul>
           </HoverCardContent>
@@ -384,28 +437,71 @@ export default function Home(properties) {
     </div>
   );
 
-  const renderSection = (titleKey, cards, sectionKey) => {
+  const renderSection = (cards, sectionKey) => {
     const style = SECTION_STYLES[sectionKey] || SECTION_STYLES.moreTools;
+    const SectionIcon = style.icon;
     return (
-      <section className="mt-8 sm:mt-10">
-        <div className="flex items-center gap-3 mb-3 sm:mb-4">
-          <span
+      <section className="mt-10 sm:mt-14">
+        <div
+          className={cn(
+            "relative overflow-hidden rounded-2xl border p-4 sm:p-5",
+            "bg-gradient-to-br",
+            style.border,
+            style.bg
+          )}
+        >
+          <div
             aria-hidden="true"
-            className={cn("inline-block h-5 w-1 rounded-full bg-gradient-to-b", style.bar)}
-          />
-          <h2 className="text-base sm:text-lg font-semibold text-white tracking-tight">
-            {t(titleKey)}
-          </h2>
-          <span
             className={cn(
-              "inline-flex h-5 items-center rounded-full px-2 text-[10px] font-semibold uppercase tracking-wider border",
-              "border-white/10 bg-white/[0.04] text-white/55"
+              "pointer-events-none absolute -left-12 -top-12 h-40 w-40 rounded-full blur-3xl",
+              style.blobA
             )}
-          >
-            {cards.length}
-          </span>
+          />
+          <div
+            aria-hidden="true"
+            className={cn(
+              "pointer-events-none absolute -right-12 -bottom-12 h-40 w-40 rounded-full blur-3xl",
+              style.blobB
+            )}
+          />
+          <div className="relative flex items-center gap-3 sm:gap-4">
+            <span
+              className={cn(
+                "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border",
+                style.iconBg,
+                style.iconBorder
+              )}
+            >
+              <SectionIcon className={cn("h-5 w-5", style.iconText)} />
+            </span>
+            <div className="min-w-0 flex-1">
+              <h2 className="text-base sm:text-lg font-semibold text-white tracking-tight leading-tight">
+                {t(style.titleKey)}
+              </h2>
+              <p className="mt-1 text-[13px] sm:text-sm text-white/60 leading-snug">
+                {t(style.subtitleKey)}
+              </p>
+            </div>
+            <div
+              aria-hidden="true"
+              className="hidden md:flex items-center gap-1 pr-1"
+            >
+              <span className={cn("h-1.5 w-1.5 rounded-full", style.iconBg.replace("/15", "/80"))} />
+              <span className={cn("h-1.5 w-1.5 rounded-full opacity-60", style.iconBg.replace("/15", "/60"))} />
+              <span className={cn("h-1.5 w-1.5 rounded-full opacity-30", style.iconBg.replace("/15", "/40"))} />
+            </div>
+          </div>
+          <div
+            aria-hidden="true"
+            className={cn(
+              "pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r",
+              style.underline
+            )}
+          />
         </div>
-        {renderCardGrid(cards, "lg:grid-cols-3")}
+        <div className="mt-3 sm:mt-4">
+          {renderCardGrid(cards, "lg:grid-cols-3")}
+        </div>
       </section>
     );
   };
@@ -414,17 +510,13 @@ export default function Home(properties) {
     <div className="container mx-auto mt-3 mb-5 px-3 sm:px-4">
       <QuickJumps liveStats={liveStats} />
 
-      <ForCreators />
-
       <HowItWorks />
-
-      <TrustStrip />
 
       <Separator className="my-10 sm:my-12 bg-white/10" />
 
-      {renderSection("Home:sections.predictionMarkets", predictionMarkets, "predictionMarkets")}
-      {renderSection("Home:sections.account", accountOverviews, "account")}
-      {renderSection("Home:sections.moreTools", moreTools, "moreTools")}
+      {renderSection(predictionMarkets, "predictionMarkets")}
+      {renderSection(accountOverviews, "account")}
+      {renderSection(moreTools, "moreTools")}
     </div>
   );
 }

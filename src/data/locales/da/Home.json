@@ -467,7 +467,10 @@
     "predictionMarkets": "Predictionsmarkeder",
     "account": "Konto",
     "moreTools": "Flere værktøjer",
-    "settings": "Indstillinger"
+    "settings": "Indstillinger",
+    "predictionMarketsSubtitle": "Gennemse, handl og opret predictionsmarkeder",
+    "accountSubtitle": "Administrer portefølje, ordrer og favoritter",
+    "moreToolsSubtitle": "DEX-handel, indstillinger og værktøjer"
   },
   "settlement": {
     "title": "Smartcoin-afvikling",
