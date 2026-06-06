@@ -90,6 +90,13 @@ const assetSchema = z.object({
   max_market_fee: z.union([z.number(), z.string()]),
   max_supply: z.union([z.number(), z.string()]),
   bitasset_data_id: z.string().optional(),
+  prediction_market: z.boolean().optional(),
+  creation_time: z.string().optional(),
+  options: z
+    .object({
+      description: z.string().optional(),
+    })
+    .optional(),
 });
 
 const btsAllAssets = defineCollection({

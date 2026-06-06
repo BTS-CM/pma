@@ -48,7 +48,7 @@
     "hover3": "Arbejdstagerforslag vælges af samfundet."
   },
   "dex": {
-    "title": "📈 DEX-begrænsningsordrer",
+    "title": "DEX-begrænsningsordrer",
     "subtitle": "Handl aktiver på Bitshares DEX",
     "hover1": "Lav manuelt begrænsede ordrer.",
     "hover2": "Brug ethvert aktivhandelspar.",
@@ -77,7 +77,7 @@
     "hover3": "Indsatte aktiver kan til enhver tid trækkes tilbage."
   },
   "transfer": {
-    "title": "💸 Overfør aktiver",
+    "title": "Overfør aktiver",
     "subtitle": "Send aktiver til andre brugere",
     "hover1": "Overfør aktiver til enhver på Bitshares blockchain på få sekunder."
   },
@@ -144,14 +144,14 @@
     "hover3": "Analyser din seneste kontoaktivitet."
   },
   "portfolio_balances": {
-    "title": "📊 Kontosaldi",
+    "title": "Kontosaldi",
     "subtitle": "Se dine likvide saldi og relaterede handlinger",
     "hover1": "Sorter saldi som standard, alfabetisk eller beløb.",
     "hover2": "Hurtige links til handel og aktivinfo.",
     "hover3": "Se relaterede likviditetspuljer."
   },
   "portfolio_open_orders": {
-    "title": "🧾 Åbne ordrer",
+    "title": "Åbne ordrer",
     "subtitle": "Gennemgå og administrer dine åbne DEX-ordrer",
     "hover1": "Hop direkte til markedsparret.",
     "hover2": "Opdater eller annuller en ordre.",
@@ -165,7 +165,7 @@
     "hover3": "Åbn alle aktivitetsoplysninger."
   },
   "favourites": {
-    "title": "⭐ Dine favoritter",
+    "title": "Dine favoritter",
     "subtitle": "Få hurtigt adgang til foretrukne aktiver og konti",
     "hover1": "Tilføj aktiver, du holder af, for at se dem ét sted.",
     "hover2": "Spor dine yndlingskonti for hurtig reference."
@@ -216,7 +216,7 @@
     "hover3": "Opsummerede blockchain-datagennemsnit og totaler."
   },
   "create_prediction": {
-    "title": "🔮 Forudsigelsesmarkedsaktiv",
+    "title": "Forudsigelsesmarkedsaktiv",
     "subtitle": "Lav et væddemål om hvad som helst",
     "hover1": "Lav væddemål om bogstaveligt talt alt.",
     "hover2": "Vær bookmaker og sæt din egen kommission.",
@@ -274,13 +274,13 @@
     "hover4": "Livsvarige medlemmer kan tjene gennem henvisningssystemet."
   },
   "nodes": {
-    "title": "🌐 Noder",
+    "title": "Noder",
     "subtitle": "Blockchain node konfiguration",
     "hover1": "Opret forbindelse til en Bitshares-node efter eget valg.",
     "hover2": "Tilføj/fjern noder til din forbindelsesliste."
   },
   "create_account": {
-    "title": "🆕 Opret konto",
+    "title": "Opret konto",
     "subtitle": "Opret en ny Cloud -tegnebogskonto på Bitshares blockchain.",
     "hover1": "Opret en gratis konto ved hjælp af en offentlig vandhane.",
     "hover2": "Generer en premium -konto ved hjælp af en eksisterende LTM -konto."
@@ -373,9 +373,107 @@
     "subtitle": "Bygget med den nyeste teknologi, designet til brugervenlighed!"
   },
   "about": {
-    "title": "ℹ️ About",
+    "title": "About",
     "subtitle": "Learn more about the features",
     "hover1": "View the features of the platform.",
     "hover2": "Learn about the supported blockchains, wallets and languages."
+  },
+  "blocked_users": {
+    "title": "Blokerede brugere",
+    "subtitle": "Se blokerede konti og administrer din personlige blokeringsliste",
+    "hover1": "Se, hvor mange konti komitéen aktuelt har blokeret.",
+    "hover2": "Tilføj konti til din personlige blokeringsliste for hurtig reference."
+  },
+  "configure_visuals": {
+    "title": "Konfigurer visuelle effekter",
+    "subtitle": "Tilpas bølgeanimationen i sidehovedet."
+  },
+  "creators": {
+    "eyebrow": "Til skabere",
+    "title": "Vær huset.",
+    "body": "Sæt din egen kommission. Vælg ethvert emne. Kør markeder fra en time til et år. Afviklingsfonden, prisfodderne og resolutionen — alt sammen on-chain, alt sammen dit at konfigurere.",
+    "cta": "Opret et predictionsmarked"
+  },
+  "hero": {
+    "eyebrow": "Bitshares Predictions UI",
+    "title": "Handl med fremtiden for hvad som helst.",
+    "subtitle": "Prisen på hver prediction er en live, on-chain sandsynlighed. Vælg en side, se markedet afsløre sandheden, og afvikl på sekunder — ingen konto-oplåsning, ingen mellemmand.",
+    "ctaPrimary": "Gennemse aktive markeder",
+    "ctaSecondary": "Opret et marked",
+    "statActive": "{{count}} aktive",
+    "statClosing": "{{count}} lukker inden for 24 timer",
+    "statNew": "{{count}} nye denne uge",
+    "loading": "Indlæser live markedsstatistik…",
+    "scrollForMore": "Scroll for mere"
+  },
+  "howItWorks": {
+    "heading": "Sådan fungerer det",
+    "step1Title": "Find et marked",
+    "step1Body": "Gennemse aktive predictionsmarkedsaktiver inden for politik, krypto, sport, popkultur og meget mere.",
+    "step2Title": "Tag en position",
+    "step2Body": "Køb JA eller sælg NEJ. Priserne afspejler markedets implicitte sandsynlighed for udfaldet.",
+    "step3Title": "Afvikl og indsaml",
+    "step3Body": "Når markedet lukker, kræver vinderne deres andel af den tabende sides indsats. Kommissionen går til udstederen."
+  },
+  "prediction_markets_active": {
+    "title": "Aktive predictions",
+    "subtitle": "Gennemse live, uløste predictionsmarkedsaktiver.",
+    "hover1": "Se predictionsmarkedsaktiver, der stadig er aktive og accepterer væddemål.",
+    "hover2": "Hvert predictionsmarkedsaktiv har et unikt gebyr og en udløbsdato.",
+    "hover3": "Væddemål på udfaldet af ethvert aktivt predictionsmarkedsaktiv."
+  },
+  "prediction_markets_expired": {
+    "title": "Udløbne predictions",
+    "subtitle": "Gennemse tidligere predictionsmarkedsaktiver, der afventer resolution.",
+    "hover1": "Se predictionsmarkedsaktiver, hvis udløbsdato er passeret.",
+    "hover2": "Udløbne markeder kan løses af prisfodder, når udfaldet er kendt.",
+    "hover3": "Afvikl dine positioner på udløbne markeder for at kræve gevinster."
+  },
+  "prediction_markets_margin": {
+    "title": "Prediction-margin",
+    "subtitle": "Aktive marginpositioner på predictionsmarkedsaktiver.",
+    "hover1": "Se predictionsmarkedsaktiver, hvor du har en åben margin- (call-) position.",
+    "hover2": "Overvåg dit sikkerhedsforhold for hver marginposition.",
+    "hover3": "Juster eller luk dine predictionsmarkeds-marginpositioner."
+  },
+  "prediction_markets_mine": {
+    "title": "Mine predictions",
+    "subtitle": "Predictionsmarkedsaktiver, du har oprettet eller interageret med.",
+    "hover1": "Se alle predictionsmarkedsaktiver, du har oprettet på blockchainen.",
+    "hover2": "Løs dine udløbne predictions eller administrer deres prisfodder.",
+    "hover3": "Genudsted eller opdater dine predictionsmarkedsaktiver fra denne visning."
+  },
+  "prediction_markets_portfolio": {
+    "title": "Prediction-portefølje",
+    "subtitle": "Predictionsmarkedsaktiver i din kontosaldo.",
+    "hover1": "Se alle predictionsmarkedsaktiv-tokens, der aktuelt opbevares i din saldo.",
+    "hover2": "Spor din urealiserede PnL på tværs af alle åbne predictionsmarkedspositioner.",
+    "hover3": "Afvikl eller sælg dine predictionsmarkedsaktiv-tokens fra denne visning."
+  },
+  "quickJump": {
+    "heading": "Spring ud i det",
+    "active": "Aktive",
+    "activeHint": "Alle live, uløste markeder",
+    "closingSoon": "Lukker snart",
+    "closingSoonHint": "Løses inden for de næste 24 timer",
+    "new": "Nye denne uge",
+    "newHint": "Friskoprettede markeder",
+    "positions": "Dine positioner",
+    "positionsHint": "Predictionsmarkedsaktiver, du aktuelt holder",
+    "create": "Opret et marked",
+    "createHint": "Vær bookmaker, sæt din kommission"
+  },
+  "sections": {
+    "predictionMarkets": "Predictionsmarkeder",
+    "account": "Konto",
+    "moreTools": "Flere værktøjer",
+    "settings": "Indstillinger"
+  },
+  "settlement": {
+    "title": "Smartcoin-afvikling",
+    "subtitle": "Byd på smartcoin globale afviklingsfonde.",
+    "hover1": "Se aktiver, der aktuelt er i global afvikling.",
+    "hover2": "Afgiv bud på afviklingsfonde med rabat i forhold til pålydende værdi.",
+    "hover3": "Tving-afvikl individuelle aktiver for deres pro-rata-andel af afviklingspuljen."
   }
 }

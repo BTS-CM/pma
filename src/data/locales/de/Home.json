@@ -48,7 +48,7 @@
     "hover3": "Arbeitervorschläge werden von der Gemeinde abgestimmt."
   },
   "dex": {
-    "title": "📈 DEX-Limit-Orders",
+    "title": "DEX-Limit-Orders",
     "subtitle": "Handeln Sie Vermögenswerte auf dem Bitshares DEX",
     "hover1": "Erstellen Sie manuell Limit-Orders.",
     "hover2": "Verwenden Sie ein beliebiges Asset-Trading-Paar.",
@@ -77,7 +77,7 @@
     "hover3": "Eingesetzte Vermögenswerte können jederzeit abgehoben werden."
   },
   "transfer": {
-    "title": "💸 Vermögenswerte übertragen",
+    "title": "Vermögenswerte übertragen",
     "subtitle": "Senden Sie Assets an andere Benutzer",
     "hover1": "Übertragen Sie Vermögenswerte in Sekundenschnelle an jeden in der Bitshares-Blockchain."
   },
@@ -144,14 +144,14 @@
     "hover3": "Analysieren Sie Ihre letzten Kontoaktivitäten."
   },
   "portfolio_balances": {
-    "title": "📊 Kontostände",
+    "title": "Kontostände",
     "subtitle": "Sehen Sie sich Ihre Liquiditätsbestände und damit verbundene Aktionen an",
     "hover1": "Sortieren Sie die Salden nach Standard, Alphabet oder Betrag.",
     "hover2": "Schnelle Links zu Handels- und Vermögensinformationen.",
     "hover3": "Siehe entsprechende Liquiditätspools."
   },
   "portfolio_open_orders": {
-    "title": "🧾 Offene Bestellungen",
+    "title": "Offene Bestellungen",
     "subtitle": "Überprüfen und verwalten Sie Ihre offenen DEX-Bestellungen",
     "hover1": "Springen Sie direkt zum Marktpaar.",
     "hover2": "Eine Bestellung aktualisieren oder stornieren.",
@@ -165,7 +165,7 @@
     "hover3": "Vollständige Aktivitätsdetails öffnen."
   },
   "favourites": {
-    "title": "⭐ Deine Favoriten",
+    "title": "Deine Favoriten",
     "subtitle": "Greifen Sie schnell auf Ihre bevorzugten Assets und Konten zu",
     "hover1": "Fügen Sie Assets hinzu, die Ihnen wichtig sind, um sie an einem Ort anzusehen.",
     "hover2": "Verfolgen Sie Ihre Lieblingskonten zum schnellen Nachschlagen."
@@ -216,7 +216,7 @@
     "hover3": "Zusammengefasste Durchschnitts- und Gesamtwerte der Blockchain-Daten."
   },
   "create_prediction": {
-    "title": "🔮 Vorhersage des Marktwerts",
+    "title": "Vorhersage des Marktwerts",
     "subtitle": "Erstellen Sie eine Wette über alles",
     "hover1": "Erstellen Sie Wetten über buchstäblich alles.",
     "hover2": "Seien Sie der Buchmacher und legen Sie Ihre eigene Provision fest.",
@@ -274,13 +274,13 @@
     "hover4": "Lebenslange Mitglieder können über das Empfehlungssystem Geld verdienen."
   },
   "nodes": {
-    "title": "🌐 Knoten",
+    "title": "Knoten",
     "subtitle": "Konfiguration des Blockchain-Knotens",
     "hover1": "Stellen Sie eine Verbindung zu einem Bitshares-Knoten Ihrer Wahl her.",
     "hover2": "Fügen Sie Ihrer Verbindungsliste Knoten hinzu bzw. entfernen Sie sie."
   },
   "create_account": {
-    "title": "🆕 Konto erstellen",
+    "title": "Konto erstellen",
     "subtitle": "Erstellen Sie ein neues Cloud Wallet -Konto auf der Bitshares -Blockchain.",
     "hover1": "Erstellen Sie ein kostenloses Konto mit einem öffentlichen Wasserhahn.",
     "hover2": "Generieren Sie ein Premium -Konto mit einem vorhandenen LTM -Konto."
@@ -373,9 +373,107 @@
     "subtitle": "Gebaut mit der neuesten Technologie und auf Benutzerfreundlichkeit ausgelegt!"
   },
   "about": {
-    "title": "ℹ️ About",
+    "title": "About",
     "subtitle": "Learn more about the features",
     "hover1": "View the features of the platform.",
     "hover2": "Learn about the supported blockchains, wallets and languages."
+  },
+  "blocked_users": {
+    "title": "Blockierte Benutzer",
+    "subtitle": "Blockierte Konten anzeigen und Ihre persönliche Sperrliste verwalten",
+    "hover1": "Sehen Sie, wie viele Konten das Komitee derzeit blockiert hat.",
+    "hover2": "Fügen Sie Konten zu Ihrer persönlichen Sperrliste für schnellen Zugriff hinzu."
+  },
+  "configure_visuals": {
+    "title": "Visuelle Effekte anpassen",
+    "subtitle": "Passen Sie die Wellenanimation im Seitenkopf an."
+  },
+  "creators": {
+    "eyebrow": "Für Ersteller",
+    "title": "Seien Sie das Haus.",
+    "body": "Legen Sie Ihre eigene Provision fest. Wählen Sie ein beliebiges Thema. Führen Sie Märkte von einer Stunde bis zu einem Jahr. Der Abwicklungsfonds, die Preisfütterer, die Auflösung — alles on-chain, alles von Ihnen konfigurierbar.",
+    "cta": "Einen Prognosemarkt erstellen"
+  },
+  "hero": {
+    "eyebrow": "Bitshares Predictions UI",
+    "title": "Handeln Sie die Zukunft von allem.",
+    "subtitle": "Der Preis jeder Prognose ist eine Live-On-Chain-Wahrscheinlichkeit. Wählen Sie eine Seite, beobachten Sie, wie der Markt die Wahrheit enthüllt, und rechnen Sie in Sekunden ab — keine Kontofreischaltung, kein Vermittler.",
+    "ctaPrimary": "Aktive Märkte durchsuchen",
+    "ctaSecondary": "Einen Markt erstellen",
+    "statActive": "{{count}} aktiv",
+    "statClosing": "{{count}} schließen in 24 h",
+    "statNew": "{{count}} neu diese Woche",
+    "loading": "Lade Live-Marktstatistiken…",
+    "scrollForMore": "Mehr scrollen"
+  },
+  "howItWorks": {
+    "heading": "So funktioniert es",
+    "step1Title": "Einen Markt finden",
+    "step1Body": "Durchsuchen Sie aktive Prognosemarkt-Vermögenswerte zu Politik, Krypto, Sport, Popkultur und mehr.",
+    "step2Title": "Position beziehen",
+    "step2Body": "Kaufen Sie JA oder verkaufen Sie NEIN. Die Preise spiegeln die implizierte Wahrscheinlichkeit des Ergebnisses wider.",
+    "step3Title": "Auflösen & einziehen",
+    "step3Body": "Wenn der Markt schließt, beanspruchen die Gewinner ihren Anteil am Einsatz der Verliererseite. Die Provision geht an den Emittenten."
+  },
+  "prediction_markets_active": {
+    "title": "Aktive Prognosen",
+    "subtitle": "Durchsuchen Sie Live-, ungelöste Prognosemarkt-Vermögenswerte.",
+    "hover1": "Zeigen Sie Prognosemarkt-Vermögenswerte an, die noch aktiv sind und Wetten annehmen.",
+    "hover2": "Jeder Prognosemarkt-Vermögenswert hat eine eindeutige Gebühr und ein Ablaufdatum.",
+    "hover3": "Wetten Sie auf das Ergebnis eines beliebigen aktiven Prognosemarkt-Vermögenswerts."
+  },
+  "prediction_markets_expired": {
+    "title": "Abgelaufene Prognosen",
+    "subtitle": "Durchsuchen Sie vergangene Prognosemarkt-Vermögenswerte, die auf Auflösung warten.",
+    "hover1": "Zeigen Sie Prognosemarkt-Vermögenswerte an, deren Ablaufdatum überschritten ist.",
+    "hover2": "Abgelaufene Märkte können von Preisfütterern aufgelöst werden, sobald das Ergebnis bekannt ist.",
+    "hover3": "Rechnen Sie Ihre Positionen auf abgelaufenen Märkten ab, um Gewinne einzufordern."
+  },
+  "prediction_markets_margin": {
+    "title": "Prognose-Margin",
+    "subtitle": "Aktive Marginpositionen auf Prognosemarkt-Vermögenswerten.",
+    "hover1": "Zeigen Sie Prognosemarkt-Vermögenswerte an, bei denen Sie eine offene Margin- (Call-) Position haben.",
+    "hover2": "Überwachen Sie Ihr Sicherheitenverhältnis für jede Marginposition.",
+    "hover3": "Passen Sie Ihre Prognosemarkt-Marginpositionen an oder schließen Sie sie."
+  },
+  "prediction_markets_mine": {
+    "title": "Meine Prognosen",
+    "subtitle": "Prognosemarkt-Vermögenswerte, die Sie erstellt oder verwendet haben.",
+    "hover1": "Zeigen Sie alle Prognosemarkt-Vermögenswerte an, die Sie auf der Blockchain erstellt haben.",
+    "hover2": "Lösen Sie Ihre abgelaufenen Prognosen auf oder verwalten Sie deren Preisfütterer.",
+    "hover3": "Geben Sie Ihre Prognosemarkt-Vermögenswerte von dieser Ansicht aus erneut aus oder aktualisieren Sie sie."
+  },
+  "prediction_markets_portfolio": {
+    "title": "Prognose-Portfolio",
+    "subtitle": "Prognosemarkt-Vermögenswerte in Ihrem Kontosaldo.",
+    "hover1": "Zeigen Sie alle Prognosemarkt-Vermögenswert-Tokens an, die derzeit in Ihrem Saldo gehalten werden.",
+    "hover2": "Verfolgen Sie Ihren nicht realisierten PnL über alle offenen Prognosemarktpositionen hinweg.",
+    "hover3": "Rechnen Sie Ihre Prognosemarkt-Vermögenswert-Tokens ab oder verkaufen Sie sie aus dieser Ansicht."
+  },
+  "quickJump": {
+    "heading": "Rein ins Geschehen",
+    "active": "Aktiv",
+    "activeHint": "Alle Live-, ungelösten Märkte",
+    "closingSoon": "Schließen bald",
+    "closingSoonHint": "Auflösung in den nächsten 24 Stunden",
+    "new": "Neu diese Woche",
+    "newHint": "Frisch erstellte Märkte",
+    "positions": "Ihre Positionen",
+    "positionsHint": "Prognosemarkt-Vermögenswerte, die Sie derzeit halten",
+    "create": "Einen Markt erstellen",
+    "createHint": "Seien Sie der Buchmacher, legen Sie Ihre Provision fest"
+  },
+  "sections": {
+    "predictionMarkets": "Prognosemärkte",
+    "account": "Konto",
+    "moreTools": "Weitere Werkzeuge",
+    "settings": "Einstellungen"
+  },
+  "settlement": {
+    "title": "Smartcoin-Abwicklung",
+    "subtitle": "Bieten Sie auf globale Smartcoin-Abwicklungsfonds.",
+    "hover1": "Zeigen Sie Vermögenswerte an, die sich derzeit in globaler Abwicklung befinden.",
+    "hover2": "Geben Sie Gebote auf Abwicklungsfonds mit Abschlag auf den Nennwert ab.",
+    "hover3": "Erzwingen Sie die Abwicklung einzelner Vermögenswerte für deren anteiligen Anteil am Abwicklungspool."
   }
 }

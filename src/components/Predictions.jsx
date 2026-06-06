@@ -389,8 +389,22 @@ export default function Predictions(properties) {
   }, []);
 
   // List-level controls
-  const [sortBy, setSortBy] = useState("newest");
-  const [filterBy, setFilterBy] = useState("all");
+  const [sortBy, setSortBy] = useState(() => {
+    if (typeof window === "undefined") return "newest";
+    const params = new URLSearchParams(window.location.search);
+    const s = params.get("sort");
+    return s && ["newest", "expiring", "volume", "alpha"].includes(s)
+      ? s
+      : "newest";
+  });
+  const [filterBy, setFilterBy] = useState(() => {
+    if (typeof window === "undefined") return "all";
+    const params = new URLSearchParams(window.location.search);
+    const f = params.get("filter");
+    return f && ["all", "closing-soon", "new", "high-volume"].includes(f)
+      ? f
+      : "all";
+  });
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const setSearchQueryDebounced = useCallback(

@@ -48,7 +48,7 @@
     "hover3": "Töötajate ettepanekud hääletab kogukond."
   },
   "dex": {
-    "title": "📈 DEX-i limiittellimused",
+    "title": "DEX-i limiittellimused",
     "subtitle": "Kauple varadega Bitshares DEXis",
     "hover1": "Limiittellimuste käsitsi koostamine.",
     "hover2": "Kasutage mis tahes varakauplemispaari.",
@@ -77,7 +77,7 @@
     "hover3": "Panustatud varasid saab igal ajal välja võtta."
   },
   "transfer": {
-    "title": "💸 Varade ülekandmine",
+    "title": "Varade ülekandmine",
     "subtitle": "Saatke vara teistele kasutajatele",
     "hover1": "Kandke varad mõne sekundi jooksul üle kellelegi Bitsharesi plokiahelas."
   },
@@ -144,14 +144,14 @@
     "hover3": "Analüüsige oma hiljutist kontotegevust."
   },
   "portfolio_balances": {
-    "title": "📊 Kontojäägid",
+    "title": "Kontojäägid",
     "subtitle": "Vaadake oma likviidsete saldode ja sellega seotud toiminguid",
     "hover1": "Sorteeri saldod vaikimisi, tähestiku või summa järgi.",
     "hover2": "Kiired lingid kaubanduse ja varade teabe juurde.",
     "hover3": "Vaadake seotud likviidsuskogumeid."
   },
   "portfolio_open_orders": {
-    "title": "🧾 Avatud tellimused",
+    "title": "Avatud tellimused",
     "subtitle": "Vaadake ja hallake oma avatud DEX-tellimusi",
     "hover1": "Hüppa otse turupaari juurde.",
     "hover2": "Uuenda või tühista tellimus.",
@@ -165,7 +165,7 @@
     "hover3": "Avage kõik tegevuse üksikasjad."
   },
   "favourites": {
-    "title": "⭐ Teie lemmikud",
+    "title": "Teie lemmikud",
     "subtitle": "Kiire juurdepääs lemmikvaradele ja -kontodele",
     "hover1": "Lisage teile olulised varad, et neid ühes kohas vaadata.",
     "hover2": "Kiireks viitamiseks jälgige oma lemmikkontosid."
@@ -216,7 +216,7 @@
     "hover3": "Summeeritud plokiahela andmete keskmised ja kogusummad."
   },
   "create_prediction": {
-    "title": "🔮 Ennustusturu vara",
+    "title": "Ennustusturu vara",
     "subtitle": "Tehke panus ükskõik mille kohta",
     "hover1": "Tehke panuseid sõna otseses mõttes kõige kohta.",
     "hover2": "Olge kihlveovahendaja ja määrake oma vahendustasu.",
@@ -274,13 +274,13 @@
     "hover4": "Eluaegsed liikmed saavad teenida suunamissüsteemi kaudu."
   },
   "nodes": {
-    "title": "🌐 Sõlmed",
+    "title": "Sõlmed",
     "subtitle": "Plokiahela sõlme konfiguratsioon",
     "hover1": "Ühendage oma valitud Bitsharesi sõlmega.",
     "hover2": "Lisage/eemaldage sõlmed oma ühenduste loendisse."
   },
   "create_account": {
-    "title": "🆕 Loo konto",
+    "title": "Loo konto",
     "subtitle": "Looge Bitshares Blockchainis uus pilve rahakoti konto.",
     "hover1": "Looge tasuta konto, kasutades avalikku kraani.",
     "hover2": "Genereerige olemasoleva LTM -konto abil esmaklassiline konto."
@@ -373,9 +373,107 @@
     "subtitle": "Ehitatud uusima tehnoloogiaga, mõeldud kasutusmugavuseks!"
   },
   "about": {
-    "title": "ℹ️ About",
+    "title": "About",
     "subtitle": "Learn more about the features",
     "hover1": "View the features of the platform.",
     "hover2": "Learn about the supported blockchains, wallets and languages."
+  },
+  "blocked_users": {
+    "title": "Blokeeritud kasutajad",
+    "subtitle": "Vaata blokeeritud kontosid ja halda oma isiklikku blokeerimisnimekirja",
+    "hover1": "Vaata, kui palju kontosid komitee on praegu blokeerinud.",
+    "hover2": "Lisa kontosid oma isiklikku blokeerimisnimekirja kiireks viitamiseks."
+  },
+  "configure_visuals": {
+    "title": "Visuaalide seadistamine",
+    "subtitle": "Kohanda lehekülje päises olevat laineanimatsiooni."
+  },
+  "creators": {
+    "eyebrow": "Loojatele",
+    "title": "Ole maja.",
+    "body": "Sea oma vahendustasu. Vali ükskõik milline teema. Juhi turge ühest tunnist ühe aastani. Arveldusfond, hinnasööturid, tulemuse lahendamine — kõik plokiahelas, kõik sinu seadistatav.",
+    "cta": "Loo prognoositurg"
+  },
+  "hero": {
+    "eyebrow": "Bitshares Predictions UI",
+    "title": "Kaubel tulevikuga milles tahes.",
+    "subtitle": "Iga prognoosi hind on reaalajas plokiahela tõenäosus. Vali pool, jälgi kuidas turg paljastab tõe ja arvelda sekunditega — kontot ei pea avama, vahendajat pole.",
+    "ctaPrimary": "Sirvi aktiivseid turge",
+    "ctaSecondary": "Loo turg",
+    "statActive": "{{count}} aktiivset",
+    "statClosing": "{{count}} sulgub 24 h jooksul",
+    "statNew": "{{count}} uut sel nädalal",
+    "loading": "Laen reaalajas turustatistikat…",
+    "scrollForMore": "Keri rohkem"
+  },
+  "howItWorks": {
+    "heading": "Kuidas see töötab",
+    "step1Title": "Leia turg",
+    "step1Body": "Sirvi aktiivseid prognoosituru varasid poliitikas, krüptos, spordis, popkultuuris ja mujal.",
+    "step2Title": "Võta positsioon",
+    "step2Body": "Osta JAH või müü EI. Hinnad peegeldavad turu kaudset tõenäosust tulemuse suhtes.",
+    "step3Title": "Lahenda ja kogu",
+    "step3Body": "Kui turg sulgub, nõuavad võitjad oma osa kaotava poole panusest. Vahendustasu läheb emitendile."
+  },
+  "prediction_markets_active": {
+    "title": "Aktiivsed prognoosid",
+    "subtitle": "Sirvi reaalajas lahendamata prognoosituru varasid.",
+    "hover1": "Vaata prognoosituru varasid, mis on veel aktiivsed ja võtavad panuseid vastu.",
+    "hover2": "Igal prognoosituru varal on unikaalne tasu ja aegumiskuupäev.",
+    "hover3": "Pane mis tahes aktiivse prognoosituru vara tulemusele."
+  },
+  "prediction_markets_expired": {
+    "title": "Aegunud prognoosid",
+    "subtitle": "Sirvi möödunud prognoosituru varasid, mis ootavad lahendamist.",
+    "hover1": "Vaata prognoosituru varasid, mille aegumiskuupäev on möödunud.",
+    "hover2": "Aegunud turud saavad hinnasööturite poolt lahendatud, kui tulemus on teada.",
+    "hover3": "Arvelda oma positsioonid aegunud turgudel, et võita võite välja nõuda."
+  },
+  "prediction_markets_margin": {
+    "title": "Prognoosi marginaal",
+    "subtitle": "Aktiivsed marginaalpositsioonid prognoosituru varadel.",
+    "hover1": "Vaata prognoosituru varasid, kus sul on avatud marginaali (call) positsioon.",
+    "hover2": "Jälgi oma tagatise suhet iga marginaalpositsiooni puhul.",
+    "hover3": "Kohanda või sulge oma prognoosituru marginaalpositsioonid."
+  },
+  "prediction_markets_mine": {
+    "title": "Minu prognoosid",
+    "subtitle": "Prognoosituru varad, mille oled loonud või millega suhelnud.",
+    "hover1": "Vaata kõiki prognoosituru varasid, mille oled plokiahelas loonud.",
+    "hover2": "Lahenda oma aegunud prognoosid või halda nende hinnasöötureid.",
+    "hover3": "Väljasta uuesti või uuenda oma prognoosituru varasid sellest vaatest."
+  },
+  "prediction_markets_portfolio": {
+    "title": "Prognoosi portfell",
+    "subtitle": "Prognoosituru varad sinu kontobilansis.",
+    "hover1": "Vaata kõiki prognoosituru vara tokeneid, mis on praegu sinu bilansis.",
+    "hover2": "Jälgi oma realiseerimata PnL-i kõigi avatud prognoosituru positsioonide lõikes.",
+    "hover3": "Arvelda või müü oma prognoosituru vara tokeneid sellest vaatest."
+  },
+  "quickJump": {
+    "heading": "Hüppa sisse",
+    "active": "Aktiivsed",
+    "activeHint": "Kõik reaalajas lahendamata turud",
+    "closingSoon": "Sulgub varsti",
+    "closingSoonHint": "Lahendatakse järgmise 24 tunni jooksul",
+    "new": "Uus sel nädalal",
+    "newHint": "Värskelt loodud turud",
+    "positions": "Sinu positsioonid",
+    "positionsHint": "Prognoosituru varad, mis sul praegu on",
+    "create": "Loo turg",
+    "createHint": "Ole raamatupidaja, sea oma vahendustasu"
+  },
+  "sections": {
+    "predictionMarkets": "Prognoositurud",
+    "account": "Konto",
+    "moreTools": "Rohkem tööriistu",
+    "settings": "Seaded"
+  },
+  "settlement": {
+    "title": "Smartcoin'i arveldus",
+    "subtitle": "Paku smartcoin'i globaalsete arveldusfondide peale.",
+    "hover1": "Vaata varasid, mis on praegu globaalses arvelduses.",
+    "hover2": "Esita pakkumisi arveldusfondidele nimiväärtusest allahindlusega.",
+    "hover3": "Sunda individuaalsete varade arveldus nende pro-rata osa eest arveldusrahastust."
   }
 }

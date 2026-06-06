@@ -48,7 +48,7 @@
     "hover3": "Les propositions de travailleurs sont votées par la communauté."
   },
   "dex": {
-    "title": "📈 Ordres limités DEX",
+    "title": "Ordres limités DEX",
     "subtitle": "Négociez des actifs sur le Bitshares DEX",
     "hover1": "Créez manuellement des ordres limités.",
     "hover2": "Utilisez n’importe quelle paire de trading d’actifs.",
@@ -77,7 +77,7 @@
     "hover3": "Les actifs mis en jeu peuvent être retirés à tout moment."
   },
   "transfer": {
-    "title": "💸 Transférer des actifs",
+    "title": "Transférer des actifs",
     "subtitle": "Envoyer des actifs à d'autres utilisateurs",
     "hover1": "Transférez des actifs à n'importe qui sur la blockchain Bitshares en quelques secondes."
   },
@@ -144,14 +144,14 @@
     "hover3": "Analysez l’activité récente de votre compte."
   },
   "portfolio_balances": {
-    "title": "📊 Soldes des comptes",
+    "title": "Soldes des comptes",
     "subtitle": "Consultez vos soldes liquides et les actions associées",
     "hover1": "Triez les soldes par défaut, par ordre alphabétique ou par montant.",
     "hover2": "Liens rapides vers des informations sur le commerce et les actifs.",
     "hover3": "Voir les pools de liquidités associés."
   },
   "portfolio_open_orders": {
-    "title": "🧾 Commandes ouvertes",
+    "title": "Commandes ouvertes",
     "subtitle": "Examinez et gérez vos commandes DEX ouvertes",
     "hover1": "Accédez directement à la paire de marché.",
     "hover2": "Mettre à jour ou annuler une commande.",
@@ -165,7 +165,7 @@
     "hover3": "Ouvrez les détails complets de l'activité."
   },
   "favourites": {
-    "title": "⭐ Vos favoris",
+    "title": "Vos favoris",
     "subtitle": "Accédez rapidement à vos actifs et comptes favoris",
     "hover1": "Ajoutez les éléments qui vous intéressent pour les regarder au même endroit.",
     "hover2": "Suivez vos comptes préférés pour une référence rapide."
@@ -216,7 +216,7 @@
     "hover3": "Moyennes et totaux résumés des données blockchain."
   },
   "create_prediction": {
-    "title": "🔮 Actif du marché de prédiction",
+    "title": "Actif du marché de prédiction",
     "subtitle": "Créer un pari sur n'importe quoi",
     "hover1": "Créez des paris sur littéralement n'importe quoi.",
     "hover2": "Soyez le bookmaker et fixez votre propre commission.",
@@ -274,13 +274,13 @@
     "hover4": "Les membres à vie peuvent gagner grâce au système de parrainage."
   },
   "nodes": {
-    "title": "🌐 Nœuds",
+    "title": "Nœuds",
     "subtitle": "Configuration du nœud blockchain",
     "hover1": "Connectez-vous à un nœud Bitshares de votre choix.",
     "hover2": "Ajoutez/supprimez des nœuds à votre liste de connexions."
   },
   "create_account": {
-    "title": "🆕 Créer un compte",
+    "title": "Créer un compte",
     "subtitle": "Créez un nouveau compte de portefeuille Cloud sur la blockchain BitShares.",
     "hover1": "Créez un compte gratuit à l'aide d'un robinet public.",
     "hover2": "Générez un compte premium à l'aide d'un compte LTM existant."
@@ -373,9 +373,107 @@
     "subtitle": "Construit avec les dernières technologies, conçu pour une utilisation facile !"
   },
   "about": {
-    "title": "ℹ️ About",
+    "title": "About",
     "subtitle": "Learn more about the features",
     "hover1": "View the features of the platform.",
     "hover2": "Learn about the supported blockchains, wallets and languages."
+  },
+  "blocked_users": {
+    "title": "Utilisateurs bloqués",
+    "subtitle": "Consultez les comptes bloqués et gérez votre liste de blocage personnelle",
+    "hover1": "Voyez combien de comptes le comité a actuellement bloqués.",
+    "hover2": "Ajoutez des comptes à votre liste de blocage personnelle pour les retrouver rapidement."
+  },
+  "configure_visuals": {
+    "title": "Configurer les visuels",
+    "subtitle": "Personnalisez l'animation de vague dans l'en-tête de page."
+  },
+  "creators": {
+    "eyebrow": "Pour les créateurs",
+    "title": "Soyez la maison.",
+    "body": "Fixez votre propre commission. Choisissez n'importe quel sujet. Gérez des marchés d'une heure à un an. Le fonds de règlement, les fournisseurs de prix, la résolution — tout sur la chaîne, tout configurable par vous.",
+    "cta": "Créer un marché de prédictions"
+  },
+  "hero": {
+    "eyebrow": "Bitshares Predictions UI",
+    "title": "Tradez l'avenir de tout.",
+    "subtitle": "Le prix de chaque prédiction est une probabilité en direct sur la chaîne. Choisissez un camp, regardez le marché révéler la vérité et réglez en quelques secondes — pas de déverrouillage de compte, pas d'intermédiaire.",
+    "ctaPrimary": "Parcourir les marchés actifs",
+    "ctaSecondary": "Créer un marché",
+    "statActive": "{{count}} actifs",
+    "statClosing": "{{count}} ferment dans 24 h",
+    "statNew": "{{count}} nouveaux cette semaine",
+    "loading": "Chargement des statistiques du marché en direct…",
+    "scrollForMore": "Faites défiler pour plus"
+  },
+  "howItWorks": {
+    "heading": "Comment ça marche",
+    "step1Title": "Trouvez un marché",
+    "step1Body": "Parcourez les actifs de marchés de prédictions actifs sur la politique, la crypto, le sport, la pop culture et plus encore.",
+    "step2Title": "Prenez une position",
+    "step2Body": "Achetez OUI ou vendez NON. Les prix reflètent la probabilité implicite du résultat sur le marché.",
+    "step3Title": "Résolvez et encaissez",
+    "step3Body": "Lorsque le marché se ferme, les gagnants réclament leur part de la mise du camp perdant. La commission va à l'émetteur."
+  },
+  "prediction_markets_active": {
+    "title": "Prédictions actives",
+    "subtitle": "Parcourez les actifs de marchés de prédictions en direct non résolus.",
+    "hover1": "Consultez les actifs de marchés de prédictions encore actifs et qui acceptent les paris.",
+    "hover2": "Chaque actif de marché de prédictions a des frais et une date d'expiration uniques.",
+    "hover3": "Pariez sur le résultat de n'importe quel actif de marché de prédictions actif."
+  },
+  "prediction_markets_expired": {
+    "title": "Prédictions expirées",
+    "subtitle": "Parcourez les actifs de marchés de prédictions passés en attente de résolution.",
+    "hover1": "Consultez les actifs de marchés de prédictions dont la date d'expiration est dépassée.",
+    "hover2": "Les marchés expirés peuvent être résolus par les fournisseurs de prix une fois le résultat connu.",
+    "hover3": "Réglez vos positions sur les marchés expirés pour réclamer vos gains."
+  },
+  "prediction_markets_margin": {
+    "title": "Marge de prédiction",
+    "subtitle": "Positions de marge actives sur les actifs de marchés de prédictions.",
+    "hover1": "Consultez les actifs de marchés de prédictions sur lesquels vous avez une position de marge (call) ouverte.",
+    "hover2": "Surveillez votre ratio de garantie pour chaque position de marge.",
+    "hover3": "Ajustez ou fermez vos positions de marge sur les marchés de prédictions."
+  },
+  "prediction_markets_mine": {
+    "title": "Mes prédictions",
+    "subtitle": "Actifs de marchés de prédictions que vous avez créés ou avec lesquels vous avez interagi.",
+    "hover1": "Consultez tous les actifs de marchés de prédictions que vous avez créés sur la blockchain.",
+    "hover2": "Résolvez vos prédictions expirées ou gérez leurs fournisseurs de prix.",
+    "hover3": "Réémettez ou mettez à jour vos actifs de marchés de prédictions depuis cette vue."
+  },
+  "prediction_markets_portfolio": {
+    "title": "Portefeuille de prédictions",
+    "subtitle": "Actifs de marchés de prédictions dans le solde de votre compte.",
+    "hover1": "Consultez tous les jetons d'actifs de marchés de prédictions actuellement détenus dans votre solde.",
+    "hover2": "Suivez votre PnL non réalisé sur toutes les positions ouvertes des marchés de prédictions.",
+    "hover3": "Réglez ou vendez vos jetons d'actifs de marchés de prédictions depuis cette vue."
+  },
+  "quickJump": {
+    "heading": "Lancez-vous",
+    "active": "Actifs",
+    "activeHint": "Tous les marchés en direct non résolus",
+    "closingSoon": "Bientôt fermés",
+    "closingSoonHint": "Résolution dans les prochaines 24 heures",
+    "new": "Nouveaux cette semaine",
+    "newHint": "Marchés fraîchement créés",
+    "positions": "Vos positions",
+    "positionsHint": "Actifs de marchés de prédictions que vous détenez actuellement",
+    "create": "Créer un marché",
+    "createHint": "Soyez le bookmaker, fixez votre commission"
+  },
+  "sections": {
+    "predictionMarkets": "Marchés de prédictions",
+    "account": "Compte",
+    "moreTools": "Plus d'outils",
+    "settings": "Paramètres"
+  },
+  "settlement": {
+    "title": "Règlement de smartcoin",
+    "subtitle": "Enchérissez sur les fonds de règlement globaux de smartcoin.",
+    "hover1": "Consultez les actifs actuellement en règlement global.",
+    "hover2": "Faites des offres sur les fonds de règlement avec une décote par rapport à la valeur nominale.",
+    "hover3": "Forcez le règlement d'actifs individuels pour leur part proportionnelle du pool de règlement."
   }
 }

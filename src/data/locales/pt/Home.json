@@ -48,7 +48,7 @@
     "hover3": "As propostas de trabalhadores são votadas pela comunidade."
   },
   "dex": {
-    "title": "📈 Pedidos com limite DEX",
+    "title": "Pedidos com limite DEX",
     "subtitle": "Negocie ativos no Bitshares DEX",
     "hover1": "Crie pedidos com limite manualmente.",
     "hover2": "Use qualquer par de negociação de ativos.",
@@ -77,7 +77,7 @@
     "hover3": "Os ativos apostados podem ser retirados a qualquer momento."
   },
   "transfer": {
-    "title": "💸 Transferir ativos",
+    "title": "Transferir ativos",
     "subtitle": "Envie ativos para outros usuários",
     "hover1": "Transfira ativos para qualquer pessoa na blockchain Bitshares em segundos."
   },
@@ -144,14 +144,14 @@
     "hover3": "Analise a atividade recente da sua conta."
   },
   "portfolio_balances": {
-    "title": "📊 Saldos de contas",
+    "title": "Saldos de contas",
     "subtitle": "Veja seus saldos líquidos e ações relacionadas",
     "hover1": "Classifique os saldos por padrão, ordem alfabética ou valor.",
     "hover2": "Links rápidos para informações comerciais e de ativos.",
     "hover3": "Veja pools de liquidez relacionados."
   },
   "portfolio_open_orders": {
-    "title": "🧾 Pedidos abertos",
+    "title": "Pedidos abertos",
     "subtitle": "Revise e gerencie seus pedidos DEX abertos",
     "hover1": "Vá direto para o par de mercado.",
     "hover2": "Atualize ou cancele um pedido.",
@@ -165,7 +165,7 @@
     "hover3": "Abra detalhes completos da atividade."
   },
   "favourites": {
-    "title": "⭐ Seus favoritos",
+    "title": "Seus favoritos",
     "subtitle": "Acesse rapidamente ativos e contas favoritas",
     "hover1": "Adicione ativos de seu interesse para assisti-los em um só lugar.",
     "hover2": "Acompanhe suas contas favoritas para referência rápida."
@@ -216,7 +216,7 @@
     "hover3": "Médias e totais resumidos de dados de blockchain."
   },
   "create_prediction": {
-    "title": "🔮 Previsão de ativos de mercado",
+    "title": "Previsão de ativos de mercado",
     "subtitle": "Crie uma aposta sobre qualquer coisa",
     "hover1": "Crie apostas sobre literalmente qualquer coisa.",
     "hover2": "Seja o agenciador de apostas e defina sua própria comissão.",
@@ -274,13 +274,13 @@
     "hover4": "Membros vitalícios podem ganhar por meio do sistema de indicação."
   },
   "nodes": {
-    "title": "🌐 Nós",
+    "title": "Nós",
     "subtitle": "Configuração do nó Blockchain",
     "hover1": "Conecte-se a um nó Bitshares de sua escolha.",
     "hover2": "Adicione/remova nós à sua lista de conexões."
   },
   "create_account": {
-    "title": "🆕 Crie conta",
+    "title": "Crie conta",
     "subtitle": "Crie uma nova conta de carteira em nuvem na blockchain Bitshares.",
     "hover1": "Crie uma conta gratuita usando uma torneira pública.",
     "hover2": "Gere uma conta premium usando uma conta LTM existente."
@@ -373,9 +373,107 @@
     "subtitle": "Construído com a mais recente tecnologia, projetado para facilidade de uso!"
   },
   "about": {
-    "title": "ℹ️ About",
+    "title": "About",
     "subtitle": "Learn more about the features",
     "hover1": "View the features of the platform.",
     "hover2": "Learn about the supported blockchains, wallets and languages."
+  },
+  "blocked_users": {
+    "title": "Usuários bloqueados",
+    "subtitle": "Veja contas bloqueadas e gerencie sua lista de bloqueio pessoal",
+    "hover1": "Veja quantas contas o comitê bloqueou atualmente.",
+    "hover2": "Adicione contas à sua lista de bloqueio pessoal para referência rápida."
+  },
+  "configure_visuals": {
+    "title": "Configurar visuais",
+    "subtitle": "Personalize a animação de onda no cabeçalho da página."
+  },
+  "creators": {
+    "eyebrow": "Para criadores",
+    "title": "Seja a casa.",
+    "body": "Defina sua própria comissão. Escolha qualquer tema. Opere mercados de uma hora a um ano. O fundo de liquidação, os provedores de preço, a resolução — tudo on-chain, tudo configurável por você.",
+    "cta": "Criar um mercado de previsões"
+  },
+  "hero": {
+    "eyebrow": "Bitshares Predictions UI",
+    "title": "Negocie o futuro de qualquer coisa.",
+    "subtitle": "O preço de cada previsão é uma probabilidade ao vivo on-chain. Escolha um lado, veja o mercado revelar a verdade e liquide em segundos — sem desbloqueio de conta, sem intermediário.",
+    "ctaPrimary": "Explorar mercados ativos",
+    "ctaSecondary": "Criar um mercado",
+    "statActive": "{{count}} ativos",
+    "statClosing": "{{count}} fecham em 24 h",
+    "statNew": "{{count}} novos esta semana",
+    "loading": "Carregando estatísticas ao vivo do mercado…",
+    "scrollForMore": "Role para ver mais"
+  },
+  "howItWorks": {
+    "heading": "Como funciona",
+    "step1Title": "Encontre um mercado",
+    "step1Body": "Explore ativos de mercados de previsões ativos sobre política, cripto, esportes, cultura pop e muito mais.",
+    "step2Title": "Tome uma posição",
+    "step2Body": "Compre SIM ou venda NÃO. Os preços refletem a probabilidade implícita do mercado para o resultado.",
+    "step3Title": "Resolva e colete",
+    "step3Body": "Quando o mercado fecha, os vencedores reivindicam sua parte da aposta do lado perdedor. A comissão vai para o emissor."
+  },
+  "prediction_markets_active": {
+    "title": "Previsões ativas",
+    "subtitle": "Explore ativos de mercados de previsões ao vivo e não resolvidos.",
+    "hover1": "Veja ativos de mercados de previsões que ainda estão ativos e aceitando apostas.",
+    "hover2": "Cada ativo de mercado de previsões tem uma taxa e data de expiração únicas.",
+    "hover3": "Aposte no resultado de qualquer ativo de mercado de previsões ativo."
+  },
+  "prediction_markets_expired": {
+    "title": "Previsões expiradas",
+    "subtitle": "Explore ativos de mercados de previsões passados aguardando resolução.",
+    "hover1": "Veja ativos de mercados de previsões cuja data de expiração já passou.",
+    "hover2": "Mercados expirados podem ser resolvidos pelos provedores de preço assim que o resultado for conhecido.",
+    "hover3": "Liquide suas posições em mercados expirados para reivindicar ganhos."
+  },
+  "prediction_markets_margin": {
+    "title": "Margem de previsão",
+    "subtitle": "Posições de margem ativas em ativos de mercados de previsões.",
+    "hover1": "Veja ativos de mercados de previsões em que você tem uma posição de margem (call) aberta.",
+    "hover2": "Monitore sua proporção de garantia para cada posição de margem.",
+    "hover3": "Ajuste ou feche suas posições de margem em mercados de previsões."
+  },
+  "prediction_markets_mine": {
+    "title": "Minhas previsões",
+    "subtitle": "Ativos de mercados de previsões que você criou ou com os quais interagiu.",
+    "hover1": "Veja todos os ativos de mercados de previsões que você criou na blockchain.",
+    "hover2": "Resolva suas previsões expiradas ou gerencie seus provedores de preço.",
+    "hover3": "Reemita ou atualize seus ativos de mercados de previsões desta visualização."
+  },
+  "prediction_markets_portfolio": {
+    "title": "Carteira de previsões",
+    "subtitle": "Ativos de mercados de previsões no saldo da sua conta.",
+    "hover1": "Veja todos os tokens de ativos de mercados de previsões atualmente mantidos no seu saldo.",
+    "hover2": "Acompanhe seu PnL não realizado em todas as posições abertas de mercados de previsões.",
+    "hover3": "Liquide ou venda seus tokens de ativos de mercados de previsões desta visualização."
+  },
+  "quickJump": {
+    "heading": "Mergulhe",
+    "active": "Ativos",
+    "activeHint": "Todos os mercados ao vivo não resolvidos",
+    "closingSoon": "Fechando em breve",
+    "closingSoonHint": "Resolvem nas próximas 24 horas",
+    "new": "Novos esta semana",
+    "newHint": "Mercados recém-criados",
+    "positions": "Suas posições",
+    "positionsHint": "Ativos de mercados de previsões que você possui atualmente",
+    "create": "Criar um mercado",
+    "createHint": "Seja o bookmaker, defina sua comissão"
+  },
+  "sections": {
+    "predictionMarkets": "Mercados de previsões",
+    "account": "Conta",
+    "moreTools": "Mais ferramentas",
+    "settings": "Configurações"
+  },
+  "settlement": {
+    "title": "Liquidação de smartcoin",
+    "subtitle": "Dê lances nos fundos de liquidação global de smartcoin.",
+    "hover1": "Veja ativos que estão atualmente em liquidação global.",
+    "hover2": "Faça lances nos fundos de liquidação com desconto sobre o valor nominal.",
+    "hover3": "Force a liquidação de ativos individuais por sua parte proporcional do pool de liquidação."
   }
 }

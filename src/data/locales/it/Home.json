@@ -48,7 +48,7 @@
     "hover3": "Le proposte dei lavoratori sono votate dalla comunità."
   },
   "dex": {
-    "title": "📈 Ordini con limite DEX",
+    "title": "Ordini con limite DEX",
     "subtitle": "Scambia asset su Bitshares DEX",
     "hover1": "Crea manualmente ordini limite.",
     "hover2": "Utilizza qualsiasi coppia di asset trading.",
@@ -77,7 +77,7 @@
     "hover3": "Il patrimonio investito può essere ritirato in qualsiasi momento."
   },
   "transfer": {
-    "title": "💸 Trasferisci beni",
+    "title": "Trasferisci beni",
     "subtitle": "Invia risorse ad altri utenti",
     "hover1": "Trasferisci risorse a chiunque sulla blockchain di Bitshares in pochi secondi."
   },
@@ -144,14 +144,14 @@
     "hover3": "Analizza l'attività recente del tuo account."
   },
   "portfolio_balances": {
-    "title": "📊 Saldi dei conti",
+    "title": "Saldi dei conti",
     "subtitle": "Visualizza i tuoi saldi liquidi e le azioni correlate",
     "hover1": "Ordina i saldi per impostazione predefinita, in ordine alfabetico o per importo.",
     "hover2": "Collegamenti rapidi alle informazioni sugli scambi e sugli asset.",
     "hover3": "Vedi i pool di liquidità correlati."
   },
   "portfolio_open_orders": {
-    "title": "🧾 Ordini Aperti",
+    "title": "Ordini Aperti",
     "subtitle": "Rivedi e gestisci i tuoi ordini DEX aperti",
     "hover1": "Vai direttamente alla coppia di mercato.",
     "hover2": "Aggiorna o annulla un ordine.",
@@ -165,7 +165,7 @@
     "hover3": "Apri i dettagli completi dell'attività."
   },
   "favourites": {
-    "title": "⭐ I tuoi preferiti",
+    "title": "I tuoi preferiti",
     "subtitle": "Accedi rapidamente alle risorse e agli account preferiti",
     "hover1": "Aggiungi le risorse che ti interessano per guardarle in un unico posto.",
     "hover2": "Tieni traccia dei tuoi account preferiti per una rapida consultazione."
@@ -216,7 +216,7 @@
     "hover3": "Medie e totali riepilogativi dei dati blockchain."
   },
   "create_prediction": {
-    "title": "🔮 Asset di mercato di previsione",
+    "title": "Asset di mercato di previsione",
     "subtitle": "Crea una scommessa su qualsiasi cosa",
     "hover1": "Crea scommesse letteralmente su qualsiasi cosa.",
     "hover2": "Diventa il bookmaker e stabilisci la tua commissione.",
@@ -274,13 +274,13 @@
     "hover4": "I membri a vita possono guadagnare attraverso il sistema di riferimento."
   },
   "nodes": {
-    "title": "🌐 Nodi",
+    "title": "Nodi",
     "subtitle": "Configurazione del nodo blockchain",
     "hover1": "Connettiti a un nodo Bitshares di tua scelta.",
     "hover2": "Aggiungi/rimuovi nodi all'elenco delle connessioni."
   },
   "create_account": {
-    "title": "🆕 Crea account",
+    "title": "Crea account",
     "subtitle": "Crea un nuovo account di portafoglio cloud sulla blockchain BitShares.",
     "hover1": "Crea un account gratuito utilizzando un rubinetto pubblico.",
     "hover2": "Genera un account premium utilizzando un account LTM esistente."
@@ -373,9 +373,107 @@
     "subtitle": "Costruito con la tecnologia più recente, progettato per la facilità d'uso!"
   },
   "about": {
-    "title": "ℹ️ About",
+    "title": "About",
     "subtitle": "Learn more about the features",
     "hover1": "View the features of the platform.",
     "hover2": "Learn about the supported blockchains, wallets and languages."
+  },
+  "blocked_users": {
+    "title": "Utenti bloccati",
+    "subtitle": "Visualizza gli account bloccati e gestisci la tua lista di blocco personale",
+    "hover1": "Vedi quanti account il comitato ha attualmente bloccato.",
+    "hover2": "Aggiungi account alla tua lista di blocco personale per un rapido riferimento."
+  },
+  "configure_visuals": {
+    "title": "Configura gli elementi visivi",
+    "subtitle": "Personalizza l'animazione delle onde nell'intestazione della pagina."
+  },
+  "creators": {
+    "eyebrow": "Per i creatori",
+    "title": "Sii la casa.",
+    "body": "Imposta la tua commissione. Scegli qualsiasi argomento. Gestisci mercati da un'ora a un anno. Il fondo di regolamento, i fornitori di prezzo, la risoluzione — tutto on-chain, tutto configurabile da te.",
+    "cta": "Crea un mercato di predizioni"
+  },
+  "hero": {
+    "eyebrow": "Bitshares Predictions UI",
+    "title": "Fai trading sul futuro di qualsiasi cosa.",
+    "subtitle": "Il prezzo di ogni predizione è una probabilità live on-chain. Scegli una parte, guarda il mercato rivelare la verità e regola in pochi secondi — nessuno sblocco dell'account, nessun intermediario.",
+    "ctaPrimary": "Sfoglia i mercati attivi",
+    "ctaSecondary": "Crea un mercato",
+    "statActive": "{{count}} attivi",
+    "statClosing": "{{count}} chiudono tra 24 ore",
+    "statNew": "{{count}} nuovi questa settimana",
+    "loading": "Caricamento delle statistiche di mercato in tempo reale…",
+    "scrollForMore": "Scorri per altro"
+  },
+  "howItWorks": {
+    "heading": "Come funziona",
+    "step1Title": "Trova un mercato",
+    "step1Body": "Sfoglia gli asset dei mercati di predizioni attivi su politica, crypto, sport, cultura pop e altro ancora.",
+    "step2Title": "Prendi una posizione",
+    "step2Body": "Compra SÌ o vendi NO. I prezzi riflettono la probabilità implicita del mercato sull'esito.",
+    "step3Title": "Risolvi e incassa",
+    "step3Body": "Quando il mercato si chiude, i vincitori rivendicano la loro quota della puntata della parte perdente. La commissione va all'emittente."
+  },
+  "prediction_markets_active": {
+    "title": "Predizioni attive",
+    "subtitle": "Sfoglia asset dei mercati di predizioni in tempo reale non risolti.",
+    "hover1": "Visualizza gli asset dei mercati di predizioni ancora attivi e che accettano scommesse.",
+    "hover2": "Ogni asset del mercato di predizioni ha una commissione e una data di scadenza uniche.",
+    "hover3": "Scommetti sull'esito di qualsiasi asset del mercato di predizioni attivo."
+  },
+  "prediction_markets_expired": {
+    "title": "Predizioni scadute",
+    "subtitle": "Sfoglia asset dei mercati di predizioni passati in attesa di risoluzione.",
+    "hover1": "Visualizza gli asset dei mercati di predizioni la cui data di scadenza è passata.",
+    "hover2": "I mercati scaduti possono essere risolti dai fornitori di prezzo una volta noto l'esito.",
+    "hover3": "Regola le tue posizioni sui mercati scaduti per rivendicare le vincite."
+  },
+  "prediction_markets_margin": {
+    "title": "Margine di predizione",
+    "subtitle": "Posizioni di margine attive sugli asset dei mercati di predizioni.",
+    "hover1": "Visualizza gli asset dei mercati di predizioni su cui hai una posizione di margine (call) aperta.",
+    "hover2": "Monitora il tuo rapporto di garanzia per ciascuna posizione di margine.",
+    "hover3": "Regola o chiudi le tue posizioni di margine nei mercati di predizioni."
+  },
+  "prediction_markets_mine": {
+    "title": "Le mie predizioni",
+    "subtitle": "Asset dei mercati di predizioni che hai creato o con cui hai interagito.",
+    "hover1": "Visualizza tutti gli asset dei mercati di predizioni che hai creato sulla blockchain.",
+    "hover2": "Risolvi le tue predizioni scadute o gestisci i loro fornitori di prezzo.",
+    "hover3": "Riemetti o aggiorna i tuoi asset dei mercati di predizioni da questa vista."
+  },
+  "prediction_markets_portfolio": {
+    "title": "Portafoglio predizioni",
+    "subtitle": "Asset dei mercati di predizioni nel saldo del tuo account.",
+    "hover1": "Visualizza tutti i token degli asset dei mercati di predizioni attualmente detenuti nel tuo saldo.",
+    "hover2": "Monitora il tuo PnL non realizzato su tutte le posizioni aperte nei mercati di predizioni.",
+    "hover3": "Regola o vendi i tuoi token degli asset dei mercati di predizioni da questa vista."
+  },
+  "quickJump": {
+    "heading": "Tuffati dentro",
+    "active": "Attivi",
+    "activeHint": "Tutti i mercati live non risolti",
+    "closingSoon": "In chiusura",
+    "closingSoonHint": "Si risolvono nelle prossime 24 ore",
+    "new": "Nuovi questa settimana",
+    "newHint": "Mercati appena creati",
+    "positions": "Le tue posizioni",
+    "positionsHint": "Asset dei mercati di predizioni che detieni attualmente",
+    "create": "Crea un mercato",
+    "createHint": "Sii il bookmaker, imposta la tua commissione"
+  },
+  "sections": {
+    "predictionMarkets": "Mercati di predizioni",
+    "account": "Account",
+    "moreTools": "Altri strumenti",
+    "settings": "Impostazioni"
+  },
+  "settlement": {
+    "title": "Regolamento smartcoin",
+    "subtitle": "Fai offerte sui fondi di regolamento globali smartcoin.",
+    "hover1": "Visualizza gli asset attualmente in regolamento globale.",
+    "hover2": "Fai offerte sui fondi di regolamento a sconto rispetto al valore nominale.",
+    "hover3": "Forza il regolamento di asset individuali per la loro quota proporzionale del pool di regolamento."
   }
 }

@@ -48,7 +48,7 @@
     "hover3": "노동자 제안은 지역 사회에서 투표합니다."
   },
   "dex": {
-    "title": "📈 DEX 제한 주문",
+    "title": "DEX 제한 주문",
     "subtitle": "Bitshares DEX에서 자산을 거래하세요",
     "hover1": "수동으로 지정가 주문을 제작합니다.",
     "hover2": "자산 거래 쌍을 사용하십시오.",
@@ -77,7 +77,7 @@
     "hover3": "스테이킹된 자산은 언제든지 출금될 수 있습니다."
   },
   "transfer": {
-    "title": "💸 자산 양도",
+    "title": "자산 양도",
     "subtitle": "다른 사용자에게 자산 보내기",
     "hover1": "몇 초 만에 Bitshares 블록체인의 누구에게나 자산을 전송할 수 있습니다."
   },
@@ -144,14 +144,14 @@
     "hover3": "최근 계정 활동을 분석하세요."
   },
   "portfolio_balances": {
-    "title": "📊 계정 잔액",
+    "title": "계정 잔액",
     "subtitle": "액체 잔액 및 관련 작업을 봅니다.",
     "hover1": "기본, 알파벳순 또는 금액별로 잔액을 정렬합니다.",
     "hover2": "거래 및 자산 정보에 대한 빠른 링크입니다.",
     "hover3": "관련 유동성 풀을 참조하세요."
   },
   "portfolio_open_orders": {
-    "title": "🧾 공개 주문",
+    "title": "공개 주문",
     "subtitle": "공개 DEX 주문 검토 및 관리",
     "hover1": "시장 쌍으로 바로 이동하십시오.",
     "hover2": "주문을 업데이트하거나 취소합니다.",
@@ -165,7 +165,7 @@
     "hover3": "전체 활동 세부정보를 엽니다."
   },
   "favourites": {
-    "title": "⭐ 즐겨찾기",
+    "title": "즐겨찾기",
     "subtitle": "즐겨찾는 자산 및 계정에 빠르게 액세스하세요",
     "hover1": "관심 있는 자산을 추가하여 한 곳에서 시청하세요.",
     "hover2": "빠른 참조를 위해 즐겨찾는 계정을 추적하세요."
@@ -216,7 +216,7 @@
     "hover3": "요약된 블록체인 데이터 평균 및 합계입니다."
   },
   "create_prediction": {
-    "title": "🔮 예측 시장 자산",
+    "title": "예측 시장 자산",
     "subtitle": "무엇이든 내기를 걸어보세요",
     "hover1": "말 그대로 무엇이든 베팅하세요.",
     "hover2": "마권업자가 되어 자신만의 커미션을 설정하세요.",
@@ -274,13 +274,13 @@
     "hover4": "평생 회원은 추천 시스템을 통해 수익을 올릴 수 있습니다."
   },
   "nodes": {
-    "title": "🌐 노드",
+    "title": "노드",
     "subtitle": "블록체인 노드 구성",
     "hover1": "원하는 Bitshares 노드에 연결하세요.",
     "hover2": "연결 목록에 노드를 추가/제거합니다."
   },
   "create_account": {
-    "title": "🆕 계정을 만듭니다",
+    "title": "계정을 만듭니다",
     "subtitle": "Bitshares 블록 체인에 새 클라우드 지갑 계정을 만듭니다.",
     "hover1": "공개 수도꼭지를 사용하여 무료 계정을 만듭니다.",
     "hover2": "기존 LTM 계정을 사용하여 프리미엄 계정을 생성하십시오."
@@ -373,9 +373,107 @@
     "subtitle": "최신 기술로 제작되어 사용하기 쉽도록 설계되었습니다!"
   },
   "about": {
-    "title": "ℹ️ About",
+    "title": "About",
     "subtitle": "Learn more about the features",
     "hover1": "View the features of the platform.",
     "hover2": "Learn about the supported blockchains, wallets and languages."
+  },
+  "blocked_users": {
+    "title": "차단된 사용자",
+    "subtitle": "차단된 계정을 보고 개인 차단 목록을 관리하세요",
+    "hover1": "위원회가 현재 차단한 계정 수를 확인하세요.",
+    "hover2": "빠른 참조를 위해 개인 차단 목록에 계정을 추가하세요."
+  },
+  "configure_visuals": {
+    "title": "비주얼 구성",
+    "subtitle": "페이지 헤더의 파도 애니메이션을 사용자 지정하세요."
+  },
+  "creators": {
+    "eyebrow": "창작자를 위해",
+    "title": "하우스가 되세요.",
+    "body": "수수료를 직접 설정하세요. 원하는 주제를 선택하세요. 1시간에서 1년까지 시장을 운영하세요. 정산 펀드, 가격 피더, 해결 — 모두 온체인, 모두 직접 구성 가능.",
+    "cta": "예측 시장 만들기"
+  },
+  "hero": {
+    "eyebrow": "Bitshares Predictions UI",
+    "title": "모든 것의 미래를 거래하세요.",
+    "subtitle": "모든 예측의 가격은 라이브 온체인 확률입니다. 한쪽을 선택하고, 시장이 진실을 드러내는 것을 지켜보며, 몇 초 만에 정산하세요 — 계정 잠금 해제 없음, 중개자 없음.",
+    "ctaPrimary": "활성 시장 찾아보기",
+    "ctaSecondary": "시장 만들기",
+    "statActive": "활성 {{count}}개",
+    "statClosing": "24시간 내 종료 {{count}}개",
+    "statNew": "이번 주 신규 {{count}}개",
+    "loading": "실시간 시장 통계 불러오는 중…",
+    "scrollForMore": "스크롤하여 더 보기"
+  },
+  "howItWorks": {
+    "heading": "작동 방식",
+    "step1Title": "시장 찾기",
+    "step1Body": "정치, 암호화폐, 스포츠, 대중문화 등에 대한 활성 예측 시장 자산을 찾아보세요.",
+    "step2Title": "포지션 잡기",
+    "step2Body": "YES를 사거나 NO를 파세요. 가격은 결과에 대한 시장의 암묵적 확률을 반영합니다.",
+    "step3Title": "해결 및 수령",
+    "step3Body": "시장이 마감되면 승자가 패자 측 지분 몫을 청구합니다. 수수료는 발행자에게 갑니다."
+  },
+  "prediction_markets_active": {
+    "title": "활성 예측",
+    "subtitle": "라이브 미해결 예측 시장 자산을 찾아보세요.",
+    "hover1": "아직 활성이며 베팅을 수락하는 예측 시장 자산을 봅니다.",
+    "hover2": "각 예측 시장 자산에는 고유한 수수료와 만료 날짜가 있습니다.",
+    "hover3": "활성 예측 시장 자산의 결과에 베팅하세요."
+  },
+  "prediction_markets_expired": {
+    "title": "만료된 예측",
+    "subtitle": "해결 대기 중인 과거 예측 시장 자산을 찾아보세요.",
+    "hover1": "만료 날짜가 지난 예측 시장 자산을 봅니다.",
+    "hover2": "결과가 알려지면 만료된 시장은 가격 피더가 해결할 수 있습니다.",
+    "hover3": "만료된 시장의 포지션을 정산하여 상금을 청구하세요."
+  },
+  "prediction_markets_margin": {
+    "title": "예측 마진",
+    "subtitle": "예측 시장 자산의 활성 마진 포지션.",
+    "hover1": "열린 마진(콜) 포지션이 있는 예측 시장 자산을 봅니다.",
+    "hover2": "각 마진 포지션의 담보 비율을 모니터링하세요.",
+    "hover3": "예측 시장 마진 포지션을 조정하거나 종료하세요."
+  },
+  "prediction_markets_mine": {
+    "title": "내 예측",
+    "subtitle": "생성했거나 상호작용한 예측 시장 자산.",
+    "hover1": "블록체인에서 생성한 모든 예측 시장 자산을 봅니다.",
+    "hover2": "만료된 예측을 해결하거나 가격 피더를 관리하세요.",
+    "hover3": "이 보기에서 예측 시장 자산을 재발행하거나 업데이트하세요."
+  },
+  "prediction_markets_portfolio": {
+    "title": "예측 포트폴리오",
+    "subtitle": "계정 잔액에 있는 예측 시장 자산.",
+    "hover1": "현재 잔액에 보유하고 있는 모든 예측 시장 자산 토큰을 봅니다.",
+    "hover2": "열린 모든 예측 시장 포지션의 미실현 PnL을 추적하세요.",
+    "hover3": "이 보기에서 예측 시장 자산 토큰을 정산하거나 판매하세요."
+  },
+  "quickJump": {
+    "heading": "바로 시작",
+    "active": "활성",
+    "activeHint": "모든 라이브 미해결 시장",
+    "closingSoon": "곧 종료",
+    "closingSoonHint": "다음 24시간 이내에 해결됨",
+    "new": "이번 주 신규",
+    "newHint": "방금 생성된 시장",
+    "positions": "내 포지션",
+    "positionsHint": "현재 보유하고 있는 예측 시장 자산",
+    "create": "시장 만들기",
+    "createHint": "북메이커가 되어 수수료를 설정하세요"
+  },
+  "sections": {
+    "predictionMarkets": "예측 시장",
+    "account": "계정",
+    "moreTools": "더 많은 도구",
+    "settings": "설정"
+  },
+  "settlement": {
+    "title": "스마트코인 정산",
+    "subtitle": "스마트코인 글로벌 정산 펀드에 입찰하세요.",
+    "hover1": "현재 글로벌 정산 중인 자산을 봅니다.",
+    "hover2": "액면가에서 할인된 가격으로 정산 펀드에 입찰하세요.",
+    "hover3": "정산 풀의 비례 몫에 대해 개별 자산을 강제 정산하세요."
   }
 }

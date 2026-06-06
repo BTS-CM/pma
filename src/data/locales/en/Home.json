@@ -48,7 +48,7 @@
     "hover3": "Worker proposals are voted on by the community."
   },
   "dex": {
-    "title": "📈 DEX Limit Orders",
+    "title": "DEX Limit Orders",
     "subtitle": "Trade assets on the Bitshares DEX",
     "hover1": "Manually craft limit orders.",
     "hover2": "Use any asset trading pair.",
@@ -77,7 +77,7 @@
     "hover3": "Staked assets can be withdrawn at any time."
   },
   "transfer": {
-    "title": "💸 Transfer Assets",
+    "title": "Transfer Assets",
     "subtitle": "Send assets to other users",
     "hover1": "Transfer assets to anyone on the Bitshares blockchain in seconds."
   },
@@ -144,14 +144,14 @@
     "hover3": "Analyze your recent account activity."
   },
   "portfolio_balances": {
-    "title": "📊 Account Balances",
+    "title": "Account Balances",
     "subtitle": "View your liquid balances and related actions",
     "hover1": "Sort balances by default, alphabetical, or amount.",
     "hover2": "Quick links to trade and asset info.",
     "hover3": "See related liquidity pools."
   },
   "portfolio_open_orders": {
-    "title": "🧾 Open Orders",
+    "title": "Open Orders",
     "subtitle": "Review and manage your open DEX orders",
     "hover1": "Jump straight to the market pair.",
     "hover2": "Update or cancel an order.",
@@ -165,7 +165,7 @@
     "hover3": "Open full activity details."
   },
   "favourites": {
-    "title": "⭐ Your Favourites",
+    "title": "Your Favourites",
     "subtitle": "Quickly access favourite assets and accounts",
     "hover1": "Add assets you care about to watch them in one place.",
     "hover2": "Track your favourite accounts for quick reference."
@@ -203,35 +203,35 @@
     "hover3": "Force-settle individual assets for their pro-rata share of the settlement pool."
   },
   "prediction_markets_active": {
-    "title": "🎲 Active Predictions",
+    "title": "Active Predictions",
     "subtitle": "Browse live, unresolved prediction market assets.",
     "hover1": "View prediction market assets that are still active and accepting bets.",
     "hover2": "Each prediction market asset has a unique fee and expiry date.",
     "hover3": "Bet on the outcome of any active prediction market asset."
   },
   "prediction_markets_expired": {
-    "title": "⏳ Expired Predictions",
+    "title": "Expired Predictions",
     "subtitle": "Browse past prediction market assets awaiting resolution.",
     "hover1": "View prediction market assets whose expiry date has passed.",
     "hover2": "Expired markets can be resolved by price feeders once the outcome is known.",
     "hover3": "Settle your positions on expired markets to claim winnings."
   },
   "prediction_markets_mine": {
-    "title": "🪪 My Predictions",
+    "title": "My Predictions",
     "subtitle": "Prediction market assets you've created or interacted with.",
     "hover1": "View all prediction market assets you've created on the blockchain.",
     "hover2": "Resolve your expired predictions or manage their price feeders.",
     "hover3": "Re-issue or update your prediction market assets from this view."
   },
   "prediction_markets_portfolio": {
-    "title": "💼 Prediction Portfolio",
+    "title": "Prediction Portfolio",
     "subtitle": "Prediction market assets in your account balance.",
     "hover1": "View all prediction market asset tokens currently held in your balance.",
     "hover2": "Track your unrealised PnL across all open prediction market positions.",
     "hover3": "Settle or sell your prediction market asset tokens from this view."
   },
   "prediction_markets_margin": {
-    "title": "📈 Prediction Margin",
+    "title": "Prediction Margin",
     "subtitle": "Active margin positions on prediction market assets.",
     "hover1": "View prediction market assets where you have an open margin (call) position.",
     "hover2": "Monitor your collateral ratio for each margin position.",
@@ -251,7 +251,7 @@
     "hover3": "Summarized blockchain data averages and totals."
   },
   "create_prediction": {
-    "title": "🔮 Prediction Market Asset",
+    "title": "Prediction Market Asset",
     "subtitle": "Create a bet about anything",
     "hover1": "Create bets about literally anything.",
     "hover2": "Be the bookie and set your own commission.",
@@ -309,25 +309,25 @@
     "hover4": "Lifetime members can earn through the referral system."
   },
   "nodes": {
-    "title": "🌐 Nodes",
+    "title": "Nodes",
     "subtitle": "Blockchain node configuration",
     "hover1": "Connect to a Bitshares node of your choice.",
     "hover2": "Add/remove nodes to your connection list."
   },
   "create_account": {
-    "title": "🆕 Create Account",
+    "title": "Create Account",
     "subtitle": "Create a new cloud wallet account on the BitShares blockchain.",
     "hover1": "Create a free account using a public faucet.",
     "hover2": "Generate a premium account using an existing LTM account."
   },
   "blocked_users": {
-    "title": "🚫 Blocked Users",
+    "title": "Blocked Users",
     "subtitle": "View blocked accounts and manage your personal blocklist",
     "hover1": "See how many accounts the committee has currently blocked.",
     "hover2": "Add accounts to your personal blocklist for quick reference."
   },
   "configure_visuals": {
-    "title": "🎨 Configure Visuals",
+    "title": "Configure Visuals",
     "subtitle": "Customize the wave animation in the page header."
   },
   "invoice_inventory": {
@@ -417,8 +417,54 @@
     "title": "A Next Generation Bitshares Client!",
     "subtitle": "Built with the latest tech, designed for ease of use!"
   },
+  "hero": {
+    "eyebrow": "Bitshares Predictions UI",
+    "title": "Trade on the future of anything.",
+    "subtitle": "The price of every prediction is a live, on-chain probability. Take a side, watch the market reveal the truth, and settle in seconds — no account unlock, no middleman.",
+    "ctaPrimary": "Browse Active Markets",
+    "ctaSecondary": "Create a Market",
+    "statActive": "{{count}} active",
+    "statClosing": "{{count}} closing in 24h",
+    "statNew": "{{count}} new this week",
+    "loading": "Loading live market stats…",
+    "scrollForMore": "Scroll for more"
+  },
+  "quickJump": {
+    "heading": "Jump in",
+    "active": "Active",
+    "activeHint": "All live, unresolved markets",
+    "closingSoon": "Closing soon",
+    "closingSoonHint": "Resolving in the next 24 hours",
+    "new": "New this week",
+    "newHint": "Freshly created markets",
+    "positions": "Your positions",
+    "positionsHint": "Prediction market assets you currently hold",
+    "create": "Create a market",
+    "createHint": "Be the bookie, set your commission"
+  },
+  "creators": {
+    "eyebrow": "For creators",
+    "title": "Be the house.",
+    "body": "Set your own commission. Pick any topic. Run markets from one hour to one year. The settlement fund, the price feeders, the resolution — all on-chain, all yours to configure.",
+    "cta": "Create a prediction market"
+  },
+  "howItWorks": {
+    "heading": "How it works",
+    "step1Title": "Find a market",
+    "step1Body": "Browse active prediction market assets on politics, crypto, sports, pop culture, and more.",
+    "step2Title": "Take a position",
+    "step2Body": "Buy YES or sell NO. Prices reflect the market's implied probability of the outcome.",
+    "step3Title": "Resolve & collect",
+    "step3Body": "When the market closes, winners claim their share of the losing side's stake. Commission goes to the issuer."
+  },
+  "sections": {
+    "predictionMarkets": "Prediction markets",
+    "account": "Account",
+    "moreTools": "More tools",
+    "settings": "Settings"
+  },
   "about": {
-    "title": "ℹ️ About",
+    "title": "About",
     "subtitle": "Learn more about the features",
     "hover1": "View the features of the platform.",
     "hover2": "Learn about the supported blockchains, wallets and languages."
