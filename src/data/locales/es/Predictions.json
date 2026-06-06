@@ -120,5 +120,15 @@
     "outcomeContent": "El resultado de la predicción es que, si la predicción es cierta, los compradores ganan si el precio de liquidación llega a 1. Si la predicción es falsa, los vendedores ganan si el precio de liquidación llega a 0.",
     "true": "Resultado verdadero (los compradores ganan)",
     "false": "Resultado falso (los vendedores ganan)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!"
   }
 }

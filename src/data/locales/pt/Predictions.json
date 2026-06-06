@@ -120,5 +120,15 @@
     "outcomeContent": "O resultado da previsão, se a previsão for verdadeira, os compradores ganham pelo preço de ajuste indo para 1, Se a previsão for falsa, os vendedores ganham pelo preço de ajuste indo para 0.",
     "true": "Resultado verdadeiro (vitória dos compradores)",
     "false": "Resultado falso (vitória dos vendedores)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!"
   }
 }

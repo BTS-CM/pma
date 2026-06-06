@@ -208,13 +208,6 @@
     "hover1": "Vaadake teiste plokiahela kontode pakutud kontotoiminguid teie konto jaoks.",
     "hover2": "Kinnitage või lükkake tagasi kavandatud kontotoimingud."
   },
-  "issued_assets": {
-    "title": "📃 Teie väljastatud varad",
-    "subtitle": "Vaadake kõiki loodud varasid",
-    "hover1": "Vaadake kasutaja väljastatud varasid, ennustusturu varasid, nutikoine ja mittevahetatavaid žetoone!",
-    "hover2": "Muutke plokiahelas loodud varasid.",
-    "hover3": "Soovi korral väljastage loodud varade kogus."
-  },
   "blocks": {
     "title": "💾 Blockchaini andmed",
     "subtitle": "Vaadake uusimaid plokiahela kokkuvõtlikke andmeid",

@@ -120,5 +120,15 @@
     "outcomeContent": "Le résultat de la prédiction, si la prédiction est vraie, les acheteurs gagnent par le prix de règlement passant à 1, si la prédiction est fausse, les vendeurs gagnent par le prix de règlement passant à 0.",
     "true": "Résultat réel (les acheteurs gagnent)",
     "false": "Faux résultat (les vendeurs gagnent)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!"
   }
 }

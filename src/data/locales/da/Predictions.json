@@ -120,5 +120,15 @@
     "outcomeContent": "Resultatet af forudsigelsen, Hvis forudsigelsen er sand, vinder købere ved, at afregningsprisen går til 1, Hvis forudsigelsen er falsk, vinder sælgerne ved, at afregningsprisen går til 0.",
     "true": "Sandt resultat (købere vinder)",
     "false": "Falskt resultat (sælgere vinder)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!"
   }
 }

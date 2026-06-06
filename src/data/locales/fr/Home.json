@@ -208,13 +208,6 @@
     "hover1": "Consultez les opérations de compte proposées effectuées par d'autres comptes blockchain pour votre compte.",
     "hover2": "Approuver ou rejeter les opérations de compte proposées."
   },
-  "issued_assets": {
-    "title": "📃 Vos actifs émis",
-    "subtitle": "Afficher tous les éléments que vous avez créés",
-    "hover1": "Affichez les actifs émis par les utilisateurs, les actifs du marché de prédiction, les smartcoins et les jetons non fongibles !",
-    "hover2": "Modifiez les actifs que vous avez créés sur la blockchain.",
-    "hover3": "Émettez éventuellement une quantité de vos actifs créés."
-  },
   "blocks": {
     "title": "💾 Données blockchain",
     "subtitle": "Afficher les données blockchain résumées les plus récentes",

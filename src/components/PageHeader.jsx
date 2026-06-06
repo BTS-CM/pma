@@ -176,11 +176,6 @@ export default function PageHeader(properties) {
       href: "/favourites/index.html",
       description: "Home:favourites.subtitle",
     },
-    {
-      title: "Home:issued_assets.title",
-      href: "/issued_assets/index.html",
-      description: "Home:issued_assets.subtitle",
-    },
   ];
 
   const settingsHeading = [
@@ -193,6 +188,11 @@ export default function PageHeader(properties) {
       title: "Home:nodes.title",
       href: "/nodes/index.html",
       description: "Home:nodes.subtitle",
+    },
+    {
+      title: "Home:blocked_users.title",
+      href: "/blocked-users/index.html",
+      description: "Home:blocked_users.subtitle",
     },
     {
       title: "Home:create_account.title",

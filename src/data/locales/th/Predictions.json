@@ -120,5 +120,15 @@
     "outcomeContent": "ผลลัพธ์ของการทำนาย หากการทำนายเป็นจริง ผู้ซื้อจะชนะโดยราคาชำระหนี้ไปที่ 1 หากการทำนายเป็นเท็จ ผู้ขายจะชนะโดยราคาชำระดุลไปที่ 0",
     "true": "ผลลัพธ์ที่แท้จริง (ผู้ซื้อชนะ)",
     "false": "ผลลัพธ์เท็จ (ผู้ขายชนะ)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!"
   }
 }

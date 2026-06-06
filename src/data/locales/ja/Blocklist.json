@@ -1,0 +1,12 @@
+{
+  "committeeHeader": "Committee Blocklist",
+  "committeeCount": "{{count}} accounts blocked by the committee",
+  "committeeDescription": "The Bitshares committee maintains a list of accounts that are blocked across the network. These accounts are not displayed here, but the count above reflects how many accounts are currently blocked by the committee. Add accounts below to maintain your own personal blocklist.",
+  "usersHeader": "Your Blocked Users",
+  "addUser": "Add User",
+  "addUserDialogTitle": "Add a user",
+  "addUserDialogDescription": "Search for a Bitshares account to add to your personal blocklist.",
+  "usersEmptyTitle": "No blocked users",
+  "usersEmptyDescription": "Add accounts you want to keep off your transactions list to track them here.",
+  "remove": "Remove"
+}

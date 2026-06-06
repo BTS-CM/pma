@@ -225,5 +225,15 @@
     "outcomeContent": "The outcome of the prediction, If the prediction is true, buyers win by the settlement price going to 1, If the prediction is false, sellers win by the settlement price going to 0.",
     "true": "True outcome (buyers win)",
     "false": "False outcome (sellers win)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!"
   }
 }

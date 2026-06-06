@@ -38,6 +38,7 @@ const pages = [
   "CreateAccount",
   "LimitOrderWizard",
   "Favourites",
+  "Blocklist",
   "InstantTrade",
   "About",
   "Visuals",

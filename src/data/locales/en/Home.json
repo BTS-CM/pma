@@ -243,13 +243,6 @@
     "hover1": "View the proposed account operations made by other blockchain accounts for your account.",
     "hover2": "Approve or reject the proposed account operations."
   },
-  "issued_assets": {
-    "title": "📃 Your Issued Assets",
-    "subtitle": "View all the assets you've created",
-    "hover1": "View user issed assets, prediction market assets, smartcoins and non-fungible tokens!",
-    "hover2": "Edit the assets you've created on the blockchain.",
-    "hover3": "Optionally issue a quantity of your created assets."
-  },
   "blocks": {
     "title": "💾 Blockchain data",
     "subtitle": "View the most recent summarized blockchain data",
@@ -326,6 +319,12 @@
     "subtitle": "Create a new cloud wallet account on the BitShares blockchain.",
     "hover1": "Create a free account using a public faucet.",
     "hover2": "Generate a premium account using an existing LTM account."
+  },
+  "blocked_users": {
+    "title": "🚫 Blocked Users",
+    "subtitle": "View blocked accounts and manage your personal blocklist",
+    "hover1": "See how many accounts the committee has currently blocked.",
+    "hover2": "Add accounts to your personal blocklist for quick reference."
   },
   "configure_visuals": {
     "title": "🎨 Configure Visuals",

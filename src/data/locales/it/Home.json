@@ -208,13 +208,6 @@
     "hover1": "Visualizza le operazioni sull'account proposte effettuate da altri account blockchain per il tuo account.",
     "hover2": "Approvare o rifiutare le operazioni sul conto proposte."
   },
-  "issued_assets": {
-    "title": "📃 I tuoi beni emessi",
-    "subtitle": "Visualizza tutte le risorse che hai creato",
-    "hover1": "Visualizza le risorse emesse dagli utenti, le risorse del mercato di previsione, gli smartcoin e i token non fungibili!",
-    "hover2": "Modifica le risorse che hai creato sulla blockchain.",
-    "hover3": "Facoltativamente, emetti una quantità delle risorse create."
-  },
   "blocks": {
     "title": "💾 Dati blockchain",
     "subtitle": "Visualizza i dati blockchain riepilogativi più recenti",

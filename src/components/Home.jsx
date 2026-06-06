@@ -195,17 +195,6 @@ export default function Home(properties) {
           subtitleKey: "Home:favourites.subtitle",
           hoverKeys: ["Home:favourites.hover1", "Home:favourites.hover2"],
         },
-        {
-          key: "issued_assets",
-          href: "/issued_assets/index.html",
-          titleKey: "Home:issued_assets.title",
-          subtitleKey: "Home:issued_assets.subtitle",
-          hoverKeys: [
-            "Home:issued_assets.hover1",
-            "Home:issued_assets.hover2",
-            "Home:issued_assets.hover3",
-          ],
-        },
       ],
     },
     {
@@ -226,6 +215,16 @@ export default function Home(properties) {
           titleKey: "Home:nodes.title",
           subtitleKey: "Home:nodes.subtitle",
           hoverKeys: ["Home:nodes.hover1", "Home:nodes.hover2"],
+        },
+        {
+          key: "blocked_users",
+          href: "/blocked-users/index.html",
+          titleKey: "Home:blocked_users.title",
+          subtitleKey: "Home:blocked_users.subtitle",
+          hoverKeys: [
+            "Home:blocked_users.hover1",
+            "Home:blocked_users.hover2",
+          ],
         },
         {
           key: "create_account",

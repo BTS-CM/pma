@@ -120,5 +120,15 @@
     "outcomeContent": "Das Ergebnis der Vorhersage: Wenn die Vorhersage wahr ist, gewinnen die Käufer, wenn der Abrechnungspreis auf 1 sinkt. Wenn die Vorhersage falsch ist, gewinnen die Verkäufer, wenn der Abrechnungspreis auf 0 sinkt.",
     "true": "Wahres Ergebnis (Käufer gewinnen)",
     "false": "Falsches Ergebnis (Verkäufer gewinnen)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!"
   }
 }

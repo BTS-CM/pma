@@ -61,12 +61,12 @@ export default function AppSidebar() {
       href: "/open-orders/index.html",
     },
     { title: "Home:favourites.title", href: "/favourites/index.html" },
-    { title: "Home:issued_assets.title", href: "/issued_assets/index.html" },
   ];
 
   const settingsHeading = [
     { title: "Home:about.title", href: "/about/index.html" },
     { title: "Home:nodes.title", href: "/nodes/index.html" },
+    { title: "Home:blocked_users.title", href: "/blocked-users/index.html" },
     { title: "Home:create_account.title", href: "/create_account/index.html" },
   ];
 

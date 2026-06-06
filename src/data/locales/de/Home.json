@@ -208,13 +208,6 @@
     "hover1": "Sehen Sie sich die vorgeschlagenen Kontovorgänge an, die von anderen Blockchain-Konten für Ihr Konto durchgeführt wurden.",
     "hover2": "Genehmigen Sie die vorgeschlagenen Kontovorgänge oder lehnen Sie sie ab."
   },
-  "issued_assets": {
-    "title": "📃 Ihre ausgegebenen Vermögenswerte",
-    "subtitle": "Sehen Sie sich alle von Ihnen erstellten Assets an",
-    "hover1": "Sehen Sie sich von Benutzern bereitgestellte Vermögenswerte, prognostizierte Marktwerte, Smartcoins und nicht fungible Token an!",
-    "hover2": "Bearbeiten Sie die Assets, die Sie in der Blockchain erstellt haben.",
-    "hover3": "Geben Sie optional eine Menge Ihrer erstellten Vermögenswerte aus."
-  },
   "blocks": {
     "title": "💾 Blockchain-Daten",
     "subtitle": "Sehen Sie sich die neuesten zusammengefassten Blockchain-Daten an",

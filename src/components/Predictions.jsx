@@ -85,6 +85,13 @@ import {
 } from "@/components/ui/dialog";
 
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -116,6 +123,7 @@ import {
 } from "@/lib/common.js";
 
 import DeepLinkDialog from "./common/DeepLinkDialog.jsx";
+import JsonDetailsDialog from "./common/JsonDetailsDialog.jsx";
 
 import HoverInfo from "@/components/common/HoverInfo.tsx";
 import {
@@ -874,6 +882,10 @@ export default function Predictions(properties) {
     const [priceFeedOutcome, setPriceFeedOutcome] = useState();
     const [priceFeedDialog, setPriceFeedDialog] = useState(false);
 
+    // JSON detail viewer
+    const [jsonDialogOpen, setJsonDialogOpen] = useState(false);
+    const [jsonPayload, setJsonPayload] = useState(null);
+
     // ----- Safe data lookups -----
     const relevantBitassetData = res
       ? completedPMAs.find((x) => x.id === res.bitasset_data_id)
@@ -1193,6 +1205,50 @@ export default function Predictions(properties) {
                     {t("Predictions:tab.admin")}
                   </Button>
                 ) : null}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-7 text-xs text-muted-foreground"
+                    >
+                      {t("Predictions:json.button")}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-white">
+                    <DropdownMenuItem
+                      className="hover:shadow-inner"
+                      onClick={() => {
+                        setJsonPayload(res);
+                        setJsonDialogOpen(true);
+                      }}
+                    >
+                      {t("Predictions:json.assetData")}
+                    </DropdownMenuItem>
+                    {relevantBitassetData ? (
+                      <DropdownMenuItem
+                        className="hover:shadow-inner"
+                        onClick={() => {
+                          setJsonPayload(relevantBitassetData);
+                          setJsonDialogOpen(true);
+                        }}
+                      >
+                        {t("Predictions:json.bitassetData")}
+                      </DropdownMenuItem>
+                    ) : null}
+                    {_desc ? (
+                      <DropdownMenuItem
+                        className="hover:shadow-inner"
+                        onClick={() => {
+                          setJsonPayload(_desc);
+                          setJsonDialogOpen(true);
+                        }}
+                      >
+                        {t("Predictions:json.descriptionData")}
+                      </DropdownMenuItem>
+                    ) : null}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
 
               {rowView === "overview" ? (
@@ -2949,6 +3005,11 @@ export default function Predictions(properties) {
                 </div>
               ) : null}
             </div>
+            <JsonDetailsDialog
+              open={jsonDialogOpen}
+              onOpenChange={setJsonDialogOpen}
+              data={jsonPayload}
+            />
           </CardContent>
         </Card>
     );

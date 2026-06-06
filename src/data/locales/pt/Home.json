@@ -208,13 +208,6 @@
     "hover1": "Veja as operações de conta propostas feitas por outras contas blockchain para sua conta.",
     "hover2": "Aprovar ou rejeitar as operações de conta propostas."
   },
-  "issued_assets": {
-    "title": "📃 Seus ativos emitidos",
-    "subtitle": "Veja todos os ativos que você criou",
-    "hover1": "Veja ativos emitidos pelo usuário, ativos de mercado de previsão, smartcoins e tokens não fungíveis!",
-    "hover2": "Edite os ativos que você criou no blockchain.",
-    "hover3": "Opcionalmente, emita uma quantidade de seus ativos criados."
-  },
   "blocks": {
     "title": "💾 Dados Blockchain",
     "subtitle": "Veja os dados resumidos mais recentes do blockchain",

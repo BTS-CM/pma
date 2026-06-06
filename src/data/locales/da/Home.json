@@ -208,13 +208,6 @@
     "hover1": "Se de foreslåede kontooperationer foretaget af andre blockchain-konti for din konto.",
     "hover2": "Godkend eller afvis de foreslåede kontooperationer."
   },
-  "issued_assets": {
-    "title": "📃 Dine udstedte aktiver",
-    "subtitle": "Se alle de aktiver, du har oprettet",
-    "hover1": "Se brugerudstedte aktiver, forudsigelige markedsaktiver, smartcoins og ikke-fungible tokens!",
-    "hover2": "Rediger de aktiver, du har oprettet på blockchain.",
-    "hover3": "Udsted eventuelt en mængde af dine oprettede aktiver."
-  },
   "blocks": {
     "title": "💾 Blockchain-data",
     "subtitle": "Se de seneste opsummerede blockchain-data",

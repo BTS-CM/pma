@@ -120,5 +120,15 @@
     "outcomeContent": "Ennustuse tulemus Kui ennustus on tõene, võidavad ostjad kokkuleppehinnaga 1, kui ennustus on vale, võidavad müüjad, kui arveldushind on 0.",
     "true": "Tõeline tulemus (ostjad võidavad)",
     "false": "Vale tulemus (müüjad võidavad)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!"
   }
 }
