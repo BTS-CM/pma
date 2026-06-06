@@ -59,11 +59,12 @@ export default function AssetPermission({
 
   if (alreadyDisabled) {
     return (
-      <span className="grid grid-cols-12 items-center gap-2 pl-3">
+      <span className="grid grid-cols-12">
         <span>
           <Checkbox
             checked={false}
             id={id}
+            className="align-middle mr-2"
             disabled
           />
         </span>
@@ -73,14 +74,14 @@ export default function AssetPermission({
           </MakeHover>
         </span>
         <MakeHover>
-          <InfoCircledIcon className="text-gray-400" />
+          <InfoCircledIcon className="text-gray-400 mt-3" />
         </MakeHover>
       </span>
     );
   }
 
   return (
-    <span className="grid grid-cols-12 items-center gap-2 pl-3">
+    <span className="grid grid-cols-12">
       <span>
         <Checkbox
           onClick={(e) => {
@@ -92,6 +93,7 @@ export default function AssetPermission({
             }
           }}
           id={id}
+          className="align-middle mr-2"
           checked={permission}
         />
       </span>
@@ -101,7 +103,7 @@ export default function AssetPermission({
         </MakeHover>
       </span>
       <MakeHover>
-        <InfoCircledIcon className="text-gray-400" />
+        <InfoCircledIcon className="text-gray-400 mt-3" />
       </MakeHover>
     </span>
   );

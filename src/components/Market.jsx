@@ -36,6 +36,7 @@ import MarketOrderCard from "./Market/MarketOrderCard.jsx";
 import AssetDropDown from "./Market/AssetDropDownCard.jsx";
 import MarketAssetCard from "./Market/MarketAssetCard.jsx";
 import MarketSummaryTabs from "./Market/MarketSummaryTabs.jsx";
+import PoolDialogs from "./Market/PoolDialogs.jsx";
 import ExternalLink from "./common/ExternalLink.jsx";
 
 export default function Market(properties) {
@@ -173,7 +174,6 @@ export default function Market(properties) {
 
   useEffect(() => {
     if (marketHistoryData && !marketHistoryLoading && !marketHistoryError) {
-      console.log({ marketHistoryData });
       setUsrBalances(marketHistoryData.balances);
       setUsrLimitOrders(marketHistoryData.accountLimitOrders);
       setPublicMarketHistory(marketHistoryData.marketHistory);
@@ -624,6 +624,20 @@ export default function Market(properties) {
             </div>
           </div>
         </div>
+
+        {assetA && assetB && assetAData && assetBData ? (
+          <PoolDialogs
+            assetA={assetA}
+            assetAData={assetAData}
+            assetB={assetB}
+            assetBData={assetBData}
+            chain={usr.chain}
+            _assetsBTS={_assetsBTS}
+            _assetsTEST={_assetsTEST}
+            _poolsBTS={_poolsBTS}
+            _poolsTEST={_poolsTEST}
+          />
+        ) : null}
 
         <div className="grid grid-cols-1 gap-5 mt-5">
           {assetAData && assetBData ? (

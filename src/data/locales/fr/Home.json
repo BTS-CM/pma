@@ -467,7 +467,10 @@
     "predictionMarkets": "Marchés de prédictions",
     "account": "Compte",
     "moreTools": "Plus d'outils",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "predictionMarketsSubtitle": "Parcourez, échangez et créez des marchés de prédiction",
+    "accountSubtitle": "Gérez votre portefeuille, vos ordres et vos favoris",
+    "moreToolsSubtitle": "Trading DEX, paramètres et outils"
   },
   "settlement": {
     "title": "Règlement de smartcoin",

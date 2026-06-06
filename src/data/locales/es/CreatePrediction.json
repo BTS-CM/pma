@@ -30,5 +30,12 @@
   },
   "buttons": {
     "submit": "Entregar"
+  },
+  "risks": {
+    "1": "La mala configuración de los activos del mercado de predicción puede llevar a una pobre participación de blockchain, algunas interfaces de usuario pueden filtrar su PMA por completo de la vista, asegúrese de configurar correctamente su PMA, establezca una comisión razonable y pruebe la funcionalidad en testnet primero.",
+    "2": "Cuando crea un activo de mercado de predicción, usted es responsable, como casa, de evaluar adecuadamente el resultado; no hacerlo de manera adecuada o oportuna podría generarle problemas legales o fiscales, además de la pérdida de credibilidad como casa.",
+    "3": "Esta interfaz de usuario y las billeteras Beet/BEETEOS no admiten cuentas con múltiples firmas, por lo que su cuenta doméstica es un punto único de falla a largo plazo: protéjala bien.",
+    "title": "Algunos de los riesgos asociados con la creación de activos de mercado de predicción",
+    "description": "Haga su propia investigación antes de crear una PMA, lea primero los documentos, no el asesoramiento legal."
   }
 }

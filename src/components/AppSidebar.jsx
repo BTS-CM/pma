@@ -26,34 +26,55 @@ export default function AppSidebar() {
 
   const exchangingFundsHeading = [
     { title: "Home:dex.title", href: "/dex/index.html" },
+    { title: "Home:instant_trade.title", href: "/instant_trade/index.html" },
+    { title: "Home:swap.title", href: "/swap/index.html" },
+    { title: "Home:stake.title", href: "/stake/index.html" },
+    { title: "Home:barter.title", href: "/barter/index.html" },
+    { title: "Home:tfund_user.title", href: "/tfund_user/index.html" },
+    { title: "Home:prediction_markets.title", href: "/predictions/index.html" },
+  ];
+
+  const transferFundsHeading = [
+    { title: "Home:transfer.title", href: "/transfer/index.html" },
+    { title: "Home:timed_transfer.title", href: "/timed_transfer/index.html" },
+    { title: "Home:htlc.title", href: "/htlc/index.html" },
     {
-      title: "Home:prediction_markets_active.title",
-      href: "/active-predictions/index.html",
+      title: "Home:withdraw_permission.title",
+      href: "/withdraw_permissions/index.html",
     },
-    {
-      title: "Home:prediction_markets_expired.title",
-      href: "/expired-predictions/index.html",
-    },
-    {
-      title: "Home:prediction_markets_mine.title",
-      href: "/my-predictions/index.html",
-    },
-    {
-      title: "Home:prediction_markets_portfolio.title",
-      href: "/prediction-portfolio/index.html",
-    },
-    {
-      title: "Home:prediction_markets_margin.title",
-      href: "/prediction-margin/index.html",
-    },
-    { title: "Home:dex.title", href: "/order/index.html" },
-    { title: "Home:settlement.title", href: "/settlement/index.html" },
+    { title: "Home:create_vesting.title", href: "/create_vesting/index.html" },
+  ];
+
+  const formsOfDebtHeading = [
+    { title: "Home:borrow.title", href: "/borrow/index.html" },
+    { title: "Home:lend.title", href: "/lend/index.html" },
+    { title: "Home:smartcoins.title", href: "/smartcoins/index.html" },
+    { title: "Home:tfunds.title", href: "/tfunds/index.html" },
+  ];
+
+  const assetCreation = [
     {
       title: "Home:create_prediction.title",
       href: "/create_prediction/index.html",
     },
+    { title: "Home:create_uia.title", href: "/create_uia/index.html" },
+    {
+      title: "Home:create_smartcoin.title",
+      href: "/create_smartcoin/index.html",
+    },
+    {
+      title: "Home:create_liquidity_pool.title",
+      href: "/create_pool/index.html",
+    },
   ];
 
+  /*
+    // Removed for now due to domain issues
+    {
+      title: "Home:portfolio_recent_activity.title",
+      href: "/recent-activity/index.html",
+    },
+  */
   const accountOverviewsHeading = [
     { title: "Home:portfolio_balances.title", href: "/balances/index.html" },
     {
@@ -61,13 +82,60 @@ export default function AppSidebar() {
       href: "/open-orders/index.html",
     },
     { title: "Home:favourites.title", href: "/favourites/index.html" },
+    { title: "Home:issued_assets.title", href: "/issued_assets/index.html" },
+    { title: "Home:offers.title", href: "/offers/index.html" },
+    { title: "Home:deals.title", href: "/deals/index.html" },
+    { title: "Home:vesting.title", href: "/vesting/index.html" },
+    { title: "Home:proposals.title", href: "/proposals/index.html" },
+  ];
+
+  // { title: "Home:featured.title", href: "/featured/index.html" }, // Removed for now
+  const blockchainOverviewsHeading = [
+    { title: "Home:blocks.title", href: "/blocks/index.html" },
+    {
+      title: "Home:custom_pool_tracker.title",
+      href: "/custom_pool_overview/index.html",
+    },
+    { title: "Home:pools.title", href: "/pools/index.html" },
+  ];
+
+  const governanceHeading = [
+    { title: "Home:vote.title", href: "/vote/index.html" },
+    { title: "Home:witnesses.title", href: "/witnesses/index.html" },
+    { title: "Home:committee.title", href: "/committee/index.html" },
+    { title: "Home:governance.title", href: "/governance/index.html" },
+    { title: "Home:create_worker.title", href: "/create_worker/index.html" },
+    { title: "Home:create_ticket.title", href: "/create_ticket/index.html" },
+    {
+      title: "Home:ticket_leaderboard.title",
+      href: "/ticket_leaderboard/index.html",
+    },
   ];
 
   const settingsHeading = [
-    { title: "Home:about.title", href: "/about/index.html" },
+    { title: "Home:accountLists.title", href: "/account_lists/index.html" },
+    { title: "Home:ltm.title", href: "/ltm/index.html" },
     { title: "Home:nodes.title", href: "/nodes/index.html" },
-    { title: "Home:blocked_users.title", href: "/blocked-users/index.html" },
     { title: "Home:create_account.title", href: "/create_account/index.html" },
+  ];
+
+  const invoicingHeading = [
+    {
+      title: "Home:invoice_inventory.title",
+      href: "/invoice_inventory/index.html",
+    },
+    {
+      title: "Home:create_invoice.title",
+      href: "/create_invoice/index.html",
+    },
+    {
+      title: "Home:pay_invoice.title",
+      href: "/pay_invoice/index.html",
+    },
+    {
+      title: "Home:stored_invoices.title",
+      href: "/stored_invoices/index.html",
+    },
   ];
 
   const sections = [
@@ -77,9 +145,39 @@ export default function AppSidebar() {
       items: exchangingFundsHeading,
     },
     {
+      key: "transfer",
+      label: t("PageHeader:transferFundsHeading"),
+      items: transferFundsHeading,
+    },
+    {
+      key: "debt",
+      label: t("PageHeader:formsOfDebtHeading"),
+      items: formsOfDebtHeading,
+    },
+    {
+      key: "assets",
+      label: t("PageHeader:assetCreation"),
+      items: assetCreation,
+    },
+    {
       key: "accounts",
       label: t("PageHeader:accountOverviewsHeading"),
       items: accountOverviewsHeading,
+    },
+    {
+      key: "chain",
+      label: t("PageHeader:blockchainOverviewsHeading"),
+      items: blockchainOverviewsHeading,
+    },
+    {
+      key: "gov",
+      label: t("PageHeader:governanceHeading"),
+      items: governanceHeading,
+    },
+    {
+      key: "invoicing",
+      label: t("PageHeader:invoicingHeading"),
+      items: invoicingHeading,
     },
     {
       key: "settings",
@@ -90,8 +188,14 @@ export default function AppSidebar() {
 
   const groupEmojis = {
     exchanging: "💱",
-    accounts: "👤",
+    transfer: "💸",
+    debt: "🏦",
+    accounts: "📊",
+    chain: "⛓️",
+    assets: "🛠️",
+    gov: "🏛️",
     settings: "⚙️",
+    invoicing: "🏪",
   };
 
   const { openMobile, isMobile } = useSidebar();

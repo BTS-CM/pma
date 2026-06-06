@@ -30,5 +30,12 @@
   },
   "buttons": {
     "submit": "Einreichen"
+  },
+  "risks": {
+    "1": "Eine Fehlkonfiguration der Prognosemarkt-Assets kann zu einer schlechten Blockchain-Teilnahme führen. Einige Benutzeroberflächen filtern Ihren PMA möglicherweise vollständig aus der Ansicht. Stellen Sie sicher, dass Sie Ihren PMA richtig konfigurieren, legen Sie eine angemessene Provisionsgebühr fest und testen Sie die Funktionalität zuerst im Testnet.",
+    "2": "Wenn Sie einen prognostizierten Marktwert erstellen, sind Sie als Haus dafür verantwortlich, das Ergebnis richtig zu bewerten. Wenn Sie dies nicht ordnungsgemäß oder nicht rechtzeitig tun, kann dies zu rechtlichen oder steuerlichen Problemen für Sie führen, zusätzlich zum Verlust der Glaubwürdigkeit als Haus.",
+    "3": "Diese Benutzeroberfläche und die Beet/BEETEOS-Wallets unterstützen keine Multi-Signatur-Konten, daher ist Ihr Hauskonto langfristig ein Single Point of Failure – schützen Sie es gut.",
+    "title": "Einige der Risiken, die mit der Erstellung von Prognosemarkt-Assets verbunden sind",
+    "description": "Machen Sie Ihre eigenen Recherchen, bevor Sie eine PMA erstellen. Lesen Sie zuerst die Dokumente und nicht die Rechtsberatung."
   }
 }

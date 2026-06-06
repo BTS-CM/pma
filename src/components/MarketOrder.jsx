@@ -95,6 +95,7 @@ import { Avatar } from "./Avatar.tsx";
 
 import DeepLinkDialog from "./common/DeepLinkDialog.jsx";
 import ExternalLink from "./common/ExternalLink.jsx";
+import PoolDialogs from "./Market/PoolDialogs.jsx";
 
 export default function MarketOrder(properties) {
   const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
@@ -1538,28 +1539,6 @@ export default function MarketOrder(properties) {
 
           <div className="grid grid-cols-2 gap-5 mt-1">
             <div className="col-span-1">
-              <a
-                href={`/dex/index.html?market=${
-                  quoteAsset ? quoteAsset.symbol : "?"
-                }_${baseAsset ? baseAsset.symbol : "?"}`}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{t("MarketOrder:tradeOnDexTitle")}</CardTitle>
-                    <CardDescription>
-                      {t("MarketOrder:market")}{" "}
-                      {quoteAsset ? quoteAsset.symbol : "?"}/
-                      {baseAsset ? baseAsset.symbol : "?"}
-                      <br />
-                      {t("MarketOrder:createNewLimitOrder")}
-                      <br />
-                      {t("MarketOrder:seekAdditionalMarketData")}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </a>
-            </div>
-            <div className="col-span-1">
               <Card
                 className="mb-3"
                 onClick={() => {
@@ -1598,10 +1577,94 @@ export default function MarketOrder(properties) {
                   ]}
                 />
               ) : null}
+
+              <a
+                href={`/dex/index.html?market=${
+                  quoteAsset ? quoteAsset.symbol : "?"
+                }_${baseAsset ? baseAsset.symbol : "?"}`}
+              >
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{t("MarketOrder:tradeOnDexTitle")}</CardTitle>
+                    <CardDescription>
+                      {t("MarketOrder:market")}{" "}
+                      {quoteAsset ? quoteAsset.symbol : "?"}/
+                      {baseAsset ? baseAsset.symbol : "?"}
+                      <br />
+                      {t("MarketOrder:createNewLimitOrder")}
+                      <br />
+                      {t("MarketOrder:seekAdditionalMarketData")}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </a>
             </div>
+            <Card>
+              <CardHeader className="pb-0">
+                <CardTitle>{t("MarketOrder:borrowAssetsTitle")}</CardTitle>
+                <CardDescription>
+                  {t("MarketOrder:borrowAssetsDescription", {
+                    quoteAsset: quoteAsset ? quoteAsset.symbol : "?",
+                    baseAsset: baseAsset ? baseAsset.symbol : "?",
+                  })}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Label>{t("MarketOrder:searchBorrowableAssetsLabel")}</Label>
+                <br />
+                <a
+                  href={`/borrow/index.html?tab=searchOffers&searchTab=borrow&searchText=${
+                    quoteAsset ? quoteAsset.symbol : ""
+                  }`}
+                >
+                  <Badge>{quoteAsset ? quoteAsset.symbol : "?"}</Badge>
+                </a>
+                <a
+                  href={`/borrow/index.html?tab=searchOffers&searchTab=borrow&searchText=${
+                    baseAsset ? baseAsset.symbol : ""
+                  }`}
+                >
+                  <Badge className="ml-2 mt-1 mb-1">
+                    {baseAsset ? baseAsset.symbol : ""}
+                  </Badge>
+                </a>
+                <br />
+                <Label>{t("MarketOrder:searchAcceptedCollateralLabel")}</Label>
+                <br />
+                <a
+                  href={`/borrow/index.html?tab=searchOffers&searchTab=collateral&searchText=${
+                    quoteAsset ? quoteAsset.symbol : "?"
+                  }`}
+                >
+                  <Badge>{quoteAsset ? quoteAsset.symbol : "?"}</Badge>
+                </a>
+                <a
+                  href={`/borrow/index.html?tab=searchOffers&searchTab=collateral&searchText=${
+                    baseAsset ? baseAsset.symbol : ""
+                  }`}
+                >
+                  <Badge className="ml-2 mt-1">
+                    {baseAsset ? baseAsset.symbol : ""}
+                  </Badge>
+                </a>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
+        {quoteAsset && baseAsset ? (
+          <PoolDialogs
+            assetA={quoteAsset.symbol}
+            assetAData={quoteAsset}
+            assetB={baseAsset.symbol}
+            assetBData={baseAsset}
+            chain={usr.chain}
+            _assetsBTS={_assetsBTS}
+            _assetsTEST={_assetsTEST}
+            _poolsBTS={_poolsBTS}
+            _poolsTEST={_poolsTEST}
+          />
+        ) : null}
       </div>
     </>
   );

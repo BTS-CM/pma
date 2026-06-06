@@ -467,7 +467,10 @@
     "predictionMarkets": "Mercados de predicciones",
     "account": "Cuenta",
     "moreTools": "Más herramientas",
-    "settings": "Ajustes"
+    "settings": "Ajustes",
+    "predictionMarketsSubtitle": "Explora, comercia y crea mercados de predicciones",
+    "accountSubtitle": "Gestiona tu cartera, órdenes y favoritos",
+    "moreToolsSubtitle": "Comercio DEX, ajustes y herramientas"
   },
   "settlement": {
     "title": "Liquidación de smartcoin",

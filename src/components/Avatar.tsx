@@ -224,8 +224,6 @@ export const Avatar = ({
         `#avatar${extra}_${name ? name.replaceAll(".", "") : ""}`
       ) as HTMLElement;
 
-      if (!avatar) return;
-
       const { left, top, width, height } = avatar.getBoundingClientRect();
       const centerX = left + width / 2;
       const centerY = top + height / 2;

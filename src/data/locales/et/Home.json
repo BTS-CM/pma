@@ -467,7 +467,10 @@
     "predictionMarkets": "Prognoositurud",
     "account": "Konto",
     "moreTools": "Rohkem tööriistu",
-    "settings": "Seaded"
+    "settings": "Seaded",
+    "predictionMarketsSubtitle": "Sirvi, kaubelda ja loo ennustusturge",
+    "accountSubtitle": "Halda portfelli, tellimusi ja lemmikuid",
+    "moreToolsSubtitle": "DEX-kauplemine, seaded ja tööriistad"
   },
   "settlement": {
     "title": "Smartcoin'i arveldus",

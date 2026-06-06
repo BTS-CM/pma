@@ -120,23 +120,5 @@
     "outcomeContent": "予測の結果、予測が当たった場合、清算価格が 1 になることで買い手が勝ち、予測が外れた場合、清算価格が 0 になることで売り手が勝ちます。",
     "true": "本当の結果（買い手の勝ち）",
     "false": "誤った結果 (売り手の勝ち)"
-  },
-  "json": {
-    "button": "JSON",
-    "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
-  },
-  "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
   }
 }

@@ -30,5 +30,12 @@
   },
   "buttons": {
     "submit": "Esita"
+  },
+  "risks": {
+    "1": "Ennustusturu varade vale konfigureerimine võib kaasa tuua kehva osaluse plokiahelas, mõned kasutajaliidesed võivad teie PMA täielikult välja filtreerida, veenduge, et PMA oleks õigesti konfigureeritud, määrake mõistlik vahendustasu ja proovige funktsioone esmalt testnetis.",
+    "2": "Kui loote prognoositava turuvara, vastutate majana tulemuste nõuetekohase hindamise eest, kui seda õigesti või õigeaegselt ei tee, võib teie jaoks lisaks maja usaldusväärsuse kaotamisele kaasa tuua juriidilisi või fiskaalprobleeme.",
+    "3": "See kasutajaliides ja Beet/BEETEOSe rahakotid ei toeta mitme allkirjaga kontosid, seega on teie majakonto pikaajaline üksainus tõrkepunkt – kaitske seda hästi.",
+    "title": "Mõned riskid, mis on seotud prognoositava turu varade loomisega",
+    "description": "Tehke enne PMA loomist oma uurimistööd, lugege kõigepealt dokumente, mitte juriidilist nõu."
   }
 }

@@ -120,23 +120,5 @@
     "outcomeContent": "예측 결과, 예측이 참이면 정산 가격이 1이 되어 구매자가 승리하고, 예측이 거짓이면 정산 가격이 0이 되어 판매자가 승리합니다.",
     "true": "실제 결과(구매자가 승리)",
     "false": "잘못된 결과(판매자가 승리)"
-  },
-  "json": {
-    "button": "JSON",
-    "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
-  },
-  "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
   }
 }
