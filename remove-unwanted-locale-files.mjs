@@ -49,7 +49,8 @@ const KEEP_BASENAMES = [
   "PortfolioTabs.json",
   "Visuals.json",
   "Transfer.json",
-  "Smartcoin.json"
+  "Smartcoin.json",
+  "SimpleSwap.json"
 ];
 
 const keepSet = new Set(KEEP_BASENAMES);

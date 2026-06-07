@@ -8,6 +8,28 @@ export const hashCode = (name: string): number => {
   return Math.abs(hash);
 };
 
+export const AVATAR_DEFAULT_COLORS = [
+  "#92A1C6",
+  "#146A7C",
+  "#F0AB3D",
+  "#C271B4",
+  "#C20D90",
+];
+
+export const getAvatarAccent = (
+  name?: string,
+  colors: string[] = AVATAR_DEFAULT_COLORS,
+): string => {
+  const seed = name ? hashCode(name) : 0;
+  const rng = new RNG(seed);
+  for (let i = 0; i < 6; i += 1) {
+    rng.nextUnit(16, false);
+  }
+  rng.nextUnit(10, true);
+  rng.nextUnit(10, true);
+  return rng.nextChoice(colors) ?? colors[1];
+};
+
 export const getContrast = (hexcolor: string): string => {
   const hex = hexcolor.slice(1);
   const [r, g, b] = [0, 2, 4].map((offset) =>

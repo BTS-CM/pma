@@ -191,7 +191,6 @@ function HoverPopover({ section, accent, t, children }) {
 function LanguageRow(properties) {
   const { language, text, i18n } = properties;
 
-  const [hover, setHover] = useState(false);
   const [isCurrentLanguage, setIsCurrentLanguage] = useState(false);
 
   useEffect(() => {
@@ -200,20 +199,16 @@ function LanguageRow(properties) {
 
   return (
     <CommandItem
-      onMouseEnter={() => {
-        setHover(true);
-      }}
-      onMouseLeave={() => {
-        setHover(false);
-      }}
       onSelect={() => {
         i18n.changeLanguage(language);
         locale.set(language);
         window.location.reload();
       }}
-      style={{
-        backgroundColor: hover || isCurrentLanguage ? "#F1F1F1" : "",
-      }}
+      className={cn(
+        "text-white/85",
+        "data-[selected=true]:!bg-white/[0.06] data-[selected=true]:!text-white",
+        isCurrentLanguage && "!bg-white/[0.08] !text-white"
+      )}
     >
       <span className="grid grid-cols-8 w-full">
         <span className="col-span-6">{text}</span>
@@ -342,17 +337,40 @@ export default function PageHeader(properties) {
                     </svg>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="mt-10 p-0" side="end">
-                  <Command className="rounded-lg border shadow-md">
+                <DropdownMenuContent
+                  side="end"
+                  align="end"
+                  sideOffset={8}
+                  style={{ backgroundColor: "#020617" }}
+                  className={cn(
+                    "mt-10 p-0 overflow-hidden rounded-2xl",
+                    "!bg-slate-950 border border-white/10",
+                    "shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.04)]"
+                  )}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                  />
+                  <Command
+                    style={{ backgroundColor: "#020617" }}
+                    className="rounded-2xl bg-transparent border-0 shadow-none"
+                  >
                     <CommandInput
                       placeholder={t("PageHeader:commandSearchPlaceholder")}
+                      className={cn(
+                        "[&_[cmdk-input-wrapper]]:border-white/10",
+                        "[&_svg]:text-white/50 [&_svg]:opacity-100",
+                        "text-white placeholder:text-white/40"
+                      )}
                     />
                     <CommandList>
-                      <CommandEmpty>
+                      <CommandEmpty className="py-6 text-center text-sm text-white/60">
                         {t("PageHeader:noResultsFound")}
                       </CommandEmpty>
                       <CommandGroup
                         heading={t("PageHeader:exchangingFundsHeading")}
+                        className="[&_[cmdk-group-heading]]:text-white/50 [&_[cmdk-group-heading]]:tracking-wide"
                       >
                         <LanguageRow
                           language="en"
