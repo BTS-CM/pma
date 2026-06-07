@@ -79,7 +79,21 @@
   "transfer": {
     "title": "Overfør aktiver",
     "subtitle": "Send aktiver til andre brugere",
-    "hover1": "Overfør aktiver til enhver på Bitshares blockchain på få sekunder."
+    "hover1": "Overfør aktiver til alle på Bitshares-blockchain på sekunder."
+  },
+  "instant_trade": {
+    "title": "Øjeblikkelig handel",
+    "subtitle": "Byt hurtigt aktiver til de bedste tilgængelige priser",
+    "hover1": "Handl øjeblikkeligt aktiver på DEX uden distraktioner.",
+    "hover2": "Bruger fill-or-kill-ordret teknologi til enten at få de priser, du ønsker, eller annullere ordren.",
+    "hover3": "Se hvem du handler med på DEX, og om de har aktiveret on-fill-betingelser på deres ordrer."
+  },
+  "simple_asset_swap": {
+    "title": "Simpel aktivbytte",
+    "subtitle": "Byt nemmere aktiver via puljer",
+    "hover1": "Byt aktiver via brugerskabte likviditetspuljer.",
+    "hover2": "Puljer har forskellige handelspar og gebyrer.",
+    "hover3": "Nemmere men dyrere end en begrænsningsordre."
   },
   "timed_transfer": {
     "title": "⏱ Tidsbestemt overførsel",

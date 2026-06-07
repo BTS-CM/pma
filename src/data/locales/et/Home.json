@@ -77,9 +77,23 @@
     "hover3": "Panustatud varasid saab igal ajal välja võtta."
   },
   "transfer": {
-    "title": "Varade ülekandmine",
-    "subtitle": "Saatke vara teistele kasutajatele",
-    "hover1": "Kandke varad mõne sekundi jooksul üle kellelegi Bitsharesi plokiahelas."
+    "title": "Edasta varad",
+    "subtitle": "Saada varasid teistele kasutajatele",
+    "hover1": "Edasta varasid kellelegi Bitsharesi plokiahelas sekunditega."
+  },
+  "instant_trade": {
+    "title": "Kohene kauplemine",
+    "subtitle": "Vaheta varasid kiiresti parimate saadaolevate hindadega",
+    "hover1": "Kaubelda koheselt varadega DEX-il ilma segajateta.",
+    "hover2": "Kasutab fill-or-kill tellimuste tehnoloogiat, et kas saada soovitud hinnad või tühistada tellimus.",
+    "hover3": "Vaata, kellega sa DEX-il kauplema hakkad ja kas neil on tellimustel on-fill tingimused lubatud."
+  },
+  "simple_asset_swap": {
+    "title": "Lihtne varade vahetus",
+    "subtitle": "Vaheta varasid lihtsamini basseinide kaudu",
+    "hover1": "Vaheta varasid kasutajate loodud likviidsusbasseinide kaudu.",
+    "hover2": "Basseinidel on erinevad kauplemispaarid ja tasud.",
+    "hover3": "Lihtsam, kuid kulukam kui limiidtellimus."
   },
   "timed_transfer": {
     "title": "⏱️ ajastatud ülekanne",

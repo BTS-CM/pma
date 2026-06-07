@@ -79,7 +79,21 @@
   "transfer": {
     "title": "Transferir activos",
     "subtitle": "Enviar activos a otros usuarios",
-    "hover1": "Transfiera activos a cualquier persona en la cadena de bloques Bitshares en segundos."
+    "hover1": "Transfiere activos a cualquier persona en la blockchain de Bitshares en segundos."
+  },
+  "instant_trade": {
+    "title": "Operación instantánea",
+    "subtitle": "Intercambia activos rápidamente a los mejores precios disponibles",
+    "hover1": "Opera activos al instante en la DEX sin distracciones.",
+    "hover2": "Utiliza tecnología de órdenes fill-or-kill para obtener los precios que deseas o cancela la orden.",
+    "hover3": "Ve con quién operarás en la DEX y si han habilitado condiciones on-fill en sus órdenes."
+  },
+  "simple_asset_swap": {
+    "title": "Intercambio simple de activos",
+    "subtitle": "Intercambia activos más fácilmente mediante pools",
+    "hover1": "Intercambia activos mediante pools de liquidez creados por el usuario.",
+    "hover2": "Los pools tienen diferentes pares de trading y comisiones.",
+    "hover3": "Más simple pero más costoso que una orden limit."
   },
   "timed_transfer": {
     "title": "⏱️ Transferencia cronometrada",

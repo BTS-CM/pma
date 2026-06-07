@@ -69,8 +69,6 @@ import {
   FieldTitle,
 } from "@/components/ui/field";
 
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -1131,80 +1129,10 @@ export default function SimpleSwap(properties) {
             ) : (
               <AssetCardSkeleton title={t("SimpleSwap:poolShareAsset")} />
             )}
-
-            <Card>
-              <CardHeader className="pb-2 pt-4">
-                <CardTitle>{t("SimpleSwap:borrowAssets")}</CardTitle>
-                <CardDescription className="text-sm">
-                  {t("SimpleSwap:borrowAssetsDescription")}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-sm pb-3">
-                {assetA && assetB ? (
-                  <>
-                    <Label>{t("SimpleSwap:searchBorrowableAssets")}</Label>
-                    <br />
-                    <a
-                      href={`/borrow/index.html?tab=searchOffers&searchTab=borrow&searchText=${assetA.symbol}`}
-                    >
-                      <Badge className="mr-2 mt-1 mb-1 cursor-pointer hover:bg-blue-200">
-                        {assetA.symbol}
-                      </Badge>
-                    </a>
-                    <a
-                      href={`/borrow/index.html?tab=searchOffers&searchTab=borrow&searchText=${assetB.symbol}`}
-                    >
-                      <Badge className="mr-2 mt-1 mb-1 cursor-pointer hover:bg-blue-200">
-                        {assetB.symbol}
-                      </Badge>
-                    </a>
-                    {foundPool?.share_asset_symbol && (
-                      <a
-                        href={`/borrow/index.html?tab=searchOffers&searchTab=borrow&searchText=${foundPool.share_asset_symbol}`}
-                      >
-                        <Badge className="mr-2 mt-1 mb-1 cursor-pointer hover:bg-blue-200">
-                          {foundPool.share_asset_symbol}
-                        </Badge>
-                      </a>
-                    )}
-                    <br />
-                    <Label className="mt-2 block">
-                      {t("SimpleSwap:searchAcceptedCollateral")}
-                    </Label>
-                    <br />
-                    <a
-                      href={`/borrow/index.html?tab=searchOffers&searchTab=collateral&searchText=${assetA.symbol}`}
-                    >
-                      <Badge className="mr-2 mt-1 cursor-pointer hover:bg-blue-200">
-                        {assetA.symbol}
-                      </Badge>
-                    </a>
-                    <a
-                      href={`/borrow/index.html?tab=searchOffers&searchTab=collateral&searchText=${assetB.symbol}`}
-                    >
-                      <Badge className="mr-2 mt-1 cursor-pointer hover:bg-blue-200">
-                        {assetB.symbol}
-                      </Badge>
-                    </a>
-                    {foundPool?.share_asset_symbol && (
-                      <a
-                        href={`/borrow/index.html?tab=searchOffers&searchTab=collateral&searchText=${foundPool.share_asset_symbol}`}
-                      >
-                        <Badge className="mr-2 mt-1 cursor-pointer hover:bg-blue-200">
-                          {foundPool.share_asset_symbol}
-                        </Badge>
-                      </a>
-                    )}
-                  </>
-                ) : (
-                  <Skeleton className="h-4 w-[200px]" />
-                )}
-              </CardContent>
-            </Card>
           </div>
         ) : null}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
           {pool && assetA && assetB && foundPool?.share_asset_symbol ? (
             <>
               <a
@@ -1218,16 +1146,6 @@ export default function SimpleSwap(properties) {
                     shareAsset: foundPool.share_asset_symbol,
                   })}
                   content={t("SimpleSwap:purchaseStakeDescription")}
-                />
-              </a>
-
-              <a href={`/stake/index.html?pool=${pool}`}>
-                <ActionCard
-                  title={t("SimpleSwap:stakeAssets")}
-                  description={t("SimpleSwap:shareAsset", {
-                    shareAsset: foundPool.share_asset_symbol,
-                  })}
-                  content={t("SimpleSwap:stakeAssetsDescription")}
                 />
               </a>
 
@@ -1245,42 +1163,6 @@ export default function SimpleSwap(properties) {
               </a>
             </>
           ) : null}
-        </div>
-
-        <div className="grid grid-cols-1 mt-5 mb-5">
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle>{t("SimpleSwap:risksTitle")}</CardTitle>
-              <CardDescription>
-                {t("SimpleSwap:risksDescription")}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <span className="text-sm block mb-3">
-                <Label className="mb-1 text-lg block">
-                  {t("SimpleSwap:liquidityPoolRisks")}
-                </Label>
-                <ul className="ml-2 list-disc [&>li]:mt-1 pl-3">
-                  <li>{t("SimpleSwap:liquidityPoolRisk1")}</li>
-                  <li>{t("SimpleSwap:liquidityPoolRisk2")}</li>
-                </ul>
-              </span>
-              <span className="text-sm block">
-                <Label className="mb-1 text-lg block">
-                  {t("SimpleSwap:swappableAssetRisks")}
-                </Label>
-                <ul className="ml-2 list-disc [&>li]:mt-1 pl-3">
-                  <li>{t("SimpleSwap:swappableAssetRisk1")}</li>
-                  <li>
-                    {t("SimpleSwap:swappableAssetRisk2", {
-                      symbol: "BTS",
-                    })}
-                  </li>
-                  <li>{t("SimpleSwap:swappableAssetRisk3")}</li>
-                </ul>
-              </span>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </>

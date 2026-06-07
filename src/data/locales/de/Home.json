@@ -77,9 +77,23 @@
     "hover3": "Eingesetzte Vermögenswerte können jederzeit abgehoben werden."
   },
   "transfer": {
-    "title": "Vermögenswerte übertragen",
-    "subtitle": "Senden Sie Assets an andere Benutzer",
-    "hover1": "Übertragen Sie Vermögenswerte in Sekundenschnelle an jeden in der Bitshares-Blockchain."
+    "title": "Assets übertragen",
+    "subtitle": "Assets an andere Benutzer senden",
+    "hover1": "Übertrage Assets an jeden in der Bitshares-Blockchain in Sekunden."
+  },
+  "instant_trade": {
+    "title": "Sofort-Handel",
+    "subtitle": "Tausche Assets schnell zu den besten verfügbaren Preisen",
+    "hover1": "Handle Assets sofort auf der DEX ohne Ablenkung.",
+    "hover2": "Nutzt Fill-or-Kill-Order-Technologie, um entweder die gewünschten Preise zu erhalten oder die Order zu stornieren.",
+    "hover3": "Sieh, mit wem du auf der DEX handelst und ob diese On-Fill-Bedingungen für ihre Orders aktiviert haben."
+  },
+  "simple_asset_swap": {
+    "title": "Einfacher Asset-Tausch",
+    "subtitle": "Tausche Assets einfacher über Pools",
+    "hover1": "Tausche Assets über benutzererstellte Liquiditätspools.",
+    "hover2": "Pools haben unterschiedliche Handelspaare und Gebühren.",
+    "hover3": "Einfacher, aber teurer als eine Limit-Order."
   },
   "timed_transfer": {
     "title": "⏱️ zeitgesteuerte Übertragung",

@@ -38,6 +38,8 @@ import {
   ArrowUpRight,
   Repeat,
   Wrench,
+  Zap,
+  ArrowLeftRight,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -51,6 +53,8 @@ import { createBlockedAccountStore } from "@/nanoeffects/BlockedAccounts.ts";
 
 const ITEM_ICONS = {
   dex: LineChart,
+  instant_trade: Zap,
+  simple_asset_swap: ArrowLeftRight,
   prediction_markets_active: Activity,
   prediction_markets_expired: Hourglass,
   prediction_markets_mine: BookOpen,
@@ -70,6 +74,8 @@ const ITEM_ICONS = {
 
 const ITEM_ACCENTS = {
   dex: { bar: "from-indigo-500 to-cyan-500", chip: "bg-indigo-500/30 text-indigo-100 border-indigo-400/50", glow: "bg-indigo-500/30", text: "text-indigo-100" },
+  instant_trade: { bar: "from-amber-500 to-orange-500", chip: "bg-amber-500/30 text-amber-100 border-amber-400/50", glow: "bg-amber-500/30", text: "text-amber-100" },
+  simple_asset_swap: { bar: "from-blue-500 to-indigo-500", chip: "bg-blue-500/30 text-blue-100 border-blue-400/50", glow: "bg-blue-500/30", text: "text-blue-100" },
   prediction_markets_active: { bar: "from-cyan-500 to-sky-500", chip: "bg-cyan-500/30 text-cyan-100 border-cyan-400/50", glow: "bg-cyan-500/30", text: "text-cyan-100" },
   prediction_markets_expired: { bar: "from-sky-500 to-blue-500", chip: "bg-sky-500/30 text-sky-100 border-sky-400/50", glow: "bg-sky-500/30", text: "text-sky-100" },
   prediction_markets_mine: { bar: "from-emerald-500 to-teal-500", chip: "bg-emerald-500/30 text-emerald-100 border-emerald-400/50", glow: "bg-emerald-500/30", text: "text-emerald-100" },
@@ -272,6 +278,28 @@ export default function Home(properties) {
         "Home:dex.hover2",
         "Home:dex.hover3",
         "Home:dex.hover4",
+      ],
+    },
+    {
+      key: "instant_trade",
+      href: "/instant_trade/index.html",
+      titleKey: "Home:instant_trade.title",
+      subtitleKey: "Home:instant_trade.subtitle",
+      hoverKeys: [
+        "Home:instant_trade.hover1",
+        "Home:instant_trade.hover2",
+        "Home:instant_trade.hover3",
+      ],
+    },
+    {
+      key: "simple_asset_swap",
+      href: "/swap/index.html",
+      titleKey: "Home:simple_asset_swap.title",
+      subtitleKey: "Home:simple_asset_swap.subtitle",
+      hoverKeys: [
+        "Home:simple_asset_swap.hover1",
+        "Home:simple_asset_swap.hover2",
+        "Home:simple_asset_swap.hover3",
       ],
     },
     {

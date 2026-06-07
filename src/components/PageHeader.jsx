@@ -26,7 +26,7 @@ import {
   HoverCardPortal,
 } from "@/components/ui/hover-card";
 
-import { ChevronDown, Sparkles, Send, LineChart, Activity, Hourglass, BookOpen, Briefcase, TrendingUp, Wallet, ClipboardList, Star, Info, Server, UserX, UserPlus, Palette, SlidersHorizontal, ArrowUpRight, Repeat } from "lucide-react";
+import { ChevronDown, Sparkles, Send, LineChart, Activity, Hourglass, BookOpen, Briefcase, TrendingUp, Wallet, ClipboardList, Star, Info, Server, UserX, UserPlus, Palette, SlidersHorizontal, ArrowUpRight, Repeat, Zap, ArrowLeftRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,8 @@ import { $currentUser } from "@/stores/users.ts";
 
 const ICONS = {
   dex: LineChart,
+  instant_trade: Zap,
+  simple_asset_swap: ArrowLeftRight,
   prediction_markets_active: Activity,
   prediction_markets_expired: Hourglass,
   prediction_markets_mine: BookOpen,
@@ -56,6 +58,8 @@ const ICONS = {
 
 const ACCENTS = {
   dex: { color: "text-indigo-300", bg: "bg-indigo-500/15", border: "group-hover/navitem:border-indigo-400/30" },
+  instant_trade: { color: "text-amber-300", bg: "bg-amber-500/15", border: "group-hover/navitem:border-amber-400/30" },
+  simple_asset_swap: { color: "text-blue-300", bg: "bg-blue-500/15", border: "group-hover/navitem:border-blue-400/30" },
   prediction_markets_active: { color: "text-cyan-300", bg: "bg-cyan-500/15", border: "group-hover/navitem:border-cyan-400/30" },
   prediction_markets_expired: { color: "text-slate-300", bg: "bg-slate-500/15", border: "group-hover/navitem:border-slate-400/30" },
   prediction_markets_mine: { color: "text-emerald-300", bg: "bg-emerald-500/15", border: "group-hover/navitem:border-emerald-400/30" },
@@ -250,6 +254,8 @@ export default function PageHeader(properties) {
       icon: Repeat,
       items: [
         { slug: "dex", title: "Home:dex.title", description: "Home:dex.subtitle", href: "/dex/index.html" },
+        { slug: "instant_trade", title: "Home:instant_trade.title", description: "Home:instant_trade.subtitle", href: "/instant_trade/index.html" },
+        { slug: "simple_asset_swap", title: "Home:simple_asset_swap.title", description: "Home:simple_asset_swap.subtitle", href: "/swap/index.html" },
         { slug: "transfer", title: "Home:transfer.title", description: "Home:transfer.subtitle", href: "/transfer/index.html" },
       ],
     },
