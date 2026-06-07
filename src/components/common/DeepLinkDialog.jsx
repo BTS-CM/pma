@@ -348,16 +348,16 @@ export default function DeepLinkDialog(properties) {
         dismissCallback(open);
       }}
     >
-      <DialogContent className="sm:max-w-[800px] bg-white">
+      <DialogContent className="sm:max-w-[800px] border border-white/10 bg-slate-950 backdrop-blur-2xl text-white shadow-xl shadow-black/50">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="text-white text-lg">
             {!deeplink ? (
               t("DeepLinkDialog:dialogContent.generatingDeeplink")
             ) : (
               <>{headerText}</>
             )}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-white/45 text-sm">
             {t("DeepLinkDialog:dialogContent.withAccount", {
               username: username,
               userID: userID,
@@ -374,65 +374,85 @@ export default function DeepLinkDialog(properties) {
         </DialogHeader>
         {activeTab ? (
           <>
-            <hr className="mt-3" />
+            <div className="border-t border-white/[0.06] mt-3" />
             <div className="grid grid-cols-1 gap-3">
-              <div className="grid grid-cols-4 gap-2">
-                <Button
-                  className="col-span-1"
+              <div className="flex flex-wrap gap-2 mt-3">
+                <button
                   onClick={() => setActiveTab("object")}
-                  variant={activeTab === "object" ? "" : "outline"}
+                  className={cn(
+                    "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
+                    activeTab === "object"
+                      ? "bg-violet-600 text-white shadow-lg shadow-violet-900/30"
+                      : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                  )}
                 >
                   {t("DeepLinkDialog:tabs.viewTRXObject")}
-                </Button>
-                <Button
-                  className="col-span-1"
+                </button>
+                <button
                   onClick={() => setActiveTab("deeplink")}
-                  variant={activeTab === "deeplink" ? "" : "outline"}
+                  className={cn(
+                    "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
+                    activeTab === "deeplink"
+                      ? "bg-violet-600 text-white shadow-lg shadow-violet-900/30"
+                      : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                  )}
                 >
                   {t("DeepLinkDialog:tabs.rawDeeplink")}
-                </Button>
-                <Button
-                  className="col-span-1"
+                </button>
+                <button
                   onClick={() => setActiveTab("localJSON")}
-                  variant={activeTab === "localJSON" ? "" : "outline"}
+                  className={cn(
+                    "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
+                    activeTab === "localJSON"
+                      ? "bg-violet-600 text-white shadow-lg shadow-violet-900/30"
+                      : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                  )}
                 >
                   {t("DeepLinkDialog:tabs.localJSONFile")}
-                </Button>
-                <Button
-                  className="col-span-1"
+                </button>
+                <button
                   onClick={() => setActiveTab("qr")}
-                  variant={activeTab === "qr" ? "" : "outline"}
+                  className={cn(
+                    "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
+                    activeTab === "qr"
+                      ? "bg-violet-600 text-white shadow-lg shadow-violet-900/30"
+                      : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                  )}
                 >
                   {t("DeepLinkDialog:tabs.qrCode")}
-                </Button>
+                </button>
                 {!proposal && !disablePropose ? (
-                  <Button
-                    className="col-span-1"
+                  <button
                     onClick={() => setActiveTab("propose")}
-                    variant={activeTab === "propose" ? "" : "outline"}
+                    className={cn(
+                      "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
+                      activeTab === "propose"
+                        ? "bg-amber-600 text-white shadow-lg shadow-amber-900/30"
+                        : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                    )}
                   >
                     {t("DeepLinkDialog:tabs.propose")}
-                  </Button>
+                  </button>
                 ) : null}
               </div>
               {activeTab === "object" ? (
                 <>
                   <div className="grid w-full gap-1.5 mb-3">
-                    <Label className="text-left text-md font-bold">
+                    <Label className="text-white/70 text-xs uppercase tracking-wider">
                       {t("DeepLinkDialog:tabsContent.transactionObjectJSON")}
                     </Label>
-                    <span className="text-left text-sm">
+                    <span className="text-white/40 text-xs">
                       {t("DeepLinkDialog:tabsContent.operationType")}
                     </span>
                     <Textarea
                       value={JSON.stringify(operationNames, null, 4)}
-                      className="min-h-[125px]"
+                      className="min-h-[125px] bg-slate-950/40 border-white/[0.08] text-white/90 text-xs font-mono"
                       id="trxJSON"
                       readOnly
                     />
                     <Textarea
                       value={JSON.stringify(trxJSON, null, 4)}
-                      className="min-h-[250px]"
+                      className="min-h-[250px] bg-slate-950/40 border-white/[0.08] text-white/90 text-xs font-mono"
                       id="trxJSON"
                       readOnly
                     />
@@ -441,6 +461,8 @@ export default function DeepLinkDialog(properties) {
                     onClick={() => {
                       copyToClipboard(JSON.stringify(trxJSON, null, 4));
                     }}
+                    className="border-violet-500/30 text-violet-300 hover:bg-violet-500/10 hover:text-violet-200"
+                    variant="outline"
                   >
                     {t("DeepLinkDialog:tabsContent.copyOperationJSON")}
                   </Button>
@@ -448,10 +470,10 @@ export default function DeepLinkDialog(properties) {
               ) : null}
               {activeTab === "deeplink" ? (
                 <>
-                  <Label className="text-left text-md font-bold">
+                  <Label className="text-white/70 text-xs uppercase tracking-wider">
                     {t("DeepLinkDialog:tabsContent.usingDeeplink")}
                   </Label>
-                  <ol className="ml-4">
+                  <ol className="ml-4 text-sm text-white/70 space-y-1">
                     <li type="1">{t("DeepLinkDialog:tabsContent.step1")}</li>
                     <li type="1">
                       {t("DeepLinkDialog:tabsContent.step2", {
@@ -463,20 +485,24 @@ export default function DeepLinkDialog(properties) {
                     <li type="1">{t("DeepLinkDialog:tabsContent.step5")}</li>
                   </ol>
                   {deeplink ? (
-                    <div className="flex space-x-3">
+                    <div className="flex flex-wrap gap-3 mt-4">
                       <a
                         href={`rawbeet://api?chain=${
                           usrChain === "bitshares" ? "BTS" : "BTS_TEST"
                         }&request=${deeplink}`}
                       >
-                        <Button className="mt-4">BEET</Button>
+                        <Button className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-900/30">
+                          BEET
+                        </Button>
                       </a>
                       <a
                         href={`rawbeeteos://api?chain=${
                           usrChain === "bitshares" ? "BTS" : "BTS_TEST"
                         }&request=${deeplink}`}
                       >
-                        <Button className="mt-4 ml-3">BeetEOS</Button>
+                        <Button className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white border-0 shadow-lg shadow-cyan-900/30">
+                          BeetEOS
+                        </Button>
                       </a>
                     </div>
                   ) : null}
@@ -484,10 +510,10 @@ export default function DeepLinkDialog(properties) {
               ) : null}
               {activeTab === "localJSON" ? (
                 <>
-                  <Label className="text-left text-md font-bold">
+                  <Label className="text-white/70 text-xs uppercase tracking-wider">
                     {t("DeepLinkDialog:tabsContent.viaLocalFile")}
                   </Label>
-                  <ol className="ml-4">
+                  <ol className="ml-4 text-sm text-white/70 space-y-1">
                     <li type="1">
                       {t("DeepLinkDialog:tabsContent.step1Local")}
                     </li>
@@ -506,35 +532,37 @@ export default function DeepLinkDialog(properties) {
                       {t("DeepLinkDialog:tabsContent.step5Local")}
                     </li>
                   </ol>
-                  {deeplink && downloadClicked ? (
-                    <Button className="mt-4" variant="outline" disabled>
-                      {t("DeepLinkDialog:tabsContent.downloading")}
-                    </Button>
-                  ) : null}
-                  {deeplink && !downloadClicked ? (
-                    <a
-                      href={`data:text/json;charset=utf-8,${deeplink}`}
-                      download={"transaction.json"}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={handleDownloadClick}
-                    >
-                      <Button className="mt-4">
-                        {t(
-                          "DeepLinkDialog:tabsContent.downloadBeetOperationJSON"
-                        )}
+                  <div className="mt-4">
+                    {deeplink && downloadClicked ? (
+                      <Button variant="outline" disabled className="border-white/[0.08] text-white/30">
+                        {t("DeepLinkDialog:tabsContent.downloading")}
                       </Button>
-                    </a>
-                  ) : null}
+                    ) : null}
+                    {deeplink && !downloadClicked ? (
+                      <a
+                        href={`data:text/json;charset=utf-8,${deeplink}`}
+                        download={"transaction.json"}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={handleDownloadClick}
+                      >
+                        <Button className="border-violet-500/30 text-violet-300 hover:bg-violet-500/10 hover:text-violet-200" variant="outline">
+                          {t(
+                            "DeepLinkDialog:tabsContent.downloadBeetOperationJSON"
+                          )}
+                        </Button>
+                      </a>
+                    ) : null}
+                  </div>
                 </>
               ) : null}
               {activeTab === "qr" ? (
                 <>
-                  <Label className="text-left text-md font-bold">
+                  <Label className="text-white/70 text-xs uppercase tracking-wider">
                     {t("DeepLinkDialog:tabs.qrCode")}
                   </Label>
                   <div className="flex flex-col sm:flex-row gap-6 items-start">
-                    <div className="flex items-center justify-center p-2 border rounded-md">
+                    <div className="flex items-center justify-center p-2 border border-white/[0.08] rounded-lg bg-slate-950/40">
                       {qrContents ? (
                         <QRCode
                           value={JSON.stringify(qrContents)}
@@ -546,21 +574,21 @@ export default function DeepLinkDialog(properties) {
                           fgColor={qrFGC}
                         />
                       ) : (
-                        <span className="text-sm opacity-70">
+                        <span className="text-sm text-white/45">
                           {t("DeepLinkDialog:qr.generating")}
                         </span>
                       )}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                       <div>
-                        <Label className="mb-1 block">
+                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.ecl")}
                         </Label>
                         <Select onValueChange={(v) => setQRECL(v)}>
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger className="w-full bg-slate-950/40 border-white/[0.08] text-white">
                             <SelectValue placeholder={qrECL} />
                           </SelectTrigger>
-                          <SelectContent className="bg-white">
+                          <SelectContent className="bg-slate-950 border border-white/10 text-white">
                             {["L", "M", "Q", "H"].map((lvl) => (
                               <SelectItem key={lvl} value={lvl}>
                                 {lvl}
@@ -570,14 +598,14 @@ export default function DeepLinkDialog(properties) {
                         </Select>
                       </div>
                       <div>
-                        <Label className="mb-1 block">
+                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.size")}
                         </Label>
                         <Select onValueChange={(v) => setQRSize(v)}>
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger className="w-full bg-slate-950/40 border-white/[0.08] text-white">
                             <SelectValue placeholder={qrSize} />
                           </SelectTrigger>
-                          <SelectContent className="bg-white">
+                          <SelectContent className="bg-slate-950 border border-white/10 text-white">
                             {["150", "250", "300", "350", "385"].map((s) => (
                               <SelectItem key={s} value={s}>
                                 {s}
@@ -587,14 +615,14 @@ export default function DeepLinkDialog(properties) {
                         </Select>
                       </div>
                       <div>
-                        <Label className="mb-1 block">
+                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.padding")}
                         </Label>
                         <Select onValueChange={(v) => setQRQZ(v)}>
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger className="w-full bg-slate-950/40 border-white/[0.08] text-white">
                             <SelectValue placeholder={qrQZ} />
                           </SelectTrigger>
-                          <SelectContent className="bg-white">
+                          <SelectContent className="bg-slate-950 border border-white/10 text-white">
                             {["5", "10", "25", "50"].map((p) => (
                               <SelectItem key={p} value={p}>
                                 {p}
@@ -604,14 +632,14 @@ export default function DeepLinkDialog(properties) {
                         </Select>
                       </div>
                       <div>
-                        <Label className="mb-1 block">
+                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.style")}
                         </Label>
                         <Select onValueChange={(v) => setQRStyle(v)}>
-                          <SelectTrigger className="w-full">
+                          <SelectTrigger className="w-full bg-slate-950/40 border-white/[0.08] text-white">
                             <SelectValue placeholder={qrStyle} />
                           </SelectTrigger>
-                          <SelectContent className="bg-white">
+                          <SelectContent className="bg-slate-950 border border-white/10 text-white">
                             {["dots", "squares"].map((st) => (
                               <SelectItem key={st} value={st}>
                                 {st}
@@ -621,23 +649,25 @@ export default function DeepLinkDialog(properties) {
                         </Select>
                       </div>
                       <div>
-                        <Label className="mb-1 block">
+                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.bgc")}
                         </Label>
                         <Input
                           type="color"
                           value={qrBGC}
                           onChange={(e) => setQRBGC(e.target.value)}
+                          className="bg-slate-950/40 border-white/[0.08] h-9 w-full"
                         />
                       </div>
                       <div>
-                        <Label className="mb-1 block">
+                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.fgc")}
                         </Label>
                         <Input
                           type="color"
                           value={qrFGC}
                           onChange={(e) => setQRFGC(e.target.value)}
+                          className="bg-slate-950/40 border-white/[0.08] h-9 w-full"
                         />
                       </div>
                     </div>
@@ -646,10 +676,12 @@ export default function DeepLinkDialog(properties) {
               ) : null}
               {activeTab === "propose" && !proposal && !disablePropose ? (
                 <>
-                  <Label className="text-left text-md font-bold">
+                  <Label className="text-white/70 text-xs uppercase tracking-wider">
                     {t("DeepLinkDialog:tabsContent.propose")}
                   </Label>
-                  <p>{t("DeepLinkDialog:tabsContent.proposeDescription")}</p>
+                  <p className="text-sm text-white/60">
+                    {t("DeepLinkDialog:tabsContent.proposeDescription")}
+                  </p>
                   <div className="grid grid-cols-8 mt-4">
                     <div className="col-span-8 mb-3">
                       <HoverInfo
@@ -678,7 +710,9 @@ export default function DeepLinkDialog(properties) {
                         />
                       ) : (
                         <Av>
-                          <AvatarFallback>?</AvatarFallback>
+                          <AvatarFallback className="bg-slate-800 text-white/40 text-xs">
+                            ?
+                          </AvatarFallback>
                         </Av>
                       )}
                     </div>
@@ -690,7 +724,7 @@ export default function DeepLinkDialog(properties) {
                             ? `${targetUser.name} (${targetUser.id})`
                             : "Bitshares account (1.2.x)"
                         }
-                        className="mb-1 mt-1"
+                        className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-1 mt-1"
                       />
                     </div>
                     <div className="col-span-2">
@@ -701,15 +735,15 @@ export default function DeepLinkDialog(properties) {
                         }}
                       >
                         <DialogTrigger asChild>
-                          <Button variant="outline" className="ml-3 mt-1">
+                          <Button variant="outline" className="ml-3 mt-1 border-violet-500/30 text-violet-300 hover:bg-violet-500/10 hover:text-violet-200">
                             {targetUser
                               ? t("AccountLists:changeTarget")
                               : t("AccountLists:provideTarget")}
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[375px] bg-white">
+                        <DialogContent className="sm:max-w-[375px] border border-white/10 bg-slate-950 text-white backdrop-blur-2xl shadow-xl shadow-black/50">
                           <DialogHeader>
-                            <DialogTitle>
+                            <DialogTitle className="text-white/90 text-sm">
                               {!usr || !usr.chain
                                 ? t("AccountLists:bitsharesAccountSearch")
                                 : null}
@@ -720,7 +754,7 @@ export default function DeepLinkDialog(properties) {
                                 ? t("AccountLists:bitsharesAccountSearchTEST")
                                 : null}
                             </DialogTitle>
-                            <DialogDescription>
+                            <DialogDescription className="text-white/40 text-xs">
                               {t("AccountLists:searchingForAccount")}
                             </DialogDescription>
                           </DialogHeader>
@@ -734,6 +768,8 @@ export default function DeepLinkDialog(properties) {
                       </Dialog>
                     </div>
                   </div>
+
+                  <div className="border-t border-white/[0.06] my-4" />
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="grid grid-cols-1 gap-3">
@@ -771,15 +807,14 @@ export default function DeepLinkDialog(properties) {
                             }
                             setExpiry(selectedExpiry);
                           } else if (selectedExpiry === "specific") {
-                            // Setting a default date expiry
                             setExpiry();
                           }
                         }}
                       >
-                        <SelectTrigger className="mb-3 mt-1 w-3/4">
+                        <SelectTrigger className="mb-3 mt-1 w-3/4 bg-slate-950/40 border-white/[0.08] text-white">
                           <SelectValue placeholder="1hr" />
                         </SelectTrigger>
-                        <SelectContent className="bg-white">
+                        <SelectContent className="bg-slate-950 border border-white/10 text-white">
                           <SelectItem value="1hr">
                             {t("LimitOrderCard:expiry.1hr")}
                           </SelectItem>
@@ -806,8 +841,8 @@ export default function DeepLinkDialog(properties) {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "w-[240px] justify-start text-left font-normal",
-                                !date && "text-muted-foreground"
+                                "w-[240px] justify-start text-left font-normal bg-slate-950/40 border-white/[0.08] text-white",
+                                !date && "text-white/40"
                               )}
                             >
                               <CalendarIcon className="mr-2 h-4 w-4" />
@@ -820,7 +855,7 @@ export default function DeepLinkDialog(properties) {
                               )}
                             </Button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
+                          <PopoverContent className="w-auto p-0 border border-white/10 bg-slate-950 text-white" align="start">
                             <Calendar
                               mode="single"
                               selected={date}
@@ -828,7 +863,6 @@ export default function DeepLinkDialog(properties) {
                                 const parsedDate = new Date(e);
                                 const now = new Date();
                                 if (parsedDate < now) {
-                                  //console.log("Not a valid date");
                                   setDate(
                                     new Date(
                                       Date.now() + 1 * 24 * 60 * 60 * 1000
@@ -836,7 +870,6 @@ export default function DeepLinkDialog(properties) {
                                   );
                                   return;
                                 }
-                                //console.log("Setting expiry date");
                                 setDate(e);
                               }}
                               initialFocus
@@ -861,10 +894,10 @@ export default function DeepLinkDialog(properties) {
                           setReviewPeriodSeconds(selectedReviewPeriod);
                         }}
                       >
-                        <SelectTrigger className="mb-3 mt-1 w-3/4">
+                        <SelectTrigger className="mb-3 mt-1 w-3/4 bg-slate-950/40 border-white/[0.08] text-white">
                           <SelectValue placeholder="60s" />
                         </SelectTrigger>
-                        <SelectContent className="bg-white">
+                        <SelectContent className="bg-slate-950 border border-white/10 text-white">
                           <SelectItem value={60000}>60s</SelectItem>
                           <SelectItem value={300000}>300s</SelectItem>
                           <SelectItem value={600000}>600s</SelectItem>
@@ -875,16 +908,16 @@ export default function DeepLinkDialog(properties) {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-4 gap-2 mt-4">
-                    <Button
-                      onClick={() => {
-                        setProposalDialogOpen(true);
-                      }}
-                      variant=""
-                    >
-                      Submit
-                    </Button>
-                  </div>
+                  <div className="border-t border-white/[0.06] my-4" />
+
+                  <Button
+                    onClick={() => {
+                      setProposalDialogOpen(true);
+                    }}
+                    className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white border-0 shadow-lg shadow-amber-900/30"
+                  >
+                    Submit
+                  </Button>
                   {proposalDialogOpen &&
                     !proposal &&
                     targetUser &&

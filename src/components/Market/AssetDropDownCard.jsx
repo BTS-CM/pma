@@ -58,6 +58,7 @@ export default function AssetDropDown(properties) {
     balances,
     triggerLabel, // optional custom trigger label
     triggerVariant, // optional custom trigger variant
+    triggerClassName, // optional custom trigger class
   } = properties;
   const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
   const blocklist = useSyncExternalStore(
@@ -267,7 +268,7 @@ export default function AssetDropDown(properties) {
               type === "quote"
                 ? "bg-white/[0.06] hover:bg-white/[0.1] text-white border border-white/10"
                 : "bg-white/[0.04] hover:bg-white/[0.08] text-white/85 border border-white/10"
-            }`}
+            } ${triggerClassName ?? ""}`}
             onClick={() => setDialogOpen(true)}
           >
             <span className="truncate">
