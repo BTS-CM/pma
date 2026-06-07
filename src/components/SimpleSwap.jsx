@@ -1363,7 +1363,7 @@ export default function SimpleSwap(properties) {
             )}
 
             {pool && assetA && assetB && foundPool?.share_asset_symbol ? (
-              <>
+              <div className="md:col-start-2 md:row-start-2 flex flex-col gap-3">
                 <a
                   href={`/dex/index.html?market=${foundPool.share_asset_symbol}_${
                     assetA.symbol === "BTS" ? assetB.symbol : "BTS"
@@ -1382,7 +1382,6 @@ export default function SimpleSwap(properties) {
 
                 <a
                   href={`/dex/index.html?market=${assetA.symbol}_${assetB.symbol}`}
-                  className="md:col-start-2"
                 >
                   <ActionCard
                     icon={<TrendingUp className="h-4 w-4" />}
@@ -1395,7 +1394,7 @@ export default function SimpleSwap(properties) {
                     content={t("SimpleSwap:tradeOnDexDescription")}
                   />
                 </a>
-              </>
+              </div>
             ) : null}
           </div>
         ) : null}
@@ -1492,7 +1491,7 @@ function ActionCard({ title, description, content, icon, accent = "emerald" }) {
   return (
     <div
       className={cn(
-        "group/action relative overflow-hidden h-full",
+        "group/action relative overflow-hidden",
         "rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl",
         "shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.04)]",
         "transition-all duration-200 ease-out",
