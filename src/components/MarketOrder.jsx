@@ -14,9 +14,9 @@ import {
 import { format } from "date-fns";
 import { useStore } from "@nanostores/react";
 import { useTranslation } from "react-i18next";
-
 import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
 import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 
 import {
   Card,
@@ -528,7 +528,7 @@ export default function MarketOrder(properties) {
             </CardHeader>
             <CardContent>
               <form>
-                <FieldGroup>
+                <FieldGroup className="gap-4">
                   <Field>
                     <FieldLabel>
                       {t("MarketOrder:limitOrderOwnerLabel")}
@@ -602,7 +602,7 @@ export default function MarketOrder(properties) {
 
                   <Field>
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-4 text-xs">
+                      <span className="grid grid-cols-12 mt-1 text-xs">
                         <span className="col-span-1">
                           <HoverCard key="amountLockCard">
                             <HoverCardTrigger>
@@ -667,7 +667,7 @@ export default function MarketOrder(properties) {
 
                   {priceLock === "editable" && quoteAsset && baseAsset ? (
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-3">
+                      <span className="grid grid-cols-12 mt-1">
                         <span className="col-span-1"></span>
                         <span className="col-span-7">
                           <Input
@@ -744,7 +744,7 @@ export default function MarketOrder(properties) {
 
                   <Field>
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-4 text-xs">
+                      <span className="grid grid-cols-12 mt-1 text-xs">
                         <span className="col-span-1">
                           <HoverCard key="amountLockCard">
                             <HoverCardTrigger>
@@ -887,7 +887,7 @@ export default function MarketOrder(properties) {
 
                   <Field>
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-4 text-xs">
+                      <span className="grid grid-cols-12 mt-1 text-xs">
                         <span className="col-span-1">
                           <HoverCard key="sellTotalCard">
                             <HoverCardTrigger>
@@ -1039,7 +1039,7 @@ export default function MarketOrder(properties) {
 
                   <Field>
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-4 text-sm">
+                      <span className="grid grid-cols-12 mt-1 text-sm">
                         <span className="col-span-1">
                           <HoverCard key="sellTotalCard">
                             <HoverCardTrigger>
@@ -1234,24 +1234,29 @@ export default function MarketOrder(properties) {
                     ) : null}
                   </Field>
 
-                  <Separator className="mb-2 mt-2" />
+                  <Separator className="mb-1 mt-1" />
 
                   <Field>
                     <FieldContent>
-                      <div className="flex items-center space-x-2 mt-4">
-                        <Checkbox
-                          id="terms1"
-                          checked={osoEnabled}
-                          onClick={() => {
-                            setOSOEnabled(!osoEnabled);
-                            setInputChars(inputChars + 1);
-                            form.setValue("osoEnabled", !osoEnabled);
-                          }}
-                        />
-                        <label
-                          htmlFor="terms1"
-                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      <div
+                        className="w-full flex items-center space-x-3 mt-2 cursor-pointer hover:bg-white/[0.03] rounded-lg px-4 py-2 transition-colors"
+                        onClick={() => {
+                          setOSOEnabled(!osoEnabled);
+                          setInputChars(inputChars + 1);
+                          form.setValue("osoEnabled", !osoEnabled);
+                        }}
+                      >
+                        <div
+                          className={cn(
+                            "h-5 w-5 shrink-0 rounded-sm border flex items-center justify-center transition-colors",
+                            osoEnabled
+                              ? "border-violet-500 bg-violet-600 text-white"
+                              : "border-white/20 bg-transparent"
+                          )}
                         >
+                          {osoEnabled && <Check className="h-3.5 w-3.5" />}
+                        </div>
+                        <label className="text-sm font-medium cursor-pointer flex-1">
                           {osoEnabled
                             ? t("MarketOrder:osoEnabled")
                             : t("MarketOrder:enableOso")}
@@ -1454,7 +1459,7 @@ export default function MarketOrder(properties) {
                     </>
                   ) : null}
 
-                  <Separator className="mt-3" />
+                  <Separator className="mt-1" />
 
                   <Field>
                     <FieldLabel>{t("MarketOrder:networkFeeLabel")}</FieldLabel>
@@ -1462,7 +1467,7 @@ export default function MarketOrder(properties) {
                       <Input
                         disabled
                         placeholder={`${fee} BTS`}
-                        className="mb-3 mt-3"
+                        className="mb-1 mt-1"
                       />
                     </FieldContent>
                     {usr.id === usr.referrer ? (
@@ -1475,7 +1480,7 @@ export default function MarketOrder(properties) {
                   </Field>
 
                   <Button
-                    className="mt-5 mb-3"
+                    className="mt-2 mb-1"
                     variant="outline"
                     onClick={(event) => {
                       setShowDialog(true);

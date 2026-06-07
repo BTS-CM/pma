@@ -527,12 +527,12 @@ export default function LimitOrderCard(properties) {
         assetAData &&
         assetBData ? (
           <form onSubmit={form.handleSubmit(() => setShowDialog(true))}>
-            <FieldGroup>
+            <FieldGroup className="gap-4">
               <Controller
                 name="priceAmount"
                 control={form.control}
                 render={({ field, fieldState }) => (
-                  <Field invalid={fieldState.invalid} className="mt-4 text-xs">
+                  <Field invalid={fieldState.invalid} className="mt-1 text-xs">
                     <FieldLabel>
                       {t("LimitOrderCard:priceAmount.label")}
                     </FieldLabel>
@@ -689,7 +689,7 @@ export default function LimitOrderCard(properties) {
                 name="sellAmount"
                 control={form.control}
                 render={({ field, fieldState }) => (
-                  <Field invalid={fieldState.invalid} className="mt-4 text-xs">
+                  <Field invalid={fieldState.invalid} className="mt-1 text-xs">
                     <FieldLabel>
                       {t("LimitOrderCard:sellAmount.label")}
                     </FieldLabel>
@@ -832,7 +832,7 @@ export default function LimitOrderCard(properties) {
                 name="sellTotal"
                 control={form.control}
                 render={({ field, fieldState }) => (
-                  <Field invalid={fieldState.invalid} className="mt-4 text-xs">
+                  <Field invalid={fieldState.invalid} className="mt-1 text-xs">
                     <FieldLabel>
                       {t("LimitOrderCard:sellTotal.label")}
                     </FieldLabel>
@@ -1018,7 +1018,7 @@ export default function LimitOrderCard(properties) {
                       }}
                       value={field.value}
                     >
-                      <SelectTrigger className="mb-3">
+                      <SelectTrigger className="mb-1">
                         <SelectValue placeholder="1hr" />
                       </SelectTrigger>
                       <SelectContent className="!bg-slate-950 border border-white/10 text-white">
@@ -1124,7 +1124,7 @@ export default function LimitOrderCard(properties) {
                 )}
               />
 
-              <Separator className="mb-3 mt-3 bg-white/[0.06]" />
+              <Separator className="mb-1 mt-1 bg-white/[0.06]" />
 
               <Controller
                 name="osoValue"
@@ -1133,11 +1133,17 @@ export default function LimitOrderCard(properties) {
                   <Field invalid={fieldState.invalid}>
                     <div
                       className={cn(
-                        "flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5 transition-colors",
+                        "flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5 transition-colors cursor-pointer",
                         osoEnabled
                           ? "border-cyan-500/30 bg-cyan-500/[0.06]"
                           : "border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04]"
                       )}
+                      onClick={() => {
+                        const next = !osoEnabled;
+                        setOSOEnabled(next);
+                        setInputChars(inputChars + 1);
+                        field.onChange(next);
+                      }}
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         <div
@@ -1151,35 +1157,33 @@ export default function LimitOrderCard(properties) {
                           <Zap className="h-3.5 w-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <label
-                            htmlFor="terms1"
-                            className="text-sm font-medium leading-none text-white/90 cursor-pointer"
-                          >
+                          <p className="text-sm font-medium leading-none text-white/90">
                             {osoEnabled
                               ? t("LimitOrderCard:osoValue.enabled")
                               : t("LimitOrderCard:osoValue.enable")}
-                          </label>
+                          </p>
                           <p className="text-[11px] text-white/45 mt-0.5 truncate">
                             {t("LimitOrderCard:osoValue.description")}
                           </p>
                         </div>
                       </div>
-                      <Checkbox
-                        id="terms1"
-                        checked={osoEnabled}
-                        onCheckedChange={(checked) => {
-                          setOSOEnabled(checked);
-                          setInputChars(inputChars + 1);
-                          field.onChange(checked);
-                        }}
-                      />
+                      <div
+                        className={cn(
+                          "h-5 w-5 shrink-0 rounded-sm border flex items-center justify-center transition-colors",
+                          osoEnabled
+                            ? "border-cyan-400 bg-cyan-500 text-white"
+                            : "border-white/20 bg-transparent"
+                        )}
+                      >
+                        {osoEnabled && <Check className="h-3 w-3" />}
+                      </div>
                     </div>
                   </Field>
                 )}
               />
 
               {osoEnabled ? (
-                <div className="mt-3 space-y-4 rounded-lg border border-cyan-500/20 bg-cyan-500/[0.03] p-3 sm:p-4">
+                <div className="mt-2 space-y-2 rounded-lg border border-cyan-500/20 bg-cyan-500/[0.03] p-3 sm:p-4">
                   <Controller
                     name="osoSpread"
                     control={form.control}
@@ -1208,7 +1212,7 @@ export default function LimitOrderCard(properties) {
                               readOnly
                             />
                             <Slider
-                              className="mt-3"
+                              className="mt-1"
                               defaultValue={[spreadPercent]}
                               max={100}
                               min={1}
@@ -1271,7 +1275,7 @@ export default function LimitOrderCard(properties) {
                     render={({ field, fieldState }) => (
                       <Field
                         invalid={fieldState.invalid}
-                        className="mt-4 text-xs"
+                        className="mt-1 text-xs"
                       >
                         <FieldLabel className="text-sm">
                           {t("LimitOrderCard:osoSize.sizePercentLabel")}
@@ -1291,7 +1295,7 @@ export default function LimitOrderCard(properties) {
                               readOnly
                             />
                             <Slider
-                              className="mt-3"
+                              className="mt-1"
                               defaultValue={[sizePercent]}
                               max={100}
                               min={0}
@@ -1355,7 +1359,7 @@ export default function LimitOrderCard(properties) {
                     render={({ field, fieldState }) => (
                       <Field
                         invalid={fieldState.invalid}
-                        className="mt-4 text-xs"
+                        className="mt-1 text-xs"
                       >
                         <FieldLabel className="text-sm">
                           {t("LimitOrderCard:repeatValue.label")}
@@ -1389,7 +1393,7 @@ export default function LimitOrderCard(properties) {
               ) : null}
 
               {/*
-              <Separator className="mt-3" />
+              <Separator className="mt-1" />
 
               <Controller
                 name="fee"
@@ -1482,7 +1486,7 @@ export default function LimitOrderCard(properties) {
               {amount && price && total && parseFloat(amount) > 0 ? (
                 <div
                   className={cn(
-                    "mt-4 flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5",
+                    "mt-2 flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5",
                     isBuy
                       ? "border-emerald-500/20 bg-emerald-500/[0.04]"
                       : "border-rose-500/20 bg-rose-500/[0.04]"
@@ -1518,7 +1522,7 @@ export default function LimitOrderCard(properties) {
               ) : null}
               {!amount || !price || !expiry ? (
                 <Button
-                  className="mt-6 mb-1 w-full h-12 text-white font-semibold bg-gradient-to-r from-white/10 to-white/5 cursor-not-allowed opacity-60"
+                  className="mt-2 mb-1 w-full h-12 text-white font-semibold bg-gradient-to-r from-white/10 to-white/5 cursor-not-allowed opacity-60"
                   disabled
                   type="submit"
                 >
@@ -1528,7 +1532,7 @@ export default function LimitOrderCard(properties) {
               ) : (
                 <Button
                   className={cn(
-                    "mt-6 mb-1 w-full h-12 gap-2 text-white font-semibold",
+                    "mt-2 mb-1 w-full h-12 gap-2 text-white font-semibold",
                     "bg-gradient-to-r shadow-lg shadow-black/30",
                     accent.gradient,
                     "hover:brightness-110 active:scale-[0.99] transition-all"
@@ -1543,10 +1547,10 @@ export default function LimitOrderCard(properties) {
           </form>
         ) : (
           <form>
-            <FieldGroup>
+            <FieldGroup className="gap-4">
               <Field>
                 <FieldLabel>
-                  <div className="grid grid-cols-2 mt-3">
+                  <div className="grid grid-cols-2 mt-1">
                     <div className="mt-1">
                       {t("LimitOrderCard:sellPrice.label")}
                     </div>
@@ -1560,7 +1564,7 @@ export default function LimitOrderCard(properties) {
                   </div>
                 </FieldLabel>
 
-                <Input disabled className="mb-3 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
+                <Input disabled className="mb-1 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
                 <FieldDescription>
                   {t("LimitOrderCard:sellPrice.description")}
                 </FieldDescription>
@@ -1568,7 +1572,7 @@ export default function LimitOrderCard(properties) {
 
               <Field>
                 <FieldLabel>
-                  <div className="grid grid-cols-2 mt-3">
+                  <div className="grid grid-cols-2 mt-1">
                     <div className="mt-1">
                       {t("LimitOrderCard:sellAmount2.label")}
                     </div>
@@ -1584,12 +1588,12 @@ export default function LimitOrderCard(properties) {
                     ? t("LimitOrderCard:sellAmount2.buyDescription")
                     : t("LimitOrderCard:sellAmount2.sellDescription")}
                 </FieldDescription>
-                <Input disabled className="mb-3 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
+                <Input disabled className="mb-1 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
               </Field>
 
               <Field>
                 <FieldLabel>
-                  <div className="grid grid-cols-2 mt-3">
+                  <div className="grid grid-cols-2 mt-1">
                     <div className="mt-1">
                       {t("LimitOrderCard:sellTotal2.label")}
                     </div>
@@ -1605,7 +1609,7 @@ export default function LimitOrderCard(properties) {
                     ? t("LimitOrderCard:sellTotal2.buyDescription")
                     : t("LimitOrderCard:sellTotal2.sellDescription")}
                 </FieldDescription>
-                <Input disabled className="mb-3 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
+                <Input disabled className="mb-1 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
               </Field>
 
               <Field>
@@ -1614,7 +1618,7 @@ export default function LimitOrderCard(properties) {
                   {t("LimitOrderCard:expiry2.description")}
                 </FieldDescription>
                 <Select disabled>
-                  <SelectTrigger className="mb-3">
+                  <SelectTrigger className="mb-1">
                     <SelectValue placeholder="1hr" />
                   </SelectTrigger>
                 </Select>
