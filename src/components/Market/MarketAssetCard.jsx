@@ -45,8 +45,8 @@ import {
 } from "@/stores/favourites.ts";
 
 const TYPE_ACCENTS = {
-  buy: { bar: "from-cyan-400/70", chip: "border-cyan-400/30 bg-cyan-500/15 text-cyan-200", label: "Quote" },
-  sell: { bar: "from-emerald-400/70", chip: "border-emerald-400/30 bg-emerald-500/15 text-emerald-200", label: "Base" },
+  buy: { bar: "from-emerald-400/70", chip: "border-emerald-400/30 bg-emerald-500/15 text-emerald-200", label: "Buy" },
+  sell: { bar: "from-rose-400/70", chip: "border-rose-400/30 bg-rose-500/15 text-rose-200", label: "Sell" },
   pool: { bar: "from-amber-400/70", chip: "border-amber-400/30 bg-amber-500/15 text-amber-200", label: "Pool" },
 };
 

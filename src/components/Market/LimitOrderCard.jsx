@@ -6,15 +6,6 @@ import { useTranslation } from "react-i18next";
 import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import {
   Field,
   FieldGroup,
   FieldLabel,
@@ -45,6 +36,24 @@ import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+
+import {
+  PenLine,
+  Tag,
+  Coins,
+  Receipt,
+  Timer,
+  Layers,
+  Repeat,
+  Wallet,
+  TrendingUp,
+  TrendingDown,
+  Zap,
+  ChevronDown,
+  Check,
+  Info,
+  CalendarDays,
+} from "lucide-react";
 
 import {
   trimPrice,
@@ -173,6 +182,36 @@ export default function LimitOrderCard(properties) {
   const [sizePercent, setSizePercent] = useState(100);
   const [expirationSeconds, setExpirationSeconds] = useState(1000000);
   const [repeat, setRepeat] = useState(false);
+
+  function handleMaxAmount() {
+    if (orderType !== "sell") return;
+    const bal = parseFloat(String(assetABalance).replaceAll(",", ""));
+    if (!bal) return;
+    const formatted = bal.toFixed(assetAData.precision);
+    setAmount(formatted);
+    form.setValue("sellAmount", bal);
+    if (price) {
+      const newTotal = (bal * parseFloat(price)).toFixed(assetBData.precision);
+      setTotal(newTotal);
+      form.setValue("sellTotal", newTotal);
+    }
+    setInputChars(inputChars + 1);
+  }
+
+  function handleMaxTotal() {
+    if (orderType !== "buy") return;
+    const bal = parseFloat(String(assetBBalance).replaceAll(",", ""));
+    if (!bal) return;
+    const formatted = bal.toFixed(assetBData.precision);
+    setTotal(formatted);
+    form.setValue("sellTotal", bal);
+    if (price) {
+      const newAmount = (bal / parseFloat(price)).toFixed(assetAData.precision);
+      setAmount(newAmount);
+      form.setValue("sellAmount", newAmount);
+    }
+    setInputChars(inputChars + 1);
+  }
 
   useEffect(() => {
     async function parseURL() {
@@ -410,25 +449,78 @@ export default function LimitOrderCard(properties) {
     []
   );
 
+  const isBuy = orderType === "buy";
+  const accent = isBuy
+    ? {
+        text: "text-emerald-300",
+        textBright: "text-emerald-200",
+        bg: "bg-emerald-500/[0.06]",
+        border: "border-emerald-500/30",
+        glow: "from-emerald-500/15 via-emerald-500/3 to-transparent",
+        chip: "bg-emerald-500/10 border-emerald-500/30 text-emerald-300",
+        gradient: "from-emerald-500 via-teal-500 to-cyan-500",
+        ring: "ring-emerald-500/30",
+        focusBorder: "focus-within:border-emerald-400/60",
+        focusShadow: "focus-within:shadow-[0_0_0_3px_rgba(16,185,129,0.18)]",
+      }
+    : {
+        text: "text-rose-300",
+        textBright: "text-rose-200",
+        bg: "bg-rose-500/[0.06]",
+        border: "border-rose-500/30",
+        glow: "from-rose-500/15 via-rose-500/3 to-transparent",
+        chip: "bg-rose-500/10 border-rose-500/30 text-rose-300",
+        gradient: "from-rose-500 via-orange-500 to-amber-500",
+        ring: "ring-rose-500/30",
+        focusBorder: "focus-within:border-rose-400/60",
+        focusShadow: "focus-within:shadow-[0_0_0_3px_rgba(244,63,94,0.18)]",
+      };
+
   return (
-    <Card>
-      <CardHeader className="pb-2">
-        <CardTitle>
-          {orderType === "buy"
-            ? t("LimitOrderCard:buyingWith", {
-                assetA: thisAssetA,
-                assetB: thisAssetB,
-              })
-            : t("LimitOrderCard:sellingFor", {
-                assetA: thisAssetA,
-                assetB: thisAssetB,
-              })}
-        </CardTitle>
-        <CardDescription>
-          {t("LimitOrderCard:createLimitOrder")}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-xl border bg-slate-950/60 backdrop-blur-xl",
+        accent.border
+      )}
+      style={{ backgroundColor: "rgba(2, 6, 23, 0.6)" }}
+    >
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b",
+          accent.glow
+        )}
+      />
+      <div className="relative px-4 py-4 sm:px-5 sm:py-5">
+        <div className="flex items-center gap-2.5 mb-4">
+          <div
+            className={cn(
+              "flex h-9 w-9 items-center justify-center rounded-lg border",
+              accent.chip
+            )}
+          >
+            {isBuy ? (
+              <TrendingUp className="h-4 w-4" />
+            ) : (
+              <TrendingDown className="h-4 w-4" />
+            )}
+          </div>
+          <div className="flex-1">
+            <h3 className={cn("text-base font-semibold", accent.textBright)}>
+              {isBuy
+                ? t("LimitOrderCard:buyingWith", {
+                    assetA: thisAssetA,
+                    assetB: thisAssetB,
+                  })
+                : t("LimitOrderCard:sellingFor", {
+                    assetA: thisAssetA,
+                    assetB: thisAssetB,
+                  })}
+            </h3>
+            <p className="text-[11px] text-white/45">
+              {t("LimitOrderCard:createLimitOrder")}
+            </p>
+          </div>
+        </div>
         {thisAssetA &&
         thisAssetB &&
         marketSearch &&
@@ -458,16 +550,20 @@ export default function LimitOrderCard(properties) {
                           placeholder={price}
                           disabled
                           readOnly
+                          className="bg-white/[0.04] border-white/10 text-white/85 placeholder:text-white/55 font-mono tabular-nums disabled:opacity-100 h-11"
                         />
                       </span>
                       <span className="col-span-3 ml-3 text-center">
                         <Popover>
                           <PopoverTrigger>
-                            <span className="inline-block border border-gray-300 rounded pl-4 pb-1 pr-4 text-lg">
+                            <span className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer">
                               <Label>{t("LimitOrderCard:editLabel")}</Label>
                             </span>
                           </PopoverTrigger>
-                          <PopoverContent>
+                          <PopoverContent
+                            className="!bg-slate-950 border border-white/10 text-white"
+                            style={{ backgroundColor: "#020617" }}
+                          >
                             <Label>
                               {t("LimitOrderCard:priceAmount.provideNewLabel")}
                             </Label>{" "}
@@ -606,7 +702,27 @@ export default function LimitOrderCard(properties) {
                             asset: thisAssetA,
                           })}
                     </FieldDescription>
-                    <span className="grid grid-cols-12">
+                    {orderType === "sell" && assetABalance ? (
+                      <div className="mt-2 flex items-center justify-between rounded-md border border-white/[0.06] bg-white/[0.02] px-2.5 py-1.5">
+                        <div className="flex items-center gap-1.5 text-[11px] text-white/55">
+                          <Wallet className="h-3 w-3 text-white/40" />
+                          <span>
+                            {t("LimitOrderCard:useBalance")}:{" "}
+                            <span className="font-mono tabular-nums text-white/80">
+                              {assetABalance} {thisAssetA}
+                            </span>
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleMaxAmount}
+                          className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-cyan-200 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-colors active:scale-95"
+                        >
+                          MAX
+                        </button>
+                      </div>
+                    ) : null}
+                    <span className="grid grid-cols-12 mt-2">
                       <span className="col-span-9">
                         <Input
                           {...field}
@@ -614,16 +730,20 @@ export default function LimitOrderCard(properties) {
                           placeholder={amount}
                           disabled
                           readOnly
+                          className="bg-white/[0.04] border-white/10 text-white/85 placeholder:text-white/55 font-mono tabular-nums disabled:opacity-100 h-11"
                         />
                       </span>
                       <span className="col-span-3 ml-3 text-center">
                         <Popover>
                           <PopoverTrigger>
-                            <span className="inline-block border border-gray-300 rounded pl-4 pb-1 pr-4 text-lg">
+                            <span className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer">
                               <Label>{t("LimitOrderCard:editLabel")}</Label>
                             </span>
                           </PopoverTrigger>
-                          <PopoverContent>
+                          <PopoverContent
+                            className="!bg-slate-950 border border-white/10 text-white"
+                            style={{ backgroundColor: "#020617" }}
+                          >
                             <Label>
                               {t("LimitOrderCard:sellAmount.provideNewLabel")}
                             </Label>{" "}
@@ -725,7 +845,27 @@ export default function LimitOrderCard(properties) {
                             asset: thisAssetB,
                           })}
                     </FieldDescription>
-                    <span className="grid grid-cols-12">
+                    {orderType === "buy" && assetBBalance ? (
+                      <div className="mt-2 flex items-center justify-between rounded-md border border-white/[0.06] bg-white/[0.02] px-2.5 py-1.5">
+                        <div className="flex items-center gap-1.5 text-[11px] text-white/55">
+                          <Wallet className="h-3 w-3 text-white/40" />
+                          <span>
+                            {t("LimitOrderCard:useBalance")}:{" "}
+                            <span className="font-mono tabular-nums text-white/80">
+                              {assetBBalance} {thisAssetB}
+                            </span>
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleMaxTotal}
+                          className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-cyan-200 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-colors active:scale-95"
+                        >
+                          MAX
+                        </button>
+                      </div>
+                    ) : null}
+                    <span className="grid grid-cols-12 mt-2">
                       <span className="col-span-9">
                         <Input
                           {...field}
@@ -733,16 +873,20 @@ export default function LimitOrderCard(properties) {
                           placeholder={total}
                           disabled
                           readOnly
+                          className="bg-white/[0.04] border-white/10 text-white/85 placeholder:text-white/55 font-mono tabular-nums disabled:opacity-100 h-11"
                         />
                       </span>
                       <span className="col-span-3 ml-3 text-center">
                         <Popover>
                           <PopoverTrigger>
-                            <span className="inline-block border border-gray-300 rounded pl-4 pb-1 pr-4 text-lg">
+                            <span className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer">
                               <Label>{t("LimitOrderCard:editLabel")}</Label>
                             </span>
                           </PopoverTrigger>
-                          <PopoverContent>
+                          <PopoverContent
+                            className="!bg-slate-950 border border-white/10 text-white"
+                            style={{ backgroundColor: "#020617" }}
+                          >
                             <Label>
                               {t("LimitOrderCard:sellTotal.provideNewLabel")}
                             </Label>
@@ -877,26 +1021,47 @@ export default function LimitOrderCard(properties) {
                       <SelectTrigger className="mb-3">
                         <SelectValue placeholder="1hr" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white">
-                        <SelectItem value="1hr">
+                      <SelectContent className="!bg-slate-950 border border-white/10 text-white">
+                        <SelectItem
+                          value="1hr"
+                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                        >
                           {t("LimitOrderCard:expiry.1hr")}
                         </SelectItem>
-                        <SelectItem value="12hr">
+                        <SelectItem
+                          value="12hr"
+                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                        >
                           {t("LimitOrderCard:expiry.12hr")}
                         </SelectItem>
-                        <SelectItem value="24hr">
+                        <SelectItem
+                          value="24hr"
+                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                        >
                           {t("LimitOrderCard:expiry.24hr")}
                         </SelectItem>
-                        <SelectItem value="7d">
+                        <SelectItem
+                          value="7d"
+                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                        >
                           {t("LimitOrderCard:expiry.7d")}
                         </SelectItem>
-                        <SelectItem value="30d">
+                        <SelectItem
+                          value="30d"
+                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                        >
                           {t("LimitOrderCard:expiry.30d")}
                         </SelectItem>
-                        <SelectItem value="specific">
+                        <SelectItem
+                          value="specific"
+                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                        >
                           {t("LimitOrderCard:expiry.specific")}
                         </SelectItem>
-                        <SelectItem value="fkill">
+                        <SelectItem
+                          value="fkill"
+                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                        >
                           {t("LimitOrderCard:expiry.fkill")}
                         </SelectItem>
                       </SelectContent>
@@ -908,8 +1073,8 @@ export default function LimitOrderCard(properties) {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "w-[240px] justify-start text-left font-normal",
-                                !date && "text-muted-foreground"
+                                "w-[240px] justify-start text-left font-normal border-white/10 bg-white/[0.04] text-white/85 hover:bg-white/[0.08] hover:text-white hover:border-white/20",
+                                !date && "text-white/45"
                               )}
                             >
                               <CalendarIcon className="mr-2 h-4 w-4" />
@@ -959,14 +1124,46 @@ export default function LimitOrderCard(properties) {
                 )}
               />
 
-              <Separator className="mb-2 mt-2" />
+              <Separator className="mb-3 mt-3 bg-white/[0.06]" />
 
               <Controller
                 name="osoValue"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field invalid={fieldState.invalid}>
-                    <div className="flex items-center space-x-2">
+                    <div
+                      className={cn(
+                        "flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5 transition-colors",
+                        osoEnabled
+                          ? "border-cyan-500/30 bg-cyan-500/[0.06]"
+                          : "border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04]"
+                      )}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div
+                          className={cn(
+                            "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border",
+                            osoEnabled
+                              ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-300"
+                              : "border-white/10 bg-white/[0.04] text-white/45"
+                          )}
+                        >
+                          <Zap className="h-3.5 w-3.5" />
+                        </div>
+                        <div className="min-w-0">
+                          <label
+                            htmlFor="terms1"
+                            className="text-sm font-medium leading-none text-white/90 cursor-pointer"
+                          >
+                            {osoEnabled
+                              ? t("LimitOrderCard:osoValue.enabled")
+                              : t("LimitOrderCard:osoValue.enable")}
+                          </label>
+                          <p className="text-[11px] text-white/45 mt-0.5 truncate">
+                            {t("LimitOrderCard:osoValue.description")}
+                          </p>
+                        </div>
+                      </div>
                       <Checkbox
                         id="terms1"
                         checked={osoEnabled}
@@ -976,26 +1173,13 @@ export default function LimitOrderCard(properties) {
                           field.onChange(checked);
                         }}
                       />
-                      <label
-                        htmlFor="terms1"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        {osoEnabled
-                          ? t("LimitOrderCard:osoValue.enabled")
-                          : t("LimitOrderCard:osoValue.enable")}
-                      </label>
                     </div>
-                    {osoEnabled ? (
-                      <FieldDescription>
-                        {t("LimitOrderCard:osoValue.description")}
-                      </FieldDescription>
-                    ) : null}
                   </Field>
                 )}
               />
 
               {osoEnabled ? (
-                <>
+                <div className="mt-3 space-y-4 rounded-lg border border-cyan-500/20 bg-cyan-500/[0.03] p-3 sm:p-4">
                   <Controller
                     name="osoSpread"
                     control={form.control}
@@ -1042,12 +1226,15 @@ export default function LimitOrderCard(properties) {
                                   onClick={() => {
                                     event.preventDefault();
                                   }}
-                                  className="inline-block border border-gray-300 rounded pl-4 pb-1 pr-4 text-lg"
+                                  className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer"
                                 >
                                   <Label>{t("LimitOrderCard:editLabel")}</Label>
                                 </span>
                               </PopoverTrigger>
-                              <PopoverContent>
+                              <PopoverContent
+                            className="!bg-slate-950 border border-white/10 text-white"
+                            style={{ backgroundColor: "#020617" }}
+                          >
                                 <Label>
                                   {t(
                                     "LimitOrderCard:osoEnabled.provideNewSpreadPercent"
@@ -1122,12 +1309,15 @@ export default function LimitOrderCard(properties) {
                                   onClick={() => {
                                     event.preventDefault();
                                   }}
-                                  className="inline-block border border-gray-300 rounded pl-4 pb-1 pr-4 text-lg"
+                                  className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer"
                                 >
                                   <Label>{t("LimitOrderCard:editLabel")}</Label>
                                 </span>
                               </PopoverTrigger>
-                              <PopoverContent>
+                              <PopoverContent
+                            className="!bg-slate-950 border border-white/10 text-white"
+                            style={{ backgroundColor: "#020617" }}
+                          >
                                 <Label>
                                   {t(
                                     "LimitOrderCard:osoSize.provideNewSizePercent"
@@ -1195,7 +1385,7 @@ export default function LimitOrderCard(properties) {
                       </Field>
                     )}
                   />
-                </>
+                </div>
               ) : null}
 
               {/*
@@ -1289,17 +1479,63 @@ export default function LimitOrderCard(properties) {
                   )}
                 />
               ) : null}
+              {amount && price && total && parseFloat(amount) > 0 ? (
+                <div
+                  className={cn(
+                    "mt-4 flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5",
+                    isBuy
+                      ? "border-emerald-500/20 bg-emerald-500/[0.04]"
+                      : "border-rose-500/20 bg-rose-500/[0.04]"
+                  )}
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <ArrowRight className="h-3.5 w-3.5 text-white/40 shrink-0" />
+                    <span className="text-xs text-white/70 truncate">
+                      {isBuy
+                        ? t("LimitOrderCard:headerText.buying", {
+                            amount: parseFloat(amount).toFixed(
+                              assetAData.precision
+                            ),
+                            thisAssetA,
+                            total: parseFloat(total).toFixed(
+                              assetBData.precision
+                            ),
+                            thisAssetB,
+                          })
+                        : t("LimitOrderCard:headerText.selling", {
+                            amount: parseFloat(amount).toFixed(
+                              assetAData.precision
+                            ),
+                            thisAssetA,
+                            total: parseFloat(total).toFixed(
+                              assetBData.precision
+                            ),
+                            thisAssetB,
+                          })}
+                    </span>
+                  </div>
+                </div>
+              ) : null}
               {!amount || !price || !expiry ? (
                 <Button
-                  className="mt-7 mb-1"
-                  variant="outline"
+                  className="mt-6 mb-1 w-full h-12 text-white font-semibold bg-gradient-to-r from-white/10 to-white/5 cursor-not-allowed opacity-60"
                   disabled
                   type="submit"
                 >
+                  <Zap className="h-4 w-4 mr-2" />
                   {t("LimitOrderCard:submit")}
                 </Button>
               ) : (
-                <Button className="mt-7 mb-1" variant="outline" type="submit">
+                <Button
+                  className={cn(
+                    "mt-6 mb-1 w-full h-12 gap-2 text-white font-semibold",
+                    "bg-gradient-to-r shadow-lg shadow-black/30",
+                    accent.gradient,
+                    "hover:brightness-110 active:scale-[0.99] transition-all"
+                  )}
+                  type="submit"
+                >
+                  <Zap className="h-4 w-4" />
                   {t("LimitOrderCard:submit")}
                 </Button>
               )}
@@ -1324,7 +1560,7 @@ export default function LimitOrderCard(properties) {
                   </div>
                 </FieldLabel>
 
-                <Input disabled className="mb-3" />
+                <Input disabled className="mb-3 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
                 <FieldDescription>
                   {t("LimitOrderCard:sellPrice.description")}
                 </FieldDescription>
@@ -1348,7 +1584,7 @@ export default function LimitOrderCard(properties) {
                     ? t("LimitOrderCard:sellAmount2.buyDescription")
                     : t("LimitOrderCard:sellAmount2.sellDescription")}
                 </FieldDescription>
-                <Input disabled className="mb-3" />
+                <Input disabled className="mb-3 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
               </Field>
 
               <Field>
@@ -1369,7 +1605,7 @@ export default function LimitOrderCard(properties) {
                     ? t("LimitOrderCard:sellTotal2.buyDescription")
                     : t("LimitOrderCard:sellTotal2.sellDescription")}
                 </FieldDescription>
-                <Input disabled className="mb-3" />
+                <Input disabled className="mb-3 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
               </Field>
 
               <Field>
@@ -1386,7 +1622,11 @@ export default function LimitOrderCard(properties) {
 
               <Field disabled>
                 <FieldLabel>{t("LimitOrderCard:fee.label")}</FieldLabel>
-                <Input disabled label={t("LimitOrderCard:fee.label")} />
+                <Input
+                  disabled
+                  label={t("LimitOrderCard:fee.label")}
+                  className="bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35"
+                />
                 <FieldDescription>
                   {t("LimitOrderCard:fee.description")}
                 </FieldDescription>
@@ -1408,10 +1648,10 @@ export default function LimitOrderCard(properties) {
 
               <Button
                 disabled
-                className="mt-7 mb-1"
-                variant="outline"
+                className="mt-6 mb-1 w-full h-12 text-white font-semibold bg-gradient-to-r from-white/10 to-white/5 cursor-not-allowed opacity-60"
                 type="submit"
               >
+                <Zap className="h-4 w-4 mr-2" />
                 {t("LimitOrderCard:submit")}
               </Button>
             </FieldGroup>
@@ -1535,7 +1775,7 @@ export default function LimitOrderCard(properties) {
             }
           />
         ) : null}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
