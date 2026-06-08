@@ -111,7 +111,7 @@ export default function AppSidebar() {
     { title: "Home:prediction_markets_mine.title", href: "/my-predictions/index.html", key: "prediction_markets_mine" },
     { title: "Home:prediction_markets_portfolio.title", href: "/prediction-portfolio/index.html", key: "prediction_markets_portfolio" },
     { title: "Home:prediction_markets_margin.title", href: "/prediction-margin/index.html", key: "prediction_markets_margin" },
-    { title: "Home:create_prediction.title", href: "/create_prediction/index.html", key: "create_prediction" },
+    { title: "PageHeader:createPrediction", href: "/create_prediction/index.html", key: "create_prediction" },
   ];
 
   const exchangeItems = [
