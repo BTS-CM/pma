@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
   useCallback,
+  memo,
 } from "react";
 import { List } from "react-window";
 import { useStore } from "@nanostores/react";
@@ -27,6 +28,11 @@ import {
   ArrowUpDown,
   X as XIcon,
   Ban,
+  Activity,
+  Hourglass,
+  BookOpen,
+  Briefcase,
+  Sparkles,
 } from "lucide-react";
 
 import { useTranslation } from "react-i18next";
@@ -218,16 +224,16 @@ function StatBlock({ label, value, help, mono, accent }) {
   return (
     <div
       className={cn(
-        "rounded-lg border bg-card/60 px-3 py-2 transition-colors",
+        "rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 transition-all hover:bg-white/[0.06]",
         accent
           ? "border-l-2 border-l-current"
-          : "border-border",
+          : "",
         accent === "emerald" && "border-emerald-500/50 bg-emerald-500/5",
         accent === "rose" && "border-rose-500/50 bg-rose-500/5",
         accent === "amber" && "border-amber-500/50 bg-amber-500/5",
       )}
     >
-      <div className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground flex items-center gap-1">
+      <div className="text-[10px] uppercase tracking-wider font-semibold text-white/60 flex items-center gap-1">
         {label}
         {help ? (
           <TooltipProvider delayDuration={200}>
@@ -244,7 +250,7 @@ function StatBlock({ label, value, help, mono, accent }) {
       </div>
       <div
         className={cn(
-          "mt-1 text-sm font-semibold text-foreground",
+          "mt-1 text-sm font-semibold text-white",
           mono && "font-mono tabular-nums",
         )}
       >
@@ -259,14 +265,14 @@ function ProbabilityBar({ yesPercent }) {
   return (
     <div>
       <div className="flex items-center justify-between text-xs font-medium">
-        <span className="text-emerald-600 dark:text-emerald-400">
+        <span className="text-emerald-400">
           YES {clamped.toFixed(1)}%
         </span>
-        <span className="text-rose-600 dark:text-rose-400">
+        <span className="text-rose-400">
           NO {(100 - clamped).toFixed(1)}%
         </span>
       </div>
-      <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-rose-500/30">
+      <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-rose-500/20">
         <div
           className="h-full rounded-full bg-emerald-500 transition-all"
           style={{ width: `${clamped}%` }}
@@ -282,7 +288,7 @@ function NftHero({ images, heroIndex, setHeroIndex, ipfsGateway }) {
   if (!hero) return null;
   const src = ipfsUrl(hero.url, ipfsGateway);
   return (
-    <div className="rounded-md border border-border overflow-hidden bg-muted/30">
+    <div className="rounded-md border border-white/10 overflow-hidden bg-white/5">
       {src ? (
         <img
           src={src}
@@ -294,7 +300,7 @@ function NftHero({ images, heroIndex, setHeroIndex, ipfsGateway }) {
           }}
         />
       ) : (
-        <div className="flex items-center justify-center h-32 text-muted-foreground text-sm">
+        <div className="flex items-center justify-center h-32 text-white/40 text-sm">
           <ImageIcon className="mr-2 h-4 w-4" />
           {t("Predictions:nft.noImage")}
         </div>
@@ -318,8 +324,8 @@ function NftThumbStrip({ images, heroIndex, setHeroIndex, ipfsGateway }) {
             className={cn(
               "h-14 w-14 rounded-md overflow-hidden border-2 transition-colors",
               active
-                ? "border-primary ring-1 ring-primary/40"
-                : "border-border hover:border-primary/40",
+? "border-violet-500 ring-2 ring-violet-500/30"
+                  : "border-white/[0.08] hover:border-violet-500/40",
             )}
             aria-label={`Image ${idx + 1}`}
           >
@@ -334,7 +340,7 @@ function NftThumbStrip({ images, heroIndex, setHeroIndex, ipfsGateway }) {
                 }}
               />
             ) : (
-              <div className="h-full w-full flex items-center justify-center bg-muted text-muted-foreground">
+              <div className="h-full w-full flex items-center justify-center bg-white/10 text-white/40">
                 <ImageIcon className="h-4 w-4" />
               </div>
             )}
@@ -348,9 +354,9 @@ function NftThumbStrip({ images, heroIndex, setHeroIndex, ipfsGateway }) {
 function LongText({ label, value }) {
   if (!value) return null;
   return (
-    <div className="rounded-md border border-border bg-muted/30 p-3">
+    <div className="rounded-md border border-white/10 bg-white/5 p-3">
       {label ? (
-        <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">
+        <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1">
           {label}
         </div>
       ) : null}
@@ -380,6 +386,49 @@ export default function Predictions(properties) {
   const visuals = useStore($visualSettings);
 
   const view = properties.view || "active"; // active, expired, mine, portfolio, margin
+  const VIEW_CONFIG = {
+    active: {
+      icon: Activity,
+      color: "text-cyan-400",
+      bg: "bg-cyan-500/15",
+      border: "border-cyan-500/30",
+      ring: "ring-cyan-500/20",
+      gradient: "from-cyan-500 to-sky-500",
+    },
+    expired: {
+      icon: Hourglass,
+      color: "text-sky-400",
+      bg: "bg-sky-500/15",
+      border: "border-sky-500/30",
+      ring: "ring-sky-500/20",
+      gradient: "from-sky-500 to-blue-500",
+    },
+    mine: {
+      icon: BookOpen,
+      color: "text-emerald-400",
+      bg: "bg-emerald-500/15",
+      border: "border-emerald-500/30",
+      ring: "ring-emerald-500/20",
+      gradient: "from-emerald-500 to-teal-500",
+    },
+    portfolio: {
+      icon: Briefcase,
+      color: "text-fuchsia-400",
+      bg: "bg-fuchsia-500/15",
+      border: "border-fuchsia-500/30",
+      ring: "ring-fuchsia-500/20",
+      gradient: "from-fuchsia-500 to-pink-500",
+    },
+    margin: {
+      icon: TrendingUp,
+      color: "text-amber-400",
+      bg: "bg-amber-500/15",
+      border: "border-amber-500/30",
+      ring: "ring-amber-500/20",
+      gradient: "from-amber-500 to-orange-500",
+    },
+  };
+  const currentView = VIEW_CONFIG[view] || VIEW_CONFIG.active;
 
   // Live countdown ticker - re-renders the row every 30s so expiry countdowns update
   const [now, setNow] = useState(() => Date.now());
@@ -862,7 +911,7 @@ export default function Predictions(properties) {
     return result;
   }, [chosenPMAs, searchQuery, filterBy, sortBy, now, callOrders, view, userBlockedIDs]);
 
-  const PredictionRow = ({ res }) => {
+  const PredictionRow = memo(({ res }) => {
     // All hooks must be called unconditionally, before any early return.
     const [rowView, setRowView] = useState("overview");
 
@@ -1044,7 +1093,7 @@ export default function Predictions(properties) {
 
       return (
         <div style={{ ...style }} key={`acard-${res.id}`}>
-          <Card className="ml-2 mr-2 mt-1">
+          <Card className="ml-2 mr-2 mt-1 bg-slate-900/80 border-white/[0.08]">
             <CardHeader className="pb-3 pt-3">
               <span className="flex items-center w-full">
                 <span className="flex-shrink-0">
@@ -1062,7 +1111,7 @@ export default function Predictions(properties) {
                     ]}
                   />
                 </span>
-                <span className="flex-grow ml-3">
+                <span className="flex-grow ml-3 text-white">
                   #{index + 1}: {res.name} ({res.id})
                 </span>
                 <span className="flex-shrink-0">
@@ -1106,26 +1155,26 @@ export default function Predictions(properties) {
     const statusStyles = {
       active: {
         border: "border-l-emerald-500",
-        bg: "bg-emerald-500/10",
-        text: "text-emerald-700 dark:text-emerald-300",
+        bg: "bg-emerald-500/15",
+        text: "text-emerald-400",
         label: t("Predictions:status.active"),
       },
       resolvedYes: {
-        border: "border-l-emerald-600",
-        bg: "bg-emerald-600/10",
-        text: "text-emerald-700 dark:text-emerald-300",
+        border: "border-l-emerald-500",
+        bg: "bg-emerald-500/15",
+        text: "text-emerald-400",
         label: t("Predictions:status.resolvedYes"),
       },
       resolvedNo: {
         border: "border-l-rose-500",
-        bg: "bg-rose-500/10",
-        text: "text-rose-700 dark:text-rose-300",
+        bg: "bg-rose-500/15",
+        text: "text-rose-400",
         label: t("Predictions:status.resolvedNo"),
       },
       awaiting: {
         border: "border-l-amber-500",
-        bg: "bg-amber-500/10",
-        text: "text-amber-700 dark:text-amber-300",
+        bg: "bg-amber-500/15",
+        text: "text-amber-400",
         label: t("Predictions:status.awaiting"),
       },
     };
@@ -1135,19 +1184,19 @@ export default function Predictions(properties) {
     return (
       <Card
         className={cn(
-          "w-full overflow-hidden border-l-4 shadow-sm transition-all hover:shadow-lg hover:-translate-y-0.5",
+          "w-full overflow-hidden border-l-4 shadow-md shadow-black/20 transition-all hover:shadow-xl hover:shadow-black/30 hover:-translate-y-0.5 bg-slate-900/80 border-white/[0.08] backdrop-blur-sm",
           status.border,
         )}
       >
         <CardHeader className="pb-2 pt-3">
             <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-start">
               <div className="min-w-0">
-                <CardTitle className="text-base sm:text-lg font-semibold leading-snug line-clamp-3 text-foreground">
+                <CardTitle className="text-base sm:text-lg font-semibold leading-snug line-clamp-3 text-white">
                   {cleanedPrediction || symbol}
                 </CardTitle>
-                <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
-                  <span className="font-mono font-medium text-foreground/80">{symbol}</span>
-                  <span className="text-muted-foreground/50">·</span>
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-white/50">
+                  <span className="font-mono font-medium text-white/80">{symbol}</span>
+                  <span className="text-white/20">·</span>
                   <span className="font-mono text-[10px]">{res.id}</span>
                   <CopyButton value={res.id} label={t("Predictions:copyAssetId")} />
                   <span
@@ -1169,18 +1218,17 @@ export default function Predictions(properties) {
                     {status.label}
                   </span>
                   {hasNft ? (
-                    <Badge variant="outline" className="text-[10px] py-0">
+                    <span className="inline-flex items-center rounded-full bg-violet-500/10 border border-violet-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-violet-400">
                       NFT
-                    </Badge>
+                    </span>
                   ) : null}
                 </div>
               </div>
               <div className="md:text-right text-xs flex flex-wrap items-center md:justify-end gap-x-2 gap-y-1">
-                <Badge
-                  variant="outline"
-                  className="gap-1.5 pl-1 pr-2 py-0.5 text-[11px] font-medium"
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] pl-0.5 pr-2 py-0.5 text-[11px] font-medium"
                 >
-                  <span className="inline-flex h-5 w-5 overflow-hidden rounded-full">
+                  <span className="inline-flex h-5 w-5 overflow-hidden rounded-full ring-1 ring-white/10">
                     <Avatar
                       size={20}
                       name={issuerDisplayName ?? house}
@@ -1195,28 +1243,28 @@ export default function Predictions(properties) {
                       ]}
                     />
                   </span>
-                  <span className="text-muted-foreground">
+                  <span className="text-white/60">
                     {issuerDisplayLabel ?? house}
                   </span>
-                </Badge>
+                </span>
                 {issuerIsLtm ? (
-                  <Badge variant="secondary" className="text-[10px] py-0">
+                  <span className="inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-400">
                     LTM
-                  </Badge>
+                  </span>
                 ) : null}
               </div>
             </div>
           </CardHeader>
-          <CardContent className="text-sm pb-3 mt-1">
+          <CardContent className="text-sm pb-3 mt-1 text-white/70">
             <div className="grid grid-cols-1 gap-2">
-              <div className="flex flex-wrap items-center gap-1 mt-1 rounded-lg bg-muted/40 p-1 self-start">
+              <div className="flex flex-wrap items-center gap-1 mt-1 rounded-lg bg-white/[0.03] border border-white/[0.06] p-1 self-start">
                 <Button
                   onClick={() => setRowView("overview")}
                   variant={rowView === "overview" ? "default" : "ghost"}
                   size="sm"
                   className={cn(
                     "h-7 text-xs",
-                    rowView !== "overview" && "text-muted-foreground",
+                    rowView !== "overview" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
                   )}
                 >
                   {t("Predictions:tab.overview")}
@@ -1228,7 +1276,7 @@ export default function Predictions(properties) {
                     size="sm"
                     className={cn(
                       "h-7 text-xs",
-                      rowView !== "nft" && "text-muted-foreground",
+                      rowView !== "nft" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
                     )}
                   >
                     {t("Predictions:tab.nft")}
@@ -1240,7 +1288,7 @@ export default function Predictions(properties) {
                   size="sm"
                   className={cn(
                     "h-7 text-xs",
-                    rowView !== "market" && "text-muted-foreground",
+                    rowView !== "market" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
                   )}
                 >
                   {t("Predictions:tab.market")}
@@ -1251,7 +1299,7 @@ export default function Predictions(properties) {
                   size="sm"
                   className={cn(
                     "h-7 text-xs",
-                    rowView !== "details" && "text-muted-foreground",
+                    rowView !== "details" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
                   )}
                 >
                   {t("Predictions:tab.details")}
@@ -1263,7 +1311,7 @@ export default function Predictions(properties) {
                     size="sm"
                     className={cn(
                       "h-7 text-xs",
-                      rowView !== "actions" && "text-muted-foreground",
+                      rowView !== "actions" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
                     )}
                   >
                     {t("Predictions:tab.actions")}
@@ -1275,7 +1323,7 @@ export default function Predictions(properties) {
                     size="sm"
                     className={cn(
                       "h-7 text-xs",
-                      rowView !== "winners" && "text-muted-foreground",
+                      rowView !== "winners" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
                     )}
                   >
                     {t("Predictions:tab.winners")}
@@ -1288,7 +1336,7 @@ export default function Predictions(properties) {
                     size="sm"
                     className={cn(
                       "h-7 text-xs",
-                      rowView !== "admin" && "text-muted-foreground",
+                      rowView !== "admin" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
                     )}
                   >
                     {t("Predictions:tab.admin")}
@@ -1299,14 +1347,14 @@ export default function Predictions(properties) {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-7 text-xs text-muted-foreground"
+                      className="h-7 text-xs text-white/40 hover:text-white hover:bg-white/10"
                     >
                       {t("Predictions:json.button")}
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-white">
+                  <DropdownMenuContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
                     <DropdownMenuItem
-                      className="hover:shadow-inner"
+                      className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
                       onClick={() => {
                         setJsonPayload(res);
                         setJsonDialogOpen(true);
@@ -1316,7 +1364,7 @@ export default function Predictions(properties) {
                     </DropdownMenuItem>
                     {relevantBitassetData ? (
                       <DropdownMenuItem
-                        className="hover:shadow-inner"
+                        className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
                         onClick={() => {
                           setJsonPayload(relevantBitassetData);
                           setJsonDialogOpen(true);
@@ -1327,7 +1375,7 @@ export default function Predictions(properties) {
                     ) : null}
                     {_desc ? (
                       <DropdownMenuItem
-                        className="hover:shadow-inner"
+                        className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
                         onClick={() => {
                           setJsonPayload(_desc);
                           setJsonDialogOpen(true);
@@ -1349,7 +1397,7 @@ export default function Predictions(properties) {
                             "h-7 w-7",
                             userBlockedIDs.has(house)
                               ? "text-red-600 hover:text-red-700"
-                              : "text-muted-foreground hover:text-red-600",
+                              : "text-white/40 hover:text-red-400",
                           )}
                           onClick={() => {
                             if (userBlockedIDs.has(house)) {
@@ -1385,7 +1433,7 @@ export default function Predictions(properties) {
                   open={blockConfirmOpen}
                   onOpenChange={setBlockConfirmOpen}
                 >
-                  <AlertDialogContent className="bg-white">
+                  <AlertDialogContent className="bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                     <AlertDialogHeader>
                       <AlertDialogTitle>
                         {t("Predictions:blockConfirm.title")}
@@ -1394,8 +1442,8 @@ export default function Predictions(properties) {
                         {t("Predictions:blockConfirm.description")}
                       </AlertDialogDescription>
                     </AlertDialogHeader>
-                    <div className="flex items-center gap-3 rounded-md border border-border bg-muted/40 p-3">
-                      <span className="inline-flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full">
+                    <div className="flex items-center gap-3 rounded-md border border-white/[0.08] bg-white/[0.03] p-3">
+                      <span className="inline-flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-white/10">
                         <Avatar
                           size={40}
                           name={issuerDisplayName ?? house}
@@ -1411,24 +1459,21 @@ export default function Predictions(properties) {
                         />
                       </span>
                       <div className="min-w-0">
-                        <div className="text-sm font-semibold text-foreground truncate">
+                        <div className="text-sm font-semibold text-white truncate">
                           {issuerDisplayName ?? house}
                         </div>
-                        <div className="font-mono text-xs text-muted-foreground">
+                        <div className="font-mono text-xs text-white/50">
                           {house}
                         </div>
                       </div>
                       {issuerIsLtm ? (
-                        <Badge
-                          variant="secondary"
-                          className="ml-auto text-[10px] py-0"
-                        >
+                        <span className="ml-auto inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-400">
                           LTM
-                        </Badge>
+                        </span>
                       ) : null}
                     </div>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>
+                      <AlertDialogCancel className="bg-white/[0.05] border-white/[0.08] text-white/70 hover:bg-white/10 hover:text-white">
                         {t("Predictions:blockConfirm.cancel")}
                       </AlertDialogCancel>
                       <AlertDialogAction
@@ -1550,7 +1595,7 @@ export default function Predictions(properties) {
                       ) : null}
                     </div>
                   ) : (
-                    <div className="flex items-center justify-center h-32 rounded-md border border-dashed border-border text-muted-foreground text-sm">
+                    <div className="flex items-center justify-center h-32 rounded-md border border-dashed border-white/20 text-white/40 text-sm">
                       <ImageIcon className="mr-2 h-4 w-4" />
                       {t("Predictions:nft.noImage")}
                     </div>
@@ -1573,9 +1618,9 @@ export default function Predictions(properties) {
                       <StatBlock
                         label={t("Predictions:nft.type")}
                         value={
-                          <Badge variant="secondary" className="text-xs">
+                          <span className="inline-flex items-center rounded-full bg-white/[0.06] border border-white/[0.08] px-2 py-0.5 text-xs font-medium text-white/70">
                             {_desc.nft_object.type}
-                          </Badge>
+                          </span>
                         }
                       />
                     ) : null}
@@ -1613,7 +1658,7 @@ export default function Predictions(properties) {
 
                   {_desc.nft_object.tags ? (
                     <div>
-                      <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">
+                      <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1">
                         {t("Predictions:nft.tags")}
                       </div>
                       <div className="flex flex-wrap gap-1">
@@ -1674,9 +1719,9 @@ export default function Predictions(properties) {
                   ) : null}
 
                   {(_desc.nft_signature || _desc.sig_pubkey_or_address) ? (
-                    <div className="rounded-md border border-border bg-muted/30 p-3 grid grid-cols-1 gap-2 text-xs">
+                    <div className="rounded-md border border-white/10 bg-white/5 p-3 grid grid-cols-1 gap-2 text-xs">
                       <div>
-                        <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-0.5">
+                        <div className="text-[11px] uppercase tracking-wide text-white/60 mb-0.5">
                           {t("Predictions:nft.signature")}
                         </div>
                         <MonoBlock
@@ -1687,7 +1732,7 @@ export default function Predictions(properties) {
                         />
                       </div>
                       <div>
-                        <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-0.5">
+                        <div className="text-[11px] uppercase tracking-wide text-white/60 mb-0.5">
                           {t("Predictions:nft.sigPubkey")}
                         </div>
                         <MonoBlock
@@ -1697,7 +1742,7 @@ export default function Predictions(properties) {
                           label={t("Predictions:nft.copyPubkey")}
                         />
                       </div>
-                      <div className="text-[10px] text-muted-foreground italic">
+                      <div className="text-[10px] text-white/40 italic">
                         {t("Predictions:nft.verifyNote")}
                       </div>
                     </div>
@@ -1708,18 +1753,18 @@ export default function Predictions(properties) {
               {rowView === "market" ? (
                 <div className="grid grid-cols-1 gap-3">
                   {!isExpired ? (
-                    <div className="rounded-lg border border-border bg-card/40 p-3">
-                      <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1.5">
+                    <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                      <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1.5">
                         {t("Predictions:market.impliedProbability")}
                       </div>
                       <ProbabilityBar yesPercent={impliedYesPercent} />
-                      <div className="mt-1.5 text-[11px] text-muted-foreground">
+                      <div className="mt-1.5 text-[11px] text-white/40">
                         {t("Predictions:market.impliedProbability_help")}
                       </div>
                     </div>
                   ) : (
-                    <div className="rounded-lg border border-border bg-card/40 p-3 text-sm">
-                      <span className="text-muted-foreground">
+                    <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-sm">
+                      <span className="text-white/50">
                         {t("Predictions:market.expiredNote")}
                       </span>
                     </div>
@@ -1798,7 +1843,7 @@ export default function Predictions(properties) {
                               </span>
                             </HoverCardTrigger>
                             <HoverCardContent
-                              className="w-80 mt-1"
+                              className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]"
                               align="start"
                             >
                               {Object.keys(_issuer_permissions).join(", ")}
@@ -1821,7 +1866,7 @@ export default function Predictions(properties) {
                               </span>
                             </HoverCardTrigger>
                             <HoverCardContent
-                              className="w-80 mt-1"
+                              className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]"
                               align="start"
                             >
                               {Object.keys(_flags).join(", ")}
@@ -1833,10 +1878,10 @@ export default function Predictions(properties) {
                       }
                     />
                   </div>
-                  <div className="rounded-md border border-border bg-muted/30 p-3 text-xs">
+                  <div className="rounded-md border border-white/10 bg-white/5 p-3 text-xs">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <div>
-                        <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                        <div className="text-[11px] uppercase tracking-wide text-white/60">
                           {t("Predictions:details.assetId")}
                         </div>
                         <MonoBlock
@@ -1846,7 +1891,7 @@ export default function Predictions(properties) {
                         />
                       </div>
                       <div>
-                        <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                        <div className="text-[11px] uppercase tracking-wide text-white/60">
                           {t("Predictions:details.issuer")}
                         </div>
                         <MonoBlock
@@ -1856,13 +1901,13 @@ export default function Predictions(properties) {
                         />
                       </div>
                       <div>
-                        <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                        <div className="text-[11px] uppercase tracking-wide text-white/60">
                           {t("Predictions:details.precision")}
                         </div>
                         <span className="font-mono">{res.precision}</span>
                       </div>
                       <div>
-                        <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                        <div className="text-[11px] uppercase tracking-wide text-white/60">
                           {t("Predictions:details.maxSupply")}
                         </div>
                         <span className="font-mono">
@@ -1900,7 +1945,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:issue`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:issueDialog.title`)}
@@ -2060,7 +2105,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:sell`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:sellDialog.title`)}
@@ -2190,7 +2235,7 @@ export default function Predictions(properties) {
                               <SelectTrigger className="mb-3 mt-1 w-1/2">
                                 <SelectValue placeholder="1hr" />
                               </SelectTrigger>
-                              <SelectContent className="bg-white">
+                              <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
                                 <SelectItem value="1hr">
                                   {t("LimitOrderCard:expiry.1hr")}
                                 </SelectItem>
@@ -2221,7 +2266,7 @@ export default function Predictions(properties) {
                                     variant={"outline"}
                                     className={cn(
                                       "w-[240px] justify-start text-left font-normal",
-                                      !date && "text-muted-foreground"
+                                       !date && "text-white/40"
                                     )}
                                   >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
@@ -2348,7 +2393,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:buy`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:buyDialog.title`)}
@@ -2481,7 +2526,7 @@ export default function Predictions(properties) {
                               <SelectTrigger className="mb-3 mt-1 w-1/2">
                                 <SelectValue placeholder="1hr" />
                               </SelectTrigger>
-                              <SelectContent className="bg-white">
+                              <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
                                 <SelectItem value="1hr">
                                   {t("LimitOrderCard:expiry.1hr")}
                                 </SelectItem>
@@ -2512,7 +2557,7 @@ export default function Predictions(properties) {
                                     variant={"outline"}
                                     className={cn(
                                       "w-[240px] justify-start text-left font-normal",
-                                      !date && "text-muted-foreground"
+                                       !date && "text-white/40"
                                     )}
                                   >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
@@ -2624,11 +2669,11 @@ export default function Predictions(properties) {
               ) : null}
               {rowView === "winners" ? (
                 <div className="grid grid-cols-1 gap-3">
-                  <div className="rounded-md border border-border bg-muted/30 p-3 text-sm">
-                    <div className="font-medium text-foreground mb-1">
+                  <div className="rounded-md border border-white/10 bg-white/5 p-3 text-sm">
+                    <div className="font-medium text-white mb-1">
                       {t("Predictions:winner_header")}
                     </div>
-                    <p className="text-muted-foreground">
+                    <p className="text-white/50">
                       {t("Predictions:winner_content")}
                     </p>
                   </div>
@@ -2673,7 +2718,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:winner_claim`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:winner_claim`)}
@@ -2788,7 +2833,7 @@ export default function Predictions(properties) {
                         <HoverCardTrigger>
                           <Button disabled>{t(`Predictions:resolve`)}</Button>
                         </HoverCardTrigger>
-                        <HoverCardContent className={"w-80 mt-1"} align="start">
+                        <HoverCardContent className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]" align="start">
                           <p className="leading-6 text-sm [&:not(:first-child)]:mt-1">
                             {t("Predictions:not_expired")}
                             <br />
@@ -2814,7 +2859,7 @@ export default function Predictions(properties) {
                             {t(`Predictions:resolve`)}
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[600px] bg-white">
+                        <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                           <DialogHeader>
                             <DialogTitle>
                               {t(`Predictions:resolveDialog.title`)}
@@ -2946,7 +2991,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:pricefeeder`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:priceFeederDialog.title`)}
@@ -2966,7 +3011,7 @@ export default function Predictions(properties) {
                             type="header"
                           />
                           <div className="grid grid-cols-12 mt-1">
-                            <span className="col-span-9 border border-gray-300 rounded">
+                            <span className="col-span-9 border border-white/[0.08] rounded-lg overflow-hidden">
                               <div className="w-full max-h-[210px] overflow-auto">
                                 <List
                                   rowComponent={pricefeederRow}
@@ -2991,7 +3036,7 @@ export default function Predictions(properties) {
                                     ➕ {t("Favourites:addUser")}
                                   </Button>
                                 </DialogTrigger>
-                                <DialogContent className="sm:max-w-[375px] bg-white">
+                                <DialogContent className="sm:max-w-[375px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                                   <DialogHeader>
                                     <DialogTitle>
                                       {!usr || !usr.chain
@@ -3091,7 +3136,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:feed`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:feederDialog.title`)}
@@ -3209,15 +3254,21 @@ export default function Predictions(properties) {
           </CardContent>
         </Card>
     );
-  };
+  });
+  PredictionRow.displayName = "PredictionRow";
 
   return (
-    <div className="container mx-auto mt-5 mb-5">
+    <div className="container mx-auto mt-5 mb-5 text-white">
       <div className="grid grid-cols-1 gap-3">
-        <Card>
+        <Card className={cn("bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm", currentView.border && `border-l-2 ${currentView.border}`)}>
           <CardHeader className="pb-1">
-            <CardTitle>{t(`Predictions:card.title.${view}`)}</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-white flex items-center gap-2">
+              <span className={cn("flex items-center justify-center w-7 h-7 rounded-lg", currentView.bg)}>
+                <currentView.icon className={cn("w-4 h-4", currentView.color)} />
+              </span>
+              {t(`Predictions:card.title.${view}`)}
+            </CardTitle>
+            <CardDescription className="text-white/50">
               {pageStats
                 ? `${t("Predictions:card.showing", { primary: pageStats.primary })}${pageStats.secondary
                     .map((s) =>
@@ -3231,7 +3282,7 @@ export default function Predictions(properties) {
             {!hasLoadedPmas ? (
               <div className="grid grid-cols-1 gap-2 mt-3">
                 {[0, 1, 2].map((i) => (
-                  <Skeleton key={`skeleton-${i}`} className="h-[120px] w-full" />
+                  <Skeleton key={`skeleton-${i}`} className="h-[120px] w-full bg-white/10" />
                 ))}
               </div>
             ) : null}
@@ -3240,13 +3291,13 @@ export default function Predictions(properties) {
               <div className="grid grid-cols-1 gap-3 mt-3">
                 <div className="flex flex-wrap items-center gap-2">
                   <div className="relative flex-1 min-w-[200px]">
-                    <MagnifyingGlassIcon className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+                    <MagnifyingGlassIcon className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/40 pointer-events-none" />
                     <Input
                       type="text"
                       value={searchInput}
                       onChange={onSearchInput}
                       placeholder={t("Predictions:list.searchPlaceholder")}
-                      className="pl-7 h-8 text-sm"
+                      className="pl-7 h-8 text-sm bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
                     />
                     {searchInput ? (
                       <button
@@ -3255,7 +3306,7 @@ export default function Predictions(properties) {
                           setSearchInput("");
                           setSearchQuery("");
                         }}
-                        className="absolute right-1 top-1/2 -translate-y-1/2 p-1 hover:text-foreground text-muted-foreground"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 p-1 hover:text-white text-white/40"
                         aria-label="Clear"
                       >
                         <XIcon className="h-3.5 w-3.5" />
@@ -3263,11 +3314,11 @@ export default function Predictions(properties) {
                     ) : null}
                   </div>
                   <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger className="h-8 w-[160px] text-xs">
+                    <SelectTrigger className="h-8 w-[160px] text-xs bg-white/[0.03] border-white/[0.08] text-white/70">
                       <ArrowUpDown className="mr-1.5 h-3.5 w-3.5" />
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-white">
+                    <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
                       <SelectItem value="newest">
                         {t("Predictions:list.sort.newest")}
                       </SelectItem>
@@ -3284,11 +3335,11 @@ export default function Predictions(properties) {
                   </Select>
                   {view === "active" ? (
                     <Select value={filterBy} onValueChange={setFilterBy}>
-                      <SelectTrigger className="h-8 w-[160px] text-xs">
+                      <SelectTrigger className="h-8 w-[160px] text-xs bg-white/[0.03] border-white/[0.08] text-white/70">
                         <Filter className="mr-1.5 h-3.5 w-3.5" />
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-white">
+                      <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
                         <SelectItem value="all">
                           {t("Predictions:list.filter.all")}
                         </SelectItem>
@@ -3318,7 +3369,7 @@ export default function Predictions(properties) {
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center mt-5 text-sm text-muted-foreground">
+                  <div className="text-center mt-5 text-sm text-white/40 italic">
                     {t("Predictions:list.noResults")}
                   </div>
                 )}
@@ -3326,44 +3377,53 @@ export default function Predictions(properties) {
             ) : null}
 
             {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "active" ? (
-              <Empty className="mt-5">
+              <Empty className="mt-5 border-white/[0.06]">
                 <EmptyHeader>
-                  <EmptyMedia variant="icon">❔</EmptyMedia>
-                  <EmptyTitle>{t("Predictions:card.emptyActive")}</EmptyTitle>
+                  <EmptyMedia variant="icon" className={cn(currentView.bg, currentView.color)}><currentView.icon className="w-6 h-6" /></EmptyMedia>
+                  <EmptyTitle className="text-white/80">{t("Predictions:card.emptyActive")}</EmptyTitle>
                 </EmptyHeader>
                 <EmptyContent>
                   <a href="/create_prediction/index.html">
-                    <Button>{t("PageHeader:createPrediction")}</Button>
+                    <Button className="bg-violet-600 hover:bg-violet-500 text-white">{t("PageHeader:createPrediction")}</Button>
                   </a>
                 </EmptyContent>
               </Empty>
             ) : null}
             {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "mine" ? (
-              <Empty className="mt-5">
+              <Empty className="mt-5 border-white/[0.06]">
                 <EmptyHeader>
-                  <EmptyMedia variant="icon">❔</EmptyMedia>
-                  <EmptyTitle>{t("Predictions:card.emptyMine")}</EmptyTitle>
+                  <EmptyMedia variant="icon" className={cn(currentView.bg, currentView.color)}><currentView.icon className="w-6 h-6" /></EmptyMedia>
+                  <EmptyTitle className="text-white/80">{t("Predictions:card.emptyMine")}</EmptyTitle>
                 </EmptyHeader>
                 <EmptyContent>
                   <a href="/create_prediction/index.html">
-                    <Button>{t("PageHeader:createPrediction")}</Button>
+                    <Button className="bg-violet-600 hover:bg-violet-500 text-white">{t("PageHeader:createPrediction")}</Button>
                   </a>
                 </EmptyContent>
               </Empty>
             ) : null}
             {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "portfolio" ? (
               <div className="text-center mt-5">
-                {t("Predictions:card.emptyPortfolio")}
+                <span className={cn("inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3", currentView.bg)}>
+                  <currentView.icon className={cn("w-5 h-5", currentView.color)} />
+                </span>
+                <div className="text-white/50 text-sm">{t("Predictions:card.emptyPortfolio")}</div>
               </div>
             ) : null}
             {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "margin" ? (
               <div className="text-center mt-5">
-                {t("Predictions:card.emptyMargin")}
+                <span className={cn("inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3", currentView.bg)}>
+                  <currentView.icon className={cn("w-5 h-5", currentView.color)} />
+                </span>
+                <div className="text-white/50 text-sm">{t("Predictions:card.emptyMargin")}</div>
               </div>
             ) : null}
             {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "expired" ? (
               <div className="text-center mt-5">
-                {t("Predictions:card.emptyExpired")}
+                <span className={cn("inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3", currentView.bg)}>
+                  <currentView.icon className={cn("w-5 h-5", currentView.color)} />
+                </span>
+                <div className="text-white/50 text-sm">{t("Predictions:card.emptyExpired")}</div>
               </div>
             ) : null}
           </CardContent>
