@@ -96,26 +96,36 @@ import {
 import { blockchainFloat } from "@/bts/common";
 import ExternalLink from "./common/ExternalLink.jsx";
 
+const STEP_COLORS = {
+  1: { icon: "bg-violet-500/15 text-violet-400 ring-violet-500/30", badge: "bg-violet-500/15 text-violet-400", border: "border-violet-500/20" },
+  2: { icon: "bg-cyan-500/15 text-cyan-400 ring-cyan-500/30", badge: "bg-cyan-500/15 text-cyan-400", border: "border-cyan-500/20" },
+  3: { icon: "bg-amber-500/15 text-amber-400 ring-amber-500/30", badge: "bg-amber-500/15 text-amber-400", border: "border-amber-500/20" },
+  4: { icon: "bg-emerald-500/15 text-emerald-400 ring-emerald-500/30", badge: "bg-emerald-500/15 text-emerald-400", border: "border-emerald-500/20" },
+  5: { icon: "bg-rose-500/15 text-rose-400 ring-rose-500/30", badge: "bg-rose-500/15 text-rose-400", border: "border-rose-500/20" },
+  6: { icon: "bg-indigo-500/15 text-indigo-400 ring-indigo-500/30", badge: "bg-indigo-500/15 text-indigo-400", border: "border-indigo-500/20" },
+};
+
 function SectionHeader({ icon: Icon, title, description, step, optional }) {
+  const colors = STEP_COLORS[step] || STEP_COLORS[1];
   return (
-    <div className="flex items-start gap-3 border-b border-border px-6 py-4">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
+    <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
+      <div className={"flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ring-1 " + colors.icon}>
         <Icon className="h-4 w-4" />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           {step && (
-            <span className="inline-flex items-center rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+            <span className={"inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider " + colors.badge}>
               Step {step}
               {optional ? " · Optional" : ""}
             </span>
           )}
         </div>
-        <h3 className="mt-0.5 text-base font-semibold leading-tight text-foreground">
+        <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
           {title}
         </h3>
         {description && (
-          <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
+          <p className="mt-0.5 text-sm text-white/50">{description}</p>
         )}
       </div>
     </div>
@@ -128,11 +138,11 @@ function Field({ label, help, required, htmlFor, children, className, error }) {
       <div className="mb-1.5 flex items-center gap-1.5">
         <Label
           htmlFor={htmlFor}
-          className="text-sm font-medium text-foreground"
+          className="text-sm font-medium text-white/90"
         >
           {label}
         </Label>
-        {required && <span className="text-destructive">*</span>}
+        {required && <span className="text-rose-400">*</span>}
         {help && (
           <TooltipProvider delayDuration={150}>
             <Tooltip>
@@ -140,14 +150,14 @@ function Field({ label, help, required, htmlFor, children, className, error }) {
                 <button
                   type="button"
                   tabIndex={-1}
-                  className="inline-flex items-center justify-center text-muted-foreground/60 transition-colors hover:text-foreground focus:outline-none"
+                  className="inline-flex items-center justify-center text-white/30 transition-colors hover:text-white/70 focus:outline-none"
                 >
                   <HelpCircle className="h-3.5 w-3.5" />
                 </button>
               </TooltipTrigger>
               <TooltipContent
                 side="top"
-                className="max-w-xs text-xs leading-relaxed"
+                className="max-w-xs text-xs leading-relaxed bg-slate-900 border-white/10 text-white/80"
               >
                 <p>{help}</p>
               </TooltipContent>
@@ -157,7 +167,7 @@ function Field({ label, help, required, htmlFor, children, className, error }) {
       </div>
       {children}
       {error && (
-        <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+        <p className="mt-1 flex items-center gap-1 text-xs text-rose-400">
           <AlertCircle className="h-3 w-3" />
           {error}
         </p>
@@ -169,9 +179,9 @@ function Field({ label, help, required, htmlFor, children, className, error }) {
 function SuffixInput({ suffix, ...props }) {
   return (
     <div className="relative">
-      <Input {...props} className={(props.className || "") + " pr-10"} />
+      <Input {...props} className={(props.className || "") + " pr-10 bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"} />
       {suffix && (
-        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-muted-foreground/60">
+        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-white/40">
           {suffix}
         </span>
       )}
@@ -179,14 +189,21 @@ function SuffixInput({ suffix, ...props }) {
   );
 }
 
-function ToggleCard({ enabled, onToggle, title, description, icon: Icon }) {
+function ToggleCard({ enabled, onToggle, title, description, enabledTitle, enabledDescription, icon: Icon, accent = "violet" }) {
+  const accents = {
+    violet: { border: "border-violet-500/30", bg: "bg-violet-500/10", iconBg: "bg-violet-500/20 text-violet-400" },
+    cyan: { border: "border-cyan-500/30", bg: "bg-cyan-500/10", iconBg: "bg-cyan-500/20 text-cyan-400" },
+    emerald: { border: "border-emerald-500/30", bg: "bg-emerald-500/10", iconBg: "bg-emerald-500/20 text-emerald-400" },
+    rose: { border: "border-rose-500/30", bg: "bg-rose-500/10", iconBg: "bg-rose-500/20 text-rose-400" },
+  };
+  const a = accents[accent] || accents.violet;
   return (
     <div
       className={
         "flex items-center justify-between gap-4 rounded-lg border px-4 py-3 transition-colors " +
         (enabled
-          ? "border-primary/30 bg-primary/5"
-          : "border-border bg-card hover:border-muted-foreground/40")
+          ? a.border + " " + a.bg
+          : "border-white/10 bg-white/[0.03] hover:border-white/20")
       }
     >
       <div className="flex items-start gap-3">
@@ -195,23 +212,23 @@ function ToggleCard({ enabled, onToggle, title, description, icon: Icon }) {
             className={
               "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md transition-colors " +
               (enabled
-                ? "bg-primary/15 text-primary"
-                : "bg-muted text-muted-foreground")
+                ? a.iconBg
+                : "bg-white/5 text-white/40")
             }
           >
             <Icon className="h-4 w-4" />
           </div>
         )}
         <div>
-          <div className="text-sm font-medium text-foreground">{title}</div>
+          <div className="text-sm font-medium text-white">{enabled ? (enabledTitle || title) : title}</div>
           {description && (
-            <div className="mt-0.5 text-xs text-muted-foreground">
-              {description}
+            <div className="mt-0.5 text-xs text-white/50">
+              {enabled ? (enabledDescription || description) : description}
             </div>
           )}
         </div>
       </div>
-      <Switch checked={enabled} onCheckedChange={onToggle} className="shrink-0" />
+      <Switch checked={enabled} onCheckedChange={onToggle} className="shrink-0 data-[state=checked]:bg-violet-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white" />
     </div>
   );
 }
@@ -229,13 +246,13 @@ function AuthorityList({
   const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
   return (
     <Field label={title} help={help}>
-      <div className="overflow-hidden rounded-lg border border-border bg-card">
+      <div className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
         {list.length > 0 ? (
-          <div className="max-h-[210px] divide-y divide-border overflow-auto">
+          <div className="max-h-[210px] divide-y divide-white/10 overflow-auto">
             {list.map((res, i) => (
               <div
                 key={`auth-${title}-${res.id}`}
-                className="flex items-center gap-3 px-3 py-2 hover:bg-muted/30"
+                className="flex items-center gap-3 px-3 py-2 hover:bg-white/5"
               >
                 <Avatar
                   size={32}
@@ -251,10 +268,10 @@ function AuthorityList({
                   ]}
                 />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium text-foreground">
+                  <div className="truncate text-sm font-medium text-white">
                     {res.name || `#${i + 1}`}
                   </div>
-                  <div className="truncate font-mono text-[10px] text-muted-foreground">
+                  <div className="truncate font-mono text-[10px] text-white/50">
                     {res.id}
                   </div>
                 </div>
@@ -262,7 +279,7 @@ function AuthorityList({
                   variant="ghost"
                   size="icon"
                   onClick={() => onRemove(res.id)}
-                  className="text-muted-foreground hover:text-destructive"
+                  className="text-white/40 hover:text-rose-400"
                 >
                   <X className="h-4 w-4" />
                 </Button>
@@ -271,23 +288,23 @@ function AuthorityList({
           </div>
         ) : (
           <div className="px-4 py-8 text-center">
-            <UserCheck className="mx-auto h-6 w-6 text-muted-foreground/40" />
-            <p className="mt-2 text-sm text-muted-foreground">
+            <UserCheck className="mx-auto h-6 w-6 text-white/20" />
+            <p className="mt-2 text-sm text-white/40">
               No accounts added yet
             </p>
           </div>
         )}
-        <div className="border-t border-border p-2">
+        <div className="border-t border-white/10 p-2">
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button variant="outline" size="sm" className="w-full border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white">
                 <Plus className="h-3.5 w-3.5" />
                 {t("Favourites:addUser")}
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-card sm:max-w-[375px]">
+            <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white sm:max-w-[375px]">
               <DialogHeader>
-                <DialogTitle>
+                <DialogTitle className="text-white">
                   {!chain ? t("Transfer:bitsharesAccountSearch") : null}
                   {chain === "bitshares"
                     ? t("Transfer:bitsharesAccountSearchBTS")
@@ -317,18 +334,18 @@ function SummaryRow({ icon: Icon, label, value, mono }) {
   return (
     <div className="flex items-start gap-3 py-2">
       {Icon && (
-        <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+        <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/40" />
       )}
       <div className="min-w-0 flex-1">
-        <div className="text-xs uppercase tracking-wider text-muted-foreground">
+        <div className="text-xs uppercase tracking-wider text-white/40">
           {label}
         </div>
         <div
           className={
-            "mt-0.5 truncate text-sm text-foreground " + (mono ? "font-mono" : "")
+            "mt-0.5 truncate text-sm text-white " + (mono ? "font-mono" : "")
           }
         >
-          {value || <span className="text-muted-foreground/50">—</span>}
+          {value || <span className="text-white/20">—</span>}
         </div>
       </div>
     </div>
@@ -840,32 +857,32 @@ export default function Prediction(properties) {
         key={`dialogrow-${index}`}
         className="grid grid-cols-4"
       >
-        <div className="col-span-1">{res.type}</div>
+        <div className="col-span-1 text-white/60">{res.type}</div>
         <div className="col-span-1">
           <Dialog>
             <DialogTrigger>
-              <Button className="h-5" variant="outline">
+              <Button className="h-5 border-white/10 bg-white/5 text-white/70 hover:bg-white/10" variant="outline">
                 Full URL
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-card w-full max-w-4xl">
+            <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white w-full max-w-4xl">
               <DialogHeader>
-                <DialogTitle>Full IPFS URL</DialogTitle>
+                <DialogTitle className="text-white">Full IPFS URL</DialogTitle>
               </DialogHeader>
-              <p>{res.url}</p>
+              <p className="text-white/70 font-mono text-sm">{res.url}</p>
             </DialogContent>
           </Dialog>
         </div>
-        <div className="col-span-1">{res.url.split("/").pop()}</div>
+        <div className="col-span-1 text-white/50 text-sm">{res.url.split("/").pop()}</div>
         <div className="col-span-1">
           <Button
             variant="outline"
-            className="w-5 h-5"
+            className="w-5 h-5 border-white/10 bg-white/5 text-white/50 hover:bg-rose-500/10 hover:text-rose-400 hover:border-rose-500/30"
             onClick={() => {
               setNFTMedia(nftMedia.filter((x) => x.url !== res.url));
             }}
           >
-            ❌
+            <X className="h-3 w-3" />
           </Button>
         </div>
       </div>
@@ -876,16 +893,16 @@ export default function Prediction(properties) {
     <div className="min-h-screen pb-16">
       {/* Page header */}
       <div className="container mx-auto max-w-4xl px-4 pt-6 sm:pt-8">
-        <div className="rounded-xl border border-border bg-card px-6 py-5 shadow-sm">
+        <div className="rounded-xl border border-white/10 bg-slate-950/60 backdrop-blur-xl px-6 py-5 shadow-lg shadow-black/20 ring-1 ring-white/[0.06]">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md ring-1 ring-primary/30">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-400 shadow-md shadow-violet-500/10 ring-1 ring-violet-500/30">
               <Sparkles className="h-6 w-6" />
             </div>
             <div className="min-w-0">
-              <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+              <h1 className="text-2xl font-semibold tracking-tight text-white">
                 {t("CreatePrediction:card.title")}
               </h1>
-              <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-1 max-w-2xl text-sm leading-relaxed text-white/50">
                 {t("CreatePrediction:card.description")}
               </p>
             </div>
@@ -896,7 +913,7 @@ export default function Prediction(properties) {
       {/* Form sections */}
       <div className="container mx-auto max-w-4xl space-y-6 px-4 py-6">
         {/* Step 1 — Asset identity */}
-        <Card className="overflow-hidden border-border shadow-sm">
+        <Card className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20">
           <SectionHeader
             step={1}
             icon={Hash}
@@ -920,7 +937,7 @@ export default function Prediction(properties) {
                     )}
                     value={symbol}
                     type="text"
-                    className="pr-14 font-mono"
+                    className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => {
                       const value = e.currentTarget.value;
                       const regex = /^[a-zA-Z0-9]*\.?[a-zA-Z0-9]*$/;
@@ -930,7 +947,7 @@ export default function Prediction(properties) {
                     }}
                     maxLength={16}
                   />
-                  <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-muted-foreground/60">
+                  <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
                     {symbol.length}/16
                   </span>
                 </div>
@@ -950,6 +967,7 @@ export default function Prediction(properties) {
                   )}
                   value={shortName}
                   type="text"
+                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                   onInput={(e) => setShortName(e.currentTarget.value)}
                 />
               </Field>
@@ -969,6 +987,7 @@ export default function Prediction(properties) {
                 )}
                 value={desc}
                 rows={3}
+                className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                 onInput={(e) => setDesc(e.currentTarget.value)}
               />
             </Field>
@@ -990,13 +1009,13 @@ export default function Prediction(properties) {
                     value={maxSupply}
                     type="text"
                     inputMode="decimal"
-                    className="pr-14 font-mono"
+                    className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => {
                       setMaxSupply(sanitizeMaxSupply(e.currentTarget.value));
                     }}
                   />
                   {parseFloat(maxSupply) > 0 && (
-                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-muted-foreground/60">
+                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
                       {parseFloat(maxSupply).toLocaleString()}
                     </span>
                   )}
@@ -1007,16 +1026,16 @@ export default function Prediction(properties) {
                 help={t("AssetCommon:asset_details.precision.header_content")}
                 htmlFor="cp-precision"
               >
-                <Input
-                  id="cp-precision"
-                  placeholder={t(
-                    "AssetCommon:asset_details.precision.placeholder"
-                  )}
-                  value={precision}
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={1}
-                  className="font-mono"
+                  <Input
+                    id="cp-precision"
+                    placeholder={t(
+                      "AssetCommon:asset_details.precision.placeholder"
+                    )}
+                    value={precision}
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={1}
+                    className="font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                   onInput={(e) => {
                     const cleaned = e.currentTarget.value
                       .replace(/\D/g, "")
@@ -1035,7 +1054,7 @@ export default function Prediction(properties) {
         </Card>
 
         {/* Step 2 — Prediction market details */}
-        <Card className="overflow-hidden border-border shadow-sm">
+        <Card className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20">
           <SectionHeader
             step={2}
             icon={Target}
@@ -1056,16 +1075,18 @@ export default function Prediction(properties) {
                 )}
                 value={condition}
                 rows={3}
+                className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                 onInput={(e) => setCondition(e.currentTarget.value)}
               />
             </Field>
 
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
               <Field
                 label={t("CreatePrediction:pma.commission.header")}
                 help={t("CreatePrediction:pma.commission.header_content")}
                 htmlFor="cp-commission"
                 error={commissionError}
+                className="md:col-span-1"
               >
                 <SuffixInput
                   id="cp-commission"
@@ -1086,6 +1107,7 @@ export default function Prediction(properties) {
                 label={t("CreatePrediction:pma.backing_asset.header")}
                 help={t("CreatePrediction:pma.backing_asset.header_content")}
                 htmlFor="cp-backing"
+                className="md:col-span-3"
               >
                 <div className="flex gap-2">
                   <Input
@@ -1097,7 +1119,7 @@ export default function Prediction(properties) {
                         : backingAsset
                     }
                     type="text"
-                    className="flex-1 font-mono"
+                    className="flex-1 font-mono bg-slate-950/60 border-white/10 text-white disabled:opacity-100 placeholder:text-white/30"
                   />
                   <AssetDropDown
                     assetSymbol={backingAsset ?? ""}
@@ -1108,6 +1130,7 @@ export default function Prediction(properties) {
                     type={"backing"}
                     chain={usr && usr.chain ? usr.chain : "bitshares"}
                     balances={balances}
+                    triggerClassName="!w-auto shrink-0"
                   />
                 </div>
               </Field>
@@ -1118,7 +1141,7 @@ export default function Prediction(properties) {
               help={t("CreatePrediction:pma.resolution.header_content")}
               required
             >
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2 [&_button]:bg-slate-950/60 [&_button]:border-white/10 [&_button]:text-white [&_button]:hover:bg-white/10 [&_[role=gridcell]]:text-white [&_[data-selected]]:bg-violet-500 [&_[data-selected]]:text-white [&_.rdp-day]:text-white [&_.rdp-caption_label]:text-white [&_.rdp-button_previous]:text-white/60 [&_.rdp-button_next]:text-white/60 [&_input]:bg-slate-950/60 [&_input]:border-white/10 [&_input]:text-white [&_input]:focus:bg-violet-500/20 [&_input]:focus:text-white [&_.border-t]:border-white/10">
                 <DateTimePicker
                   granularity="day"
                   value={date}
@@ -1141,56 +1164,56 @@ export default function Prediction(properties) {
         {/* Step 3 — Non-fungible token (optional) */}
         <Card
           className={
-            "overflow-hidden border-border shadow-sm transition-colors " +
-            (enabledNFT ? "ring-1 ring-primary/30" : "")
+            "overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
+            (enabledNFT ? "ring-1 ring-amber-500/30" : "")
           }
         >
-          <div className="flex items-start gap-3 border-b border-border px-6 py-4">
+          <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
             <div
               className={
-                "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors " +
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ring-1 " +
                 (enabledNFT
-                  ? "bg-primary text-primary-foreground ring-1 ring-primary/30"
-                  : "bg-muted text-muted-foreground")
+                  ? "bg-amber-500/15 text-amber-400 ring-amber-500/30"
+                  : "bg-white/5 text-white/40 ring-white/10")
               }
             >
               <ImageIcon className="h-4 w-4" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+                <span className="inline-flex items-center rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-400">
                   Step 3 · Optional
                 </span>
               </div>
-              <h3 className="mt-0.5 text-base font-semibold leading-tight text-foreground">
+              <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
                 {t("CreatePrediction:steps.nft.title")}
               </h3>
-              <p className="mt-0.5 text-sm text-muted-foreground">
+              <p className="mt-0.5 text-sm text-white/50">
                 {t("CreatePrediction:steps.nft.description")}
               </p>
             </div>
             <Switch
               checked={enabledNFT}
               onCheckedChange={setEnabledNFT}
-              className="mt-1 shrink-0"
+              className="mt-1 shrink-0 data-[state=checked]:bg-amber-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white"
             />
           </div>
 
           {enabledNFT && (
             <CardContent className="space-y-5 pt-6">
               {/* Media section */}
-              <div className="rounded-lg border border-border bg-muted/20 p-4">
+              <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
                 <div className="mb-3 flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <ImagePlus className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm font-medium text-foreground">
+                      <ImagePlus className="h-4 w-4 text-white/40" />
+                      <span className="text-sm font-medium text-white">
                         {t("AssetCommon:nft.currentIPFSFiles", {
                           count: nftMedia.length,
                         })}
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-muted-foreground">
+                    <p className="mt-1 text-xs text-white/40">
                       {t("AssetCommon:nft.supportedFiletypes")}
                     </p>
                   </div>
@@ -1200,22 +1223,22 @@ export default function Prediction(properties) {
                     }}
                   >
                     <DialogTrigger asChild>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white">
                         {t("AssetCommon:nft.modifyMultimediaContents")}
                       </Button>
                     </DialogTrigger>
-            <DialogContent className="bg-card w-full max-w-4xl">
+            <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white w-full max-w-4xl">
                       <DialogHeader>
-                        <DialogTitle>
+                        <DialogTitle className="text-white">
                           {t("AssetCommon:nft.modifyingMultimediaContents")}
                         </DialogTitle>
                       </DialogHeader>
-                      <Card>
+                      <Card className="bg-slate-900/60 border-white/10">
                         <CardHeader>
-                          <CardTitle>
+                          <CardTitle className="text-white">
                             {t("AssetCommon:nft.currentIPFSMedia")}
                           </CardTitle>
-                          <CardDescription>
+                          <CardDescription className="text-white/50">
                             {t("AssetCommon:nft.referencesIPFSObjects", {
                               count: nftMedia.length,
                             })}
@@ -1223,12 +1246,12 @@ export default function Prediction(properties) {
                         </CardHeader>
                         <CardContent>
                           {!nftMedia || !nftMedia.length ? (
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-white/40">
                               {t("AssetCommon:nft.noIPFSMediaFound")}
                             </p>
                           ) : (
                             <>
-                              <div className="grid grid-cols-4 gap-2 border-b border-border pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                              <div className="grid grid-cols-4 gap-2 border-b border-white/10 pb-2 text-xs font-semibold uppercase tracking-wider text-white/40">
                                 <div className="col-span-1">
                                   {t("AssetCommon:nft.type")}
                                 </div>
@@ -1255,12 +1278,12 @@ export default function Prediction(properties) {
                         </CardContent>
                       </Card>
 
-                      <Card>
+                      <Card className="bg-slate-900/60 border-white/10">
                         <CardHeader>
-                          <CardTitle>
+                          <CardTitle className="text-white">
                             {t("AssetCommon:nft.addNewIPFSMedia")}
                           </CardTitle>
-                          <CardDescription>
+                          <CardDescription className="text-white/50">
                             {t("AssetCommon:nft.noIPFSGateway")}
                           </CardDescription>
                         </CardHeader>
@@ -1272,6 +1295,7 @@ export default function Prediction(properties) {
                                   "AssetCommon:nft.mediaURLPlaceholder"
                                 )}
                                 type="text"
+                                className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                                 onInput={(e) =>
                                   setNewMediaUrl(e.currentTarget.value)
                                 }
@@ -1312,14 +1336,14 @@ export default function Prediction(properties) {
                             </div>
                             <div className="col-span-1">
                               <Select onValueChange={setNewMediaType}>
-                                <SelectTrigger className="w-full">
+                                <SelectTrigger className="w-full bg-slate-950/60 border-white/10 text-white">
                                   <SelectValue
                                     placeholder={t(
                                       "AssetCommon:nft.fileTypePlaceholder"
                                     )}
                                   />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="bg-slate-950 border-white/10 text-white">
                                   <SelectGroup>
                                     <SelectLabel>
                                       {t("AssetCommon:nft.imageFormats")}
@@ -1385,6 +1409,7 @@ export default function Prediction(properties) {
                               newMediaUrl &&
                               newMediaUrl.length ? (
                                 <Button
+                                  className="bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:brightness-110"
                                   onClick={() => {
                                     const temp_urls = nftMedia.map(
                                       (x) => x.url
@@ -1406,22 +1431,22 @@ export default function Prediction(properties) {
                                   {t("AssetCommon:nft.submit")}
                                 </Button>
                               ) : (
-                                <Button disabled>
+                                <Button disabled className="bg-white/10 text-white/40 cursor-not-allowed">
                                   {t("AssetCommon:nft.submit")}
                                 </Button>
                               )}
                               <Dialog>
                                 <DialogTrigger asChild>
-                                  <Button variant="outline">
+                                  <Button variant="outline" className="border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white">
                                     {t("AssetCommon:nft.ipfsHostingSolutions")}
                                   </Button>
                                 </DialogTrigger>
-                                <DialogContent className="bg-card">
+                                <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white">
                                   <DialogHeader>
-                                    <DialogTitle>
+                                    <DialogTitle className="text-white">
                                       {t("AssetCommon:nft.ipfsHostingSolutions")}
                                     </DialogTitle>
-                                    <DialogDescription>
+                                    <DialogDescription className="text-white/50">
                                       {t(
                                         "AssetCommon:nft.ipfsHostingDescription"
                                       )}
@@ -1429,25 +1454,25 @@ export default function Prediction(properties) {
                                   </DialogHeader>
                                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                                     <ExternalLink
-                                      classnamecontents="hover:text-primary"
+                                      classnamecontents="hover:text-violet-400 text-white/60"
                                       type="button"
                                       text={"Pinata.cloud"}
                                       hyperlink={"https://www.pinata.cloud/"}
                                     />
                                     <ExternalLink
-                                      classnamecontents="hover:text-primary"
+                                      classnamecontents="hover:text-violet-400 text-white/60"
                                       type="button"
                                       text={"NFT.storage"}
                                       hyperlink={"https://nft.storage/"}
                                     />
                                     <ExternalLink
-                                      classnamecontents="hover:text-primary"
+                                      classnamecontents="hover:text-violet-400 text-white/60"
                                       type="button"
                                       text={"Web3.storage"}
                                       hyperlink={"https://web3.storage/"}
                                     />
                                     <ExternalLink
-                                      classnamecontents="hover:text-primary"
+                                      classnamecontents="hover:text-violet-400 text-white/60"
                                       type="button"
                                       text={"Fleek.co"}
                                       hyperlink={
@@ -1455,13 +1480,13 @@ export default function Prediction(properties) {
                                       }
                                     />
                                     <ExternalLink
-                                      classnamecontents="hover:text-primary"
+                                      classnamecontents="hover:text-violet-400 text-white/60"
                                       type="button"
                                       text={"Infura.io"}
                                       hyperlink={"https://infura.io/product/ipfs"}
                                     />
                                     <ExternalLink
-                                      classnamecontents="hover:text-primary"
+                                      classnamecontents="hover:text-violet-400 text-white/60"
                                       type="button"
                                       text={"StorJ"}
                                       hyperlink={
@@ -1469,13 +1494,13 @@ export default function Prediction(properties) {
                                       }
                                     />
                                     <ExternalLink
-                                      classnamecontents="hover:text-primary"
+                                      classnamecontents="hover:text-violet-400 text-white/60"
                                       type="button"
                                       text={"Eternum.io"}
                                       hyperlink={"https://www.eternum.io/"}
                                     />
                                     <ExternalLink
-                                      classnamecontents="hover:text-primary"
+                                      classnamecontents="hover:text-violet-400 text-white/60"
                                       type="button"
                                       text={"IPFS Docs"}
                                       hyperlink={
@@ -1497,20 +1522,20 @@ export default function Prediction(properties) {
                     {nftMedia.map((m) => (
                       <div
                         key={m.url}
-                        className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm"
+                        className="flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.03] px-3 py-2 text-sm"
                       >
-                        <Link2 className="h-3.5 w-3.5 text-muted-foreground" />
-                        <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] font-semibold text-muted-foreground">
+                        <Link2 className="h-3.5 w-3.5 text-white/40" />
+                        <span className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-white/50">
                           {m.type}
                         </span>
-                        <span className="truncate font-mono text-xs text-foreground">
+                        <span className="truncate font-mono text-xs text-white">
                           {m.url}
                         </span>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-white/40">
                     {t("AssetCommon:nft.noIPFSMediaFound")}
                   </p>
                 )}
@@ -1527,6 +1552,7 @@ export default function Prediction(properties) {
                     id="cp-nft-title"
                     placeholder={t("AssetCommon:nft.TitlePlaceholder")}
                     value={title}
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => setTitle(e.currentTarget.value)}
                   />
                 </Field>
@@ -1539,6 +1565,7 @@ export default function Prediction(properties) {
                     id="cp-nft-artist"
                     placeholder={t("AssetCommon:nft.ArtistPlaceholder")}
                     value={artist}
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => setArtist(e.currentTarget.value)}
                   />
                 </Field>
@@ -1551,6 +1578,7 @@ export default function Prediction(properties) {
                     id="cp-nft-narrative"
                     placeholder={t("AssetCommon:nft.NarrativePlaceholder")}
                     value={narrative}
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => setNarrative(e.currentTarget.value)}
                   />
                 </Field>
@@ -1563,6 +1591,7 @@ export default function Prediction(properties) {
                     id="cp-nft-tags"
                     placeholder={t("AssetCommon:nft.TagsPlaceholder")}
                     value={tags}
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => setTags(e.currentTarget.value)}
                   />
                 </Field>
@@ -1575,6 +1604,7 @@ export default function Prediction(properties) {
                     id="cp-nft-type"
                     placeholder={t("AssetCommon:nft.TypePlaceholder")}
                     value={type}
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => setType(e.currentTarget.value)}
                   />
                 </Field>
@@ -1587,6 +1617,7 @@ export default function Prediction(properties) {
                     id="cp-nft-attestation"
                     placeholder={t("AssetCommon:nft.AttestationPlaceholder")}
                     value={attestation}
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => setAttestation(e.currentTarget.value)}
                   />
                 </Field>
@@ -1601,6 +1632,7 @@ export default function Prediction(properties) {
                       "AssetCommon:nft.AcknowledgementsPlaceholder"
                     )}
                     value={acknowledgements}
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) =>
                       setAcknowledgements(e.currentTarget.value)
                     }
@@ -1617,6 +1649,7 @@ export default function Prediction(properties) {
                       "AssetCommon:nft.HolderLicensePlaceholder"
                     )}
                     value={holderLicense}
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => setHolderLicense(e.currentTarget.value)}
                   />
                 </Field>
@@ -1629,6 +1662,7 @@ export default function Prediction(properties) {
                     id="cp-nft-license"
                     placeholder={t("AssetCommon:nft.LicensePlaceholder")}
                     value={license}
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
                     onInput={(e) => setLicense(e.currentTarget.value)}
                   />
                 </Field>
@@ -1638,7 +1672,7 @@ export default function Prediction(properties) {
         </Card>
 
         {/* Step 4 — Market fee extensions */}
-        <Card className="overflow-hidden border-border shadow-sm">
+        <Card className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20">
           <SectionHeader
             step={4}
             icon={Settings2}
@@ -1650,13 +1684,17 @@ export default function Prediction(properties) {
               icon={Settings2}
               enabled={enabledReferrerReward}
               onToggle={() => setEnabledReferrerReward(!enabledReferrerReward)}
-              title={t("AssetCommon:extensions.reward_percent.enabled")}
+              title={t("AssetCommon:extensions.reward_percent.disabled")}
               description={t(
                 "AssetCommon:extensions.reward_percent.disabledInfo"
               )}
+              enabledTitle={t("AssetCommon:extensions.reward_percent.enabled")}
+              enabledDescription={t(
+                "AssetCommon:extensions.reward_percent.enabledInfo"
+              )}
             />
             {enabledReferrerReward && (
-              <div className="ml-4 border-l-2 border-primary/30 pl-4">
+              <div className="ml-4 border-l-2 border-emerald-500/30 pl-4">
                 <Field
                   label={t(
                     "AssetCommon:extensions.reward_percent.header"
@@ -1666,23 +1704,25 @@ export default function Prediction(properties) {
                   )}
                   htmlFor="cp-reward-percent"
                 >
-                  <SuffixInput
-                    id="cp-reward-percent"
-                    suffix="%"
-                    placeholder="0"
-                    value={referrerReward}
-                    type="number"
-                    min="0"
-                    max="100"
-                    step="0.01"
-                    onInput={(e) => {
-                      setReferrerReward(e.currentTarget.value);
-                      debouncedPercent(
-                        e.currentTarget.value,
-                        setReferrerReward
-                      );
-                    }}
-                  />
+                  <div className="max-w-[120px]">
+                    <SuffixInput
+                      id="cp-reward-percent"
+                      suffix="%"
+                      placeholder="0"
+                      value={referrerReward}
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="0.01"
+                      onInput={(e) => {
+                        setReferrerReward(e.currentTarget.value);
+                        debouncedPercent(
+                          e.currentTarget.value,
+                          setReferrerReward
+                        );
+                      }}
+                    />
+                  </div>
                 </Field>
               </div>
             )}
@@ -1694,26 +1734,32 @@ export default function Prediction(properties) {
                 setEnabledFeeSharingWhitelist(!enabledFeeSharingWhitelist)
               }
               title={t(
-                "AssetCommon:extensions.whitelist_market_fee_sharing.enabled"
+                "AssetCommon:extensions.whitelist_market_fee_sharing.disabled"
               )}
               description={t(
                 "AssetCommon:extensions.whitelist_market_fee_sharing.disabledInfo"
               )}
+              enabledTitle={t(
+                "AssetCommon:extensions.whitelist_market_fee_sharing.enabled"
+              )}
+              enabledDescription={t(
+                "AssetCommon:extensions.whitelist_market_fee_sharing.enabledInfo"
+              )}
             />
             {enabledFeeSharingWhitelist && (
-              <div className="ml-4 space-y-3 border-l-2 border-primary/30 pl-4">
-                <p className="text-xs text-muted-foreground">
+              <div className="ml-4 space-y-3 border-l-2 border-emerald-500/30 pl-4">
+                <p className="text-xs text-white/40">
                   {t(
                     "AssetCommon:extensions.whitelist_market_fee_sharing.header_content"
                   )}
                 </p>
-                <div className="overflow-hidden rounded-lg border border-border bg-card">
+                <div className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
                   {feeSharingWhitelist.length > 0 && (
-                    <div className="max-h-[210px] divide-y divide-border overflow-auto">
+                    <div className="max-h-[210px] divide-y divide-white/10 overflow-auto">
                       {feeSharingWhitelist.map((res, i) => (
                         <div
                           key={`fsw-${res.id}`}
-                          className="flex items-center gap-3 px-3 py-2 hover:bg-muted/30"
+                          className="flex items-center gap-3 px-3 py-2 hover:bg-white/5"
                         >
                           <Avatar
                             size={32}
@@ -1729,10 +1775,10 @@ export default function Prediction(properties) {
                             ]}
                           />
                           <div className="min-w-0 flex-1">
-                            <div className="truncate text-sm font-medium text-foreground">
+                            <div className="truncate text-sm font-medium text-white">
                               {res.name}
                             </div>
-                            <div className="truncate font-mono text-[10px] text-muted-foreground/70">
+                            <div className="truncate font-mono text-[10px] text-white/50">
                               {res.id}
                             </div>
                           </div>
@@ -1746,7 +1792,7 @@ export default function Prediction(properties) {
                                 )
                               );
                             }}
-                            className="text-muted-foreground hover:text-destructive"
+                            className="text-white/40 hover:text-rose-400"
                           >
                             <X className="h-4 w-4" />
                           </Button>
@@ -1754,20 +1800,20 @@ export default function Prediction(properties) {
                       ))}
                     </div>
                   )}
-                  <div className="border-t border-border p-2">
+                  <div className="border-t border-white/10 p-2">
                     <Dialog
                       open={whitelistMarketFeeSharingDialogOpen}
                       onOpenChange={setWhitelistMarketFeeSharingDialogOpen}
                     >
                       <DialogTrigger asChild>
-                        <Button variant="outline" size="sm" className="w-full">
+                        <Button variant="outline" size="sm" className="w-full border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white">
                           <Plus className="h-3.5 w-3.5" />
                           {t("Favourites:addUser")}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="bg-card sm:max-w-[375px]">
+                      <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white sm:max-w-[375px]">
                         <DialogHeader>
-                          <DialogTitle>
+                          <DialogTitle className="text-white">
                             {!usr || !usr.chain
                               ? t("Transfer:bitsharesAccountSearch")
                               : null}
@@ -1811,13 +1857,17 @@ export default function Prediction(properties) {
               icon={Settings2}
               enabled={enabledTakerFee}
               onToggle={() => setEnabledTakerFee(!enabledTakerFee)}
-              title={t("AssetCommon:extensions.taker_fee_percent.enabled")}
+              title={t("AssetCommon:extensions.taker_fee_percent.disabled")}
               description={t(
                 "AssetCommon:extensions.taker_fee_percent.disabledInfo"
               )}
+              enabledTitle={t("AssetCommon:extensions.taker_fee_percent.enabled")}
+              enabledDescription={t(
+                "AssetCommon:extensions.taker_fee_percent.enabledInfo"
+              )}
             />
             {enabledTakerFee && (
-              <div className="ml-4 border-l-2 border-primary/30 pl-4">
+              <div className="ml-4 border-l-2 border-emerald-500/30 pl-4">
                 <Field
                   label={t("AssetCommon:extensions.taker_fee_percent.header")}
                   help={t(
@@ -1825,22 +1875,24 @@ export default function Prediction(properties) {
                   )}
                   htmlFor="cp-taker-fee"
                 >
-                  <SuffixInput
-                    id="cp-taker-fee"
-                    suffix="%"
-                    placeholder={t(
-                      "AssetCommon:extensions.taker_fee_percent.placeholder"
-                    )}
-                    value={takerFee}
-                    type="number"
-                    min="0"
-                    max="100"
-                    step="0.01"
-                    onInput={(e) => {
-                      setTakerFee(e.currentTarget.value);
-                      debouncedPercent(e.currentTarget.value, setTakerFee);
-                    }}
-                  />
+                  <div className="max-w-[120px]">
+                    <SuffixInput
+                      id="cp-taker-fee"
+                      suffix="%"
+                      placeholder={t(
+                        "AssetCommon:extensions.taker_fee_percent.placeholder"
+                      )}
+                      value={takerFee}
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="0.01"
+                      onInput={(e) => {
+                        setTakerFee(e.currentTarget.value);
+                        debouncedPercent(e.currentTarget.value, setTakerFee);
+                      }}
+                    />
+                  </div>
                 </Field>
               </div>
             )}
@@ -1848,7 +1900,7 @@ export default function Prediction(properties) {
         </Card>
 
         {/* Step 5 — Permissions and flags */}
-        <Card className="overflow-hidden border-border shadow-sm">
+        <Card className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20">
           <SectionHeader
             step={5}
             icon={ShieldCheck}
@@ -1858,10 +1910,10 @@ export default function Prediction(properties) {
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-white/40">
                   {t("AssetCommon:permissions.header")}
                 </h4>
-                <div className="rounded-lg border border-border bg-card">
+                <div className="rounded-lg border border-white/10 bg-white/[0.03] [&_button[role=checkbox]]:border-white/30 [&_button[role=checkbox]]:bg-white/5 [&_button[role=checkbox][data-state=checked]]:bg-violet-500 [&_button[role=checkbox][data-state=checked]]:border-violet-500 [&_button[role=checkbox][data-state=checked]]:text-white">
                   <AssetPermission
                     alreadyDisabled={false}
                     id={"white_list"}
@@ -1966,10 +2018,10 @@ export default function Prediction(properties) {
               </div>
 
               <div className="space-y-2">
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-white/40">
                   {t("AssetCommon:flags.header")}
                 </h4>
-                <div className="rounded-lg border border-border bg-card">
+                <div className="rounded-lg border border-white/10 bg-white/[0.03] [&_button[role=checkbox]]:border-white/30 [&_button[role=checkbox]]:bg-white/5 [&_button[role=checkbox][data-state=checked]]:bg-violet-500 [&_button[role=checkbox][data-state=checked]]:border-violet-500 [&_button[role=checkbox][data-state=checked]]:text-white">
                   <AssetFlag
                     alreadyDisabled={false}
                     id={"white_list_flag"}
@@ -2069,7 +2121,7 @@ export default function Prediction(properties) {
 
         {/* Step 6 — Authorization (only visible when white_list is on) */}
         {flagWhiteList && (
-          <Card className="overflow-hidden border-border shadow-sm">
+          <Card className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20">
             <SectionHeader
               step={6}
               icon={UserCheck}
@@ -2140,7 +2192,7 @@ export default function Prediction(properties) {
         {/* Review and submit */}
         <Card
           ref={summaryRef}
-          className="overflow-hidden border-border shadow-sm"
+          className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20"
         >
           <SectionHeader
             icon={Sparkles}
@@ -2148,8 +2200,8 @@ export default function Prediction(properties) {
             description={t("CreatePrediction:summary.subtitle")}
           />
           <CardContent className="space-y-5 pt-6">
-            <div className="overflow-hidden rounded-lg border border-border bg-card">
-              <div className="divide-y divide-border px-4">
+            <div className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
+              <div className="divide-y divide-white/10 px-4">
                 <SummaryRow
                   icon={Hash}
                   label={t("CreatePrediction:summary.symbol")}
@@ -2215,27 +2267,27 @@ export default function Prediction(properties) {
 
             {isFormValid ? (
               <div className="flex items-start gap-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
-                <p className="text-sm font-medium text-emerald-500">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                <p className="text-sm font-medium text-emerald-400">
                   {t("CreatePrediction:summary.ready")}
                 </p>
               </div>
             ) : (
               <div className="flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
-                <p className="text-sm font-medium text-amber-500">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                <p className="text-sm font-medium text-amber-400">
                   {t("CreatePrediction:summary.fieldsRequired")}
                 </p>
               </div>
             )}
 
-            <div className="flex items-start gap-3 rounded-lg border border-border bg-muted/30 p-3">
-              <Info className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+            <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3">
+              <Info className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-foreground">
+                <p className="text-sm font-medium text-white">
                   {t("CreatePrediction:tips.submitTitle")}
                 </p>
-                <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                <p className="mt-0.5 text-xs leading-relaxed text-white/50">
                   {t("CreatePrediction:tips.submitHint")}
                 </p>
               </div>
@@ -2246,7 +2298,7 @@ export default function Prediction(properties) {
                 size="lg"
                 disabled={!isFormValid}
                 onClick={() => setShowDialog(true)}
-                className="gap-2 shadow-sm"
+                className="gap-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold shadow-lg shadow-violet-500/25 hover:brightness-110 active:scale-[0.99] transition-all"
               >
                 <Send className="h-4 w-4" />
                 {t("CreatePrediction:buttons.submit")}

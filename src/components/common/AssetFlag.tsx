@@ -8,6 +8,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
+  HoverCardPortal,
 } from "@/components/ui/hover-card";
 
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
   permission: boolean;
   flag: boolean;
   setFlag: (flag: boolean) => void;
+  className?: string;
 }
 
 interface MakeHoverProps {
@@ -36,6 +38,7 @@ export default function AssetFlag({
   permission,
   flag,
   setFlag,
+  className,
 }: Props) {
   const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
   const disabledClass =
@@ -45,20 +48,22 @@ export default function AssetFlag({
     return (
       <HoverCard>
         <HoverCardTrigger>{children}</HoverCardTrigger>
-        <HoverCardContent className={"w-80 mt-1"} align="start">
-          <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
-            {t("Predictions:about")}: {id}
-          </h4>
-          <p className="leading-6 text-sm [&:not(:first-child)]:mt-1">
-            {alreadyDisabled || !flag ? disabledInfo : enabledInfo}
-          </p>
-        </HoverCardContent>
+        <HoverCardPortal>
+          <HoverCardContent className={"w-80 mt-1 bg-slate-950 border-white/10 text-white z-[9999]"} align="start">
+            <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
+              {t("Predictions:about")}: {id}
+            </h4>
+            <p className="leading-6 text-sm text-white/70 [&:not(:first-child)]:mt-1">
+              {alreadyDisabled || !flag ? disabledInfo : enabledInfo}
+            </p>
+          </HoverCardContent>
+        </HoverCardPortal>
       </HoverCard>
     );
   };
 
   return (
-    <span className="grid grid-cols-12 items-center gap-2 pl-3">
+    <span className={"grid grid-cols-12 items-center gap-2 pl-3 " + (className || "")}>
       <span>
         {alreadyDisabled || !permission ? (
           <Checkbox
@@ -80,7 +85,7 @@ export default function AssetFlag({
         )}
       </span>
 
-      <span className="col-span-10">
+      <span className="col-span-10 text-white/70">
         <MakeHover>
           {alreadyDisabled ? (
             <Label htmlFor={id}>{permission || disabledText}</Label>
@@ -90,7 +95,7 @@ export default function AssetFlag({
         </MakeHover>
       </span>
       <MakeHover>
-        <InfoCircledIcon className="text-gray-400" />
+        <InfoCircledIcon className="text-white/40" />
       </MakeHover>
     </span>
   );
