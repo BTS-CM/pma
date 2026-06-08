@@ -1168,17 +1168,6 @@ export default function MarketAssetCard(properties) {
                 </Dialog>
               ) : null}
 
-              {bitassetData ? (
-                <a href={`/smartcoin/index.html?id=${assetData.id}`}>
-                  <Button
-                    variant="outline"
-                    className="h-7 gap-1.5 w-full border-white/[0.08] bg-slate-950/40 hover:border-amber-400/40 hover:bg-amber-500/10 text-white/80 hover:text-white text-xs"
-                  >
-                    <Wallet className="h-3 w-3" />
-                    {t("MarketAssetCard:borrowButton")}
-                  </Button>
-                </a>
-              ) : null}
             </span>
           </div>
         ) : null}

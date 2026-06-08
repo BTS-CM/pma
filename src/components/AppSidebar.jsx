@@ -21,53 +21,133 @@ import {
 } from "@/components/ui/accordion";
 import { useSidebar } from "@/components/ui/sidebar";
 
+import {
+  LineChart,
+  Activity,
+  Hourglass,
+  BookOpen,
+  Briefcase,
+  TrendingUp,
+  Sparkles,
+  Wallet,
+  ClipboardList,
+  Star,
+  Info,
+  Server,
+  UserX,
+  UserPlus,
+  ArrowLeftRight,
+  Zap,
+  Send,
+  Settings,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const SECTION_ICONS = {
+  exchanging: ArrowLeftRight,
+  accounts: Wallet,
+  settings: Settings,
+};
+
+const SECTION_ACCENTS = {
+  exchanging: "text-indigo-400",
+  accounts: "text-emerald-400",
+  settings: "text-violet-400",
+};
+
+const SECTION_BARS = {
+  exchanging: "from-indigo-500 to-cyan-500",
+  accounts: "from-emerald-500 to-teal-500",
+  settings: "from-violet-500 to-fuchsia-500",
+};
+
+const ITEM_ICONS = {
+  dex: LineChart,
+  prediction_markets_active: Activity,
+  prediction_markets_expired: Hourglass,
+  prediction_markets_mine: BookOpen,
+  prediction_markets_portfolio: Briefcase,
+  prediction_markets_margin: TrendingUp,
+  create_prediction: Sparkles,
+  portfolio_balances: Wallet,
+  portfolio_open_orders: ClipboardList,
+  favourites: Star,
+  about: Info,
+  nodes: Server,
+  blocked_users: UserX,
+  create_account: UserPlus,
+};
+
+const ITEM_ACCENT_COLORS = {
+  dex: "text-indigo-400",
+  prediction_markets_active: "text-cyan-400",
+  prediction_markets_expired: "text-sky-400",
+  prediction_markets_mine: "text-emerald-400",
+  prediction_markets_portfolio: "text-fuchsia-400",
+  prediction_markets_margin: "text-amber-400",
+  create_prediction: "text-violet-400",
+  portfolio_balances: "text-emerald-400",
+  portfolio_open_orders: "text-cyan-400",
+  favourites: "text-amber-400",
+  about: "text-blue-400",
+  nodes: "text-teal-400",
+  blocked_users: "text-rose-400",
+  create_account: "text-emerald-400",
+};
+
 export default function AppSidebar() {
   const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
 
   const exchangingFundsHeading = [
-    { title: "Home:dex.title", href: "/dex/index.html" },
+    { title: "Home:dex.title", href: "/dex/index.html", key: "dex" },
     {
       title: "Home:prediction_markets_active.title",
       href: "/active-predictions/index.html",
+      key: "prediction_markets_active",
     },
     {
       title: "Home:prediction_markets_expired.title",
       href: "/expired-predictions/index.html",
+      key: "prediction_markets_expired",
     },
     {
       title: "Home:prediction_markets_mine.title",
       href: "/my-predictions/index.html",
+      key: "prediction_markets_mine",
     },
     {
       title: "Home:prediction_markets_portfolio.title",
       href: "/prediction-portfolio/index.html",
+      key: "prediction_markets_portfolio",
     },
     {
       title: "Home:prediction_markets_margin.title",
       href: "/prediction-margin/index.html",
+      key: "prediction_markets_margin",
     },
-    { title: "Home:dex.title", href: "/order/index.html" },
-    { title: "Home:settlement.title", href: "/settlement/index.html" },
+    { title: "Home:dex.title", href: "/order/index.html", key: "dex" },
     {
       title: "Home:create_prediction.title",
       href: "/create_prediction/index.html",
+      key: "create_prediction",
     },
   ];
 
   const accountOverviewsHeading = [
-    { title: "Home:portfolio_balances.title", href: "/balances/index.html" },
+    { title: "Home:portfolio_balances.title", href: "/balances/index.html", key: "portfolio_balances" },
     {
       title: "Home:portfolio_open_orders.title",
       href: "/open-orders/index.html",
+      key: "portfolio_open_orders",
     },
-    { title: "Home:favourites.title", href: "/favourites/index.html" },
+    { title: "Home:favourites.title", href: "/favourites/index.html", key: "favourites" },
   ];
 
   const settingsHeading = [
-    { title: "Home:about.title", href: "/about/index.html" },
-    { title: "Home:nodes.title", href: "/nodes/index.html" },
-    { title: "Home:blocked_users.title", href: "/blocked-users/index.html" },
-    { title: "Home:create_account.title", href: "/create_account/index.html" },
+    { title: "Home:about.title", href: "/about/index.html", key: "about" },
+    { title: "Home:nodes.title", href: "/nodes/index.html", key: "nodes" },
+    { title: "Home:blocked_users.title", href: "/blocked-users/index.html", key: "blocked_users" },
+    { title: "Home:create_account.title", href: "/create_account/index.html", key: "create_account" },
   ];
 
   const sections = [
@@ -88,25 +168,18 @@ export default function AppSidebar() {
     },
   ];
 
-  const groupEmojis = {
-    exchanging: "💱",
-    accounts: "👤",
-    settings: "⚙️",
-  };
-
   const { openMobile, isMobile } = useSidebar();
   const [accValue, setAccValue] = React.useState(sections[0].key);
 
   React.useEffect(() => {
-    // When opening the mobile sidebar sheet, default to the first group
     if (isMobile && openMobile) {
       setAccValue(sections[0].key);
     }
   }, [isMobile, openMobile]);
 
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar className="!bg-slate-950/80 !border-r-white/[0.06]">
+      <SidebarContent className="!bg-slate-950/80">
         <Accordion
           type="single"
           collapsible
@@ -114,35 +187,50 @@ export default function AppSidebar() {
           onValueChange={setAccValue}
           className="w-full"
         >
-          {sections.map((section) => (
-            <AccordionItem key={section.key} value={section.key}>
-              <AccordionTrigger className="py-2 text-sm">
-                <SidebarGroupLabel className="px-2 py-0.5 text-[13px]">
-                  <span className="mr-2" aria-hidden>
-                    {groupEmojis[section.key]}
-                  </span>
-                  {section.label}
-                </SidebarGroupLabel>
-              </AccordionTrigger>
-              <AccordionContent>
-                <SidebarGroup>
-                  <SidebarGroupContent className="ml-3 pl-3 border-l border-sidebar-border">
-                    <SidebarMenu>
-                      {section.items.map((it) => (
-                        <SidebarMenuItem key={it.href}>
-                          <SidebarMenuButton asChild>
-                            <a href={it.href}>
-                              <span>{t(it.title)}</span>
-                            </a>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
+          {sections.map((section) => {
+            const SectionIcon = SECTION_ICONS[section.key] || Settings;
+            return (
+              <AccordionItem
+                key={section.key}
+                value={section.key}
+                className="border-b-white/[0.06]"
+              >
+                <AccordionTrigger className="py-2 text-sm hover:no-underline">
+                  <SidebarGroupLabel className="px-2 py-0.5 text-[13px]">
+                    <span className={cn("mr-2 inline-flex items-center justify-center w-5 h-5 rounded", SECTION_ACCENTS[section.key]?.replace("text-", "bg-")?.replace("400", "500/15"))}>
+                      <SectionIcon className={cn("h-3 w-3", SECTION_ACCENTS[section.key])} />
+                    </span>
+                    <span className="text-white/70">{section.label}</span>
+                  </SidebarGroupLabel>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <SidebarGroup>
+                    <SidebarGroupContent className="ml-3 pl-3 border-l border-white/[0.08]">
+                      <SidebarMenu>
+                        {section.items.map((it) => {
+                          const ItemIcon = ITEM_ICONS[it.key] || Info;
+                          const itemColor = ITEM_ACCENT_COLORS[it.key] || "text-white/50";
+                          return (
+                            <SidebarMenuItem key={it.href}>
+                              <SidebarMenuButton
+                                asChild
+                                className="!text-white/60 hover:!text-white hover:!bg-white/[0.06] !bg-transparent focus-visible:ring-0"
+                              >
+                                <a href={it.href} className="flex items-center gap-2">
+                                  <ItemIcon className={cn("h-3.5 w-3.5", itemColor)} />
+                                  <span>{t(it.title)}</span>
+                                </a>
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
+                          );
+                        })}
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </SidebarGroup>
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
         </Accordion>
       </SidebarContent>
     </Sidebar>

@@ -29,7 +29,6 @@ const pages = [
   "MyTradeSummary",
   "PageHeader",
   "PageFooter",
-  "Settlement",
   "Nodes",
   "Predictions",
   "IssuedAssets",
@@ -44,7 +43,6 @@ const pages = [
   "Visuals",
   "PortfolioTabs",
   "Transfer",
-  "Smartcoin",
   "SimpleSwap",
   "InstantTrade"
 ];
