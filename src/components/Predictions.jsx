@@ -3,6 +3,8 @@ import React, {
   useMemo,
   useEffect,
   useState,
+  useCallback,
+  memo,
 } from "react";
 import { List } from "react-window";
 import { useStore } from "@nanostores/react";
@@ -14,7 +16,24 @@ import {
   QuestionMarkCircledIcon,
   ExclamationTriangleIcon,
   CalendarIcon,
+  CopyIcon,
+  CheckIcon,
+  ImageIcon,
+  MagnifyingGlassIcon,
 } from "@radix-ui/react-icons";
+import {
+  TrendingUp,
+  ExternalLink as ExternalLinkIcon,
+  Filter,
+  ArrowUpDown,
+  X as XIcon,
+  Ban,
+  Activity,
+  Hourglass,
+  BookOpen,
+  Briefcase,
+  Sparkles,
+} from "lucide-react";
 
 import { useTranslation } from "react-i18next";
 import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
@@ -28,6 +47,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Popover,
   PopoverContent,
@@ -71,9 +91,40 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 import { $currentUser } from "@/stores/users.ts";
-import { $blockList } from "@/stores/blocklist.ts";
+import {
+  $blockList,
+  $userBlockList,
+  addBlockedUser,
+  removeBlockedUser,
+} from "@/stores/blocklist.ts";
 import { $currentNode } from "@/stores/node.ts";
+import { $visualSettings } from "@/stores/visuals.ts";
 
 import { useInitCache } from "@/nanoeffects/Init.ts";
 import {
@@ -88,9 +139,14 @@ import {
   getFlagBooleans,
   blockchainFloat,
   assetAmountRegex,
+  getNftImages,
+  ipfsUrl,
+  formatTimeRemaining,
+  debounce,
 } from "@/lib/common.js";
 
 import DeepLinkDialog from "./common/DeepLinkDialog.jsx";
+import JsonDetailsDialog from "./common/JsonDetailsDialog.jsx";
 
 import HoverInfo from "@/components/common/HoverInfo.tsx";
 import {
@@ -100,14 +156,6 @@ import {
 } from "@/components/ui/hover-card";
 import { set } from "date-fns";
 
-function hoursTillExpiration(expirationTime) {
-  var expirationDate = new Date(expirationTime);
-  var currentDate = new Date();
-  var difference = expirationDate - currentDate;
-  var hours = Math.round(difference / 1000 / 60 / 60);
-  return hours;
-}
-
 function prettifyDate(date) {
   const d = new Date(date);
   const hours = d.getHours() < 10 ? `0${d.getHours()}` : d.getHours();
@@ -115,6 +163,206 @@ function prettifyDate(date) {
   return `${d.getDate()}/${
     d.getMonth() + 1
   }/${d.getFullYear()} ${hours}:${minutes}`;
+}
+
+function CopyButton({ value, label, className }) {
+  const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
+  const [copied, setCopied] = useState(false);
+  return (
+    <TooltipProvider delayDuration={200}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className={cn("h-6 w-6", className)}
+            onClick={async (e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              try {
+                await navigator.clipboard.writeText(value);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1500);
+              } catch (err) {
+                // clipboard blocked; silently fail
+              }
+            }}
+            aria-label={label || t("Predictions:copy")}
+          >
+            {copied ? (
+              <CheckIcon className="h-3.5 w-3.5 text-emerald-500" />
+            ) : (
+              <CopyIcon className="h-3.5 w-3.5" />
+            )}
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent side="top">
+          {copied ? t("Predictions:copied") : label || t("Predictions:copy")}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
+function MonoBlock({ value, truncate, copyable, label }) {
+  const display =
+    truncate && value && value.length > truncate
+      ? `${value.slice(0, Math.floor(truncate / 2))}…${value.slice(
+          -Math.floor(truncate / 2),
+        )}`
+      : value;
+  return (
+    <span className="inline-flex items-center gap-1.5 font-mono text-xs">
+      <span className="break-all">{display}</span>
+      {copyable && value ? <CopyButton value={value} label={label} /> : null}
+    </span>
+  );
+}
+
+function StatBlock({ label, value, help, mono, accent }) {
+  return (
+    <div
+      className={cn(
+        "rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 transition-all hover:bg-white/[0.06]",
+        accent
+          ? "border-l-2 border-l-current"
+          : "",
+        accent === "emerald" && "border-emerald-500/50 bg-emerald-500/5",
+        accent === "rose" && "border-rose-500/50 bg-rose-500/5",
+        accent === "amber" && "border-amber-500/50 bg-amber-500/5",
+      )}
+    >
+      <div className="text-[10px] uppercase tracking-wider font-semibold text-white/60 flex items-center gap-1">
+        {label}
+        {help ? (
+          <TooltipProvider delayDuration={200}>
+            <Tooltip>
+              <TooltipTrigger>
+                <QuestionMarkCircledIcon className="h-3 w-3" />
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-xs">
+                {help}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ) : null}
+      </div>
+      <div
+        className={cn(
+          "mt-1 text-sm font-semibold text-white",
+          mono && "font-mono tabular-nums",
+        )}
+      >
+        {value}
+      </div>
+    </div>
+  );
+}
+
+function ProbabilityBar({ yesPercent }) {
+  const clamped = Math.max(0, Math.min(100, Number(yesPercent) || 0));
+  return (
+    <div>
+      <div className="flex items-center justify-between text-xs font-medium">
+        <span className="text-emerald-400">
+          YES {clamped.toFixed(1)}%
+        </span>
+        <span className="text-rose-400">
+          NO {(100 - clamped).toFixed(1)}%
+        </span>
+      </div>
+      <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-rose-500/20">
+        <div
+          className="h-full rounded-full bg-emerald-500 transition-all"
+          style={{ width: `${clamped}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function NftHero({ images, heroIndex, setHeroIndex, ipfsGateway }) {
+  const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
+  const hero = images[heroIndex] || images[0];
+  if (!hero) return null;
+  const src = ipfsUrl(hero.url, ipfsGateway);
+  return (
+    <div className="rounded-md border border-white/10 overflow-hidden bg-white/5">
+      {src ? (
+        <img
+          src={src}
+          alt={hero.type}
+          loading="lazy"
+          className="w-full h-auto object-contain max-h-[420px]"
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+          }}
+        />
+      ) : (
+        <div className="flex items-center justify-center h-32 text-white/40 text-sm">
+          <ImageIcon className="mr-2 h-4 w-4" />
+          {t("Predictions:nft.noImage")}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function NftThumbStrip({ images, heroIndex, setHeroIndex, ipfsGateway }) {
+  if (!images || images.length <= 1) return null;
+  return (
+    <div className="mt-2 flex flex-wrap gap-2">
+      {images.map((img, idx) => {
+        const src = ipfsUrl(img.url, ipfsGateway);
+        const active = idx === heroIndex;
+        return (
+          <button
+            key={`thumb-${idx}-${img.url}`}
+            type="button"
+            onClick={() => setHeroIndex(idx)}
+            className={cn(
+              "h-14 w-14 rounded-md overflow-hidden border-2 transition-colors",
+              active
+? "border-violet-500 ring-2 ring-violet-500/30"
+                  : "border-white/[0.08] hover:border-violet-500/40",
+            )}
+            aria-label={`Image ${idx + 1}`}
+          >
+            {src ? (
+              <img
+                src={src}
+                alt={img.type}
+                loading="lazy"
+                className="h-full w-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+            ) : (
+              <div className="h-full w-full flex items-center justify-center bg-white/10 text-white/40">
+                <ImageIcon className="h-4 w-4" />
+              </div>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function LongText({ label, value }) {
+  if (!value) return null;
+  return (
+    <div className="rounded-md border border-white/10 bg-white/5 p-3">
+      {label ? (
+        <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1">
+          {label}
+        </div>
+      ) : null}
+      <div className="whitespace-pre-wrap break-words text-sm">{value}</div>
+    </div>
+  );
 }
 
 export default function Predictions(properties) {
@@ -129,9 +377,99 @@ export default function Predictions(properties) {
     $blockList.get,
     () => true
   );
+  const userBlockList = useSyncExternalStore(
+    $userBlockList.subscribe,
+    $userBlockList.get,
+    () => true
+  );
   const currentNode = useStore($currentNode);
+  const visuals = useStore($visualSettings);
 
-  const [view, setView] = useState("active"); // active, expired, mine
+  const view = properties.view || "active"; // active, expired, mine, portfolio, margin
+  const VIEW_CONFIG = {
+    active: {
+      icon: Activity,
+      color: "text-cyan-400",
+      bg: "bg-cyan-500/15",
+      border: "border-cyan-500/30",
+      ring: "ring-cyan-500/20",
+      gradient: "from-cyan-500 to-sky-500",
+    },
+    expired: {
+      icon: Hourglass,
+      color: "text-sky-400",
+      bg: "bg-sky-500/15",
+      border: "border-sky-500/30",
+      ring: "ring-sky-500/20",
+      gradient: "from-sky-500 to-blue-500",
+    },
+    mine: {
+      icon: BookOpen,
+      color: "text-emerald-400",
+      bg: "bg-emerald-500/15",
+      border: "border-emerald-500/30",
+      ring: "ring-emerald-500/20",
+      gradient: "from-emerald-500 to-teal-500",
+    },
+    portfolio: {
+      icon: Briefcase,
+      color: "text-fuchsia-400",
+      bg: "bg-fuchsia-500/15",
+      border: "border-fuchsia-500/30",
+      ring: "ring-fuchsia-500/20",
+      gradient: "from-fuchsia-500 to-pink-500",
+    },
+    margin: {
+      icon: TrendingUp,
+      color: "text-amber-400",
+      bg: "bg-amber-500/15",
+      border: "border-amber-500/30",
+      ring: "ring-amber-500/20",
+      gradient: "from-amber-500 to-orange-500",
+    },
+  };
+  const currentView = VIEW_CONFIG[view] || VIEW_CONFIG.active;
+
+  // Live countdown ticker - re-renders the row every 30s so expiry countdowns update
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 30000);
+    return () => clearInterval(id);
+  }, []);
+
+  // List-level controls
+  const [sortBy, setSortBy] = useState(() => {
+    if (typeof window === "undefined") return "newest";
+    const params = new URLSearchParams(window.location.search);
+    const s = params.get("sort");
+    return s && ["newest", "expiring", "volume", "alpha"].includes(s)
+      ? s
+      : "newest";
+  });
+  const [filterBy, setFilterBy] = useState(() => {
+    if (typeof window === "undefined") return "all";
+    const params = new URLSearchParams(window.location.search);
+    const f = params.get("filter");
+    return f && ["all", "closing-soon", "new", "high-volume"].includes(f)
+      ? f
+      : "all";
+  });
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const setSearchQueryDebounced = useCallback(
+    debounce((v) => setSearchQuery(v), 200),
+    [],
+  );
+  const onSearchInput = (e) => {
+    const v = e.currentTarget.value;
+    setSearchInput(v);
+    setSearchQueryDebounced(v);
+  };
+
+  const ipfsGateway =
+    visuals && typeof visuals.ipfsGateway === "string" && visuals.ipfsGateway
+      ? visuals.ipfsGateway
+      : "https://ipfs.io/ipfs/";
 
   const { _assetsBTS, _assetsTEST, _marketSearchBTS, _marketSearchTEST } =
     properties;
@@ -158,6 +496,15 @@ export default function Predictions(properties) {
     }
     return [];
   }, [_assetsBTS, _assetsTEST, _chain]);
+
+  // Set of account IDs the current user has personally blocked (per chain).
+  // Used as a second filter pass to hide PMAs whose issuer is in the user blocklist.
+  const userBlockedIDs = useMemo(() => {
+    if (!userBlockList || !_chain) return new Set();
+    const chainList = userBlockList[_chain];
+    if (!chainList || !chainList.length) return new Set();
+    return new Set(chainList.map((u) => u.id));
+  }, [userBlockList, _chain]);
 
   const [combinedAssets, setCombinedAssets] = useState([]);
   useEffect(() => {
@@ -206,6 +553,7 @@ export default function Predictions(properties) {
   }, [_chain, combinedAssets]);
 
   const [pmaProcessedData, setPmaProcessedData] = useState([]);
+  const [hasLoadedPmas, setHasLoadedPmas] = useState(false);
   useEffect(() => {
     async function fetching() {
       const _store = createObjectStore([
@@ -251,6 +599,7 @@ export default function Predictions(properties) {
               (a, b) => new Date(b.creation_time) - new Date(a.creation_time)
             );
           setPmaProcessedData(processedData);
+          setHasLoadedPmas(true);
         }
       });
     }
@@ -259,6 +608,19 @@ export default function Predictions(properties) {
       fetching();
     }
   }, [predictionMarketAssets]);
+
+  useEffect(() => {
+    // If there are no prediction market assets at all, mark as loaded so
+    // we show the empty state instead of indefinite skeleton rows.
+    if (
+      predictionMarketAssets &&
+      predictionMarketAssets.length === 0 &&
+      _chain &&
+      currentNode
+    ) {
+      setHasLoadedPmas(true);
+    }
+  }, [predictionMarketAssets, _chain, currentNode]);
 
   const [usrBalances, setUsrBalances] = useState();
   const [balanceAssetIDs, setBalanceAssetIDs] = useState([]);
@@ -390,27 +752,253 @@ export default function Predictions(properties) {
     } else if (view === "margin") {
       return marginPMAs;
     }
-  }, [view, activePMAs, expiredPMAs, myPMAs]);
+    return [];
+  }, [view, activePMAs, expiredPMAs, myPMAs, balancePMAs, marginPMAs]);
 
-  const PredictionRow = ({ index, style }) => {
-    let res;
+  // Page-level stats (computed from the raw chosenPMAs, NOT the filtered list)
+  const pageStats = useMemo(() => {
+    if (!chosenPMAs || !chosenPMAs.length) {
+      return null;
+    }
     if (view === "active") {
-      res = activePMAs[index];
-    } else if (view === "expired") {
-      res = expiredPMAs[index];
-    } else if (view === "mine") {
-      res = myPMAs[index];
+      const closingSoon = chosenPMAs.filter((p) => {
+        const ms = new Date(p.expiry).getTime() - now;
+        return ms > 0 && ms <= 24 * 60 * 60 * 1000;
+      }).length;
+      const newlyCreated = chosenPMAs.filter((p) => {
+        const created = new Date(p.creation_time).getTime();
+        const ageMs = now - created;
+        return ageMs >= 0 && ageMs <= 7 * 24 * 60 * 60 * 1000;
+      }).length;
+      return {
+        primary: chosenPMAs.length,
+        secondary: [
+          { key: "closing", label: t("Predictions:stats.closingSoon"), value: closingSoon },
+          { key: "new", label: t("Predictions:stats.newlyCreated"), value: newlyCreated },
+        ],
+      };
+    }
+    if (view === "expired") {
+      const awaiting = chosenPMAs.filter((p) => {
+        const bitasset = completedPMAs.find((b) => b.id === p.bitasset_data_id);
+        return !bitasset || !bitasset.hasOwnProperty("outcome") || bitasset.outcome === -1;
+      }).length;
+      const resolved = chosenPMAs.filter((p) => {
+        const bitasset = completedPMAs.find((b) => b.id === p.bitasset_data_id);
+        return bitasset && (bitasset.outcome === 0 || bitasset.outcome === 1);
+      }).length;
+      return {
+        primary: chosenPMAs.length,
+        secondary: [
+          { key: "awaiting", label: t("Predictions:stats.awaitingResolution"), value: awaiting },
+          { key: "resolved", label: t("Predictions:stats.resolved"), value: resolved },
+        ],
+      };
+    }
+    if (view === "mine") {
+      const awaitingMine = chosenPMAs.filter((p) => {
+        const bitasset = completedPMAs.find((b) => b.id === p.bitasset_data_id);
+        return p.expired && (!bitasset || !bitasset.hasOwnProperty("outcome") || bitasset.outcome === -1);
+      }).length;
+      return {
+        primary: chosenPMAs.length,
+        secondary: [
+          { key: "awaiting", label: t("Predictions:stats.awaitingYourResolution"), value: awaitingMine },
+        ],
+      };
+    }
+    if (view === "portfolio") {
+      return {
+        primary: chosenPMAs.length,
+        secondary: [
+          { key: "inBalance", label: t("Predictions:stats.inYourBalance"), value: chosenPMAs.length },
+        ],
+      };
+    }
+    if (view === "margin") {
+      const atRisk = chosenPMAs.filter((p) => {
+        const collateral = pmaProcessedData.find((x) => x.id === p.id);
+        // heuristic: a margin position is at risk if there is an open call
+        return true;
+      }).length;
+      return {
+        primary: chosenPMAs.length,
+        secondary: [
+          { key: "atRisk", label: t("Predictions:stats.marginPositions"), value: chosenPMAs.length },
+        ],
+      };
+    }
+    return null;
+  }, [chosenPMAs, view, completedPMAs, pmaProcessedData, now, t]);
+
+  // Apply search + filter + sort to the chosenPMAs for the rendered list
+  const sortedFilteredPMAs = useMemo(() => {
+    if (!chosenPMAs || !chosenPMAs.length) return [];
+    let result = [...chosenPMAs];
+
+    // Second filter pass: drop PMAs whose issuer is in the user's personal
+    // blocklist. This is intentionally separate from the committee blocklist
+    // (which only feeds the committee reference view, not the prediction list).
+    if (userBlockedIDs && userBlockedIDs.size) {
+      result = result.filter((p) => !userBlockedIDs.has(p.issuer));
     }
 
-    const relevantBitassetData = completedPMAs.find(
-      (x) => x.id === res.bitasset_data_id
+    if (searchQuery && searchQuery.trim().length) {
+      const q = searchQuery.trim().toLowerCase();
+      result = result.filter((p) => {
+        if (p.symbol && p.symbol.toLowerCase().includes(q)) return true;
+        try {
+          const d = JSON.parse(p.options.description || "{}");
+          if (d && d.condition && String(d.condition).toLowerCase().includes(q))
+            return true;
+          if (d && d.short_name && String(d.short_name).toLowerCase().includes(q))
+            return true;
+        } catch (_) {}
+        return false;
+      });
+    }
+
+    if (filterBy === "closing-soon" && view === "active") {
+      result = result.filter((p) => {
+        const ms = new Date(p.expiry).getTime() - now;
+        return ms > 0 && ms <= 24 * 60 * 60 * 1000;
+      });
+    } else if (filterBy === "new" && view === "active") {
+      result = result.filter((p) => {
+        const created = new Date(p.creation_time).getTime();
+        const ageMs = now - created;
+        return ageMs >= 0 && ageMs <= 7 * 24 * 60 * 60 * 1000;
+      });
+    } else if (filterBy === "high-volume" && view === "active") {
+      // top 10% by total call-order collateral
+      const collaterals = chosenPMAs.map((p) => {
+        const orders = callOrders[p.id];
+        return orders
+          ? orders.reduce((acc, val) => acc + val.collateral, 0)
+          : 0;
+      });
+      const sorted = [...collaterals].sort((a, b) => b - a);
+      const cutoff = sorted[Math.floor(sorted.length * 0.1)] || 0;
+      result = result.filter((_, idx) => collaterals[idx] >= cutoff);
+    }
+
+    if (sortBy === "newest") {
+      result.sort(
+        (a, b) =>
+          new Date(b.creation_time).getTime() -
+          new Date(a.creation_time).getTime(),
+      );
+    } else if (sortBy === "expiring") {
+      result.sort(
+        (a, b) => new Date(a.expiry).getTime() - new Date(b.expiry).getTime(),
+      );
+    } else if (sortBy === "volume") {
+      result.sort((a, b) => {
+        const ca = callOrders[a.id]
+          ? callOrders[a.id].reduce((acc, val) => acc + val.collateral, 0)
+          : 0;
+        const cb = callOrders[b.id]
+          ? callOrders[b.id].reduce((acc, val) => acc + val.collateral, 0)
+          : 0;
+        return cb - ca;
+      });
+    } else if (sortBy === "alpha") {
+      result.sort((a, b) =>
+        (a.symbol || "").localeCompare(b.symbol || ""),
+      );
+    }
+
+    return result;
+  }, [chosenPMAs, searchQuery, filterBy, sortBy, now, callOrders, view, userBlockedIDs]);
+
+  const PredictionRow = memo(({ res }) => {
+    // All hooks must be called unconditionally, before any early return.
+    const [rowView, setRowView] = useState("overview");
+
+    const [heroIndex, setHeroIndex] = useState(0);
+    useEffect(() => {
+      setHeroIndex(0);
+    }, [res?.id]);
+
+    const nftImages = useMemo(
+      () => {
+        if (!res?.options?.description) return [];
+        try {
+          const _d = JSON.parse(res.options.description);
+          return _d && _d.nft_object ? getNftImages(_d.nft_object) : [];
+        } catch (_) {
+          return [];
+        }
+      },
+      [res?.id],
     );
 
+    // sellers (false betters)
+    const [issuePrompt, setIssuePrompt] = useState(false);
+    const [issueAmount, setIssueAmount] = useState(0);
+    const [issueDialog, setIssueDialog] = useState(false);
+
+    const [sellPrompt, setSellPrompt] = useState(false);
+    const [sellAmount, setSellAmount] = useState(0);
+    const [sellDialog, setSellDialog] = useState(false);
+
+    const [expiryType, setExpiryType] = useState("1hr");
+    const [expiry, setExpiry] = useState(() => {
+      const _now = new Date();
+      const oneHour = 60 * 60 * 1000;
+      return new Date(_now.getTime() + oneHour);
+    });
+
+    const [date, setDate] = useState(
+      new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    );
+
+    useEffect(() => {
+      if (expiryType === "specific" && date) {
+        setExpiry(date);
+      }
+    }, [expiryType, date]);
+
+    // buyer (true betters)
+    const [buyPrompt, setBuyPrompt] = useState(false);
+    const [buyAmount, setBuyAmount] = useState(0);
+    const [buyDialog, setBuyDialog] = useState(false);
+
+    const [claimPrompt, setClaimPrompt] = useState(false);
+    const [claimAmount, setClaimAmount] = useState(0);
+    const [claimDialog, setClaimDialog] = useState(false);
+
+    // owner (issuer) - admin
+    const [resolvePrompt, setResolvePrompt] = useState(false);
+    const [chosenOutcome, setChosenOutcome] = useState();
+    const [resolveDialog, setResolveDialog] = useState(false);
+
+    const [pricefeederPrompt, setPricefeederPrompt] = useState(false);
+    const [priceFeeders, setPriceFeeders] = useState([]);
+    const [priceSearchDialog, setPriceSearchDialog] = useState(false);
+    const [pricefeederDialog, setPricefeederDialog] = useState(false);
+
+    // witness || committee || pricefeeder - admin
+    const [priceFeedPrompt, setPriceFeedPrompt] = useState(false);
+    const [priceFeedOutcome, setPriceFeedOutcome] = useState();
+    const [priceFeedDialog, setPriceFeedDialog] = useState(false);
+
+    // JSON detail viewer
+    const [jsonDialogOpen, setJsonDialogOpen] = useState(false);
+    const [jsonPayload, setJsonPayload] = useState(null);
+
+    // Block-issuer confirmation prompt
+    const [blockConfirmOpen, setBlockConfirmOpen] = useState(false);
+
+    // ----- Safe data lookups -----
+    const relevantBitassetData = res
+      ? completedPMAs.find((x) => x.id === res.bitasset_data_id)
+      : null;
+
+    // ----- Early return AFTER all hooks -----
     if (!res || !relevantBitassetData) {
       return null;
     }
-
-    const [rowView, setRowView] = useState("about");
 
     const symbol = res.symbol;
     const house = res.issuer;
@@ -427,18 +1015,33 @@ export default function Predictions(properties) {
           : null;
     }
 
+    // The marketSearch `u` field is formatted as `name (id) (LTM)` (LTM optional)
+    // so we split out the parts to: (a) avoid rendering `(LTM)` twice when we
+    // already show a dedicated LTM badge, and (b) extract a clean account
+    // name to seed the Avatar.
+    const issuerIsLtm = !!(username && username.includes("(LTM)"));
+    const issuerDisplayLabel = username
+      ? username.replace(/\s*\(LTM\)\s*$/, "").trim()
+      : null;
+    const issuerDisplayName = issuerDisplayLabel
+      ? issuerDisplayLabel.split(" (")[0]
+      : null;
+
     const _desc = JSON.parse(res.options.description);
 
     const prediction_conditions = _desc.condition;
     const main_description = _desc.main;
     const expiration = _desc.expiry;
-
-    const expirationHours = hoursTillExpiration(expiration);
+    const expirationMs = new Date(expiration).getTime();
+    const isExpired = expirationMs <= now;
+    const expirationHours = Math.floor((expirationMs - now) / 3600000);
 
     const market = _desc.market;
 
     const cleanedPrediction = DOMPurify.sanitize(prediction_conditions ?? ""); // sanitize to avoid xss
     const cleanedDescription = DOMPurify.sanitize(main_description ?? ""); // sanitize to avoid xss
+
+    const hasNft = !!(res.options && _desc && _desc.nft_object);
 
     let relevantCallOrders = callOrders.hasOwnProperty(res.id)
       ? callOrders[res.id]
@@ -453,6 +1056,14 @@ export default function Predictions(properties) {
         ? relevantCallOrders.filter((x) => x.borrower === usr.id)
         : null;
     const existingCollateral = usrCallOrder ? usrCallOrder.collateral : 0;
+
+    // Implied YES probability
+    const settlementFundRaw = relevantBitassetData
+      ? Number(relevantBitassetData.settlement_fund || 0)
+      : 0;
+    const totalCollateral = totalBets + settlementFundRaw;
+    const impliedYesPercent =
+      totalCollateral > 0 ? (settlementFundRaw / totalCollateral) * 100 : 0;
 
     const _backingAssetID = res.backingAsset.id;
     const _backingPrecision = res.backingAsset.precision;
@@ -474,56 +1085,6 @@ export default function Predictions(properties) {
     const _flags = getFlagBooleans(res.options.flags);
     const _issuer_permissions = getFlagBooleans(res.options.issuer_permissions);
 
-    // sellers (false betters)
-    const [issuePrompt, setIssuePrompt] = useState(false); // prompting user with issue ux
-    const [issueAmount, setIssueAmount] = useState(0); // amount of prediction market assets to issue
-    const [issueDialog, setIssueDialog] = useState(false);
-
-    const [sellPrompt, setSellPrompt] = useState(false); // prompting user with sell ux
-    const [sellAmount, setSellAmount] = useState(0); // amount of prediction market assets to sell
-    const [sellDialog, setSellDialog] = useState(false);
-
-    const [expiryType, setExpiryType] = useState("1hr");
-    const [expiry, setExpiry] = useState(() => {
-      const now = new Date();
-      const oneHour = 60 * 60 * 1000;
-      return new Date(now.getTime() + oneHour);
-    });
-
-    const [date, setDate] = useState(
-      new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-    ); // Solely for the calendar component to display a date string
-
-    useEffect(() => {
-      if (expiryType === "specific" && date) {
-        setExpiry(date);
-      }
-    }, [expiryType, date]);
-
-    // buyer (true betters)
-    const [buyPrompt, setBuyPrompt] = useState(false); // prompting user with buy ux
-    const [buyAmount, setBuyAmount] = useState(0); // amount of prediction market assets to buy
-    const [buyDialog, setBuyDialog] = useState(false);
-
-    const [claimPrompt, setClaimPrompt] = useState(false); // winning buyer prize claim dialog
-    const [claimAmount, setClaimAmount] = useState(0); // amount of prediction market assets to claim
-    const [claimDialog, setClaimDialog] = useState(false);
-
-    // owner (issuer) - admin
-    const [resolvePrompt, setResolvePrompt] = useState(false); // prompting user with resolve ux
-    const [chosenOutcome, setChosenOutcome] = useState(); // chosen outcome of prediction market
-    const [resolveDialog, setResolveDialog] = useState(false);
-
-    const [pricefeederPrompt, setPricefeederPrompt] = useState(false); // prompting user with pricefeeder ux
-    const [priceFeeders, setPriceFeeders] = useState([]); // list of price feeders for prediction market
-    const [priceSearchDialog, setPriceSearchDialog] = useState(false);
-    const [pricefeederDialog, setPricefeederDialog] = useState(false);
-
-    // witness || committee || pricefeeder - admin
-    const [priceFeedPrompt, setPriceFeedPrompt] = useState(false); // prompting user with price feed ux
-    const [priceFeedOutcome, setPriceFeedOutcome] = useState(); // chosen outcome of prediction market
-    const [priceFeedDialog, setPriceFeedDialog] = useState(false);
-
     const pricefeederRow = ({ index, style }) => {
       let res = priceFeeders[index];
       if (!res) {
@@ -532,7 +1093,7 @@ export default function Predictions(properties) {
 
       return (
         <div style={{ ...style }} key={`acard-${res.id}`}>
-          <Card className="ml-2 mr-2 mt-1">
+          <Card className="ml-2 mr-2 mt-1 bg-slate-900/80 border-white/[0.08]">
             <CardHeader className="pb-3 pt-3">
               <span className="flex items-center w-full">
                 <span className="flex-shrink-0">
@@ -550,7 +1111,7 @@ export default function Predictions(properties) {
                     ]}
                   />
                 </span>
-                <span className="flex-grow ml-3">
+                <span className="flex-grow ml-3 text-white">
                   #{index + 1}: {res.name} ({res.id})
                 </span>
                 <span className="flex-shrink-0">
@@ -575,198 +1136,787 @@ export default function Predictions(properties) {
       );
     };
 
+    // Compute status for visual indicator
+    const statusKey = (() => {
+      if (!isExpired) return "active";
+      if (
+        relevantBitassetData &&
+        relevantBitassetData.outcome === 1
+      )
+        return "resolvedYes";
+      if (
+        relevantBitassetData &&
+        relevantBitassetData.outcome === 0
+      )
+        return "resolvedNo";
+      return "awaiting";
+    })();
+
+    const statusStyles = {
+      active: {
+        border: "border-l-emerald-500",
+        bg: "bg-emerald-500/15",
+        text: "text-emerald-400",
+        label: t("Predictions:status.active"),
+      },
+      resolvedYes: {
+        border: "border-l-emerald-500",
+        bg: "bg-emerald-500/15",
+        text: "text-emerald-400",
+        label: t("Predictions:status.resolvedYes"),
+      },
+      resolvedNo: {
+        border: "border-l-rose-500",
+        bg: "bg-rose-500/15",
+        text: "text-rose-400",
+        label: t("Predictions:status.resolvedNo"),
+      },
+      awaiting: {
+        border: "border-l-amber-500",
+        bg: "bg-amber-500/15",
+        text: "text-amber-400",
+        label: t("Predictions:status.awaiting"),
+      },
+    };
+
+    const status = statusStyles[statusKey];
+
     return (
-      <div style={{ ...style }} key={`acard-${res.id}`}>
-        <Card className={`ml-2 mr-2`}>
-          <CardHeader className="pb-0 pt-3">
-            <CardTitle>
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                <div>
-                  {symbol} ( {res.id} )
-                </div>
-                <div className="md:text-right">
-                  {username ?? house}
+      <Card
+        className={cn(
+          "w-full overflow-hidden border-l-4 shadow-md shadow-black/20 transition-all hover:shadow-xl hover:shadow-black/30 hover:-translate-y-0.5 bg-slate-900/80 border-white/[0.08] backdrop-blur-sm",
+          status.border,
+        )}
+      >
+        <CardHeader className="pb-2 pt-3">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-start">
+              <div className="min-w-0">
+                <CardTitle className="text-base sm:text-lg font-semibold leading-snug line-clamp-3 text-white">
+                  {cleanedPrediction || symbol}
+                </CardTitle>
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-white/50">
+                  <span className="font-mono font-medium text-white/80">{symbol}</span>
+                  <span className="text-white/20">·</span>
+                  <span className="font-mono text-[10px]">{res.id}</span>
+                  <CopyButton value={res.id} label={t("Predictions:copyAssetId")} />
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
+                      status.bg,
+                      status.text,
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "h-1.5 w-1.5 rounded-full",
+                        statusKey === "active" && "bg-emerald-500 animate-pulse",
+                        statusKey === "resolvedYes" && "bg-emerald-600",
+                        statusKey === "resolvedNo" && "bg-rose-500",
+                        statusKey === "awaiting" && "bg-amber-500",
+                      )}
+                    />
+                    {status.label}
+                  </span>
+                  {hasNft ? (
+                    <span className="inline-flex items-center rounded-full bg-violet-500/10 border border-violet-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-violet-400">
+                      NFT
+                    </span>
+                  ) : null}
                 </div>
               </div>
-            </CardTitle>
+              <div className="md:text-right text-xs flex flex-wrap items-center md:justify-end gap-x-2 gap-y-1">
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] pl-0.5 pr-2 py-0.5 text-[11px] font-medium"
+                >
+                  <span className="inline-flex h-5 w-5 overflow-hidden rounded-full ring-1 ring-white/10">
+                    <Avatar
+                      size={20}
+                      name={issuerDisplayName ?? house}
+                      extra="Issuer"
+                      expression={{ eye: "normal", mouth: "open" }}
+                      colors={[
+                        "#92A1C6",
+                        "#146A7C",
+                        "#F0AB3D",
+                        "#C271B4",
+                        "#C20D90",
+                      ]}
+                    />
+                  </span>
+                  <span className="text-white/60">
+                    {issuerDisplayLabel ?? house}
+                  </span>
+                </span>
+                {issuerIsLtm ? (
+                  <span className="inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-400">
+                    LTM
+                  </span>
+                ) : null}
+              </div>
+            </div>
           </CardHeader>
-          <CardContent className="text-sm pb-3 mt-1">
+          <CardContent className="text-sm pb-3 mt-1 text-white/70">
             <div className="grid grid-cols-1 gap-2">
-              <div className={`grid grid-cols-1 md:grid-cols-5 gap-2 mt-2`}>
+              <div className="flex flex-wrap items-center gap-1 mt-1 rounded-lg bg-white/[0.03] border border-white/[0.06] p-1 self-start">
                 <Button
-                  onClick={() => setRowView("about")}
-                  variant={rowView === "about" ? "" : "outline"}
-                  size="md"
+                  onClick={() => setRowView("overview")}
+                  variant={rowView === "overview" ? "default" : "ghost"}
+                  size="sm"
+                  className={cn(
+                    "h-7 text-xs",
+                    rowView !== "overview" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
+                  )}
                 >
-                  {t("Predictions:about")}
+                  {t("Predictions:tab.overview")}
+                </Button>
+                {hasNft ? (
+                  <Button
+                    onClick={() => setRowView("nft")}
+                    variant={rowView === "nft" ? "default" : "ghost"}
+                    size="sm"
+                    className={cn(
+                      "h-7 text-xs",
+                      rowView !== "nft" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
+                    )}
+                  >
+                    {t("Predictions:tab.nft")}
+                  </Button>
+                ) : null}
+                <Button
+                  onClick={() => setRowView("market")}
+                  variant={rowView === "market" ? "default" : "ghost"}
+                  size="sm"
+                  className={cn(
+                    "h-7 text-xs",
+                    rowView !== "market" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
+                  )}
+                >
+                  {t("Predictions:tab.market")}
                 </Button>
                 <Button
-                  onClick={() => setRowView("description")}
-                  variant={rowView === "description" ? "" : "outline"}
-                  size="md"
+                  onClick={() => setRowView("details")}
+                  variant={rowView === "details" ? "default" : "ghost"}
+                  size="sm"
+                  className={cn(
+                    "h-7 text-xs",
+                    rowView !== "details" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
+                  )}
                 >
-                  {t("Predictions:description")}
+                  {t("Predictions:tab.details")}
                 </Button>
-                <Button
-                  onClick={() => setRowView("actions")}
-                  variant={rowView === "actions" ? "" : "outline"}
-                  size="md"
-                >
-                  {t("Predictions:actions")}
-                </Button>
+                {view !== "expired" ? (
+                  <Button
+                    onClick={() => setRowView("actions")}
+                    variant={rowView === "actions" ? "default" : "ghost"}
+                    size="sm"
+                    className={cn(
+                      "h-7 text-xs",
+                      rowView !== "actions" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
+                    )}
+                  >
+                    {t("Predictions:tab.actions")}
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => setRowView("winners")}
+                    variant={rowView === "winners" ? "default" : "ghost"}
+                    size="sm"
+                    className={cn(
+                      "h-7 text-xs",
+                      rowView !== "winners" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
+                    )}
+                  >
+                    {t("Predictions:tab.winners")}
+                  </Button>
+                )}
                 {usr.id === house ? (
                   <Button
                     onClick={() => setRowView("admin")}
-                    variant={rowView === "admin" ? "" : "outline"}
-                    size="md"
+                    variant={rowView === "admin" ? "default" : "ghost"}
+                    size="sm"
+                    className={cn(
+                      "h-7 text-xs",
+                      rowView !== "admin" && "text-white/50 hover:text-white/80 hover:bg-white/[0.06]",
+                    )}
                   >
-                    {t("Predictions:admin")}
+                    {t("Predictions:tab.admin")}
                   </Button>
                 ) : null}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-7 text-xs text-white/40 hover:text-white hover:bg-white/10"
+                    >
+                      {t("Predictions:json.button")}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                    <DropdownMenuItem
+                      className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
+                      onClick={() => {
+                        setJsonPayload(res);
+                        setJsonDialogOpen(true);
+                      }}
+                    >
+                      {t("Predictions:json.assetData")}
+                    </DropdownMenuItem>
+                    {relevantBitassetData ? (
+                      <DropdownMenuItem
+                        className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
+                        onClick={() => {
+                          setJsonPayload(relevantBitassetData);
+                          setJsonDialogOpen(true);
+                        }}
+                      >
+                        {t("Predictions:json.bitassetData")}
+                      </DropdownMenuItem>
+                    ) : null}
+                    {_desc ? (
+                      <DropdownMenuItem
+                        className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
+                        onClick={() => {
+                          setJsonPayload(_desc);
+                          setJsonDialogOpen(true);
+                        }}
+                      >
+                        {t("Predictions:json.descriptionData")}
+                      </DropdownMenuItem>
+                    ) : null}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                {usr && usr.id && house && house !== usr.id ? (
+                  <TooltipProvider delayDuration={200}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className={cn(
+                            "h-7 w-7",
+                            userBlockedIDs.has(house)
+                              ? "text-red-600 hover:text-red-700"
+                              : "text-white/40 hover:text-red-400",
+                          )}
+                          onClick={() => {
+                            if (userBlockedIDs.has(house)) {
+                              removeBlockedUser(usr.chain, {
+                                name: issuerDisplayLabel ?? username ?? house,
+                                id: house,
+                              });
+                            } else {
+                              setBlockConfirmOpen(true);
+                            }
+                          }}
+                          aria-label={
+                            userBlockedIDs.has(house)
+                              ? t("Predictions:json.unblockIssuer")
+                              : t("Predictions:json.blockIssuer")
+                          }
+                        >
+                          <Ban className="h-3.5 w-3.5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">
+                        {userBlockedIDs.has(house)
+                          ? t("Predictions:json.unblockIssuer")
+                          : t("Predictions:json.blockIssuer")}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                ) : null}
               </div>
-              {rowView === "about" ? (
-                <div className="grid grid-cols-1">
-                  <b>{t("Predictions:prediction")}</b>
-                  <Textarea
-                    placeholder={cleanedPrediction}
-                    value={cleanedPrediction}
-                    disabled={true}
-                    className="max-h-[80px] mt-1"
-                  />
-                  <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <div>
-                      <b>
-                        {t(
-                          `Predictions:${
-                            expirationHours >= 0 ? "expiration" : "expired_at"
-                          }`
-                        )}
-                      </b>
-                      : {prettifyDate(expiration)}
-                      <br />
-                      {expirationHours >= 0 ? (
-                        <>
-                          {t("Predictions:time_till_expiration", {
-                            hours: expirationHours,
-                          })}
-                          <br />
-                        </>
+
+              {usr && usr.id && house && house !== usr.id ? (
+                <AlertDialog
+                  open={blockConfirmOpen}
+                  onOpenChange={setBlockConfirmOpen}
+                >
+                  <AlertDialogContent className="bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        {t("Predictions:blockConfirm.title")}
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        {t("Predictions:blockConfirm.description")}
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <div className="flex items-center gap-3 rounded-md border border-white/[0.08] bg-white/[0.03] p-3">
+                      <span className="inline-flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-white/10">
+                        <Avatar
+                          size={40}
+                          name={issuerDisplayName ?? house}
+                          extra="BlockConfirm"
+                          expression={{ eye: "normal", mouth: "unhappy" }}
+                          colors={[
+                            "#92A1C6",
+                            "#146A7C",
+                            "#F0AB3D",
+                            "#C271B4",
+                            "#C20D90",
+                          ]}
+                        />
+                      </span>
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold text-white truncate">
+                          {issuerDisplayName ?? house}
+                        </div>
+                        <div className="font-mono text-xs text-white/50">
+                          {house}
+                        </div>
+                      </div>
+                      {issuerIsLtm ? (
+                        <span className="ml-auto inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-400">
+                          LTM
+                        </span>
                       ) : null}
-                      {view === "expired" || view === "mine" ? (
-                        <>
-                          <b>{t("Predictions:outcome")}</b>:{" "}
-                          {relevantBitassetData &&
-                          relevantBitassetData.hasOwnProperty("outcome") &&
+                    </div>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel className="bg-white/[0.05] border-white/[0.08] text-white/70 hover:bg-white/10 hover:text-white">
+                        {t("Predictions:blockConfirm.cancel")}
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                        className="bg-red-600 hover:bg-red-700 text-white"
+                        onClick={() => {
+                          addBlockedUser(usr.chain, {
+                            name: issuerDisplayLabel ?? username ?? house,
+                            id: house,
+                          });
+                        }}
+                      >
+                        {t("Predictions:blockConfirm.confirm")}
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              ) : null}
+
+              {rowView === "overview" ? (
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <StatBlock
+                      label={t(
+                        `Predictions:${
+                          isExpired ? "expired_at" : "expiration"
+                        }`
+                      )}
+                      value={prettifyDate(expiration)}
+                      mono
+                    />
+                    <StatBlock
+                      label={
+                        isExpired
+                          ? t("Predictions:timeExpired")
+                          : t("Predictions:timeLeft")
+                      }
+                      value={formatTimeRemaining(expiration)}
+                      mono
+                    />
+                    {view === "expired" || view === "mine" ? (
+                      <StatBlock
+                        label={t("Predictions:outcome")}
+                        accent={
+                          relevantBitassetData &&
                           relevantBitassetData.outcome === 1
-                            ? t("Predictions:outcome_true")
-                            : null}
-                          {relevantBitassetData &&
-                          relevantBitassetData.hasOwnProperty("outcome") &&
-                          relevantBitassetData.outcome === 0
-                            ? t("Predictions:outcome_false")
-                            : null}
-                          {relevantBitassetData &&
-                          relevantBitassetData.hasOwnProperty("outcome") &&
-                          relevantBitassetData.outcome === -1
-                            ? t("Predictions:outcome_tba")
-                            : null}
-                          <br />
-                          <b>{t("Predictions:prize_pool")}</b>:{" "}
-                          {relevantBitassetData
-                            ? humanReadableFloat(
-                                relevantBitassetData.settlement_fund,
-                                res.precision
-                              )
-                            : 0}
-                          {` ${market}`}
-                        </>
-                      ) : null}
-                    </div>
-                    <div>
-                      <b>{t("Predictions:bettingAsset")}</b>: {market} (
-                      {res.backingAsset.id})<br />
-                      {view !== "expired" ||
-                      (relevantBitassetData &&
-                        relevantBitassetData.hasOwnProperty("outcome") &&
-                        relevantBitassetData.outcome === -1) ? (
-                        <>
-                          <b>{t("Predictions:total_bets")}</b>:{" "}
-                          {humanReadableFloat(totalBets, res.precision)}{" "}
-                          {market}
-                          <br />
-                          <b>{t("Predictions:unique_sellers")}</b>:{" "}
-                          {relevantCallOrders ? relevantCallOrders.length : 0}
-                        </>
-                      ) : null}
-                    </div>
+                            ? "emerald"
+                            : relevantBitassetData &&
+                              relevantBitassetData.outcome === 0
+                            ? "rose"
+                            : "amber"
+                        }
+                        value={
+                          relevantBitassetData &&
+                          relevantBitassetData.outcome === 1
+                            ? t("Predictions:outcome.yes")
+                            : relevantBitassetData &&
+                              relevantBitassetData.outcome === 0
+                            ? t("Predictions:outcome.no")
+                            : t("Predictions:outcome.unresolved")
+                        }
+                      />
+                    ) : (
+                      <StatBlock
+                        label={t("Predictions:unique_sellers")}
+                        value={relevantCallOrders ? relevantCallOrders.length : 0}
+                        mono
+                      />
+                    )}
+                    <StatBlock
+                      label={t("Predictions:bettingAsset")}
+                      value={market}
+                      mono
+                    />
                   </div>
+                  {view === "expired" || view === "mine" ? (
+                    <StatBlock
+                      label={t("Predictions:prize_pool")}
+                      value={
+                        relevantBitassetData
+                          ? `${humanReadableFloat(
+                              relevantBitassetData.settlement_fund,
+                              res.precision,
+                            )} ${market}`
+                          : `0 ${market}`
+                      }
+                      mono
+                    />
+                  ) : (
+                    <StatBlock
+                      label={t("Predictions:openInterest")}
+                      help={t("Predictions:openInterest_help")}
+                      value={`${humanReadableFloat(
+                        totalBets,
+                        res.precision,
+                      )} ${market}`}
+                      mono
+                    />
+                  )}
                 </div>
               ) : null}
-              {rowView === "description" ? (
-                <div>
-                  <b>{t("Predictions:description")}</b>
-                  <Textarea
-                    placeholder={cleanedDescription}
-                    value={cleanedDescription}
-                    disabled={true}
-                    className="max-h-[95px] mt-1"
-                  />
-                  <div className="grid grid-cols-1 gap-1 mt-2">
+
+              {rowView === "nft" && hasNft ? (
+                <div className="grid grid-cols-1 gap-3">
+                  {nftImages && nftImages.length ? (
                     <div>
-                      {Object.keys(_issuer_permissions).length > 0 ? (
-                        <HoverCard>
-                          <HoverCardTrigger>
-                            <span
-                              style={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                              }}
-                            >
-                              <b>{t("Predictions:permissions")}</b>:{" "}
-                              {Object.keys(_issuer_permissions).length}{" "}
-                              <QuestionMarkCircledIcon className="ml-1" />
-                            </span>
-                          </HoverCardTrigger>
-                          <HoverCardContent
-                            className={"w-80 mt-1"}
-                            align="start"
-                          >
-                            {Object.keys(_issuer_permissions).join(", ")}
-                          </HoverCardContent>
-                        </HoverCard>
-                      ) : (
-                        <>
-                          <b>{t("Predictions:permissions")}</b>: 0
-                        </>
-                      )}
+                      <NftHero
+                        images={nftImages}
+                        heroIndex={heroIndex}
+                        setHeroIndex={setHeroIndex}
+                        ipfsGateway={ipfsGateway}
+                      />
+                      {nftImages.length > 1 ? (
+                        <NftThumbStrip
+                          images={nftImages}
+                          heroIndex={heroIndex}
+                          setHeroIndex={setHeroIndex}
+                          ipfsGateway={ipfsGateway}
+                        />
+                      ) : null}
                     </div>
+                  ) : (
+                    <div className="flex items-center justify-center h-32 rounded-md border border-dashed border-white/20 text-white/40 text-sm">
+                      <ImageIcon className="mr-2 h-4 w-4" />
+                      {t("Predictions:nft.noImage")}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {_desc.nft_object.title ? (
+                      <StatBlock
+                        label={t("Predictions:nft.title")}
+                        value={_desc.nft_object.title}
+                      />
+                    ) : null}
+                    {_desc.nft_object.artist ? (
+                      <StatBlock
+                        label={t("Predictions:nft.artist")}
+                        value={_desc.nft_object.artist}
+                      />
+                    ) : null}
+                    {_desc.nft_object.type ? (
+                      <StatBlock
+                        label={t("Predictions:nft.type")}
+                        value={
+                          <span className="inline-flex items-center rounded-full bg-white/[0.06] border border-white/[0.08] px-2 py-0.5 text-xs font-medium text-white/70">
+                            {_desc.nft_object.type}
+                          </span>
+                        }
+                      />
+                    ) : null}
+                    {_desc.nft_object.encoding ? (
+                      <StatBlock
+                        label={t("Predictions:nft.encoding")}
+                        value={
+                          <span className="font-mono text-xs">
+                            {_desc.nft_object.encoding}
+                          </span>
+                        }
+                      />
+                    ) : null}
+                    {_desc.nft_object.license ? (
+                      <StatBlock
+                        label={t("Predictions:nft.license")}
+                        value={
+                          <span className="text-xs">
+                            {_desc.nft_object.license}
+                          </span>
+                        }
+                      />
+                    ) : null}
+                    {_desc.nft_object.holder_license ? (
+                      <StatBlock
+                        label={t("Predictions:nft.holderLicense")}
+                        value={
+                          <span className="text-xs">
+                            {_desc.nft_object.holder_license}
+                          </span>
+                        }
+                      />
+                    ) : null}
+                  </div>
+
+                  {_desc.nft_object.tags ? (
                     <div>
-                      {Object.keys(_flags).length > 0 ? (
-                        <HoverCard>
-                          <HoverCardTrigger>
-                            <span
-                              style={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                              }}
+                      <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1">
+                        {t("Predictions:nft.tags")}
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {String(_desc.nft_object.tags)
+                          .split(",")
+                          .map((s) => s.trim())
+                          .filter(Boolean)
+                          .map((tag) => (
+                            <Badge
+                              key={tag}
+                              variant="outline"
+                              className="text-[10px] py-0"
                             >
-                              <b>{t("Predictions:flags")}</b>:{" "}
-                              {Object.keys(_flags).length}{" "}
-                              <QuestionMarkCircledIcon className="ml-1" />
-                            </span>
-                          </HoverCardTrigger>
-                          <HoverCardContent
-                            className={"w-80 mt-1"}
-                            align="start"
-                          >
-                            {Object.keys(_flags).join(", ")}
-                          </HoverCardContent>
-                        </HoverCard>
-                      ) : (
-                        <>
-                          <b>{t("Predictions:flags")}</b>: 0
-                        </>
+                              {tag}
+                            </Badge>
+                          ))}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {_desc.nft_object.narrative ? (
+                    <LongText
+                      label={t("Predictions:nft.narrative")}
+                      value={DOMPurify.sanitize(_desc.nft_object.narrative)}
+                    />
+                  ) : null}
+                  {_desc.nft_object.acknowledgements ? (
+                    <LongText
+                      label={t("Predictions:nft.acknowledgements")}
+                      value={DOMPurify.sanitize(
+                        _desc.nft_object.acknowledgements,
                       )}
+                    />
+                  ) : null}
+                  {_desc.nft_object.attestation ? (
+                    <LongText
+                      label={t("Predictions:nft.attestation")}
+                      value={DOMPurify.sanitize(_desc.nft_object.attestation)}
+                    />
+                  ) : null}
+
+                  {nftImages && nftImages.length ? (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      asChild
+                      className="self-start"
+                    >
+                      <a
+                        href={ipfsUrl(nftImages[heroIndex].url, ipfsGateway)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLinkIcon className="mr-2 h-3.5 w-3.5" />
+                        {t("Predictions:nft.viewOnIpfs")}
+                      </a>
+                    </Button>
+                  ) : null}
+
+                  {(_desc.nft_signature || _desc.sig_pubkey_or_address) ? (
+                    <div className="rounded-md border border-white/10 bg-white/5 p-3 grid grid-cols-1 gap-2 text-xs">
+                      <div>
+                        <div className="text-[11px] uppercase tracking-wide text-white/60 mb-0.5">
+                          {t("Predictions:nft.signature")}
+                        </div>
+                        <MonoBlock
+                          value={_desc.nft_signature}
+                          truncate={32}
+                          copyable
+                          label={t("Predictions:nft.copySig")}
+                        />
+                      </div>
+                      <div>
+                        <div className="text-[11px] uppercase tracking-wide text-white/60 mb-0.5">
+                          {t("Predictions:nft.sigPubkey")}
+                        </div>
+                        <MonoBlock
+                          value={_desc.sig_pubkey_or_address}
+                          truncate={32}
+                          copyable
+                          label={t("Predictions:nft.copyPubkey")}
+                        />
+                      </div>
+                      <div className="text-[10px] text-white/40 italic">
+                        {t("Predictions:nft.verifyNote")}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {rowView === "market" ? (
+                <div className="grid grid-cols-1 gap-3">
+                  {!isExpired ? (
+                    <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                      <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1.5">
+                        {t("Predictions:market.impliedProbability")}
+                      </div>
+                      <ProbabilityBar yesPercent={impliedYesPercent} />
+                      <div className="mt-1.5 text-[11px] text-white/40">
+                        {t("Predictions:market.impliedProbability_help")}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-sm">
+                      <span className="text-white/50">
+                        {t("Predictions:market.expiredNote")}
+                      </span>
+                    </div>
+                  )}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <StatBlock
+                      label={t("Predictions:openInterest")}
+                      help={t("Predictions:openInterest_help")}
+                      value={`${humanReadableFloat(
+                        totalBets,
+                        res.precision,
+                      )} ${market}`}
+                      mono
+                    />
+                    <StatBlock
+                      label={t("Predictions:market.settlementFund")}
+                      help={t("Predictions:market.settlementFund_help")}
+                      value={`${humanReadableFloat(
+                        settlementFundRaw,
+                        res.precision,
+                      )} ${market}`}
+                      mono
+                    />
+                    <StatBlock
+                      label={t("Predictions:unique_sellers")}
+                      value={relevantCallOrders ? relevantCallOrders.length : 0}
+                      mono
+                    />
+                    <StatBlock
+                      label={t("Predictions:market.commission")}
+                      help={t("Predictions:market.commission_help")}
+                      value={
+                        res.options && res.options.market_fee_percent
+                          ? `${(res.options.market_fee_percent / 100).toFixed(2)}%`
+                          : "0%"
+                      }
+                      mono
+                    />
+                  </div>
+                  {!isExpired ? (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      asChild
+                      className="w-fit"
+                    >
+                      <a
+                        href={`/dex/index.html?market=${res.symbol}_${market}`}
+                      >
+                        <TrendingUp className="mr-2 h-3.5 w-3.5" />
+                        {t("Predictions:market.tradeOnDex")}
+                      </a>
+                    </Button>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {rowView === "details" ? (
+                <div className="grid grid-cols-1 gap-2">
+                  {cleanedDescription ? (
+                    <LongText
+                      label={t("Predictions:description")}
+                      value={cleanedDescription}
+                    />
+                  ) : null}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <StatBlock
+                      label={t("Predictions:permissions")}
+                      value={
+                        Object.keys(_issuer_permissions).length > 0 ? (
+                          <HoverCard>
+                            <HoverCardTrigger>
+                              <span className="inline-flex items-center gap-1">
+                                {Object.keys(_issuer_permissions).length}
+                                <QuestionMarkCircledIcon className="h-3 w-3" />
+                              </span>
+                            </HoverCardTrigger>
+                            <HoverCardContent
+                              className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]"
+                              align="start"
+                            >
+                              {Object.keys(_issuer_permissions).join(", ")}
+                            </HoverCardContent>
+                          </HoverCard>
+                        ) : (
+                          "0"
+                        )
+                      }
+                    />
+                    <StatBlock
+                      label={t("Predictions:flags")}
+                      value={
+                        Object.keys(_flags).length > 0 ? (
+                          <HoverCard>
+                            <HoverCardTrigger>
+                              <span className="inline-flex items-center gap-1">
+                                {Object.keys(_flags).length}
+                                <QuestionMarkCircledIcon className="h-3 w-3" />
+                              </span>
+                            </HoverCardTrigger>
+                            <HoverCardContent
+                              className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]"
+                              align="start"
+                            >
+                              {Object.keys(_flags).join(", ")}
+                            </HoverCardContent>
+                          </HoverCard>
+                        ) : (
+                          "0"
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="rounded-md border border-white/10 bg-white/5 p-3 text-xs">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div>
+                        <div className="text-[11px] uppercase tracking-wide text-white/60">
+                          {t("Predictions:details.assetId")}
+                        </div>
+                        <MonoBlock
+                          value={res.id}
+                          copyable
+                          label={t("Predictions:copyAssetId")}
+                        />
+                      </div>
+                      <div>
+                        <div className="text-[11px] uppercase tracking-wide text-white/60">
+                          {t("Predictions:details.issuer")}
+                        </div>
+                        <MonoBlock
+                          value={house}
+                          copyable
+                          label={t("Predictions:copyIssuerId")}
+                        />
+                      </div>
+                      <div>
+                        <div className="text-[11px] uppercase tracking-wide text-white/60">
+                          {t("Predictions:details.precision")}
+                        </div>
+                        <span className="font-mono">{res.precision}</span>
+                      </div>
+                      <div>
+                        <div className="text-[11px] uppercase tracking-wide text-white/60">
+                          {t("Predictions:details.maxSupply")}
+                        </div>
+                        <span className="font-mono">
+                          {humanReadableFloat(
+                            res.options.max_supply,
+                            res.precision,
+                          )}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -795,7 +1945,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:issue`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:issueDialog.title`)}
@@ -955,7 +2105,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:sell`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:sellDialog.title`)}
@@ -1085,7 +2235,7 @@ export default function Predictions(properties) {
                               <SelectTrigger className="mb-3 mt-1 w-1/2">
                                 <SelectValue placeholder="1hr" />
                               </SelectTrigger>
-                              <SelectContent className="bg-white">
+                              <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
                                 <SelectItem value="1hr">
                                   {t("LimitOrderCard:expiry.1hr")}
                                 </SelectItem>
@@ -1116,7 +2266,7 @@ export default function Predictions(properties) {
                                     variant={"outline"}
                                     className={cn(
                                       "w-[240px] justify-start text-left font-normal",
-                                      !date && "text-muted-foreground"
+                                       !date && "text-white/40"
                                     )}
                                   >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
@@ -1243,7 +2393,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:buy`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:buyDialog.title`)}
@@ -1376,7 +2526,7 @@ export default function Predictions(properties) {
                               <SelectTrigger className="mb-3 mt-1 w-1/2">
                                 <SelectValue placeholder="1hr" />
                               </SelectTrigger>
-                              <SelectContent className="bg-white">
+                              <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
                                 <SelectItem value="1hr">
                                   {t("LimitOrderCard:expiry.1hr")}
                                 </SelectItem>
@@ -1407,7 +2557,7 @@ export default function Predictions(properties) {
                                     variant={"outline"}
                                     className={cn(
                                       "w-[240px] justify-start text-left font-normal",
-                                      !date && "text-muted-foreground"
+                                       !date && "text-white/40"
                                     )}
                                   >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
@@ -1517,14 +2667,38 @@ export default function Predictions(properties) {
                   </div>
                 </div>
               ) : null}
-              {rowView === "actions" && view === "expired" ? (
-                <div className="grid grid-cols-1 gap-2">
-                  <HoverInfo
-                    content={t("Predictions:winner_content")}
-                    header={t("Predictions:winner_header")}
-                    type="header"
-                  />
-                  <div className="grid grid-cols-3 gap-3 mt-1">
+              {rowView === "winners" ? (
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="rounded-md border border-white/10 bg-white/5 p-3 text-sm">
+                    <div className="font-medium text-white mb-1">
+                      {t("Predictions:winner_header")}
+                    </div>
+                    <p className="text-white/50">
+                      {t("Predictions:winner_content")}
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <StatBlock
+                      label={t("Predictions:prize_pool")}
+                      help={t("Predictions:winner.settlementFund_help")}
+                      value={
+                        relevantBitassetData
+                          ? `${humanReadableFloat(
+                              relevantBitassetData.settlement_fund,
+                              res.precision,
+                            )} ${market}`
+                          : `0 ${market}`
+                      }
+                      mono
+                    />
+                    <StatBlock
+                      label={t("Predictions:winner.yourPmaBalance")}
+                      help={t("Predictions:winner.yourPmaBalance_help")}
+                      value={`${humanReadablePredictionMarketAssetBalance} ${symbol}`}
+                      mono
+                    />
+                  </div>
+                  <div className="flex justify-start">
                     <Dialog
                       open={claimPrompt}
                       onOpenChange={(open) => {
@@ -1536,11 +2710,15 @@ export default function Predictions(properties) {
                           onClick={() => {
                             setClaimPrompt(true);
                           }}
+                          disabled={
+                            !humanReadablePredictionMarketAssetBalance ||
+                            humanReadablePredictionMarketAssetBalance <= 0
+                          }
                         >
                           {t(`Predictions:winner_claim`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:winner_claim`)}
@@ -1655,7 +2833,7 @@ export default function Predictions(properties) {
                         <HoverCardTrigger>
                           <Button disabled>{t(`Predictions:resolve`)}</Button>
                         </HoverCardTrigger>
-                        <HoverCardContent className={"w-80 mt-1"} align="start">
+                        <HoverCardContent className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]" align="start">
                           <p className="leading-6 text-sm [&:not(:first-child)]:mt-1">
                             {t("Predictions:not_expired")}
                             <br />
@@ -1681,7 +2859,7 @@ export default function Predictions(properties) {
                             {t(`Predictions:resolve`)}
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[600px] bg-white">
+                        <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                           <DialogHeader>
                             <DialogTitle>
                               {t(`Predictions:resolveDialog.title`)}
@@ -1740,13 +2918,13 @@ export default function Predictions(properties) {
                                 <div className="flex items-center space-x-2">
                                   <RadioGroupItem value="1" id="1" />
                                   <Label htmlFor="1">
-                                    {t("Predictions:resolveDialog.about")}
+                                    {t("Predictions:outcome.yes")}
                                   </Label>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                   <RadioGroupItem value="2" id="2" />
                                   <Label htmlFor="2">
-                                    {t("Predictions:resolveDialog.about")}
+                                    {t("Predictions:outcome.no")}
                                   </Label>
                                 </div>
                               </RadioGroup>
@@ -1813,7 +2991,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:pricefeeder`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:priceFeederDialog.title`)}
@@ -1833,7 +3011,7 @@ export default function Predictions(properties) {
                             type="header"
                           />
                           <div className="grid grid-cols-12 mt-1">
-                            <span className="col-span-9 border border-gray-300 rounded">
+                            <span className="col-span-9 border border-white/[0.08] rounded-lg overflow-hidden">
                               <div className="w-full max-h-[210px] overflow-auto">
                                 <List
                                   rowComponent={pricefeederRow}
@@ -1855,10 +3033,10 @@ export default function Predictions(properties) {
                                     variant="outline"
                                     className="ml-3 mt-1"
                                   >
-                                    ➕ {t("CreditOfferEditor:addUser")}
+                                    ➕ {t("Favourites:addUser")}
                                   </Button>
                                 </DialogTrigger>
-                                <DialogContent className="sm:max-w-[375px] bg-white">
+                                <DialogContent className="sm:max-w-[375px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                                   <DialogHeader>
                                     <DialogTitle>
                                       {!usr || !usr.chain
@@ -1958,7 +3136,7 @@ export default function Predictions(properties) {
                           {t(`Predictions:feed`)}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
                         <DialogHeader>
                           <DialogTitle>
                             {t(`Predictions:feederDialog.title`)}
@@ -1990,13 +3168,13 @@ export default function Predictions(properties) {
                               <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="1" id="1" />
                                 <Label htmlFor="1">
-                                  {t("Predictions:resolveDialog.about")}
+                                  {t("Predictions:outcome.yes")}
                                 </Label>
                               </div>
                               <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="2" id="2" />
                                 <Label htmlFor="2">
-                                  {t("Predictions:resolveDialog.about")}
+                                  {t("Predictions:outcome.no")}
                                 </Label>
                               </div>
                             </RadioGroup>
@@ -2068,131 +3246,186 @@ export default function Predictions(properties) {
                 </div>
               ) : null}
             </div>
+            <JsonDetailsDialog
+              open={jsonDialogOpen}
+              onOpenChange={setJsonDialogOpen}
+              data={jsonPayload}
+            />
           </CardContent>
         </Card>
-      </div>
     );
-  };
-
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlSearchParams.entries());
-
-    if (params.hasOwnProperty("id")) {
-      setView("mine");
-    }
-  }, []);
+  });
+  PredictionRow.displayName = "PredictionRow";
 
   return (
-    <div className="container mx-auto mt-5 mb-5">
+    <div className="container mx-auto mt-5 mb-5 text-white">
       <div className="grid grid-cols-1 gap-3">
-        <Card>
+        <Card className={cn("bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm", currentView.border && `border-l-2 ${currentView.border}`)}>
           <CardHeader className="pb-1">
-            <CardTitle>{t("Predictions:card.title")}</CardTitle>
-            <CardDescription>
-              {t("Predictions:card.description")}
+            <CardTitle className="text-white flex items-center gap-2">
+              <span className={cn("flex items-center justify-center w-7 h-7 rounded-lg", currentView.bg)}>
+                <currentView.icon className={cn("w-4 h-4", currentView.color)} />
+              </span>
+              {t(`Predictions:card.title.${view}`)}
+            </CardTitle>
+            <CardDescription className="text-white/50">
+              {pageStats
+                ? `${t("Predictions:card.showing", { primary: pageStats.primary })}${pageStats.secondary
+                    .map((s) =>
+                      t("Predictions:card.stat", { value: s.value, label: s.label }),
+                    )
+                    .join(" · ")}`
+                : t(`Predictions:card.description.${view}`)}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-2 mt-2 mb-2">
-              <Button
-                onClick={() => setView("active")}
-                variant={view === "active" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:active")}
-              </Button>
-              <Button
-                onClick={() => setView("expired")}
-                variant={view === "expired" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:expired")}
-              </Button>
-              <Button
-                onClick={() => setView("mine")}
-                variant={view === "mine" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:mine")}
-              </Button>
-              <Button
-                onClick={() => setView("portfolio")}
-                variant={view === "portfolio" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:portfolio")}
-              </Button>
-              <Button
-                onClick={() => setView("margin")}
-                variant={view === "margin" ? "" : "outline"}
-                size="md"
-              >
-                {t("Predictions:margin")}
-              </Button>
-            </div>
+            {!hasLoadedPmas ? (
+              <div className="grid grid-cols-1 gap-2 mt-3">
+                {[0, 1, 2].map((i) => (
+                  <Skeleton key={`skeleton-${i}`} className="h-[120px] w-full bg-white/10" />
+                ))}
+              </div>
+            ) : null}
 
-            <>
-              {chosenPMAs && chosenPMAs.length ? (
-                <>
-                  <div className="block md:hidden w-full mt-3 max-h-[500px] overflow-auto">
-                    <List
-                      rowComponent={PredictionRow}
-                      rowCount={chosenPMAs.length}
-                      rowHeight={450}
-                      key={`list-${view}`}
-                      rowProps={{}}
+            {hasLoadedPmas && chosenPMAs && chosenPMAs.length ? (
+              <div className="grid grid-cols-1 gap-3 mt-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="relative flex-1 min-w-[200px]">
+                    <MagnifyingGlassIcon className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/40 pointer-events-none" />
+                    <Input
+                      type="text"
+                      value={searchInput}
+                      onChange={onSearchInput}
+                      placeholder={t("Predictions:list.searchPlaceholder")}
+                      className="pl-7 h-8 text-sm bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
                     />
+                    {searchInput ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSearchInput("");
+                          setSearchQuery("");
+                        }}
+                        className="absolute right-1 top-1/2 -translate-y-1/2 p-1 hover:text-white text-white/40"
+                        aria-label="Clear"
+                      >
+                        <XIcon className="h-3.5 w-3.5" />
+                      </button>
+                    ) : null}
                   </div>
+                  <Select value={sortBy} onValueChange={setSortBy}>
+                    <SelectTrigger className="h-8 w-[160px] text-xs bg-white/[0.03] border-white/[0.08] text-white/70">
+                      <ArrowUpDown className="mr-1.5 h-3.5 w-3.5" />
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                      <SelectItem value="newest">
+                        {t("Predictions:list.sort.newest")}
+                      </SelectItem>
+                      <SelectItem value="expiring">
+                        {t("Predictions:list.sort.expiring")}
+                      </SelectItem>
+                      <SelectItem value="volume">
+                        {t("Predictions:list.sort.volume")}
+                      </SelectItem>
+                      <SelectItem value="alpha">
+                        {t("Predictions:list.sort.alpha")}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {view === "active" ? (
+                    <Select value={filterBy} onValueChange={setFilterBy}>
+                      <SelectTrigger className="h-8 w-[160px] text-xs bg-white/[0.03] border-white/[0.08] text-white/70">
+                        <Filter className="mr-1.5 h-3.5 w-3.5" />
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                        <SelectItem value="all">
+                          {t("Predictions:list.filter.all")}
+                        </SelectItem>
+                        <SelectItem value="closing-soon">
+                          {t("Predictions:list.filter.closingSoon")}
+                        </SelectItem>
+                        <SelectItem value="new">
+                          {t("Predictions:list.filter.new")}
+                        </SelectItem>
+                        <SelectItem value="high-volume">
+                          {t("Predictions:list.filter.highVolume")}
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ) : null}
+                </div>
 
-                  <div className="hidden md:block w-full mt-3 max-h-[500px] overflow-auto">
-                    <List
-                      rowComponent={PredictionRow}
-                      rowCount={chosenPMAs.length}
-                      rowHeight={275}
-                      key={`list-${view}-desktop`}
-                      rowProps={{}}
-                    />
+                {sortedFilteredPMAs && sortedFilteredPMAs.length ? (
+                  <div
+                    className="w-full max-h-[60vh] md:max-h-[70vh] overflow-auto pr-1"
+                    key={`list-${view}-${sortBy}-${filterBy}-${searchQuery}`}
+                  >
+                    <div className="grid grid-cols-1 gap-3 pb-2">
+                      {sortedFilteredPMAs.map((res) => (
+                        <PredictionRow key={res.id} res={res} />
+                      ))}
+                    </div>
                   </div>
-                </>
-              ) : null}
-              {chosenPMAs && !chosenPMAs.length && view === "active" ? (
-                <Empty className="mt-5">
-                  <EmptyHeader>
-                    <EmptyMedia variant="icon">❔</EmptyMedia>
-                    <EmptyTitle>{t("Predictions:card.emptyActive")}</EmptyTitle>
-                  </EmptyHeader>
-                  <EmptyContent>
-                    <a href="/create_prediction/index.html">
-                      <Button>{t("PageHeader:createPrediction")}</Button>
-                    </a>
-                  </EmptyContent>
-                </Empty>
-              ) : null}
-              {chosenPMAs && !chosenPMAs.length && view === "mine" ? (
-                <Empty className="mt-5">
-                  <EmptyHeader>
-                    <EmptyMedia variant="icon">❔</EmptyMedia>
-                    <EmptyTitle>{t("Predictions:card.emptyMine")}</EmptyTitle>
-                  </EmptyHeader>
-                  <EmptyContent>
-                    <a href="/create_prediction/index.html">
-                      <Button>{t("PageHeader:createPrediction")}</Button>
-                    </a>
-                  </EmptyContent>
-                </Empty>
-              ) : null}
-              {chosenPMAs && !chosenPMAs.length && view === "portfolio" ? (
-                <div className="text-center mt-5">
-                  {t("Predictions:card.emptyPortfolio")}
-                </div>
-              ) : null}
-              {chosenPMAs && !chosenPMAs.length && view === "margin" ? (
-                <div className="text-center mt-5">
-                  {t("Predictions:card.emptyMargin")}
-                </div>
-              ) : null}
-            </>
+                ) : (
+                  <div className="text-center mt-5 text-sm text-white/40 italic">
+                    {t("Predictions:list.noResults")}
+                  </div>
+                )}
+              </div>
+            ) : null}
+
+            {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "active" ? (
+              <Empty className="mt-5 border-white/[0.06]">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon" className={cn(currentView.bg, currentView.color)}><currentView.icon className="w-6 h-6" /></EmptyMedia>
+                  <EmptyTitle className="text-white/80">{t("Predictions:card.emptyActive")}</EmptyTitle>
+                </EmptyHeader>
+                <EmptyContent>
+                  <a href="/create_prediction/index.html">
+                    <Button className="bg-violet-600 hover:bg-violet-500 text-white">{t("PageHeader:createPrediction")}</Button>
+                  </a>
+                </EmptyContent>
+              </Empty>
+            ) : null}
+            {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "mine" ? (
+              <Empty className="mt-5 border-white/[0.06]">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon" className={cn(currentView.bg, currentView.color)}><currentView.icon className="w-6 h-6" /></EmptyMedia>
+                  <EmptyTitle className="text-white/80">{t("Predictions:card.emptyMine")}</EmptyTitle>
+                </EmptyHeader>
+                <EmptyContent>
+                  <a href="/create_prediction/index.html">
+                    <Button className="bg-violet-600 hover:bg-violet-500 text-white">{t("PageHeader:createPrediction")}</Button>
+                  </a>
+                </EmptyContent>
+              </Empty>
+            ) : null}
+            {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "portfolio" ? (
+              <div className="text-center mt-5">
+                <span className={cn("inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3", currentView.bg)}>
+                  <currentView.icon className={cn("w-5 h-5", currentView.color)} />
+                </span>
+                <div className="text-white/50 text-sm">{t("Predictions:card.emptyPortfolio")}</div>
+              </div>
+            ) : null}
+            {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "margin" ? (
+              <div className="text-center mt-5">
+                <span className={cn("inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3", currentView.bg)}>
+                  <currentView.icon className={cn("w-5 h-5", currentView.color)} />
+                </span>
+                <div className="text-white/50 text-sm">{t("Predictions:card.emptyMargin")}</div>
+              </div>
+            ) : null}
+            {hasLoadedPmas && chosenPMAs && !chosenPMAs.length && view === "expired" ? (
+              <div className="text-center mt-5">
+                <span className={cn("inline-flex items-center justify-center w-10 h-10 rounded-xl mb-3", currentView.bg)}>
+                  <currentView.icon className={cn("w-5 h-5", currentView.color)} />
+                </span>
+                <div className="text-white/50 text-sm">{t("Predictions:card.emptyExpired")}</div>
+              </div>
+            ) : null}
           </CardContent>
         </Card>
       </div>

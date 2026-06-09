@@ -21,196 +21,155 @@ import {
 } from "@/components/ui/accordion";
 import { useSidebar } from "@/components/ui/sidebar";
 
+import {
+  LineChart,
+  Activity,
+  Hourglass,
+  BookOpen,
+  Briefcase,
+  TrendingUp,
+  Sparkles,
+  Wallet,
+  ClipboardList,
+  Star,
+  Info,
+  Server,
+  UserX,
+  UserPlus,
+  ArrowLeftRight,
+  Zap,
+  Send,
+  Settings,
+  Repeat,
+  SlidersHorizontal,
+  Palette,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const SECTION_ICONS = {
+  predictions: TrendingUp,
+  exchange: Repeat,
+  account: Wallet,
+  settings: SlidersHorizontal,
+};
+
+const SECTION_ACCENTS = {
+  predictions: "text-indigo-400",
+  exchange: "text-cyan-400",
+  account: "text-emerald-400",
+  settings: "text-violet-400",
+};
+
+const ITEM_ICONS = {
+  dex: LineChart,
+  instant_trade: Zap,
+  simple_asset_swap: ArrowLeftRight,
+  prediction_markets_active: Activity,
+  prediction_markets_expired: Hourglass,
+  prediction_markets_mine: BookOpen,
+  prediction_markets_portfolio: Briefcase,
+  prediction_markets_margin: TrendingUp,
+  create_prediction: Sparkles,
+  transfer: Send,
+  portfolio_balances: Wallet,
+  portfolio_open_orders: ClipboardList,
+  favourites: Star,
+  about: Info,
+  nodes: Server,
+  blocked_users: UserX,
+  create_account: UserPlus,
+  configure_visuals: Palette,
+};
+
+const ITEM_ACCENT_COLORS = {
+  dex: "text-indigo-400",
+  instant_trade: "text-amber-400",
+  simple_asset_swap: "text-blue-400",
+  prediction_markets_active: "text-cyan-400",
+  prediction_markets_expired: "text-sky-400",
+  prediction_markets_mine: "text-emerald-400",
+  prediction_markets_portfolio: "text-fuchsia-400",
+  prediction_markets_margin: "text-amber-400",
+  create_prediction: "text-violet-400",
+  transfer: "text-sky-400",
+  portfolio_balances: "text-emerald-400",
+  portfolio_open_orders: "text-cyan-400",
+  favourites: "text-amber-400",
+  about: "text-blue-400",
+  nodes: "text-teal-400",
+  blocked_users: "text-rose-400",
+  create_account: "text-emerald-400",
+  configure_visuals: "text-violet-400",
+};
+
 export default function AppSidebar() {
   const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
 
-  const exchangingFundsHeading = [
-    { title: "Home:dex.title", href: "/dex/index.html" },
-    { title: "Home:instant_trade.title", href: "/instant_trade/index.html" },
-    { title: "Home:swap.title", href: "/swap/index.html" },
-    { title: "Home:stake.title", href: "/stake/index.html" },
-    { title: "Home:barter.title", href: "/barter/index.html" },
-    { title: "Home:tfund_user.title", href: "/tfund_user/index.html" },
-    { title: "Home:prediction_markets.title", href: "/predictions/index.html" },
+  const predictionsItems = [
+    { title: "Home:prediction_markets_active.title", href: "/active-predictions/index.html", key: "prediction_markets_active" },
+    { title: "Home:prediction_markets_expired.title", href: "/expired-predictions/index.html", key: "prediction_markets_expired" },
+    { title: "Home:prediction_markets_mine.title", href: "/my-predictions/index.html", key: "prediction_markets_mine" },
+    { title: "Home:prediction_markets_portfolio.title", href: "/prediction-portfolio/index.html", key: "prediction_markets_portfolio" },
+    { title: "Home:prediction_markets_margin.title", href: "/prediction-margin/index.html", key: "prediction_markets_margin" },
+    { title: "PageHeader:createPrediction", href: "/create_prediction/index.html", key: "create_prediction" },
   ];
 
-  const transferFundsHeading = [
-    { title: "Home:transfer.title", href: "/transfer/index.html" },
-    { title: "Home:timed_transfer.title", href: "/timed_transfer/index.html" },
-    { title: "Home:htlc.title", href: "/htlc/index.html" },
-    {
-      title: "Home:withdraw_permission.title",
-      href: "/withdraw_permissions/index.html",
-    },
-    { title: "Home:create_vesting.title", href: "/create_vesting/index.html" },
+  const exchangeItems = [
+    { title: "Home:dex.title", href: "/dex/index.html", key: "dex" },
+    { title: "Home:instant_trade.title", href: "/instant_trade/index.html", key: "instant_trade" },
+    { title: "Home:simple_asset_swap.title", href: "/swap/index.html", key: "simple_asset_swap" },
+    { title: "Home:transfer.title", href: "/transfer/index.html", key: "transfer" },
   ];
 
-  const formsOfDebtHeading = [
-    { title: "Home:borrow.title", href: "/borrow/index.html" },
-    { title: "Home:lend.title", href: "/lend/index.html" },
-    { title: "Home:smartcoins.title", href: "/smartcoins/index.html" },
-    { title: "Home:tfunds.title", href: "/tfunds/index.html" },
+  const accountItems = [
+    { title: "Home:portfolio_balances.title", href: "/balances/index.html", key: "portfolio_balances" },
+    { title: "Home:portfolio_open_orders.title", href: "/open-orders/index.html", key: "portfolio_open_orders" },
+    { title: "Home:favourites.title", href: "/favourites/index.html", key: "favourites" },
   ];
 
-  const assetCreation = [
-    {
-      title: "Home:create_prediction.title",
-      href: "/create_prediction/index.html",
-    },
-    { title: "Home:create_uia.title", href: "/create_uia/index.html" },
-    {
-      title: "Home:create_smartcoin.title",
-      href: "/create_smartcoin/index.html",
-    },
-    {
-      title: "Home:create_liquidity_pool.title",
-      href: "/create_pool/index.html",
-    },
-  ];
-
-  /*
-    // Removed for now due to domain issues
-    {
-      title: "Home:portfolio_recent_activity.title",
-      href: "/recent-activity/index.html",
-    },
-  */
-  const accountOverviewsHeading = [
-    { title: "Home:portfolio_balances.title", href: "/balances/index.html" },
-    {
-      title: "Home:portfolio_open_orders.title",
-      href: "/open-orders/index.html",
-    },
-    { title: "Home:favourites.title", href: "/favourites/index.html" },
-    { title: "Home:issued_assets.title", href: "/issued_assets/index.html" },
-    { title: "Home:offers.title", href: "/offers/index.html" },
-    { title: "Home:deals.title", href: "/deals/index.html" },
-    { title: "Home:vesting.title", href: "/vesting/index.html" },
-    { title: "Home:proposals.title", href: "/proposals/index.html" },
-  ];
-
-  // { title: "Home:featured.title", href: "/featured/index.html" }, // Removed for now
-  const blockchainOverviewsHeading = [
-    { title: "Home:blocks.title", href: "/blocks/index.html" },
-    {
-      title: "Home:custom_pool_tracker.title",
-      href: "/custom_pool_overview/index.html",
-    },
-    { title: "Home:pools.title", href: "/pools/index.html" },
-  ];
-
-  const governanceHeading = [
-    { title: "Home:vote.title", href: "/vote/index.html" },
-    { title: "Home:witnesses.title", href: "/witnesses/index.html" },
-    { title: "Home:committee.title", href: "/committee/index.html" },
-    { title: "Home:governance.title", href: "/governance/index.html" },
-    { title: "Home:create_worker.title", href: "/create_worker/index.html" },
-    { title: "Home:create_ticket.title", href: "/create_ticket/index.html" },
-    {
-      title: "Home:ticket_leaderboard.title",
-      href: "/ticket_leaderboard/index.html",
-    },
-  ];
-
-  const settingsHeading = [
-    { title: "Home:accountLists.title", href: "/account_lists/index.html" },
-    { title: "Home:ltm.title", href: "/ltm/index.html" },
-    { title: "Home:nodes.title", href: "/nodes/index.html" },
-    { title: "Home:create_account.title", href: "/create_account/index.html" },
-  ];
-
-  const invoicingHeading = [
-    {
-      title: "Home:invoice_inventory.title",
-      href: "/invoice_inventory/index.html",
-    },
-    {
-      title: "Home:create_invoice.title",
-      href: "/create_invoice/index.html",
-    },
-    {
-      title: "Home:pay_invoice.title",
-      href: "/pay_invoice/index.html",
-    },
-    {
-      title: "Home:stored_invoices.title",
-      href: "/stored_invoices/index.html",
-    },
+  const settingsItems = [
+    { title: "Home:about.title", href: "/about/index.html", key: "about" },
+    { title: "Home:nodes.title", href: "/nodes/index.html", key: "nodes" },
+    { title: "Home:blocked_users.title", href: "/blocked-users/index.html", key: "blocked_users" },
+    { title: "Home:create_account.title", href: "/create_account/index.html", key: "create_account" },
+    { title: "Home:configure_visuals.title", href: "/visuals/index.html", key: "configure_visuals" },
   ];
 
   const sections = [
     {
-      key: "exchanging",
+      key: "predictions",
       label: t("PageHeader:exchangingFundsHeading"),
-      items: exchangingFundsHeading,
+      items: predictionsItems,
     },
     {
-      key: "transfer",
-      label: t("PageHeader:transferFundsHeading"),
-      items: transferFundsHeading,
+      key: "exchange",
+      label: t("PageHeader:exchangeFundsHeading"),
+      items: exchangeItems,
     },
     {
-      key: "debt",
-      label: t("PageHeader:formsOfDebtHeading"),
-      items: formsOfDebtHeading,
-    },
-    {
-      key: "assets",
-      label: t("PageHeader:assetCreation"),
-      items: assetCreation,
-    },
-    {
-      key: "accounts",
+      key: "account",
       label: t("PageHeader:accountOverviewsHeading"),
-      items: accountOverviewsHeading,
-    },
-    {
-      key: "chain",
-      label: t("PageHeader:blockchainOverviewsHeading"),
-      items: blockchainOverviewsHeading,
-    },
-    {
-      key: "gov",
-      label: t("PageHeader:governanceHeading"),
-      items: governanceHeading,
-    },
-    {
-      key: "invoicing",
-      label: t("PageHeader:invoicingHeading"),
-      items: invoicingHeading,
+      items: accountItems,
     },
     {
       key: "settings",
       label: t("PageHeader:settingsHeading"),
-      items: settingsHeading,
+      items: settingsItems,
     },
   ];
-
-  const groupEmojis = {
-    exchanging: "💱",
-    transfer: "💸",
-    debt: "🏦",
-    accounts: "📊",
-    chain: "⛓️",
-    assets: "🛠️",
-    gov: "🏛️",
-    settings: "⚙️",
-    invoicing: "🏪",
-  };
 
   const { openMobile, isMobile } = useSidebar();
   const [accValue, setAccValue] = React.useState(sections[0].key);
 
   React.useEffect(() => {
-    // When opening the mobile sidebar sheet, default to the first group
     if (isMobile && openMobile) {
       setAccValue(sections[0].key);
     }
   }, [isMobile, openMobile]);
 
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar className="!bg-slate-950/80 !border-r-white/[0.06]">
+      <SidebarContent className="!bg-slate-950/80">
         <Accordion
           type="single"
           collapsible
@@ -218,35 +177,50 @@ export default function AppSidebar() {
           onValueChange={setAccValue}
           className="w-full"
         >
-          {sections.map((section) => (
-            <AccordionItem key={section.key} value={section.key}>
-              <AccordionTrigger className="py-2 text-sm">
-                <SidebarGroupLabel className="px-2 py-0.5 text-[13px]">
-                  <span className="mr-2" aria-hidden>
-                    {groupEmojis[section.key]}
-                  </span>
-                  {section.label}
-                </SidebarGroupLabel>
-              </AccordionTrigger>
-              <AccordionContent>
-                <SidebarGroup>
-                  <SidebarGroupContent className="ml-3 pl-3 border-l border-sidebar-border">
-                    <SidebarMenu>
-                      {section.items.map((it) => (
-                        <SidebarMenuItem key={it.href}>
-                          <SidebarMenuButton asChild>
-                            <a href={it.href}>
-                              <span>{t(it.title)}</span>
-                            </a>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
+          {sections.map((section) => {
+            const SectionIcon = SECTION_ICONS[section.key] || Settings;
+            return (
+              <AccordionItem
+                key={section.key}
+                value={section.key}
+                className="border-b-white/[0.06]"
+              >
+                <AccordionTrigger className="py-2 text-sm hover:no-underline">
+                  <SidebarGroupLabel className="px-2 py-0.5 text-[13px]">
+                    <span className={cn("mr-2 inline-flex items-center justify-center w-5 h-5 rounded", SECTION_ACCENTS[section.key]?.replace("text-", "bg-")?.replace("400", "500/15"))}>
+                      <SectionIcon className={cn("h-3 w-3", SECTION_ACCENTS[section.key])} />
+                    </span>
+                    <span className="text-white/70">{section.label}</span>
+                  </SidebarGroupLabel>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <SidebarGroup>
+                    <SidebarGroupContent className="ml-3 pl-3 border-l border-white/[0.08]">
+                      <SidebarMenu>
+                        {section.items.map((it) => {
+                          const ItemIcon = ITEM_ICONS[it.key] || Info;
+                          const itemColor = ITEM_ACCENT_COLORS[it.key] || "text-white/50";
+                          return (
+                            <SidebarMenuItem key={it.href}>
+                              <SidebarMenuButton
+                                asChild
+                                className="!text-white/60 hover:!text-white hover:!bg-white/[0.06] !bg-transparent focus-visible:ring-0"
+                              >
+                                <a href={it.href} className="flex items-center gap-2">
+                                  <ItemIcon className={cn("h-3.5 w-3.5", itemColor)} />
+                                  <span>{t(it.title)}</span>
+                                </a>
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
+                          );
+                        })}
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </SidebarGroup>
+                </AccordionContent>
+              </AccordionItem>
+            );
+          })}
         </Accordion>
       </SidebarContent>
     </Sidebar>

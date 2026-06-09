@@ -120,5 +120,23 @@
     "outcomeContent": "Il risultato della previsione, se la previsione è vera, gli acquirenti vincono quando il prezzo di chiusura arriva a 1, se la previsione è falsa, i venditori vincono quando il prezzo di chiusura arriva a 0.",
     "true": "Risultato reale (gli acquirenti vincono)",
     "false": "Risultato falso (i venditori vincono)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "blockIssuer": "Block this issuer",
+    "unblockIssuer": "Unblock this issuer"
+  },
+  "blockConfirm": {
+    "title": "Block this issuer?",
+    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
+    "cancel": "Cancel",
+    "confirm": "Block issuer"
   }
 }

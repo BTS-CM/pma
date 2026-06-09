@@ -53,7 +53,7 @@
     "hover1": "Crie pedidos com limite manualmente.",
     "hover2": "Use qualquer par de negociação de ativos.",
     "hover3": "Especifique as datas de vencimento do pedido.",
-    "hover4": "Mais complexo, mas mais barato que os pool swaps."
+    "hover4": "Negocie ponto a ponto com controle total de preço."
   },
   "pool": {
     "title": "💱 Troca de pool de liquidez",
@@ -78,8 +78,22 @@
   },
   "transfer": {
     "title": "Transferir ativos",
-    "subtitle": "Envie ativos para outros usuários",
+    "subtitle": "Enviar ativos para outros usuários",
     "hover1": "Transfira ativos para qualquer pessoa na blockchain Bitshares em segundos."
+  },
+  "instant_trade": {
+    "title": "Negociação instantânea",
+    "subtitle": "Troque ativos rapidamente pelos melhores preços disponíveis",
+    "hover1": "Negocie ativos instantaneamente na DEX sem distrações.",
+    "hover2": "Utiliza tecnologia de ordens fill-or-kill para obter os preços que deseja ou cancela a ordem.",
+    "hover3": "Veja com quem você negociará na DEX e se eles ativaram condições on-fill em suas ordens."
+  },
+  "simple_asset_swap": {
+    "title": "Troca simples de ativos",
+    "subtitle": "Troque ativos mais facilmente via pools",
+    "hover1": "Troque ativos via pools de liquidez criados pelo usuário.",
+    "hover2": "Os pools têm diferentes pares de negociação e taxas.",
+    "hover3": "Mais simples, porém mais custoso que uma ordem limit."
   },
   "timed_transfer": {
     "title": "⏱️ Transferência cronometrada",
@@ -216,8 +230,8 @@
     "hover3": "Médias e totais resumidos de dados de blockchain."
   },
   "create_prediction": {
-    "title": "Previsão de ativos de mercado",
-    "subtitle": "Crie uma aposta sobre qualquer coisa",
+    "title": "Criar ativo do mercado de previsões",
+    "subtitle": "Crie uma nova aposta on-chain sobre qualquer tema",
     "hover1": "Crie apostas sobre literalmente qualquer coisa.",
     "hover2": "Seja o agenciador de apostas e defina sua própria comissão.",
     "hover3": "São possíveis apostas de curto e longo prazo."
@@ -468,9 +482,11 @@
     "account": "Conta",
     "moreTools": "Mais ferramentas",
     "settings": "Configurações",
+    "exchange": "Exchange",
     "predictionMarketsSubtitle": "Procure, negocie e crie mercados de previsões",
     "accountSubtitle": "Gerencie portfólio, ordens e favoritos",
-    "moreToolsSubtitle": "Negociação DEX, configurações e ferramentas"
+    "moreToolsSubtitle": "Configurações, nós e utilitários de conta",
+    "exchangeSubtitle": "Negocie e transfira na DEX"
   },
   "settlement": {
     "title": "Liquidação de smartcoin",

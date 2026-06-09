@@ -174,7 +174,7 @@ async function generateDeepLink(chain, nodeURL, opTypes, operations) {
       payload: {
         method: "injectedCall",
         params: ["signAndBroadcast", JSON.stringify(tr.toObject()), []],
-        appName: "Bitshares Astro UI",
+        appName: "Bitshares Prediction Market UI",
         chain: chain === "bitshares" ? "BTS" : "BTS_TEST",
         browser: "web browser",
         origin: "localhost",

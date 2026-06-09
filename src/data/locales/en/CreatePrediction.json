@@ -6,13 +6,69 @@
     "title": "Creating a new Prediction Market Asset",
     "description": "By creating a Prediction Market Assets you can act as the house for decentralized bets on future events in return for a comission fee without winnings pool counterparty risk exposure."
   },
+  "steps": {
+    "asset": {
+      "title": "Asset identity",
+      "description": "The unique symbol, name and supply for your prediction market asset."
+    },
+    "pma": {
+      "title": "Prediction market details",
+      "description": "The condition that defines what your market is betting on."
+    },
+    "nft": {
+      "title": "Non-fungible token details",
+      "description": "Optional. Add NFT metadata such as artist, title and IPFS media."
+    },
+    "extensions": {
+      "title": "Market fee extensions",
+      "description": "Optional. Configure how market fees are split between the house, referrers and taker."
+    },
+    "permissions": {
+      "title": "Permissions and flags",
+      "description": "Choose which advanced behaviours this asset supports."
+    },
+    "authorization": {
+      "title": "Authorization",
+      "description": "Optional. Whitelist and blacklist accounts that may interact with this asset."
+    }
+  },
+  "summary": {
+    "label": "Review and submit",
+    "ready": "Ready to create your prediction market asset.",
+    "fieldsRequired": "A few required fields are still empty.",
+    "title": "What you're creating",
+    "subtitle": "A summary of the prediction market asset you are about to launch. Verify everything looks correct before submitting.",
+    "symbol": "Symbol",
+    "name": "Name",
+    "condition": "Condition",
+    "backing": "Backing asset",
+    "maxSupply": "Maximum supply",
+    "commission": "Commission",
+    "resolution": "Resolution date",
+    "expiryHint": "Resolves in",
+    "days_one": "1 day",
+    "days_other": "{{count}} days",
+    "permissions": "Permissions",
+    "extensions": "Extensions",
+    "advanced": "Advanced features",
+    "noBacking": "Pick a backing asset to see it here.",
+    "noCondition": "Write a condition to see it here."
+  },
+  "actions": {
+    "useExample": "Fill with example",
+    "reset": "Reset"
+  },
+  "tips": {
+    "submitTitle": "Before you submit",
+    "submitHint": "Submitting will open your wallet to broadcast an on-chain transaction. You will still be able to cancel inside Beet/BeetEOS before signing."
+  },
   "pma": {
     "title": "Prediction Market Asset Details",
     "title_content": "These are the asset settings used for the prediction market asset.",
     "condition": {
       "header": "Condition",
       "header_content": "Provide the prediction market asset details here",
-      "placeholder": "Prediction conditions"
+      "placeholder": "Will SpaceX land Starship on Mars before 2030?"
     },
     "commission": {
       "header": "Commission (%)",
@@ -28,14 +84,12 @@
       "header_content": "The resolution date and time is the date and time at which the prediction market asset will be resolved, This is the date and time at which the prediction market asset will be evaluated and the winners will be paid out."
     }
   },
-  "buttons": {
-    "submit": "Submit"
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
   },
-  "risks": {
-    "title": "Some of the risks associated with creating prediction market assets",
-    "description": "Do your own research prior to creating a PMA, read the docs first, not legal advice.",
-    "1": "Misconfiguration of prediction market assets can lead to poor blockchain participation, some user interfaces may filter your PMA entirely from view, make sure to correctly configure your PMA, set a reasonable commission fee and try the functionality out on testnet first.",
-    "2": "When you create a prediction market asset you are responsible as the house to properly evaluate the outcome, failure to do so properly or within a timely manner could lead to legal or fiscal issues for you ontop of loss of credibility as a house.",
-    "3": "This user interface and the Beet/BEETEOS wallets do not support multi-signature accounts, so your house account is a long term single point of failure - protect it well."
+  "buttons": {
+    "submit": "Create prediction market asset"
   }
 }
+

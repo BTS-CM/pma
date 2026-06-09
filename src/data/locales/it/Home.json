@@ -53,7 +53,7 @@
     "hover1": "Crea manualmente ordini limite.",
     "hover2": "Utilizza qualsiasi coppia di asset trading.",
     "hover3": "Specificare le date di scadenza dell'ordine.",
-    "hover4": "Più complesso ma più economico dello scambio di pool."
+    "hover4": "Scambia peer-to-peer con pieno controllo del prezzo."
   },
   "pool": {
     "title": "💱 Scambio di pool di liquidità",
@@ -77,9 +77,23 @@
     "hover3": "Il patrimonio investito può essere ritirato in qualsiasi momento."
   },
   "transfer": {
-    "title": "Trasferisci beni",
-    "subtitle": "Invia risorse ad altri utenti",
-    "hover1": "Trasferisci risorse a chiunque sulla blockchain di Bitshares in pochi secondi."
+    "title": "Trasferisci asset",
+    "subtitle": "Invia asset ad altri utenti",
+    "hover1": "Trasferisci asset a chiunque sulla blockchain Bitshares in pochi secondi."
+  },
+  "instant_trade": {
+    "title": "Scambio istantaneo",
+    "subtitle": "Scambia rapidamente asset ai migliori prezzi disponibili",
+    "hover1": "Scambia istantaneamente asset sulla DEX senza distrazioni.",
+    "hover2": "Utilizza la tecnologia degli ordini fill-or-kill per ottenere i prezzi desiderati o annullare l'ordine.",
+    "hover3": "Vedi con chi scambierai sulla DEX e se hanno abilitato condizioni on-fill sui loro ordini."
+  },
+  "simple_asset_swap": {
+    "title": "Scambio semplice di asset",
+    "subtitle": "Scambia asset più facilmente tramite pool",
+    "hover1": "Scambia asset tramite pool di liquidità creati dagli utenti.",
+    "hover2": "I pool hanno diverse coppie di trading e commissioni.",
+    "hover3": "Più semplice ma più costoso di un ordine limit."
   },
   "timed_transfer": {
     "title": "⏱️ Trasferimento a tempo",
@@ -216,8 +230,8 @@
     "hover3": "Medie e totali riepilogativi dei dati blockchain."
   },
   "create_prediction": {
-    "title": "Asset di mercato di previsione",
-    "subtitle": "Crea una scommessa su qualsiasi cosa",
+    "title": "Crea asset del mercato delle previsioni",
+    "subtitle": "Crea una nuova scommessa on-chain su qualsiasi argomento",
     "hover1": "Crea scommesse letteralmente su qualsiasi cosa.",
     "hover2": "Diventa il bookmaker e stabilisci la tua commissione.",
     "hover3": "Sono possibili sia scommesse a breve che a lungo termine."
@@ -468,9 +482,11 @@
     "account": "Account",
     "moreTools": "Altri strumenti",
     "settings": "Impostazioni",
+    "exchange": "Exchange",
     "predictionMarketsSubtitle": "Esplora, fai trading e crea mercati di previsione",
     "accountSubtitle": "Gestisci portafoglio, ordini e preferiti",
-    "moreToolsSubtitle": "Trading DEX, impostazioni e strumenti"
+    "moreToolsSubtitle": "Impostazioni, nodi e utilità dell'account",
+    "exchangeSubtitle": "Scambia e trasferisci sulla DEX"
   },
   "settlement": {
     "title": "Regolamento smartcoin",

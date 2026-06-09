@@ -42,7 +42,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-import { Ban, ShieldOff, Trash2 } from "lucide-react";
+import { Ban, ShieldOff, Trash2, UserX, Plus } from "lucide-react";
 
 import {
   $blockList,
@@ -66,7 +66,7 @@ function RemoveButton({ onClick, label }) {
             size="icon"
             aria-label={label}
             onClick={onClick}
-            className="h-8 w-8 rounded-full text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+            className="h-8 w-8 rounded-full text-white/30 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -128,12 +128,12 @@ export default function BlockedUsers() {
   const renderCard = (item, style) => {
     if (!item) return null;
     return (
-      <Card className="mb-3 group bg-white border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all rounded-xl">
-        <CardHeader className="px-4 py-4 flex flex-row items-center justify-between gap-3">
+      <Card className="mb-2 bg-slate-900/60 border-white/[0.08] hover:bg-white/[0.03] hover:border-white/[0.12] transition-all rounded-xl">
+        <CardHeader className="px-4 py-3 flex flex-row items-center justify-between gap-3">
           <div className="space-y-1 min-w-0">
-            <CardTitle className="text-base text-slate-900 truncate">
+            <CardTitle className="text-sm text-white truncate">
               <span className="font-semibold">{item.name}</span>
-              <span className="ml-2 text-xs font-mono font-normal text-slate-400">
+              <span className="ml-2 text-xs font-mono font-normal text-white/30">
                 {item.id}
               </span>
             </CardTitle>
@@ -155,105 +155,115 @@ export default function BlockedUsers() {
   };
 
   return (
-    <div className="container mx-auto mt-5 mb-10 max-w-4xl">
-      <Card className="mb-8 rounded-xl overflow-hidden">
-        <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-slate-50 border-b">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-500">
-              <ShieldOff className="h-4 w-4" />
-            </div>
-            <div>
-              <CardTitle className="text-xl font-bold tracking-tight text-slate-900">
-                {t("Blocklist:committeeHeader")}
-              </CardTitle>
-              <p className="text-xs text-slate-500 mt-0.5">
-                {t("Blocklist:committeeCount", { count: committeeCount })}
-              </p>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="p-4">
-          <p className="text-sm text-slate-600 leading-relaxed">
-            {t("Blocklist:committeeDescription")}
-          </p>
-        </CardContent>
-      </Card>
+    <div className="container mx-auto mt-5 mb-10 max-w-4xl text-white">
+      <div className="grid grid-cols-1 gap-3">
+        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm">
+          <div className="h-1 w-full bg-gradient-to-r from-rose-500 to-red-500" />
+          <CardHeader className="pb-3">
+            <CardTitle className="text-white flex items-center gap-2">
+              <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-rose-500/15 flex-shrink-0">
+                <ShieldOff className="h-5 w-5 text-rose-400" />
+              </span>
+              {t("Blocklist:committeeHeader")}
+            </CardTitle>
+            <p className="text-xs text-white/50 mt-0.5 ml-11">
+              {t("Blocklist:committeeCount", { count: committeeCount })}
+            </p>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-white/50 leading-relaxed">
+              {t("Blocklist:committeeDescription")}
+            </p>
+          </CardContent>
+        </Card>
 
-      <Card className="rounded-xl overflow-hidden">
-        <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-slate-50 border-b">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-500">
-              <Ban className="h-4 w-4" />
-            </div>
-            <div>
-              <CardTitle className="text-xl font-bold tracking-tight text-slate-900">
-                {t("Blocklist:usersHeader")}
-              </CardTitle>
-              {chainUserBlockList && chainUserBlockList.length ? (
-                <p className="text-xs text-slate-500 mt-0.5">
-                  {chainUserBlockList.length}
-                </p>
-              ) : null}
-            </div>
-          </div>
-          <Dialog
-            open={addDialogOpen}
-            onOpenChange={(open) => setAddDialogOpen(open)}
-          >
-            <DialogTrigger asChild>
-              <Button variant="outline" className="hover:shadow-md">
-                {t("Blocklist:addUser")}
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[420px] bg-white">
-              <DialogHeader>
-                <DialogTitle>{t("Blocklist:addUserDialogTitle")}</DialogTitle>
-                <DialogDescription>
-                  {t("Blocklist:addUserDialogDescription")}
-                </DialogDescription>
-              </DialogHeader>
-              <AccountSearch
-                chain={_chain}
-                excludedUsers={[]}
-                setChosenAccount={setSelectedUser}
-                skipCheck={true}
-              />
-            </DialogContent>
-          </Dialog>
-        </CardHeader>
-        <CardContent className="p-4">
-          {chainUserBlockList && chainUserBlockList.length ? (
-            <>
-              <div className="w-full max-h-[420px] overflow-auto block md:hidden">
-                <List
-                  rowComponent={Row}
-                  rowCount={chainUserBlockList.length}
-                  rowHeight={88}
-                  rowProps={{}}
-                />
+        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm">
+          <div className="h-1 w-full bg-gradient-to-r from-rose-500 to-red-500" />
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-rose-500/15 flex-shrink-0">
+                    <Ban className="h-5 w-5 text-rose-400" />
+                  </span>
+                  {t("Blocklist:usersHeader")}
+                </CardTitle>
+                {chainUserBlockList && chainUserBlockList.length ? (
+                  <p className="text-xs text-white/50 mt-0.5 ml-11">
+                    {chainUserBlockList.length}
+                  </p>
+                ) : null}
               </div>
-              <div className="w-full max-h-[420px] overflow-auto hidden md:block">
-                <List
-                  rowComponent={Row}
-                  rowCount={chainUserBlockList.length}
-                  rowHeight={72}
-                  rowProps={{}}
-                />
-              </div>
-            </>
-          ) : (
-            <Empty className="mt-2 border border-dashed border-slate-200 rounded-xl bg-slate-50/50">
-              <EmptyHeader>
-                <EmptyMedia variant="icon">🚫</EmptyMedia>
-                <EmptyTitle>{t("Blocklist:usersEmptyTitle")}</EmptyTitle>
-                <EmptyDescription>
-                  {t("Blocklist:usersEmptyDescription")}
-                </EmptyDescription>
-              </EmptyHeader>
-            </Empty>
-          )}
-        </CardContent>
-      </Card>
+              <Dialog
+                open={addDialogOpen}
+                onOpenChange={(open) => setAddDialogOpen(open)}
+              >
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="border-rose-500/30 text-rose-400 hover:bg-rose-500/10 gap-1.5">
+                    <Plus className="h-3.5 w-3.5" />
+                    {t("Blocklist:addUser")}
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[420px] bg-slate-950 border-white/[0.1] text-white shadow-2xl shadow-black/40">
+                  <DialogHeader>
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-rose-500/30 bg-rose-500/15">
+                        <UserX className="h-4 w-4 text-rose-400" />
+                      </div>
+                      <div>
+                        <DialogTitle className="text-white">{t("Blocklist:addUserDialogTitle")}</DialogTitle>
+                        <DialogDescription className="text-white/50">
+                          {t("Blocklist:addUserDialogDescription")}
+                        </DialogDescription>
+                      </div>
+                    </div>
+                  </DialogHeader>
+                  <AccountSearch
+                    chain={_chain}
+                    excludedUsers={[]}
+                    setChosenAccount={setSelectedUser}
+                    skipCheck={true}
+                  />
+                </DialogContent>
+              </Dialog>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {chainUserBlockList && chainUserBlockList.length ? (
+              <>
+                <div className="w-full max-h-[420px] overflow-auto block md:hidden">
+                  <List
+                    rowComponent={Row}
+                    rowCount={chainUserBlockList.length}
+                    rowHeight={88}
+                    rowProps={{}}
+                  />
+                </div>
+                <div className="w-full max-h-[420px] overflow-auto hidden md:block">
+                  <List
+                    rowComponent={Row}
+                    rowCount={chainUserBlockList.length}
+                    rowHeight={72}
+                    rowProps={{}}
+                  />
+                </div>
+              </>
+            ) : (
+              <Empty className="mt-2 border border-white/[0.06] rounded-xl bg-white/[0.02]">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon" className="bg-rose-500/15 text-rose-400">
+                    <Ban className="h-6 w-6" />
+                  </EmptyMedia>
+                  <EmptyTitle className="text-white/80">{t("Blocklist:usersEmptyTitle")}</EmptyTitle>
+                  <EmptyDescription className="text-white/40">
+                    {t("Blocklist:usersEmptyDescription")}
+                  </EmptyDescription>
+                </EmptyHeader>
+              </Empty>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

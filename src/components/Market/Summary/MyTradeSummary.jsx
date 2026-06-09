@@ -4,10 +4,15 @@ import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getTimeSince, humanReadableFloat } from "@/lib/common";
+import { Clock } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function MyTradeSummary(properties) {
   const { type, usrHistory, assetAData, assetBData } = properties;
   const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
+
+  const isBuy = type === "buy";
+  const accent = isBuy ? "text-emerald-300" : "text-rose-300";
 
   const filteredMarketHistory = useMemo(() => {
     if (!usrHistory) {
@@ -15,7 +20,7 @@ export default function MyTradeSummary(properties) {
     }
 
     const filteredUsrHistory = usrHistory.filter((x) => {
-      if (type === "buy") {
+      if (isBuy) {
         return (
           x.op[1].pays.asset_id === assetBData.id &&
           x.op[1].receives.asset_id === assetAData.id
@@ -26,21 +31,7 @@ export default function MyTradeSummary(properties) {
           x.op[1].receives.asset_id === assetBData.id
         );
       }
-    }); /*
-      .map((x) => {
-        
-        const isFillPriceInverted = isInvertedMarket(
-          x.op[1].fill_price.quote.asset_id,
-          x.op[1].fill_price.base.asset_id
-        );
-        const isPayReceivesInverted = isInvertedMarket(
-          x.op[1].pays.asset_id,
-          x.op[1].receives.asset_id
-        );
-        
-
-        return x;
-      });*/
+    });
 
     return filteredUsrHistory.map((res) => {
       const parsedBaseAmount = humanReadableFloat(
@@ -69,48 +60,46 @@ export default function MyTradeSummary(properties) {
         operation: res.op[1],
       };
     });
-  }, [usrHistory, assetAData, assetBData, type]);
+  }, [usrHistory, assetAData, assetBData, isBuy]);
 
   return (
-    <>
-      <div className="grid grid-cols-4">
-        <div className="col-span-1 pl-3 text-right">
+    <div className="rounded-lg border border-white/10 bg-white/[0.02] overflow-hidden">
+      <div className="grid grid-cols-4 gap-2 px-3 py-2 border-b border-white/[0.06] bg-white/[0.02] text-[10px] font-semibold uppercase tracking-wider text-white/40">
+        <div className="text-right">
           {t("MyTradeSummary:priceColumnTitle")}
         </div>
-        <div className="col-span-1 pl-3 text-md text-right">
-          {type === "buy" ? assetAData.symbol : assetBData.symbol}
-        </div>
-        <div className="col-span-1 pl-3 text-md text-right">
-          {type === "buy" ? assetBData.symbol : assetAData.symbol}
-        </div>
-        <div className="col-span-1 pl-3 text-right">
+        <div className="text-right">{isBuy ? assetAData.symbol : assetBData.symbol}</div>
+        <div className="text-right">{isBuy ? assetBData.symbol : assetAData.symbol}</div>
+        <div className="text-right">
           {t("MyTradeSummary:dateColumnTitle")}
         </div>
       </div>
-      <ScrollArea className="h-72 w-full rounded-md border">
-        <div className="grid grid-cols-4">
+      <ScrollArea className="h-72 w-full">
+        <div className="flex flex-col">
           {filteredMarketHistory.map((res, index) => {
             return (
-              <div className="col-span-4" key={`mts_${index}_${type}`}>
-                <div className="grid grid-cols-4 text-sm">
-                  <div className="col-span-1 border-r-2 pl-3 text-right">
-                    {res.price}
-                  </div>
-                  <div className="col-span-1 border-r-2 pl-3 text-right">
-                    {type === "buy" ? res.baseAmount : res.quoteAmount}
-                  </div>
-                  <div className="col-span-1 border-r-2 pl-3 text-right">
-                    {type === "buy" ? res.quoteAmount : res.baseAmount}
-                  </div>
-                  <div className="col-span-1 border-r-2 pl-3 text-right">
-                    {getTimeSince(res.date)}
-                  </div>
+              <div
+                className="grid grid-cols-4 gap-2 px-3 py-1.5 text-xs font-mono tabular-nums border-b border-white/[0.04] hover:bg-white/[0.04] transition-colors"
+                key={`mts_${index}_${type}`}
+              >
+                <div className={cn("text-right font-semibold", accent)}>
+                  {res.price}
+                </div>
+                <div className="text-right text-white/80">
+                  {isBuy ? res.baseAmount : res.quoteAmount}
+                </div>
+                <div className="text-right text-white/65">
+                  {isBuy ? res.quoteAmount : res.baseAmount}
+                </div>
+                <div className="text-right text-white/55 flex items-center justify-end gap-1">
+                  <Clock className="h-3 w-3" />
+                  <span className="font-sans">{getTimeSince(res.date)}</span>
                 </div>
               </div>
             );
           })}
         </div>
       </ScrollArea>
-    </>
+    </div>
   );
 }

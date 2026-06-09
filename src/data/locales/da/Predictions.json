@@ -120,5 +120,23 @@
     "outcomeContent": "Resultatet af forudsigelsen, Hvis forudsigelsen er sand, vinder købere ved, at afregningsprisen går til 1, Hvis forudsigelsen er falsk, vinder sælgerne ved, at afregningsprisen går til 0.",
     "true": "Sandt resultat (købere vinder)",
     "false": "Falskt resultat (sælgere vinder)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "blockIssuer": "Block this issuer",
+    "unblockIssuer": "Unblock this issuer"
+  },
+  "blockConfirm": {
+    "title": "Block this issuer?",
+    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
+    "cancel": "Cancel",
+    "confirm": "Block issuer"
   }
 }

@@ -53,7 +53,7 @@
     "hover1": "Elaborar manualmente órdenes límite.",
     "hover2": "Utilice cualquier par de negociación de activos.",
     "hover3": "Especifique las fechas de vencimiento del pedido.",
-    "hover4": "Más complejo pero más barato que los swaps de grupos."
+    "hover4": "Opera entre pares con control total de precios."
   },
   "pool": {
     "title": "💱 Intercambio de fondos comunes de liquidez",
@@ -79,7 +79,21 @@
   "transfer": {
     "title": "Transferir activos",
     "subtitle": "Enviar activos a otros usuarios",
-    "hover1": "Transfiera activos a cualquier persona en la cadena de bloques Bitshares en segundos."
+    "hover1": "Transfiere activos a cualquier persona en la blockchain de Bitshares en segundos."
+  },
+  "instant_trade": {
+    "title": "Operación instantánea",
+    "subtitle": "Intercambia activos rápidamente a los mejores precios disponibles",
+    "hover1": "Opera activos al instante en la DEX sin distracciones.",
+    "hover2": "Utiliza tecnología de órdenes fill-or-kill para obtener los precios que deseas o cancela la orden.",
+    "hover3": "Ve con quién operarás en la DEX y si han habilitado condiciones on-fill en sus órdenes."
+  },
+  "simple_asset_swap": {
+    "title": "Intercambio simple de activos",
+    "subtitle": "Intercambia activos más fácilmente mediante pools",
+    "hover1": "Intercambia activos mediante pools de liquidez creados por el usuario.",
+    "hover2": "Los pools tienen diferentes pares de trading y comisiones.",
+    "hover3": "Más simple pero más costoso que una orden limit."
   },
   "timed_transfer": {
     "title": "⏱️ Transferencia cronometrada",
@@ -216,8 +230,8 @@
     "hover3": "Promedios y totales de datos resumidos de blockchain."
   },
   "create_prediction": {
-    "title": "Activo del mercado de predicción",
-    "subtitle": "Crea una apuesta sobre cualquier cosa.",
+    "title": "Crear activo de mercado de predicciones",
+    "subtitle": "Crea una nueva apuesta on-chain sobre cualquier tema",
     "hover1": "Crea apuestas sobre literalmente cualquier cosa.",
     "hover2": "Sea el corredor de apuestas y establezca su propia comisión.",
     "hover3": "Son posibles apuestas tanto a corto como a largo plazo."
@@ -468,9 +482,11 @@
     "account": "Cuenta",
     "moreTools": "Más herramientas",
     "settings": "Ajustes",
+    "exchange": "Mercado",
     "predictionMarketsSubtitle": "Explora, comercia y crea mercados de predicciones",
     "accountSubtitle": "Gestiona tu cartera, órdenes y favoritos",
-    "moreToolsSubtitle": "Comercio DEX, ajustes y herramientas"
+    "moreToolsSubtitle": "Ajustes, nodos y utilidades de cuenta",
+    "exchangeSubtitle": "Opera y transfiere en la DEX"
   },
   "settlement": {
     "title": "Liquidación de smartcoin",

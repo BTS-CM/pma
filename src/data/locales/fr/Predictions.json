@@ -120,5 +120,23 @@
     "outcomeContent": "Le résultat de la prédiction, si la prédiction est vraie, les acheteurs gagnent par le prix de règlement passant à 1, si la prédiction est fausse, les vendeurs gagnent par le prix de règlement passant à 0.",
     "true": "Résultat réel (les acheteurs gagnent)",
     "false": "Faux résultat (les vendeurs gagnent)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "blockIssuer": "Block this issuer",
+    "unblockIssuer": "Unblock this issuer"
+  },
+  "blockConfirm": {
+    "title": "Block this issuer?",
+    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
+    "cancel": "Cancel",
+    "confirm": "Block issuer"
   }
 }

@@ -5,10 +5,12 @@
   "expiration": "Expiration",
   "expired_at": "Expired",
   "outcome": "Outcome",
-  "prize_pool": "Settlement",
   "outcome_true": "True (buyers win)",
   "outcome_false": "False (sellers win)",
   "outcome_tba": "Not yet resolved",
+  "outcome.yes": "Yes",
+  "outcome.no": "No",
+  "outcome.unresolved": "Unresolved",
   "issue": "Step 1: Issue PMA tokens",
   "buy": "Bet True (buy)",
   "sell": "Step 2: Bet False (sell)",
@@ -19,12 +21,110 @@
   "margin": "Margin",
   "bettingAsset": "Betting Asset",
   "card": {
-    "title": "Prediction Market Assets",
-    "description": "Check out the potential betting opportunities below!",
+    "title": {
+      "active": "Active Prediction Markets",
+      "expired": "Expired Prediction Markets",
+      "mine": "My Prediction Markets",
+      "portfolio": "Prediction Portfolio",
+      "margin": "Prediction Margin Positions"
+    },
+    "description": {
+      "active": "Browse live, unresolved prediction market assets accepting bets.",
+      "expired": "Browse past prediction market assets awaiting resolution by price feeders.",
+      "mine": "Prediction market assets you've created or interacted with.",
+      "portfolio": "Prediction market assets currently held in your account balance.",
+      "margin": "Active margin (call) positions on prediction market assets."
+    },
+    "showing": "Showing {{primary}} markets",
+    "stat": " · {{value}} {{label}}",
     "emptyActive": "No active predictions available at the moment.",
+    "emptyExpired": "No expired predictions available at the moment.",
     "emptyMine": "You have no predictions at the moment.",
     "emptyPortfolio": "You have no prediction market assets in your portfolio balance at the moment.",
     "emptyMargin": "You have no prediction market asset margin positions at the moment."
+  },
+  "tab": {
+    "overview": "Overview",
+    "nft": "NFT",
+    "market": "Market",
+    "details": "Details",
+    "actions": "Actions",
+    "winners": "Winners",
+    "admin": "Admin"
+  },
+  "status": {
+    "active": "Active",
+    "resolvedYes": "Resolved · YES",
+    "resolvedNo": "Resolved · NO",
+    "awaiting": "Awaiting resolution"
+  },
+  "timeLeft": "Time left",
+  "timeExpired": "Time since expiry",
+  "openInterest": "Open interest",
+  "openInterest_help": "Total collateral committed by all sellers betting against the outcome.",
+  "market": {
+    "impliedProbability": "Implied YES probability",
+    "impliedProbability_help": "Estimated chance the market assigns to the YES outcome, derived from open interest and settlement fund size.",
+    "expiredNote": "Trading has ended for this market.",
+    "settlementFund": "Settlement fund",
+    "settlementFund_help": "The collateral currently held in the settlement fund, awaiting resolution.",
+    "commission": "Market fee",
+    "commission_help": "Fee charged on each trade, paid in the backing asset.",
+    "tradeOnDex": "Trade on DEX"
+  },
+  "nft": {
+    "title": "Title",
+    "artist": "Artist",
+    "type": "Type",
+    "encoding": "Encoding",
+    "license": "License",
+    "holderLicense": "Holder license",
+    "tags": "Tags",
+    "narrative": "Narrative",
+    "acknowledgements": "Acknowledgements",
+    "attestation": "Attestation",
+    "viewOnIpfs": "View on IPFS",
+    "noImage": "No NFT image available",
+    "signature": "Signature",
+    "sigPubkey": "Signer",
+    "copySig": "Copy signature",
+    "copyPubkey": "Copy signer key",
+    "verifyNote": "Signature verification — coming soon."
+  },
+  "details": {
+    "assetId": "Asset ID",
+    "issuer": "Issuer",
+    "precision": "Precision",
+    "maxSupply": "Max supply"
+  },
+  "copy": "Copy",
+  "copied": "Copied",
+  "copyAssetId": "Copy asset ID",
+  "copyIssuerId": "Copy issuer ID",
+  "stats": {
+    "closingSoon": "closing within 24h",
+    "newlyCreated": "new in the past 7 days",
+    "awaitingResolution": "awaiting resolution",
+    "resolved": "resolved",
+    "awaitingYourResolution": "awaiting your resolution",
+    "inYourBalance": "in your balance",
+    "marginPositions": "active margin positions"
+  },
+  "list": {
+    "sort": {
+      "newest": "Newest first",
+      "expiring": "Expiring soonest",
+      "volume": "Highest volume",
+      "alpha": "Alphabetical"
+    },
+    "filter": {
+      "all": "All",
+      "closingSoon": "Closing within 24h",
+      "new": "New (past 7 days)",
+      "highVolume": "High volume"
+    },
+    "searchPlaceholder": "Search by symbol or question…",
+    "noResults": "No predictions match your filters."
   },
   "price_feeders": "Price feeders",
   "price_feeders_content": "The prediction can be resolved by either the witnesses, committee or private price feeders.",
@@ -39,6 +139,11 @@
   "winner_content": "Winners who bought (true outcome) can settle the PMA for the 1x backing asset contents, Winners who sold (false outcome) don't need to do anything.",
   "winner_header": "Winners",
   "winner_claim": "Claim backing assets",
+  "winner": {
+    "settlementFund_help": "The total collateral committed to this prediction market. Buyers who hold the winning outcome can claim a proportional share of this fund.",
+    "yourPmaBalance": "Your PMA balance",
+    "yourPmaBalance_help": "The number of prediction market asset tokens you currently hold. After the prediction resolves, each winning PMA can be settled for 1 unit of the backing asset."
+  },
   "resolve": "Resolve Prediction",
   "not_expired": "This prediction has not expired yet, so it's unable to be resolved.",
   "time_till_expiration": "Time till expiration: {{hours}} hours",
@@ -120,5 +225,23 @@
     "outcomeContent": "The outcome of the prediction, If the prediction is true, buyers win by the settlement price going to 1, If the prediction is false, sellers win by the settlement price going to 0.",
     "true": "True outcome (buyers win)",
     "false": "False outcome (sellers win)"
+  },
+  "json": {
+    "button": "JSON",
+    "title": "Asset JSON",
+    "description": "Raw JSON data for the selected entry.",
+    "assetData": "Asset Data",
+    "bitassetData": "Bitasset Data",
+    "descriptionData": "Description Data",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "blockIssuer": "Block this issuer",
+    "unblockIssuer": "Unblock this issuer"
+  },
+  "blockConfirm": {
+    "title": "Block this issuer?",
+    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
+    "cancel": "Cancel",
+    "confirm": "Block issuer"
   }
 }

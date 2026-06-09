@@ -14,9 +14,9 @@ import {
 import { format } from "date-fns";
 import { useStore } from "@nanostores/react";
 import { useTranslation } from "react-i18next";
-
 import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
 import { cn } from "@/lib/utils";
+import { Check, Zap, XCircle, ArrowLeftRight, Wallet, ShieldOff } from "lucide-react";
 
 import {
   Card,
@@ -95,7 +95,6 @@ import { Avatar } from "./Avatar.tsx";
 
 import DeepLinkDialog from "./common/DeepLinkDialog.jsx";
 import ExternalLink from "./common/ExternalLink.jsx";
-import PoolDialogs from "./Market/PoolDialogs.jsx";
 
 export default function MarketOrder(properties) {
   const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
@@ -199,11 +198,17 @@ export default function MarketOrder(properties) {
   }, [_globalParamsBTS, _globalParamsTEST, _chain]);
 
   const [fee, setFee] = useState(0);
+  const [cancelFee, setCancelFee] = useState(0);
   useEffect(() => {
     if (globalParams && globalParams.length) {
       const foundFee = globalParams.find((x) => x.id === 77);
-      const finalFee = humanReadableFloat(foundFee.data.fee, 5);
-      setFee(finalFee);
+      if (foundFee && foundFee.data && foundFee.data.fee) {
+        setFee(humanReadableFloat(foundFee.data.fee, 5));
+      }
+      const foundCancelFee = globalParams.find((x) => x.id === 2);
+      if (foundCancelFee && foundCancelFee.data && foundCancelFee.data.fee) {
+        setCancelFee(humanReadableFloat(foundCancelFee.data.fee, 5));
+      }
     }
   }, [globalParams]);
 
@@ -481,35 +486,35 @@ export default function MarketOrder(properties) {
 
   return (
     <>
-      <div className="container mx-auto mt-5 mb-5 w-1/2">
+      <div className="container mx-auto mt-5 mb-5 w-full md:w-3/4 lg:w-1/2">
         <div className="grid grid-cols-1 gap-3">
-          <Card>
+          <Card className="!bg-slate-950/60 !backdrop-blur-xl !border-white/10">
             <CardHeader className="pb-0 mb-0">
               <CardTitle className="mb-2">
                 <span className="grid grid-cols-2">
-                  <span className="col-span-1 text-left">
+                  <span className="col-span-1 text-left text-white">
                     {t("MarketOrder:updatingLimitOrder", { limitOrderID })}
                   </span>
                   <span className="text-right">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button className="h-6">
+                        <Button className="h-6 !border-white/10 !text-white/80 hover:!bg-white/[0.06]">
                           {t("MarketOrder:viewExistingLimitOrderDataButton")}
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[600px] bg-white">
+                      <DialogContent className="sm:max-w-[600px] !bg-slate-950 !border-white/10 !text-white">
                         <DialogHeader>
-                          <DialogTitle>
+                          <DialogTitle className="text-white">
                             {t("MarketOrder:existingLimitOrderDataTitle")}
                           </DialogTitle>
-                          <DialogDescription>
+                          <DialogDescription className="text-white/60">
                             {t("MarketOrder:existingLimitOrderDataDescription")}
                           </DialogDescription>
                         </DialogHeader>
                         <div className="grid grid-cols-1">
                           <div className="col-span-1">
-                            <ScrollArea className="h-72 rounded-md border text-sm">
-                              <pre>
+                            <ScrollArea className="h-72 rounded-md border border-white/10 text-sm !bg-slate-900/50">
+                              <pre className="text-white/70 text-xs p-3">
                                 {JSON.stringify(currentLimitOrder, null, 2)}
                               </pre>
                             </ScrollArea>
@@ -523,15 +528,15 @@ export default function MarketOrder(properties) {
                   </span>
                 </span>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-white/60">
                 {t("MarketOrder:bitsharesDexSupportDescription")}
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="text-white/80">
               <form>
-                <FieldGroup>
+                <FieldGroup className="gap-4">
                   <Field>
-                    <FieldLabel>
+                    <FieldLabel className="text-white/80">
                       {t("MarketOrder:limitOrderOwnerLabel")}
                     </FieldLabel>
                     <FieldContent>
@@ -578,7 +583,7 @@ export default function MarketOrder(properties) {
                               placeholder={t(
                                 "MarketOrder:bitsharesAccountPlaceholder"
                               )}
-                              className="mb-1 mt-1"
+                              className="mb-1 mt-1 !bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                               value={
                                 usr && usr.id === currentLimitOrder.seller
                                   ? `${usr.username} (${usr.id})`
@@ -589,7 +594,7 @@ export default function MarketOrder(properties) {
                         </div>
                       </div>
                     </FieldContent>
-                    <FieldDescription>
+                    <FieldDescription className="text-white/50">
                       {t("MarketOrder:limitOrderOwnerDescription")}
                     </FieldDescription>
                     {currentLimitOrder &&
@@ -603,12 +608,13 @@ export default function MarketOrder(properties) {
 
                   <Field>
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-4 text-xs">
+                      <span className="grid grid-cols-12 mt-1 text-xs">
                         <span className="col-span-1">
                           <HoverCard key="amountLockCard">
                             <HoverCardTrigger>
                               <Toggle
                                 variant="outline"
+                                className="!border-white/10 !text-white/80 hover:!bg-white/[0.06]"
                                 onClick={() => {
                                   if (priceLock === "editable") {
                                     setPriceLock("locked");
@@ -631,7 +637,7 @@ export default function MarketOrder(properties) {
                               </Toggle>
                             </HoverCardTrigger>
                             <HoverCardContent
-                              className="w-40 text-sm text-center pt-1 pb-1"
+                              className="w-40 text-sm text-center pt-1 pb-1 !bg-slate-900 !border-white/10 !text-white"
                               derp={t(
                                 "MarketOrder:priceLockHoverCardDescription"
                               )}
@@ -643,12 +649,12 @@ export default function MarketOrder(properties) {
                           </HoverCard>
                         </span>
                         <span className="col-span-10">
-                          <FieldLabel>
+                          <FieldLabel className="text-white/80">
                             {priceLock === "editable"
                               ? t("MarketOrder:updatingThePrice")
                               : t("MarketOrder:wantToChangeThePrice")}
                           </FieldLabel>
-                          <FieldDescription>
+                          <FieldDescription className="text-white/50">
                             {priceLock === "editable"
                               ? t("MarketOrder:existingPriceDescription", {
                                   existingPrice: existingPrice,
@@ -668,29 +674,30 @@ export default function MarketOrder(properties) {
 
                   {priceLock === "editable" && quoteAsset && baseAsset ? (
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-3">
+                      <span className="grid grid-cols-12 mt-1">
                         <span className="col-span-1"></span>
                         <span className="col-span-7">
-                          <Input
-                            label={t("MarketOrder:priceLabel")}
-                            placeholder={`${price} ${quoteAsset.symbol}/${baseAsset.symbol}`}
-                            disabled
-                            readOnly
-                          />
+                           <Input
+                             label={t("MarketOrder:priceLabel")}
+                             placeholder={`${price} ${quoteAsset.symbol}/${baseAsset.symbol}`}
+                             disabled
+                             readOnly
+                             className="!bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
+                           />
                         </span>
                         <span className="col-span-4 ml-3 text-center">
                           <Popover>
                             <PopoverTrigger asChild>
-                              <Button
-                                className="w-full"
+                               <Button
+                                className="w-full !border-white/10 !text-white/80 hover:!bg-white/[0.06]"
                                 onClick={() => event.preventDefault()}
                                 variant="outline"
                               >
                                 {t("MarketOrder:setNewPriceButton")}
                               </Button>
                             </PopoverTrigger>
-                            <PopoverContent>
-                              <Label>
+                            <PopoverContent className="!bg-slate-900 !border-white/10">
+                              <Label className="text-white/80">
                                 {t("MarketOrder:provideNewPriceLabel")}
                               </Label>
                               <Controller
@@ -699,7 +706,7 @@ export default function MarketOrder(properties) {
                                 render={({ field }) => (
                                   <Input
                                     placeholder={price}
-                                    className="mb-2 mt-1"
+                                    className="mb-2 mt-1 !bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                                     onChange={(event) => {
                                       const input = event.target.value;
                                       const regex = /^[0-9,]*\.?[0-9]*$/;
@@ -745,12 +752,13 @@ export default function MarketOrder(properties) {
 
                   <Field>
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-4 text-xs">
+                      <span className="grid grid-cols-12 mt-1 text-xs">
                         <span className="col-span-1">
                           <HoverCard key="amountLockCard">
                             <HoverCardTrigger>
                               <Toggle
                                 variant="outline"
+                                className="!border-white/10 !text-white/80 hover:!bg-white/[0.06]"
                                 onClick={() => {
                                   if (amountLock === "editable") {
                                     setAmountLock("locked");
@@ -770,7 +778,7 @@ export default function MarketOrder(properties) {
                                 )}
                               </Toggle>
                             </HoverCardTrigger>
-                            <HoverCardContent className="w-40 text-sm text-center pt-1 pb-1">
+                            <HoverCardContent className="w-40 text-sm text-center pt-1 pb-1 !bg-slate-900 !border-white/10 !text-white">
                               {amountLock === "editable"
                                 ? t("MarketOrder:editingAmountBeingSold")
                                 : t("MarketOrder:amountLocked")}
@@ -778,7 +786,7 @@ export default function MarketOrder(properties) {
                           </HoverCard>
                         </span>
                         <span className="col-span-11">
-                          <FieldLabel>
+                          <FieldLabel className="text-white/80">
                             {amountLock === "editable"
                               ? t("MarketOrder:updatingAmountBeingSold", {
                                   baseAssetSymbol: baseAsset
@@ -791,7 +799,7 @@ export default function MarketOrder(properties) {
                                     : "?",
                                 })}
                           </FieldLabel>
-                          <FieldDescription>
+                          <FieldDescription className="text-white/50">
                             {amountLock === "editable"
                               ? t("MarketOrder:existingAmountBeingSold", {
                                   existingBaseAmount: existingBaseAmount,
@@ -816,21 +824,22 @@ export default function MarketOrder(properties) {
                               }`}
                               disabled
                               readOnly
+                              className="!bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                             />
                           </span>
                           <span className="col-span-4 ml-3 text-center">
                             <Popover>
                               <PopoverTrigger asChild>
                                 <Button
-                                  className="w-full"
+                                  className="w-full !border-white/10 !text-white/80 hover:!bg-white/[0.06]"
                                   onClick={() => event.preventDefault()}
                                   variant="outline"
                                 >
                                   {t("MarketOrder:setNewSellAmountButton")}
                                 </Button>
                               </PopoverTrigger>
-                              <PopoverContent>
-                                <Label>
+                              <PopoverContent className="!bg-slate-900 !border-white/10">
+                                <Label className="text-white/80">
                                   {t("MarketOrder:provideNewAmountLabel")}
                                 </Label>
                                 <Controller
@@ -839,7 +848,7 @@ export default function MarketOrder(properties) {
                                   render={({ field }) => (
                                     <Input
                                       placeholder={amount}
-                                      className="mb-2"
+                                      className="mb-2 !bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                                       onChange={(event) => {
                                         const input = event.target.value;
                                         const regex = /^[0-9,]*\.?[0-9]*$/;
@@ -888,12 +897,13 @@ export default function MarketOrder(properties) {
 
                   <Field>
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-4 text-xs">
+                      <span className="grid grid-cols-12 mt-1 text-xs">
                         <span className="col-span-1">
                           <HoverCard key="sellTotalCard">
                             <HoverCardTrigger>
                               <Toggle
                                 variant="outline"
+                                className="!border-white/10 !text-white/80 hover:!bg-white/[0.06]"
                                 onClick={() => {
                                   if (totalLock === "editable") {
                                     setTotalLock("locked");
@@ -915,7 +925,7 @@ export default function MarketOrder(properties) {
                                 )}
                               </Toggle>
                             </HoverCardTrigger>
-                            <HoverCardContent className="w-40 text-sm text-center pt-1 pb-1">
+                            <HoverCardContent className="w-40 text-sm text-center pt-1 pb-1 !bg-slate-900 !border-white/10 !text-white">
                               {totalLock === "editable"
                                 ? t("MarketOrder:editingTotalAmountBeingSold")
                                 : t("MarketOrder:totalAmountLocked")}
@@ -923,7 +933,7 @@ export default function MarketOrder(properties) {
                           </HoverCard>
                         </span>
                         <span className="col-span-11">
-                          <FieldLabel>
+                          <FieldLabel className="text-white/80">
                             {amountLock === "editable" ||
                             totalLock === "editable"
                               ? t("MarketOrder:updatingTotalAmountBeingBought")
@@ -936,7 +946,7 @@ export default function MarketOrder(properties) {
                                   }
                                 )}
                           </FieldLabel>
-                          <FieldDescription>
+                          <FieldDescription className="text-white/50">
                             {totalLock === "editable"
                               ? t(
                                   "MarketOrder:existingTotalAmountBeingBought",
@@ -968,21 +978,22 @@ export default function MarketOrder(properties) {
                               }`}
                               disabled
                               readOnly
+                              className="!bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                             />
                           </span>
                           <span className="col-span-4 ml-3 text-center">
                             <Popover>
                               <PopoverTrigger asChild>
                                 <Button
-                                  className="w-full"
+                                  className="w-full !border-white/10 !text-white/80 hover:!bg-white/[0.06]"
                                   onClick={() => event.preventDefault()}
                                   variant="outline"
                                 >
                                   {t("MarketOrder:setNewTotalAmountButton")}
                                 </Button>
                               </PopoverTrigger>
-                              <PopoverContent>
-                                <Label>
+                              <PopoverContent className="!bg-slate-900 !border-white/10">
+                                <Label className="text-white/80">
                                   {t("MarketOrder:provideNewTotalLabel")}
                                 </Label>
                                 <Controller
@@ -991,7 +1002,7 @@ export default function MarketOrder(properties) {
                                   render={({ field }) => (
                                     <Input
                                       placeholder={total}
-                                      className="mb-2 mt-1"
+                                      className="mb-2 mt-1 !bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                                       onChange={(event) => {
                                         const input = event.target.value;
                                         const regex = /^[0-9,]*\.?[0-9]*$/;
@@ -1040,12 +1051,13 @@ export default function MarketOrder(properties) {
 
                   <Field>
                     <FieldContent>
-                      <span className="grid grid-cols-12 mt-4 text-sm">
+                      <span className="grid grid-cols-12 mt-1 text-sm">
                         <span className="col-span-1">
                           <HoverCard key="sellTotalCard">
                             <HoverCardTrigger>
                               <Toggle
                                 variant="outline"
+                                className="!border-white/10 !text-white/80 hover:!bg-white/[0.06]"
                                 onClick={() => {
                                   if (expirationLock === "editable") {
                                     setExpirationLock("locked");
@@ -1062,7 +1074,7 @@ export default function MarketOrder(properties) {
                                 )}
                               </Toggle>
                             </HoverCardTrigger>
-                            <HoverCardContent className="w-40 text-sm text-center pt-1 pb-1">
+                            <HoverCardContent className="w-40 text-sm text-center pt-1 pb-1 !bg-slate-900 !border-white/10 !text-white">
                               {expirationLock === "editable"
                                 ? t("MarketOrder:editingExpiration")
                                 : t("MarketOrder:expirationLocked")}
@@ -1070,12 +1082,12 @@ export default function MarketOrder(properties) {
                           </HoverCard>
                         </span>
                         <span className="col-span-11">
-                          <FieldLabel>
+                          <FieldLabel className="text-white/80">
                             {expirationLock === "editable"
                               ? t("MarketOrder:updatingExpiration")
                               : t("MarketOrder:wantToUpdateExpiration")}
                           </FieldLabel>
-                          <FieldDescription>
+                          <FieldDescription className="text-white/50">
                             {expirationLock === "editable"
                               ? t("MarketOrder:existingExpiration", {
                                   existingExpiration:
@@ -1146,7 +1158,7 @@ export default function MarketOrder(properties) {
                                 <SelectTrigger className="mb-3">
                                   <SelectValue placeholder="1hr" />
                                 </SelectTrigger>
-                                <SelectContent className="bg-white">
+                                <SelectContent className="!bg-slate-900 !border-white/10 !text-white">
                                   <SelectItem value="1hr">
                                     {t("MarketOrder:oneHour")}
                                   </SelectItem>
@@ -1175,7 +1187,7 @@ export default function MarketOrder(properties) {
                                     <Button
                                       variant={"outline"}
                                       className={cn(
-                                        "w-full justify-start text-left font-normal",
+                                        "w-full justify-start text-left font-normal !border-white/10 !text-white/80 hover:!bg-white/[0.06]",
                                         !date && "text-muted-foreground"
                                       )}
                                     >
@@ -1190,7 +1202,7 @@ export default function MarketOrder(properties) {
                                     </Button>
                                   </PopoverTrigger>
                                   <PopoverContent
-                                    className="w-auto p-0"
+                                    className="w-auto p-0 !bg-slate-900 !border-white/10"
                                     align="start"
                                   >
                                     <Calendar
@@ -1221,7 +1233,7 @@ export default function MarketOrder(properties) {
                             </span>
                             <span className="col-span-1"></span>
                             <span className="col-span-11">
-                              <FieldDescription>
+                              <FieldDescription className="text-white/50">
                                 {expiryType !== "specific"
                                   ? t("MarketOrder:limitOrderExpiry", {
                                       expiryType: expiryType,
@@ -1235,24 +1247,29 @@ export default function MarketOrder(properties) {
                     ) : null}
                   </Field>
 
-                  <Separator className="mb-2 mt-2" />
+                  <Separator className="mb-1 mt-1" />
 
                   <Field>
                     <FieldContent>
-                      <div className="flex items-center space-x-2 mt-4">
-                        <Checkbox
-                          id="terms1"
-                          checked={osoEnabled}
-                          onClick={() => {
-                            setOSOEnabled(!osoEnabled);
-                            setInputChars(inputChars + 1);
-                            form.setValue("osoEnabled", !osoEnabled);
-                          }}
-                        />
-                        <label
-                          htmlFor="terms1"
-                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      <div
+                        className="w-full flex items-center space-x-3 mt-2 cursor-pointer hover:bg-white/[0.03] rounded-lg px-4 py-2 transition-colors"
+                        onClick={() => {
+                          setOSOEnabled(!osoEnabled);
+                          setInputChars(inputChars + 1);
+                          form.setValue("osoEnabled", !osoEnabled);
+                        }}
+                      >
+                        <div
+                          className={cn(
+                            "h-5 w-5 shrink-0 rounded-sm border flex items-center justify-center transition-colors",
+                            osoEnabled
+                              ? "border-violet-500 bg-violet-600 text-white"
+                              : "border-white/20 bg-transparent"
+                          )}
                         >
+                          {osoEnabled && <Check className="h-3.5 w-3.5" />}
+                        </div>
+                        <label className="text-sm font-medium cursor-pointer flex-1 text-white/80">
                           {osoEnabled
                             ? t("MarketOrder:osoEnabled")
                             : t("MarketOrder:enableOso")}
@@ -1260,7 +1277,7 @@ export default function MarketOrder(properties) {
                       </div>
                     </FieldContent>
                     {osoEnabled ? (
-                      <FieldDescription>
+                      <FieldDescription className="text-white/50">
                         {t("MarketOrder:autoOsoActive")}
                       </FieldDescription>
                     ) : null}
@@ -1269,10 +1286,10 @@ export default function MarketOrder(properties) {
                   {osoEnabled ? (
                     <>
                       <Field>
-                        <FieldLabel className="text-sm">
+                        <FieldLabel className="text-sm text-white/80">
                           {t("MarketOrder:spreadPercentLabel")}
                         </FieldLabel>
-                        <FieldDescription>
+                        <FieldDescription className="text-white/50">
                           {t("MarketOrder:spreadPercentDescription")}
                         </FieldDescription>
                         <FieldContent>
@@ -1283,6 +1300,7 @@ export default function MarketOrder(properties) {
                                 placeholder={spreadPercent}
                                 disabled
                                 readOnly
+                                className="!bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                               />
                               <Slider
                                 className="mt-3"
@@ -1304,22 +1322,22 @@ export default function MarketOrder(properties) {
                                     onClick={() => {
                                       event.preventDefault();
                                     }}
-                                    className="inline-block border border-gray-300 rounded pl-4 pb-1 pr-4 text-lg"
+                                    className="inline-block border border-white/10 rounded pl-4 pb-1 pr-4 text-lg cursor-pointer"
                                   >
-                                    <Label>
+                                    <Label className="text-white/80">
                                       {t("MarketOrder:editSpreadLabel")}
                                     </Label>
                                   </span>
                                 </PopoverTrigger>
-                                <PopoverContent>
-                                  <Label>
+                                <PopoverContent className="!bg-slate-900 !border-white/10">
+                                  <Label className="text-white/80">
                                     {t(
                                       "MarketOrder:provideNewSpreadPercentLabel"
                                     )}
                                   </Label>
                                   <Input
                                     placeholder={spreadPercent}
-                                    className="mb-2 mt-1"
+                                    className="mb-2 mt-1 !bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                                     onChange={(event) => {
                                       const input = event.target.value;
                                       const regex = /^[0-9]*\.?[0-9]*$/;
@@ -1346,10 +1364,10 @@ export default function MarketOrder(properties) {
                         </FieldContent>
                       </Field>
                       <Field>
-                        <FieldLabel className="text-sm">
+                        <FieldLabel className="text-sm text-white/80">
                           {t("MarketOrder:sizePercentLabel")}
                         </FieldLabel>
-                        <FieldDescription>
+                        <FieldDescription className="text-white/50">
                           {t("MarketOrder:sizePercentDescription")}
                         </FieldDescription>
                         <FieldContent>
@@ -1360,6 +1378,7 @@ export default function MarketOrder(properties) {
                                 placeholder={sizePercent}
                                 disabled
                                 readOnly
+                                className="!bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                               />
                               <Slider
                                 className="mt-3"
@@ -1381,22 +1400,22 @@ export default function MarketOrder(properties) {
                                     onClick={() => {
                                       event.preventDefault();
                                     }}
-                                    className="inline-block border border-gray-300 rounded pl-4 pb-1 pr-4 text-lg"
+                                    className="inline-block border border-white/10 rounded pl-4 pb-1 pr-4 text-lg cursor-pointer"
                                   >
-                                    <Label>
+                                    <Label className="text-white/80">
                                       {t("MarketOrder:editSizeLabel")}
                                     </Label>
                                   </span>
                                 </PopoverTrigger>
-                                <PopoverContent>
-                                  <Label>
+                                <PopoverContent className="!bg-slate-900 !border-white/10">
+                                  <Label className="text-white/80">
                                     {t(
                                       "MarketOrder:provideNewSizePercentLabel"
                                     )}
                                   </Label>
                                   <Input
                                     placeholder={sizePercent}
-                                    className="mb-2 mt-1"
+                                    className="mb-2 mt-1 !bg-white/[0.04] !border-white/10 !text-white placeholder:text-white/35"
                                     onChange={(event) => {
                                       const input = event.target.value;
                                       const regex = /^[0-9]*\.?[0-9]*$/;
@@ -1424,10 +1443,10 @@ export default function MarketOrder(properties) {
                       </Field>
 
                       <Field>
-                        <FieldLabel className="text-sm">
+                        <FieldLabel className="text-sm text-white/80">
                           {t("MarketOrder:setOsoRepeatLabel")}
                         </FieldLabel>
-                        <FieldDescription>
+                        <FieldDescription className="text-white/50">
                           {t("MarketOrder:osoRepeatDescription")}
                         </FieldDescription>
                         <FieldContent>
@@ -1443,7 +1462,7 @@ export default function MarketOrder(properties) {
                             />
                             <label
                               htmlFor="terms2"
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white/80"
                             >
                               {repeat
                                 ? t("MarketOrder:osoConfiguredToRepeat")
@@ -1455,34 +1474,37 @@ export default function MarketOrder(properties) {
                     </>
                   ) : null}
 
-                  <Separator className="mt-3" />
+                  <Separator className="mt-1" />
 
                   <Field>
-                    <FieldLabel>{t("MarketOrder:networkFeeLabel")}</FieldLabel>
+                    <FieldLabel className="text-white/80">{t("MarketOrder:networkFeeLabel")}</FieldLabel>
                     <FieldContent>
-                      <Input
-                        disabled
-                        placeholder={`${fee} BTS`}
-                        className="mb-3 mt-3"
-                      />
+                      <div className="rounded-xl border border-amber-400/20 bg-amber-500/[0.06] p-3">
+                        <div className="text-[10px] font-medium uppercase tracking-wider text-amber-200/80 mb-1 inline-flex items-center gap-1">
+                          <Zap className="h-3 w-3" strokeWidth={2.5} />
+                          {t("MarketOrder:networkFeeLabel")}
+                        </div>
+                        <div className="flex items-center gap-1 font-mono text-sm tabular-nums text-amber-400">
+                          <Zap className="h-3.5 w-3.5" strokeWidth={2.5} />
+                          {fee ? fee.toFixed(5) : "0.00000"} BTS
+                        </div>
+                        {usr.id === usr.referrer ? (
+                          <div className="text-xs text-amber-400/60 mt-1">
+                            {t("MarketOrder:rebateMessage", { rebate: trimPrice(fee * 0.8, 5) })}
+                          </div>
+                        ) : null}
+                      </div>
                     </FieldContent>
-                    {usr.id === usr.referrer ? (
-                      <FieldError>
-                        {t("MarketOrder:rebateMessage", {
-                          rebate: trimPrice(fee * 0.8, 5),
-                        })}
-                      </FieldError>
-                    ) : null}
                   </Field>
 
                   <Button
-                    className="mt-5 mb-3"
-                    variant="outline"
+                    className="mt-2 mb-1 w-full h-12 gap-2 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white font-semibold shadow-lg shadow-amber-900/30 hover:brightness-110 active:scale-[0.99] transition-all"
                     onClick={(event) => {
                       setShowDialog(true);
                       event.preventDefault();
                     }}
                   >
+                    <Zap className="h-4 w-4" />
                     {t("MarketOrder:submitLimitOrderChangesButton")}
                   </Button>
                 </FieldGroup>
@@ -1505,33 +1527,33 @@ export default function MarketOrder(properties) {
           </Card>
 
           <div className="grid grid-cols-2 mt-3 gap-5">
-            <Card>
+            <Card className="!bg-slate-950/60 !backdrop-blur-xl !border-white/10">
               <CardHeader className="pb-0">
-                <CardTitle>
+                <CardTitle className="text-white">
                   {quoteAsset ? quoteAsset.symbol : "?"} (
                   {quoteAsset ? quoteAsset.id : "1.3.x"})
                   {t("MarketOrder:balance")}
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-white/60">
                   {t("MarketOrder:limitOrderQuoteAsset")}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="text-white/80">
                 {quoteBalance} {quoteAsset ? quoteAsset.symbol : "?"}
               </CardContent>
             </Card>
-            <Card>
+            <Card className="!bg-slate-950/60 !backdrop-blur-xl !border-white/10">
               <CardHeader className="pb-0">
-                <CardTitle>
+                <CardTitle className="text-white">
                   {baseAsset ? baseAsset.symbol : "?"} (
                   {baseAsset ? baseAsset.id : "1.3.x"})
                   {t("MarketOrder:balance")}
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-white/60">
                   {t("MarketOrder:limitOrderBaseAsset")}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="text-white/80">
                 {baseBalance} {baseAsset ? baseAsset.symbol : "?"}
               </CardContent>
             </Card>
@@ -1539,21 +1561,48 @@ export default function MarketOrder(properties) {
 
           <div className="grid grid-cols-2 gap-5 mt-1">
             <div className="col-span-1">
+              <a
+                href={`/dex/index.html?market=${
+                  quoteAsset ? quoteAsset.symbol : "?"
+                }_${baseAsset ? baseAsset.symbol : "?"}`}
+              >
+                <Card className="!bg-slate-950/60 !backdrop-blur-xl !border-sky-400/20 hover:!border-sky-400/40 transition-colors">
+                  <CardHeader>
+                    <CardTitle className="text-sky-200">{t("MarketOrder:tradeOnDexTitle")}</CardTitle>
+                    <CardDescription className="text-white/50">
+                      {t("MarketOrder:market")}{" "}
+                      {quoteAsset ? quoteAsset.symbol : "?"}/
+                      {baseAsset ? baseAsset.symbol : "?"}
+                      <br />
+                      {t("MarketOrder:createNewLimitOrder")}
+                      <br />
+                      {t("MarketOrder:seekAdditionalMarketData")}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </a>
+            </div>
+            <div className="col-span-1">
               <Card
-                className="mb-3"
+                className="mb-3 !bg-slate-950/60 !backdrop-blur-xl !border-rose-400/20 hover:!border-rose-400/40 cursor-pointer transition-colors"
                 onClick={() => {
                   setCancelDialog(true);
                 }}
               >
                 <CardHeader>
-                  <CardTitle>
+                  <CardTitle className="text-rose-300">
                     {t("MarketOrder:cancelLimitOrderTitle")}
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-white/50">
                     {t("MarketOrder:cancelLimitOrderDescription", {
                       limitOrderID: limitOrderID,
                     })}
                   </CardDescription>
+                  <div className="flex items-center gap-1.5 mt-2 text-xs">
+                    <Zap className="h-3 w-3 text-rose-400" strokeWidth={2.5} />
+                    <span className="font-mono text-rose-400">{cancelFee ? cancelFee.toFixed(5) : "0.00000"} BTS</span>
+                    <span className="text-white/40">fee</span>
+                  </div>
                 </CardHeader>
               </Card>
 
@@ -1577,94 +1626,10 @@ export default function MarketOrder(properties) {
                   ]}
                 />
               ) : null}
-
-              <a
-                href={`/dex/index.html?market=${
-                  quoteAsset ? quoteAsset.symbol : "?"
-                }_${baseAsset ? baseAsset.symbol : "?"}`}
-              >
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{t("MarketOrder:tradeOnDexTitle")}</CardTitle>
-                    <CardDescription>
-                      {t("MarketOrder:market")}{" "}
-                      {quoteAsset ? quoteAsset.symbol : "?"}/
-                      {baseAsset ? baseAsset.symbol : "?"}
-                      <br />
-                      {t("MarketOrder:createNewLimitOrder")}
-                      <br />
-                      {t("MarketOrder:seekAdditionalMarketData")}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </a>
             </div>
-            <Card>
-              <CardHeader className="pb-0">
-                <CardTitle>{t("MarketOrder:borrowAssetsTitle")}</CardTitle>
-                <CardDescription>
-                  {t("MarketOrder:borrowAssetsDescription", {
-                    quoteAsset: quoteAsset ? quoteAsset.symbol : "?",
-                    baseAsset: baseAsset ? baseAsset.symbol : "?",
-                  })}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Label>{t("MarketOrder:searchBorrowableAssetsLabel")}</Label>
-                <br />
-                <a
-                  href={`/borrow/index.html?tab=searchOffers&searchTab=borrow&searchText=${
-                    quoteAsset ? quoteAsset.symbol : ""
-                  }`}
-                >
-                  <Badge>{quoteAsset ? quoteAsset.symbol : "?"}</Badge>
-                </a>
-                <a
-                  href={`/borrow/index.html?tab=searchOffers&searchTab=borrow&searchText=${
-                    baseAsset ? baseAsset.symbol : ""
-                  }`}
-                >
-                  <Badge className="ml-2 mt-1 mb-1">
-                    {baseAsset ? baseAsset.symbol : ""}
-                  </Badge>
-                </a>
-                <br />
-                <Label>{t("MarketOrder:searchAcceptedCollateralLabel")}</Label>
-                <br />
-                <a
-                  href={`/borrow/index.html?tab=searchOffers&searchTab=collateral&searchText=${
-                    quoteAsset ? quoteAsset.symbol : "?"
-                  }`}
-                >
-                  <Badge>{quoteAsset ? quoteAsset.symbol : "?"}</Badge>
-                </a>
-                <a
-                  href={`/borrow/index.html?tab=searchOffers&searchTab=collateral&searchText=${
-                    baseAsset ? baseAsset.symbol : ""
-                  }`}
-                >
-                  <Badge className="ml-2 mt-1">
-                    {baseAsset ? baseAsset.symbol : ""}
-                  </Badge>
-                </a>
-              </CardContent>
-            </Card>
           </div>
         </div>
 
-        {quoteAsset && baseAsset ? (
-          <PoolDialogs
-            assetA={quoteAsset.symbol}
-            assetAData={quoteAsset}
-            assetB={baseAsset.symbol}
-            assetBData={baseAsset}
-            chain={usr.chain}
-            _assetsBTS={_assetsBTS}
-            _assetsTEST={_assetsTEST}
-            _poolsBTS={_poolsBTS}
-            _poolsTEST={_poolsTEST}
-          />
-        ) : null}
       </div>
     </>
   );

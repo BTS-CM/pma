@@ -53,7 +53,7 @@
     "hover1": "Lav manuelt begrænsede ordrer.",
     "hover2": "Brug ethvert aktivhandelspar.",
     "hover3": "Angiv ordrens udløbsdatoer.",
-    "hover4": "Mere kompleks, men billigere end poolbytte."
+    "hover4": "Handel peer-to-peer med fuld priskontrol."
   },
   "pool": {
     "title": "💱 Liquidity Pool Exchange",
@@ -79,7 +79,21 @@
   "transfer": {
     "title": "Overfør aktiver",
     "subtitle": "Send aktiver til andre brugere",
-    "hover1": "Overfør aktiver til enhver på Bitshares blockchain på få sekunder."
+    "hover1": "Overfør aktiver til alle på Bitshares-blockchain på sekunder."
+  },
+  "instant_trade": {
+    "title": "Øjeblikkelig handel",
+    "subtitle": "Byt hurtigt aktiver til de bedste tilgængelige priser",
+    "hover1": "Handl øjeblikkeligt aktiver på DEX uden distraktioner.",
+    "hover2": "Bruger fill-or-kill-ordret teknologi til enten at få de priser, du ønsker, eller annullere ordren.",
+    "hover3": "Se hvem du handler med på DEX, og om de har aktiveret on-fill-betingelser på deres ordrer."
+  },
+  "simple_asset_swap": {
+    "title": "Simpel aktivbytte",
+    "subtitle": "Byt nemmere aktiver via puljer",
+    "hover1": "Byt aktiver via brugerskabte likviditetspuljer.",
+    "hover2": "Puljer har forskellige handelspar og gebyrer.",
+    "hover3": "Nemmere men dyrere end en begrænsningsordre."
   },
   "timed_transfer": {
     "title": "⏱ Tidsbestemt overførsel",
@@ -216,8 +230,8 @@
     "hover3": "Opsummerede blockchain-datagennemsnit og totaler."
   },
   "create_prediction": {
-    "title": "Forudsigelsesmarkedsaktiv",
-    "subtitle": "Lav et væddemål om hvad som helst",
+    "title": "Opret predictionsmarkedsaktiv",
+    "subtitle": "Opret en ny on-chain indsats om ethvert emne",
     "hover1": "Lav væddemål om bogstaveligt talt alt.",
     "hover2": "Vær bookmaker og sæt din egen kommission.",
     "hover3": "Både kort- og langsigtede væddemål er mulige."
@@ -468,9 +482,11 @@
     "account": "Konto",
     "moreTools": "Flere værktøjer",
     "settings": "Indstillinger",
+    "exchange": "Børs",
     "predictionMarketsSubtitle": "Gennemse, handl og opret predictionsmarkeder",
     "accountSubtitle": "Administrer portefølje, ordrer og favoritter",
-    "moreToolsSubtitle": "DEX-handel, indstillinger og værktøjer"
+    "moreToolsSubtitle": "Indstillinger, noder og kontoværktøjer",
+    "exchangeSubtitle": "Handl og overfør på DEX"
   },
   "settlement": {
     "title": "Smartcoin-afvikling",

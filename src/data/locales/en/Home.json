@@ -53,7 +53,7 @@
     "hover1": "Manually craft limit orders.",
     "hover2": "Use any asset trading pair.",
     "hover3": "Specify order expiration dates.",
-    "hover4": "More complex but cheaper than pool swaps."
+    "hover4": "Trade peer-to-peer with full price control."
   },
   "pool": {
     "title": "💱 Liquidity Pool Exchange",
@@ -80,6 +80,20 @@
     "title": "Transfer Assets",
     "subtitle": "Send assets to other users",
     "hover1": "Transfer assets to anyone on the Bitshares blockchain in seconds."
+  },
+  "instant_trade": {
+    "title": "Instant Trade",
+    "subtitle": "Quickly swap assets at the best available prices",
+    "hover1": "Instantly trade assets on the DEX without any distractions.",
+    "hover2": "Utilizes fill-or-kill order technology to either get the prices you want or cancels the order.",
+    "hover3": "See who you'll be trading with on the DEX and whether they've enabled on-fill conditions on their orders."
+  },
+  "simple_asset_swap": {
+    "title": "Simple Asset Swap",
+    "subtitle": "More easily swap assets via pools",
+    "hover1": "Swap assets via user created liquidity pools.",
+    "hover2": "Pools have different trading pairs and fees.",
+    "hover3": "Simpler but more costly than a limit order."
   },
   "timed_transfer": {
     "title": "⏱️ Timed Transfer",
@@ -251,8 +265,8 @@
     "hover3": "Summarized blockchain data averages and totals."
   },
   "create_prediction": {
-    "title": "Prediction Market Asset",
-    "subtitle": "Create a bet about anything",
+    "title": "Create Prediction Market Asset",
+    "subtitle": "Mint a new on-chain bet on any topic",
     "hover1": "Create bets about literally anything.",
     "hover2": "Be the bookie and set your own commission.",
     "hover3": "Both short and long term bets are possible."
@@ -462,9 +476,11 @@
     "account": "Account",
     "moreTools": "More tools",
     "settings": "Settings",
+    "exchange": "Exchange",
     "predictionMarketsSubtitle": "Browse, trade and create prediction markets",
     "accountSubtitle": "Manage your portfolio, orders and favourites",
-    "moreToolsSubtitle": "DEX trading, settings and utilities"
+    "moreToolsSubtitle": "Settings, nodes and account utilities",
+    "exchangeSubtitle": "Trade and transfer on the DEX"
   },
   "about": {
     "title": "About",

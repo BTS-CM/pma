@@ -1,17 +1,17 @@
 {
-  "name": "bitshares_astro_ui",
-  "productName": "Bitshares Astro UI",
-  "version": "0.2.12",
+  "name": "bitshares_prediction_market_ui",
+  "productName": "Bitshares Prediction Market UI",
+  "version": "1.0.0",
   "main": "app/background.js",
-  "homepage": "https://github.com/bts-cm/astro-ui",
-  "repository": "github:bts-cm/astro-ui",
+  "homepage": "https://github.com/bts-cm/pma",
+  "repository": "github:bts-cm/pma",
   "author": "BeetEOS team <nftea.gallery@gmail.com>",
-  "description": "Bitshares market UI",
+  "description": "Bitshares Prediction Market UI",
   "license": "MIT",
   "build": {
-    "appId": "bitshares_astro_ui",
-    "productName": "Bitshares Astro UI",
-    "artifactName": "BTSAstroUI.${ext}",
+    "appId": "bitshares_prediction_market_ui",
+    "productName": "Bitshares Prediction Market UI",
+    "artifactName": "BTSPredictionMarketUI.${ext}",
     "files": [
       "app/**/*",
       "node_modules/**/*",
@@ -41,7 +41,7 @@
         "AppImage"
       ],
       "mimeTypes": [],
-      "executableName": "BTSAstroUI %U"
+      "executableName": "BTSPredictionMarketUI %U"
     }
   },
   "dependencies": {
@@ -155,12 +155,13 @@
     "eraseFees": "rm -rf ./src/data/bitshares/fees.json && rm -rf ./src/data/bitshares_testnet/fees.json",
     "a": "",
     "refreshData": "rm -rf ./src/data/bitshares/* && rm -rf ./src/data/bitshares_testnet/* && bun run initData",
-    "initData": "bun run fetchFees && bun run fetchAssets && bun run fetchDynamicData && bun run fetchIssuers && bun run fetchBitassetData",
+    "initData": "bun run fetchPools && bun run fetchFees && bun run fetchAssets && bun run fetchDynamicData && bun run fetchIssuers && bun run fetchBitassetData",
     "fetchAssets": "bun run ./src/data/fetchAssets.js",
     "fetchDynamicData": "bun run ./src/data/fetchDynamicData.js",
     "fetchIssuers": "bun run ./src/data/fetchAssetIssuers.js",
     "fetchBitassetData": "bun run ./src/data/fetchBitassetData.js",
     "fetchFees": "bun run ./src/data/fetchFees.js",
+    "fetchPools": "bun run ./src/data/fetchPools.js",
     "b": "",
     "dev": "astro dev",
     "build:astro": "astro build",

@@ -5,15 +5,6 @@ import { bytesToHex as toHex, utf8ToBytes } from "@noble/hashes/utils.js";
 import { useTranslation } from "react-i18next";
 import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/Avatar.tsx";
@@ -96,16 +87,17 @@ export default function AccountSearch(properties) {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-3">
+      <div className="grid grid-cols-1 gap-3 text-white">
         {!searchResponse ? (
           <>
-            <div className="col-span-1">
+            <div className="col-span-1 text-sm text-white/70">
               {t("AccountSearch:noSearch.prompt")}
             </div>
             <div className="col-span-1">
               <Input
                 value={accountInput || ""}
                 placeholder={t("AccountSearch:noSearch.placeholder")}
+                className="bg-slate-950/60 border-white/[0.08] text-white placeholder:text-white/35 focus-visible:ring-violet-400/50"
                 onKeyDown={(event) => {
                   if (event.key === "Enter" && !inProgress) {
                     setInProgress(true);
@@ -122,33 +114,41 @@ export default function AccountSearch(properties) {
                 }}
               />
               {errorMessage ? (
-                <p className="text-red-500 text-xs italic">
+                <p className="text-rose-400 text-xs italic mt-1">
                   {errorMessage || "ERROR"}
                 </p>
               ) : null}
             </div>
             <div className="col-span-1">
               {accountInput ? (
-                <Button onClick={() => lookupAccount()}>
+                <Button
+                  className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-900/30"
+                  onClick={() => lookupAccount()}
+                >
                   {t("AccountSearch:noSearch.continue")}
                 </Button>
               ) : (
-                <Button disabled>{t("AccountSearch:noSearch.continue")}</Button>
+                <Button
+                  disabled
+                  className="border-white/[0.06] text-white/30"
+                  variant="outline"
+                >
+                  {t("AccountSearch:noSearch.continue")}
+                </Button>
               )}
             </div>
           </>
         ) : null}
         {searchResponse ? (
           <>
-            <div className="col-span-1">
+            <div className="col-span-1 text-sm text-white/70">
               {chain === "bitshares"
                 ? t("AccountSearch:searchResponse.promptBTS")
                 : t("AccountSearch:searchResponse.promptTEST")}
             </div>
             <div className="col-span-1">
-              <Card
-                key={searchResponse.id}
-                className="mb-2 mt-1 text-center"
+              <div
+                className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-md shadow-black/30 cursor-pointer hover:border-violet-500/30 transition-colors"
                 onClick={() => {
                   setChosenAccount({
                     name: searchResponse.name,
@@ -176,8 +176,9 @@ export default function AccountSearch(properties) {
                     />
                   </div>
                   <div className="col-span-3">
-                    <CardHeader>
-                      <CardTitle
+                    <div className="p-4 sm:p-5">
+                      <h4
+                        className="font-semibold text-white/90 text-sm tracking-tight"
                         style={{
                           whiteSpace: "nowrap",
                           overflow: "hidden",
@@ -185,19 +186,19 @@ export default function AccountSearch(properties) {
                         }}
                       >
                         {searchResponse.name}
-                      </CardTitle>
-                      <CardDescription>{searchResponse.id}</CardDescription>
-                    </CardHeader>
+                      </h4>
+                      <p className="text-xs text-white/45">{searchResponse.id}</p>
+                    </div>
                   </div>
                 </div>
-              </Card>
+              </div>
             </div>
             <div className="col-span-1">
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 gap-2">
                 <div>
                   <Button
                     variant="outline"
-                    className="mr-2"
+                    className="border-white/[0.08] text-white/70 hover:text-white hover:bg-white/[0.06] w-full"
                     onClick={() => {
                       setErrorMessage();
                       setSearchResponse();
@@ -209,6 +210,7 @@ export default function AccountSearch(properties) {
                 <div className="text-right">
                   <Button
                     variant="outline"
+                    className="border-violet-500/30 text-violet-300 hover:bg-violet-500/10 hover:text-violet-200 hover:border-violet-400/50 w-full"
                     onClick={() => {
                       setChosenAccount({
                         name: searchResponse.name,
