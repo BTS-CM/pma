@@ -43,16 +43,16 @@ The app is organised around the full lifecycle of a prediction market asset, fro
 ### Settlement
 - **Global settlement (collateral bids)** — if a PMA is stalled or you want to force a resolution, place a collateral bid on the global-settlement engine. The chain auctions the backing collateral to the highest bidder, and the winning bidder ends up holding the collateral outright.
 
-### Top markets
-- **24-hour market rankings** — the most-traded PMAs on the chain over the last 24 hours, sorted by volume. Useful for spotting trending markets or for finding liquidity.
-
 ## Supporting features
 
 Beyond the prediction-market workflow, the app includes a small set of utilities you'll need to actually use it day-to-day:
 
 - **Favourites** — pin assets, accounts and trading pairs for quick access. Favourites persist across sessions and are scoped to each chain.
 - **Transfers** — send assets to other Bitshares accounts, with memo support.
-- **Top markets** — see what's hot in the last 24 hours.
+- **Instant Trading** - instantly exchange between trading pairs on the DEX
+- **Advanced DEX limit orders** - trade between any two assets using advanced features
+- **Simple Pool Swaps** - perform a quick pool asset swap
+- **Account blocklist** - block accounts you dont like.
 - **Multi-language** — fully translated to 10 languages (English, German, Danish, Spanish, Estonian, French, Italian, Japanese, Korean, Portuguese, Thai).
 - **Multi-wallet** — works with both Beet (Bitshares mainnet) and BeetEOS (Bitshares Testnet).
 - **Customisable visuals** — a `/visuals` settings page lets you tune the header wave animation, aurora, particle field, blur and colour palette, with live previews and a reset-to-defaults button.
