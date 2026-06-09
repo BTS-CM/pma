@@ -28,6 +28,10 @@
       "header_content": "A data e hora de resolução é a data e hora em que o ativo do mercado de previsão será resolvido. Esta é a data e hora em que o ativo do mercado de previsão será avaliado e os vencedores serão pagos."
     }
   },
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+  },
   "buttons": {
     "submit": "Enviar"
   }

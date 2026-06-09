@@ -28,6 +28,10 @@
       "header_content": "解決日時は、予測市場資産が解決される日時です。これは、予測市場資産が評価され、勝者に支払いが行われる日時です。"
     }
   },
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+  },
   "buttons": {
     "submit": "提出する"
   }

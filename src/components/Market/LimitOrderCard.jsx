@@ -1521,27 +1521,43 @@ export default function LimitOrderCard(properties) {
                 </div>
               ) : null}
               {!amount || !price || !expiry ? (
-                <Button
-                  className="mt-2 mb-1 w-full h-12 text-white font-semibold bg-gradient-to-r from-white/10 to-white/5 cursor-not-allowed opacity-60"
-                  disabled
-                  type="submit"
-                >
-                  <Zap className="h-4 w-4 mr-2" />
-                  {t("LimitOrderCard:submit")}
-                </Button>
+                <div className="mt-2 mb-1 grid grid-cols-2 gap-2">
+                  <div className="flex items-center justify-center gap-1.5 h-12 rounded-xl border border-amber-400/20 bg-amber-500/[0.06]">
+                    <Zap className="h-3.5 w-3.5 text-amber-400" strokeWidth={2.5} />
+                    <span className="font-mono text-xs text-amber-400">
+                      {fee ? `${fee.toFixed(5)} BTS` : "0.00000 BTS"}
+                    </span>
+                  </div>
+                  <Button
+                    className="h-12 text-white font-semibold bg-gradient-to-r from-white/10 to-white/5 cursor-not-allowed opacity-60"
+                    disabled
+                    type="submit"
+                  >
+                    <Zap className="h-4 w-4 mr-2" />
+                    {t("LimitOrderCard:submit")}
+                  </Button>
+                </div>
               ) : (
-                <Button
-                  className={cn(
-                    "mt-2 mb-1 w-full h-12 gap-2 text-white font-semibold",
-                    "bg-gradient-to-r shadow-lg shadow-black/30",
-                    accent.gradient,
-                    "hover:brightness-110 active:scale-[0.99] transition-all"
-                  )}
-                  type="submit"
-                >
-                  <Zap className="h-4 w-4" />
-                  {t("LimitOrderCard:submit")}
-                </Button>
+                <div className="mt-2 mb-1 grid grid-cols-2 gap-2">
+                  <div className="flex items-center justify-center gap-1.5 h-12 rounded-xl border border-amber-400/20 bg-amber-500/[0.06]">
+                    <Zap className="h-3.5 w-3.5 text-amber-400" strokeWidth={2.5} />
+                    <span className="font-mono text-xs text-amber-400">
+                      {fee ? `${fee.toFixed(5)} BTS` : "0.00000 BTS"}
+                    </span>
+                  </div>
+                  <Button
+                    className={cn(
+                      "h-12 gap-2 text-white font-semibold",
+                      "bg-gradient-to-r shadow-lg shadow-black/30",
+                      accent.gradient,
+                      "hover:brightness-110 active:scale-[0.99] transition-all"
+                    )}
+                    type="submit"
+                  >
+                    <Zap className="h-4 w-4" />
+                    {t("LimitOrderCard:submit")}
+                  </Button>
+                </div>
               )}
             </FieldGroup>
           </form>

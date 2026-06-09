@@ -28,6 +28,10 @@
       "header_content": "Lahendamise kuupäev ja kellaaeg on kuupäev ja kellaaeg, mil prognoositava turu vara lahendatakse. See on kuupäev ja kellaaeg, mil prognoositava turu vara hinnatakse ja võitjatele välja makstakse."
     }
   },
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+  },
   "buttons": {
     "submit": "Esita"
   }

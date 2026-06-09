@@ -28,6 +28,10 @@
       "header_content": "Opløsningsdatoen og -tidspunktet er den dato og det tidspunkt, hvor forudsigelsesmarkedsaktivet vil blive løst. Dette er datoen og tidspunktet, hvor forudsigelsesmarkedsaktivet vil blive evalueret, og vinderne vil blive udbetalt."
     }
   },
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+  },
   "buttons": {
     "submit": "Indsend"
   }

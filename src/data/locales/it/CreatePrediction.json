@@ -28,6 +28,10 @@
       "header_content": "La data e l'ora di risoluzione sono la data e l'ora in cui l'asset del mercato di previsione verrà risolto. Questa è la data e l'ora in cui l'asset del mercato di previsione verrà valutato e i vincitori verranno pagati."
     }
   },
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+  },
   "buttons": {
     "submit": "Invia"
   }

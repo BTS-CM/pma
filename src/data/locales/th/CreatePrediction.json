@@ -28,6 +28,10 @@
       "header_content": "วันที่และเวลาที่แก้ไขคือวันที่และเวลาที่สินทรัพย์ในตลาดการคาดการณ์จะได้รับการแก้ไข นี่คือวันที่และเวลาที่สินทรัพย์ในตลาดการคาดการณ์จะได้รับการประเมิน และผู้ชนะจะได้รับการจ่ายเงิน"
     }
   },
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+  },
   "buttons": {
     "submit": "ส่ง"
   }

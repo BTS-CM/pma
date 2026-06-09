@@ -28,6 +28,10 @@
       "header_content": "해결일시란 예측시장 자산이 해결되는 날짜와 시간으로, 예측시장 자산이 평가되어 승자에게 지급되는 날짜와 시간입니다."
     }
   },
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+  },
   "buttons": {
     "submit": "제출하다"
   }

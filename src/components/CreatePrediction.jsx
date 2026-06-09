@@ -32,6 +32,7 @@ import {
   Tag,
   FileText,
   AlertCircle,
+  Zap,
 } from "lucide-react";
 
 import { DateTimePicker, TimePicker } from "@/components/ui/datetime-picker";
@@ -361,7 +362,7 @@ export default function Prediction(properties) {
   );
   const currentNode = useStore($currentNode);
 
-  const { _assetsBTS, _assetsTEST, _marketSearchBTS, _marketSearchTEST } =
+  const { _assetsBTS, _assetsTEST, _marketSearchBTS, _marketSearchTEST, _feeScheduleBTS, _feeScheduleTEST } =
     properties;
 
   const _chain = useMemo(() => {
@@ -377,6 +378,14 @@ export default function Prediction(properties) {
     }
     return [];
   }, [_marketSearchBTS, _marketSearchTEST, usr]);
+
+  // Fee schedule for asset creation (operation 10)
+  const feeSchedule = useMemo(() => {
+    const schedule = _chain === "bitshares" ? _feeScheduleBTS : _feeScheduleTEST;
+    if (!schedule) return null;
+    const op10 = schedule.find((op) => op.id === 10);
+    return op10 ? op10.data : null;
+  }, [_chain, _feeScheduleBTS, _feeScheduleTEST]);
 
   useInitCache(_chain ?? "bitshares", []);
 
@@ -528,6 +537,96 @@ export default function Prediction(properties) {
   const [nftMedia, setNFTMedia] = useState([]);
   const [newMediaType, setNewMediaType] = useState("");
   const [newMediaUrl, setNewMediaUrl] = useState("");
+
+  // Estimate asset creation fee based on symbol length, sub-asset, and data size
+  const [estimatedFee, setEstimatedFee] = useState(0);
+  const [feeCalculating, setFeeCalculating] = useState(false);
+
+  // Debounced fee calculation
+  const debouncedCalculateFee = useCallback(
+    debounce(() => {
+      if (!feeSchedule || !usr || !usr.id) return;
+      setFeeCalculating(true);
+
+      // Symbol length fee
+      let symbolFee = 0;
+      const symLen = symbol.length;
+      if (symLen === 3) {
+        symbolFee = parseInt(feeSchedule.symbol3 || "0", 10);
+      } else if (symLen === 4) {
+        symbolFee = parseInt(feeSchedule.symbol4 || "0", 10);
+      } else if (symLen >= 5) {
+        symbolFee = parseInt(feeSchedule.long_symbol || "0", 10);
+      }
+
+      // Sub-asset (dot in symbol) - additional base fee
+      const isSubAsset = symbol.includes(".");
+      const subAssetFee = isSubAsset ? parseInt(feeSchedule.symbol3 || "0", 10) : 0;
+
+      // Data size fee (description, condition, NFT data, etc.)
+      const dataStr = JSON.stringify({
+        main: desc,
+        market: backingAsset,
+        condition: condition,
+        short_name: shortName,
+        expiry: date ? date.toISOString() : "",
+        ...(enabledNFT && {
+          nft_object: {
+            acknowledgements,
+            artist,
+            attestation,
+            encoding: "ipfs",
+            holder_license: holderLicense,
+            license,
+            narrative,
+            title,
+            tags,
+            type,
+            media_PNG_multihash: nftMedia.find((m) => m.type === "PNG")?.url,
+            media_JPEG_multihash: nftMedia.find((m) => m.type === "JPEG")?.url,
+            media_WEBP_multihash: nftMedia.find((m) => m.type === "WEBP")?.url,
+            media_GIF_multihash: nftMedia.find((m) => m.type === "GIF")?.url,
+          },
+        }),
+      });
+      const dataSizeKB = new Blob([dataStr]).size / 1024;
+      const pricePerKbyte = parseInt(feeSchedule.price_per_kbyte || "0", 10);
+      const dataFee = Math.ceil(dataSizeKB * pricePerKbyte);
+
+      // Core exchange rate data (always included)
+      const coreExchangeRateFee = Math.ceil(0.5 * pricePerKbyte); // ~0.5 KB estimate
+
+      const totalFee = symbolFee + subAssetFee + dataFee + coreExchangeRateFee;
+      setEstimatedFee(totalFee);
+      setFeeCalculating(false);
+    }, 1500), // 1.5s debounce
+    [
+      feeSchedule,
+      usr,
+      symbol,
+      desc,
+      backingAsset,
+      condition,
+      shortName,
+      date,
+      enabledNFT,
+      acknowledgements,
+      artist,
+      attestation,
+      holderLicense,
+      license,
+      narrative,
+      title,
+      tags,
+      type,
+      nftMedia,
+    ]
+  );
+
+  // Trigger fee recalculation when relevant fields change
+  useEffect(() => {
+    debouncedCalculateFee();
+  }, [debouncedCalculateFee]);
 
   useEffect(() => {
     if (!permWhiteList) {
@@ -2293,7 +2392,29 @@ export default function Prediction(properties) {
               </div>
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex items-center justify-end gap-4">
+              {feeSchedule && (
+                <TooltipProvider delayDuration={150}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center gap-2 text-sm cursor-help">
+                        <Zap className="h-4 w-4 text-amber-400" />
+                        <span className="font-mono text-amber-400">
+                          {feeCalculating
+                            ? t("CreatePrediction:fee.calculating")
+                            : `${(estimatedFee / 100000).toFixed(5)} BTS`}
+                        </span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="top"
+                      className="bg-slate-900 border-white/10 text-white max-w-xs"
+                    >
+                      <p className="text-xs">{t("CreatePrediction:fee.hover")}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
               <Button
                 size="lg"
                 disabled={!isFormValid}

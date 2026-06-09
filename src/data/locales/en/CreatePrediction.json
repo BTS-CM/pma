@@ -84,6 +84,10 @@
       "header_content": "The resolution date and time is the date and time at which the prediction market asset will be resolved, This is the date and time at which the prediction market asset will be evaluated and the winners will be paid out."
     }
   },
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+  },
   "buttons": {
     "submit": "Create prediction market asset"
   }

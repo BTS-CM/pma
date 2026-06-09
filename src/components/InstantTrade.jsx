@@ -165,10 +165,11 @@ export default function InstantTrade(properties) {
 
   const [limitOrderFee, setLimitOrderFee] = useState(0);
   useEffect(() => {
-    if (globalParams && globalParams.parameters) {
+    if (globalParams && globalParams.length) {
       const foundFee = globalParams.find((x) => x.id === 1);
-      const finalFee = humanReadableFloat(foundFee.data.fee, 5);
-      setLimitOrderFee(finalFee);
+      if (foundFee && foundFee.data && foundFee.data.fee) {
+        setLimitOrderFee(humanReadableFloat(foundFee.data.fee, 5));
+      }
     }
   }, [globalParams]);
 
@@ -1210,6 +1211,24 @@ export default function InstantTrade(properties) {
                       )}
                     />
 
+                    <Controller
+                      name="networkFee"
+                      control={form.control}
+                      render={() => (
+                        <div className="rounded-xl border border-amber-400/20 bg-amber-500/[0.05] p-3">
+                          <div className="text-[10px] font-medium uppercase tracking-wider text-amber-200/80 mb-1 inline-flex items-center gap-1">
+                            <Zap className="h-3 w-3" strokeWidth={2.5} />
+                            {t("InstantTrade:networkFee")}
+                          </div>
+                          <div className="flex items-center gap-1 font-mono text-sm tabular-nums text-amber-400">
+                            <Zap className="h-3.5 w-3.5" strokeWidth={2.5} />
+                            {limitOrderFee ? limitOrderFee.toFixed(5) : "0.00000"}
+                            <span className="text-white/40">BTS</span>
+                          </div>
+                        </div>
+                      )}
+                    />
+
                     {marketFees && assetBData ? (
                       <Controller
                         name="marketFees"
@@ -1292,7 +1311,19 @@ export default function InstantTrade(properties) {
                       {t("LimitOrderCard:submit")}
                     </button>
                   ) : (
-                    <button
+                    <>
+                      {limitOrderFee && (
+                        <div className="mt-4 flex items-center justify-between px-1">
+                          <span className="text-xs font-medium uppercase tracking-wider text-white/50">
+                            {t("InstantTrade:networkFee")}
+                          </span>
+                          <span className="flex items-center gap-1.5 font-mono text-amber-400 text-sm">
+                            <Zap className="h-3.5 w-3.5" strokeWidth={2.5} />
+                            {limitOrderFee.toFixed(5)} BTS
+                          </span>
+                        </div>
+                      )}
+                      <button
                       type="submit"
                       className="mt-6 w-full h-14 rounded-2xl font-semibold text-white bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 shadow-[0_8px_32px_-12px_rgba(251,146,60,0.7)] hover:shadow-[0_12px_40px_-12px_rgba(251,146,60,0.9)] hover:from-amber-400 hover:via-orange-400 hover:to-red-400 transition-all flex items-center justify-center gap-2 text-base group"
                     >
@@ -1301,7 +1332,8 @@ export default function InstantTrade(properties) {
                         strokeWidth={2.5}
                       />
                       {t("LimitOrderCard:submit")}
-                    </button>
+                      </button>
+                    </>
                   )}
                 </FieldGroup>
               </form>

@@ -129,15 +129,6 @@ export default function Transfer(properties) {
     return [];
   }, [_globalParamsBTS, _globalParamsTEST, _chain]);
 
-  const [fee, setFee] = useState(0);
-  useEffect(() => {
-    if (globalParams && globalParams.length) {
-      const foundFee = globalParams.find((x) => x.id === 0);
-      const finalFee = humanReadableFloat(foundFee.data.fee, 5);
-      setFee(finalFee);
-    }
-  }, [globalParams]);
-
   const [balanceCounter, setBalanceCoutner] = useState(0);
   const [balances, setBalances] = useState();
   useEffect(() => {
@@ -192,6 +183,37 @@ export default function Transfer(properties) {
       setFoundAsset(found[0]);
     }
   }, [found]);
+
+  const [fee, setFee] = useState(0);
+  useEffect(() => {
+    if (globalParams && globalParams.length) {
+      const foundFee = globalParams.find((x) => x.id === 0);
+      if (foundFee && foundFee.data) {
+        const baseFeeSat = foundFee.data.fee || 0;
+        const pricePerKbyte = foundFee.data.price_per_kbyte || 0;
+
+        let dataStr = JSON.stringify({
+          from: usr?.id || "",
+          to: targetUser?.id || "",
+          amount: transferAmount || 0,
+          asset_id: foundAsset?.id || "",
+          extensions: {},
+        });
+        if (memoContents && memoContents.length) {
+          dataStr += JSON.stringify({
+            from: bothUsers?.[0]?.options?.memo_key || "",
+            to: bothUsers?.[1]?.options?.memo_key || "",
+            nonce: String(Date.now()),
+            message: memoContents,
+          });
+        }
+        const dataSizeKB = new Blob([dataStr]).size / 1024;
+        const dataFeeSat = pricePerKbyte > 0 ? Math.ceil(dataSizeKB * pricePerKbyte) : 0;
+        const totalFeeSat = baseFeeSat + dataFeeSat;
+        setFee(humanReadableFloat(totalFeeSat, 5));
+      }
+    }
+  }, [globalParams, memoContents, targetUser, transferAmount, foundAsset, bothUsers, usr]);
 
   const [targetUserDialogOpen, setTargetUserDialogOpen] = useState(false);
 
@@ -696,13 +718,26 @@ export default function Transfer(properties) {
                       {t("Transfer:submit")}
                     </Button>
                   ) : (
-                    <Button
+                    <>
+                      {fee && (
+                        <div className="mt-4 flex items-center justify-between px-1">
+                          <span className="text-xs font-medium uppercase tracking-wider text-white/50">
+                            {t("Transfer:networkFee")}
+                          </span>
+                          <span className="flex items-center gap-1.5 font-mono text-violet-400 text-sm">
+                            <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+                            {fee.toFixed(5)} BTS
+                          </span>
+                        </div>
+                      )}
+                      <Button
                       className="mt-5 mb-3 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-900/30 hover:shadow-violet-800/40 transition-all w-full sm:w-auto"
                       type="submit"
                     >
                       <ArrowRight className="h-4 w-4 mr-1.5" />
                       {t("Transfer:submit")}
-                    </Button>
+                      </Button>
+                    </>
                   )}
                 </FieldGroup>
               </form>

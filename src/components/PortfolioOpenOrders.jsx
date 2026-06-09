@@ -565,7 +565,7 @@ export default function PortfolioOpenOrders({
               </div>
             ) : hasOrders ? (
               <>
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2 mb-2 mt-2">
                   <ArrowUpDown className="h-3.5 w-3.5 text-white/40" />
                   <Select value={sortBy} onValueChange={setSortBy}>
                     <SelectTrigger className="h-8 w-[160px] text-xs bg-white/[0.03] border-white/[0.08] text-white/70">

@@ -28,6 +28,10 @@
       "header_content": "Das Auflösungsdatum und die Auflösungsuhrzeit sind das Datum und die Uhrzeit, an dem das prognostizierte Marktvermögenswert aufgelöst wird. Dies ist das Datum und die Uhrzeit, an dem das prognostizierte Marktvermögenswert bewertet wird und die Gewinner ausgezahlt werden."
     }
   },
+  "fee": {
+    "calculating": "Estimating...",
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+  },
   "buttons": {
     "submit": "Einreichen"
   }
