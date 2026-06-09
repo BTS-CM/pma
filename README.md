@@ -2,7 +2,7 @@
 
 # Bitshares Prediction Markets UI
 
-A focused desktop app for **creating, trading and settling [Bitshares](https://bitshares.org) Prediction Market Assets (PMAs)**.
+A focused desktop app for **creating, trading and settling [Bitshares](https://bts.exchange) Prediction Market Assets (PMAs)**.
 
 This project is a fork of the [Bitshares Prediction Market UI](https://github.com/BTS-CM/astro-ui) by the BeetEOS team. That upstream project is a full-featured UI for the entire Bitshares blockchain (HTLCs, debits, workers, tickets, invoices, NFTs, UIAs, smartcoins, PMAs, liquidity pools, etc.). This fork takes a much narrower view: it strips the codebase down to **only the pieces that touch prediction markets**, and presents them in a single, focused interface for users who care about PMAs and nothing else. If you want the full Bitshares UI, use the upstream project — this one is deliberately smaller.
 
@@ -62,7 +62,7 @@ Beyond the prediction-market workflow, the app includes a small set of utilities
 ## Download
 
 Check out the latest releases:
-https://github.com/BTS-CM/astro-ui/releases
+https://github.com/BTS-CM/pma/releases
 
 Supports Windows, Linux and Mac OSX.
 
