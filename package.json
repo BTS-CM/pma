@@ -9,8 +9,9 @@
   "description": "Bitshares Prediction Market UI",
   "license": "MIT",
   "build": {
-    "appId": "bitshares_prediction_market_ui",
+    "appId": "org.bitshares.predictionmarketui",
     "productName": "Bitshares Prediction Market UI",
+    "desktopName": "bitshares-prediction-market-ui",
     "artifactName": "BTSPredictionMarketUI.${ext}",
     "files": [
       "app/**/*",
@@ -41,7 +42,8 @@
         "AppImage"
       ],
       "mimeTypes": [],
-      "executableName": "BTSPredictionMarketUI %U"
+      "syncDesktopName": true,
+      "executableName": "BTSPredictionMarketUI"
     }
   },
   "dependencies": {
