@@ -6,7 +6,9 @@
   },
   "card": {
     "title": "Crea Organizzazione di Mercato di Previsione",
-    "description": "Registra un nome asset di livello superiore che fungerà da genitore per i tuoi sotto-asset di mercato di previsione. I sotto-asset emessi sotto questa organizzazione (es. GAMBLE.0001) beneficiano di tariffe di creazione ridotte e riconoscimento istantaneo del marchio."
+    "description": "Registra un nome asset di livello superiore che fungerà da genitore per i tuoi sotto-asset di mercato di previsione. I sotto-asset emessi sotto questa organizzazione (es. GAMBLE.0001) beneficiano di tariffe di creazione ridotte e riconoscimento istantaneo del marchio.",
+    "updateTitle": "Modifica organizzazione di mercato previsionale",
+    "updateDescription": "Aggiorna i dettagli di identità, governance e attestazione della tua organizzazione."
   },
   "steps": {
     "identity": {
@@ -104,9 +106,11 @@
     "hint": "La creazione di un'organizzazione di mercato di previsione registra un nome asset di livello superiore sotto il quale puoi emettere sotto-asset a tariffe notevolmente ridotte. Ad esempio, registrare 'GAMBLE' ti permette di creare GAMBLE.0001, GAMBLE.0002, ecc. — ciascuno a tariffe inferiori rispetto alla creazione di un asset indipendente. Gli investitori riconosceranno questi sotto-asset come appartenenti alla tua organizzazione."
   },
   "buttons": {
-    "submit": "Crea Organizzazione"
+    "submit": "Crea Organizzazione",
+    "update": "Aggiorna organizzazione"
   },
   "dialogContent": {
-    "headerText": "Creazione organizzazione PMA: {{symbol}}"
+    "headerText": "Creazione organizzazione PMA: {{symbol}}",
+    "updateHeaderText": "Aggiornamento organizzazione PMA: {{symbol}}"
   }
 }

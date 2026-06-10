@@ -6,7 +6,9 @@
   },
   "card": {
     "title": "Criar Organização de Mercado de Previsão",
-    "description": "Registre um nome de ativo de nível superior que servirá como pai para seus sub-ativos de mercado de previsão. Os sub-ativos emitidos sob esta organização (por exemplo, GAMBLE.0001) se beneficiam de taxas de criação reduzidas e reconhecimento instantâneo da marca."
+    "description": "Registre um nome de ativo de nível superior que servirá como pai para seus sub-ativos de mercado de previsão. Os sub-ativos emitidos sob esta organização (por exemplo, GAMBLE.0001) se beneficiam de taxas de criação reduzidas e reconhecimento instantâneo da marca.",
+    "updateTitle": "Editar organização de mercado de previsão",
+    "updateDescription": "Atualize os detalhes de identidade, governança e attestação da sua organização."
   },
   "steps": {
     "identity": {
@@ -104,9 +106,11 @@
     "hint": "Criar uma organização de mercado de previsão registra um nome de ativo de nível superior sob o qual você pode emitir sub-ativos com desconto significativo. Por exemplo, registrar 'GAMBLE' permite criar GAMBLE.0001, GAMBLE.0002, etc. — cada um com taxas menores do que a criação de um ativo independente. Os investidores reconhecerão esses sub-ativos como pertencentes à sua organização."
   },
   "buttons": {
-    "submit": "Criar Organização"
+    "submit": "Criar Organização",
+    "update": "Atualizar organização"
   },
   "dialogContent": {
-    "headerText": "Criando Organização PMA: {{symbol}}"
+    "headerText": "Criando Organização PMA: {{symbol}}",
+    "updateHeaderText": "Atualizando organização PMA: {{symbol}}"
   }
 }

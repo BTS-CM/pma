@@ -15,5 +15,7 @@
     "alpha": "Tähestikuline",
     "pmaCount": "Enim ennustusi",
     "newest": "Uuemad esimesena"
-  }
+  },
+  "editOrg": "Redigeeri organisatsiooni",
+  "createPrediction": "Loo ennustus"
 }

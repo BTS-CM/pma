@@ -125,7 +125,9 @@
       "highVolume": "高出来高"
     },
     "searchPlaceholder": "シンボルまたは質問で検索…",
-    "noResults": "フィルターに一致する予測がありません。"
+    "noResults": "フィルターに一致する予測がありません。",
+    "filterByIssuer": "この発行者でフィルター",
+    "clearFilter": "フィルターをクリア"
   },
   "price_feeders": "価格フィーダー",
   "price_feeders_content": "この予測は、証人、委員会、または民間の価格フィーダーのいずれかによって解決されます。",

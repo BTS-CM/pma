@@ -125,7 +125,9 @@
       "highVolume": "Alto volume"
     },
     "searchPlaceholder": "Pesquisar por símbolo ou pergunta…",
-    "noResults": "Nenhuma previsão corresponde aos seus filtros."
+    "noResults": "Nenhuma previsão corresponde aos seus filtros.",
+    "filterByIssuer": "Filtrar por este emissor",
+    "clearFilter": "Limpar filtro"
   },
   "price_feeders": "Alimentadores de preços",
   "price_feeders_content": "A previsão pode ser resolvida pelas testemunhas, pelo comitê ou pelos alimentadores de preços privados.",

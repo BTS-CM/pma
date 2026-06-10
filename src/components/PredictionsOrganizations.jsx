@@ -15,6 +15,8 @@ import {
   Search,
   ArrowUpDown,
   X as XIcon,
+  Pen,
+  Plus,
 } from "lucide-react";
 import {
   Card,
@@ -79,8 +81,9 @@ function StatBlock({ label, value, mono, accent }) {
   );
 }
 
-function OrganizationCard({ org, pmaCounts, t }) {
+function OrganizationCard({ org, pmaCounts, t, usr }) {
   const symbol = org.symbol;
+  const isOwner = usr && usr.id && org.issuer === usr.id;
   const desc = (() => {
     try {
       return JSON.parse(org.options?.description || "{}");
@@ -182,6 +185,24 @@ function OrganizationCard({ org, pmaCounts, t }) {
               <ExternalLink className="h-3 w-3" />
               {t("PredictionsOrganizations:viewExpired")}
             </a>
+            {isOwner ? (
+              <>
+                <a
+                  href={`/create_pma_org/index.html?asset_update=${symbol}`}
+                  className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline"
+                >
+                  <Pen className="h-3 w-3" />
+                  {t("PredictionsOrganizations:editOrg")}
+                </a>
+                <a
+                  href={`/create_prediction/index.html?org=${symbol}`}
+                  className="inline-flex items-center gap-1 text-xs text-fuchsia-400 hover:underline"
+                >
+                  <Plus className="h-3 w-3" />
+                  {t("PredictionsOrganizations:createPrediction")}
+                </a>
+              </>
+            ) : null}
           </div>
         </div>
       </CardContent>
@@ -425,6 +446,7 @@ export default function PredictionsOrganizations(properties) {
                         org={org}
                         pmaCounts={pmaCounts[org.symbol] || { active: 0, expired: 0, total: 0 }}
                         t={t}
+                        usr={usr}
                       />
                     ))}
                   </div>

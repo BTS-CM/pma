@@ -15,5 +15,7 @@
     "alpha": "알파벳 순",
     "pmaCount": "예측 수 순",
     "newest": "최신 순"
-  }
+  },
+  "editOrg": "조직 편집",
+  "createPrediction": "예측 생성"
 }

@@ -15,5 +15,7 @@
     "alpha": "アルファベット順",
     "pmaCount": "予測数順",
     "newest": "新しい順"
-  }
+  },
+  "editOrg": "組織を編集",
+  "createPrediction": "予測を作成"
 }

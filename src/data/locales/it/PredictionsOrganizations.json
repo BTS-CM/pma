@@ -15,5 +15,7 @@
     "alpha": "Alfabetico",
     "pmaCount": "Più previsioni",
     "newest": "Più recenti"
-  }
+  },
+  "editOrg": "Modifica organizzazione",
+  "createPrediction": "Crea previsione"
 }

@@ -455,6 +455,11 @@ export default function Predictions(properties) {
       ? f
       : "all";
   });
+  const [issuerFilter, setIssuerFilter] = useState(() => {
+    if (typeof window === "undefined") return null;
+    const params = new URLSearchParams(window.location.search);
+    return params.get("issuer") || null;
+  });
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const setSearchQueryDebounced = useCallback(
@@ -844,6 +849,11 @@ export default function Predictions(properties) {
       result = result.filter((p) => !userBlockedIDs.has(p.issuer));
     }
 
+    // Filter by specific issuer (set by clicking avatar in prediction row)
+    if (issuerFilter) {
+      result = result.filter((p) => p.issuer === issuerFilter);
+    }
+
     if (searchQuery && searchQuery.trim().length) {
       const q = searchQuery.trim().toLowerCase();
       result = result.filter((p) => {
@@ -910,7 +920,7 @@ export default function Predictions(properties) {
     }
 
     return result;
-  }, [chosenPMAs, searchQuery, filterBy, sortBy, now, callOrders, view, userBlockedIDs]);
+  }, [chosenPMAs, searchQuery, filterBy, issuerFilter, sortBy, now, callOrders, view, userBlockedIDs]);
 
   const PredictionRow = memo(({ res }) => {
     // All hooks must be called unconditionally, before any early return.
@@ -1250,7 +1260,9 @@ export default function Predictions(properties) {
               </div>
               <div className="md:text-right text-xs flex flex-wrap items-center md:justify-end gap-x-2 gap-y-1">
                 <span
-                  className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] pl-0.5 pr-2 py-0.5 text-[11px] font-medium"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] pl-0.5 pr-2 py-0.5 text-[11px] font-medium cursor-pointer hover:bg-white/[0.08] transition-colors"
+                  onClick={() => setIssuerFilter(house)}
+                  title={t("Predictions:list.filterByIssuer")}
                 >
                   <span className="inline-flex h-5 w-5 overflow-hidden rounded-full ring-1 ring-white/10">
                     <Avatar
@@ -3407,6 +3419,16 @@ export default function Predictions(properties) {
                 <currentView.icon className={cn("w-4 h-4", currentView.color)} />
               </span>
               {t(`Predictions:card.title.${view}`)}
+              {issuerFilter ? (
+                <button
+                  type="button"
+                  onClick={() => setIssuerFilter(null)}
+                  className="ml-auto inline-flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-medium text-amber-400 hover:bg-amber-500/20 transition-colors"
+                >
+                  <XIcon className="h-3 w-3" />
+                  {t("Predictions:list.clearFilter")}
+                </button>
+              ) : null}
             </CardTitle>
             <CardDescription className="text-white/50">
               {pageStats

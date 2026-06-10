@@ -6,7 +6,9 @@
   },
   "card": {
     "title": "Create Prediction Market Organization",
-    "description": "Register a top-level asset name that will serve as the parent for your prediction market sub-assets. Sub-assets issued under this organization (e.g. GAMBLE.0001) benefit from reduced creation fees and instant brand recognition."
+    "description": "Register a top-level asset name that will serve as the parent for your prediction market sub-assets. Sub-assets issued under this organization (e.g. GAMBLE.0001) benefit from reduced creation fees and instant brand recognition.",
+    "updateTitle": "Edit Prediction Market Organization",
+    "updateDescription": "Update your organization's identity, governance, and attestation details."
   },
   "steps": {
     "identity": {
@@ -104,9 +106,11 @@
     "hint": "Creating a prediction market organization registers a top-level asset name under which you can issue sub-assets at a significant discount. For example, registering 'GAMBLE' allows you to later create GAMBLE.0001, GAMBLE.0002, etc. — each at a lower fee than creating a standalone asset. Investors will recognize these sub-assets as belonging to your organization."
   },
   "buttons": {
-    "submit": "Create Organization"
+    "submit": "Create Organization",
+    "update": "Update Organization"
   },
   "dialogContent": {
-    "headerText": "Creating PMA Organization: {{symbol}}"
+    "headerText": "Creating PMA Organization: {{symbol}}",
+    "updateHeaderText": "Updating PMA Organization: {{symbol}}"
   }
 }

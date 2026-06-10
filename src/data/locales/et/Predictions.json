@@ -125,7 +125,9 @@
       "highVolume": "Suur maht"
     },
     "searchPlaceholder": "Otsi sümboli või küsimuse järgi…",
-    "noResults": "Ükski ennustus ei vasta teie filtritele."
+    "noResults": "Ükski ennustus ei vasta teie filtritele.",
+    "filterByIssuer": "Filtreeri selle väljaastaja järgi",
+    "clearFilter": "Tühjenda filter"
   },
   "price_feeders": "Hinnasööturid",
   "price_feeders_content": "Prognoosi saavad lahendada kas tunnistajad, komisjon või erahinnasöötjad.",

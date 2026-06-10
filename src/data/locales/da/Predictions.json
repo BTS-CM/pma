@@ -125,7 +125,9 @@
       "highVolume": "Høj volumen"
     },
     "searchPlaceholder": "Søg efter symbol eller spørgsmål…",
-    "noResults": "Ingen forudsigelser matcher dine filtre."
+    "noResults": "Ingen forudsigelser matcher dine filtre.",
+    "filterByIssuer": "Filtrer efter denne udsteder",
+    "clearFilter": "Ryd filter"
   },
   "price_feeders": "Prisfødere",
   "price_feeders_content": "Forudsigelsen kan løses af enten vidnerne, udvalget eller private prisfødere.",

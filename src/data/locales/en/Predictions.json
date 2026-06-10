@@ -125,7 +125,9 @@
       "highVolume": "High volume"
     },
     "searchPlaceholder": "Search by symbol or question…",
-    "noResults": "No predictions match your filters."
+    "noResults": "No predictions match your filters.",
+    "filterByIssuer": "Filter by this issuer",
+    "clearFilter": "Clear filter"
   },
   "price_feeders": "Price feeders",
   "price_feeders_content": "The prediction can be resolved by either the witnesses, committee or private price feeders.",

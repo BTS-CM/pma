@@ -6,7 +6,9 @@
   },
   "card": {
     "title": "Prediction Market Organisation erstellen",
-    "description": "Registrieren Sie einen Top-Level-Aktivnamen, der als übergeordnetes Element für Ihre Prediction Market-Unteractiven dient. Unteractiven, die unter dieser Organisation ausgegeben werden (z.B. GAMBLE.0001), profitieren von reduzierten Erstellungsgebühren und sofortiger Markenerkennung."
+    "description": "Registrieren Sie einen Top-Level-Aktivnamen, der als übergeordnetes Element für Ihre Prediction Market-Unteractiven dient. Unteractiven, die unter dieser Organisation ausgegeben werden (z.B. GAMBLE.0001), profitieren von reduzierten Erstellungsgebühren und sofortiger Markenerkennung.",
+    "updateTitle": "Vorhersagemarkt-Organisation bearbeiten",
+    "updateDescription": "Aktualisieren Sie die Identitäts-, Governance- und Attestierungsdetails Ihrer Organisation."
   },
   "steps": {
     "identity": {
@@ -104,9 +106,11 @@
     "hint": "Durch die Erstellung einer Prediction Market-Organisation wird ein Top-Level-Aktivname registriert, unter dem Sie Unteractiven mit erheblichem Rabatt ausgeben können. Wenn Sie beispielsweise 'GAMBLE' registrieren, können Sie GAMBLE.0001, GAMBLE.0002 usw. erstellen — jeweils zu geringeren Gebühren als ein eigenständiges Asset. Investoren erkennen diese Unteractiven sofort als Teil Ihrer Organisation."
   },
   "buttons": {
-    "submit": "Organisation erstellen"
+    "submit": "Organisation erstellen",
+    "update": "Organisation aktualisieren"
   },
   "dialogContent": {
-    "headerText": "PMA-Organisation wird erstellt: {{symbol}}"
+    "headerText": "PMA-Organisation wird erstellt: {{symbol}}",
+    "updateHeaderText": "PMA-Organisation wird aktualisiert: {{symbol}}"
   }
 }

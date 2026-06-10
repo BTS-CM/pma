@@ -6,7 +6,9 @@
   },
   "card": {
     "title": "Loo ennustusturu organisatsioon",
-    "description": "Registreeri ülemine vara nimi, mis toimib teie ennustusturu alamvarade ülaemana. Selle organisatsiooni all väljastatud alamvarad (nt GAMBLE.0001) saavad madalama loomistasu ja kohese brändi tunnustamise."
+    "description": "Registreeri ülemine vara nimi, mis toimib teie ennustusturu alamvarade ülaemana. Selle organisatsiooni all väljastatud alamvarad (nt GAMBLE.0001) saavad madalama loomistasu ja kohese brändi tunnustamise.",
+    "updateTitle": "Redigeeri ennustusturu organisatsiooni",
+    "updateDescription": "Uuendage oma organisatsiooni identiteedi, juhtimise ja kinnituse üksikasju."
   },
   "steps": {
     "identity": {
@@ -104,9 +106,11 @@
     "hint": "Ennustusturu organisatsiooni loomine registreerib ülemise varanime, mille all saate väljastada alamvarasid oluliselt soodsama hinnaga. Näiteks 'GAMBLE' registreerimine võimaldab hiljem luua GAMBLE.0001, GAMBLE.0002 jne. — igaüks madalama tasuga kui iseseisva vara loomine. Investorid tunnevad need alamvarad oma organisatsiooni kuuluvatena."
   },
   "buttons": {
-    "submit": "Loo organisatsioon"
+    "submit": "Loo organisatsioon",
+    "update": "Uuenda organisatsiooni"
   },
   "dialogContent": {
-    "headerText": "PMA organisatsiooni loomine: {{symbol}}"
+    "headerText": "PMA organisatsiooni loomine: {{symbol}}",
+    "updateHeaderText": "PMA organisatsiooni uuendamine: {{symbol}}"
   }
 }

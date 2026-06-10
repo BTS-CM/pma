@@ -125,7 +125,9 @@
       "highVolume": "Volume élevé"
     },
     "searchPlaceholder": "Rechercher par symbole ou question…",
-    "noResults": "Aucune prédiction ne correspond à vos filtres."
+    "noResults": "Aucune prédiction ne correspond à vos filtres.",
+    "filterByIssuer": "Filtrer par cet émetteur",
+    "clearFilter": "Effacer le filtre"
   },
   "price_feeders": "Conducteurs de prix",
   "price_feeders_content": "La prédiction peut être résolue soit par les témoins, soit par le comité, soit par des sources de prix privées.",

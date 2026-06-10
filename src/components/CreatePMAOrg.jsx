@@ -244,6 +244,20 @@ export default function CreatePMAOrg(properties) {
   const precision = 0;
   const maxSupply = 1;
 
+  // Edit mode: read ?asset_update=SYMBOL from URL
+  const updateSymbol = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const params = new URLSearchParams(window.location.search);
+    return params.get("asset_update") || null;
+  }, []);
+  const isEditMode = !!updateSymbol;
+
+  // Find the existing asset when in edit mode
+  const existingAsset = useMemo(() => {
+    if (!updateSymbol || !assets || !assets.length) return null;
+    return assets.find((a) => a.symbol === updateSymbol) || null;
+  }, [updateSymbol, assets]);
+
   // NFT fields
   const [enabledNFT, setEnabledNFT] = useState(false);
   const [acknowledgements, setAcknowledgements] = useState("");
@@ -272,6 +286,45 @@ export default function CreatePMAOrg(properties) {
   // CER
   const [cerBaseAmount, setCerBaseAmount] = useState(1);
   const [cerQuoteAmount, setCerQuoteAmount] = useState(1);
+
+  // Pre-fill form when in edit mode
+  useEffect(() => {
+    if (!existingAsset || !isEditMode) return;
+    setSymbol(existingAsset.symbol);
+    try {
+      const d = JSON.parse(existingAsset.options?.description || "{}");
+      setDesc(d.main || "");
+      if (d.nft_object) {
+        setEnabledNFT(true);
+        setAcknowledgements(d.nft_object.acknowledgements || "");
+        setArtist(d.nft_object.artist || "");
+        setAttestation(d.nft_object.attestation || "");
+        setHolderLicense(d.nft_object.holder_license || "");
+        setLicense(d.nft_object.license || "");
+        setNarrative(d.nft_object.narrative || "");
+        setTitle(d.nft_object.title || "");
+        setTags(d.nft_object.tags || "");
+        setType(d.nft_object.type || "NFT/ART/VISUAL");
+        const media = [];
+        for (const t of ["PNG", "JPEG", "WEBP", "GIF", "TIFF"]) {
+          const url = d.nft_object[`media_${t}_multihash`];
+          if (url) media.push({ type: t, url });
+        }
+        if (media.length) setNFTMedia(media);
+      }
+      if (d.pmo_object) {
+        setEnabledPMO(true);
+        const pmo = d.pmo_object;
+        setPmoOrgName(pmo.identity?.name || "");
+        setPmoWebsite(pmo.identity?.website || "");
+        setPmoManifest(pmo.identity?.manifest || "");
+        setPmoResolutionPolicy(pmo.governance?.resolution_policy || "");
+        setPmoDisputeMechanism(pmo.governance?.dispute_mechanism || "");
+        setPmoOnchainAccount(pmo.governance?.onchain_account || "");
+        setPmoAttestation(pmo.attestation?.issuer_attestation || "");
+      }
+    } catch {}
+  }, [existingAsset, isEditMode]);
 
   const description = useMemo(() => {
     let _description = { main: desc,         short_name: symbol, market };
@@ -351,6 +404,36 @@ export default function CreatePMAOrg(properties) {
   ]);
 
   const trx = useMemo(() => {
+    if (isEditMode && existingAsset) {
+      return {
+        issuer: usr.id,
+        asset_to_update: existingAsset.id,
+        new_options: {
+          description,
+          max_supply: blockchainFloat(maxSupply, precision),
+          market_fee_percent: 0,
+          max_market_fee: 0,
+          issuer_permissions: 0,
+          flags: 0,
+          core_exchange_rate: {
+            base: {
+              amount: blockchainFloat(cerBaseAmount, 5),
+              asset_id: "1.3.0",
+            },
+            quote: {
+              amount: blockchainFloat(cerQuoteAmount, precision),
+              asset_id: "1.3.1",
+            },
+          },
+          whitelist_authorities: [],
+          blacklist_authorities: [],
+          whitelist_markets: [],
+          blacklist_markets: [],
+          extensions: {},
+        },
+        extensions: [],
+      };
+    }
     return {
       issuer: usr.id,
       symbol: symbol,
@@ -381,7 +464,7 @@ export default function CreatePMAOrg(properties) {
       is_prediction_market: false,
       extensions: null,
     };
-  }, [usr, symbol, description, cerBaseAmount, cerQuoteAmount]);
+  }, [usr, symbol, description, cerBaseAmount, cerQuoteAmount, isEditMode, existingAsset]);
 
   const symbolError = useMemo(() => {
     if (symbol.length === 0) return null;
@@ -449,10 +532,10 @@ export default function CreatePMAOrg(properties) {
             </div>
             <div className="min-w-0">
               <h1 className="text-2xl font-semibold tracking-tight text-white">
-                {t("CreatePMAOrg:card.title")}
+                {t(isEditMode ? "CreatePMAOrg:card.updateTitle" : "CreatePMAOrg:card.title")}
               </h1>
               <p className="mt-1 max-w-2xl text-sm leading-relaxed text-white/50">
-                {t("CreatePMAOrg:card.description")}
+                {t(isEditMode ? "CreatePMAOrg:card.updateDescription" : "CreatePMAOrg:card.description")}
               </p>
             </div>
           </div>
@@ -483,7 +566,8 @@ export default function CreatePMAOrg(properties) {
                   placeholder={t("CreatePMAOrg:symbol.placeholder")}
                   value={symbol}
                   type="text"
-                  className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
+                  disabled={isEditMode}
+                  className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   onInput={(e) => {
                     const value = e.currentTarget.value;
                     const regex = /^[a-zA-Z0-9]*$/;
@@ -1045,7 +1129,7 @@ export default function CreatePMAOrg(properties) {
               className="gap-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold shadow-lg shadow-violet-500/25 hover:brightness-110 active:scale-[0.99] transition-all"
             >
               <Send className="h-4 w-4" />
-              {t("CreatePMAOrg:buttons.submit")}
+              {t(isEditMode ? "CreatePMAOrg:buttons.update" : "CreatePMAOrg:buttons.submit")}
             </Button>
           </div>
         </div>
@@ -1053,13 +1137,13 @@ export default function CreatePMAOrg(properties) {
 
       {showDialog ? (
         <DeepLinkDialog
-          operationNames={["asset_create"]}
+          operationNames={[isEditMode ? "asset_update" : "asset_create"]}
           username={usr.username}
           usrChain={usr.chain}
           userID={usr.id}
           dismissCallback={setShowDialog}
-          key={`CreatingPMAOrg-${usr.id}-${symbol}`}
-          headerText={t("CreatePMAOrg:dialogContent.headerText", { symbol })}
+          key={`${isEditMode ? "Updating" : "Creating"}PMAOrg-${usr.id}-${symbol}`}
+          headerText={t(isEditMode ? "CreatePMAOrg:dialogContent.updateHeaderText" : "CreatePMAOrg:dialogContent.headerText", { symbol })}
           trxJSON={[trx]}
         />
       ) : null}

@@ -439,12 +439,29 @@ export default function Prediction(properties) {
   const [selectedOrg, setSelectedOrg] = useState(null);
   const [subAssetName, setSubAssetName] = useState("");
 
+  // Read ?org=SYMBOL from URL to pre-select organization
+  const urlOrgSymbol = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const params = new URLSearchParams(window.location.search);
+    return params.get("org") || null;
+  }, []);
+
   // Default to organization mode when user owns PMO assets
   useEffect(() => {
     if (userOrgs.length > 0 && creationMode === "manual") {
       setCreationMode("organization");
     }
   }, [userOrgs]);
+
+  // Pre-select org from URL param
+  useEffect(() => {
+    if (urlOrgSymbol && userOrgs.length > 0 && creationMode === "organization" && !selectedOrg) {
+      const org = userOrgs.find((o) => o.symbol === urlOrgSymbol);
+      if (org) {
+        setSelectedOrg(org);
+      }
+    }
+  }, [urlOrgSymbol, userOrgs, creationMode, selectedOrg]);
 
   // In org mode, shortName auto-fills from the sub-asset name
   useEffect(() => {

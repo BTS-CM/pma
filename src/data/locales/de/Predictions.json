@@ -125,7 +125,9 @@
       "highVolume": "Hohes Volumen"
     },
     "searchPlaceholder": "Nach Symbol oder Frage suchen…",
-    "noResults": "Keine Vorhersagen passen zu Ihren Filtern."
+    "noResults": "Keine Vorhersagen passen zu Ihren Filtern.",
+    "filterByIssuer": "Nach diesem Emittenten filtern",
+    "clearFilter": "Filter löschen"
   },
   "price_feeders": "Preis-Feeder",
   "price_feeders_content": "Die Vorhersage kann entweder durch die Zeugen, das Komitee oder private Preisgeber geklärt werden.",

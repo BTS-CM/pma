@@ -15,5 +15,7 @@
     "alpha": "Alfabetisk",
     "pmaCount": "Flest forudsigelser",
     "newest": "Nyeste først"
-  }
+  },
+  "editOrg": "Rediger organisation",
+  "createPrediction": "Opret forudsigelse"
 }
