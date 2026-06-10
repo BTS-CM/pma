@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Passo {{number}}",
+    "optional": "Opzionale",
+    "recommended": "Consigliato"
+  },
   "dialogContent": {
     "headerText": "Creazione del seguente asset di mercato di previsione: {{symbol}}"
   },
@@ -6,13 +11,69 @@
     "title": "Creazione di un nuovo asset del mercato di previsione",
     "description": "Creando un Prediction Market Assets puoi agire come casa per le scommesse decentralizzate su eventi futuri in cambio di una commissione senza esposizione al rischio di controparte del pool di vincite."
   },
+  "steps": {
+    "asset": {
+      "title": "Identità dell'asset",
+      "description": "Il simbolo, il nome e l'offerta unici per il tuo asset di mercato di previsione."
+    },
+    "pma": {
+      "title": "Dettagli del mercato di previsione",
+      "description": "La condizione che definisce su cosa scommette il tuo mercato."
+    },
+    "nft": {
+      "title": "Dettagli del token non fungibile",
+      "description": "Opzionale. Aggiungi metadati NFT come artista, titolo e media IPFS."
+    },
+    "extensions": {
+      "title": "Estensioni commissioni di mercato",
+      "description": "Opzionale. Configura come le commissioni di mercato vengono divise tra la casa, i referenti e il taker."
+    },
+    "permissions": {
+      "title": "Permessi e flag",
+      "description": "Scegli quali comportamenti avanzati supporta questo asset."
+    },
+    "authorization": {
+      "title": "Autorizzazione",
+      "description": "Opzionale. Inserisci nella whitelist e nella blacklist gli account che possono interagire con questo asset."
+    }
+  },
+  "summary": {
+    "label": "Rivedi e invia",
+    "ready": "Pronto a creare il tuo asset di mercato di previsione.",
+    "fieldsRequired": "Alcuni campi obbligatori sono ancora vuoti.",
+    "title": "Stai creando",
+    "subtitle": "Un riepilogo dell'asset di mercato di previsione che stai per lanciare. Verifica che tutto sembri corretto prima di inviare.",
+    "symbol": "Simbolo",
+    "name": "Nome",
+    "condition": "Condizione",
+    "backing": "Asset di supporto",
+    "maxSupply": "Offerta massima",
+    "commission": "Commissione",
+    "resolution": "Data di risoluzione",
+    "expiryHint": "Risolve tra",
+    "days_one": "1 giorno",
+    "days_other": "{{count}} giorni",
+    "permissions": "Permessi",
+    "extensions": "Estensioni",
+    "advanced": "Funzionalità avanzate",
+    "noBacking": "Seleziona un asset di supporto per vederlo qui.",
+    "noCondition": "Scrivi una condizione per vederla qui."
+  },
+  "actions": {
+    "useExample": "Riempi con esempio",
+    "reset": "Reimposta"
+  },
+  "tips": {
+    "submitTitle": "Prima di inviare",
+    "submitHint": "L'invio aprirà il tuo portafoglio per trasmettere una transazione on-chain. Potrai ancora cancellare in Beet/BeetEOS prima della firma."
+  },
   "pma": {
     "title": "Dettagli sugli asset del mercato di previsione",
     "title_content": "Queste sono le impostazioni degli asset utilizzate per l'asset di mercato di previsione.",
     "condition": {
       "header": "Condizione",
       "header_content": "Fornisci qui i dettagli sugli asset di mercato previsti",
-      "placeholder": "Condizioni di previsione"
+      "placeholder": "SpaceX atterrerà Starship su Marte prima del 2030?"
     },
     "commission": {
       "header": "Commissione (%)",
@@ -29,10 +90,31 @@
     }
   },
   "fee": {
-    "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "calculating": "Stima in corso...",
+    "hover": "Commissione di rete stimata per la creazione di questo asset di mercato di previsione. La commissione effettiva dipende dalla lunghezza del simbolo, dalla dimensione dei dati e dai parametri di rete attuali."
   },
   "buttons": {
-    "submit": "Invia"
+    "submit": "Crea asset del mercato di previsione"
+  },
+  "fields": {
+    "org": {
+      "label": "Organizzazione",
+      "help": "Seleziona l'organizzazione PMO a cui appartiene questo sotto-asset.",
+      "selectLabel": "Le tue organizzazioni"
+    },
+    "subAssetName": {
+      "label": "Nome del sotto-asset",
+      "help": "Il nome unico per questa previsione all'interno dell'organizzazione (es., 0001).",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "Simbolo completo"
+    }
+  },
+  "creationMode": {
+    "manual": "Manuale",
+    "organization": "Organizzazione",
+    "noOrgs": "Nessuna organizzazione trovata. Crea prima un asset PMO.",
+    "label": "Modalità di creazione"
   }
 }

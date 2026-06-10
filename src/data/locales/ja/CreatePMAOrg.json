@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "ステップ {{number}}",
+    "optional": "オプション",
+    "recommended": "推奨"
+  },
   "card": {
     "title": "予測市場組織を作成",
     "description": "予測市場のサブアセットの親となるトップレベルのアセット名を登録します。この組織の下で発行されるサブアセット（例：GAMBLE.0001）は、大幅に割引された作成 Fees と即時のブランド認知の恩恵を受けます。"
@@ -83,13 +88,14 @@
   },
   "summary": {
     "title": "確認して送信",
-    "subtitle": "作成前に組織の詳細を確認",
+    "subtitle": "作成前に組織の詳細を確認してください",
     "symbol": "組織シンボル",
     "name": "短い名前",
     "maxSupply": "最大供給量",
     "precision": "精度",
     "nftMedia": "NFTメディア",
-    "pmo": "PMO組織"
+    "pmo": "PMO組織",
+    "jsonPreview": "JSONプレビュー"
   },
   "ready": "すべての必須フィールドが入力されています。PMA組織の作成準備ができています！",
   "fieldsRequired": "続行するには組織シンボルを入力してください。",

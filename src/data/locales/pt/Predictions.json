@@ -5,10 +5,12 @@
   "expiration": "Expiração",
   "expired_at": "Expirado",
   "outcome": "Resultado",
-  "prize_pool": "Povoado",
   "outcome_true": "Verdadeiro (os compradores ganham)",
   "outcome_false": "Falso (os vendedores ganham)",
   "outcome_tba": "Ainda não resolvido",
+  "outcome.yes": "Sim",
+  "outcome.no": "Não",
+  "outcome.unresolved": "Não resolvido",
   "issue": "Etapa 1: emitir tokens PMA",
   "buy": "Aposte Verdadeiro (comprar)",
   "sell": "Etapa 2: aposta falsa (venda)",
@@ -19,12 +21,111 @@
   "margin": "Margem",
   "bettingAsset": "Ativo de apostas",
   "card": {
-    "title": "Ativos do mercado de previsão",
-    "description": "Confira as possíveis oportunidades de apostas abaixo!",
+    "title": {
+      "active": "Mercados de previsão ativos",
+      "expired": "Mercados de previsão expirados",
+      "mine": "Meus mercados de previsão",
+      "portfolio": "Portfólio de previsão",
+      "margin": "Posições de margem de previsão"
+    },
+    "description": {
+      "active": "Navegue nos ativos de mercado de previsão ao vivo, não resolvidos, que aceitam apostas.",
+      "expired": "Navegue nos ativos de mercado de previsão passados aguardando resolução por alimentadores de preços.",
+      "mine": "Ativos de mercado de previsão que você criou ou interagiu.",
+      "portfolio": "Ativos de mercado de previsão atualmente mantidos no saldo da sua conta.",
+      "margin": "Posições de margem (chamada) ativas em ativos de mercado de previsão."
+    },
+    "showing": "Mostrando {{primary}} mercados",
+    "stat": " · {{value}} {{label}}",
     "emptyActive": "Nenhuma previsão ativa disponível no momento.",
+    "emptyExpired": "Nenhuma previsão expirada disponível no momento.",
     "emptyMine": "Você não tem previsões no momento.",
     "emptyPortfolio": "Você não tem ativos de mercado de previsão no saldo do seu portfólio no momento.",
     "emptyMargin": "Você não tem posições de margem de ativos de mercado previstas no momento."
+  },
+  "tab": {
+    "overview": "Visão geral",
+    "nft": "NFT",
+    "market": "Mercado",
+    "details": "Detalhes",
+    "actions": "Ações",
+    "winners": "Vencedores",
+    "admin": "Administrador",
+    "org": "Organização"
+  },
+  "status": {
+    "active": "Ativo",
+    "resolvedYes": "Resolvido · SIM",
+    "resolvedNo": "Resolvido · NÃO",
+    "awaiting": "Aguardando resolução"
+  },
+  "timeLeft": "Tempo restante",
+  "timeExpired": "Tempo desde a expiração",
+  "openInterest": "Interesse aberto",
+  "openInterest_help": "Total de garantia comprometida por todos os vendedores apostando contra o resultado.",
+  "market": {
+    "impliedProbability": "Probabilidade SIM implícita",
+    "impliedProbability_help": "Chance estimada que o mercado atribui ao resultado SIM, derivada do interesse aberto e do tamanho do fundo de liquidação.",
+    "expiredNote": "A negociação foi encerrada para este mercado.",
+    "settlementFund": "Fundo de liquidação",
+    "settlementFund_help": "A garantia atualmente mantida no fundo de liquidação, aguardando resolução.",
+    "commission": "Taxa de mercado",
+    "commission_help": "Taxa cobrada em cada negociação, paga no ativo de suporte.",
+    "tradeOnDex": "Negociar no DEX"
+  },
+  "nft": {
+    "title": "Título",
+    "artist": "Artista",
+    "type": "Tipo",
+    "encoding": "Codificação",
+    "license": "Licença",
+    "holderLicense": "Licença do titular",
+    "tags": "Etiquetas",
+    "narrative": "Narrativa",
+    "acknowledgements": "Agradecimentos",
+    "attestation": "Atestação",
+    "viewOnIpfs": "Ver no IPFS",
+    "noImage": "Nenhuma imagem NFT disponível",
+    "signature": "Assinatura",
+    "sigPubkey": "Assinador",
+    "copySig": "Copiar assinatura",
+    "copyPubkey": "Copiar chave do assinador",
+    "verifyNote": "Verificação de assinatura — em breve."
+  },
+  "details": {
+    "assetId": "ID do ativo",
+    "issuer": "Emissor",
+    "precision": "Precisão",
+    "maxSupply": "Oferta máxima"
+  },
+  "copy": "Copiar",
+  "copied": "Copiado",
+  "copyAssetId": "Copiar ID do ativo",
+  "copyIssuerId": "Copiar ID do emissor",
+  "stats": {
+    "closingSoon": "encerrando em 24h",
+    "newlyCreated": "novo nos últimos 7 dias",
+    "awaitingResolution": "aguardando resolução",
+    "resolved": "resolvido",
+    "awaitingYourResolution": "aguardando sua resolução",
+    "inYourBalance": "no seu saldo",
+    "marginPositions": "posições de margem ativas"
+  },
+  "list": {
+    "sort": {
+      "newest": "Mais recente primeiro",
+      "expiring": "Expirando mais breve",
+      "volume": "Maior volume",
+      "alpha": "Alfabético"
+    },
+    "filter": {
+      "all": "Todos",
+      "closingSoon": "Fechando em 24h",
+      "new": "Novo (últimos 7 dias)",
+      "highVolume": "Alto volume"
+    },
+    "searchPlaceholder": "Pesquisar por símbolo ou pergunta…",
+    "noResults": "Nenhuma previsão corresponde aos seus filtros."
   },
   "price_feeders": "Alimentadores de preços",
   "price_feeders_content": "A previsão pode ser resolvida pelas testemunhas, pelo comitê ou pelos alimentadores de preços privados.",
@@ -39,6 +140,11 @@
   "winner_content": "Os vencedores que compraram (resultado verdadeiro) podem liquidar o PMA pelo conteúdo do ativo de garantia 1x. Os vencedores que venderam (resultado falso) não precisam fazer nada.",
   "winner_header": "Vencedores",
   "winner_claim": "Reivindicar ativos de garantia",
+  "winner": {
+    "settlementFund_help": "A garantia total comprometida neste mercado de previsão. Os compradores que detêm o resultado vencedor podem reivindicar uma parte proporcional deste fundo.",
+    "yourPmaBalance": "Seu saldo PMA",
+    "yourPmaBalance_help": "O número de tokens de ativos de mercado de previsão que você detém atualmente. Após a resolução da previsão, cada PMA vencedor pode ser liquidado por 1 unidade do ativo de suporte."
+  },
   "resolve": "Resolver previsão",
   "not_expired": "Esta previsão ainda não expirou, por isso não pode ser resolvida.",
   "time_till_expiration": "Tempo até a expiração: {{hours}} horas",
@@ -101,13 +207,13 @@
   },
   "priceFeederDialog": {
     "title": "Definir alimentadores de preços",
-    "description": "Defina os alimentadores de preços para esta previsão. Os alimentadores de preços são responsáveis ​​por fornecer o preço de ajuste para a previsão.",
+    "description": "Defina os alimentadores de preços para esta previsão. Os alimentadores de preços são responsáveis por fornecer o preço de ajuste para a previsão.",
     "priceFeedersHeader": "Alimentadores de preços",
-    "priceFeedersContent": "Os alimentadores de preços para esta previsão, os alimentadores de preços são responsáveis ​​por fornecer o preço de ajuste para a previsão.",
+    "priceFeedersContent": "Os alimentadores de preços para esta previsão, os alimentadores de preços são responsáveis por fornecer o preço de ajuste para a previsão.",
     "addPriceFeeder": "Adicionar alimentador de preços",
     "addPriceFeederDialog": {
       "title": "Adicionar alimentador de preços",
-      "description": "Adicione um alimentador de preços a esta previsão. Os alimentadores de preços são responsáveis ​​por fornecer o preço de ajuste para a previsão.",
+      "description": "Adicione um alimentador de preços a esta previsão. Os alimentadores de preços são responsáveis por fornecer o preço de ajuste para a previsão.",
       "accountHeader": "Conta",
       "accountContent": "A conta que será responsável por fornecer o preço de ajuste da previsão.",
       "submit": "Adicionar"
@@ -124,19 +230,32 @@
   "json": {
     "button": "JSON",
     "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
+    "description": "Dados JSON brutos para a entrada selecionada.",
+    "assetData": "Dados do Ativo",
+    "bitassetData": "Dados Bitasset",
+    "descriptionData": "Dados de Descrição",
+    "copy": "Copiar",
+    "copied": "Copiado!",
+    "blockIssuer": "Bloquear este emissor",
+    "unblockIssuer": "Desbloquear este emissor"
   },
   "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
+    "title": "Bloquear este emissor?",
+    "description": "Mercados de previsão criados por esta conta ficarão ocultos da sua visualização. Você pode desbloqueá-los a qualquer momento.",
+    "cancel": "Cancelar",
+    "confirm": "Bloquear emissor"
+  },
+  "org": {
+    "title": "Organização",
+    "name": "Nome",
+    "website": "Site",
+    "manifest": "Manifesto",
+    "resolutionPolicy": "Política de resolução",
+    "disputeMechanism": "Mecanismo de disputa",
+    "onchainAccount": "Conta on-chain",
+    "attestation": "Atestação",
+    "signature": "Assinatura",
+    "viewAll": "Ver todas as previsões {{symbol}}",
+    "noOrg": "Nenhuma informação organizacional disponível"
   }
 }

@@ -43,6 +43,7 @@ import {
   Repeat,
   SlidersHorizontal,
   Palette,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -70,6 +71,8 @@ const ITEM_ICONS = {
   prediction_markets_portfolio: Briefcase,
   prediction_markets_margin: TrendingUp,
   create_prediction: Sparkles,
+  create_pma_org: Sparkles,
+  prediction_organizations: ShieldCheck,
   transfer: Send,
   portfolio_balances: Wallet,
   portfolio_open_orders: ClipboardList,
@@ -91,6 +94,8 @@ const ITEM_ACCENT_COLORS = {
   prediction_markets_portfolio: "text-fuchsia-400",
   prediction_markets_margin: "text-amber-400",
   create_prediction: "text-violet-400",
+  create_pma_org: "text-fuchsia-400",
+  prediction_organizations: "text-cyan-400",
   transfer: "text-sky-400",
   portfolio_balances: "text-emerald-400",
   portfolio_open_orders: "text-cyan-400",
@@ -112,6 +117,8 @@ export default function AppSidebar() {
     { title: "Home:prediction_markets_portfolio.title", href: "/prediction-portfolio/index.html", key: "prediction_markets_portfolio" },
     { title: "Home:prediction_markets_margin.title", href: "/prediction-margin/index.html", key: "prediction_markets_margin" },
     { title: "PageHeader:createPrediction", href: "/create_prediction/index.html", key: "create_prediction" },
+    { title: "PageHeader:createPMAOrg", href: "/create_pma_org/index.html", key: "create_pma_org" },
+    { title: "PageHeader:predictionOrganizations", href: "/prediction-organizations/index.html", key: "prediction_organizations" },
   ];
 
   const exchangeItems = [

@@ -5,26 +5,127 @@
   "expiration": "Scadenza",
   "expired_at": "Scaduto",
   "outcome": "Risultato",
-  "prize_pool": "Insediamento",
   "outcome_true": "Vero (gli acquirenti vincono)",
   "outcome_false": "Falso (i venditori vincono)",
   "outcome_tba": "Non ancora risolto",
+  "outcome.yes": "Sì",
+  "outcome.no": "No",
+  "outcome.unresolved": "Non risolto",
   "issue": "Passaggio 1: emetti token PMA",
   "buy": "Scommetti vero (acquista)",
   "sell": "Passaggio 2: scommessa falsa (vendita)",
   "active": "Previsioni attive",
-  "expired": "Pronostici scaduti",
+  "expired": "Previsioni scadute",
   "mine": "Le mie previsioni",
-  "portfolio": "Portfolio",
+  "portfolio": "Portafoglio",
   "margin": "Margine",
   "bettingAsset": "Asset di scommessa",
   "card": {
-    "title": "Asset del mercato di previsione",
-    "description": "Scopri le potenziali opportunità di scommessa qui sotto!",
-    "emptyActive": "Nessun pronostico attivo disponibile al momento.",
-    "emptyMine": "Non hai pronostici al momento.",
-    "emptyPortfolio": "Al momento non hai attività di mercato di previsione nel saldo del tuo portafoglio.",
-    "emptyMargin": "Non hai previsioni sulle posizioni di margine delle attività di mercato al momento."
+    "title": {
+      "active": "Mercati di previsione attivi",
+      "expired": "Mercati di previsione scaduti",
+      "mine": "I miei mercati di previsione",
+      "portfolio": "Portafoglio di previsione",
+      "margin": "Posizioni su margine di previsione"
+    },
+    "description": {
+      "active": "Sfoglia gli asset del mercato di previsione in diretta, non risolti, che accettano scommesse.",
+      "expired": "Sfoglia gli asset del mercato di previsione passati in attesa di risoluzione da parte dei fornitori di prezzi.",
+      "mine": "Gli asset del mercato di previsione che hai creato o con cui hai interagito.",
+      "portfolio": "Gli asset del mercato di previsione attualmente detenuti nel saldo del tuo conto.",
+      "margin": "Posizioni su margine (call) attive sugli asset del mercato di previsione."
+    },
+    "showing": "Mostrando {{primary}} mercati",
+    "stat": " · {{value}} {{label}}",
+    "emptyActive": "Nessuna previsione attiva disponibile al momento.",
+    "emptyExpired": "Nessuna previsione scaduta disponibile al momento.",
+    "emptyMine": "Non hai previsioni al momento.",
+    "emptyPortfolio": "Non hai asset del mercato di previsione nel saldo del tuo portafoglio al momento.",
+    "emptyMargin": "Non hai posizioni su margine di asset del mercato di previsione al momento."
+  },
+  "tab": {
+    "overview": "Panoramica",
+    "nft": "NFT",
+    "market": "Mercato",
+    "details": "Dettagli",
+    "actions": "Azioni",
+    "winners": "Vincitori",
+    "admin": "Admin",
+    "org": "Organizzazione"
+  },
+  "status": {
+    "active": "Attivo",
+    "resolvedYes": "Risolto · SÌ",
+    "resolvedNo": "Risolto · NO",
+    "awaiting": "In attesa di risoluzione"
+  },
+  "timeLeft": "Tempo rimasto",
+  "timeExpired": "Tempo dalla scadenza",
+  "openInterest": "Interesse aperto",
+  "openInterest_help": "Totale garanzie impegnate da tutti i venditori che scommettono contro il risultato.",
+  "market": {
+    "impliedProbability": "Probabilità SÌ implicita",
+    "impliedProbability_help": "Probabilità stimata che il mercato assegna al risultato SÌ, derivata dall'interesse aperto e dalla dimensione del fondo di liquidazione.",
+    "expiredNote": "Il trading è terminato per questo mercato.",
+    "settlementFund": "Fondo di liquidazione",
+    "settlementFund_help": "Le garanzie attualmente detenute nel fondo di liquidazione, in attesa di risoluzione.",
+    "commission": "Commissione di mercato",
+    "commission_help": "Commissione addebitata su ogni operazione, pagata nell'asset di garanzia.",
+    "tradeOnDex": "Opera sul DEX"
+  },
+  "nft": {
+    "title": "Titolo",
+    "artist": "Artista",
+    "type": "Tipo",
+    "encoding": "Codifica",
+    "license": "Licenza",
+    "holderLicense": "Licenza del titolare",
+    "tags": "Tag",
+    "narrative": "Narrativa",
+    "acknowledgements": "Riconoscimenti",
+    "attestation": "Attestazione",
+    "viewOnIpfs": "Visualizza su IPFS",
+    "noImage": "Nessuna immagine NFT disponibile",
+    "signature": "Firma",
+    "sigPubkey": "Firmatario",
+    "copySig": "Copia firma",
+    "copyPubkey": "Copia chiave del firmatario",
+    "verifyNote": "Verifica della firma — in arrivo."
+  },
+  "details": {
+    "assetId": "ID dell'asset",
+    "issuer": "Emittente",
+    "precision": "Precisione",
+    "maxSupply": "Offerta massima"
+  },
+  "copy": "Copia",
+  "copied": "Copiato",
+  "copyAssetId": "Copia ID asset",
+  "copyIssuerId": "Copia ID emittente",
+  "stats": {
+    "closingSoon": "chiusura entro 24h",
+    "newlyCreated": "nuovo negli ultimi 7 giorni",
+    "awaitingResolution": "in attesa di risoluzione",
+    "resolved": "risolto",
+    "awaitingYourResolution": "in attesa della tua risoluzione",
+    "inYourBalance": "nel tuo saldo",
+    "marginPositions": "posizioni su margine attive"
+  },
+  "list": {
+    "sort": {
+      "newest": "Più recente",
+      "expiring": "Scade più presto",
+      "volume": "Volume più alto",
+      "alpha": "Alfabetico"
+    },
+    "filter": {
+      "all": "Tutti",
+      "closingSoon": "Chiusura entro 24h",
+      "new": "Nuovo (ultimi 7 giorni)",
+      "highVolume": "Volume alto"
+    },
+    "searchPlaceholder": "Cerca per simbolo o domanda…",
+    "noResults": "Nessuna previsione corrisponde ai tuoi filtri."
   },
   "price_feeders": "Alimentatori di prezzi",
   "price_feeders_content": "La previsione può essere risolta dai testimoni, dal comitato o dai fornitori di prezzi privati.",
@@ -35,10 +136,15 @@
   "buyer_content": "Gli acquirenti scommettono per la previsione. Se la previsione è vera, gli acquirenti vincono quando il prezzo di chiusura arriva a 1.",
   "admin": "Ammin",
   "admin_content": "La casa dispone di controlli aggiuntivi per risolvere la previsione.",
-  "about": "Di",
+  "about": "Informazioni",
   "winner_content": "I vincitori che hanno acquistato (risultato vero) possono saldare il PMA per il contenuto della risorsa di supporto 1x, i vincitori che hanno venduto (risultato falso) non devono fare nulla.",
   "winner_header": "Vincitori",
-  "winner_claim": "Richiedi risorse di supporto",
+  "winner_claim": "Richiedi beni di garanzia",
+  "winner": {
+    "settlementFund_help": "Le garanzie totali impegnate in questo mercato di previsione. Gli acquirenti che detengono il risultato vincente possono richiedere una quota proporzionale di questo fondo.",
+    "yourPmaBalance": "Il tuo saldo PMA",
+    "yourPmaBalance_help": "Il numero di token di asset del mercato di previsione che attualmente possiedi. Dopo la risoluzione della previsione, ogni PMA vincente può essere saldato per 1 unità dell'asset di garanzia."
+  },
   "resolve": "Risolvi la previsione",
   "not_expired": "Questa previsione non è ancora scaduta, quindi non può essere risolta.",
   "time_till_expiration": "Tempo fino alla scadenza: {{hours}} ore",
@@ -50,7 +156,7 @@
   "issueDialog": {
     "title": "Emissione di asset di mercato di previsione",
     "description": "Per scommettere contro il risultato, devi prima emettere i token degli asset del mercato di previsione.",
-    "balance": "Usa l'equilibrio",
+    "balance": "Usa il saldo",
     "qtyHeader": "Quantità da emettere",
     "qtyContent": "La quantità di token che desideri emettere in questo mercato di previsione. I token emessi possono essere venduti, consentendoti di scommettere contro le previsioni.",
     "existingHeader": "Garanzie impegnate esistenti",
@@ -64,13 +170,13 @@
   "dialogContent": {
     "header_issue": "Emissione di token PMA",
     "header_sell": "Vendita di token PMA",
-    "header_buy": "Acquistare token PMA",
-    "header_claim": "Rivendicare i beni di garanzia",
+    "header_buy": "Acquisto di token PMA",
+    "header_claim": "Richiesta di beni di garanzia",
     "header_resolve": "Risoluzione della previsione",
     "header_pricefeeder": "Impostazione degli alimentatori di prezzo",
     "header_feedprice": "Prezzo di alimentazione"
   },
-  "insufficient_funds": "Equilibrio insufficiente.",
+  "insufficient_funds": "Saldo insufficiente.",
   "sellDialog": {
     "qtyHeader": "Quantità da vendere",
     "qtyContent": "La quantità di token che desideri vendere in questo mercato di previsione, scommettendo contro l'esito della previsione.",
@@ -78,7 +184,7 @@
     "receivingContent": "Questo è approssimativamente l'importo totale dell'asset di garanzia che riceverai in cambio di questa operazione.",
     "title": "Vendita di asset del mercato di previsione",
     "description": "Per scommettere contro il risultato della previsione, devi vendere i token asset del mercato di previsione che hai emesso in precedenza.",
-    "expiryContent": "Il tuo ordine limite rimarrà attivo sul DEX per questo tempo prima di non esistere più. Se selezioni \"riempi o uccidi\", se non esiste un ordine limite di vendita DEX corrispondente l'operazione fallirà, risparmiando tempo e commissioni.",
+    "expiryContent": "Il tuo ordine limite rimarrà attivo sul DEX per questo periodo prima di non esistere più. Se selezioni \"riempi o uccidi\", se non esiste un ordine limite di vendita DEX corrispondente l'operazione fallirà, risparmiando tempo e commissioni.",
     "expiryHeader": "Scadenza"
   },
   "buyDialog": {
@@ -88,55 +194,68 @@
     "receivingContent": "Questo è approssimativamente l'importo totale di token asset del mercato di previsione che riceverai in cambio di questa operazione."
   },
   "claimDialog": {
-    "qtyContent": "La quantità di asset del mercato di previsione che desideri reinvestire nell'asset di supporto.",
+    "qtyContent": "La quantità di asset del mercato di previsione che desideri reinvestire nell'asset di garanzia.",
     "qtyHeader": "Quantità da saldare"
   },
   "resolveDialog": {
     "title": "Risoluzione della previsione",
-    "description": "Il pronostico è scaduto ed è pronto per essere risolto. Seleziona il risultato corretto del pronostico.",
+    "description": "La previsione è scaduta ed è pronta per essere risolto. Seleziona il risultato corretto della previsione.",
     "outcomeHeader": "Risultato",
-    "outcomeContent": "Il risultato della previsione, se la previsione è vera, gli acquirenti vincono quando il prezzo di chiusura arriva a 1, se la previsione è falsa, i venditori vincono quando il prezzo di chiusura arriva a 0.",
-    "true": "Risultato reale (gli acquirenti vincono)",
+    "outcomeContent": "Il risultato della previsione. Se la previsione è vera, gli acquirenti vincono quando il prezzo di chiusura arriva a 1. Se la previsione è falsa, i venditori vincono quando il prezzo di chiusura arriva a 0.",
+    "true": "Risultato vero (gli acquirenti vincono)",
     "false": "Risultato falso (i venditori vincono)"
   },
   "priceFeederDialog": {
     "title": "Imposta gli alimentatori di prezzo",
-    "description": "Imposta i feeder dei prezzi per questa previsione. I feeder dei prezzi sono responsabili di fornire il prezzo di liquidazione per la previsione.",
-    "priceFeedersHeader": "Alimentatori di prezzi",
-    "priceFeedersContent": "Gli alimentatori di prezzo per questa previsione, gli alimentatori di prezzo sono responsabili di fornire il prezzo di liquidazione per la previsione.",
-    "addPriceFeeder": "Aggiungi alimentatore prezzo",
+    "description": "Imposta i fornitori di prezzi per questa previsione. I fornitori di prezzi sono responsabili della fornitura del prezzo di liquidazione per la previsione.",
+    "priceFeedersHeader": "Fornitori di prezzi",
+    "priceFeedersContent": "I fornitori di prezzi per questa previsione sono responsabili della fornitura del prezzo di liquidazione per la previsione.",
+    "addPriceFeeder": "Aggiungi fornitore di prezzi",
     "addPriceFeederDialog": {
-      "title": "Aggiungi alimentatore prezzo",
-      "description": "Aggiungi un feeder di prezzo a questa previsione. I feeder di prezzo sono responsabili di fornire il prezzo di liquidazione per la previsione.",
+      "title": "Aggiungi fornitore di prezzi",
+      "description": "Aggiungi un fornitore di prezzi a questa previsione. I fornitori di prezzi sono responsabili della fornitura del prezzo di liquidazione per la previsione.",
       "accountHeader": "Account",
-      "accountContent": "Il conto che sarà responsabile di fornire il prezzo di liquidazione per la previsione.",
-      "submit": "Aggiungere"
+      "accountContent": "Il conto che sarà responsabile della fornitura del prezzo di liquidazione per la previsione.",
+      "submit": "Aggiungi"
     }
   },
   "feederDialog": {
     "title": "Risoluzione del mercato delle previsioni tramite feed dei prezzi",
     "description": "La previsione è scaduta ed è pronta per essere risolta tramite un feed di prezzo pubblicato.",
     "outcomeHeader": "Risultato",
-    "outcomeContent": "Il risultato della previsione, se la previsione è vera, gli acquirenti vincono quando il prezzo di chiusura arriva a 1, se la previsione è falsa, i venditori vincono quando il prezzo di chiusura arriva a 0.",
-    "true": "Risultato reale (gli acquirenti vincono)",
+    "outcomeContent": "Il risultato della previsione. Se la previsione è vera, gli acquirenti vincono quando il prezzo di chiusura arriva a 1. Se la previsione è falsa, i venditori vincono quando il prezzo di chiusura arriva a 0.",
+    "true": "Risultato vero (gli acquirenti vincono)",
     "false": "Risultato falso (i venditori vincono)"
   },
   "json": {
     "button": "JSON",
-    "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
+    "title": "JSON dell'asset",
+    "description": "Dati JSON grezzi per la voce selezionata.",
+    "assetData": "Dati dell'asset",
+    "bitassetData": "Dati Bitasset",
+    "descriptionData": "Dati di descrizione",
+    "copy": "Copia",
+    "copied": "Copiato!",
+    "blockIssuer": "Blocca questo emittente",
+    "unblockIssuer": "Sblocca questo emittente"
   },
   "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
+    "title": "Bloccare questo emittente?",
+    "description": "I mercati di previsione creati da questo conto saranno nascosti dalla tua vista. Puoi sbloccarli in qualsiasi momento.",
+    "cancel": "Annulla",
+    "confirm": "Blocca emittente"
+  },
+  "org": {
+    "title": "Organizzazione",
+    "name": "Nome",
+    "website": "Sito web",
+    "manifest": "Manifesto",
+    "resolutionPolicy": "Politica di risoluzione",
+    "disputeMechanism": "Meccanismo di disputa",
+    "onchainAccount": "Account on-chain",
+    "attestation": "Attestazione",
+    "signature": "Firma",
+    "viewAll": "Vedi tutte le previsioni {{symbol}}",
+    "noOrg": "Nessuna informazione sull'organizzazione disponibile"
   }
 }

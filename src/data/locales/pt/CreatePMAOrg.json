@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Etapa {{number}}",
+    "optional": "Opcional",
+    "recommended": "Recomendado"
+  },
   "card": {
     "title": "Criar Organização de Mercado de Previsão",
     "description": "Registre um nome de ativo de nível superior que servirá como pai para seus sub-ativos de mercado de previsão. Os sub-ativos emitidos sob esta organização (por exemplo, GAMBLE.0001) se beneficiam de taxas de criação reduzidas e reconhecimento instantâneo da marca."
@@ -83,13 +88,14 @@
   },
   "summary": {
     "title": "Revisar e Enviar",
-    "subtitle": "Verifique os detalhes da sua organização antes da criação",
-    "symbol": "Símbolo da Organização",
+    "subtitle": "Verifique os detalhes da sua organização antes de criar",
+    "symbol": "Símbolo da organização",
     "name": "Nome Curto",
     "maxSupply": "Oferta Máxima",
     "precision": "Precisão",
     "nftMedia": "Mídias NFT",
-    "pmo": "Organização PMO"
+    "pmo": "Organização PMO",
+    "jsonPreview": "Pré-visualização JSON"
   },
   "ready": "Todos os campos obrigatórios estão preenchidos. Pronto para criar sua organização PMA!",
   "fieldsRequired": "Por favor, insira um símbolo de organização para continuar.",

@@ -3,6 +3,7 @@
   "creditBorrow": "Laena",
   "creditLend": "Laenama",
   "proceedToBorrow": "probleem",
+  "collateralBid": "Pakkumine tagatisele",
   "issueAssetDescription": "Selle vara väljaandjana saate selle vara väljastada endale või mõnele teisele plokiahela kontole kuni konfigureeritud maksimaalse pakkumiseni.",
   "manageUIA": "Muuda",
   "pmaBet": "Panusta",

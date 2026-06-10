@@ -3,6 +3,7 @@
   "creditBorrow": "Låne",
   "creditLend": "Låne",
   "proceedToBorrow": "Spørgsmål",
+  "collateralBid": "Bud på sikkerhed",
   "issueAssetDescription": "Som udsteder af dette aktiv kan du udstede dette aktiv til dig selv eller til en anden konto på blockchain, op til den konfigurerede maksimale forsyning.",
   "manageUIA": "Redigere",
   "pmaBet": "Vædde",

@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Schritt {{number}}",
+    "optional": "Optional",
+    "recommended": "Empfohlen"
+  },
   "dialogContent": {
     "headerText": "Erstellen des folgenden Prognosemarkt-Assets: {{symbol}}"
   },
@@ -6,18 +11,74 @@
     "title": "Erstellen eines neuen Prognosemarkt-Assets",
     "description": "Durch die Schaffung eines Prognosemarktes können Sie gegen eine Provision als Plattform für dezentrale Wetten auf zukünftige Ereignisse fungieren, ohne dass Sie dem Kontrahentenrisiko des Gewinnpools ausgesetzt sind."
   },
+  "steps": {
+    "asset": {
+      "title": "Asset-Identität",
+      "description": "Das eindeutige Symbol, der Name und das Angebot für Ihr Prognosemarkt-Asset."
+    },
+    "pma": {
+      "title": "Prognosemarkt-Details",
+      "description": "Die Bedingung, die definiert, worauf Ihr Markt setzt."
+    },
+    "nft": {
+      "title": "Nicht-fungible Token-Details",
+      "description": "Optional. Fügen Sie NFT-Metadaten wie Künstler, Titel und IPFS-Medien hinzu."
+    },
+    "extensions": {
+      "title": "Marktgebühren-Erweiterungen",
+      "description": "Optional. Konfigurieren Sie, wie Marktgebühren zwischen dem Haus, Empfehlern und dem Taker aufgeteilt werden."
+    },
+    "permissions": {
+      "title": "Berechtigungen und Flaggen",
+      "description": "Wählen Sie aus, welche erweiterten Funktionen dieses Asset unterstützt."
+    },
+    "authorization": {
+      "title": "Autorisierung",
+      "description": "Optional. Whitelisten und Blacklisten Sie Konten, die mit diesem Asset interagieren dürfen."
+    }
+  },
+  "summary": {
+    "label": "Überprüfen und einreichen",
+    "ready": "Bereit, Ihr Prognosemarkt-Asset zu erstellen.",
+    "fieldsRequired": "Einige erforderliche Felder sind noch leer.",
+    "title": "Was Sie erstellen",
+    "subtitle": "Eine Zusammenfassung des Prognosemarkt-Assets, das Sie starten möchten. Überprüfen Sie, ob alles korrekt aussieht, bevor Sie einreichen.",
+    "symbol": "Symbol",
+    "name": "Name",
+    "condition": "Bedingung",
+    "backing": "Sicherungsvermögenswert",
+    "maxSupply": "Maximales Angebot",
+    "commission": "Provision",
+    "resolution": "Auflösungsdatum",
+    "expiryHint": "Löst auf in",
+    "days_one": "1 Tag",
+    "days_other": "{{count}} Tage",
+    "permissions": "Berechtigungen",
+    "extensions": "Erweiterungen",
+    "advanced": "Erweiterte Funktionen",
+    "noBacking": "Wählen Sie einen Sicherungsvermögenswert aus, um ihn hier zu sehen.",
+    "noCondition": "Geben Sie eine Bedingung ein, um sie hier zu sehen."
+  },
+  "actions": {
+    "useExample": "Mit Beispiel füllen",
+    "reset": "Zurücksetzen"
+  },
+  "tips": {
+    "submitTitle": "Vor dem Einreichen",
+    "submitHint": "Beim Einreichen wird Ihr Wallet geöffnet, um eine On-Chain-Transaktion zu senden. Sie können noch in Beet/BeetEOS vor der Unterzeichnung abbrechen."
+  },
   "pma": {
     "title": "Details zum prognostizierten Marktvermögen",
     "title_content": "Dies sind die Asset-Einstellungen, die für das prognostizierte Markt-Asset verwendet werden.",
     "condition": {
       "header": "Zustand",
       "header_content": "Geben Sie hier die prognostizierten Details zum Marktvermögen an",
-      "placeholder": "Vorhersagebedingungen"
+      "placeholder": "Will SpaceX Starship vor 2030 auf dem Mars landen?"
     },
     "commission": {
       "header": "Provision (%)",
       "header_content": "Die Provision ist die Gebühr, die das Haus für die Erstellung und Bewertung des prognostizierten Marktwerts erhebt.",
-      "placeholder": "Kommission"
+      "placeholder": "Provision"
     },
     "backing_asset": {
       "header": "Sicherungsvermögenswert",
@@ -29,10 +90,31 @@
     }
   },
   "fee": {
-    "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "calculating": "Berechnung...",
+    "hover": "Geschätzte Netzwerkgebühr für die Erstellung dieses Prognosemarkt-Assets. Die tatsächliche Gebühr hängt von der Symbollänge, der Datengröße und den aktuellen Netzwerkparametern ab."
   },
   "buttons": {
-    "submit": "Einreichen"
+    "submit": "Prognosemarkt-Asset erstellen"
+  },
+  "fields": {
+    "org": {
+      "label": "Organisation",
+      "help": "Wählen Sie die PMO-Organisation, zu der dieses Unter-Asset gehört.",
+      "selectLabel": "Ihre Organisationen"
+    },
+    "subAssetName": {
+      "label": "Unter-Asset-Name",
+      "help": "Der eindeutige Name für diese Vorhersage innerhalb der Organisation (z.B. 0001).",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "Vollständiges Symbol"
+    }
+  },
+  "creationMode": {
+    "manual": "Manuell",
+    "organization": "Organisation",
+    "noOrgs": "Keine Organisationen gefunden. Erstellen Sie zuerst ein PMO-Asset.",
+    "label": "Erstellungsmodus"
   }
 }

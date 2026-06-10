@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Step {{number}}",
+    "optional": "Optional",
+    "recommended": "Recommended"
+  },
   "card": {
     "title": "Create Prediction Market Organization",
     "description": "Register a top-level asset name that will serve as the parent for your prediction market sub-assets. Sub-assets issued under this organization (e.g. GAMBLE.0001) benefit from reduced creation fees and instant brand recognition."
@@ -13,7 +18,7 @@
       "description": "Optionally attach NFT metadata and IPFS media to your organization asset"
     },
     "pmo": {
-      "title": "Organization Profile (PMO Object)",
+      "title": "Organization Profile",
       "description": "Define your organization's identity, governance, and attestation — the decentralized constitution for all sub-assets"
     }
   },
@@ -89,7 +94,8 @@
     "maxSupply": "Max Supply",
     "precision": "Precision",
     "nftMedia": "NFT Media",
-    "pmo": "PMO Organization"
+    "pmo": "PMO Organization",
+    "jsonPreview": "JSON Preview"
   },
   "ready": "All required fields are filled. Ready to create your PMA organization!",
   "fieldsRequired": "Please enter an organization symbol to continue.",

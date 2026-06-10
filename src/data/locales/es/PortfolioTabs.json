@@ -52,5 +52,18 @@
   "orderIdHeader": "ID de pedido",
   "expirationHeader": "Vencimiento",
   "priceHeader": "Precio",
-  "actionsHeader": "Comportamiento"
+  "actionsHeader": "Comportamiento",
+  "refreshOpenOrdersTooltip": "Actualizar órdenes abiertas",
+  "copyOrderIdTooltip": "Copiar ID de la orden",
+  "expiryStatusHealthy": "Saludable",
+  "expiryStatusSoon": "Vence pronto",
+  "expiryStatusImminent": "Menos de 24 horas",
+  "expiryStatusExpired": "Vencido",
+  "noOpenOrdersTitle": "Sin órdenes abiertas",
+  "noOpenOrdersDescription": "No tiene órdenes límite abiertas en el DEX en este momento.",
+  "noOpenOrdersCta": "Colocar una nueva orden",
+  "badgeSell": "Vender",
+  "badgeBuy": "Comprar",
+  "orderSummaryCount": "{{count}} órdenes abiertas",
+  "orderIdCopied": "ID de la orden copiado"
 }

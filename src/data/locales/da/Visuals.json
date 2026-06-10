@@ -27,5 +27,14 @@
   "particlesDesc": "Slå de små svævende partikler i sidehovedet til eller fra.",
   "on": "Til",
   "off": "Fra",
-  "resetToDefaults": "Nulstil til standard"
+  "resetToDefaults": "Nulstil til standard",
+  "externalServices": {
+    "heading": "Eksterne tjenester",
+    "description": "Konfigurer tredjepartstjenesterne der bruges til at hente aktiver på hele siden.",
+    "ipfsGateway": {
+      "header": "IPFS-gateway",
+      "help": "Gateway der bruges til at løse IPFS-links til NFT-billeder og andet indhold. Brug en offentlig gateway du stoler på.",
+      "placeholder": "https://ipfs.io/ipfs/"
+    }
+  }
 }

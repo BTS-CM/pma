@@ -5,10 +5,12 @@
   "expiration": "Aegumine",
   "expired_at": "Aegunud",
   "outcome": "Tulemus",
-  "prize_pool": "Arveldamine",
   "outcome_true": "Tõsi (ostjad võidavad)",
   "outcome_false": "Vale (müüjad võidavad)",
   "outcome_tba": "Pole veel lahendatud",
+  "outcome.yes": "Jah",
+  "outcome.no": "Ei",
+  "outcome.unresolved": "Lahendamata",
   "issue": "1. toiming: väljastage PMA märgid",
   "buy": "Panusta tõele (osta)",
   "sell": "2. samm: panus vale (müüa)",
@@ -19,12 +21,111 @@
   "margin": "Marginaali",
   "bettingAsset": "Panustamisvara",
   "card": {
-    "title": "Prognoositavad turuvarad",
-    "description": "Tutvu potentsiaalsete panustamisvõimalustega allpool!",
+    "title": {
+      "active": "Aktiivsed ennustusteturud",
+      "expired": "Aegunud ennustusteturud",
+      "mine": "Minu ennustusteturud",
+      "portfolio": "Ennustuste portfell",
+      "margin": "Ennustuste marginaali positsioonid"
+    },
+    "description": {
+      "active": "Sirvige otseülekandena lahendamata ennustusturu varasid, mis aktsepteerivad panuseid.",
+      "expired": "Sirvige varasemaid ennustusturu varasid, mis ootavad hindjate lahendust.",
+      "mine": "Ennustusturu varad, mille olete loonud või millega olete suhelnud.",
+      "portfolio": "Ennustusturu varad, mida hetkel hoitakse teie kontojäägis.",
+      "margin": "Aktiivsed marginaali (call) positsioonid ennustusturu varadel."
+    },
+    "showing": "Näidatakse {{primary}} turgu",
+    "stat": " · {{value}} {{label}}",
     "emptyActive": "Praegu pole aktiivseid prognoose saadaval.",
+    "emptyExpired": "Praegu pole aegunud prognoose saadaval.",
     "emptyMine": "Teil pole praegu ennustusi.",
     "emptyPortfolio": "Teie portfelli bilansis ei ole hetkel prognoositavaid turuvarasid.",
     "emptyMargin": "Teil pole praegu prognoositavaid turu varade marginaalipositsioone."
+  },
+  "tab": {
+    "overview": "Ülevaade",
+    "nft": "NFT",
+    "market": "Turg",
+    "details": "Üksikasjad",
+    "actions": "Tegevused",
+    "winners": "Võitjad",
+    "admin": "Admin",
+    "org": "Organisatsioon"
+  },
+  "status": {
+    "active": "Aktiivne",
+    "resolvedYes": "Lahendatud · JAH",
+    "resolvedNo": "Lahendatud · EI",
+    "awaiting": "Ootab lahendust"
+  },
+  "timeLeft": "Järelejäänud aeg",
+  "timeExpired": "Aeg alates aegumisest",
+  "openInterest": "Avatud huvi",
+  "openInterest_help": "Kogu tagatis, mille on pühendunud kõik müüjad, kes panustavad tulemuse vastu.",
+  "market": {
+    "impliedProbability": "Kaudne JAH tõenäosus",
+    "impliedProbability_help": "Hinnanguline tõenäosus, mida turg JAH tulemusele omistab, mis tuleneb avatud huvist ja arveldusfondi suurusest.",
+    "expiredNote": "Selle turu kauplemine on lõppenud.",
+    "settlementFund": "Arveldusfond",
+    "settlementFund_help": "Tagatis, mida hetkel hoitakse arveldusfondis, mis ootab lahendust.",
+    "commission": "Turu tasu",
+    "commission_help": "Tasu, mis võetakse igalt tehingult, makstakse tagatisvaras.",
+    "tradeOnDex": "Kaubelge DEX-is"
+  },
+  "nft": {
+    "title": "Pealkiri",
+    "artist": "Kunstnik",
+    "type": "Tüüp",
+    "encoding": "Kodeerimine",
+    "license": "Litsents",
+    "holderLicense": "Omaniku litsents",
+    "tags": "Sildid",
+    "narrative": "Lugu",
+    "acknowledgements": "Tänud",
+    "attestation": "Kinnitus",
+    "viewOnIpfs": "Vaata IPFS-is",
+    "noImage": "NFT pilt pole saadaval",
+    "signature": "Allkiri",
+    "sigPubkey": "Allkirjastaja",
+    "copySig": "Kopeeri allkiri",
+    "copyPubkey": "Kopeeri allkirjastaja võti",
+    "verifyNote": "Allkirja kinnitamine — tulemas."
+  },
+  "details": {
+    "assetId": "Vara ID",
+    "issuer": "Väljaandja",
+    "precision": "Täpsus",
+    "maxSupply": "Maksimaalne pakkumine"
+  },
+  "copy": "Kopeeri",
+  "copied": "Kopeeritud",
+  "copyAssetId": "Kopeeri vara ID",
+  "copyIssuerId": "Kopeeri väljaandja ID",
+  "stats": {
+    "closingSoon": "sulgeb 24 tunni jooksul",
+    "newlyCreated": "uus viimase 7 päeva jooksul",
+    "awaitingResolution": "ootab lahendust",
+    "resolved": "lahendatud",
+    "awaitingYourResolution": "ootab teie lahendust",
+    "inYourBalance": "teie jäägis",
+    "marginPositions": "aktiivsed marginaali positsioonid"
+  },
+  "list": {
+    "sort": {
+      "newest": "Uusimad esimesena",
+      "expiring": "Aegub kõige varem",
+      "volume": "Suurim maht",
+      "alpha": "Tähestiku järjekorras"
+    },
+    "filter": {
+      "all": "Kõik",
+      "closingSoon": "Sulgeb 24 tunni jooksul",
+      "new": "Uus (viimased 7 päeva)",
+      "highVolume": "Suur maht"
+    },
+    "searchPlaceholder": "Otsi sümboli või küsimuse järgi…",
+    "noResults": "Ükski ennustus ei vasta teie filtritele."
   },
   "price_feeders": "Hinnasööturid",
   "price_feeders_content": "Prognoosi saavad lahendada kas tunnistajad, komisjon või erahinnasöötjad.",
@@ -35,24 +136,29 @@
   "buyer_content": "Ostjad panustavad ennustuse peale. Kui ennustus vastab tõele, võidavad ostjad kokkuleppehinnaga 1.",
   "admin": "Admin",
   "admin_content": "Majas on ennustuse lahendamiseks lisakontroll.",
-  "about": "Umbes",
+  "about": "Teave",
   "winner_content": "Võitjad, kes ostsid (tegelik tulemus), saavad tasuda PMA-ga 1x tagavara sisu eest, võitjad, kes müüsid (vale tulemus), ei pea midagi tegema.",
   "winner_header": "Võitjad",
   "winner_claim": "Taotlege tagatisvarasid",
+  "winner": {
+    "settlementFund_help": "Kogu tagatis, mis on sellele ennustusturule pühendunud. Ostjad, kes hoiavad võitvat tulemust, saavad selle fondi proportsionaalse osa nõuda.",
+    "yourPmaBalance": "Teie PMA jääk",
+    "yourPmaBalance_help": "Ennustusturu varade märkide arv, mida te hetkel hoiate. Pärast ennustuse lahendamist saab iga võitva PMA tasuda 1 ühiku tagatisvara eest."
+  },
   "resolve": "Lahenda ennustus",
   "not_expired": "See ennustus ei ole veel aegunud, seega ei saa seda lahendada.",
   "time_till_expiration": "Aeg aegumiseni: {{hours}} tundi",
   "total_bets": "Panused kokku",
   "unique_sellers": "Unikaalsed müüjad",
   "pricefeeder": "Määra hinnasöötjad",
-  "permissions": "load",
+  "permissions": "Õigused",
   "flags": "Lipud",
   "issueDialog": {
     "title": "Prognooside turuvarade väljastamine",
     "description": "Tulemuse vastu panustamiseks peate esmalt väljastama ennustusturu varade märgid.",
     "balance": "Kasutage tasakaalu",
     "qtyHeader": "Väljastatav kogus",
-    "qtyContent": "Märkide kogus, mida soovite sellel ennustusturul väljastada, väljastatud žetoone saab müüa, mis võimaldab teil ennustada vastu panustada.",
+    "qtyContent": "Märkide kogus, mida soovite sellel ennustusturul väljastada, väljastatud žetoonid saab müüa, mis võimaldab teil ennustada vastu panustada.",
     "existingHeader": "Olemasolev tagatis",
     "existingContent": "See on see, kui palju ennustusvarade turumärke olete juba väljastanud.",
     "totalHeader": "Tagatis kokku",
@@ -78,7 +184,7 @@
     "receivingContent": "See on ligikaudu tagatisvara kogusumma, mille saate selle tehingu eest vastutasuks.",
     "title": "Ennustusturu varade müük",
     "description": "Ennustuse tulemuse vastu panustamiseks peate müüma eelnevalt välja antud ennustuste turu varade märgid.",
-    "expiryContent": "Teie limiittellimus jääb DEX-is aktiivseks kaua, enne kui see enam ei eksisteeri. Kui valite \"täitke või tapke\", siis kui sobivat DEX-i müügilimiittellimust pole, toiming nurjub, säästes teie aega ja tasusid.",
+    "expiryContent": "Teie limiittellimus jääb DEX-is aktiivseks kaua, enne kui see enam ei eksisteeri. Kui valite täitke või tapke, siis kui sobivat DEX-i müügilimiittellimust pole, toiming nurjub, säästes teie aega ja tasusid.",
     "expiryHeader": "Aegumine"
   },
   "buyDialog": {
@@ -95,20 +201,20 @@
     "title": "Prognoosi lahendamine",
     "description": "Ennustus on aegunud ja on lahendamiseks valmis. Valige ennustuse õige tulemus.",
     "outcomeHeader": "Tulemus",
-    "outcomeContent": "Ennustuse tulemus Kui ennustus on tõene, võidavad ostjad kokkuleppehinnaga 1, kui ennustus on vale, võidavad müüjad, kui arveldushind on 0.",
+    "outcomeContent": "Ennustuse tulemus. Kui ennustus on tõene, võidavad ostjad, kui arveldushind on 1. Kui ennustus on vale, võidavad müüjad, kui arveldushind on 0.",
     "true": "Tõeline tulemus (ostjad võidavad)",
     "false": "Vale tulemus (müüjad võidavad)"
   },
   "priceFeederDialog": {
     "title": "Määra hinnasöötjad",
-    "description": "Määrake selle prognoosi jaoks hinnasööturid. Hinnatoitjad vastutavad ennustuse arveldushinna esitamise eest.",
+    "description": "Määrake selle prognoosi jaoks hinnasööturid. Hinnasööturid vastutavad ennustuse arveldushinna esitamise eest.",
     "priceFeedersHeader": "Hinnasööturid",
-    "priceFeedersContent": "Selle ennustuse hinnasöötjad ja hinnasööturid vastutavad ennustuse arveldushinna esitamise eest.",
+    "priceFeedersContent": "Selle ennustuse hinnasööturid vastutavad ennustuse arveldushinna esitamise eest.",
     "addPriceFeeder": "Lisa hinnasöötur",
     "addPriceFeederDialog": {
       "title": "Lisa hinnasöötur",
-      "description": "Lisage sellele prognoosile hinnasöötja. Hinnatoitjad vastutavad ennustuse arveldushinna esitamise eest.",
-      "accountHeader": "konto",
+      "description": "Lisage sellele prognoosile hinnasöötja. Hinnasööturid vastutavad ennustuse arveldushinna esitamise eest.",
+      "accountHeader": "Konto",
       "accountContent": "Konto, mis vastutab ennustuse arveldushinna esitamise eest.",
       "submit": "Lisa"
     }
@@ -117,26 +223,39 @@
     "title": "Ennustusturu lahendamine hinnavoo kaudu",
     "description": "Ennustus on aegunud ja on valmis avaldatud hinnavoo kaudu lahendamiseks.",
     "outcomeHeader": "Tulemus",
-    "outcomeContent": "Ennustuse tulemus Kui ennustus on tõene, võidavad ostjad kokkuleppehinnaga 1, kui ennustus on vale, võidavad müüjad, kui arveldushind on 0.",
+    "outcomeContent": "Ennustuse tulemus. Kui ennustus on tõene, võidavad ostjad, kui arveldushind on 1. Kui ennustus on vale, võidavad müüjad, kui arveldushind on 0.",
     "true": "Tõeline tulemus (ostjad võidavad)",
     "false": "Vale tulemus (müüjad võidavad)"
   },
   "json": {
     "button": "JSON",
-    "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
+    "title": "Vara JSON",
+    "description": "Valitud kande töötlemata JSON andmed.",
+    "assetData": "Vara andmed",
+    "bitassetData": "Bitasset andmed",
+    "descriptionData": "Kirjelduse andmed",
+    "copy": "Kopeeri",
+    "copied": "Kopeeritud!",
+    "blockIssuer": "Blokeeri see väljaandja",
+    "unblockIssuer": "Eemalda selle väljaandja blokeering"
   },
   "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
+    "title": "Blokeeri see väljaandja?",
+    "description": "Selle konto loodud ennustusturud peidetakse teie vaate eest. Saate neid igal ajal blokeeringu eemaldada.",
+    "cancel": "Tühista",
+    "confirm": "Blokeeri väljaandja"
+  },
+  "org": {
+    "title": "Organisatsioon",
+    "name": "Nimi",
+    "website": "Veebisait",
+    "manifest": "Manifest",
+    "resolutionPolicy": "Lahendamise poliitika",
+    "disputeMechanism": "Vaidluste lahendamise mehhanism",
+    "onchainAccount": "Plokiahela konto",
+    "attestation": "Kinnitus",
+    "signature": "Allkiri",
+    "viewAll": "Vaata kõiki {{symbol}} ennustusi",
+    "noOrg": "Organisatsiooni teave pole saadaval"
   }
 }

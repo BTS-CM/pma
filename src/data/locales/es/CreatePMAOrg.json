@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Paso {{number}}",
+    "optional": "Opcional",
+    "recommended": "Recomendado"
+  },
   "card": {
     "title": "Crear Organización de Mercado de Predicción",
     "description": "Registre un nombre de activo de nivel superior que servirá como padre para sus sub-activos de mercado de predicción. Los sub-activos emitidos bajo esta organización (por ejemplo, GAMBLE.0001) se benefician de tarifas de creación reducidas y reconocimiento de marca instantáneo."
@@ -84,12 +89,13 @@
   "summary": {
     "title": "Revisar y Enviar",
     "subtitle": "Verifique los detalles de su organización antes de crear",
-    "symbol": "Símbolo de Organización",
+    "symbol": "Símbolo de organización",
     "name": "Nombre Corto",
     "maxSupply": "Suministro Máximo",
     "precision": "Precisión",
     "nftMedia": "Medios NFT",
-    "pmo": "Organización PMO"
+    "pmo": "Organización PMO",
+    "jsonPreview": "Vista previa JSON"
   },
   "ready": "Todos los campos obligatorios están completos. ¡Listo para crear su organización PMA!",
   "fieldsRequired": "Por favor ingrese un símbolo de organización para continuar.",

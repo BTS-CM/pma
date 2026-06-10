@@ -1,0 +1,112 @@
+{
+  "sectionHeader": {
+    "step": "Samm {{number}}",
+    "optional": "Valikuline",
+    "recommended": "Soovitatav"
+  },
+  "card": {
+    "title": "Loo ennustusturu organisatsioon",
+    "description": "Registreeri ülemine vara nimi, mis toimib teie ennustusturu alamvarade ülaemana. Selle organisatsiooni all väljastatud alamvarad (nt GAMBLE.0001) saavad madalama loomistasu ja kohese brändi tunnustamise."
+  },
+  "steps": {
+    "identity": {
+      "title": "Organisatsiooni identiteet",
+      "description": "Valige oma PMA organisatsiooni sümbol ja üksikasjad"
+    },
+    "nft": {
+      "title": "Mittfungibilise tokeni metaandmed",
+      "description": "Valikuliselt lisage oma organisatsiooni varale NFT metaandmed ja IPFS meedia"
+    },
+    "pmo": {
+      "title": "Organisatsiooni profiil",
+      "description": "Määrake oma organisatsiooni identiteet, juhtimine ja kinnitus — detsentraliseeritud põhiseadus kõigi alamvarade jaoks"
+    }
+  },
+  "symbol": {
+    "label": "Organisatsiooni sümbol",
+    "help": "Teie ennustusturu organisatsiooni ülemine vara sümbol. Alamvarad väljastatakse kujul SYMBOL.0001, SYMBOL.0002 jne. Ei tohi sisaldada punkti.",
+    "placeholder": "nt GAMBLE"
+  },
+  "shortName": {
+    "label": "Lühinimi",
+    "help": "Inimloetav nimi teie organisatsiooni varale.",
+    "placeholder": "nt Ennustusennustused"
+  },
+  "description": {
+    "label": "Kirjeldus",
+    "help": "Teie ennustusturu organisatsiooni kirjeldus ja mida see esindab.",
+    "placeholder": "Kirjeldage oma ennustusturu organisatsiooni..."
+  },
+  "market": {
+    "label": "Eelistatud turg",
+    "help": "Selle vara eelistatud kauplemispaar."
+  },
+  "pmo": {
+    "info": "PMO objekt salvestatakse vara kirjeldus väljale ja toimib teie organisatsiooni detsentraliseeritud kasutustingimustena. Alamvarad pärandavad selle identiteedi — investorid saavad kontrollida, milline organisatsioon turu väljastas, kontrollides ülaema PMO objekti.",
+    "identity": {
+      "heading": "Identiteet",
+      "name": {
+        "label": "Organisatsiooni nimi",
+        "help": "Teie ennustusturu organisatsiooni ametlik nimi.",
+        "placeholder": "nt GambleDAO"
+      },
+      "website": {
+        "label": "Veebisait",
+        "help": "Teie organisatsiooni avalik veebilehe URL.",
+        "placeholder": "https://organization.com"
+      },
+      "manifest": {
+        "label": "Manifesti URL",
+        "help": "URL hostitud JSON failile, mis seob teie BitShares konto avaliku võtme teie ametliku veebikohalolekuga, takistades pettusevara loomist.",
+        "placeholder": "https://organization.com/bitshares-pmo.json"
+      }
+    },
+    "governance": {
+      "heading": "Juhtimine",
+      "resolution": {
+        "label": "Lahendamise poliitika",
+        "help": "Kuidas organisatsioon lahendab oma ennustusturud (nt API-põhine, ekspertide paneel, kogukonna hääletus).",
+        "placeholder": "nt Kõik turud lahendatakse kogukonna juhtimise hääletuse ja orakli andmete kombinatsiooni abil..."
+      },
+      "dispute": {
+        "label": "Vaidluste mehhanism",
+        "help": "Juhised kasutajatele, kui nad ei nõustu turu lahendusega.",
+        "placeholder": "nt Vaidlused t esitada 48 tunni jooksul lahendusest juhtimise portaali kaudu..."
+      },
+      "account": {
+        "label": "Ahelikonto",
+        "help": "BitShares konto nimi, mis juhib seda organisatsiooni.",
+        "placeholder": "nt the-org-account-name"
+      }
+    },
+    "attestation": {
+      "heading": "Kinnitus",
+      "label": "Väljaastaja kinnitus",
+      "help": "Ametlik kohustus, et kõik selle organisatsiooni turud lahendatakse vastavalt seatud poliitikatele. See on teie brändi pühendumus läbipaistvusele.",
+      "placeholder": "nt Mina, selle vara väljaastaja, kohustun, et kõik selle organisatsiooni turud lahendatakse käesolevas dokumendis kirjeldatud poliitikate kohaselt."
+    }
+  },
+  "summary": {
+    "title": "Vaata üle ja esita",
+    "subtitle": "Kontrollige oma organisatsiooni üksikasju enne loomist",
+    "symbol": "Organisatsiooni sümbol",
+    "name": "Lühinimi",
+    "maxSupply": "Maksimaalne pakkumine",
+    "precision": "Täpsus",
+    "nftMedia": "NFT meedia",
+    "pmo": "PMO organisatsioon",
+    "jsonPreview": "JSON eelvaade"
+  },
+  "ready": "Kohustuslikud väljad on täidetud. Valmis looma oma PMA organisatsiooni!",
+  "fieldsRequired": "Palun sisestage organisatsiooni sümbol, et jätkata.",
+  "tips": {
+    "title": "PMA organisatsioonide kohta",
+    "hint": "Ennustusturu organisatsiooni loomine registreerib ülemise varanime, mille all saate väljastada alamvarasid oluliselt soodsama hinnaga. Näiteks 'GAMBLE' registreerimine võimaldab hiljem luua GAMBLE.0001, GAMBLE.0002 jne. — igaüks madalama tasuga kui iseseisva vara loomine. Investorid tunnevad need alamvarad oma organisatsiooni kuuluvatena."
+  },
+  "buttons": {
+    "submit": "Loo organisatsioon"
+  },
+  "dialogContent": {
+    "headerText": "PMA organisatsiooni loomine: {{symbol}}"
+  }
+}

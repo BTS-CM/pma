@@ -52,5 +52,18 @@
   "orderIdHeader": "Ordre-id",
   "expirationHeader": "Udløb",
   "priceHeader": "Pris",
-  "actionsHeader": "Handlinger"
+  "actionsHeader": "Handlinger",
+  "refreshOpenOrdersTooltip": "Genindlæs åbne ordrer",
+  "copyOrderIdTooltip": "Kopier ordre-id",
+  "expiryStatusHealthy": "Sund",
+  "expiryStatusSoon": "Udløber snart",
+  "expiryStatusImminent": "Mindre end 24 timer",
+  "expiryStatusExpired": "Udløbet",
+  "noOpenOrdersTitle": "Ingen åbne ordrer",
+  "noOpenOrdersDescription": "Du har ingen åbne grænseordrer på DEX i øjeblikket.",
+  "noOpenOrdersCta": "Placer en ny ordre",
+  "badgeSell": "Sælg",
+  "badgeBuy": "Køb",
+  "orderSummaryCount": "{{count}} åbne ordrer",
+  "orderIdCopied": "Ordre-id kopieret"
 }

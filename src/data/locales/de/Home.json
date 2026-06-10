@@ -202,13 +202,6 @@
     "hover1": "Überprüfen Sie Ihre Sperrguthaben.",
     "hover2": "Fordern Sie Ihr Freizügigkeitsguthaben an."
   },
-  "prediction_markets": {
-    "title": "🎲 Vorhersagen",
-    "subtitle": "Vorhersagen durchsuchen, Wetten verwalten, Vorhersageverwaltung durchführen.",
-    "hover1": "Durchsuchen Sie die verfügbaren Prognosemarkt-Assets.",
-    "hover2": "Auf Prognosemärkten kann es um alles Mögliche gehen.",
-    "hover3": "Für jedes Prognosemarkt-Asset gibt es eine eigene Gebühr."
-  },
   "proposals": {
     "title": "🤔 Vorgeschlagene Operationen",
     "subtitle": "Vorgeschlagene Kontovorgänge anzeigen und genehmigen/ablehnen",

@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "단계 {{number}}",
+    "optional": "선택사항",
+    "recommended": "권장"
+  },
   "dialogContent": {
     "headerText": "다음 예측 시장 자산 생성: {{symbol}}"
   },
@@ -6,13 +11,69 @@
     "title": "새로운 예측 시장 자산 생성",
     "description": "예측 시장 자산을 생성하면 상금풀 상대방 위험에 노출되지 않고 수수료를 받는 대가로 향후 이벤트에 대한 분산형 베팅을 위한 하우스 역할을 할 수 있습니다."
   },
+  "steps": {
+    "asset": {
+      "title": "자산 ID",
+      "description": "예측 시장 자산의 고유 심볼, 이름 및 공급량."
+    },
+    "pma": {
+      "title": "예측 시장 세부정보",
+      "description": "시장이 무엇에 베팅하는지 정의하는 조건."
+    },
+    "nft": {
+      "title": "대체 불가능 토큰 세부정보",
+      "description": "선택사항. 아티스트, 제목 및 IPFS 미디어와 같은 NFT 메타데이터를 추가합니다."
+    },
+    "extensions": {
+      "title": "시장 수수료 확장",
+      "description": "선택사항. 시장 수수료가 하우스, 추천인 및 테이커 간에 어떻게 분배되는지 구성합니다."
+    },
+    "permissions": {
+      "title": "권한 및 플래그",
+      "description": "이 자산이 지원하는 고급 동작을 선택합니다."
+    },
+    "authorization": {
+      "title": "인증",
+      "description": "선택사항. 이 자산과 상호작용할 수 있는 계정을 화이트리스트 및 블랙리스트에 추가합니다."
+    }
+  },
+  "summary": {
+    "label": "검토 및 제출",
+    "ready": "예측 시장 자산을 생성할 준비가 되었습니다.",
+    "fieldsRequired": "몇몇 필수 필드가 아직 비어 있습니다.",
+    "title": "생성 중인 내용",
+    "subtitle": "출시하려는 예측 시장 자산의 요약입니다. 제출하기 전에 모든 것이 올바른지 확인하세요.",
+    "symbol": "심볼",
+    "name": "이름",
+    "condition": "조건",
+    "backing": "지원 자산",
+    "maxSupply": "최대 공급량",
+    "commission": "수수료",
+    "resolution": "해결일",
+    "expiryHint": "해결까지",
+    "days_one": "1일",
+    "days_other": "{{count}}일",
+    "permissions": "권한",
+    "extensions": "확장",
+    "advanced": "고급 기능",
+    "noBacking": "지원 자산을 선택하면 여기에 표시됩니다.",
+    "noCondition": "조건을 입력하면 여기에 표시됩니다."
+  },
+  "actions": {
+    "useExample": "예시로 채우기",
+    "reset": "초기화"
+  },
+  "tips": {
+    "submitTitle": "제출 전",
+    "submitHint": "제출하면 온체인 트랜잭션을 브로드캐스트하기 위해 지갑이 열립니다. 서명하기 전에 Beet/BeetEOS에서 취소할 수 있습니다."
+  },
   "pma": {
     "title": "예측시장 자산 세부정보",
     "title_content": "예측시장 자산에 사용되는 자산 설정입니다.",
     "condition": {
       "header": "상태",
       "header_content": "여기에 예측 시장 자산 세부정보를 입력하세요.",
-      "placeholder": "예측 조건"
+      "placeholder": "SpaceX가 2030년 전에 화성에 Starship을 착륙시킬까요?"
     },
     "commission": {
       "header": "수수료 (%)",
@@ -29,10 +90,31 @@
     }
   },
   "fee": {
-    "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "calculating": "추정 중...",
+    "hover": "이 예측 시장 자산 생성에 대한 추정 네트워크 수수료입니다. 실제 수수료는 심볼 길이, 데이터 크기 및 현재 네트워크 매개변수에 따라 달라집니다."
   },
   "buttons": {
-    "submit": "제출하다"
+    "submit": "예측 시장 자산 생성"
+  },
+  "fields": {
+    "org": {
+      "label": "조직",
+      "help": "이 서브 자산이 속한 PMO 조직을 선택하세요.",
+      "selectLabel": "나의 조직"
+    },
+    "subAssetName": {
+      "label": "서브 자산 이름",
+      "help": "조직 내 이 예측의 고유 이름 (예: 0001).",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "전체 심볼"
+    }
+  },
+  "creationMode": {
+    "manual": "수동",
+    "organization": "조직",
+    "noOrgs": "조직을 찾을 수 없습니다. 먼저 PMO 자산을 만드세요.",
+    "label": "생성 모드"
   }
 }

@@ -5,13 +5,15 @@
   "expiration": "Expiration",
   "expired_at": "Expiré",
   "outcome": "Résultat",
-  "prize_pool": "Règlement",
   "outcome_true": "Vrai (les acheteurs gagnent)",
   "outcome_false": "Faux (les vendeurs gagnent)",
   "outcome_tba": "Pas encore résolu",
-  "issue": "Étape 1 : Émettre des jetons PMA",
+  "outcome.yes": "Oui",
+  "outcome.no": "Non",
+  "outcome.unresolved": "Non résolu",
+  "issue": "Étape 1 : Émettre des jetons PMA",
   "buy": "Parier vrai (acheter)",
-  "sell": "Étape 2 : Parier faux (vendre)",
+  "sell": "Étape 2 : Parier faux (vendre)",
   "active": "Prédictions actives",
   "expired": "Prédictions expirées",
   "mine": "Mes prédictions",
@@ -19,12 +21,111 @@
   "margin": "Marge",
   "bettingAsset": "Actif de pari",
   "card": {
-    "title": "Actifs du marché de prédiction",
-    "description": "Découvrez les opportunités de paris potentielles ci-dessous !",
+    "title": {
+      "active": "Marchés de prédiction actifs",
+      "expired": "Marchés de prédiction expirés",
+      "mine": "Mes marchés de prédiction",
+      "portfolio": "Portefeuille de prédiction",
+      "margin": "Positions sur marge de prédiction"
+    },
+    "description": {
+      "active": "Parcourez les actifs de marché de prédiction en direct, non résolus, qui acceptent des paris.",
+      "expired": "Parcourez les actifs de marché de prédiction passés en attente de résolution par les fournisseurs de prix.",
+      "mine": "Les actifs de marché de prédiction que vous avez créés ou avec lesquels vous avez interagi.",
+      "portfolio": "Les actifs de marché de prédiction actuellement détenus dans le solde de votre compte.",
+      "margin": "Positions sur marge (appel) actives sur les actifs de marché de prédiction."
+    },
+    "showing": "Affichage de {{primary}} marchés",
+    "stat": " · {{value}} {{label}}",
     "emptyActive": "Aucune prédiction active disponible pour le moment.",
+    "emptyExpired": "Aucune prédiction expirée disponible pour le moment.",
     "emptyMine": "Vous n'avez aucune prédiction pour le moment.",
-    "emptyPortfolio": "Vous n’avez actuellement aucun actif de marché de prévision dans le solde de votre portefeuille.",
-    "emptyMargin": "Vous n’avez aucune prévision de position sur la marge des actifs du marché pour le moment."
+    "emptyPortfolio": "Vous n'avez aucun actif de marché de prédiction dans le solde de votre portefeuille pour le moment.",
+    "emptyMargin": "Vous n'avez aucune position sur marge d'actif de marché de prédiction pour le moment."
+  },
+  "tab": {
+    "overview": "Aperçu",
+    "nft": "NFT",
+    "market": "Marché",
+    "details": "Détails",
+    "actions": "Actes",
+    "winners": "Gagnants",
+    "admin": "Admin",
+    "org": "Organisation"
+  },
+  "status": {
+    "active": "Actif",
+    "resolvedYes": "Résolu · OUI",
+    "resolvedNo": "Résolu · NON",
+    "awaiting": "En attente de résolution"
+  },
+  "timeLeft": "Temps restant",
+  "timeExpired": "Temps depuis l'expiration",
+  "openInterest": "Intérêt ouvert",
+  "openInterest_help": "Total des garanties engagées par tous les vendeurs pariant contre le résultat.",
+  "market": {
+    "impliedProbability": "Probabilité OUI implicite",
+    "impliedProbability_help": "Chance estimée que le marché attribue au résultat OUI, dérivée de l'intérêt ouvert et de la taille du fonds de règlement.",
+    "expiredNote": "Les échanges sont terminés pour ce marché.",
+    "settlementFund": "Fonds de règlement",
+    "settlementFund_help": "Les garanties actuellement détenues dans le fonds de règlement, en attente de résolution.",
+    "commission": "Frais de marché",
+    "commission_help": "Frais facturés sur chaque transaction, payés en actif de garantie.",
+    "tradeOnDex": "Échanger sur le DEX"
+  },
+  "nft": {
+    "title": "Titre",
+    "artist": "Artiste",
+    "type": "Type",
+    "encoding": "Encodage",
+    "license": "Licence",
+    "holderLicense": "Licence du détenteur",
+    "tags": "Étiquettes",
+    "narrative": "Récit",
+    "acknowledgements": "Remerciements",
+    "attestation": "Attestation",
+    "viewOnIpfs": "Voir sur IPFS",
+    "noImage": "Aucune image NFT disponible",
+    "signature": "Signature",
+    "sigPubkey": "Signataire",
+    "copySig": "Copier la signature",
+    "copyPubkey": "Copier la clé du signataire",
+    "verifyNote": "Vérification de la signature — bientôt disponible."
+  },
+  "details": {
+    "assetId": "ID de l'actif",
+    "issuer": "Émetteur",
+    "precision": "Précision",
+    "maxSupply": "Offre maximale"
+  },
+  "copy": "Copier",
+  "copied": "Copié",
+  "copyAssetId": "Copier l'ID de l'actif",
+  "copyIssuerId": "Copier l'ID de l'émetteur",
+  "stats": {
+    "closingSoon": "clôture dans les 24h",
+    "newlyCreated": "nouveau au cours des 7 derniers jours",
+    "awaitingResolution": "en attente de résolution",
+    "resolved": "résolu",
+    "awaitingYourResolution": "en attente de votre résolution",
+    "inYourBalance": "dans votre solde",
+    "marginPositions": "positions sur marge actives"
+  },
+  "list": {
+    "sort": {
+      "newest": "Plus récent en premier",
+      "expiring": "Expire bientôt",
+      "volume": "Volume le plus élevé",
+      "alpha": "Alphabétique"
+    },
+    "filter": {
+      "all": "Tous",
+      "closingSoon": "Clôture dans les 24h",
+      "new": "Nouveau (7 derniers jours)",
+      "highVolume": "Volume élevé"
+    },
+    "searchPlaceholder": "Rechercher par symbole ou question…",
+    "noResults": "Aucune prédiction ne correspond à vos filtres."
   },
   "price_feeders": "Conducteurs de prix",
   "price_feeders_content": "La prédiction peut être résolue soit par les témoins, soit par le comité, soit par des sources de prix privées.",
@@ -38,18 +139,23 @@
   "about": "À propos",
   "winner_content": "Les gagnants qui ont acheté (vrai résultat) peuvent régler le PMA pour le contenu de l'actif de support 1x. Les gagnants qui ont vendu (faux résultat) n'ont rien à faire.",
   "winner_header": "Gagnants",
-  "winner_claim": "Actifs de soutien aux réclamations",
+  "winner_claim": "Réclamer les actifs de garantie",
+  "winner": {
+    "settlementFund_help": "Le total des garanties engagées sur ce marché de prédiction. Les acheteurs détenant le résultat gagnant peuvent réclamer une part proportionnelle de ce fonds.",
+    "yourPmaBalance": "Votre solde PMA",
+    "yourPmaBalance_help": "Le nombre de jetons d'actifs de marché de prédiction que vous détenez actuellement. Après la résolution de la prédiction, chaque PMA gagnant peut être réglé pour 1 unité de l'actif de garantie."
+  },
   "resolve": "Résoudre la prédiction",
-  "not_expired": "Cette prédiction n’a pas encore expiré et ne peut donc pas être résolue.",
-  "time_till_expiration": "Délai jusqu'à expiration : {{hours}} heures",
+  "not_expired": "Cette prédiction n'a pas encore expiré et ne peut donc pas être résolue.",
+  "time_till_expiration": "Délai jusqu'à expiration : {{hours}} heures",
   "total_bets": "Paris totaux",
   "unique_sellers": "Vendeurs uniques",
-  "pricefeeder": "Fixer les prix des mangeoires",
+  "pricefeeder": "Fixer les sources de prix",
   "permissions": "Autorisations",
   "flags": "Drapeaux",
   "issueDialog": {
-    "title": "Émission d’actifs de marché de prédiction",
-    "description": "Afin de parier contre le résultat, vous devez d’abord émettre les jetons d’actifs du marché de prédiction.",
+    "title": "Émission d'actifs de marché de prédiction",
+    "description": "Afin de parier contre le résultat, vous devez d'abord émettre les jetons d'actifs du marché de prédiction.",
     "balance": "Utiliser le solde",
     "qtyHeader": "Quantité à émettre",
     "qtyContent": "La quantité de jetons que vous souhaitez émettre sur ce marché de prédiction. Les jetons émis peuvent être vendus, vous permettant de parier contre les prédictions.",
@@ -65,51 +171,51 @@
     "header_issue": "Émission de jetons PMA",
     "header_sell": "Vendre des jetons PMA",
     "header_buy": "Acheter des jetons PMA",
-    "header_claim": "Réclamer des actifs de support",
+    "header_claim": "Réclamer des actifs de garantie",
     "header_resolve": "Résoudre la prédiction",
-    "header_pricefeeder": "Fixation des prix",
-    "header_feedprice": "Prix ​​​​d'alimentation"
+    "header_pricefeeder": "Fixation des sources de prix",
+    "header_feedprice": "Prix d'alimentation"
   },
-  "insufficient_funds": "Equilibre insuffisant.",
+  "insufficient_funds": "Solde insuffisant.",
   "sellDialog": {
     "qtyHeader": "Quantité à vendre",
-    "qtyContent": "La quantité de jetons que vous souhaitez vendre sur ce marché de prédiction, en pariant sur le résultat de la prédiction.",
+    "qtyContent": "La quantité de jetons que vous souhaitez vendre sur ce marché de prédiction, en pariant contre le résultat de la prédiction.",
     "receivingHeader": "Réception",
     "receivingContent": "Il s'agit approximativement du montant total de l'actif de garantie que vous obtiendrez en échange de cette transaction.",
     "title": "Vendre des actifs du marché de prédiction",
-    "description": "Pour parier contre le résultat de la prédiction, vous devez vendre les jetons d’actifs du marché de prédiction que vous avez précédemment émis.",
-    "expiryContent": "Votre ordre limité restera actif sur le DEX pendant cette période de temps avant de ne plus exister. Si vous sélectionnez « remplir ou tuer », alors s'il n'y a pas d'ordre limite de vente DEX correspondant, l'opération échouera, ce qui vous fera gagner du temps et des frais.",
+    "description": "Pour parier contre le résultat de la prédiction, vous devez vendre les jetons d'actifs du marché de prédiction que vous avez précédemment émis.",
+    "expiryContent": "Votre ordre limité restera actif sur le DEX pendant cette période avant de ne plus exister. Si vous sélectionnez « remplir ou tuer », alors s'il n'y a pas d'ordre limite de vente DEX correspondant, l'opération échouera, ce qui vous fera gagner du temps et des frais.",
     "expiryHeader": "Expiration"
   },
   "buyDialog": {
     "title": "Acheter des actifs du marché de prédiction",
-    "description": "Pour parier en faveur du résultat de la prédiction, vous devez acheter les jetons d’actifs du marché de prédiction auprès d’un vendeur qui parie contre le résultat.",
+    "description": "Pour parier en faveur du résultat de la prédiction, vous devez acheter les jetons d'actifs du marché de prédiction auprès d'un vendeur qui parie contre le résultat.",
     "receivingHeader": "Réception",
     "receivingContent": "Il s'agit approximativement du montant total de jetons d'actifs du marché de prédiction que vous obtiendrez en échange de cette transaction."
   },
   "claimDialog": {
-    "qtyContent": "La quantité d'actifs du marché de prédiction que vous souhaitez réintégrer dans l'actif de support.",
+    "qtyContent": "La quantité d'actifs du marché de prédiction que vous souhaitez réintégrer dans l'actif de garantie.",
     "qtyHeader": "Quantité à régler"
   },
   "resolveDialog": {
     "title": "Résoudre la prédiction",
     "description": "La prédiction a expiré et est prête à être résolue. Veuillez sélectionner le résultat correct de la prédiction.",
     "outcomeHeader": "Résultat",
-    "outcomeContent": "Le résultat de la prédiction, si la prédiction est vraie, les acheteurs gagnent par le prix de règlement passant à 1, si la prédiction est fausse, les vendeurs gagnent par le prix de règlement passant à 0.",
-    "true": "Résultat réel (les acheteurs gagnent)",
-    "false": "Faux résultat (les vendeurs gagnent)"
+    "outcomeContent": "Le résultat de la prédiction. Si la prédiction est vraie, les acheteurs gagnent par le prix de règlement passant à 1. Si la prédiction est fausse, les vendeurs gagnent par le prix de règlement passant à 0.",
+    "true": "Résultat vrai (les acheteurs gagnent)",
+    "false": "Résultat faux (les vendeurs gagnent)"
   },
   "priceFeederDialog": {
-    "title": "Fixer les prix des mangeoires",
-    "description": "Définissez les feeders de prix pour cette prédiction. Les feeders de prix sont chargés de fournir le prix de règlement pour la prédiction.",
-    "priceFeedersHeader": "Conducteurs de prix",
-    "priceFeedersContent": "Les fournisseurs de prix pour cette prévision sont chargés de fournir le prix de règlement pour la prévision.",
-    "addPriceFeeder": "Ajouter un chargeur de prix",
+    "title": "Fixer les sources de prix",
+    "description": "Définissez les sources de prix pour cette prédiction. Les sources de prix sont responsables de la fourniture du prix de règlement pour la prédiction.",
+    "priceFeedersHeader": "Sources de prix",
+    "priceFeedersContent": "Les sources de prix pour cette prédiction sont responsables de la fourniture du prix de règlement pour la prédiction.",
+    "addPriceFeeder": "Ajouter une source de prix",
     "addPriceFeederDialog": {
-      "title": "Ajouter un chargeur de prix",
-      "description": "Ajoutez un fournisseur de prix à cette prévision. Les fournisseurs de prix sont chargés de fournir le prix de règlement pour la prévision.",
+      "title": "Ajouter une source de prix",
+      "description": "Ajoutez une source de prix à cette prédiction. Les sources de prix sont responsables de la fourniture du prix de règlement pour la prédiction.",
       "accountHeader": "Compte",
-      "accountContent": "Le compte qui sera chargé de fournir le prix de règlement de la prédiction.",
+      "accountContent": "Le compte qui sera responsable de la fourniture du prix de règlement pour la prédiction.",
       "submit": "Ajouter"
     }
   },
@@ -117,26 +223,39 @@
     "title": "Résoudre le marché des prédictions via le flux de prix",
     "description": "La prédiction a expiré et est prête à être résolue via un flux de prix publié.",
     "outcomeHeader": "Résultat",
-    "outcomeContent": "Le résultat de la prédiction, si la prédiction est vraie, les acheteurs gagnent par le prix de règlement passant à 1, si la prédiction est fausse, les vendeurs gagnent par le prix de règlement passant à 0.",
-    "true": "Résultat réel (les acheteurs gagnent)",
-    "false": "Faux résultat (les vendeurs gagnent)"
+    "outcomeContent": "Le résultat de la prédiction. Si la prédiction est vraie, les acheteurs gagnent par le prix de règlement passant à 1. Si la prédiction est fausse, les vendeurs gagnent par le prix de règlement passant à 0.",
+    "true": "Résultat vrai (les acheteurs gagnent)",
+    "false": "Résultat faux (les vendeurs gagnent)"
   },
   "json": {
     "button": "JSON",
-    "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
+    "title": "JSON de l'actif",
+    "description": "Données JSON brutes pour l'entrée sélectionnée.",
+    "assetData": "Données de l'actif",
+    "bitassetData": "Données Bitasset",
+    "descriptionData": "Données de description",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "blockIssuer": "Bloquer cet émetteur",
+    "unblockIssuer": "Débloquer cet émetteur"
   },
   "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
+    "title": "Bloquer cet émetteur ?",
+    "description": "Les marchés de prédiction créés par ce compte seront masqués de votre vue. Vous pouvez les débloquer à tout moment.",
+    "cancel": "Annuler",
+    "confirm": "Bloquer l'émetteur"
+  },
+  "org": {
+    "title": "Organisation",
+    "name": "Nom",
+    "website": "Site web",
+    "manifest": "Manifeste",
+    "resolutionPolicy": "Politique de résolution",
+    "disputeMechanism": "Mécanisme de litige",
+    "onchainAccount": "Compte on-chain",
+    "attestation": "Attestation",
+    "signature": "Signature",
+    "viewAll": "Voir toutes les prédictions {{symbol}}",
+    "noOrg": "Aucune information d'organisation disponible"
   }
 }

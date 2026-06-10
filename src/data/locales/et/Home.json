@@ -1,10 +1,10 @@
 {
   "instant_trade": {
-    "title": "⚡ Vahetu kauplemine",
-    "subtitle": "Vahetage varasid kiiresti parimate saadaolevate hindadega",
-    "hover1": "Kaubelge varadega kohe DEX-is ilma segajateta.",
-    "hover2": "Kasutab tellimuste täitmise või tapmise tehnoloogiat soovitud hindade saamiseks või tellimuse tühistamiseks.",
-    "hover3": "Vaadake, kellega te DEX-is kauplete ja kas nad on lubanud oma tellimustele täitmise tingimused."
+    "title": "Kohene kauplemine",
+    "subtitle": "Vaheta varasid kiiresti parimate saadaolevate hindadega",
+    "hover1": "Kaubelda koheselt varadega DEX-il ilma segajateta.",
+    "hover2": "Kasutab fill-or-kill tellimuste tehnoloogiat, et kas saada soovitud hinnad või tühistada tellimus.",
+    "hover3": "Vaata, kellega sa DEX-il kauplema hakkad ja kas neil on tellimustel on-fill tingimused lubatud."
   },
   "vote": {
     "title": "🗳️ Hääletamine",
@@ -80,13 +80,6 @@
     "title": "Edasta varad",
     "subtitle": "Saada varasid teistele kasutajatele",
     "hover1": "Edasta varasid kellelegi Bitsharesi plokiahelas sekunditega."
-  },
-  "instant_trade": {
-    "title": "Kohene kauplemine",
-    "subtitle": "Vaheta varasid kiiresti parimate saadaolevate hindadega",
-    "hover1": "Kaubelda koheselt varadega DEX-il ilma segajateta.",
-    "hover2": "Kasutab fill-or-kill tellimuste tehnoloogiat, et kas saada soovitud hinnad või tühistada tellimus.",
-    "hover3": "Vaata, kellega sa DEX-il kauplema hakkad ja kas neil on tellimustel on-fill tingimused lubatud."
   },
   "simple_asset_swap": {
     "title": "Lihtne varade vahetus",
@@ -209,13 +202,6 @@
     "hover1": "Kontrollige oma üleandmisjääke.",
     "hover2": "Nõudke oma kontojääke."
   },
-  "prediction_markets": {
-    "title": "🎲 Ennustused",
-    "subtitle": "Sirvige ennustusi, hallake panuseid, tehke ennustusteadministraator.",
-    "hover1": "Sirvige saadaolevaid ennustusturu varasid.",
-    "hover2": "Ennustusturgudel võib olla ükskõik mida.",
-    "hover3": "Igal ennustusturu varal on ainulaadne tasu."
-  },
   "proposals": {
     "title": "🤔 Kavandatavad toimingud",
     "subtitle": "Pakutud kontotoimingute vaatamine ja kinnitamine/lükkamine",
@@ -235,6 +221,13 @@
     "hover1": "Tehke panuseid sõna otseses mõttes kõige kohta.",
     "hover2": "Olge kihlveovahendaja ja määrake oma vahendustasu.",
     "hover3": "Võimalikud on nii lühi- kui ka pikaajalised panused."
+  },
+  "create_pma_org": {
+    "title": "Loo PMA organisatsioon",
+    "subtitle": "Registreerige tipptaseme nimi ennustusturu tütvarade väljaandmiseks",
+    "hover1": "Registreerige brändi nimi, mille alla kõik teie ennustusturu varad välja antakse.",
+    "hover2": "Tütarvarad (nt GAMBLE.0001) luuakse oluliselt soodsama hinnaga kui iseseisvad varad.",
+    "hover3": "Ehitab brändi tuntust — investorid teavad kohe, milline organisatsioon ennustusturu vara välja andis."
   },
   "create_uia": {
     "title": "🍬 Kasutaja väljastatud vara",
@@ -494,5 +487,12 @@
     "hover1": "Vaata varasid, mis on praegu globaalses arvelduses.",
     "hover2": "Esita pakkumisi arveldusfondidele nimiväärtusest allahindlusega.",
     "hover3": "Sunda individuaalsete varade arveldus nende pro-rata osa eest arveldusrahastust."
+  },
+  "prediction_organizations": {
+    "title": "Ennustusturu organisatsioonid",
+    "subtitle": "Sirvige organisatsioone, mis väljastavad ennustusturu varasid",
+    "hover1": "Vaadake kõiki registreeritud ennustusturu organisatsioone ja nende aktiivseid ennustusi.",
+    "hover2": "Iga organisatsioon väljastab tütarvarasid (nt GAMBLE.0001) soodushinnaga ühtse brändi all.",
+    "hover3": "Filtreerige ennustusi organisatsiooni järgi, et leida kõik ühe väljaandja varad."
   }
 }

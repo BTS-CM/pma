@@ -27,5 +27,14 @@
   "particlesDesc": "헤더 영역을 떠다니는 작은 입자의 표시 여부를 토글합니다.",
   "on": "켜짐",
   "off": "꺼짐",
-  "resetToDefaults": "기본값으로 재설정"
+  "resetToDefaults": "기본값으로 재설정",
+  "externalServices": {
+    "heading": "외부 서비스",
+    "description": "사이트 전체에서 자산을 가져오는 데 사용되는 타사 서비스를 구성합니다.",
+    "ipfsGateway": {
+      "header": "IPFS 게이트웨이",
+      "help": "NFT 이미지 및 기타 콘텐츠의 IPFS 링크를 해결하는 데 사용되는 게이트웨이입니다. 신뢰할 수 있는 공개 게이트웨이를 사용하십시오.",
+      "placeholder": "https://ipfs.io/ipfs/"
+    }
+  }
 }

@@ -3,6 +3,7 @@
   "creditBorrow": "Prestito",
   "creditLend": "Prestare",
   "proceedToBorrow": "Problema",
+  "collateralBid": "Offerta sulla garanzia",
   "issueAssetDescription": "In qualità di emittente di questa risorsa, puoi emettere questa risorsa per te stesso o per un altro conto sulla blockchain, fino alla fornitura massima configurata.",
   "manageUIA": "Modificare",
   "pmaBet": "Scommettere",

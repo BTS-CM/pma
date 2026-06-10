@@ -27,5 +27,14 @@
   "particlesDesc": "Lülitab päises ringi hõljuvad väikesed osakesed sisse või välja.",
   "on": "Sees",
   "off": "Väljas",
-  "resetToDefaults": "Lähtesta vaikeväärtustele"
+  "resetToDefaults": "Lähtesta vaikeväärtustele",
+  "externalServices": {
+    "heading": "Välised teenused",
+    "description": "Konfigureerige kolmanda osapoole teenused, mida kasutatakse varade toomiseks kogu saidil.",
+    "ipfsGateway": {
+      "header": "IPFS värav",
+      "help": "Värav, mida kasutatakse IPFS-linkide lahendamiseks NFT-piltide ja muu sisu jaoks. Kasutage avalikku väravat, millesse usaldate.",
+      "placeholder": "https://ipfs.io/ipfs/"
+    }
+  }
 }

@@ -1,0 +1,19 @@
+{
+  "title": "Ennustusturu organisatsioonid",
+  "description": "Sirvige ennustusturu organisatsioone ja nende aktiivseid ennustusi.",
+  "showing": "Näitan {{count}} / {{total}} organisatsioonist",
+  "searchPlaceholder": "Otsige sümboli või nime järgi…",
+  "empty": "Ennustusturu organisatsioone ei leitud.",
+  "createOrg": "Loo organisatsioon",
+  "active": "aktiivne",
+  "expired": "aegunud",
+  "resolutionPolicy": "Lahendamise poliitika",
+  "disputeMechanism": "Vaidluste mehhanism",
+  "viewActive": "Vaata aktiivseid ennustusi",
+  "viewExpired": "Vaata aegunud ennustusi",
+  "sort": {
+    "alpha": "Tähestikuline",
+    "pmaCount": "Enim ennustusi",
+    "newest": "Uuemad esimesena"
+  }
+}

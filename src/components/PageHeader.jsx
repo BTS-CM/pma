@@ -26,7 +26,7 @@ import {
   HoverCardPortal,
 } from "@/components/ui/hover-card";
 
-import { ChevronDown, Sparkles, Send, LineChart, Activity, Hourglass, BookOpen, Briefcase, TrendingUp, Wallet, ClipboardList, Star, Info, Server, UserX, UserPlus, Palette, SlidersHorizontal, ArrowUpRight, Repeat, Zap, ArrowLeftRight } from "lucide-react";
+import { ChevronDown, Sparkles, Send, LineChart, Activity, Hourglass, BookOpen, Briefcase, TrendingUp, Wallet, ClipboardList, Star, Info, Server, UserX, UserPlus, Palette, SlidersHorizontal, ArrowUpRight, Repeat, Zap, ArrowLeftRight, ShieldCheck } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -45,6 +45,8 @@ const ICONS = {
   prediction_markets_portfolio: Briefcase,
   prediction_markets_margin: TrendingUp,
   create_prediction: Sparkles,
+  create_pma_org: Sparkles,
+  prediction_organizations: ShieldCheck,
   transfer: Send,
   portfolio_balances: Wallet,
   portfolio_open_orders: ClipboardList,
@@ -66,6 +68,8 @@ const ACCENTS = {
   prediction_markets_portfolio: { color: "text-fuchsia-300", bg: "bg-fuchsia-500/15", border: "group-hover/navitem:border-fuchsia-400/30" },
   prediction_markets_margin: { color: "text-amber-300", bg: "bg-amber-500/15", border: "group-hover/navitem:border-amber-400/30" },
   create_prediction: { color: "text-violet-300", bg: "bg-violet-500/15", border: "group-hover/navitem:border-violet-400/30" },
+  create_pma_org: { color: "text-fuchsia-300", bg: "bg-fuchsia-500/15", border: "group-hover/navitem:border-fuchsia-400/30" },
+  prediction_organizations: { color: "text-cyan-300", bg: "bg-cyan-500/15", border: "group-hover/navitem:border-cyan-400/30" },
   transfer: { color: "text-sky-300", bg: "bg-sky-500/15", border: "group-hover/navitem:border-sky-400/30" },
   portfolio_balances: { color: "text-emerald-300", bg: "bg-emerald-500/15", border: "group-hover/navitem:border-emerald-400/30" },
   portfolio_open_orders: { color: "text-cyan-300", bg: "bg-cyan-500/15", border: "group-hover/navitem:border-cyan-400/30" },
@@ -246,6 +250,8 @@ export default function PageHeader(properties) {
         { slug: "prediction_markets_portfolio", title: "Home:prediction_markets_portfolio.title", description: "Home:prediction_markets_portfolio.subtitle", href: "/prediction-portfolio/index.html" },
         { slug: "prediction_markets_margin", title: "Home:prediction_markets_margin.title", description: "Home:prediction_markets_margin.subtitle", href: "/prediction-margin/index.html" },
         { slug: "create_prediction", title: "Home:create_prediction.title", description: "Home:create_prediction.subtitle", href: "/create_prediction/index.html" },
+        { slug: "create_pma_org", title: "PageHeader:createPMAOrg", description: "PageHeader:createPMAOrgDesc", href: "/create_pma_org/index.html" },
+        { slug: "prediction_organizations", title: "PageHeader:predictionOrganizations", description: "PageHeader:predictionOrganizations", href: "/prediction-organizations/index.html" },
       ],
     },
     {

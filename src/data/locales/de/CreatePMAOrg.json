@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Schritt {{number}}",
+    "optional": "Optional",
+    "recommended": "Empfohlen"
+  },
   "card": {
     "title": "Prediction Market Organisation erstellen",
     "description": "Registrieren Sie einen Top-Level-Aktivnamen, der als übergeordnetes Element für Ihre Prediction Market-Unteractiven dient. Unteractiven, die unter dieser Organisation ausgegeben werden (z.B. GAMBLE.0001), profitieren von reduzierten Erstellungsgebühren und sofortiger Markenerkennung."
@@ -46,7 +51,7 @@
         "placeholder": "z.B. GambleDAO"
       },
       "website": {
-        "label": "Website",
+        "label": "Webseite",
         "help": "Die öffentliche URL der Website Ihrer Organisation.",
         "placeholder": "https://organisation.com"
       },
@@ -89,7 +94,8 @@
     "maxSupply": "Maximales Angebot",
     "precision": "Genauigkeit",
     "nftMedia": "NFT-Medien",
-    "pmo": "PMO-Organisation"
+    "pmo": "PMO-Organisation",
+    "jsonPreview": "JSON-Vorschau"
   },
   "ready": "Alle erforderlichen Felder sind ausgefüllt. Bereit, Ihre PMA-Organisation zu erstellen!",
   "fieldsRequired": "Bitte geben Sie ein Organisationssymbol ein, um fortzufahren.",

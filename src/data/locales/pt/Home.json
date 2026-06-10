@@ -202,13 +202,6 @@
     "hover1": "Verifique seus saldos de aquisição.",
     "hover2": "Reivindique seus saldos adquiridos."
   },
-  "prediction_markets": {
-    "title": "🎲 Previsões",
-    "subtitle": "Procure previsões, gerencie apostas, execute a administração de previsões.",
-    "hover1": "Navegue pelos ativos de mercado de previsão disponíveis.",
-    "hover2": "Os mercados de previsão podem ser sobre qualquer coisa.",
-    "hover3": "Cada ativo de mercado de previsão possui uma taxa exclusiva."
-  },
   "proposals": {
     "title": "🤔 Operações propostas",
     "subtitle": "Visualizar e aprovar/rejeitar operações de conta propostas",

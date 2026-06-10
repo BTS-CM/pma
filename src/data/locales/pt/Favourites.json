@@ -1,5 +1,6 @@
 {
   "assetsHeader": "Seus favoritos",
+  "addAsset": "Adicionar Ativo",
   "issuer": "Emissor: {{issuer}}",
   "remove": "Remover",
   "assetsEmptyTitle": "Nenhum recurso favorito",

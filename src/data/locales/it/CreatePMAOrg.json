@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Passo {{number}}",
+    "optional": "Opzionale",
+    "recommended": "Consigliato"
+  },
   "card": {
     "title": "Crea Organizzazione di Mercato di Previsione",
     "description": "Registra un nome asset di livello superiore che fungerà da genitore per i tuoi sotto-asset di mercato di previsione. I sotto-asset emessi sotto questa organizzazione (es. GAMBLE.0001) beneficiano di tariffe di creazione ridotte e riconoscimento istantaneo del marchio."
@@ -82,14 +87,15 @@
     }
   },
   "summary": {
-    "title": "Revisiona e Invia",
+    "title": "Rivedi e Invia",
     "subtitle": "Verifica i dettagli della tua organizzazione prima della creazione",
-    "symbol": "Simbolo dell'Organizzazione",
+    "symbol": "Simbolo dell'organizzazione",
     "name": "Nome Breve",
     "maxSupply": "Offerta Massima",
     "precision": "Precisione",
     "nftMedia": "Media NFT",
-    "pmo": "Organizzazione PMO"
+    "pmo": "Organizzazione PMO",
+    "jsonPreview": "Anteprima JSON"
   },
   "ready": "Tutti i campi obbligatori sono compilati. Pronto per creare la tua organizzazione PMA!",
   "fieldsRequired": "Inserisci un simbolo dell'organizzazione per continuare.",

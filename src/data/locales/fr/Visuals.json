@@ -27,5 +27,14 @@
   "particlesDesc": "Active ou désactive les petites particules flottantes dans l'en-tête.",
   "on": "Activé",
   "off": "Désactivé",
-  "resetToDefaults": "Réinitialiser par défaut"
+  "resetToDefaults": "Réinitialiser par défaut",
+  "externalServices": {
+    "heading": "Services externes",
+    "description": "Configurez les services tiers utilisés pour récupérer les actifs sur le site.",
+    "ipfsGateway": {
+      "header": "Passerelle IPFS",
+      "help": "Passerelle utilisée pour résoudre les liens IPFS pour les images NFT et autres contenus. Utilisez une passerelle publique en laquelle vous avez confiance.",
+      "placeholder": "https://ipfs.io/ipfs/"
+    }
+  }
 }

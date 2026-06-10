@@ -5,10 +5,12 @@
   "expiration": "Ablauf",
   "expired_at": "Abgelaufen",
   "outcome": "Ergebnis",
-  "prize_pool": "Siedlung",
   "outcome_true": "Stimmt (Käufer gewinnen)",
   "outcome_false": "Falsch (Verkäufer gewinnen)",
   "outcome_tba": "Noch nicht gelöst",
+  "outcome.yes": "Ja",
+  "outcome.no": "Nein",
+  "outcome.unresolved": "Ungelöst",
   "issue": "Schritt 1: PMA-Tokens ausgeben",
   "buy": "Bet True (kaufen)",
   "sell": "Schritt 2: Falsch wetten (verkaufen)",
@@ -19,12 +21,111 @@
   "margin": "Marge",
   "bettingAsset": "Wettvermögen",
   "card": {
-    "title": "Prognosemarktvermögen",
-    "description": "Schauen Sie sich unten die potenziellen Wettmöglichkeiten an!",
+    "title": {
+      "active": "Aktive Prognosemärkte",
+      "expired": "Abgelaufene Prognosemärkte",
+      "mine": "Meine Prognosemärkte",
+      "portfolio": "Prognose-Portfolio",
+      "margin": "Prognose-Marge-Positionen"
+    },
+    "description": {
+      "active": "Durchsuchen Sie aktive, ungelöste Prognosemarkt-Assets, die Wetten akzeptieren.",
+      "expired": "Durchsuchen Sie vergangene Prognosemarkt-Assets, die auf die Lösung durch Preis-Feeder warten.",
+      "mine": "Prognosemarkt-Assets, die Sie erstellt oder mit denen Sie interagiert haben.",
+      "portfolio": "Prognosemarkt-Assets, die derzeit auf Ihrem Kontoguthaben gehalten werden.",
+      "margin": "Aktive Margin- (Call-) Positionen bei Prognosemarkt-Assets."
+    },
+    "showing": "Zeige {{primary}} Märkte",
+    "stat": " · {{value}} {{label}}",
     "emptyActive": "Derzeit sind keine aktiven Vorhersagen verfügbar.",
+    "emptyExpired": "Derzeit sind keine abgelaufenen Vorhersagen verfügbar.",
     "emptyMine": "Sie haben im Moment keine Vorhersagen.",
     "emptyPortfolio": "Sie verfügen derzeit über keine prognostizierten Marktwerte in Ihrem Portfolio.",
     "emptyMargin": "Sie verfügen derzeit über keine prognostizierten Markt-Asset-Margin-Positionen."
+  },
+  "tab": {
+    "overview": "Übersicht",
+    "nft": "NFT",
+    "market": "Markt",
+    "details": "Details",
+    "actions": "Aktionen",
+    "winners": "Gewinner",
+    "admin": "Admin",
+    "org": "Organisation"
+  },
+  "status": {
+    "active": "Aktiv",
+    "resolvedYes": "Gelöst · JA",
+    "resolvedNo": "Gelöst · NEIN",
+    "awaiting": "Wartet auf Lösung"
+  },
+  "timeLeft": "Verbleibende Zeit",
+  "timeExpired": "Zeit seit Ablauf",
+  "openInterest": "Offenes Interesse",
+  "openInterest_help": "Gesamte Sicherheit, die von allen Verkäufern zugesagt wurde, die gegen das Ergebnis wetten.",
+  "market": {
+    "impliedProbability": "Implizite JA-Wahrscheinlichkeit",
+    "impliedProbability_help": "Geschätzte Chance, die dem JA-Ergebnis vom Markt zugeschrieben wird, abgeleitet aus offenem Interesse und der Größe des Abrechnungsfonds.",
+    "expiredNote": "Der Handel für diesen Markt wurde eingestellt.",
+    "settlementFund": "Abrechnungsfonds",
+    "settlementFund_help": "Die Sicherheit, die derzeit im Abrechnungsfonds gehalten wird und auf die Lösung wartet.",
+    "commission": "Marktgebühr",
+    "commission_help": "Gebühr, die pro Handel erhoben wird, bezahlt im Backing-Asset.",
+    "tradeOnDex": "Auf DEX handeln"
+  },
+  "nft": {
+    "title": "Titel",
+    "artist": "Künstler",
+    "type": "Typ",
+    "encoding": "Kodierung",
+    "license": "Lizenz",
+    "holderLicense": "Inhaberlizenz",
+    "tags": "Tags",
+    "narrative": "Erzählung",
+    "acknowledgements": "Danksagungen",
+    "attestation": "Attestierung",
+    "viewOnIpfs": "Auf IPFS ansehen",
+    "noImage": "Kein NFT-Bild verfügbar",
+    "signature": "Signatur",
+    "sigPubkey": "Unterzeichner",
+    "copySig": "Signatur kopieren",
+    "copyPubkey": "Unterzeichnerschlüssel kopieren",
+    "verifyNote": "Signaturüberprüfung — kommt bald."
+  },
+  "details": {
+    "assetId": "Asset-ID",
+    "issuer": "Ausgeber",
+    "precision": "Genauigkeit",
+    "maxSupply": "Maximales Angebot"
+  },
+  "copy": "Kopieren",
+  "copied": "Kopiert",
+  "copyAssetId": "Asset-ID kopieren",
+  "copyIssuerId": "Ausgeber-ID kopieren",
+  "stats": {
+    "closingSoon": "schließt innerhalb von 24 Stunden",
+    "newlyCreated": "neu in den letzten 7 Tagen",
+    "awaitingResolution": "wartet auf Lösung",
+    "resolved": "gelöst",
+    "awaitingYourResolution": "wartet auf Ihre Lösung",
+    "inYourBalance": "auf Ihrem Guthaben",
+    "marginPositions": "aktive Margin-Positionen"
+  },
+  "list": {
+    "sort": {
+      "newest": "Neueste zuerst",
+      "expiring": "Bald ablaufend",
+      "volume": "Höchstes Volumen",
+      "alpha": "Alphabetisch"
+    },
+    "filter": {
+      "all": "Alle",
+      "closingSoon": "Schließt innerhalb von 24 Stunden",
+      "new": "Neu (letzte 7 Tage)",
+      "highVolume": "Hohes Volumen"
+    },
+    "searchPlaceholder": "Nach Symbol oder Frage suchen…",
+    "noResults": "Keine Vorhersagen passen zu Ihren Filtern."
   },
   "price_feeders": "Preis-Feeder",
   "price_feeders_content": "Die Vorhersage kann entweder durch die Zeugen, das Komitee oder private Preisgeber geklärt werden.",
@@ -35,10 +136,15 @@
   "buyer_content": "Käufer wetten um die Vorhersage. Wenn die Vorhersage wahr ist, gewinnen Käufer, wenn der Abrechnungspreis auf 1 steigt.",
   "admin": "Admin",
   "admin_content": "Das Haus verfügt über zusätzliche Kontrollen zur Lösung der Vorhersage.",
-  "about": "Um",
+  "about": "Über",
   "winner_content": "Gewinner, die gekauft haben (wahres Ergebnis), können den PMA für den 1-fachen Inhalt des Backing-Assets begleichen. Gewinner, die verkauft haben (falsches Ergebnis), müssen nichts tun.",
   "winner_header": "Gewinner",
   "winner_claim": "Fordern Sie Sicherungsvermögen an",
+  "winner": {
+    "settlementFund_help": "Die gesamte Sicherheit, die diesem Prognosemarkt zugesagt wurde. Käufer, die das Gewinnergebnis halten, können einen proportionalen Anteil dieses Fonds beanspruchen.",
+    "yourPmaBalance": "Ihr PMA-Guthaben",
+    "yourPmaBalance_help": "Die Anzahl der Prognosemarkt-Token, die Sie derzeit halten. Nach der Auflösung der Vorhersage kann jeder gewinnende PMA gegen 1 Einheit des Backing-Assets beglichen werden."
+  },
   "resolve": "Vorhersage auflösen",
   "not_expired": "Diese Vorhersage ist noch nicht abgelaufen und kann daher nicht gelöst werden.",
   "time_till_expiration": "Zeit bis zum Ablauf: {{hours}} Std.",
@@ -123,20 +229,33 @@
   },
   "json": {
     "button": "JSON",
-    "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
+    "title": "Asset-JSON",
+    "description": "Rohes JSON-Daten für den ausgewählten Eintrag.",
+    "assetData": "Asset-Daten",
+    "bitassetData": "Bitasset-Daten",
+    "descriptionData": "Beschreibungsdaten",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "blockIssuer": "Diesen Ausgeber blockieren",
+    "unblockIssuer": "Diesen Ausgeber entsperren"
   },
   "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
+    "title": "Diesen Ausgeber blockieren?",
+    "description": "Von diesem Konto erstellte Prognosemärkte werden aus Ihrer Ansicht ausgeblendet. Sie können sie jederzeit entsperren.",
+    "cancel": "Abbrechen",
+    "confirm": "Ausgeber blockieren"
+  },
+  "org": {
+    "title": "Organisation",
+    "name": "Name",
+    "website": "Webseite",
+    "manifest": "Manifest",
+    "resolutionPolicy": "Auflösungsrichtlinie",
+    "disputeMechanism": "Streitbeilegungsmechanismus",
+    "onchainAccount": "On-chain-Konto",
+    "attestation": "Attestation",
+    "signature": "Signatur",
+    "viewAll": "Alle {{symbol}}-Vorhersagen anzeigen",
+    "noOrg": "Keine Organisationsinformationen verfügbar"
   }
 }

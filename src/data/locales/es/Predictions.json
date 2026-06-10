@@ -5,10 +5,12 @@
   "expiration": "Vencimiento",
   "expired_at": "Venció",
   "outcome": "Resultado",
-  "prize_pool": "Asentamiento",
   "outcome_true": "Verdadero (los compradores ganan)",
   "outcome_false": "Falso (los vendedores ganan)",
   "outcome_tba": "Aún no resuelto",
+  "outcome.yes": "Sí",
+  "outcome.no": "No",
+  "outcome.unresolved": "No resuelto",
   "issue": "Paso 1: emitir tokens PMA",
   "buy": "Apuesta verdadera (comprar)",
   "sell": "Paso 2: apuesta falsa (vender)",
@@ -19,12 +21,111 @@
   "margin": "Margen",
   "bettingAsset": "Activo de apuesta",
   "card": {
-    "title": "Activos del mercado de predicción",
-    "description": "¡Vea las posibles oportunidades de apuestas a continuación!",
+    "title": {
+      "active": "Mercados de predicción activos",
+      "expired": "Mercados de predicción vencidos",
+      "mine": "Mis mercados de predicción",
+      "portfolio": "Cartera de predicción",
+      "margin": "Posiciones de margen de predicción"
+    },
+    "description": {
+      "active": "Explore activos de mercado de predicción en vivo y sin resolver que aceptan apuestas.",
+      "expired": "Explore activos de mercado de predicción pasados a la espera de resolución por parte de alimentadores de precios.",
+      "mine": "Activos de mercado de predicción que usted ha creado o con los que ha interactuado.",
+      "portfolio": "Activos de mercado de predicción que actualmente se mantienen en el saldo de su cuenta.",
+      "margin": "Posiciones de margen (call) activas en activos de mercado de predicción."
+    },
+    "showing": "Mostrando {{primary}} mercados",
+    "stat": " · {{value}} {{label}}",
     "emptyActive": "No hay predicciones activas disponibles en este momento.",
+    "emptyExpired": "No hay predicciones vencidas disponibles en este momento.",
     "emptyMine": "No tienes predicciones por el momento.",
     "emptyPortfolio": "En este momento no tiene activos de mercado de predicción en el saldo de su cartera.",
     "emptyMargin": "No tiene posiciones de margen de activos de mercado de predicción en este momento."
+  },
+  "tab": {
+    "overview": "Resumen",
+    "nft": "NFT",
+    "market": "Mercado",
+    "details": "Detalles",
+    "actions": "Acciones",
+    "winners": "Ganadores",
+    "admin": "Admin",
+    "org": "Organización"
+  },
+  "status": {
+    "active": "Activo",
+    "resolvedYes": "Resuelto · SÍ",
+    "resolvedNo": "Resuelto · NO",
+    "awaiting": "Esperando resolución"
+  },
+  "timeLeft": "Tiempo restante",
+  "timeExpired": "Tiempo desde el vencimiento",
+  "openInterest": "Interés abierto",
+  "openInterest_help": "Garantía total comprometida por todos los vendedores que apuestan en contra del resultado.",
+  "market": {
+    "impliedProbability": "Probabilidad implícita de SÍ",
+    "impliedProbability_help": "Probabilidad estimada que el mercado asigna al resultado SÍ, derivada del interés abierto y el tamaño del fondo de liquidación.",
+    "expiredNote": "El comercio ha terminado para este mercado.",
+    "settlementFund": "Fondo de liquidación",
+    "settlementFund_help": "La garantía que se mantiene actualmente en el fondo de liquidación, a la espera de resolución.",
+    "commission": "Comisión del mercado",
+    "commission_help": "Comisión cobrada en cada operación, pagada en el activo de respaldo.",
+    "tradeOnDex": "Operar en DEX"
+  },
+  "nft": {
+    "title": "Título",
+    "artist": "Artista",
+    "type": "Tipo",
+    "encoding": "Codificación",
+    "license": "Licencia",
+    "holderLicense": "Licencia del titular",
+    "tags": "Etiquetas",
+    "narrative": "Narrativa",
+    "acknowledgements": "Agradecimientos",
+    "attestation": "Atestación",
+    "viewOnIpfs": "Ver en IPFS",
+    "noImage": "No hay imagen NFT disponible",
+    "signature": "Firma",
+    "sigPubkey": "Firmante",
+    "copySig": "Copiar firma",
+    "copyPubkey": "Copiar clave del firmante",
+    "verifyNote": "Verificación de firma — próximamente."
+  },
+  "details": {
+    "assetId": "ID de activo",
+    "issuer": "Emisor",
+    "precision": "Precisión",
+    "maxSupply": "Suministro máximo"
+  },
+  "copy": "Copiar",
+  "copied": "Copiado",
+  "copyAssetId": "Copiar ID de activo",
+  "copyIssuerId": "Copiar ID de emisor",
+  "stats": {
+    "closingSoon": "cierra dentro de 24 horas",
+    "newlyCreated": "nuevo en los últimos 7 días",
+    "awaitingResolution": "esperando resolución",
+    "resolved": "resuelto",
+    "awaitingYourResolution": "esperando su resolución",
+    "inYourBalance": "en su saldo",
+    "marginPositions": "posiciones de margen activas"
+  },
+  "list": {
+    "sort": {
+      "newest": "Más recientes primero",
+      "expiring": "Vence más pronto",
+      "volume": "Mayor volumen",
+      "alpha": "Alfabético"
+    },
+    "filter": {
+      "all": "Todos",
+      "closingSoon": "Cierra dentro de 24 horas",
+      "new": "Nuevos (últimos 7 días)",
+      "highVolume": "Alto volumen"
+    },
+    "searchPlaceholder": "Buscar por símbolo o pregunta…",
+    "noResults": "Ninguna predicción coincide con sus filtros."
   },
   "price_feeders": "Alimentadores de precios",
   "price_feeders_content": "La predicción puede ser resuelta por los testigos, el comité o los alimentadores de precios privados.",
@@ -38,7 +139,12 @@
   "about": "Acerca de",
   "winner_content": "Los ganadores que compraron (resultado verdadero) pueden liquidar el PMA por el contenido del activo de respaldo 1x. Los ganadores que vendieron (resultado falso) no necesitan hacer nada.",
   "winner_header": "Ganadores",
-  "winner_claim": "Activos de respaldo de reclamaciones",
+  "winner_claim": "Reclamar activos de respaldo",
+  "winner": {
+    "settlementFund_help": "La garantía total comprometida en este mercado de predicción. Los compradores que poseen el resultado ganador pueden reclamar una proporción de este fondo.",
+    "yourPmaBalance": "Su saldo de PMA",
+    "yourPmaBalance_help": "La cantidad de tokens de activos del mercado de predicción que posee actualmente. Después de que la predicción se resuelva, cada PMA ganador puede liquidarse por 1 unidad del activo de respaldo."
+  },
   "resolve": "Resolver predicción",
   "not_expired": "Esta predicción aún no ha caducado, por lo que no se puede resolver.",
   "time_till_expiration": "Tiempo hasta el vencimiento: {{hours}} horas",
@@ -123,20 +229,33 @@
   },
   "json": {
     "button": "JSON",
-    "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
+    "title": "JSON del activo",
+    "description": "Datos JSON sin procesar de la entrada seleccionada.",
+    "assetData": "Datos del activo",
+    "bitassetData": "Datos de Bitasset",
+    "descriptionData": "Datos de descripción",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "blockIssuer": "Bloquear este emisor",
+    "unblockIssuer": "Desbloquear este emisor"
   },
   "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
+    "title": "¿Bloquear este emisor?",
+    "description": "Los mercados de predicción creados por esta cuenta se ocultarán de su vista. Puede desbloquearlos en cualquier momento.",
+    "cancel": "Cancelar",
+    "confirm": "Bloquear emisor"
+  },
+  "org": {
+    "title": "Organización",
+    "name": "Nombre",
+    "website": "Sitio web",
+    "manifest": "Manifiesto",
+    "resolutionPolicy": "Política de resolución",
+    "disputeMechanism": "Mecanismo de disputa",
+    "onchainAccount": "Cuenta en cadena",
+    "attestation": "Atestación",
+    "signature": "Firma",
+    "viewAll": "Ver todas las predicciones de {{symbol}}",
+    "noOrg": "No hay información de organización disponible"
   }
 }

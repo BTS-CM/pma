@@ -3,6 +3,7 @@
   "creditBorrow": "Emprunter",
   "creditLend": "Prêter",
   "proceedToBorrow": "Problème",
+  "collateralBid": "Enchérir sur la garantie",
   "issueAssetDescription": "En tant qu'émetteur de cet actif, vous pouvez émettre cet actif sur vous-même ou sur un autre compte sur la blockchain, jusqu'à l'offre maximale configurée.",
   "manageUIA": "Modifier",
   "pmaBet": "Pari",

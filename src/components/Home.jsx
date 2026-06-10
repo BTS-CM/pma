@@ -40,6 +40,7 @@ import {
   Wrench,
   Zap,
   ArrowLeftRight,
+  ShieldCheck,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -61,6 +62,8 @@ const ITEM_ICONS = {
   prediction_markets_portfolio: Briefcase,
   prediction_markets_margin: TrendingUp,
   create_prediction: Sparkles,
+  create_pma_org: Sparkles,
+  prediction_organizations: ShieldCheck,
   transfer: Send,
   portfolio_balances: Wallet,
   portfolio_open_orders: ClipboardList,
@@ -82,6 +85,8 @@ const ITEM_ACCENTS = {
   prediction_markets_portfolio: { bar: "from-fuchsia-500 to-pink-500", chip: "bg-fuchsia-500/30 text-fuchsia-100 border-fuchsia-400/50", glow: "bg-fuchsia-500/30", text: "text-fuchsia-100" },
   prediction_markets_margin: { bar: "from-amber-500 to-orange-500", chip: "bg-amber-500/30 text-amber-100 border-amber-400/50", glow: "bg-amber-500/30", text: "text-amber-100" },
   create_prediction: { bar: "from-violet-500 to-purple-500", chip: "bg-violet-500/30 text-violet-100 border-violet-400/50", glow: "bg-violet-500/30", text: "text-violet-100" },
+  create_pma_org: { bar: "from-fuchsia-500 to-pink-500", chip: "bg-fuchsia-500/30 text-fuchsia-100 border-fuchsia-400/50", glow: "bg-fuchsia-500/30", text: "text-fuchsia-100" },
+  prediction_organizations: { bar: "from-cyan-500 to-teal-500", chip: "bg-cyan-500/30 text-cyan-100 border-cyan-400/50", glow: "bg-cyan-500/30", text: "text-cyan-100" },
   transfer: { bar: "from-sky-500 to-blue-500", chip: "bg-sky-500/30 text-sky-100 border-sky-400/50", glow: "bg-sky-500/30", text: "text-sky-100" },
   portfolio_balances: { bar: "from-emerald-500 to-teal-500", chip: "bg-emerald-500/30 text-emerald-100 border-emerald-400/50", glow: "bg-emerald-500/30", text: "text-emerald-100" },
   portfolio_open_orders: { bar: "from-cyan-500 to-sky-500", chip: "bg-cyan-500/30 text-cyan-100 border-cyan-400/50", glow: "bg-cyan-500/30", text: "text-cyan-100" },
@@ -230,6 +235,28 @@ export default function Home(properties) {
         "Home:create_prediction.hover1",
         "Home:create_prediction.hover2",
         "Home:create_prediction.hover3",
+      ],
+    },
+    {
+      key: "create_pma_org",
+      href: "/create_pma_org/index.html",
+      titleKey: "Home:create_pma_org.title",
+      subtitleKey: "Home:create_pma_org.subtitle",
+      hoverKeys: [
+        "Home:create_pma_org.hover1",
+        "Home:create_pma_org.hover2",
+        "Home:create_pma_org.hover3",
+      ],
+    },
+    {
+      key: "prediction_organizations",
+      href: "/prediction-organizations/index.html",
+      titleKey: "Home:prediction_organizations.title",
+      subtitleKey: "Home:prediction_organizations.subtitle",
+      hoverKeys: [
+        "Home:prediction_organizations.hover1",
+        "Home:prediction_organizations.hover2",
+        "Home:prediction_organizations.hover3",
       ],
     },
     {

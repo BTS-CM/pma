@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Étape {{number}}",
+    "optional": "Facultatif",
+    "recommended": "Recommandé"
+  },
   "card": {
     "title": "Créer une Organisation de Marché de Prédiction",
     "description": "Enregistrez un nom d'actif de niveau supérieur qui servira de parent pour vos sous-actifs de marché de prédiction. Les sous-actifs émis sous cette organisation (par exemple GAMBLE.0001) bénéficient de frais de création réduits et d'une reconnaissance instantanée de la marque."
@@ -84,12 +89,13 @@
   "summary": {
     "title": "Vérifier et Soumettre",
     "subtitle": "Vérifiez les détails de votre organisation avant la création",
-    "symbol": "Symbole de l'Organisation",
+    "symbol": "Symbole de l'organisation",
     "name": "Nom Court",
     "maxSupply": "Offre Max",
     "precision": "Précision",
     "nftMedia": "Médias NFT",
-    "pmo": "Organisation PMO"
+    "pmo": "Organisation PMO",
+    "jsonPreview": "Aperçu JSON"
   },
   "ready": "Tous les champs obligatoires sont remplis. Prêt à créer votre organisation PMA !",
   "fieldsRequired": "Veuillez entrer un symbole d'organisation pour continuer.",

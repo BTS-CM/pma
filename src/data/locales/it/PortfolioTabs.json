@@ -52,5 +52,18 @@
   "orderIdHeader": "ID dell'ordine",
   "expirationHeader": "Scadenza",
   "priceHeader": "Prezzo",
-  "actionsHeader": "Azioni"
+  "actionsHeader": "Azioni",
+  "refreshOpenOrdersTooltip": "Aggiorna gli ordini aperti",
+  "copyOrderIdTooltip": "Copia ID dell'ordine",
+  "expiryStatusHealthy": "Sano",
+  "expiryStatusSoon": "In scadenza a breve",
+  "expiryStatusImminent": "Meno di 24 ore",
+  "expiryStatusExpired": "Scaduto",
+  "noOpenOrdersTitle": "Nessun ordine aperto",
+  "noOpenOrdersDescription": "Non hai ordini limite aperti sul DEX al momento.",
+  "noOpenOrdersCta": "Piazza un nuovo ordine",
+  "badgeSell": "Vendita",
+  "badgeBuy": "Acquisto",
+  "orderSummaryCount": "{{count}} ordini aperti",
+  "orderIdCopied": "ID dell'ordine copiato"
 }

@@ -106,7 +106,8 @@ const STEP_COLORS = {
   6: { icon: "bg-indigo-500/15 text-indigo-400 ring-indigo-500/30", badge: "bg-indigo-500/15 text-indigo-400", border: "border-indigo-500/20" },
 };
 
-function SectionHeader({ icon: Icon, title, description, step, optional }) {
+function SectionHeader({ icon: Icon, title, description, step, optional, recommended, right }) {
+  const { t } = useTranslation(null, { i18n: i18nInstance });
   const colors = STEP_COLORS[step] || STEP_COLORS[1];
   return (
     <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
@@ -117,8 +118,9 @@ function SectionHeader({ icon: Icon, title, description, step, optional }) {
         <div className="flex items-center gap-2">
           {step && (
             <span className={"inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider " + colors.badge}>
-              Step {step}
-              {optional ? " · Optional" : ""}
+              {t("CreatePrediction:sectionHeader.step", { number: step })}
+              {recommended ? ` · ${t("CreatePrediction:sectionHeader.recommended")}` : ""}
+              {optional ? ` · ${t("CreatePrediction:sectionHeader.optional")}` : ""}
             </span>
           )}
         </div>
@@ -129,6 +131,9 @@ function SectionHeader({ icon: Icon, title, description, step, optional }) {
           <p className="mt-0.5 text-sm text-white/50">{description}</p>
         )}
       </div>
+      {right && (
+        <div className="shrink-0 ml-auto">{right}</div>
+      )}
     </div>
   );
 }
@@ -429,6 +434,28 @@ export default function Prediction(properties) {
   const precisionNum = parseInt(precision, 10) || 0;
   const [maxSupply, setMaxSupply] = useState("1000000000");
 
+  // Creation mode: "manual" (default) or "organization"
+  const [creationMode, setCreationMode] = useState("manual");
+  const [selectedOrg, setSelectedOrg] = useState(null);
+  const [subAssetName, setSubAssetName] = useState("");
+
+  // Default to organization mode when user owns PMO assets
+  useEffect(() => {
+    if (userOrgs.length > 0 && creationMode === "manual") {
+      setCreationMode("organization");
+    }
+  }, [userOrgs]);
+
+  // In org mode, shortName auto-fills from the sub-asset name
+  useEffect(() => {
+    if (creationMode === "organization" && subAssetName) {
+      setShortName(subAssetName);
+    } else if (creationMode === "manual") {
+      // reset shortName only if it was auto-filled
+      // (leave user-typed value untouched)
+    }
+  }, [creationMode, subAssetName]);
+
   // Maximum supply is constrained by the asset's precision: total digits
   // (excluding the decimal point) cap at 15. If precision is N, the integer
   // part is capped at (15 - N) digits and the decimal part is capped at N
@@ -495,6 +522,30 @@ export default function Prediction(properties) {
     return null;
   }, [assets, backingAsset]);
 
+  // Filter PMO organizations owned by the current user
+  const userOrgs = useMemo(() => {
+    if (!assets || !assets.length || !usr || !usr.id) return [];
+    return assets.filter((a) => {
+      if (a.issuer !== usr.id) return false;
+      if (a.symbol && a.symbol.includes(".")) return false;
+      if (!a.options || !a.options.description) return false;
+      try {
+        const d = JSON.parse(a.options.description);
+        return d && d.pmo_object;
+      } catch {
+        return false;
+      }
+    });
+  }, [assets, usr]);
+
+  // Compute the full symbol based on creation mode
+  const fullSymbol = useMemo(() => {
+    if (creationMode === "organization" && selectedOrg && subAssetName) {
+      return `${selectedOrg.symbol}.${subAssetName}`;
+    }
+    return symbol;
+  }, [creationMode, selectedOrg, subAssetName, symbol]);
+
   // Initializing permissions
   const [permWhiteList, setPermWhiteList] = useState(true);
   const [permTransferRestricted, setPermTransferRestricted] = useState(true);
@@ -550,7 +601,7 @@ export default function Prediction(properties) {
 
       // Symbol length fee
       let symbolFee = 0;
-      const symLen = symbol.length;
+      const symLen = fullSymbol.length;
       if (symLen === 3) {
         symbolFee = parseInt(feeSchedule.symbol3 || "0", 10);
       } else if (symLen === 4) {
@@ -560,7 +611,7 @@ export default function Prediction(properties) {
       }
 
       // Sub-asset (dot in symbol) - additional base fee
-      const isSubAsset = symbol.includes(".");
+      const isSubAsset = fullSymbol.includes(".");
       const subAssetFee = isSubAsset ? parseInt(feeSchedule.symbol3 || "0", 10) : 0;
 
       // Data size fee (description, condition, NFT data, etc.)
@@ -603,7 +654,7 @@ export default function Prediction(properties) {
     [
       feeSchedule,
       usr,
-      symbol,
+      fullSymbol,
       desc,
       backingAsset,
       condition,
@@ -809,7 +860,7 @@ export default function Prediction(properties) {
 
     return {
       issuer: usr.id,
-      symbol: symbol,
+      symbol: fullSymbol,
       precision: precisionNum,
       common_options: {
         // user configured
@@ -858,7 +909,7 @@ export default function Prediction(properties) {
     };
   }, [
     usr,
-    symbol,
+    fullSymbol,
     precisionNum,
     description,
     maxSupply,
@@ -900,10 +951,15 @@ export default function Prediction(properties) {
 
   // Form validity — used by the summary card and submit button.
   const isFormValid = useMemo(() => {
-    if (!symbol || !condition) return false;
+    if (creationMode === "organization") {
+      if (!selectedOrg || !subAssetName) return false;
+    } else {
+      if (!symbol) return false;
+    }
+    if (!condition) return false;
     if (!date) return false;
     return true;
-  }, [symbol, condition, date]);
+  }, [symbol, condition, date, creationMode, selectedOrg, subAssetName]);
 
   // Days until resolution — used by the summary card to render a relative
   // hint next to the absolute resolution date.
@@ -914,12 +970,21 @@ export default function Prediction(properties) {
   }, [date]);
 
   const symbolError = useMemo(() => {
+    if (creationMode === "organization") {
+      if (!subAssetName || subAssetName.length === 0) return null;
+      if (subAssetName.length > 16) return "Sub-asset name is too long (max 16 characters)";
+      if (!/^[a-zA-Z0-9]+$/.test(subAssetName))
+        return "Sub-asset name can only contain letters and digits";
+      const full = `${selectedOrg?.symbol || ""}.${subAssetName}`;
+      if (full.length > 16) return "Full symbol is too long (max 16 characters)";
+      return null;
+    }
     if (symbol.length === 0) return null;
     if (symbol.length > 16) return "Symbol is too long (max 16 characters)";
     if (!/^[a-zA-Z0-9]*\.?[a-zA-Z0-9]*$/.test(symbol))
       return "Symbol can only contain letters, digits and a single dot";
     return null;
-  }, [symbol]);
+  }, [symbol, creationMode, subAssetName, selectedOrg]);
 
   const commissionError = useMemo(() => {
     if (commission === "" || commission === "." || parseFloat(commission) === 0)
@@ -1018,59 +1083,185 @@ export default function Prediction(properties) {
             icon={Hash}
             title={t("CreatePrediction:steps.asset.title")}
             description={t("CreatePrediction:steps.asset.description")}
+            right={
+              <div className="flex flex-col items-center gap-1">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-white/40">
+                  {t("CreatePrediction:creationMode.label")}
+                </span>
+                <div className="flex flex-col gap-0.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCreationMode("manual");
+                      setSelectedOrg(null);
+                      setSubAssetName("");
+                    }}
+                    className={`rounded-md px-3 py-1 text-[11px] font-medium transition-colors ${
+                      creationMode === "manual"
+                        ? "bg-violet-500/20 text-violet-300 ring-1 ring-violet-500/40"
+                        : "text-white/40 hover:text-white/70"
+                    }`}
+                  >
+                    {t("CreatePrediction:creationMode.manual")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCreationMode("organization");
+                      setSymbol("");
+                    }}
+                    disabled={userOrgs.length === 0}
+                    title={userOrgs.length === 0 ? t("CreatePrediction:creationMode.noOrgs") : ""}
+                    className={`rounded-md px-3 py-1 text-[11px] font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
+                      creationMode === "organization"
+                        ? "bg-fuchsia-500/20 text-fuchsia-300 ring-1 ring-fuchsia-500/40"
+                        : "text-white/40 hover:text-white/70"
+                    }`}
+                  >
+                    {t("CreatePrediction:creationMode.organization")}
+                  </button>
+                </div>
+              </div>
+            }
           />
           <CardContent className="space-y-5 pt-6">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              <Field
-                label={t("AssetCommon:asset_details.symbol.header")}
-                help={t("AssetCommon:asset_details.symbol.header_content")}
-                htmlFor="cp-symbol"
-                required
-                error={symbolError}
-              >
-                <div className="relative">
-                  <Input
-                    id="cp-symbol"
-                    placeholder={t(
-                      "AssetCommon:asset_details.symbol.placeholder"
+              {creationMode === "organization" ? (
+                <>
+                  <Field
+                    label={t("CreatePrediction:fields.org.label")}
+                    help={t("CreatePrediction:fields.org.help")}
+                    htmlFor="cp-org-select"
+                    required
+                  >
+                    <Select
+                      value={selectedOrg?.symbol || ""}
+                      onValueChange={(val) => {
+                        const org = userOrgs.find((o) => o.symbol === val);
+                        setSelectedOrg(org || null);
+                      }}
+                    >
+                      <SelectTrigger
+                        id="cp-org-select"
+                        className="bg-slate-950/60 border-white/10 text-white"
+                      >
+                        <SelectValue placeholder="Select an organization...">
+                          {selectedOrg?.symbol}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent className="bg-slate-950 border-white/10 text-white">
+                        <SelectGroup>
+                          <SelectLabel className="text-white/50 text-xs">
+                            {t("CreatePrediction:fields.org.selectLabel")}
+                          </SelectLabel>
+                          {userOrgs.map((org) => (
+                            <SelectItem key={org.symbol} value={org.symbol}>
+                              {org.symbol}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </Field>
+
+                  <Field
+                    label={t("CreatePrediction:fields.subAssetName.label")}
+                    help={t("CreatePrediction:fields.subAssetName.help")}
+                    htmlFor="cp-subassetname"
+                    required
+                    error={symbolError}
+                  >
+                    <div className="relative">
+                      <Input
+                        id="cp-subassetname"
+                        placeholder={t("CreatePrediction:fields.subAssetName.placeholder")}
+                        value={subAssetName}
+                        type="text"
+                        className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-fuchsia-500/50"
+                        onInput={(e) => {
+                          const value = e.currentTarget.value;
+                          const regex = /^[a-zA-Z0-9]*$/;
+                          if (regex.test(value)) {
+                            setSubAssetName(value);
+                          }
+                        }}
+                        maxLength={16}
+                      />
+                      <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
+                        {subAssetName.length}/16
+                      </span>
+                    </div>
+                  </Field>
+                </>
+              ) : (
+                <>
+                  <Field
+                    label={t("AssetCommon:asset_details.symbol.header")}
+                    help={t("AssetCommon:asset_details.symbol.header_content")}
+                    htmlFor="cp-symbol"
+                    required
+                    error={symbolError}
+                  >
+                    <div className="relative">
+                      <Input
+                        id="cp-symbol"
+                        placeholder={t(
+                          "AssetCommon:asset_details.symbol.placeholder"
+                        )}
+                        value={symbol}
+                        type="text"
+                        className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
+                        onInput={(e) => {
+                          const value = e.currentTarget.value;
+                          const regex = /^[a-zA-Z0-9]*\.?[a-zA-Z0-9]*$/;
+                          if (regex.test(value)) {
+                            setSymbol(value);
+                          }
+                        }}
+                        maxLength={16}
+                      />
+                      <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
+                        {symbol.length}/16
+                      </span>
+                    </div>
+                  </Field>
+
+                  <Field
+                    label={t("AssetCommon:asset_details.shortName.header")}
+                    help={t(
+                      "AssetCommon:asset_details.shortName.header_content"
                     )}
-                    value={symbol}
-                    type="text"
-                    className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
-                    onInput={(e) => {
-                      const value = e.currentTarget.value;
-                      const regex = /^[a-zA-Z0-9]*\.?[a-zA-Z0-9]*$/;
-                      if (regex.test(value)) {
-                        setSymbol(value);
-                      }
-                    }}
-                    maxLength={16}
-                  />
-                  <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
-                    {symbol.length}/16
-                  </span>
-                </div>
-              </Field>
-              <Field
-                label={t("AssetCommon:asset_details.shortName.header")}
-                help={t(
-                  "AssetCommon:asset_details.shortName.header_content"
-                )}
-                htmlFor="cp-shortname"
-                required
-              >
-                <Input
-                  id="cp-shortname"
-                  placeholder={t(
-                    "AssetCommon:asset_details.shortName.placeholder"
-                  )}
-                  value={shortName}
-                  type="text"
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
-                  onInput={(e) => setShortName(e.currentTarget.value)}
-                />
-              </Field>
+                    htmlFor="cp-shortname"
+                    required
+                  >
+                    <Input
+                      id="cp-shortname"
+                      placeholder={t(
+                        "AssetCommon:asset_details.shortName.placeholder"
+                      )}
+                      value={shortName}
+                      type="text"
+                      className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
+                      onInput={(e) => setShortName(e.currentTarget.value)}
+                    />
+                  </Field>
+                </>
+              )}
             </div>
+
+            {creationMode === "organization" && fullSymbol && (
+              <div className="rounded-lg border border-fuchsia-500/20 bg-fuchsia-500/5 px-4 py-2.5">
+                <span className="text-xs text-white/50">
+                  {t("CreatePrediction:fields.fullSymbol.label")}:{" "}
+                </span>
+                <span className="font-mono text-sm font-medium text-fuchsia-300">
+                  {fullSymbol}
+                </span>
+                <span className="ml-2 text-xs text-white/30">
+                  ({fullSymbol.length}/16)
+                </span>
+              </div>
+            )}
 
             <Field
               label={t("AssetCommon:asset_details.description.header")}
@@ -1281,7 +1472,7 @@ export default function Prediction(properties) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-400">
-                  Step 3 · Optional
+                  {t("CreatePrediction:sectionHeader.step", { number: 3 })} · {t("CreatePrediction:sectionHeader.optional")}
                 </span>
               </div>
               <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
@@ -2304,7 +2495,7 @@ export default function Prediction(properties) {
                 <SummaryRow
                   icon={Hash}
                   label={t("CreatePrediction:summary.symbol")}
-                  value={symbol}
+                  value={fullSymbol}
                   mono
                 />
                 <SummaryRow
@@ -2436,9 +2627,9 @@ export default function Prediction(properties) {
           usrChain={usr.chain}
           userID={usr.id}
           dismissCallback={setShowDialog}
-          key={`CreatingPMA-${usr.id}-${symbol}`}
+          key={`CreatingPMA-${usr.id}-${fullSymbol}`}
           headerText={t("CreatePrediction:dialogContent.headerText", {
-            symbol,
+            symbol: fullSymbol,
           })}
           trxJSON={[trx]}
         />

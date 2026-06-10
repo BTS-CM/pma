@@ -18,6 +18,6 @@
   "collateralSearch": "Palun otsige allpool uut tagatise vara",
   "addAsset": "Lisage vara",
   "featured": "Esiletõstetud varad",
-  "laenatud": "Laenatud",
-  "saldo": "saldo"
+  "borrowed": "Laenatud",
+  "balance": "saldo"
 }

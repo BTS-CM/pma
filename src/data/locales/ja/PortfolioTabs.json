@@ -52,5 +52,18 @@
   "orderIdHeader": "注文ID",
   "expirationHeader": "有効期限",
   "priceHeader": "価格",
-  "actionsHeader": "アクション"
+  "actionsHeader": "アクション",
+  "refreshOpenOrdersTooltip": "オープンオーダーを更新",
+  "copyOrderIdTooltip": "注文IDをコピー",
+  "expiryStatusHealthy": "健全",
+  "expiryStatusSoon": "もうすぐ期限切れ",
+  "expiryStatusImminent": "24時間以内",
+  "expiryStatusExpired": "期限切れ",
+  "noOpenOrdersTitle": "オープンオーダーなし",
+  "noOpenOrdersDescription": "現在DEXでオープンしている指値注文はありません。",
+  "noOpenOrdersCta": "新しい注文を出す",
+  "badgeSell": "売却",
+  "badgeBuy": "購入",
+  "orderSummaryCount": "{{count}}件のオープンオーダー",
+  "orderIdCopied": "注文IDをコピーしました"
 }

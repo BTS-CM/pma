@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Passo {{number}}",
+    "optional": "Opcional",
+    "recommended": "Recomendado"
+  },
   "dialogContent": {
     "headerText": "Criando o seguinte ativo de mercado de previsão: {{symbol}}"
   },
@@ -6,13 +11,69 @@
     "title": "Criando um novo ativo de mercado de previsão",
     "description": "Ao criar um mercado de previsão de ativos, você pode atuar como a casa para apostas descentralizadas em eventos futuros em troca de uma taxa de comissão sem exposição ao risco da contraparte do pool de ganhos."
   },
+  "steps": {
+    "asset": {
+      "title": "Identidade do ativo",
+      "description": "O símbolo, nome e oferta exclusivos para o seu ativo de mercado de previsão."
+    },
+    "pma": {
+      "title": "Detalhes do mercado de previsão",
+      "description": "A condição que define no que o seu mercado está apostando."
+    },
+    "nft": {
+      "title": "Detalhes do token não fungível",
+      "description": "Opcional. Adicione metadados NFT como artista, título e mídia IPFS."
+    },
+    "extensions": {
+      "title": "Extensões de taxas de mercado",
+      "description": "Opcional. Configure como as taxas de mercado são divididas entre a casa, indicadores e tomadores."
+    },
+    "permissions": {
+      "title": "Permissões e sinalizadores",
+      "description": "Escolha quais comportamentos avançados este ativo suporta."
+    },
+    "authorization": {
+      "title": "Autorização",
+      "description": "Opcional. Adicione em lista branca e lista negra contas que podem interagir com este ativo."
+    }
+  },
+  "summary": {
+    "label": "Revisar e enviar",
+    "ready": "Pronto para criar seu ativo de mercado de previsão.",
+    "fieldsRequired": "Alguns campos obrigatórios ainda estão vazios.",
+    "title": "O que você está criando",
+    "subtitle": "Um resumo do ativo de mercado de previsão que você está prestes a lançar. Verifique se tudo está correto antes de enviar.",
+    "symbol": "Símbolo",
+    "name": "Nome",
+    "condition": "Condição",
+    "backing": "Ativo de apoio",
+    "maxSupply": "Oferta máxima",
+    "commission": "Comissão",
+    "resolution": "Data de resolução",
+    "expiryHint": "Resolve em",
+    "days_one": "1 dia",
+    "days_other": "{{count}} dias",
+    "permissions": "Permissões",
+    "extensions": "Extensões",
+    "advanced": "Recursos avançados",
+    "noBacking": "Selecione um ativo de apoio para vê-lo aqui.",
+    "noCondition": "Escreva uma condição para vê-la aqui."
+  },
+  "actions": {
+    "useExample": "Preencher com exemplo",
+    "reset": "Redefinir"
+  },
+  "tips": {
+    "submitTitle": "Antes de enviar",
+    "submitHint": "O envio abrirá sua carteira para transmitir uma transação on-chain. Você ainda poderá cancelar no Beet/BeetEOS antes de assinar."
+  },
   "pma": {
     "title": "Detalhes dos ativos do mercado de previsão",
     "title_content": "Estas são as configurações de ativos usadas para o ativo de mercado de previsão.",
     "condition": {
-      "header": "Doença",
+      "header": "Condição",
       "header_content": "Forneça os detalhes dos ativos de mercado de previsão aqui",
-      "placeholder": "Condições de previsão"
+      "placeholder": "A SpaceX pousará o Starship em Marte antes de 2030?"
     },
     "commission": {
       "header": "Comissão (%)",
@@ -29,10 +90,31 @@
     }
   },
   "fee": {
-    "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "calculating": "Estimando...",
+    "hover": "Taxa de rede estimada para criar este ativo de mercado de previsão. A taxa real depende do comprimento do símbolo, do tamanho dos dados e dos parâmetros de rede atuais."
   },
   "buttons": {
-    "submit": "Enviar"
+    "submit": "Criar ativo de mercado de previsão"
+  },
+  "fields": {
+    "org": {
+      "label": "Organização",
+      "help": "Selecione a organização PMO à qual este sub-ativo pertence.",
+      "selectLabel": "Suas organizações"
+    },
+    "subAssetName": {
+      "label": "Nome do sub-ativo",
+      "help": "O nome único para esta previsão dentro da organização (ex., 0001).",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "Símbolo completo"
+    }
+  },
+  "creationMode": {
+    "manual": "Manual",
+    "organization": "Organização",
+    "noOrgs": "Nenhuma organização encontrada. Crie um ativo PMO primeiro.",
+    "label": "Modo de criação"
   }
 }

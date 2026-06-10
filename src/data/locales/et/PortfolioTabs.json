@@ -52,5 +52,18 @@
   "orderIdHeader": "Tellimuse ID",
   "expirationHeader": "Aegumine",
   "priceHeader": "Hind",
-  "actionsHeader": "Tegevused"
+  "actionsHeader": "Tegevused",
+  "refreshOpenOrdersTooltip": "Värskenda avatud tellimusi",
+  "copyOrderIdTooltip": "Kopeeri tellimuse ID",
+  "expiryStatusHealthy": "Terve",
+  "expiryStatusSoon": "Aegub varsti",
+  "expiryStatusImminent": "Vähem kui 24 tundi",
+  "expiryStatusExpired": "Aegunud",
+  "noOpenOrdersTitle": "Avatud tellimusi pole",
+  "noOpenOrdersDescription": "Sul pole praegu DEX-is avatud limiittellimusi.",
+  "noOpenOrdersCta": "Esita uus tellimus",
+  "badgeSell": "Müü",
+  "badgeBuy": "Osta",
+  "orderSummaryCount": "{{count}} avatud tellimust",
+  "orderIdCopied": "Tellimuse ID kopeeritud"
 }

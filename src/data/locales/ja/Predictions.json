@@ -5,10 +5,12 @@
   "expiration": "有効期限",
   "expired_at": "期限切れ",
   "outcome": "結果",
-  "prize_pool": "決済",
   "outcome_true": "True (購入者の勝ち)",
   "outcome_false": "誤り (売り手の勝ち)",
   "outcome_tba": "まだ解決されていない",
+  "outcome.yes": "はい",
+  "outcome.no": "いいえ",
+  "outcome.unresolved": "未解決",
   "issue": "ステップ 1: PMA トークンを発行する",
   "buy": "トゥルーに賭ける（買う）",
   "sell": "ステップ 2: フォールスに賭ける (売る)",
@@ -17,34 +19,138 @@
   "mine": "私の予測",
   "portfolio": "ポートフォリオ",
   "margin": "マージン",
-  "bettingAsset": "資産を賭ける",
+  "bettingAsset": "賭け資産",
   "card": {
-    "title": "市場資産の予測",
-    "description": "以下の潜在的な賭けの機会をチェックしてください!",
-    "emptyActive": "現時点では有効な予測はありません。",
+    "title": {
+      "active": "アクティブな予測市場",
+      "expired": "期限切れの予測市場",
+      "mine": "私の予測市場",
+      "portfolio": "予測ポートフォリオ",
+      "margin": "予測マージンポジション"
+    },
+    "description": {
+      "active": "賭けを受け付けている、未解決のライブ予測市場資産を閲覧します。",
+      "expired": "価格フィーダーによる解決を待っている過去の予測市場資産を閲覧します。",
+      "mine": "あなたが作成した、またはやり取りした予測市場資産。",
+      "portfolio": "現在アカウント残高に保有されている予測市場資産。",
+      "margin": "予測市場資産に対するアクティブなマージン（コール）ポジション。"
+    },
+    "showing": "{{primary}} 件の市場を表示中",
+    "stat": " · {{value}} {{label}}",
+    "emptyActive": "現時点ではアクティブな予測はありません。",
+    "emptyExpired": "現時点では期限切れの予測はありません。",
     "emptyMine": "現時点では予測はありません。",
-    "emptyPortfolio": "現在、ポートフォリオ残高に予測市場資産はありません。",
-    "emptyMargin": "現在、予測市場資産証拠金ポジションはありません。"
+    "emptyPortfolio": "現在ポートフォリオ残高に予測市場資産はありません。",
+    "emptyMargin": "現在予測市場資産のマージンポジションはありません。"
+  },
+  "tab": {
+    "overview": "概要",
+    "nft": "NFT",
+    "market": "市場",
+    "details": "詳細",
+    "actions": "アクション",
+    "winners": "勝者",
+    "admin": "管理者",
+    "org": "組織"
+  },
+  "status": {
+    "active": "アクティブ",
+    "resolvedYes": "解決済み · はい",
+    "resolvedNo": "解決済み · いいえ",
+    "awaiting": "解決待ち"
+  },
+  "timeLeft": "残り時間",
+  "timeExpired": "期限切れからの時間",
+  "openInterest": "オープンインタレスト",
+  "openInterest_help": "結果に反して賭けているすべての売り手がコミットした担保の合計。",
+  "market": {
+    "impliedProbability": "暗黙のはいの確率",
+    "impliedProbability_help": "オープンインタレストと決済ファンドのサイズから導き出された、市場がはいの結果に割り当てる推定確率。",
+    "expiredNote": "この市場の取引は終了しています。",
+    "settlementFund": "決済ファンド",
+    "settlementFund_help": "決済ファンドに現在保有されている担保で、解決を待っています。",
+    "commission": "市場手数料",
+    "commission_help": "各取引に課される手数料で、担保資産で支払われます。",
+    "tradeOnDex": "DEXで取引"
+  },
+  "nft": {
+    "title": "タイトル",
+    "artist": "アーティスト",
+    "type": "タイプ",
+    "encoding": "エンコーディング",
+    "license": "ライセンス",
+    "holderLicense": "保持者ライセンス",
+    "tags": "タグ",
+    "narrative": "ナラティブ",
+    "acknowledgements": "謝辞",
+    "attestation": "証明",
+    "viewOnIpfs": "IPFSで表示",
+    "noImage": "NFT画像はありません",
+    "signature": "署名",
+    "sigPubkey": "署名者",
+    "copySig": "署名をコピー",
+    "copyPubkey": "署名者の鍵をコピー",
+    "verifyNote": "署名の検証 — 近日公開。"
+  },
+  "details": {
+    "assetId": "資産ID",
+    "issuer": "発行者",
+    "precision": "精度",
+    "maxSupply": "最大供給量"
+  },
+  "copy": "コピー",
+  "copied": "コピー済み",
+  "copyAssetId": "資産IDをコピー",
+  "copyIssuerId": "発行者IDをコピー",
+  "stats": {
+    "closingSoon": "24時間以内にクローズ",
+    "newlyCreated": "過去7日以内に新規",
+    "awaitingResolution": "解決待ち",
+    "resolved": "解決済み",
+    "awaitingYourResolution": "あなたの解決待ち",
+    "inYourBalance": "あなたの残高に",
+    "marginPositions": "アクティブなマージンポジション"
+  },
+  "list": {
+    "sort": {
+      "newest": "最新順",
+      "expiring": "期限が近い順",
+      "volume": "出来高が高い順",
+      "alpha": "アルファベット順"
+    },
+    "filter": {
+      "all": "すべて",
+      "closingSoon": "24時間以内にクローズ",
+      "new": "新規（過去7日以内）",
+      "highVolume": "高出来高"
+    },
+    "searchPlaceholder": "シンボルまたは質問で検索…",
+    "noResults": "フィルターに一致する予測がありません。"
   },
   "price_feeders": "価格フィーダー",
-  "price_feeders_content": "この予測は、証人、委員会、または民間の価格設定者のいずれかによって解決されます。",
-  "feed": "価格に基づく解決策",
+  "price_feeders_content": "この予測は、証人、委員会、または民間の価格フィーダーのいずれかによって解決されます。",
+  "feed": "価格フィードによる解決",
   "seller": "売り（予測に反する賭け）",
   "seller_content": "売り手は予測に反して賭けます。予測が外れた場合、決済価格が 0 になることで売り手が勝ちます。",
-  "buyer": "買い（予想に賭ける）",
+  "buyer": "買い（予測に賭ける）",
   "buyer_content": "買い手は予測に賭けます。予測が当たった場合、決済価格が 1 になることで買い手が勝ちます。",
   "admin": "管理者",
-  "admin_content": "この家には、予測を解決するための追加のコントロールがあります。",
-  "about": "について",
-  "winner_content": "購入した勝者 (真の結果) は 1x 裏付け資産コンテンツの PMA を決済できますが、売った勝者 (偽の結果) は何もする必要がありません。",
+  "admin_content": "このプラットフォームには、予測を解決するための追加のコントロールがあります。",
+  "about": "詳細",
+  "winner_content": "購入した勝者（真の結果）は、1x担保資産の内容に対してPMAを決済できます。売った勝者（偽の結果）は何もする必要がありません。",
   "winner_header": "勝者",
-  "winner_claim": "裏付け資産を請求する",
+  "winner_claim": "担保資産を請求する",
+  "winner": {
+    "settlementFund_help": "この予測市場にコミットされた担保の合計。勝利の結果を保持している購入者は、このファンドの按分された割合を請求できます。",
+    "yourPmaBalance": "あなたのPMA残高",
+    "yourPmaBalance_help": "現在保有している予測市場資産トークンの数。予測が解決された後、各勝利したPMAは1単位の担保資産で決済できます。"
+  },
   "resolve": "予測を解決する",
   "not_expired": "この予測はまだ有効期限が切れていないため、解決できません。",
   "time_till_expiration": "有効期限までの時間: {{hours}} 時間",
   "total_bets": "合計ベット数",
   "unique_sellers": "ユニークな販売者",
-  "pricefeeder": "価格設定フィーダー",
+  "pricefeeder": "価格フィーダーを設定",
   "permissions": "権限",
   "flags": "フラグ",
   "issueDialog": {
@@ -52,64 +158,64 @@
     "description": "結果に賭けるには、まず予測市場資産トークンを発行する必要があります。",
     "balance": "残高を使用する",
     "qtyHeader": "発行数量",
-    "qtyContent": "この予測マーケットでは発行したいトークンの数量を指定して、発行されたトークンを販売することができ、予測に基づいて賭けることができます。",
+    "qtyContent": "この予測市場で発行したいトークンの数量。発行されたトークンは販売でき、予測に反して賭けることができます。",
     "existingHeader": "既存のコミットメント担保",
     "existingContent": "これは、すでに発行した予測市場資産トークンの数です。",
     "totalHeader": "担保総額",
     "totalContent": "これは、この予測市場資産にコミットする担保の合計額です。",
     "receivingContent": "これは、この取引の見返りとして得られる予測市場資産トークンのおよその合計額です。",
-    "receivingHeader": "受信中"
+    "receivingHeader": "受取"
   },
   "submit": "提出する",
   "dialogContent": {
     "header_issue": "PMAトークンの発行",
     "header_sell": "PMAトークンの販売",
     "header_buy": "PMAトークンの購入",
-    "header_claim": "裏付け資産の主張",
+    "header_claim": "担保資産の請求",
     "header_resolve": "予測の解決",
     "header_pricefeeder": "価格フィーダーの設定",
-    "header_feedprice": "餌代"
+    "header_feedprice": "価格フィード"
   },
-  "insufficient_funds": "バランスが不十分です。",
+  "insufficient_funds": "残高が不足しています。",
   "sellDialog": {
     "qtyHeader": "販売数量",
-    "qtyContent": "予測の結果に賭けて、この予測市場で販売したいトークンの量。",
-    "receivingHeader": "受信中",
-    "receivingContent": "これは、この取引の見返りとして得られる裏付け資産のおよその総額です。",
+    "qtyContent": "予測の結果に賭けて、この予測市場で販売したいトークンの数量。",
+    "receivingHeader": "受取",
+    "receivingContent": "これは、この取引の見返りとして得られる担保資産のおよその総額です。",
     "title": "予測市場資産の販売",
     "description": "予測の結果に賭けるには、以前に発行した予測市場資産トークンを売却する必要があります。",
-    "expiryContent": "指値注文は、存在しなくなるまで、この期間 DEX 上でアクティブなままになります。「約定または強制終了」を選択した場合、一致する DEX 売り指値注文がない場合、操作は失敗し、時間と手数料を節約できます。",
+    "expiryContent": "指値注文は、存在しなくなるまでDEX上でアクティブなままになります。「約定または取消し」を選択した場合、一致するDEX売り指値注文がない場合、操作は失敗し、時間と手数料を節約できます。",
     "expiryHeader": "有効期限"
   },
   "buyDialog": {
     "title": "予測市場資産の購入",
     "description": "予測の結果に有利に賭けるには、結果に逆らって賭けている売り手から予測市場資産トークンを購入する必要があります。",
-    "receivingHeader": "受信中",
+    "receivingHeader": "受取",
     "receivingContent": "これは、この取引の見返りとして得られる予測市場資産トークンのおよその合計額です。"
   },
   "claimDialog": {
-    "qtyContent": "裏付け資産に戻して決済する予測市場資産の量。",
+    "qtyContent": "担保資産に戻して決済する予測市場資産の数量。",
     "qtyHeader": "決済数量"
   },
   "resolveDialog": {
     "title": "予測の解決",
     "description": "予測の有効期限が切れており、解決する準備ができています。予測の正しい結果を選択してください。",
     "outcomeHeader": "結果",
-    "outcomeContent": "予測の結果、予測が当たった場合、清算価格が 1 になることで買い手が勝ち、予測が外れた場合、清算価格が 0 になることで売り手が勝ちます。",
-    "true": "本当の結果（買い手の勝ち）",
-    "false": "誤った結果 (売り手の勝ち)"
+    "outcomeContent": "予測の結果。予測が当たった場合、決済価格が 1 になることで買い手が勝ちます。予測が外れた場合、決済価格が 0 になることで売り手が勝ちます。",
+    "true": "Trueの結果（買い手の勝ち）",
+    "false": "Falseの結果（売り手の勝ち）"
   },
   "priceFeederDialog": {
-    "title": "価格設定フィーダー",
-    "description": "この予測の価格フィーダーを設定します。価格フィーダーは、予測の清算価格を提供する責任があります。",
+    "title": "価格フィーダーを設定",
+    "description": "この予測の価格フィーダーを設定します。価格フィーダーは、予測の決済価格を提供する責任があります。",
     "priceFeedersHeader": "価格フィーダー",
-    "priceFeedersContent": "この予測の価格フィーダーは、予測の清算価格を提供する責任があります。",
+    "priceFeedersContent": "この予測の価格フィーダーは、予測の決済価格を提供する責任があります。",
     "addPriceFeeder": "価格フィーダーを追加",
     "addPriceFeederDialog": {
       "title": "価格フィーダーを追加",
-      "description": "この予測に価格フィーダーを追加します。価格フィーダーは、予測の清算価格を提供する責任があります。",
+      "description": "この予測に価格フィーダーを追加します。価格フィーダーは、予測の決済価格を提供する責任があります。",
       "accountHeader": "アカウント",
-      "accountContent": "予測の清算価格を提供する責任を負うアカウント。",
+      "accountContent": "予測の決済価格を提供する責任を負うアカウント。",
       "submit": "追加"
     }
   },
@@ -117,26 +223,39 @@
     "title": "価格フィードによる予測市場の解決",
     "description": "予測の有効期限が切れており、公開された価格フィードを通じて解決する準備ができています。",
     "outcomeHeader": "結果",
-    "outcomeContent": "予測の結果、予測が当たった場合、清算価格が 1 になることで買い手が勝ち、予測が外れた場合、清算価格が 0 になることで売り手が勝ちます。",
-    "true": "本当の結果（買い手の勝ち）",
-    "false": "誤った結果 (売り手の勝ち)"
+    "outcomeContent": "予測の結果。予測が当たった場合、決済価格が 1 になることで買い手が勝ちます。予測が外れた場合、決済価格が 0 になることで売り手が勝ちます。",
+    "true": "Trueの結果（買い手の勝ち）",
+    "false": "Falseの結果（売り手の勝ち）"
   },
   "json": {
     "button": "JSON",
-    "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
+    "title": "資産JSON",
+    "description": "選択したエントリの生JSONデータ。",
+    "assetData": "資産データ",
+    "bitassetData": "ビット資産データ",
+    "descriptionData": "説明データ",
+    "copy": "コピー",
+    "copied": "コピー済み！",
+    "blockIssuer": "この発行者をブロック",
+    "unblockIssuer": "この発行者のブロックを解除"
   },
   "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
+    "title": "この発行者をブロックしますか？",
+    "description": "このアカウントが作成した予測市場は、あなたのビューから非表示になります。いつでもブロックを解除できます。",
+    "cancel": "キャンセル",
+    "confirm": "発行者をブロック"
+  },
+  "org": {
+    "title": "組織",
+    "name": "名前",
+    "website": "ウェブサイト",
+    "manifest": "マニフェスト",
+    "resolutionPolicy": "解決ポリシー",
+    "disputeMechanism": "紛争解決メカニズム",
+    "onchainAccount": "オンチェーンアカウント",
+    "attestation": "証明",
+    "signature": "署名",
+    "viewAll": "すべての{{symbol}}予測を表示",
+    "noOrg": "組織情報はありません"
   }
 }

@@ -1,5 +1,6 @@
 {
   "assetsHeader": "รายการโปรดของคุณ",
+  "addAsset": "เพิ่มสินทรัพย์",
   "issuer": "ผู้ออก: {{issuer}}",
   "remove": "ลบ",
   "assetsEmptyTitle": "ไม่มีทรัพย์สินที่ชื่นชอบ",

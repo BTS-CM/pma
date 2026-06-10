@@ -202,13 +202,6 @@
     "hover1": "Verifique sus saldos de derechos adquiridos.",
     "hover2": "Reclame sus saldos adquiridos."
   },
-  "prediction_markets": {
-    "title": "🎲 Predicciones",
-    "subtitle": "Explore predicciones, administre apuestas, realice administración de predicciones.",
-    "hover1": "Explore los activos del mercado de predicción disponibles.",
-    "hover2": "Los mercados de predicción pueden tratar sobre cualquier cosa.",
-    "hover3": "Cada activo del mercado de predicción tiene una tarifa única."
-  },
   "proposals": {
     "title": "🤔 Operaciones propuestas",
     "subtitle": "Ver y aprobar/rechazar operaciones de cuenta propuestas",

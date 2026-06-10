@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Trin {{number}}",
+    "optional": "Valgfrit",
+    "recommended": "Anbefalet"
+  },
   "dialogContent": {
     "headerText": "Oprettelse af følgende forudsigelige markedsaktiv: {{symbol}}"
   },
@@ -6,16 +11,72 @@
     "title": "Oprettelse af et nyt Prediction Market Asset",
     "description": "Ved at oprette en Prediction Market Assets kan du fungere som huset for decentraliserede væddemål på fremtidige begivenheder til gengæld for et kommissionsgebyr uden gevinstpuljens modpartsrisikoeksponering."
   },
+  "steps": {
+    "asset": {
+      "title": "Aktividentitet",
+      "description": "Det unikke symbol, navn og udbud for dit forudsigelsesmarkedsaktiv."
+    },
+    "pma": {
+      "title": "Forudsigelsesmarkedsdetaljer",
+      "description": "Betingelsen der definerer, hvad dit marked satser på."
+    },
+    "nft": {
+      "title": "Ikke-fungibel token detaljer",
+      "description": "Valgfrit. Tilføj NFT-metadata som kunstner, titel og IPFS-medier."
+    },
+    "extensions": {
+      "title": "Markedsgebyrudvidelser",
+      "description": "Valgfrit. Konfigurer hvordan markedsgebyrer deles mellem huset, henvisere og tager."
+    },
+    "permissions": {
+      "title": "Tilladelser og flag",
+      "description": "Vælg hvilke avancerede funktioner dette aktiv understøtter."
+    },
+    "authorization": {
+      "title": "Autorisation",
+      "description": "Valgfrit. Hvidlist og sortlist konti der kan interagere med dette aktiv."
+    }
+  },
+  "summary": {
+    "label": "Gennemgå og indsend",
+    "ready": "Klar til at oprette dit forudsigelsesmarkedsaktiv.",
+    "fieldsRequired": "Et par påkrævede felter er stadig tomme.",
+    "title": "Hvad du opretter",
+    "subtitle": "Et resumé af forudsigelsesmarkedsaktivet du er ved at lancere. Kontroller at alt ser korrekt ud inden indsendelse.",
+    "symbol": "Symbol",
+    "name": "Navn",
+    "condition": "Betingelse",
+    "backing": "Understøttende aktiv",
+    "maxSupply": "Maksimal udbud",
+    "commission": "Provision",
+    "resolution": "Løsningsdato",
+    "expiryHint": "Løser om",
+    "days_one": "1 dag",
+    "days_other": "{{count}} dage",
+    "permissions": "Tilladelser",
+    "extensions": "Udvidelser",
+    "advanced": "Avancerede funktioner",
+    "noBacking": "Vælg et understøttende aktiv for at se det her.",
+    "noCondition": "Skriv en betingelse for at se det her."
+  },
+  "actions": {
+    "useExample": "Udfyld med eksempel",
+    "reset": "Nulstil"
+  },
+  "tips": {
+    "submitTitle": "Før du indsender",
+    "submitHint": "Indsendelse vil åbne din tegnebog til at udsende en on-chain transaktion. Du vil stadig kunne annullere i Beet/BeetEOS inden underskrivelse."
+  },
   "pma": {
     "title": "Forudsigelse af markedsaktivdetaljer",
     "title_content": "Disse er aktivindstillingerne, der bruges til forudsigelsesmarkedsaktivet.",
     "condition": {
       "header": "Tilstand",
       "header_content": "Angiv oplysninger om forudsigelse af markedsaktiver her",
-      "placeholder": "Forudsigelsesbetingelser"
+      "placeholder": "Will SpaceX land Starship on Mars before 2030?"
     },
     "commission": {
-      "header": "provision (%)",
+      "header": "Provision (%)",
       "header_content": "Kommissionen er det gebyr, som huset tager for at skabe og evaluere forudsigelsesmarkedets aktiv.",
       "placeholder": "Provision"
     },
@@ -29,10 +90,31 @@
     }
   },
   "fee": {
-    "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "calculating": "Beregner...",
+    "hover": "Estimeret netværksgebyr for oprettelse af dette forudsigelsesmarkedsaktiv. Det faktiske gebyr afhænger af symbol længden, datastørrelsen og aktuelle netværksparametre."
   },
   "buttons": {
     "submit": "Indsend"
+  },
+  "fields": {
+    "org": {
+      "label": "Organisation",
+      "help": "Vælg PMO-organisationen denne under-asset tilhører.",
+      "selectLabel": "Dine organisationer"
+    },
+    "subAssetName": {
+      "label": "Under-asset navn",
+      "help": "Det unikke navn for denne prediktion inden for organisationen (f.eks., 0001).",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "Fuldt symbol"
+    }
+  },
+  "creationMode": {
+    "manual": "Manuel",
+    "organization": "Organisation",
+    "noOrgs": "Ingen organisationer fundet. Opret en PMO-asset først.",
+    "label": "Oprettelsestilstand"
   }
 }

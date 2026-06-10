@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Trin {{number}}",
+    "optional": "Valgfrit",
+    "recommended": "Anbefalet"
+  },
   "card": {
     "title": "Opret Prediction Market Organisation",
     "description": "Registrer et top-level aktivnavn, der vil tjene som overordnet for dine prediction market-underaktiver. Underaktiver udstedt under denne organisation (f.eks. GAMBLE.0001) drager fordel af reducerede oprettelsesgebyrer og øjeblikkelig genkendelse af brandnavnet."
@@ -9,7 +14,7 @@
       "description": "Vælg symbol og detaljer til din PMA-organisation"
     },
     "nft": {
-      "title": "Non-Fungible Token Metadata",
+      "title": "Ikke-fungibel token metadata",
       "description": "Valgfrit vedhæft NFT-metadata og IPFS-medie til din organisationsasset"
     },
     "pmo": {
@@ -57,7 +62,7 @@
       }
     },
     "governance": {
-      "heading": "Governance",
+      "heading": "Ledelse",
       "resolution": {
         "label": "Afgørelsespolitik",
         "help": "Hvordan organisationen afgør sine prediction markets (f.eks. API-drevet, ekspertpanel, fællesskabsafstemning).",
@@ -82,14 +87,15 @@
     }
   },
   "summary": {
-    "title": "Gennemgå og indsend",
-    "subtitle": "Bekræft dine organisationsdetaljer før oprettelse",
+    "title": "Gennemse og indsend",
+    "subtitle": "Bekræft dine organisationsoplysninger før oprettelse",
     "symbol": "Organisationssymbol",
     "name": "Kort navn",
     "maxSupply": "Maksimal forsyning",
     "precision": "Præcision",
-    "nftMedia": "NFT-medie",
-    "pmo": "PMO-organisation"
+    "nftMedia": "NFT-medier",
+    "pmo": "PMO-organisation",
+    "jsonPreview": "JSON-forhåndsvisning"
   },
   "ready": "Alle påkrævede felter er udfyldt. Klar til at oprette din PMA-organisation!",
   "fieldsRequired": "Indtast venligst et organisationssymbol for at fortsætte.",

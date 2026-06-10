@@ -52,5 +52,18 @@
   "orderIdHeader": "รหัสคำสั่งซื้อ",
   "expirationHeader": "หมดอายุ",
   "priceHeader": "ราคา",
-  "actionsHeader": "การดำเนินการ"
+  "actionsHeader": "การดำเนินการ",
+  "refreshOpenOrdersTooltip": "รีเฟรชคำสั่งซื้อที่เปิดอยู่",
+  "copyOrderIdTooltip": "คัดลอกหมายเลขคำสั่งซื้อ",
+  "expiryStatusHealthy": "ปกติ",
+  "expiryStatusSoon": "ใกล้หมดอายุ",
+  "expiryStatusImminent": "น้อยกว่า 24 ชั่วโมง",
+  "expiryStatusExpired": "หมดอายุ",
+  "noOpenOrdersTitle": "ไม่มีคำสั่งซื้อที่เปิดอยู่",
+  "noOpenOrdersDescription": "คุณไม่มีคำสั่งจำกัดที่เปิดอยู่บน DEX ในขณะนี้",
+  "noOpenOrdersCta": "วางคำสั่งซื้อใหม่",
+  "badgeSell": "ขาย",
+  "badgeBuy": "ซื้อ",
+  "orderSummaryCount": "{{count}} คำสั่งซื้อที่เปิดอยู่",
+  "orderIdCopied": "คัดลอกหมายเลขคำสั่งซื้อแล้ว"
 }

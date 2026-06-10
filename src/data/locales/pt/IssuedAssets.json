@@ -3,6 +3,7 @@
   "creditBorrow": "Emprestar",
   "creditLend": "Emprestar",
   "proceedToBorrow": "Emitir",
+  "collateralBid": "Lance sobre garantia",
   "issueAssetDescription": "Como emissor deste ativo, você pode emitir este ativo para si mesmo ou para outra conta no blockchain, até o fornecimento máximo configurado.",
   "manageUIA": "Editar",
   "pmaBet": "Aposta",

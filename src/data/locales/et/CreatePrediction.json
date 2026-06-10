@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Samm {{number}}",
+    "optional": "Valikuline",
+    "recommended": "Soovitatav"
+  },
   "dialogContent": {
     "headerText": "Järgmise prognoositava turuvara loomine: {{symbol}}"
   },
@@ -6,18 +11,74 @@
     "title": "Uue ennustatava turuvara loomine",
     "description": "Prognoositud turuvarade loomisel saate tegutseda tulevikusündmustele detsentraliseeritud panuste tegemisel vahendustasu eest ilma võitude kogumi vastaspoole riskita."
   },
+  "steps": {
+    "asset": {
+      "title": "Vara identiteet",
+      "description": "Teie prognoositava turuvara ainulaadne sümbol, nimi ja pakkumine."
+    },
+    "pma": {
+      "title": "Prognoosituru üksikasjad",
+      "description": "Tingimus, mis määrab, mille peale teie turg panustab."
+    },
+    "nft": {
+      "title": "Mittenvõetava tokeni üksikasjad",
+      "description": "Valikuline. Lisage NFT metaandmed nagu kunstnik, pealkiri ja IPFS meedia."
+    },
+    "extensions": {
+      "title": "Turu lisaressursid",
+      "description": "Valikuline. Konfigureerige, kuidas turutasusid jagatakse maja, soovitajate ja võtja vahel."
+    },
+    "permissions": {
+      "title": "Õigused ja lipud",
+      "description": "Valige, milliseid arenenud käitumisi see vara toetab."
+    },
+    "authorization": {
+      "title": "Volitamine",
+      "description": "Valikuline. Lisage valgesse ja musta nimekirja kontod, mis võivad selle varaga suhelda."
+    }
+  },
+  "summary": {
+    "label": "Vaata üle ja esita",
+    "ready": "Valmis looma oma prognoositava turuvara.",
+    "fieldsRequired": "Mõned kohustuslikud väljad on veel tühjad.",
+    "title": "Mida te loote",
+    "subtitle": "Ülevaade prognoositavast turuvarast, mida kavatsete käivitada. Kontrollige, et kõik näib õige enne esitamist.",
+    "symbol": "Sümbol",
+    "name": "Nimi",
+    "condition": "Tingimus",
+    "backing": "Tagatud vara",
+    "maxSupply": "Maksimaalne pakkumine",
+    "commission": "Vahendustasu",
+    "resolution": "Lahendamise kuupäev",
+    "expiryHint": "Laheneb",
+    "days_one": "1 päev",
+    "days_other": "{{count}} päeva",
+    "permissions": "Õigused",
+    "extensions": "Laiendused",
+    "advanced": "Arenenud funktsioonid",
+    "noBacking": "Valige tagatud vara, et näha seda siin.",
+    "noCondition": "Sisestage tingimus, et näha seda siin."
+  },
+  "actions": {
+    "useExample": "Täida näidisega",
+    "reset": "Lähtesta"
+  },
+  "tips": {
+    "submitTitle": "Enne esitamist",
+    "submitHint": "Esitamine avab teie rahakoti, et edastada ahelatõhtehing. Te saate veel Beet/BeetEOS-is allkirjastamise tühistada."
+  },
   "pma": {
     "title": "Prognoositud turuvarade üksikasjad",
     "title_content": "Neid varaseadeid kasutatakse prognoositava turuvara jaoks.",
     "condition": {
       "header": "Seisund",
       "header_content": "Esitage siin prognoositud turuvara üksikasjad",
-      "placeholder": "Ennustustingimused"
+      "placeholder": "Kas SpaceX maandab Starshipi enne 2030 Marsil?"
     },
     "commission": {
-      "header": "vahendustasu (%)",
+      "header": "Vahendustasu (%)",
       "header_content": "Komisjonitasu on tasu, mida maja võtab prognoositava turuvara loomise ja hindamise eest.",
-      "placeholder": "komisjon"
+      "placeholder": "Vahendustasu"
     },
     "backing_asset": {
       "header": "Tagavara",
@@ -29,10 +90,31 @@
     }
   },
   "fee": {
-    "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "calculating": "Arvutamine...",
+    "hover": "Hinnanguline võrgutasu selle prognoositava turuvara loomiseks. Tegelik tasu sõltub sümboli pikkusest, andme suurusest ja praegustest võrguparameetritest."
   },
   "buttons": {
-    "submit": "Esita"
+    "submit": "Loo prognoosituru vara"
+  },
+  "fields": {
+    "org": {
+      "label": "Organisatsioon",
+      "help": "Valige PMO organisatsioon, kuhu see alamvara kuulub.",
+      "selectLabel": "Teie organisatsioonid"
+    },
+    "subAssetName": {
+      "label": "Alamvara nimi",
+      "help": "Selle prognoosi ainulaadne nimi organisatsiooni sees (nt 0001).",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "Täissümbol"
+    }
+  },
+  "creationMode": {
+    "manual": "Käsitsi",
+    "organization": "Organisatsioon",
+    "noOrgs": "Organisatsioone ei leitud. Looge esmalt PMO vara.",
+    "label": "Loomisrežiim"
   }
 }

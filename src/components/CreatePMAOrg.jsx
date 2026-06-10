@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next";
 import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
 import {
   Hash,
-  Tag,
   Image as ImageIcon,
   Send,
   Sparkles,
@@ -110,7 +109,8 @@ const STEP_COLORS = {
   3: { icon: "bg-amber-500/15 text-amber-400 ring-amber-500/30", badge: "bg-amber-500/15 text-amber-400", border: "border-amber-500/20" },
 };
 
-function SectionHeader({ icon: Icon, title, description, step, optional }) {
+function SectionHeader({ icon: Icon, title, description, step, optional, recommended }) {
+  const { t } = useTranslation(null, { i18n: i18nInstance });
   const colors = STEP_COLORS[step] || STEP_COLORS[1];
   return (
     <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
@@ -121,8 +121,9 @@ function SectionHeader({ icon: Icon, title, description, step, optional }) {
         <div className="flex items-center gap-2">
           {step && (
             <span className={"inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider " + colors.badge}>
-              Step {step}
-              {optional ? " · Optional" : ""}
+              {t("CreatePMAOrg:sectionHeader.step", { number: step })}
+              {recommended ? ` · ${t("CreatePMAOrg:sectionHeader.recommended")}` : ""}
+              {optional ? ` · ${t("CreatePMAOrg:sectionHeader.optional")}` : ""}
             </span>
           )}
         </div>
@@ -181,27 +182,6 @@ function Field({ label, help, required, htmlFor, children, className, error }) {
   );
 }
 
-function SummaryRow({ icon: Icon, label, value, mono }) {
-  return (
-    <div className="flex items-start gap-3 py-2">
-      {Icon && (
-        <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/40" />
-      )}
-      <div className="min-w-0 flex-1">
-        <div className="text-xs uppercase tracking-wider text-white/40">
-          {label}
-        </div>
-        <div
-          className={
-            "mt-0.5 truncate text-sm text-white " + (mono ? "font-mono" : "")
-          }
-        >
-          {value || <span className="text-white/20">—</span>}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function CreatePMAOrg(properties) {
   const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
@@ -253,7 +233,6 @@ export default function CreatePMAOrg(properties) {
 
   // Asset fields
   const [symbol, setSymbol] = useState("");
-  const [shortName, setShortName] = useState("");
   const [desc, setDesc] = useState("");
 
   // Market auto-derived from chain
@@ -295,7 +274,7 @@ export default function CreatePMAOrg(properties) {
   const [cerQuoteAmount, setCerQuoteAmount] = useState(1);
 
   const description = useMemo(() => {
-    let _description = { main: desc, short_name: shortName, market };
+    let _description = { main: desc,         short_name: symbol, market };
 
     if (enabledNFT) {
       const nft_object = {
@@ -360,7 +339,7 @@ export default function CreatePMAOrg(properties) {
     type,
     nftMedia,
     desc,
-    shortName,
+    symbol,
     enabledPMO,
     pmoOrgName,
     pmoWebsite,
@@ -491,50 +470,34 @@ export default function CreatePMAOrg(properties) {
             description={t("CreatePMAOrg:steps.identity.description")}
           />
           <CardContent className="space-y-5 pt-6">
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              <Field
-                label={t("CreatePMAOrg:symbol.label")}
-                help={t("CreatePMAOrg:symbol.help")}
-                htmlFor="org-symbol"
-                required
-                error={symbolError}
-              >
-                <div className="relative">
-                  <Input
-                    id="org-symbol"
-                    placeholder={t("CreatePMAOrg:symbol.placeholder")}
-                    value={symbol}
-                    type="text"
-                    className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
-                    onInput={(e) => {
-                      const value = e.currentTarget.value;
-                      const regex = /^[a-zA-Z0-9]*$/;
-                      if (regex.test(value)) {
-                        setSymbol(value.toUpperCase());
-                      }
-                    }}
-                    maxLength={16}
-                  />
-                  <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
-                    {symbol.length}/16
-                  </span>
-                </div>
-              </Field>
-              <Field
-                label={t("CreatePMAOrg:shortName.label")}
-                help={t("CreatePMAOrg:shortName.help")}
-                htmlFor="org-shortname"
-              >
+            <Field
+              label={t("CreatePMAOrg:symbol.label")}
+              help={t("CreatePMAOrg:symbol.help")}
+              htmlFor="org-symbol"
+              required
+              error={symbolError}
+            >
+              <div className="relative">
                 <Input
-                  id="org-shortname"
-                  placeholder={t("CreatePMAOrg:shortName.placeholder")}
-                  value={shortName}
+                  id="org-symbol"
+                  placeholder={t("CreatePMAOrg:symbol.placeholder")}
+                  value={symbol}
                   type="text"
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
-                  onInput={(e) => setShortName(e.currentTarget.value)}
+                  className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
+                  onInput={(e) => {
+                    const value = e.currentTarget.value;
+                    const regex = /^[a-zA-Z0-9]*$/;
+                    if (regex.test(value)) {
+                      setSymbol(value.toUpperCase());
+                    }
+                  }}
+                  maxLength={16}
                 />
-              </Field>
-            </div>
+                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
+                  {symbol.length}/16
+                </span>
+              </div>
+            </Field>
 
             <Field
               label={t("CreatePMAOrg:description.label")}
@@ -553,7 +516,176 @@ export default function CreatePMAOrg(properties) {
           </CardContent>
         </Card>
 
-        {/* Step 2 — NFT options (optional) */}
+        {/* Step 2 — PMO Organization Profile (recommended) */}
+        <Card
+          className={
+            "overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
+            (enabledPMO ? "ring-1 ring-cyan-500/30" : "")
+          }
+        >
+          <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
+            <div
+              className={
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ring-1 " +
+                (enabledPMO
+                  ? "bg-cyan-500/15 text-cyan-400 ring-cyan-500/30"
+                  : "bg-white/5 text-white/40 ring-white/10")
+              }
+            >
+              <ShieldCheck className="h-4 w-4" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center rounded-full bg-cyan-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-cyan-400">
+                  {t("CreatePMAOrg:sectionHeader.step", { number: 2 })} · {t("CreatePMAOrg:sectionHeader.recommended")}
+                </span>
+              </div>
+              <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
+                {t("CreatePMAOrg:steps.pmo.title")}
+              </h3>
+              <p className="mt-0.5 text-sm text-white/50">
+                {t("CreatePMAOrg:steps.pmo.description")}
+              </p>
+            </div>
+            <Switch
+              checked={enabledPMO}
+              onCheckedChange={setEnabledPMO}
+              className="mt-1 shrink-0 data-[state=checked]:bg-cyan-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white"
+            />
+          </div>
+
+          {enabledPMO && (
+            <CardContent className="space-y-5 pt-6">
+              {/* Identity section */}
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
+                  <Globe className="h-3.5 w-3.5" />
+                  {t("CreatePMAOrg:pmo.identity.heading")}
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <Field
+                  label={t("CreatePMAOrg:pmo.identity.name.label")}
+                  help={t("CreatePMAOrg:pmo.identity.name.help")}
+                  htmlFor="pmo-name"
+                  required
+                >
+                  <Input
+                    id="pmo-name"
+                    placeholder={t("CreatePMAOrg:pmo.identity.name.placeholder")}
+                    value={pmoOrgName}
+                    type="text"
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                    onInput={(e) => setPmoOrgName(e.currentTarget.value)}
+                  />
+                </Field>
+                <Field
+                  label={t("CreatePMAOrg:pmo.identity.website.label")}
+                  help={t("CreatePMAOrg:pmo.identity.website.help")}
+                  htmlFor="pmo-website"
+                >
+                  <Input
+                    id="pmo-website"
+                    placeholder="https://organization.com"
+                    value={pmoWebsite}
+                    type="url"
+                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                    onInput={(e) => setPmoWebsite(e.currentTarget.value)}
+                  />
+                </Field>
+              </div>
+              <Field
+                label={t("CreatePMAOrg:pmo.identity.manifest.label")}
+                help={t("CreatePMAOrg:pmo.identity.manifest.help")}
+                htmlFor="pmo-manifest"
+              >
+                <Input
+                  id="pmo-manifest"
+                  placeholder="https://organization.com/bitshares-pmo.json"
+                  value={pmoManifest}
+                  type="url"
+                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  onInput={(e) => setPmoManifest(e.currentTarget.value)}
+                />
+              </Field>
+
+              {/* Governance section */}
+              <div className="space-y-1 pt-2">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
+                  <FileText className="h-3.5 w-3.5" />
+                  {t("CreatePMAOrg:pmo.governance.heading")}
+                </div>
+              </div>
+              <Field
+                label={t("CreatePMAOrg:pmo.governance.resolution.label")}
+                help={t("CreatePMAOrg:pmo.governance.resolution.help")}
+                htmlFor="pmo-resolution"
+              >
+                <Textarea
+                  id="pmo-resolution"
+                  placeholder={t("CreatePMAOrg:pmo.governance.resolution.placeholder")}
+                  value={pmoResolutionPolicy}
+                  rows={3}
+                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  onInput={(e) => setPmoResolutionPolicy(e.currentTarget.value)}
+                />
+              </Field>
+              <Field
+                label={t("CreatePMAOrg:pmo.governance.dispute.label")}
+                help={t("CreatePMAOrg:pmo.governance.dispute.help")}
+                htmlFor="pmo-dispute"
+              >
+                <Textarea
+                  id="pmo-dispute"
+                  placeholder={t("CreatePMAOrg:pmo.governance.dispute.placeholder")}
+                  value={pmoDisputeMechanism}
+                  rows={3}
+                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  onInput={(e) => setPmoDisputeMechanism(e.currentTarget.value)}
+                />
+              </Field>
+              <Field
+                label={t("CreatePMAOrg:pmo.governance.account.label")}
+                help={t("CreatePMAOrg:pmo.governance.account.help")}
+                htmlFor="pmo-account"
+              >
+                <Input
+                  id="pmo-account"
+                  placeholder={t("CreatePMAOrg:pmo.governance.account.placeholder")}
+                  value={pmoOnchainAccount}
+                  type="text"
+                  className="font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  onInput={(e) => setPmoOnchainAccount(e.currentTarget.value)}
+                />
+              </Field>
+
+              {/* Attestation section */}
+              <div className="space-y-1 pt-2">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
+                  <Pen className="h-3.5 w-3.5" />
+                  {t("CreatePMAOrg:pmo.attestation.heading")}
+                </div>
+              </div>
+              <Field
+                label={t("CreatePMAOrg:pmo.attestation.label")}
+                help={t("CreatePMAOrg:pmo.attestation.help")}
+                htmlFor="pmo-attestation"
+              >
+                <Textarea
+                  id="pmo-attestation"
+                  placeholder={t("CreatePMAOrg:pmo.attestation.placeholder")}
+                  value={pmoAttestation}
+                  rows={3}
+                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  onInput={(e) => setPmoAttestation(e.currentTarget.value)}
+                />
+              </Field>
+            </CardContent>
+          )}
+        </Card>
+
+
+        {/* Step 3 — NFT options (optional) */}
         <Card
           className={
             "overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
@@ -574,7 +706,7 @@ export default function CreatePMAOrg(properties) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-400">
-                  Step 2 · Optional
+                  {t("CreatePMAOrg:sectionHeader.step", { number: 3 })} · {t("CreatePMAOrg:sectionHeader.optional")}
                 </span>
               </div>
               <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
@@ -875,275 +1007,48 @@ export default function CreatePMAOrg(properties) {
           )}
         </Card>
 
-        {/* Step 3 — PMO Organization Profile (optional) */}
-        <Card
-          className={
-            "overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
-            (enabledPMO ? "ring-1 ring-cyan-500/30" : "")
-          }
-        >
-          <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
-            <div
-              className={
-                "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ring-1 " +
-                (enabledPMO
-                  ? "bg-cyan-500/15 text-cyan-400 ring-cyan-500/30"
-                  : "bg-white/5 text-white/40 ring-white/10")
-              }
-            >
-              <ShieldCheck className="h-4 w-4" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center rounded-full bg-cyan-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-cyan-400">
-                  Step 3 · Optional
-                </span>
-              </div>
-              <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
-                {t("CreatePMAOrg:steps.pmo.title")}
-              </h3>
-              <p className="mt-0.5 text-sm text-white/50">
-                {t("CreatePMAOrg:steps.pmo.description")}
+        {/* Submit area */}
+        <div className="space-y-4">
+          {isFormValid ? (
+            <div className="flex items-start gap-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3">
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+              <p className="text-sm font-medium text-emerald-400">
+                {t("CreatePMAOrg:ready")}
               </p>
             </div>
-            <Switch
-              checked={enabledPMO}
-              onCheckedChange={setEnabledPMO}
-              className="mt-1 shrink-0 data-[state=checked]:bg-cyan-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white"
-            />
+          ) : (
+            <div className="flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+              <p className="text-sm font-medium text-amber-400">
+                {t("CreatePMAOrg:fieldsRequired")}
+              </p>
+            </div>
+          )}
+
+          <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3">
+            <Info className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-medium text-white">
+                {t("CreatePMAOrg:tips.title")}
+              </p>
+              <p className="mt-0.5 text-xs leading-relaxed text-white/50">
+                {t("CreatePMAOrg:tips.hint")}
+              </p>
+            </div>
           </div>
 
-          {enabledPMO && (
-            <CardContent className="space-y-5 pt-6">
-              <div className="rounded-lg border border-cyan-500/20 bg-cyan-500/5 p-4">
-                <div className="flex items-start gap-2">
-                  <Info className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" />
-                  <p className="text-xs leading-relaxed text-white/60">
-                    {t("CreatePMAOrg:pmo.info")}
-                  </p>
-                </div>
-              </div>
-
-              {/* Identity section */}
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
-                  <Globe className="h-3.5 w-3.5" />
-                  {t("CreatePMAOrg:pmo.identity.heading")}
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                <Field
-                  label={t("CreatePMAOrg:pmo.identity.name.label")}
-                  help={t("CreatePMAOrg:pmo.identity.name.help")}
-                  htmlFor="pmo-name"
-                  required
-                >
-                  <Input
-                    id="pmo-name"
-                    placeholder={t("CreatePMAOrg:pmo.identity.name.placeholder")}
-                    value={pmoOrgName}
-                    type="text"
-                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
-                    onInput={(e) => setPmoOrgName(e.currentTarget.value)}
-                  />
-                </Field>
-                <Field
-                  label={t("CreatePMAOrg:pmo.identity.website.label")}
-                  help={t("CreatePMAOrg:pmo.identity.website.help")}
-                  htmlFor="pmo-website"
-                >
-                  <Input
-                    id="pmo-website"
-                    placeholder="https://organization.com"
-                    value={pmoWebsite}
-                    type="url"
-                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
-                    onInput={(e) => setPmoWebsite(e.currentTarget.value)}
-                  />
-                </Field>
-              </div>
-              <Field
-                label={t("CreatePMAOrg:pmo.identity.manifest.label")}
-                help={t("CreatePMAOrg:pmo.identity.manifest.help")}
-                htmlFor="pmo-manifest"
-              >
-                <Input
-                  id="pmo-manifest"
-                  placeholder="https://organization.com/bitshares-pmo.json"
-                  value={pmoManifest}
-                  type="url"
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
-                  onInput={(e) => setPmoManifest(e.currentTarget.value)}
-                />
-              </Field>
-
-              {/* Governance section */}
-              <div className="space-y-1 pt-2">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
-                  <FileText className="h-3.5 w-3.5" />
-                  {t("CreatePMAOrg:pmo.governance.heading")}
-                </div>
-              </div>
-              <Field
-                label={t("CreatePMAOrg:pmo.governance.resolution.label")}
-                help={t("CreatePMAOrg:pmo.governance.resolution.help")}
-                htmlFor="pmo-resolution"
-              >
-                <Textarea
-                  id="pmo-resolution"
-                  placeholder={t("CreatePMAOrg:pmo.governance.resolution.placeholder")}
-                  value={pmoResolutionPolicy}
-                  rows={3}
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
-                  onInput={(e) => setPmoResolutionPolicy(e.currentTarget.value)}
-                />
-              </Field>
-              <Field
-                label={t("CreatePMAOrg:pmo.governance.dispute.label")}
-                help={t("CreatePMAOrg:pmo.governance.dispute.help")}
-                htmlFor="pmo-dispute"
-              >
-                <Textarea
-                  id="pmo-dispute"
-                  placeholder={t("CreatePMAOrg:pmo.governance.dispute.placeholder")}
-                  value={pmoDisputeMechanism}
-                  rows={3}
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
-                  onInput={(e) => setPmoDisputeMechanism(e.currentTarget.value)}
-                />
-              </Field>
-              <Field
-                label={t("CreatePMAOrg:pmo.governance.account.label")}
-                help={t("CreatePMAOrg:pmo.governance.account.help")}
-                htmlFor="pmo-account"
-              >
-                <Input
-                  id="pmo-account"
-                  placeholder={t("CreatePMAOrg:pmo.governance.account.placeholder")}
-                  value={pmoOnchainAccount}
-                  type="text"
-                  className="font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
-                  onInput={(e) => setPmoOnchainAccount(e.currentTarget.value)}
-                />
-              </Field>
-
-              {/* Attestation section */}
-              <div className="space-y-1 pt-2">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
-                  <Pen className="h-3.5 w-3.5" />
-                  {t("CreatePMAOrg:pmo.attestation.heading")}
-                </div>
-              </div>
-              <Field
-                label={t("CreatePMAOrg:pmo.attestation.label")}
-                help={t("CreatePMAOrg:pmo.attestation.help")}
-                htmlFor="pmo-attestation"
-              >
-                <Textarea
-                  id="pmo-attestation"
-                  placeholder={t("CreatePMAOrg:pmo.attestation.placeholder")}
-                  value={pmoAttestation}
-                  rows={3}
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
-                  onInput={(e) => setPmoAttestation(e.currentTarget.value)}
-                />
-              </Field>
-            </CardContent>
-          )}
-        </Card>
-
-        {/* Review and submit */}
-        <Card className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20">
-          <SectionHeader
-            step={4}
-            icon={Sparkles}
-            title={t("CreatePMAOrg:summary.title")}
-            description={t("CreatePMAOrg:summary.subtitle")}
-          />
-          <CardContent className="space-y-5 pt-6">
-            <div className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
-              <div className="divide-y divide-white/10 px-4">
-                <SummaryRow
-                  icon={Hash}
-                  label={t("CreatePMAOrg:summary.symbol")}
-                  value={symbol}
-                  mono
-                />
-                <SummaryRow
-                  icon={Tag}
-                  label={t("CreatePMAOrg:summary.name")}
-                  value={shortName}
-                />
-                <SummaryRow
-                  icon={Hash}
-                  label={t("CreatePMAOrg:summary.maxSupply")}
-                  value="1"
-                  mono
-                />
-                <SummaryRow
-                  icon={Hash}
-                  label={t("CreatePMAOrg:summary.precision")}
-                  value="0"
-                  mono
-                />
-                {enabledNFT && (
-                  <SummaryRow
-                    icon={ImageIcon}
-                    label={t("CreatePMAOrg:summary.nftMedia")}
-                    value={`${nftMedia.length} file(s)`}
-                  />
-                )}
-                {enabledPMO && (
-                  <SummaryRow
-                    icon={ShieldCheck}
-                    label={t("CreatePMAOrg:summary.pmo")}
-                    value={pmoOrgName || "PMO/ORGANIZATION@1.0"}
-                  />
-                )}
-              </div>
-            </div>
-
-            {isFormValid ? (
-              <div className="flex items-start gap-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
-                <p className="text-sm font-medium text-emerald-400">
-                  {t("CreatePMAOrg:summary.ready")}
-                </p>
-              </div>
-            ) : (
-              <div className="flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
-                <p className="text-sm font-medium text-amber-400">
-                  {t("CreatePMAOrg:summary.fieldsRequired")}
-                </p>
-              </div>
-            )}
-
-            <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3">
-              <Info className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-white">
-                  {t("CreatePMAOrg:tips.title")}
-                </p>
-                <p className="mt-0.5 text-xs leading-relaxed text-white/50">
-                  {t("CreatePMAOrg:tips.hint")}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-end gap-4">
-              <Button
-                size="lg"
-                disabled={!isFormValid}
-                onClick={() => setShowDialog(true)}
-                className="gap-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold shadow-lg shadow-violet-500/25 hover:brightness-110 active:scale-[0.99] transition-all"
-              >
-                <Send className="h-4 w-4" />
-                {t("CreatePMAOrg:buttons.submit")}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+          <div className="flex items-center justify-end gap-4">
+            <Button
+              size="lg"
+              disabled={!isFormValid}
+              onClick={() => setShowDialog(true)}
+              className="gap-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold shadow-lg shadow-violet-500/25 hover:brightness-110 active:scale-[0.99] transition-all"
+            >
+              <Send className="h-4 w-4" />
+              {t("CreatePMAOrg:buttons.submit")}
+            </Button>
+          </div>
+        </div>
       </div>
 
       {showDialog ? (

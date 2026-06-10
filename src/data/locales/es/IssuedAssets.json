@@ -3,6 +3,7 @@
   "creditBorrow": "Pedir prestado",
   "creditLend": "Prestar",
   "proceedToBorrow": "Asunto",
+  "collateralBid": "Puja sobre garantía",
   "issueAssetDescription": "Como emisor de este activo, puede emitirlo para usted mismo o para otra cuenta en la cadena de bloques, hasta el suministro máximo configurado.",
   "manageUIA": "Editar",
   "pmaBet": "Apuesta",

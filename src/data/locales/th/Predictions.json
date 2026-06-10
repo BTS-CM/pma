@@ -5,10 +5,12 @@
   "expiration": "หมดอายุ",
   "expired_at": "หมดอายุแล้ว",
   "outcome": "ผลลัพธ์",
-  "prize_pool": "การตั้งถิ่นฐาน",
   "outcome_true": "จริง (ผู้ซื้อชนะ)",
   "outcome_false": "เท็จ (ผู้ขายชนะ)",
   "outcome_tba": "ยังไม่ได้รับการแก้ไข",
+  "outcome.yes": "ใช่",
+  "outcome.no": "ไม่",
+  "outcome.unresolved": "ยังไม่ได้แก้ไข",
   "issue": "ขั้นตอนที่ 1: ออกโทเค็น PMA",
   "buy": "เดิมพันจริง (ซื้อ)",
   "sell": "ขั้นตอนที่ 2: เดิมพันเท็จ (ขาย)",
@@ -19,12 +21,111 @@
   "margin": "ขอบ",
   "bettingAsset": "สินทรัพย์การเดิมพัน",
   "card": {
-    "title": "สินทรัพย์ตลาดทำนาย",
-    "description": "ตรวจสอบโอกาสในการเดิมพันที่เป็นไปได้ด้านล่าง!",
+    "title": {
+      "active": "ตลาดทำนายที่ใช้งานอยู่",
+      "expired": "ตลาดทำนายที่หมดอายุแล้ว",
+      "mine": "ตลาดทำนายของฉัน",
+      "portfolio": "พอร์ตโฟลิโอการทำนาย",
+      "margin": "ตำแหน่งมาร์จิ้นการทำนาย"
+    },
+    "description": {
+      "active": "เรียกดูสินทรัพย์ในตลาดทำนายที่ยังไม่ได้แก้ไขและกำลังรับเดิมพัน",
+      "expired": "เรียกดูสินทรัพย์ในตลาดทำนายที่ผ่านมาซึ่งรอการแก้ไขจากผู้ให้ข้อมูลราคา",
+      "mine": "สินทรัพย์ในตลาดทำนายที่คุณสร้างหรือโต้ตอบด้วย",
+      "portfolio": "สินทรัพย์ในตลาดทำนายที่ถืออยู่ในยอดเงินในบัญชีของคุณในปัจจุบัน",
+      "margin": "ตำแหน่งมาร์จิ้น (เรียก) ที่ใช้งานอยู่ในสินทรัพย์ในตลาดทำนาย"
+    },
+    "showing": "แสดง {{primary}} ตลาด",
+    "stat": " · {{value}} {{label}}",
     "emptyActive": "ไม่มีการคาดการณ์ที่ใช้งานอยู่ในขณะนี้",
+    "emptyExpired": "ไม่มีการคาดการณ์ที่หมดอายุในขณะนี้",
     "emptyMine": "คุณไม่มีการคาดการณ์ในขณะนี้",
     "emptyPortfolio": "คุณไม่มีสินทรัพย์ในตลาดการคาดการณ์ในยอดพอร์ตโฟลิโอของคุณในขณะนี้",
     "emptyMargin": "คุณไม่มีตำแหน่งมาร์จิ้นของสินทรัพย์ในตลาดที่คาดการณ์ในขณะนี้"
+  },
+  "tab": {
+    "overview": "ภาพรวม",
+    "nft": "NFT",
+    "market": "ตลาด",
+    "details": "รายละเอียด",
+    "actions": "การดำเนินการ",
+    "winners": "ผู้ชนะ",
+    "admin": "ผู้ดูแลระบบ",
+    "org": "องค์กร"
+  },
+  "status": {
+    "active": "ใช้งานอยู่",
+    "resolvedYes": "แก้ไขแล้ว · ใช่",
+    "resolvedNo": "แก้ไขแล้ว · ไม่",
+    "awaiting": "รอการแก้ไข"
+  },
+  "timeLeft": "เวลาที่เหลือ",
+  "timeExpired": "เวลาตั้งแต่หมดอายุ",
+  "openInterest": "ความสนใจเปิด",
+  "openInterest_help": "หลักประกันทั้งหมดที่ผู้ขายทุกคนเดิมพันกับผลลัพธ์",
+  "market": {
+    "impliedProbability": "ความน่าจะเป็นโดยนัยของ ใช่",
+    "impliedProbability_help": "โอกาสที่ประมาณการที่ตลาดกำหนดให้กับผลลัพธ์ ใช่ ซึ่งได้มาจากความสนใจเปิดและขนาดกองทุนชำระหนี้",
+    "expiredNote": "การซื้อขายสำหรับตลาดนี้สิ้นสุดลงแล้ว",
+    "settlementFund": "กองทุนชำระหนี้",
+    "settlementFund_help": "หลักประกันที่ถืออยู่ในกองทุนชำระหนี้ในปัจจุบัน รอการแก้ไข",
+    "commission": "ค่าธรรมเนียมตลาด",
+    "commission_help": "ค่าธรรมเนียมที่เรียกเก็บในแต่ละการซื้อขาย จ่ายเป็นสินทรัพย์ backing",
+    "tradeOnDex": "ซื้อขายบน DEX"
+  },
+  "nft": {
+    "title": "ชื่อ",
+    "artist": "ศิลปิน",
+    "type": "ประเภท",
+    "encoding": "การเข้ารหัส",
+    "license": "ลิขสิทธิ์",
+    "holderLicense": "ลิขสิทธิ์ผู้ถือ",
+    "tags": "แท็ก",
+    "narrative": "การเล่าเรื่อง",
+    "acknowledgements": "กิตติกรรมประกาศ",
+    "attestation": "การรับรอง",
+    "viewOnIpfs": "ดูบน IPFS",
+    "noImage": "ไม่มีรูปภาพ NFT",
+    "signature": "ลายเซ็น",
+    "sigPubkey": "ผู้ลงนาม",
+    "copySig": "คัดลอกลายเซ็น",
+    "copyPubkey": "คัดลอกคีย์ผู้ลงนาม",
+    "verifyNote": "การตรวจสอบลายเซ็น — เร็วๆ นี้"
+  },
+  "details": {
+    "assetId": "รหัสสินทรัพย์",
+    "issuer": "ผู้ออก",
+    "precision": "ความแม่นยำ",
+    "maxSupply": "อุปทานสูงสุด"
+  },
+  "copy": "คัดลอก",
+  "copied": "คัดลอกแล้ว",
+  "copyAssetId": "คัดลอกรหัสสินทรัพย์",
+  "copyIssuerId": "คัดลอกรหัสผู้ออก",
+  "stats": {
+    "closingSoon": "ปิดใน 24 ชม.",
+    "newlyCreated": "ใหม่ใน 7 วันที่ผ่านมา",
+    "awaitingResolution": "รอการแก้ไข",
+    "resolved": "แก้ไขแล้ว",
+    "awaitingYourResolution": "รอการแก้ไขของคุณ",
+    "inYourBalance": "ในยอดเงินของคุณ",
+    "marginPositions": "ตำแหน่งมาร์จิ้นที่ใช้งานอยู่"
+  },
+  "list": {
+    "sort": {
+      "newest": "ใหม่ล่าสุดก่อน",
+      "expiring": "หมดอายุเร็วที่สุด",
+      "volume": "ปริมาณสูงสุด",
+      "alpha": "ตามตัวอักษร"
+    },
+    "filter": {
+      "all": "ทั้งหมด",
+      "closingSoon": "ปิดใน 24 ชม.",
+      "new": "ใหม่ (7 วันที่ผ่านมา)",
+      "highVolume": "ปริมาณสูง"
+    },
+    "searchPlaceholder": "ค้นหาตามสัญลักษณ์หรือคำถาม…",
+    "noResults": "ไม่มีการคาดการณ์ที่ตรงกับตัวกรองของคุณ"
   },
   "price_feeders": "เครื่องป้อนราคา",
   "price_feeders_content": "การทำนายสามารถแก้ไขได้โดยพยาน คณะกรรมการ หรือผู้ป้อนราคาเอกชน",
@@ -39,6 +140,11 @@
   "winner_content": "ผู้ชนะที่ซื้อ (ผลลัพธ์ที่แท้จริง) สามารถชำระ PMA สำหรับเนื้อหาสินทรัพย์สำรอง 1x ผู้ชนะที่ขาย (ผลลัพธ์ที่เป็นเท็จ) ไม่จำเป็นต้องดำเนินการใดๆ",
   "winner_header": "ผู้ชนะ",
   "winner_claim": "อ้างสิทธิ์ในทรัพย์สินที่สนับสนุน",
+  "winner": {
+    "settlementFund_help": "หลักประกันทั้งหมดที่ผูกพันกับตลาดทำนายนี้ ผู้ซื้อที่ถือผลลัพธ์ที่ชนะสามารถเรียกร้องสัดส่วนของกองทุนนี้ได้",
+    "yourPmaBalance": "ยอดเงิน PMA ของคุณ",
+    "yourPmaBalance_help": "จำนวนโทเค็นสินทรัพย์ในตลาดทำนายที่คุณถืออยู่ในปัจจุบัน หลังจากที่การทำนายได้รับการแก้ไข PMA ที่ชนะแต่ละตัวสามารถชำระเป็นสินทรัพย์สำรอง 1 หน่วยได้"
+  },
   "resolve": "แก้คำทำนาย",
   "not_expired": "การคาดการณ์นี้ยังไม่หมดอายุ จึงไม่สามารถแก้ไขได้",
   "time_till_expiration": "เวลาจนถึงหมดอายุ: {{hours}} ชั่วโมง",
@@ -124,19 +230,32 @@
   "json": {
     "button": "JSON",
     "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
+    "description": "ข้อมูล JSON ดิบสำหรับรายการที่เลือก",
+    "assetData": "ข้อมูลสินทรัพย์",
+    "bitassetData": "ข้อมูล Bitasset",
+    "descriptionData": "ข้อมูลคำอธิบาย",
+    "copy": "คัดลอก",
+    "copied": "คัดลอกแล้ว!",
+    "blockIssuer": "บล็อกผู้ออกนี้",
+    "unblockIssuer": "ยกเลิกการบล็อกผู้ออกนี้"
   },
   "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
+    "title": "บล็อกผู้ออกนี้?",
+    "description": "ตลาดทำนายที่สร้างโดยบัญชีนี้จะถูกซ่อนจากมุมมองของคุณ คุณสามารถยกเลิกการบล็อกได้ตลอดเวลา",
+    "cancel": "ยกเลิก",
+    "confirm": "บล็อกผู้ออก"
+  },
+  "org": {
+    "title": "องค์กร",
+    "name": "ชื่อ",
+    "website": "เว็บไซต์",
+    "manifest": "คำประกาศ",
+    "resolutionPolicy": "นโยบายการแก้ไข",
+    "disputeMechanism": "กลไกการระงับข้อพิพาท",
+    "onchainAccount": "บัญชี on-chain",
+    "attestation": "การรับรอง",
+    "signature": "ลายเซ็น",
+    "viewAll": "ดูการคาดการณ์ทั้งหมดของ {{symbol}}",
+    "noOrg": "ไม่มีข้อมูลองค์กร"
   }
 }

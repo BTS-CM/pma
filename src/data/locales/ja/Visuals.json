@@ -27,5 +27,14 @@
   "particlesDesc": "ヘッダー内を漂う小さな粒子の表示を切り替えます。",
   "on": "オン",
   "off": "オフ",
-  "resetToDefaults": "デフォルトに戻す"
+  "resetToDefaults": "デフォルトに戻す",
+  "externalServices": {
+    "heading": "外部サービス",
+    "description": "サイト全体でアセットを取得するために使用されるサードパーティサービスを設定します。",
+    "ipfsGateway": {
+      "header": "IPFSゲートウェイ",
+      "help": "NFT画像やその他のコンテンツのIPFSリンクを解決するために使用されるゲートウェイ。信頼できるパブリックゲートウェイを使用してください。",
+      "placeholder": "https://ipfs.io/ipfs/"
+    }
+  }
 }

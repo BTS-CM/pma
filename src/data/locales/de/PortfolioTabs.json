@@ -52,5 +52,18 @@
   "orderIdHeader": "Bestell-ID",
   "expirationHeader": "Ablauf",
   "priceHeader": "Preis",
-  "actionsHeader": "Aktionen"
+  "actionsHeader": "Aktionen",
+  "refreshOpenOrdersTooltip": "Offene Bestellungen aktualisieren",
+  "copyOrderIdTooltip": "Bestell-ID kopieren",
+  "expiryStatusHealthy": "Gesund",
+  "expiryStatusSoon": "Läuft bald ab",
+  "expiryStatusImminent": "Weniger als 24 Stunden",
+  "expiryStatusExpired": "Abgelaufen",
+  "noOpenOrdersTitle": "Keine offenen Bestellungen",
+  "noOpenOrdersDescription": "Sie haben derzeit keine offenen Limit-Orders auf dem DEX.",
+  "noOpenOrdersCta": "Neue Bestellung aufgeben",
+  "badgeSell": "Verkaufen",
+  "badgeBuy": "Kaufen",
+  "orderSummaryCount": "{{count}} offene Bestellungen",
+  "orderIdCopied": "Bestell-ID kopiert"
 }

@@ -50,7 +50,8 @@
     "details": "Details",
     "actions": "Actions",
     "winners": "Winners",
-    "admin": "Admin"
+    "admin": "Admin",
+    "org": "Organization"
   },
   "status": {
     "active": "Active",
@@ -243,5 +244,18 @@
     "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
     "cancel": "Cancel",
     "confirm": "Block issuer"
+  },
+  "org": {
+    "title": "Organization",
+    "name": "Name",
+    "website": "Website",
+    "manifest": "Manifest",
+    "resolutionPolicy": "Resolution Policy",
+    "disputeMechanism": "Dispute Mechanism",
+    "onchainAccount": "On-chain Account",
+    "attestation": "Attestation",
+    "signature": "Signature",
+    "viewAll": "View all {{symbol}} predictions",
+    "noOrg": "No organization information available"
   }
 }

@@ -5,10 +5,12 @@
   "expiration": "Udløb",
   "expired_at": "Udløbet",
   "outcome": "Resultat",
-  "prize_pool": "Afregning",
   "outcome_true": "Sandt (købere vinder)",
   "outcome_false": "Falsk (sælgere vinder)",
   "outcome_tba": "Endnu ikke løst",
+  "outcome.yes": "Ja",
+  "outcome.no": "Nej",
+  "outcome.unresolved": "Uafgjort",
   "issue": "Trin 1: Udsted PMA-tokens",
   "buy": "Sats rigtigt (køb)",
   "sell": "Trin 2: Indsats falsk (sælg)",
@@ -19,12 +21,111 @@
   "margin": "Margin",
   "bettingAsset": "Væddemålsaktiv",
   "card": {
-    "title": "Forudsigelse af markedsaktiver",
-    "description": "Tjek de potentielle væddemålsmuligheder nedenfor!",
+    "title": {
+      "active": "Aktive forudsigelsesmarkeder",
+      "expired": "Udløbne forudsigelsesmarkeder",
+      "mine": "Mine forudsigelsesmarkeder",
+      "portfolio": "Forudsigelsesportefølje",
+      "margin": "Forudsigelsesmarginpositioner"
+    },
+    "description": {
+      "active": "Gennemse live, uafklarede forudsigelsesmarkedsaktiver, der accepterer væddemål.",
+      "expired": "Gennemse tidligere forudsigelsesmarkedsaktiver, der afventer opløsning af prisfødere.",
+      "mine": "Forudsigelsesmarkedsaktiver, du har oprettet eller interageret med.",
+      "portfolio": "Forudsigelsesmarkedsaktiver, der aktuelt er indeholdt i din kontosaldo.",
+      "margin": "Aktive margin (call) positioner på forudsigelsesmarkedsaktiver."
+    },
+    "showing": "Viser {{primary}} markeder",
+    "stat": " · {{value}} {{label}}",
     "emptyActive": "Ingen aktive forudsigelser tilgængelige i øjeblikket.",
+    "emptyExpired": "Ingen udløbne forudsigelser tilgængelige i øjeblikket.",
     "emptyMine": "Du har ingen forudsigelser i øjeblikket.",
     "emptyPortfolio": "Du har ingen forudsigelige markedsaktiver i din porteføljebalance i øjeblikket.",
     "emptyMargin": "Du har ingen forudsigelige markedsaktivmarginpositioner i øjeblikket."
+  },
+  "tab": {
+    "overview": "Oversigt",
+    "nft": "NFT",
+    "market": "Marked",
+    "details": "Detaljer",
+    "actions": "Handlinger",
+    "winners": "Vindere",
+    "admin": "Admin",
+    "org": "Organisation"
+  },
+  "status": {
+    "active": "Aktiv",
+    "resolvedYes": "Løst · JA",
+    "resolvedNo": "Løst · NEJ",
+    "awaiting": "Afventer opløsning"
+  },
+  "timeLeft": "Tid tilbage",
+  "timeExpired": "Tid siden udløb",
+  "openInterest": "Åben interesse",
+  "openInterest_help": "Samlet sikkerhed forpligtet af alle sælgere, der satser mod resultatet.",
+  "market": {
+    "impliedProbability": "Implicit JA-sandsynlighed",
+    "impliedProbability_help": "Estimeret chance, som markedet tillægger JA-resultatet, afledt af åben interesse og afregningsfondens størrelse.",
+    "expiredNote": "Handlen er afsluttet for dette marked.",
+    "settlementFund": "Afregningsfond",
+    "settlementFund_help": "Den sikkerhed, der aktuelt holdes i afregningsfonden, der afventer opløsning.",
+    "commission": "Markedsgebyr",
+    "commission_help": "Gebyr opkrævet på hver handel, betalt i det understøttende aktiv.",
+    "tradeOnDex": "Handl på DEX"
+  },
+  "nft": {
+    "title": "Titel",
+    "artist": "Kunstner",
+    "type": "Type",
+    "encoding": "Kodning",
+    "license": "Licens",
+    "holderLicense": "Indehaverlicens",
+    "tags": "Tags",
+    "narrative": "Fortælling",
+    "acknowledgements": "Anerkendelser",
+    "attestation": "Attestering",
+    "viewOnIpfs": "Se på IPFS",
+    "noImage": "Intet NFT-billede tilgængeligt",
+    "signature": "Signatur",
+    "sigPubkey": "Signeringsperson",
+    "copySig": "Kopiér signatur",
+    "copyPubkey": "Kopiér signeringsnøgle",
+    "verifyNote": "Signaturverifikation — kommer snart."
+  },
+  "details": {
+    "assetId": "Aktiv-ID",
+    "issuer": "Udsteder",
+    "precision": "Præcision",
+    "maxSupply": "Maksimal forsyning"
+  },
+  "copy": "Kopiér",
+  "copied": "Kopieret",
+  "copyAssetId": "Kopiér aktiv-ID",
+  "copyIssuerId": "Kopiér udsteder-ID",
+  "stats": {
+    "closingSoon": "lukker inden for 24 timer",
+    "newlyCreated": "ny inden for de seneste 7 dage",
+    "awaitingResolution": "afventer opløsning",
+    "resolved": "løst",
+    "awaitingYourResolution": "afventer din opløsning",
+    "inYourBalance": "i din saldo",
+    "marginPositions": "aktive marginpositioner"
+  },
+  "list": {
+    "sort": {
+      "newest": "Nyeste først",
+      "expiring": "Udløber snarest",
+      "volume": "Højeste volumen",
+      "alpha": "Alfabetisk"
+    },
+    "filter": {
+      "all": "Alle",
+      "closingSoon": "Lukker inden for 24 timer",
+      "new": "Ny (seneste 7 dage)",
+      "highVolume": "Høj volumen"
+    },
+    "searchPlaceholder": "Søg efter symbol eller spørgsmål…",
+    "noResults": "Ingen forudsigelser matcher dine filtre."
   },
   "price_feeders": "Prisfødere",
   "price_feeders_content": "Forudsigelsen kan løses af enten vidnerne, udvalget eller private prisfødere.",
@@ -39,6 +140,11 @@
   "winner_content": "Vindere, der har købt (sandt udfald), kan afregne PMA for 1x-backing aktivindholdet. Vindere, der har solgt (falskt resultat), behøver ikke at gøre noget.",
   "winner_header": "Vindere",
   "winner_claim": "Gør krav på støttende aktiver",
+  "winner": {
+    "settlementFund_help": "Den samlede sikkerhed forpligtet til dette forudsigelsesmarked. Købere, der holder det vindende udfald, kan kræve en proportional andel af denne fond.",
+    "yourPmaBalance": "Din PMA-saldo",
+    "yourPmaBalance_help": "Antallet af forudsigelsesmarkedstokens, du aktuelt indeholder. Når forudsigelsen er løst, kan hver vindende PMA afregnes for 1 enhed af det understøttende aktiv."
+  },
   "resolve": "Løs forudsigelse",
   "not_expired": "Denne forudsigelse er ikke udløbet endnu, så den kan ikke løses.",
   "time_till_expiration": "Tid til udløb: {{hours}} timer",
@@ -52,7 +158,7 @@
     "description": "For at satse mod resultatet, skal du først udstede tokens til forudsigelse af markedsaktiver.",
     "balance": "Brug balance",
     "qtyHeader": "Mængde, der skal udstedes",
-    "qtyContent": "Mængden af ​​tokens, du ønsker at udstede på dette forudsigelsesmarked, kan udstedte tokens sælges, hvilket gør det muligt for dig at satse mod forudsigelser.",
+    "qtyContent": "Mængden af tokens, du ønsker at udstede på dette forudsigelsesmarked, kan udstedte tokens sælges, hvilket gør det muligt for dig at satse mod forudsigelser.",
     "existingHeader": "Eksisterende forpligtet sikkerhedsstillelse",
     "existingContent": "Dette er, hvor mange af disse forudsigelige markedsaktivtokens, du allerede har udstedt.",
     "totalHeader": "Samlet sikkerhed",
@@ -73,12 +179,12 @@
   "insufficient_funds": "Utilstrækkelig balance.",
   "sellDialog": {
     "qtyHeader": "Mængde at sælge",
-    "qtyContent": "Mængden af ​​tokens, du ønsker at sælge på dette forudsigelsesmarked, væddemål mod resultatet af forudsigelsen.",
+    "qtyContent": "Mængden af tokens, du ønsker at sælge på dette forudsigelsesmarked, væddemål mod resultatet af forudsigelsen.",
     "receivingHeader": "Modtager",
     "receivingContent": "Dette er cirka det samlede beløb af sikkerhedsaktiver, du får til gengæld for denne handel.",
     "title": "Salg af forudsigelige markedsaktiver",
     "description": "For at satse mod resultatet af forudsigelsen skal du sælge de forudsigelsesmarkedsaktivtokens, som du tidligere har udstedt.",
-    "expiryContent": "Din limitordre vil forblive aktiv på DEX så længe, ​​før den ikke længere eksisterer. Hvis du vælger 'fyld eller dræb', så vil operationen mislykkes, hvis der ikke er nogen matchende DEX salgsgrænseordre, hvilket sparer tid og gebyrer.",
+    "expiryContent": "Din limitordre vil forblive aktiv på DEX så længe, før den ikke længere eksisterer. Hvis du vælger 'fyld eller dræb', så vil operationen mislykkes, hvis der ikke er nogen matchende DEX salgsgrænseordre, hvilket sparer tid og gebyrer.",
     "expiryHeader": "Udløb"
   },
   "buyDialog": {
@@ -88,7 +194,7 @@
     "receivingContent": "Dette er tilnærmelsesvis den samlede mængde af forudsigelige markedsaktivtokens, du får til gengæld for denne handel."
   },
   "claimDialog": {
-    "qtyContent": "Mængden af ​​forudsigelige markedsaktiver, du ønsker at afregne i backing-aktivet.",
+    "qtyContent": "Mængden af forudsigelige markedsaktiver, du ønsker at afregne i backing-aktivet.",
     "qtyHeader": "Mængde at afregne"
   },
   "resolveDialog": {
@@ -123,20 +229,33 @@
   },
   "json": {
     "button": "JSON",
-    "title": "Asset JSON",
-    "description": "Raw JSON data for the selected entry.",
-    "assetData": "Asset Data",
-    "bitassetData": "Bitasset Data",
-    "descriptionData": "Description Data",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "blockIssuer": "Block this issuer",
-    "unblockIssuer": "Unblock this issuer"
+    "title": "Aktiv JSON",
+    "description": "Rå JSON-data for den valgte post.",
+    "assetData": "Aktivdata",
+    "bitassetData": "Bitasset-data",
+    "descriptionData": "Beskrivelsesdata",
+    "copy": "Kopiér",
+    "copied": "Kopieret!",
+    "blockIssuer": "Bloker denne udsteder",
+    "unblockIssuer": "Fjern blokeringen af denne udsteder"
   },
   "blockConfirm": {
-    "title": "Block this issuer?",
-    "description": "Prediction markets created by this account will be hidden from your view. You can unblock them at any time.",
-    "cancel": "Cancel",
-    "confirm": "Block issuer"
+    "title": "Bloker denne udsteder?",
+    "description": "Forudsigelsesmarkeder oprettet af denne konto vil blive skjult for din visning. Du kan fjerne blokeringen af dem når som helst.",
+    "cancel": "Annuller",
+    "confirm": "Bloker udsteder"
+  },
+  "org": {
+    "title": "Organisation",
+    "name": "Navn",
+    "website": "Hjemmeside",
+    "manifest": "Manifest",
+    "resolutionPolicy": "Løsningspolitik",
+    "disputeMechanism": "Tvistløsningsmekanisme",
+    "onchainAccount": "On-chain konto",
+    "attestation": "Attestation",
+    "signature": "Signatur",
+    "viewAll": "Se alle {{symbol}} forudsigelser",
+    "noOrg": "Ingen organisationsinformation tilgængelig"
   }
 }

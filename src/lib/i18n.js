@@ -44,7 +44,9 @@ const pages = [
   "PortfolioTabs",
   "Transfer",
   "SimpleSwap",
-  "InstantTrade"
+  "InstantTrade",
+  "CreatePMAOrg",
+  "PredictionsOrganizations"
 ];
 
 const locale = persistentAtom("locale", "en");

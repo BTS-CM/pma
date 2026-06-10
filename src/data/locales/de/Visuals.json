@@ -27,5 +27,14 @@
   "particlesDesc": "Schaltet die kleinen schwebenden Partikel im Kopfbereich um.",
   "on": "Ein",
   "off": "Aus",
-  "resetToDefaults": "Auf Standardwerte zurücksetzen"
+  "resetToDefaults": "Auf Standardwerte zurücksetzen",
+  "externalServices": {
+    "heading": "Externe Dienste",
+    "description": "Konfigurieren Sie die Drittanbieterdienste zum Abrufen von Assets auf der gesamten Website.",
+    "ipfsGateway": {
+      "header": "IPFS-Gateway",
+      "help": "Gateway zum Auflösen von IPFS-Links für NFT-Bilder und andere Inhalte. Verwenden Sie ein öffentliches Gateway, dem Sie vertrauen.",
+      "placeholder": "https://ipfs.io/ipfs/"
+    }
+  }
 }

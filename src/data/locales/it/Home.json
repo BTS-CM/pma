@@ -202,13 +202,6 @@
     "hover1": "Controlla i tuoi saldi di maturazione.",
     "hover2": "Richiedi i tuoi saldi acquisiti."
   },
-  "prediction_markets": {
-    "title": "🎲 Pronostici",
-    "subtitle": "Sfoglia i pronostici, gestisci le scommesse, esegui l'amministrazione dei pronostici.",
-    "hover1": "Sfoglia le risorse del mercato di previsione disponibili.",
-    "hover2": "I mercati di previsione possono riguardare qualsiasi cosa.",
-    "hover3": "Ogni asset del mercato di previsione ha una tariffa unica."
-  },
   "proposals": {
     "title": "🤔 Operazioni proposte",
     "subtitle": "Visualizza e approva/rifiuta le operazioni sull'account proposte",

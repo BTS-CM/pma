@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Step {{number}}",
+    "optional": "Optional",
+    "recommended": "Recommended"
+  },
   "dialogContent": {
     "headerText": "Creating the following prediction market asset: {{symbol}}"
   },
@@ -90,6 +95,26 @@
   },
   "buttons": {
     "submit": "Create prediction market asset"
+  },
+  "fields": {
+    "org": {
+      "label": "Organization",
+      "help": "Select the PMO organization this sub-asset belongs to.",
+      "selectLabel": "Your organizations"
+    },
+    "subAssetName": {
+      "label": "Sub-asset name",
+      "help": "The unique name for this prediction within the organization (e.g., 0001).",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "Full symbol"
+    }
+  },
+  "creationMode": {
+    "manual": "Manual",
+    "organization": "Organization",
+    "noOrgs": "No organizations found. Create a PMO asset first.",
+    "label": "Creation Mode"
   }
 }
-

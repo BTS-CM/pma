@@ -52,5 +52,18 @@
   "orderIdHeader": "주문 ID",
   "expirationHeader": "만료",
   "priceHeader": "가격",
-  "actionsHeader": "행위"
+  "actionsHeader": "행위",
+  "refreshOpenOrdersTooltip": "미결 주문 새로고침",
+  "copyOrderIdTooltip": "주문 ID 복사",
+  "expiryStatusHealthy": "정상",
+  "expiryStatusSoon": "곧 만료",
+  "expiryStatusImminent": "24시간 미만",
+  "expiryStatusExpired": "만료됨",
+  "noOpenOrdersTitle": "미결 주문 없음",
+  "noOpenOrdersDescription": "현재 DEX에 열려 있는 지정가 주문이 없습니다.",
+  "noOpenOrdersCta": "새 주문 하기",
+  "badgeSell": "판매",
+  "badgeBuy": "구매",
+  "orderSummaryCount": "{{count}}개의 미결 주문",
+  "orderIdCopied": "주문 ID 복사됨"
 }

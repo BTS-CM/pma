@@ -3,6 +3,7 @@
   "creditBorrow": "借りる",
   "creditLend": "貸す",
   "proceedToBorrow": "問題",
+  "collateralBid": "担保への入札",
   "issueAssetDescription": "この資産の発行者は、構成された最大供給量まで、この資産を自分自身またはブロックチェーン上の別のアカウントに発行できます。",
   "manageUIA": "編集",
   "pmaBet": "ベット",

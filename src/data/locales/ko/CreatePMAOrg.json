@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "단계 {{number}}",
+    "optional": "선택사항",
+    "recommended": "권장"
+  },
   "card": {
     "title": "예측 시장 조직 생성",
     "description": "예측 시장 서브 자산의 상위 자산으로 사용될 최상위 자산 이름을 등록합니다. 이 조직 하에서 발행된 서브 자산(예: GAMBLE.0001)은大幅히 할인된 생성 수수료와 즉각적인 브랜드 인식의 혜택을 받습니다."
@@ -83,13 +88,14 @@
   },
   "summary": {
     "title": "검토 및 제출",
-    "subtitle": "생성 전에 조직 세부 사항을 확인하세요",
+    "subtitle": "생성하기 전에 조직 세부 정보를 확인하세요",
     "symbol": "조직 심볼",
     "name": "짧은 이름",
     "maxSupply": "최대 공급량",
     "precision": "정밀도",
     "nftMedia": "NFT 미디어",
-    "pmo": "PMO 조직"
+    "pmo": "PMO 조직",
+    "jsonPreview": "JSON 미리보기"
   },
   "ready": "모든 필수 필드가 입력되었습니다. PMA 조직 생성 준비가 완료되었습니다!",
   "fieldsRequired": "계속하려면 조직 심볼을 입력하세요.",

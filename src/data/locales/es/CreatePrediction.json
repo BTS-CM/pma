@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "Paso {{number}}",
+    "optional": "Opcional",
+    "recommended": "Recomendado"
+  },
   "dialogContent": {
     "headerText": "Creando el siguiente activo de mercado de predicción: {{symbol}}"
   },
@@ -6,13 +11,69 @@
     "title": "Creando un nuevo activo de mercado de predicción",
     "description": "Al crear un activo de mercado de predicción, puede actuar como casa para apuestas descentralizadas sobre eventos futuros a cambio de una comisión sin exposición al riesgo de contraparte del grupo de ganancias."
   },
+  "steps": {
+    "asset": {
+      "title": "Identidad del activo",
+      "description": "El símbolo, nombre y suministro únicos para su activo de mercado de predicción."
+    },
+    "pma": {
+      "title": "Detalles del mercado de predicción",
+      "description": "La condición que define en qué apuesta su mercado."
+    },
+    "nft": {
+      "title": "Detalles del token no fungible",
+      "description": "Opcional. Agregue metadatos NFT como artista, título y medios IPFS."
+    },
+    "extensions": {
+      "title": "Extensiones de tarifas del mercado",
+      "description": "Opcional. Configure cómo se dividen las tarifas del mercado entre la casa, referidores y tomadores."
+    },
+    "permissions": {
+      "title": "Permisos y banderas",
+      "description": "Elija qué comportamientos avanzados admite este activo."
+    },
+    "authorization": {
+      "title": "Autorización",
+      "description": "Opcional. Incluya en lista blanca y lista negra cuentas que puedan interactuar con este activo."
+    }
+  },
+  "summary": {
+    "label": "Revisar y enviar",
+    "ready": "Listo para crear su activo de mercado de predicción.",
+    "fieldsRequired": "Algunos campos obligatorios aún están vacíos.",
+    "title": "Lo que está creando",
+    "subtitle": "Un resumen del activo de mercado de predicción que está a punto de lanzar. Verifique que todo se vea correcto antes de enviar.",
+    "symbol": "Símbolo",
+    "name": "Nombre",
+    "condition": "Condición",
+    "backing": "Activo de respaldo",
+    "maxSupply": "Suministro máximo",
+    "commission": "Comisión",
+    "resolution": "Fecha de resolución",
+    "expiryHint": "Resuelve en",
+    "days_one": "1 día",
+    "days_other": "{{count}} días",
+    "permissions": "Permisos",
+    "extensions": "Extensiones",
+    "advanced": "Funciones avanzadas",
+    "noBacking": "Seleccione un activo de respaldo para verlo aquí.",
+    "noCondition": "Escriba una condición para verla aquí."
+  },
+  "actions": {
+    "useExample": "Rellenar con ejemplo",
+    "reset": "Restablecer"
+  },
+  "tips": {
+    "submitTitle": "Antes de enviar",
+    "submitHint": "Enviar abrirá su billetera para transmitir una transacción en cadena. Aún podrá cancelar dentro de Beet/BeetEOS antes de firmar."
+  },
   "pma": {
     "title": "Detalles de los activos del mercado de predicción",
     "title_content": "Estas son las configuraciones de activos utilizadas para el activo del mercado de predicción.",
     "condition": {
       "header": "Condición",
       "header_content": "Proporcione los detalles de los activos del mercado de predicción aquí",
-      "placeholder": "Condiciones de predicción"
+      "placeholder": "¿Aterrizará SpaceX Starship en Marte antes de 2030?"
     },
     "commission": {
       "header": "Comisión (%)",
@@ -29,10 +90,31 @@
     }
   },
   "fee": {
-    "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "calculating": "Estimando...",
+    "hover": "Tarifa de red estimada para crear este activo de mercado de predicción. La tarifa real depende de la longitud del símbolo, el tamaño de los datos y los parámetros de red actuales."
   },
   "buttons": {
-    "submit": "Entregar"
+    "submit": "Crear activo de mercado de predicción"
+  },
+  "fields": {
+    "org": {
+      "label": "Organización",
+      "help": "Seleccione la organización PMO a la que pertenece este sub-asset.",
+      "selectLabel": "Sus organizaciones"
+    },
+    "subAssetName": {
+      "label": "Nombre del sub-asset",
+      "help": "El nombre único para esta predicción dentro de la organización (ej., 0001).",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "Símbolo completo"
+    }
+  },
+  "creationMode": {
+    "manual": "Manual",
+    "organization": "Organización",
+    "noOrgs": "No se encontraron organizaciones. Cree un activo PMO primero.",
+    "label": "Modo de creación"
   }
 }

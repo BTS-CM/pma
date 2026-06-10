@@ -27,5 +27,14 @@
   "particlesDesc": "Ativa ou desativa as pequenas partículas flutuantes no cabeçalho.",
   "on": "Ligado",
   "off": "Desligado",
-  "resetToDefaults": "Restaurar padrões"
+  "resetToDefaults": "Restaurar padrões",
+  "externalServices": {
+    "heading": "Serviços externos",
+    "description": "Configure os serviços de terceiros usados para buscar ativos em todo o site.",
+    "ipfsGateway": {
+      "header": "Gateway IPFS",
+      "help": "Gateway usado para resolver links IPFS para imagens NFT e outros conteúdos. Use um gateway público no qual você confia.",
+      "placeholder": "https://ipfs.io/ipfs/"
+    }
+  }
 }

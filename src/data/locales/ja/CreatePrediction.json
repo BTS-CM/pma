@@ -1,4 +1,9 @@
 {
+  "sectionHeader": {
+    "step": "ステップ {{number}}",
+    "optional": "オプション",
+    "recommended": "推奨"
+  },
   "dialogContent": {
     "headerText": "次の予測市場アセットを作成します。 {{symbol}}"
   },
@@ -6,13 +11,69 @@
     "title": "新しい予測市場アセットの作成",
     "description": "予測市場アセットを作成すると、賞金プールのカウンターパーティのリスクにさらされることなく、手数料と引き換えに将来のイベントに対する分散型ベットのハウスとして機能できます。"
   },
+  "steps": {
+    "asset": {
+      "title": "アセットのID",
+      "description": "あなたの予測市場アセットの一意のシンボル、名前、供給量。"
+    },
+    "pma": {
+      "title": "予測市場の詳細",
+      "description": "あなたの市場が何に賭けているかを定義する条件。"
+    },
+    "nft": {
+      "title": "Non-fungible tokenの詳細",
+      "description": "オプション。アーティスト、タイトル、IPFSメディアなどのNFTメタデータを追加します。"
+    },
+    "extensions": {
+      "title": "市場手数料の拡張",
+      "description": "オプション。市場手数料がハウス、紹介者、テーカー間でどのように分割されるかを設定します。"
+    },
+    "permissions": {
+      "title": "権限とフラグ",
+      "description": "このアセットがサポートする高度な動作を選択します。"
+    },
+    "authorization": {
+      "title": "認証",
+      "description": "オプション。このアセットと対話できるアカウントをホワイトリストおよびブラックリストに追加します。"
+    }
+  },
+  "summary": {
+    "label": "確認して送信",
+    "ready": "予測市場アセットの作成準備ができています。",
+    "fieldsRequired": "いくつかの必須フィールドがまだ空です。",
+    "title": "作成内容",
+    "subtitle": "立ち上げようとしている予測市場アセットの概要。送信前にすべてが正しいか確認してください。",
+    "symbol": "シンボル",
+    "name": "名前",
+    "condition": "条件",
+    "backing": "裏付け資産",
+    "maxSupply": "最大供給量",
+    "commission": "手数料",
+    "resolution": "解決日",
+    "expiryHint": "解決まで",
+    "days_one": "1日",
+    "days_other": "{{count}}日",
+    "permissions": "権限",
+    "extensions": "拡張機能",
+    "advanced": "高度な機能",
+    "noBacking": "裏付け資産を選択するとここに表示されます。",
+    "noCondition": "条件を入力するとここに表示されます。"
+  },
+  "actions": {
+    "useExample": "例で入力",
+    "reset": "リセット"
+  },
+  "tips": {
+    "submitTitle": "送信前",
+    "submitHint": "送信すると、オンチェーントランザクションをブロードキャストするためにウォレットが開きます。署名前にBeet/BeetEOS内でキャンセルできます。"
+  },
   "pma": {
     "title": "予測市場資産の詳細",
     "title_content": "これらは、予測市場資産に使用される資産設定です。",
     "condition": {
       "header": "状態",
       "header_content": "ここに予測市場資産の詳細を入力してください",
-      "placeholder": "予測条件"
+      "placeholder": "SpaceXは2030年までにStarshipを火星に着陸させるか？"
     },
     "commission": {
       "header": "手数料(%)",
@@ -29,10 +90,31 @@
     }
   },
   "fee": {
-    "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "calculating": "見積もり中...",
+    "hover": "この予測市場アセットの作成に対する推定ネットワーク手数料。実際の手数料はシンボルの長さ、データサイズ、現在のネットワークパラメータによって異なります。"
   },
   "buttons": {
-    "submit": "提出する"
+    "submit": "予測市場アセットを作成"
+  },
+  "fields": {
+    "org": {
+      "label": "組織",
+      "help": "このサブアセットが属するPMO組織を選択してください。",
+      "selectLabel": "あなたの組織"
+    },
+    "subAssetName": {
+      "label": "サブアセット名",
+      "help": "組織内のこの予測の一意の名前（例：0001）。",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "完全なシンボル"
+    }
+  },
+  "creationMode": {
+    "manual": "手動",
+    "organization": "組織",
+    "noOrgs": "組織が見つかりません。先にPMOアセットを作成してください。",
+    "label": "作成モード"
   }
 }

@@ -1,10 +1,71 @@
 {
+  "sectionHeader": {
+    "step": "Étape {{number}}",
+    "optional": "Facultatif",
+    "recommended": "Recommandé"
+  },
   "dialogContent": {
-    "headerText": "Création de l'actif de marché de prédiction suivant : {{symbol}}"
+    "headerText": "Création de l'actif de marché de prédiction suivant : {{symbol}}"
   },
   "card": {
     "title": "Création d'un nouvel actif de marché de prédiction",
     "description": "En créant un marché de prédiction d'actifs, vous pouvez agir en tant que centre de paris décentralisés sur des événements futurs en échange de frais de commission sans exposition au risque de contrepartie du pool de gains."
+  },
+  "steps": {
+    "asset": {
+      "title": "Identité de l'actif",
+      "description": "Le symbole, le nom et l'offre uniques pour votre actif de marché de prédiction."
+    },
+    "pma": {
+      "title": "Détails du marché de prédiction",
+      "description": "La condition qui définit sur quoi votre marché parie."
+    },
+    "nft": {
+      "title": "Détails du jeton non fongible",
+      "description": "Facultatif. Ajoutez des métadonnées NFT telles que l'artiste, le titre et les médias IPFS."
+    },
+    "extensions": {
+      "title": "Extensions de frais de marché",
+      "description": "Facultatif. Configurez comment les frais de marché sont répartis entre la maison, les références et le preneur."
+    },
+    "permissions": {
+      "title": "Autorisations et indicateurs",
+      "description": "Choisissez les comportements avancés que cet actif prend en charge."
+    },
+    "authorization": {
+      "title": "Autorisation",
+      "description": "Facultatif. Ajoutez en liste blanche et liste noire les comptes pouvant interagir avec cet actif."
+    }
+  },
+  "summary": {
+    "label": "Vérifier et soumettre",
+    "ready": "Prêt à créer votre actif de marché de prédiction.",
+    "fieldsRequired": "Quelques champs obligatoires sont encore vides.",
+    "title": "Ce que vous créez",
+    "subtitle": "Un résumé de l'actif de marché de prédiction que vous êtes sur le point de lancer. Vérifiez que tout semble correct avant de soumettre.",
+    "symbol": "Symbole",
+    "name": "Nom",
+    "condition": "Condition",
+    "backing": "Actif de soutien",
+    "maxSupply": "Offre maximale",
+    "commission": "Commission",
+    "resolution": "Date de résolution",
+    "expiryHint": "Résout dans",
+    "days_one": "1 jour",
+    "days_other": "{{count}} jours",
+    "permissions": "Autorisations",
+    "extensions": "Extensions",
+    "advanced": "Fonctionnalités avancées",
+    "noBacking": "Sélectionnez un actif de soutien pour le voir ici.",
+    "noCondition": "Écrivez une condition pour la voir ici."
+  },
+  "actions": {
+    "useExample": "Remplir avec un exemple",
+    "reset": "Réinitialiser"
+  },
+  "tips": {
+    "submitTitle": "Avant de soumettre",
+    "submitHint": "La soumission ouvrira votre portefeuille pour diffuser une transaction en chaîne. Vous pourrez toujours annuler dans Beet/BeetEOS avant de signer."
   },
   "pma": {
     "title": "Détails des actifs du marché de prédiction",
@@ -12,7 +73,7 @@
     "condition": {
       "header": "Condition",
       "header_content": "Fournissez ici les détails des actifs du marché de prédiction",
-      "placeholder": "Conditions de prévision"
+      "placeholder": "SpaceX atterrira-t-il Starship sur Mars avant 2030 ?"
     },
     "commission": {
       "header": "Commission (%)",
@@ -29,10 +90,31 @@
     }
   },
   "fee": {
-    "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "calculating": "Estimation...",
+    "hover": "Frais réseau estimé pour la création de cet actif de marché de prédiction. Le frais réel dépend de la longueur du symbole, de la taille des données et des paramètres réseau actuels."
   },
   "buttons": {
-    "submit": "Soumettre"
+    "submit": "Créer un actif de marché de prédiction"
+  },
+  "fields": {
+    "org": {
+      "label": "Organisation",
+      "help": "Sélectionnez l'organisation PMO à laquelle appartient ce sous-actif.",
+      "selectLabel": "Vos organisations"
+    },
+    "subAssetName": {
+      "label": "Nom du sous-actif",
+      "help": "Le nom unique pour cette prédiction au sein de l'organisation (ex., 0001).",
+      "placeholder": "0001"
+    },
+    "fullSymbol": {
+      "label": "Symbole complet"
+    }
+  },
+  "creationMode": {
+    "manual": "Manuel",
+    "organization": "Organisation",
+    "noOrgs": "Aucune organisation trouvée. Créez d'abord un actif PMO.",
+    "label": "Mode de création"
   }
 }

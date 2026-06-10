@@ -27,5 +27,14 @@
   "particlesDesc": "Alterna las pequeñas partículas que flotan en el encabezado.",
   "on": "Activado",
   "off": "Desactivado",
-  "resetToDefaults": "Restablecer valores predeterminados"
+  "resetToDefaults": "Restablecer valores predeterminados",
+  "externalServices": {
+    "heading": "Servicios externos",
+    "description": "Configure los servicios de terceros utilizados para obtener activos en todo el sitio.",
+    "ipfsGateway": {
+      "header": "Pasarela IPFS",
+      "help": "Pasarela utilizada para resolver enlaces IPFS para imágenes NFT y otro contenido. Use una pasarela pública en la que confíe.",
+      "placeholder": "https://ipfs.io/ipfs/"
+    }
+  }
 }
