@@ -33,16 +33,14 @@ The backing asset is selected when the prediction is created. Common choices inc
 
 ## Resolution
 
-Predictions resolve automatically when their resolution date is reached. The resolution determines:
+Predictions are manually resolved by the prediction creator after the resolution date has passed.
 
-- Which outcome is correct
-- How positions are settled
-- How backing assets are distributed to holders
+Look into the prediction market organization details how how the prediction creator handles resolution.
 
 ## Creating Your Own
 
-See [Creating Predictions](/docs/creating-predictions/) to learn how to launch your own prediction market on Bitshares.
+See [Creating Predictions](/docs/creating-predictions.html) to learn how to launch your own prediction market on Bitshares.
 
 ## Organizations
 
-Prediction Market Organizations (PMOs) allow groups to create and manage collections of predictions under a shared identity. See [Prediction Organizations](/docs/prediction-organizations/) for more.
+Prediction Market Organizations (PMOs) allow groups to create and manage collections of predictions under a shared identity. See [Prediction Organizations](/docs/prediction-organizations.html) for more.

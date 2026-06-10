@@ -9,14 +9,6 @@ The Decentralized Exchange (DEX) is the core trading interface of the Bitshares 
 
 Choose two assets to trade between using the asset dropdown selectors. The DEX supports all assets listed on the Bitshares blockchain.
 
-You can also navigate directly to a market using URL parameters:
-
-```
-/dex/?market=ASSET_A_ASSET_B
-```
-
-The UI automatically detects if a market is inverted and adjusts the display accordingly.
-
 ## Order Book
 
 The order book shows all open limit orders for the selected market:
@@ -38,10 +30,6 @@ A limit order lets you specify the exact price at which you want to buy or sell:
 5. Review the order details
 6. Submit via deep link for your wallet to sign
 
-## Market Orders
-
-Market orders execute immediately at the best available price in the order book. They are useful when you want to fill quickly rather than waiting for a specific price.
-
 ## Market Information
 
 The DEX view includes several information panels:
@@ -57,7 +45,3 @@ The DEX view includes several information panels:
 The **My Open Orders** tab shows all your pending orders on the current market. You can cancel individual orders directly from this view.
 
 The **My Completed Trades** tab shows your trade history for the selected market.
-
-## JSON Inspection
-
-Click on any limit order to view its raw JSON data. This is useful for advanced users who want to inspect on-fill hooks, maker/taker fees, and other on-chain details.

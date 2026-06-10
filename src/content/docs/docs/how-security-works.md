@@ -32,7 +32,7 @@ When you perform an action that requires blockchain authorization:
 ### Benefits
 - **No password to manage** — Your wallet handles authentication
 - **No account to hack** — There is no centralized credential store
-- **Air-gap compatible** — You can use QR codes to sign from an offline device
+- **Air-gap compatible** — You can use QR codes to sign from another device
 - **Multi-wallet support** — Use whichever wallet you trust
 
 ### Responsibilities

@@ -37,7 +37,3 @@ However, you will not be able to:
 - Create predictions or organizations
 - Transfer assets
 - Create accounts
-
-## Account Display
-
-Once your wallet connects, your account information appears in the top-right area of the header. This shows your current account name and provides quick access to account-related actions.

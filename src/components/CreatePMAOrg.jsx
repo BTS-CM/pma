@@ -25,6 +25,7 @@ import {
   FileText,
   Globe,
   Pen,
+  Zap,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -192,7 +193,7 @@ export default function CreatePMAOrg(properties) {
   );
   const currentNode = useStore($currentNode);
 
-  const { _assetsBTS, _assetsTEST } = properties;
+  const { _assetsBTS, _assetsTEST, _feeScheduleBTS, _feeScheduleTEST } = properties;
 
   const _chain = useMemo(() => {
     if (usr && usr.chain) return usr.chain;
@@ -207,6 +208,14 @@ export default function CreatePMAOrg(properties) {
     }
     return [];
   }, [_assetsBTS, _assetsTEST, _chain]);
+
+  // Fee schedule for asset creation (operation 10)
+  const feeSchedule = useMemo(() => {
+    const schedule = _chain === "bitshares" ? _feeScheduleBTS : _feeScheduleTEST;
+    if (!schedule) return null;
+    const op10 = schedule.find((op) => op.id === 10);
+    return op10 ? op10.data : null;
+  }, [_chain, _feeScheduleBTS, _feeScheduleTEST]);
 
   const [balanceCounter, setBalanceCounter] = useState(0);
   const [balances, setBalances] = useState();
@@ -235,10 +244,50 @@ export default function CreatePMAOrg(properties) {
   const [symbol, setSymbol] = useState("");
   const [desc, setDesc] = useState("");
 
-  // Market auto-derived from chain
+  // Estimate asset creation fee
+  const [estimatedFee, setEstimatedFee] = useState(0);
+  const [feeCalculating, setFeeCalculating] = useState(false);
+  // Market auto-derived from chain (needed for fee data size estimation)
   const market = useMemo(() => {
     return _chain === "bitshares" ? "BTS" : "TEST";
   }, [_chain]);
+
+  const debouncedCalculateFee = useCallback(
+    debounce(() => {
+      if (!feeSchedule || !usr || !usr.id) return;
+      setFeeCalculating(true);
+
+      // Symbol length fee
+      let symbolFee = 0;
+      const symLen = symbol.length;
+      if (symLen <= 3) {
+        symbolFee = parseInt(feeSchedule.symbol3 || "0", 10);
+      } else if (symLen === 4) {
+        symbolFee = parseInt(feeSchedule.symbol4 || "0", 10);
+      } else if (symLen >= 5) {
+        symbolFee = parseInt(feeSchedule.long_symbol || "0", 10);
+      }
+
+      // Data size fee (description, PMO object, NFT data, etc.)
+      const dataStr = JSON.stringify({ main: desc, short_name: symbol, market });
+      const dataSizeKB = new Blob([dataStr]).size / 1024;
+      const pricePerKbyte = parseInt(feeSchedule.price_per_kbyte || "0", 10);
+      const dataFee = Math.ceil(dataSizeKB * pricePerKbyte);
+
+      // Core exchange rate data (always included)
+      const coreExchangeRateFee = Math.ceil(0.5 * pricePerKbyte); // ~0.5 KB estimate
+
+      const totalFee = symbolFee + dataFee + coreExchangeRateFee;
+      setEstimatedFee(totalFee);
+      setFeeCalculating(false);
+    }, 1000),
+    [feeSchedule, usr, symbol, desc, market]
+  );
+
+  useEffect(() => {
+    debouncedCalculateFee();
+  }, [debouncedCalculateFee]);
+
 
   // Fixed values (hidden from user)
   const precision = 0;
@@ -469,7 +518,7 @@ export default function CreatePMAOrg(properties) {
   const symbolError = useMemo(() => {
     if (symbol.length === 0) return null;
     if (symbol.includes(".")) return "Organization symbol cannot contain a dot";
-    if (symbol.length > 16) return "Symbol is too long (max 16 characters)";
+    if (symbol.length > 11) return "Symbol is too long (max 11 characters)";
     if (!/^[a-zA-Z0-9]+$/.test(symbol))
       return "Symbol can only contain letters and digits";
     return null;
@@ -575,10 +624,10 @@ export default function CreatePMAOrg(properties) {
                       setSymbol(value.toUpperCase());
                     }
                   }}
-                  maxLength={16}
+                  maxLength={11}
                 />
                 <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
-                  {symbol.length}/16
+                  {symbol.length}/11
                 </span>
               </div>
             </Field>
@@ -1122,6 +1171,28 @@ export default function CreatePMAOrg(properties) {
           </div>
 
           <div className="flex items-center justify-end gap-4">
+            {feeSchedule && (
+              <TooltipProvider delayDuration={150}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="flex items-center gap-2 text-sm cursor-help">
+                      <Zap className="h-4 w-4 text-amber-400" />
+                      <span className="font-mono text-amber-400">
+                        {feeCalculating
+                          ? t("CreatePrediction:fee.calculating")
+                          : `${(estimatedFee / 100000).toFixed(5)} BTS`}
+                      </span>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="top"
+                    className="bg-slate-900 border-white/10 text-white max-w-xs"
+                  >
+                    <p className="text-xs">{t("CreatePrediction:fee.hover")}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
             <Button
               size="lg"
               disabled={!isFormValid}

@@ -30,4 +30,4 @@ When you switch chains, the UI automatically loads the correct data for that net
 
 ## Node Management
 
-Each chain requires at least one working WebSocket node. The UI comes with default nodes, but you can add custom nodes and test their latency. See [Node Management](/docs/node-management/) for details.
+Each chain requires at least one working WebSocket node. The UI comes with default nodes, but you can add custom nodes and test their latency. See [Node Management](/docs/node-management.html) for details.

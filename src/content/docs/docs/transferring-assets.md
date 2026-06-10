@@ -9,11 +9,7 @@ The transfer feature lets you send any Bitshares asset to another account. Acces
 
 ### Step 1: Select the Recipient
 
-Enter the recipient's account name. Use the account search dialog to find accounts by name. You can also pre-fill the recipient via URL parameter:
-
-```
-/transfer/?to=ACCOUNT_NAME
-```
+Enter the recipient's account name. Use the account search dialog to find accounts by name.
 
 ### Step 2: Choose the Asset
 
@@ -50,5 +46,3 @@ Transfer fees consist of:
 ## Deep Link and QR Code
 
 The transfer generates a deep link containing the full transaction payload. Your wallet displays the transaction details and prompts you to sign.
-
-Switch to the **QR Code** tab to scan from a mobile wallet instead.

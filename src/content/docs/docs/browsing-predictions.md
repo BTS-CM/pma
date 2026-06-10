@@ -17,7 +17,6 @@ You can narrow down the list using several filters:
 - **Search** — Type text to search prediction condition descriptions
 - **Date range** — Filter by creation date or resolution date
 - **Issuer** — Click an issuer's avatar or badge in the prediction row to filter by that issuer. A clear filter button appears in the card header when a filter is active
-- **Organization** — Filter predictions created under a specific PMO organization
 
 ### Sorting
 

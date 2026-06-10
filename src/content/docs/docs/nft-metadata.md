@@ -47,10 +47,9 @@ NFT media is stored on IPFS (InterPlanetary File System). Several hosting servic
 
 ## IPFS Gateway
 
-The UI uses an IPFS gateway to display media content. The default gateway is `https://ipfs.io/ipfs/`. You can configure a custom gateway in [Visual Settings](/docs/customizing-visuals/).
+The UI uses an IPFS gateway to display media content. The default gateway is `https://ipfs.io/ipfs/`. You can configure a custom gateway in [Visual Settings](/docs/customizing-visuals.html).
 
 ## When to Use NFT Metadata
 
 - **Prediction markets** — Attach a visual representation or documentation for your prediction
 - **Organizations** — Add a logo, brand assets, or organizational documents to your PMO
-- **Assets** — Any Bitshares asset can carry NFT metadata for richer on-chain representation

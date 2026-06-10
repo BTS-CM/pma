@@ -446,6 +446,22 @@ export default function Prediction(properties) {
     return params.get("org") || null;
   }, []);
 
+  // Filter PMO organizations owned by the current user
+  const userOrgs = useMemo(() => {
+    if (!assets || !assets.length || !usr || !usr.id) return [];
+    return assets.filter((a) => {
+      if (a.issuer !== usr.id) return false;
+      if (a.symbol && a.symbol.includes(".")) return false;
+      if (!a.options || !a.options.description) return false;
+      try {
+        const d = JSON.parse(a.options.description);
+        return d && d.pmo_object;
+      } catch {
+        return false;
+      }
+    });
+  }, [assets, usr]);
+
   // Default to organization mode when user owns PMO assets
   useEffect(() => {
     if (userOrgs.length > 0 && creationMode === "manual") {
@@ -539,22 +555,6 @@ export default function Prediction(properties) {
     return null;
   }, [assets, backingAsset]);
 
-  // Filter PMO organizations owned by the current user
-  const userOrgs = useMemo(() => {
-    if (!assets || !assets.length || !usr || !usr.id) return [];
-    return assets.filter((a) => {
-      if (a.issuer !== usr.id) return false;
-      if (a.symbol && a.symbol.includes(".")) return false;
-      if (!a.options || !a.options.description) return false;
-      try {
-        const d = JSON.parse(a.options.description);
-        return d && d.pmo_object;
-      } catch {
-        return false;
-      }
-    });
-  }, [assets, usr]);
-
   // Compute the full symbol based on creation mode
   const fullSymbol = useMemo(() => {
     if (creationMode === "organization" && selectedOrg && subAssetName) {
@@ -618,8 +618,15 @@ export default function Prediction(properties) {
 
       // Symbol length fee
       let symbolFee = 0;
-      const symLen = fullSymbol.length;
-      if (symLen === 3) {
+      // If this is a sub-asset (contains a dot), compute fees based on the
+      // parent (left of the dot). Sub-assets are discounted relative to
+      // top-level assets, so we use the parent name for sizing and apply
+      // a discount rather than adding an extra expensive fee which was
+      // previously causing huge increases when a dot was present.
+      const isSubAsset = fullSymbol.includes(".");
+      const parentName = isSubAsset ? fullSymbol.split(".")[0] : fullSymbol;
+      const symLen = parentName.length;
+      if (symLen <= 3) {
         symbolFee = parseInt(feeSchedule.symbol3 || "0", 10);
       } else if (symLen === 4) {
         symbolFee = parseInt(feeSchedule.symbol4 || "0", 10);
@@ -627,9 +634,10 @@ export default function Prediction(properties) {
         symbolFee = parseInt(feeSchedule.long_symbol || "0", 10);
       }
 
-      // Sub-asset (dot in symbol) - additional base fee
-      const isSubAsset = fullSymbol.includes(".");
-      const subAssetFee = isSubAsset ? parseInt(feeSchedule.symbol3 || "0", 10) : 0;
+      // For sub-assets apply a discount (sub-assets are cheaper). Previously
+      // an extra `symbol3` fee was added unconditionally which inflated
+      // the price; instead we reduce the base symbol fee by ~50%.
+      const subAssetFee = isSubAsset ? Math.ceil(symbolFee * 0.5) * -1 : 0;
 
       // Data size fee (description, condition, NFT data, etc.)
       const dataStr = JSON.stringify({

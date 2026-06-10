@@ -23,7 +23,6 @@ export default defineConfig({
           items: [
             'docs/supported-chains',
             'docs/wallet-connection',
-            'docs/ui-navigation',
           ],
         },
         {

@@ -44,7 +44,7 @@ Access the creation wizard from **Predictions > Create PMA Organization**.
 ### Step 1: Organization Identity (Required)
 
 - **Symbol** — The unique identifier for your organization (e.g., `MYORG`). Only alphanumeric characters allowed; dots are rejected
-- **Description** — HTML description of your organization
+- **Description** — Text description of your organization
 
 ### Step 2: Organization Profile (Recommended)
 
@@ -66,10 +66,6 @@ This step captures the PMO-specific metadata:
 ### Step 3: NFT Metadata (Optional)
 
 Attach media and rich metadata to your organization asset, similar to prediction market NFT metadata.
-
-## Editing a PMO
-
-If you own a PMO asset, you can edit it by navigating to the creation page with the `?asset_update=SYMBOL` parameter. This loads the existing asset data and switches to update mode.
 
 ## Linking Predictions to an Org
 

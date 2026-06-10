@@ -216,6 +216,17 @@ export default function Home(properties) {
       ],
     },
     {
+      key: "prediction_markets_expired",
+      href: "/expired-predictions.html",
+      titleKey: "Home:prediction_markets_expired.title",
+      subtitleKey: "Home:prediction_markets_expired.subtitle",
+      hoverKeys: [
+        "Home:prediction_markets_expired.hover1",
+        "Home:prediction_markets_expired.hover2",
+        "Home:prediction_markets_expired.hover3",
+      ],
+    },
+    {
       key: "prediction_markets_mine",
       href: "/my-predictions.html",
       titleKey: "Home:prediction_markets_mine.title",
@@ -257,17 +268,6 @@ export default function Home(properties) {
         "Home:prediction_organizations.hover1",
         "Home:prediction_organizations.hover2",
         "Home:prediction_organizations.hover3",
-      ],
-    },
-    {
-      key: "prediction_markets_expired",
-      href: "/expired-predictions.html",
-      titleKey: "Home:prediction_markets_expired.title",
-      subtitleKey: "Home:prediction_markets_expired.subtitle",
-      hoverKeys: [
-        "Home:prediction_markets_expired.hover1",
-        "Home:prediction_markets_expired.hover2",
-        "Home:prediction_markets_expired.hover3",
       ],
     },
     {

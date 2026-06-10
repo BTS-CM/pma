@@ -3,7 +3,7 @@ title: Simple Swap
 description: Swap tokens through liquidity pools (AMM)
 ---
 
-Simple Swap provides a token swap interface powered by Bitshares liquidity pools. It is similar to AMM (Automated Market Maker) DEXes on other blockchains.
+Simple Swap provides a token swap interface powered by Bitshares liquidity pools.
 
 Access it from **Exchange > Simple Swap** in the navigation.
 
@@ -21,12 +21,6 @@ Choose a liquidity pool to swap through. The UI shows:
 - **Available liquidity** — The balance of each asset in the pool
 
 When multiple pools exist for the same asset pair, you can compare fees and liquidity to choose the best one.
-
-You can also navigate directly to a pool using URL parameters:
-
-```
-/swap/?pool=1.19.x
-```
 
 ## Making a Swap
 

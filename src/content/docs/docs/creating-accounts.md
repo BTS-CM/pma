@@ -22,16 +22,6 @@ The simplest way to create an account. The faucet API handles account creation o
 4. Acknowledge the safety checkboxes
 5. Submit to register via the faucet
 
-### Method 2: LTM (Lifetime Member) Account
-
-For users who want to create an account paid for by another wallet.
-
-**Steps:**
-1. Enter your desired username
-2. The UI generates a deep link for account creation
-3. Another wallet (or your own LTM account) signs and pays for the account
-4. The new account receives Lifetime Member status
-
 ## Password Security
 
 When using the faucet method, the UI generates a secure password:
@@ -47,7 +37,7 @@ Your password is generated locally and is never stored anywhere. If you lose it,
 
 ## Username Validation
 
-- Usernames are checked for availability in real-time (debounced)
+- Usernames are checked for availability in real-time
 - The availability check queries the blockchain directly
 - Usernames must follow Bitshares naming rules
 

@@ -54,7 +54,3 @@ After reviewing the details, the UI generates a deep link for your wallet. Your 
 3. Broadcast the signed transaction
 
 You can also use the **QR code** tab to scan from a mobile wallet.
-
-## Order Details
-
-Click on any of the matched limit orders to inspect the raw JSON data. This shows the full order details including on-fill hooks (smart contract logic attached to orders).
