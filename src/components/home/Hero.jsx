@@ -31,14 +31,14 @@ export default function Hero(properties) {
         </p>
         <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
           <a
-            href="/active-predictions/index.html"
+            href="/active-predictions.html"
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-white text-slate-900 hover:bg-slate-100 font-semibold text-sm sm:text-base px-5 py-2.5 transition-colors shadow-sm shadow-black/30"
           >
             {t("Home:hero.ctaPrimary")}
             <ArrowRight className="h-4 w-4" />
           </a>
           <a
-            href="/create_prediction/index.html"
+            href="/create_prediction.html"
             className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/5 hover:bg-white/10 text-white font-semibold text-sm sm:text-base px-5 py-2.5 transition-colors"
           >
             <PlusCircle className="h-4 w-4" />

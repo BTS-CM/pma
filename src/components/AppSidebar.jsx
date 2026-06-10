@@ -111,35 +111,35 @@ export default function AppSidebar() {
   const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
 
   const predictionsItems = [
-    { title: "Home:prediction_markets_active.title", href: "/active-predictions/index.html", key: "prediction_markets_active" },
-    { title: "Home:prediction_markets_expired.title", href: "/expired-predictions/index.html", key: "prediction_markets_expired" },
-    { title: "Home:prediction_markets_mine.title", href: "/my-predictions/index.html", key: "prediction_markets_mine" },
-    { title: "Home:prediction_markets_portfolio.title", href: "/prediction-portfolio/index.html", key: "prediction_markets_portfolio" },
-    { title: "Home:prediction_markets_margin.title", href: "/prediction-margin/index.html", key: "prediction_markets_margin" },
-    { title: "PageHeader:createPrediction", href: "/create_prediction/index.html", key: "create_prediction" },
-    { title: "PageHeader:createPMAOrg", href: "/create_pma_org/index.html", key: "create_pma_org" },
-    { title: "PageHeader:predictionOrganizations", href: "/prediction-organizations/index.html", key: "prediction_organizations" },
+    { title: "Home:prediction_markets_active.title", href: "/active-predictions.html", key: "prediction_markets_active" },
+    { title: "Home:prediction_markets_expired.title", href: "/expired-predictions.html", key: "prediction_markets_expired" },
+    { title: "Home:prediction_markets_mine.title", href: "/my-predictions.html", key: "prediction_markets_mine" },
+    { title: "Home:prediction_markets_portfolio.title", href: "/prediction-portfolio.html", key: "prediction_markets_portfolio" },
+    { title: "Home:prediction_markets_margin.title", href: "/prediction-margin.html", key: "prediction_markets_margin" },
+    { title: "PageHeader:createPrediction", href: "/create_prediction.html", key: "create_prediction" },
+    { title: "PageHeader:createPMAOrg", href: "/create_pma_org.html", key: "create_pma_org" },
+    { title: "PageHeader:predictionOrganizations", href: "/prediction-organizations.html", key: "prediction_organizations" },
   ];
 
   const exchangeItems = [
-    { title: "Home:dex.title", href: "/dex/index.html", key: "dex" },
-    { title: "Home:instant_trade.title", href: "/instant_trade/index.html", key: "instant_trade" },
-    { title: "Home:simple_asset_swap.title", href: "/swap/index.html", key: "simple_asset_swap" },
-    { title: "Home:transfer.title", href: "/transfer/index.html", key: "transfer" },
+    { title: "Home:dex.title", href: "/dex.html", key: "dex" },
+    { title: "Home:instant_trade.title", href: "/instant_trade.html", key: "instant_trade" },
+    { title: "Home:simple_asset_swap.title", href: "/swap.html", key: "simple_asset_swap" },
+    { title: "Home:transfer.title", href: "/transfer.html", key: "transfer" },
   ];
 
   const accountItems = [
-    { title: "Home:portfolio_balances.title", href: "/balances/index.html", key: "portfolio_balances" },
-    { title: "Home:portfolio_open_orders.title", href: "/open-orders/index.html", key: "portfolio_open_orders" },
-    { title: "Home:favourites.title", href: "/favourites/index.html", key: "favourites" },
+    { title: "Home:portfolio_balances.title", href: "/balances.html", key: "portfolio_balances" },
+    { title: "Home:portfolio_open_orders.title", href: "/open-orders.html", key: "portfolio_open_orders" },
+    { title: "Home:favourites.title", href: "/favourites.html", key: "favourites" },
   ];
 
   const settingsItems = [
-    { title: "Home:about.title", href: "/about/index.html", key: "about" },
-    { title: "Home:nodes.title", href: "/nodes/index.html", key: "nodes" },
-    { title: "Home:blocked_users.title", href: "/blocked-users/index.html", key: "blocked_users" },
-    { title: "Home:create_account.title", href: "/create_account/index.html", key: "create_account" },
-    { title: "Home:configure_visuals.title", href: "/visuals/index.html", key: "configure_visuals" },
+    { title: "Home:about.title", href: "/docs/", key: "about" },
+    { title: "Home:nodes.title", href: "/nodes.html", key: "nodes" },
+    { title: "Home:blocked_users.title", href: "/blocked-users.html", key: "blocked_users" },
+    { title: "Home:create_account.title", href: "/create_account.html", key: "create_account" },
+    { title: "Home:configure_visuals.title", href: "/visuals.html", key: "configure_visuals" },
   ];
 
   const sections = [

@@ -172,14 +172,14 @@ function OrganizationCard({ org, pmaCounts, t, usr }) {
           ) : null}
           <div className="flex flex-wrap gap-2 mt-1">
             <a
-              href={`/active-predictions/index.html?search=${symbol}.`}
+              href={`/active-predictions.html?search=${symbol}.`}
               className="inline-flex items-center gap-1 text-xs text-cyan-400 hover:underline"
             >
               <ExternalLink className="h-3 w-3" />
               {t("PredictionsOrganizations:viewActive")}
             </a>
             <a
-              href={`/expired-predictions/index.html?search=${symbol}.`}
+              href={`/expired-predictions.html?search=${symbol}.`}
               className="inline-flex items-center gap-1 text-xs text-white/50 hover:text-white/70 hover:underline"
             >
               <ExternalLink className="h-3 w-3" />
@@ -188,14 +188,14 @@ function OrganizationCard({ org, pmaCounts, t, usr }) {
             {isOwner ? (
               <>
                 <a
-                  href={`/create_pma_org/index.html?asset_update=${symbol}`}
+                  href={`/create_pma_org.html?asset_update=${symbol}`}
                   className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline"
                 >
                   <Pen className="h-3 w-3" />
                   {t("PredictionsOrganizations:editOrg")}
                 </a>
                 <a
-                  href={`/create_prediction/index.html?org=${symbol}`}
+                  href={`/create_prediction.html?org=${symbol}`}
                   className="inline-flex items-center gap-1 text-xs text-fuchsia-400 hover:underline"
                 >
                   <Plus className="h-3 w-3" />
@@ -468,7 +468,7 @@ export default function PredictionsOrganizations(properties) {
                   </EmptyTitle>
                 </EmptyHeader>
                 <EmptyContent>
-                  <a href="/create_pma_org/index.html">
+                  <a href="/create_pma_org.html">
                     <Button className="bg-cyan-600 hover:bg-cyan-500 text-white">
                       {t("PredictionsOrganizations:createOrg")}
                     </Button>

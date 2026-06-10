@@ -949,7 +949,7 @@ export default function InstantTrade(properties) {
               </div>
 
               <a
-                href={`/instant_trade/index.html?market=${assetB}_${assetA}`}
+                href={`/instant_trade.html?market=${assetB}_${assetA}`}
                 onClick={() => setClicked(true)}
                 className="self-stretch flex items-center justify-center"
                 aria-label="Swap pair"

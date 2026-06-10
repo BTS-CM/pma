@@ -1365,7 +1365,7 @@ export default function SimpleSwap(properties) {
             {pool && assetA && assetB && foundPool?.share_asset_symbol ? (
               <div className="md:col-start-2 md:row-start-2 flex flex-col gap-3">
                 <a
-                  href={`/dex/index.html?market=${foundPool.share_asset_symbol}_${
+                  href={`/dex.html?market=${foundPool.share_asset_symbol}_${
                     assetA.symbol === "BTS" ? assetB.symbol : "BTS"
                   }`}
                 >
@@ -1381,7 +1381,7 @@ export default function SimpleSwap(properties) {
                 </a>
 
                 <a
-                  href={`/dex/index.html?market=${assetA.symbol}_${assetB.symbol}`}
+                  href={`/dex.html?market=${assetA.symbol}_${assetB.symbol}`}
                 >
                   <ActionCard
                     icon={<TrendingUp className="h-4 w-4" />}

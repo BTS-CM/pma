@@ -192,7 +192,7 @@ export default function MyOrderSummary(properties) {
                   </ScrollArea>
                 </div>
                 <div className="text-left">
-                  <a href={`/order/index.html?id=${res.id}`}>
+                  <a href={`/order.html?id=${res.id}`}>
                     <Button className="mt-2 mr-2 gap-2 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white hover:brightness-110 active:scale-[0.99] transition-all">
                       {t("MyOrderSummary:proceedToUpdateButton")}
                       <ArrowRight className="h-4 w-4" />

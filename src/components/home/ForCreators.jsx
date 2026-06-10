@@ -35,7 +35,7 @@ export default function ForCreators() {
           </p>
         </div>
         <a
-          href="/create_prediction/index.html"
+          href="/create_prediction.html"
           className="inline-flex items-center gap-2 self-stretch sm:self-auto justify-center rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white font-semibold text-sm px-4 py-2.5 transition-colors shadow-sm shadow-indigo-900/40"
         >
           {t("Home:creators.cta")}

@@ -196,6 +196,8 @@ function HoverPopover({ section, accent, t, children }) {
   );
 }
 
+const STARLIGHT_LOCALES = ["da", "de", "es", "et", "fr", "it", "ja", "ko", "pt", "th"];
+
 function LanguageRow(properties) {
   const { language, text, i18n } = properties;
 
@@ -210,7 +212,16 @@ function LanguageRow(properties) {
       onSelect={() => {
         i18n.changeLanguage(language);
         locale.set(language);
-        window.location.reload();
+
+        const path = window.location.pathname;
+        const isAboutPage = path === "/about/" || path === "/about";
+
+        if (isAboutPage) {
+          const localePrefix = language === "en" ? "" : `/${language}`;
+          window.location.href = `${localePrefix}/about/`;
+        } else {
+          window.location.reload();
+        }
       }}
       className={cn(
         "text-white/85",
@@ -244,14 +255,14 @@ export default function PageHeader(properties) {
       label: "PageHeader:exchangingFundsHeading",
       icon: TrendingUp,
       items: [
-        { slug: "prediction_markets_active", title: "Home:prediction_markets_active.title", description: "Home:prediction_markets_active.subtitle", href: "/active-predictions/index.html" },
-        { slug: "prediction_markets_expired", title: "Home:prediction_markets_expired.title", description: "Home:prediction_markets_expired.subtitle", href: "/expired-predictions/index.html" },
-        { slug: "prediction_markets_mine", title: "Home:prediction_markets_mine.title", description: "Home:prediction_markets_mine.subtitle", href: "/my-predictions/index.html" },
-        { slug: "prediction_markets_portfolio", title: "Home:prediction_markets_portfolio.title", description: "Home:prediction_markets_portfolio.subtitle", href: "/prediction-portfolio/index.html" },
-        { slug: "prediction_markets_margin", title: "Home:prediction_markets_margin.title", description: "Home:prediction_markets_margin.subtitle", href: "/prediction-margin/index.html" },
-        { slug: "create_prediction", title: "Home:create_prediction.title", description: "Home:create_prediction.subtitle", href: "/create_prediction/index.html" },
-        { slug: "create_pma_org", title: "PageHeader:createPMAOrg", description: "PageHeader:createPMAOrgDesc", href: "/create_pma_org/index.html" },
-        { slug: "prediction_organizations", title: "PageHeader:predictionOrganizations", description: "PageHeader:predictionOrganizations", href: "/prediction-organizations/index.html" },
+        { slug: "prediction_markets_active", title: "Home:prediction_markets_active.title", description: "Home:prediction_markets_active.subtitle", href: "/active-predictions.html" },
+        { slug: "prediction_markets_expired", title: "Home:prediction_markets_expired.title", description: "Home:prediction_markets_expired.subtitle", href: "/expired-predictions.html" },
+        { slug: "prediction_markets_mine", title: "Home:prediction_markets_mine.title", description: "Home:prediction_markets_mine.subtitle", href: "/my-predictions.html" },
+        { slug: "prediction_markets_portfolio", title: "Home:prediction_markets_portfolio.title", description: "Home:prediction_markets_portfolio.subtitle", href: "/prediction-portfolio.html" },
+        { slug: "prediction_markets_margin", title: "Home:prediction_markets_margin.title", description: "Home:prediction_markets_margin.subtitle", href: "/prediction-margin.html" },
+        { slug: "create_prediction", title: "Home:create_prediction.title", description: "Home:create_prediction.subtitle", href: "/create_prediction.html" },
+        { slug: "create_pma_org", title: "PageHeader:createPMAOrg", description: "PageHeader:createPMAOrgDesc", href: "/create_pma_org.html" },
+        { slug: "prediction_organizations", title: "PageHeader:predictionOrganizations", description: "PageHeader:predictionOrganizations", href: "/prediction-organizations.html" },
       ],
     },
     {
@@ -259,10 +270,10 @@ export default function PageHeader(properties) {
       label: "PageHeader:exchangeFundsHeading",
       icon: Repeat,
       items: [
-        { slug: "dex", title: "Home:dex.title", description: "Home:dex.subtitle", href: "/dex/index.html" },
-        { slug: "instant_trade", title: "Home:instant_trade.title", description: "Home:instant_trade.subtitle", href: "/instant_trade/index.html" },
-        { slug: "simple_asset_swap", title: "Home:simple_asset_swap.title", description: "Home:simple_asset_swap.subtitle", href: "/swap/index.html" },
-        { slug: "transfer", title: "Home:transfer.title", description: "Home:transfer.subtitle", href: "/transfer/index.html" },
+        { slug: "dex", title: "Home:dex.title", description: "Home:dex.subtitle", href: "/dex.html" },
+        { slug: "instant_trade", title: "Home:instant_trade.title", description: "Home:instant_trade.subtitle", href: "/instant_trade.html" },
+        { slug: "simple_asset_swap", title: "Home:simple_asset_swap.title", description: "Home:simple_asset_swap.subtitle", href: "/swap.html" },
+        { slug: "transfer", title: "Home:transfer.title", description: "Home:transfer.subtitle", href: "/transfer.html" },
       ],
     },
     {
@@ -270,9 +281,9 @@ export default function PageHeader(properties) {
       label: "PageHeader:accountOverviewsHeading",
       icon: Wallet,
       items: [
-        { slug: "portfolio_balances", title: "Home:portfolio_balances.title", description: "Home:portfolio_balances.subtitle", href: "/balances/index.html" },
-        { slug: "portfolio_open_orders", title: "Home:portfolio_open_orders.title", description: "Home:portfolio_open_orders.subtitle", href: "/open-orders/index.html" },
-        { slug: "favourites", title: "Home:favourites.title", description: "Home:favourites.subtitle", href: "/favourites/index.html" },
+        { slug: "portfolio_balances", title: "Home:portfolio_balances.title", description: "Home:portfolio_balances.subtitle", href: "/balances.html" },
+        { slug: "portfolio_open_orders", title: "Home:portfolio_open_orders.title", description: "Home:portfolio_open_orders.subtitle", href: "/open-orders.html" },
+        { slug: "favourites", title: "Home:favourites.title", description: "Home:favourites.subtitle", href: "/favourites.html" },
       ],
     },
     {
@@ -280,11 +291,11 @@ export default function PageHeader(properties) {
       label: "PageHeader:settingsHeading",
       icon: SlidersHorizontal,
       items: [
-        { slug: "about", title: "Home:about.title", description: "Home:about.subtitle", href: "/about/index.html" },
-        { slug: "nodes", title: "Home:nodes.title", description: "Home:nodes.subtitle", href: "/nodes/index.html" },
-        { slug: "blocked_users", title: "Home:blocked_users.title", description: "Home:blocked_users.subtitle", href: "/blocked-users/index.html" },
-        { slug: "create_account", title: "Home:create_account.title", description: "Home:create_account.subtitle", href: "/create_account/index.html" },
-        { slug: "configure_visuals", title: "Home:configure_visuals.title", description: "Home:configure_visuals.subtitle", href: "/visuals/index.html" },
+        { slug: "about", title: "Home:about.title", description: "Home:about.subtitle", href: "/docs/" },
+        { slug: "nodes", title: "Home:nodes.title", description: "Home:nodes.subtitle", href: "/nodes.html" },
+        { slug: "blocked_users", title: "Home:blocked_users.title", description: "Home:blocked_users.subtitle", href: "/blocked-users.html" },
+        { slug: "create_account", title: "Home:create_account.title", description: "Home:create_account.subtitle", href: "/create_account.html" },
+        { slug: "configure_visuals", title: "Home:configure_visuals.title", description: "Home:configure_visuals.subtitle", href: "/visuals.html" },
       ],
     },
   ];
@@ -467,14 +478,7 @@ export default function PageHeader(properties) {
             <div className="col-span-12 md:col-span-6 text-center relative z-10">
               <div className="relative">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white [text-shadow:_0_1px_2px_rgba(0,0,0,0.9),_0_2px_12px_rgba(0,0,0,0.7),_0_0_24px_rgba(0,0,0,0.5)]">
-                  <a
-                    href="/index.html"
-                    onClick={() => {
-                      if (window.location.pathname === "/blocks/index.html") {
-                        window.electron.stopBlocks({});
-                      }
-                    }}
-                  >
+                  <a href="/">
                     {page && page === "index"
                       ? t("PageHeader:welcomeMessage")
                       : ""}

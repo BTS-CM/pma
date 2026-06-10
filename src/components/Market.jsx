@@ -433,7 +433,7 @@ export default function Market(properties) {
                   />
                 </div>
                 <a
-                  href={`/dex/index.html?market=${assetB}_${assetA}`}
+                  href={`/dex.html?market=${assetB}_${assetA}`}
                   className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] hover:bg-cyan-500/10 hover:border-cyan-500/40 transition-all"
                   title="Swap assets"
                 >

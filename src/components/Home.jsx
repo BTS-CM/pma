@@ -206,7 +206,7 @@ export default function Home(properties) {
   const predictionMarkets = [
     {
       key: "prediction_markets_active",
-      href: "/active-predictions/index.html",
+      href: "/active-predictions.html",
       titleKey: "Home:prediction_markets_active.title",
       subtitleKey: "Home:prediction_markets_active.subtitle",
       hoverKeys: [
@@ -217,7 +217,7 @@ export default function Home(properties) {
     },
     {
       key: "prediction_markets_mine",
-      href: "/my-predictions/index.html",
+      href: "/my-predictions.html",
       titleKey: "Home:prediction_markets_mine.title",
       subtitleKey: "Home:prediction_markets_mine.subtitle",
       hoverKeys: [
@@ -228,7 +228,7 @@ export default function Home(properties) {
     },
     {
       key: "create_prediction",
-      href: "/create_prediction/index.html",
+      href: "/create_prediction.html",
       titleKey: "Home:create_prediction.title",
       subtitleKey: "Home:create_prediction.subtitle",
       hoverKeys: [
@@ -239,7 +239,7 @@ export default function Home(properties) {
     },
     {
       key: "create_pma_org",
-      href: "/create_pma_org/index.html",
+      href: "/create_pma_org.html",
       titleKey: "Home:create_pma_org.title",
       subtitleKey: "Home:create_pma_org.subtitle",
       hoverKeys: [
@@ -250,7 +250,7 @@ export default function Home(properties) {
     },
     {
       key: "prediction_organizations",
-      href: "/prediction-organizations/index.html",
+      href: "/prediction-organizations.html",
       titleKey: "Home:prediction_organizations.title",
       subtitleKey: "Home:prediction_organizations.subtitle",
       hoverKeys: [
@@ -261,7 +261,7 @@ export default function Home(properties) {
     },
     {
       key: "prediction_markets_expired",
-      href: "/expired-predictions/index.html",
+      href: "/expired-predictions.html",
       titleKey: "Home:prediction_markets_expired.title",
       subtitleKey: "Home:prediction_markets_expired.subtitle",
       hoverKeys: [
@@ -272,7 +272,7 @@ export default function Home(properties) {
     },
     {
       key: "prediction_markets_portfolio",
-      href: "/prediction-portfolio/index.html",
+      href: "/prediction-portfolio.html",
       titleKey: "Home:prediction_markets_portfolio.title",
       subtitleKey: "Home:prediction_markets_portfolio.subtitle",
       hoverKeys: [
@@ -283,7 +283,7 @@ export default function Home(properties) {
     },
     {
       key: "prediction_markets_margin",
-      href: "/prediction-margin/index.html",
+      href: "/prediction-margin.html",
       titleKey: "Home:prediction_markets_margin.title",
       subtitleKey: "Home:prediction_markets_margin.subtitle",
       hoverKeys: [
@@ -297,7 +297,7 @@ export default function Home(properties) {
   const exchangeFunds = [
     {
       key: "dex",
-      href: "/dex/index.html",
+      href: "/dex.html",
       titleKey: "Home:dex.title",
       subtitleKey: "Home:dex.subtitle",
       hoverKeys: [
@@ -309,7 +309,7 @@ export default function Home(properties) {
     },
     {
       key: "instant_trade",
-      href: "/instant_trade/index.html",
+      href: "/instant_trade.html",
       titleKey: "Home:instant_trade.title",
       subtitleKey: "Home:instant_trade.subtitle",
       hoverKeys: [
@@ -320,7 +320,7 @@ export default function Home(properties) {
     },
     {
       key: "simple_asset_swap",
-      href: "/swap/index.html",
+      href: "/swap.html",
       titleKey: "Home:simple_asset_swap.title",
       subtitleKey: "Home:simple_asset_swap.subtitle",
       hoverKeys: [
@@ -331,7 +331,7 @@ export default function Home(properties) {
     },
     {
       key: "transfer",
-      href: "/transfer/index.html",
+      href: "/transfer.html",
       titleKey: "Home:transfer.title",
       subtitleKey: "Home:transfer.subtitle",
       hoverKeys: ["Home:transfer.hover1"],
@@ -341,7 +341,7 @@ export default function Home(properties) {
   const accountOverviews = [
     {
       key: "portfolio_balances",
-      href: "/balances/index.html",
+      href: "/balances.html",
       titleKey: "Home:portfolio_balances.title",
       subtitleKey: "Home:portfolio_balances.subtitle",
       hoverKeys: [
@@ -352,7 +352,7 @@ export default function Home(properties) {
     },
     {
       key: "portfolio_open_orders",
-      href: "/open-orders/index.html",
+      href: "/open-orders.html",
       titleKey: "Home:portfolio_open_orders.title",
       subtitleKey: "Home:portfolio_open_orders.subtitle",
       hoverKeys: [
@@ -363,7 +363,7 @@ export default function Home(properties) {
     },
     {
       key: "favourites",
-      href: "/favourites/index.html",
+      href: "/favourites.html",
       titleKey: "Home:favourites.title",
       subtitleKey: "Home:favourites.subtitle",
       hoverKeys: ["Home:favourites.hover1", "Home:favourites.hover2"],
@@ -373,21 +373,21 @@ export default function Home(properties) {
   const moreTools = [
     {
       key: "about",
-      href: "/about/index.html",
+      href: "docs/docs-index.html",
       titleKey: "Home:about.title",
       subtitleKey: "Home:about.subtitle",
       hoverKeys: ["Home:about.hover1", "Home:about.hover2"],
     },
     {
       key: "nodes",
-      href: "/nodes/index.html",
+      href: "/nodes.html",
       titleKey: "Home:nodes.title",
       subtitleKey: "Home:nodes.subtitle",
       hoverKeys: ["Home:nodes.hover1", "Home:nodes.hover2"],
     },
     {
       key: "blocked_users",
-      href: "/blocked-users/index.html",
+      href: "/blocked-users.html",
       titleKey: "Home:blocked_users.title",
       subtitleKey: "Home:blocked_users.subtitle",
       hoverKeys: [
@@ -397,7 +397,7 @@ export default function Home(properties) {
     },
     {
       key: "create_account",
-      href: "/create_account/index.html",
+      href: "/create_account.html",
       titleKey: "Home:create_account.title",
       subtitleKey: "Home:create_account.subtitle",
       hoverKeys: [
@@ -407,7 +407,7 @@ export default function Home(properties) {
     },
     {
       key: "configure_visuals",
-      href: "/visuals/index.html",
+      href: "/visuals.html",
       titleKey: "Home:configure_visuals.title",
       subtitleKey: "Home:configure_visuals.subtitle",
     },

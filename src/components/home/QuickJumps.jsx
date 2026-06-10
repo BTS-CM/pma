@@ -24,7 +24,7 @@ export default function QuickJumps({ liveStats }) {
     {
       key: "active",
       icon: Activity,
-      href: "/active-predictions/index.html",
+      href: "/active-predictions.html",
       titleKey: "Home:quickJump.active",
       hintKey: "Home:quickJump.activeHint",
       badge: activeCount,
@@ -34,7 +34,7 @@ export default function QuickJumps({ liveStats }) {
     {
       key: "closingSoon",
       icon: Clock,
-      href: "/active-predictions/index.html?filter=closing-soon",
+      href: "/active-predictions.html?filter=closing-soon",
       titleKey: "Home:quickJump.closingSoon",
       hintKey: "Home:quickJump.closingSoonHint",
       badge: closingCount,
@@ -44,7 +44,7 @@ export default function QuickJumps({ liveStats }) {
     {
       key: "new",
       icon: Sparkles,
-      href: "/active-predictions/index.html?filter=new",
+      href: "/active-predictions.html?filter=new",
       titleKey: "Home:quickJump.new",
       hintKey: "Home:quickJump.newHint",
       badge: newCount,
@@ -54,7 +54,7 @@ export default function QuickJumps({ liveStats }) {
     {
       key: "positions",
       icon: Wallet,
-      href: "/prediction-portfolio/index.html",
+      href: "/prediction-portfolio.html",
       titleKey: "Home:quickJump.positions",
       hintKey: "Home:quickJump.positionsHint",
       accent: "from-fuchsia-500/15 to-fuchsia-500/0 border-fuchsia-500/30",
@@ -63,7 +63,7 @@ export default function QuickJumps({ liveStats }) {
     {
       key: "create",
       icon: PlusCircle,
-      href: "/create_prediction/index.html",
+      href: "/create_prediction.html",
       titleKey: "Home:quickJump.create",
       hintKey: "Home:quickJump.createHint",
       accent: "from-indigo-500/15 to-indigo-500/0 border-indigo-500/30",

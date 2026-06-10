@@ -1894,7 +1894,7 @@ export default function Predictions(properties) {
                     asChild
                     className="self-start"
                   >
-                    <a href={`/active-predictions/index.html?search=${res.symbol.split(".")[0]}.`}>
+                    <a href={`/active-predictions.html?search=${res.symbol.split(".")[0]}.`}>
                       <ExternalLinkIcon className="mr-2 h-3.5 w-3.5" />
                       {t("Predictions:org.viewAll", { symbol: res.symbol.split(".")[0] })}
                     </a>
@@ -1964,7 +1964,7 @@ export default function Predictions(properties) {
                       className="w-fit"
                     >
                       <a
-                        href={`/dex/index.html?market=${res.symbol}_${market}`}
+                        href={`/dex.html?market=${res.symbol}_${market}`}
                       >
                         <TrendingUp className="mr-2 h-3.5 w-3.5" />
                         {t("Predictions:market.tradeOnDex")}
@@ -3545,7 +3545,7 @@ export default function Predictions(properties) {
                   <EmptyTitle className="text-white/80">{t("Predictions:card.emptyActive")}</EmptyTitle>
                 </EmptyHeader>
                 <EmptyContent>
-                  <a href="/create_prediction/index.html">
+                  <a href="/create_prediction.html">
                     <Button className="bg-violet-600 hover:bg-violet-500 text-white">{t("PageHeader:createPrediction")}</Button>
                   </a>
                 </EmptyContent>
@@ -3558,7 +3558,7 @@ export default function Predictions(properties) {
                   <EmptyTitle className="text-white/80">{t("Predictions:card.emptyMine")}</EmptyTitle>
                 </EmptyHeader>
                 <EmptyContent>
-                  <a href="/create_prediction/index.html">
+                  <a href="/create_prediction.html">
                     <Button className="bg-violet-600 hover:bg-violet-500 text-white">{t("PageHeader:createPrediction")}</Button>
                   </a>
                 </EmptyContent>
