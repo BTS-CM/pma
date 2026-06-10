@@ -40,9 +40,10 @@ protocol.registerSchemesAsPrivileged([
 
 const createWindow = async () => {
   mainWindow = new BrowserWindow({
-    minWidth: 540,
-    minHeight: 100,
+    minWidth: 800,
+    minHeight: 600,
     maximizable: true,
+    fullscreenable: true,
     useContentSize: true,
     autoHideMenuBar: true,
     webPreferences: {
@@ -55,6 +56,11 @@ const createWindow = async () => {
   });
 
   initApplicationMenu(mainWindow);
+
+  // Start the app window maximized (full-windowed) by default.
+  try {
+    mainWindow.maximize();
+  } catch (e) {}
 
   // Load the local HTML file using the custom protocol
   mainWindow.loadURL("file://index.html");

@@ -165,7 +165,7 @@ export default function AppSidebar() {
     },
   ];
 
-  const { openMobile, isMobile } = useSidebar();
+  const { openMobile, isMobile, setOpenMobile, setOpen } = useSidebar();
   const [accValue, setAccValue] = React.useState(sections[0].key);
 
   React.useEffect(() => {
@@ -213,7 +213,7 @@ export default function AppSidebar() {
                                 asChild
                                 className="!text-white/60 hover:!text-white hover:!bg-white/[0.06] !bg-transparent focus-visible:ring-0"
                               >
-                                <a href={it.href} className="flex items-center gap-2">
+                                <a href={it.href} className="flex items-center gap-2" onClick={() => { if (isMobile) setOpenMobile(false); else setOpen(false); }}>
                                   <ItemIcon className={cn("h-3.5 w-3.5", itemColor)} />
                                   <span>{t(it.title)}</span>
                                 </a>
