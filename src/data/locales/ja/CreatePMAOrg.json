@@ -1,0 +1,106 @@
+{
+  "card": {
+    "title": "予測市場組織を作成",
+    "description": "予測市場のサブアセットの親となるトップレベルのアセット名を登録します。この組織の下で発行されるサブアセット（例：GAMBLE.0001）は、大幅に割引された作成 Fees と即時のブランド認知の恩恵を受けます。"
+  },
+  "steps": {
+    "identity": {
+      "title": "組織のアイデンティティ",
+      "description": "PMA組織のシンボルと詳細を選択"
+    },
+    "nft": {
+      "title": "Non-Fungible Token メタデータ",
+      "description": "オプションで組織アセットにNFTメタデータとIPFSメディアを添付"
+    },
+    "pmo": {
+      "title": "組織プロフィール（PMOオブジェクト）",
+      "description": "組織のアイデンティティ、ガバナンス、認証を定義 — すべてのサブアセットの分散型規約"
+    }
+  },
+  "symbol": {
+    "label": "組織シンボル",
+    "help": "予測市場組織のトップレベルアセットシンボル。サブアセットは SYMBOL.0001、SYMBOL.0002 等として発行されます。ドットは含めることができません。",
+    "placeholder": "例：GAMBLE"
+  },
+  "shortName": {
+    "label": "短い名前",
+    "help": "組織アセットの人間が読める名前。",
+    "placeholder": "例：Gambling Predictions"
+  },
+  "description": {
+    "label": "説明",
+    "help": "予測市場組織とその内容の説明。",
+    "placeholder": "予測市場組織を説明してください..."
+  },
+  "market": {
+    "label": "希望市場",
+    "help": "このアセットの希望取引ペア。"
+  },
+  "pmo": {
+    "info": "PMOオブジェクトはアセットの説明フィールドに保存され、組織の分散型利用規約として機能します。サブアセットはこのアイデンティティを継承します — 投資者は親アセットのPMOオブジェクトを確認することで、哪个の組織がマーケットを発行したかを確認できます。",
+    "identity": {
+      "heading": "アイデンティティ",
+      "name": {
+        "label": "組織名",
+        "help": "予測市場組織の正式名称。",
+        "placeholder": "例：GambleDAO"
+      },
+      "website": {
+        "label": "ウェブサイト",
+        "help": "組織の公開ウェブサイトURL。",
+        "placeholder": "https://organization.com"
+      },
+      "manifest": {
+        "label": "マニフェストURL",
+        "help": "BitSharesアカウント公開キーを公式ウェブプレゼンスにマッピングするJSONファイルのURL。なりすましアセットを防止します。",
+        "placeholder": "https://organization.com/bitshares-pmo.json"
+      }
+    },
+    "governance": {
+      "heading": "ガバナンス",
+      "resolution": {
+        "label": "解決方針",
+        "help": "組織が予測市場を解決する方法（例：API駆動、専門家パネル、コミュニティ投票）。",
+        "placeholder": "例：すべてのマーケットはオラクルデータとコミュニティガバナンス投票の組み合わせにより解決されます..."
+      },
+      "dispute": {
+        "label": "紛争解決メカニズム",
+        "help": "マーケットの解決に同意しない場合のユーザー向けの手順。",
+        "placeholder": "例：紛争は解決後48時間以内にガバナンスポータル via で提出する必要があります..."
+      },
+      "account": {
+        "label": "オンチェーンアカウント",
+        "help": "この組織を管理するBitSharesアカウント名。",
+        "placeholder": "例：the-org-account-name"
+      }
+    },
+    "attestation": {
+      "heading": "認証",
+      "label": "発行者認証",
+      "help": "この組織のすべてのマーケットが記載された方針に従って解決されるという正式な誓約。ブランドの透明性へのコミットメントです。",
+      "placeholder": "例：私はこのアセットの発行者として、この組織のすべてのマーケットが本規約に記載された方針に従って解決されることを誓約します。"
+    }
+  },
+  "summary": {
+    "title": "確認して送信",
+    "subtitle": "作成前に組織の詳細を確認",
+    "symbol": "組織シンボル",
+    "name": "短い名前",
+    "maxSupply": "最大供給量",
+    "precision": "精度",
+    "nftMedia": "NFTメディア",
+    "pmo": "PMO組織"
+  },
+  "ready": "すべての必須フィールドが入力されています。PMA組織の作成準備ができています！",
+  "fieldsRequired": "続行するには組織シンボルを入力してください。",
+  "tips": {
+    "title": "PMA組織について",
+    "hint": "予測市場組織を作成すると、サブアセットを大幅に割引された料金で発行できるトップレベルのアセット名が登録されます。例えば、「GAMBLE」を登録すると、GAMBLE.0001、GAMBLE.0002 等を作成でき — それぞれスタンドアロンアセットの作成よりも低い料金で済みます。投資者はこれらのサブアセットがあなたの組織のものであることを即座に認識します。"
+  },
+  "buttons": {
+    "submit": "組織を作成"
+  },
+  "dialogContent": {
+    "headerText": "PMA組織を作成中：{{symbol}}"
+  }
+}

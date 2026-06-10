@@ -33,6 +33,7 @@
   "vestingBalances": "Vesting balances",
   "predictions": "Predictions",
   "createPrediction": "Create prediction",
+  "createPMAOrg": "Create PMA organization",
   "assetsHeading": "Asset creation",
   "issuedAssets": "Your issued assets",
   "create_smartcoin": "Create smartcoin",
@@ -88,6 +89,7 @@
     "offers": "Monitor and manage your credit offers with the below form.",
     "vesting": "Monitor and withdraw your vesting balances with the below form.",
     "create_prediction": "Use the form below to create a prediction market asset.",
+    "create_pma_org": "Register a prediction market organization to issue sub-assets under a single brand name.",
     "predictions": "Locate a prediction market asset below to bet on.",
     "active_predictions": "Browse prediction market assets that are still active and accepting bets.",
     "expired_predictions": "Browse prediction market assets whose expiry date has passed, awaiting resolution.",
@@ -122,5 +124,6 @@
   "multiwallet": "multiwallet",
   "tfund_user": "Same-T Fund Trade",
   "createAccount": "Create Account",
-  "transferFundsHeading": "Transfer funds"
+  "transferFundsHeading": "Transfer funds",
+  "predictionOrganizations": "Prediction Organizations"
 }

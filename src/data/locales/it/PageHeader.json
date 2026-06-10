@@ -33,6 +33,7 @@
   "vestingBalances": "Saldi di maturazione",
   "predictions": "Previsioni",
   "createPrediction": "Crea previsione",
+  "createPMAOrg": "Crea organizzazione PMA",
   "assetsHeading": "Creazione di risorse",
   "issuedAssets": "I tuoi asset emessi",
   "create_smartcoin": "Crea smartcoin",
@@ -82,6 +83,7 @@
     "offers": "Monitora e gestisci le tue offerte di credito con il modulo sottostante.",
     "vesting": "Monitora e ritira i tuoi saldi di maturazione con il modulo sottostante.",
     "create_prediction": "Utilizza il modulo sottostante per creare un asset di mercato di previsione.",
+    "create_pma_org": "Registra un'organizzazione di mercato di previsione per emettere sotto-asset sotto un unico marchio.",
     "predictions": "Individua di seguito un asset del mercato di previsione su cui scommettere.",
     "tfunds": "Trova, crea, aggiorna o elimina i fondi Same-T qui sotto!",
     "create_vesting": "Utilizza questo modulo per creare un saldo di maturazione per qualsiasi account!",
@@ -109,5 +111,6 @@
   "multiwallet": "multiportafoglio",
   "tfund_user": "Commercio di fondi Same-T",
   "createAccount": "Crea account",
-  "transferFundsHeading": "Trasferire fondi"
+  "transferFundsHeading": "Trasferire fondi",
+  "predictionOrganizations": "Organizzazioni previsionali"
 }

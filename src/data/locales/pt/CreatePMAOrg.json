@@ -1,0 +1,106 @@
+{
+  "card": {
+    "title": "Criar Organização de Mercado de Previsão",
+    "description": "Registre um nome de ativo de nível superior que servirá como pai para seus sub-ativos de mercado de previsão. Os sub-ativos emitidos sob esta organização (por exemplo, GAMBLE.0001) se beneficiam de taxas de criação reduzidas e reconhecimento instantâneo da marca."
+  },
+  "steps": {
+    "identity": {
+      "title": "Identidade da Organização",
+      "description": "Escolha o símbolo e os detalhes para sua organização PMA"
+    },
+    "nft": {
+      "title": "Metadados de Token Não Fungível",
+      "description": "Opcionalmente anexe metadados NFT e mídia IPFS ao seu ativo de organização"
+    },
+    "pmo": {
+      "title": "Perfil da Organização (Objeto PMO)",
+      "description": "Defina a identidade, governança e atestação da sua organização — a constituição descentralizada para todos os sub-ativos"
+    }
+  },
+  "symbol": {
+    "label": "Símbolo da Organização",
+    "help": "O símbolo de ativo de nível superior para sua organização de mercado de previsão. Os sub-ativos serão emitidos como SYMBOL.0001, SYMBOL.0002, etc. Não pode conter um ponto.",
+    "placeholder": "ex. GAMBLE"
+  },
+  "shortName": {
+    "label": "Nome Curto",
+    "help": "Um nome legível para seu ativo de organização.",
+    "placeholder": "ex. Gambling Predictions"
+  },
+  "description": {
+    "label": "Descrição",
+    "help": "Uma descrição da sua organização de mercado de previsão e do que ela representa.",
+    "placeholder": "Descreva sua organização de mercado de previsão..."
+  },
+  "market": {
+    "label": "Mercado Preferido",
+    "help": "O par de negociação preferido para este ativo."
+  },
+  "pmo": {
+    "info": "O objeto PMO é armazenado no campo de descrição do ativo e funciona como os Termos de Serviço descentralizados da sua organização. Os sub-ativos herdam esta identidade — os investidores podem verificar qual organização emitiu um mercado verificando o objeto PMO do ativo pai.",
+    "identity": {
+      "heading": "Identidade",
+      "name": {
+        "label": "Nome da Organização",
+        "help": "O nome oficial da sua organização de mercado de previsão.",
+        "placeholder": "ex. GambleDAO"
+      },
+      "website": {
+        "label": "Site",
+        "help": "A URL do site público da sua organização.",
+        "placeholder": "https://organization.com"
+      },
+      "manifest": {
+        "label": "URL do Manifesto",
+        "help": "Uma URL para um arquivo JSON hospedado que mapeia a chave pública da sua conta BitShares para sua presença web oficial, prevenindo ativos de impessoalização.",
+        "placeholder": "https://organization.com/bitshares-pmo.json"
+      }
+    },
+    "governance": {
+      "heading": "Governança",
+      "resolution": {
+        "label": "Política de Resolução",
+        "help": "Como a organização resolve seus mercados de previsão (por exemplo, orientado por API, Painel de Especialistas, Votação Comunitária).",
+        "placeholder": "ex. Todos os mercados são resolvidos por meio de uma combinação de dados de oráculo e votação de governança comunitária..."
+      },
+      "dispute": {
+        "label": "Mecanismo de Disputa",
+        "help": "Instruções para os usuários caso discordem de uma resolução de mercado.",
+        "placeholder": "ex. As disputas devem ser enviadas dentro de 48 horas da resolução através do portal de governança..."
+      },
+      "account": {
+        "label": "Conta On-chain",
+        "help": "O nome da conta BitShares que governa esta organização.",
+        "placeholder": "ex. the-org-account-name"
+      }
+    },
+    "attestation": {
+      "heading": "Atestação",
+      "label": "Atestação do Emissor",
+      "help": "Um compromisso formal de que todos os mercados sob esta organização serão resolvidos de acordo com as políticas declaradas. Este é o compromisso da sua marca com a transparência.",
+      "placeholder": "ex. Eu, como emissor deste ativo, me comprometo que todos os mercados sob esta organização serão resolvidos de acordo com as políticas aqui declaradas."
+    }
+  },
+  "summary": {
+    "title": "Revisar e Enviar",
+    "subtitle": "Verifique os detalhes da sua organização antes da criação",
+    "symbol": "Símbolo da Organização",
+    "name": "Nome Curto",
+    "maxSupply": "Oferta Máxima",
+    "precision": "Precisão",
+    "nftMedia": "Mídias NFT",
+    "pmo": "Organização PMO"
+  },
+  "ready": "Todos os campos obrigatórios estão preenchidos. Pronto para criar sua organização PMA!",
+  "fieldsRequired": "Por favor, insira um símbolo de organização para continuar.",
+  "tips": {
+    "title": "Sobre Organizações PMA",
+    "hint": "Criar uma organização de mercado de previsão registra um nome de ativo de nível superior sob o qual você pode emitir sub-ativos com desconto significativo. Por exemplo, registrar 'GAMBLE' permite criar GAMBLE.0001, GAMBLE.0002, etc. — cada um com taxas menores do que a criação de um ativo independente. Os investidores reconhecerão esses sub-ativos como pertencentes à sua organização."
+  },
+  "buttons": {
+    "submit": "Criar Organização"
+  },
+  "dialogContent": {
+    "headerText": "Criando Organização PMA: {{symbol}}"
+  }
+}

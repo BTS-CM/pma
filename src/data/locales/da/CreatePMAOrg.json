@@ -1,0 +1,106 @@
+{
+  "card": {
+    "title": "Opret Prediction Market Organisation",
+    "description": "Registrer et top-level aktivnavn, der vil tjene som overordnet for dine prediction market-underaktiver. Underaktiver udstedt under denne organisation (f.eks. GAMBLE.0001) drager fordel af reducerede oprettelsesgebyrer og øjeblikkelig genkendelse af brandnavnet."
+  },
+  "steps": {
+    "identity": {
+      "title": "Organisationsidentitet",
+      "description": "Vælg symbol og detaljer til din PMA-organisation"
+    },
+    "nft": {
+      "title": "Non-Fungible Token Metadata",
+      "description": "Valgfrit vedhæft NFT-metadata og IPFS-medie til din organisationsasset"
+    },
+    "pmo": {
+      "title": "Organisationsprofil (PMO-objekt)",
+      "description": "Definér din organisations identitet, governance og bekræftelse — den decentrale forfatning for alle underaktiver"
+    }
+  },
+  "symbol": {
+    "label": "Organisationssymbol",
+    "help": "Det overordnede aktivsymbol for din prediction market-organisation. Underaktiver vil blive udstedt som SYMBOL.0001, SYMBOL.0002 osv. Kan ikke indeholde et punktum.",
+    "placeholder": "f.eks. GAMBLE"
+  },
+  "shortName": {
+    "label": "Kort navn",
+    "help": "Et læsevenligt navn til dit organisationsaktiv.",
+    "placeholder": "f.eks. Gambling Predictions"
+  },
+  "description": {
+    "label": "Beskrivelse",
+    "help": "En beskrivelse af din prediction market-organisation og hvad den repræsenterer.",
+    "placeholder": "Beskriv din prediction market-organisation..."
+  },
+  "market": {
+    "label": "Foretrukket marked",
+    "help": "Det foretrukne handelspar for dette aktiv."
+  },
+  "pmo": {
+    "info": "PMO-objektet gemmes i aktivets beskrivelsesfelt og fungerer som din organisations decentrale vilkår for brug. Underaktiver arver denne identitet — investorer kan verificere, hvilken organisation der har udstedt et marked, ved at kontrollere det overordnede aktivs PMO-objekt.",
+    "identity": {
+      "heading": "Identitet",
+      "name": {
+        "label": "Organisationsnavn",
+        "help": "Det officielle navn på din prediction market-organisation.",
+        "placeholder": "f.eks. GambleDAO"
+      },
+      "website": {
+        "label": "Hjemmeside",
+        "help": "Din organisations offentlige hjemmeside-URL.",
+        "placeholder": "https://organisation.com"
+      },
+      "manifest": {
+        "label": "Manifest-URL",
+        "help": "En URL til en hosted JSON-fil, der kortlægger din BitShares-konto offentlige nøgle til din officielle webtilstedeværelse for at forhindre efterligningsassets.",
+        "placeholder": "https://organisation.com/bitshares-pmo.json"
+      }
+    },
+    "governance": {
+      "heading": "Governance",
+      "resolution": {
+        "label": "Afgørelsespolitik",
+        "help": "Hvordan organisationen afgør sine prediction markets (f.eks. API-drevet, ekspertpanel, fællesskabsafstemning).",
+        "placeholder": "f.eks. Alle marked afgøres via en kombination af oracle-data og fællesskabsstyringsafstemning..."
+      },
+      "dispute": {
+        "label": "Tvistløsningsmekanisme",
+        "help": "Instruktioner til brugere, hvis de er uenige i en markedsafgørelse.",
+        "placeholder": "f.eks. Tvister skal indsendes inden for 48 timer efter afgørelsen via governance-portalen..."
+      },
+      "account": {
+        "label": "On-chain konto",
+        "help": "BitShares-kontonavnet der styrer denne organisation.",
+        "placeholder": "f.eks. organisationens-kontonavn"
+      }
+    },
+    "attestation": {
+      "heading": "Bekræftelse",
+      "label": "Udsteders bekræftelse",
+      "help": "Et officielt tilsagn om, at alle markeder under denne organisation vil blive afgjort i henhold til de angivne politikker. Dette er dit brands engagement i gennemsigtighed.",
+      "placeholder": "f.eks. Jeg, som udsteder af dette aktiv, lover at alle markeder under denne organisation vil blive afgjort i henhold til de politikker, der er angivet heri."
+    }
+  },
+  "summary": {
+    "title": "Gennemgå og indsend",
+    "subtitle": "Bekræft dine organisationsdetaljer før oprettelse",
+    "symbol": "Organisationssymbol",
+    "name": "Kort navn",
+    "maxSupply": "Maksimal forsyning",
+    "precision": "Præcision",
+    "nftMedia": "NFT-medie",
+    "pmo": "PMO-organisation"
+  },
+  "ready": "Alle påkrævede felter er udfyldt. Klar til at oprette din PMA-organisation!",
+  "fieldsRequired": "Indtast venligst et organisationssymbol for at fortsætte.",
+  "tips": {
+    "title": "Om PMA-organisationer",
+    "hint": "Oprettelse af en prediction market-organisation registrerer et top-level aktivnavn, under hvilket du kan udstede underaktiver til en betydelig rabat. For eksempel gør registrering af 'GAMBLE' det muligt at oprette GAMBLE.0001, GAMBLE.0002 osv. — hver til en lavere pris end at oprette et selvstændigt aktiv. Investorer vil genkende disse underaktiver som tilhørende din organisation."
+  },
+  "buttons": {
+    "submit": "Opret organisation"
+  },
+  "dialogContent": {
+    "headerText": "Opretter PMA-organisation: {{symbol}}"
+  }
+}

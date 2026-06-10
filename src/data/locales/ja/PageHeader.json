@@ -33,6 +33,7 @@
   "vestingBalances": "権利確定残高",
   "predictions": "予測",
   "createPrediction": "予測の作成",
+  "createPMAOrg": "PMA組織を作成",
   "assetsHeading": "アセットの作成",
   "issuedAssets": "発行された資産",
   "create_smartcoin": "スマートコインを作成する",
@@ -82,6 +83,7 @@
     "offers": "以下のフォームを使用してクレジットオファーを監視および管理します。",
     "vesting": "以下のフォームを使用して、権利確定残高を監視し、出金してください。",
     "create_prediction": "以下のフォームを使用して、予測市場資産を作成します。",
+    "create_pma_org": "単一のブランド名の下でサブアセットを発行するための予測市場組織を登録します。",
     "predictions": "賭ける予測市場資産を以下から見つけてください。",
     "tfunds": "以下の Same-T ファンドを検索、作成、更新、削除してください。",
     "create_vesting": "このフォームを使用して、任意のアカウントの権利確定残高を作成してください。",
@@ -109,5 +111,6 @@
   "multiwallet": "マルチウォレット",
   "tfund_user": "Same-T ファンド取引",
   "createAccount": "アカウントの作成",
-  "transferFundsHeading": "資金の移動"
+  "transferFundsHeading": "資金の移動",
+  "predictionOrganizations": "予測組織"
 }

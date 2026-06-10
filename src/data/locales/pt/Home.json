@@ -1,10 +1,10 @@
 {
   "instant_trade": {
-    "title": "⚡ Negociação Instantânea",
+    "title": "Negociação instantânea",
     "subtitle": "Troque ativos rapidamente pelos melhores preços disponíveis",
-    "hover1": "Negocie ativos instantaneamente no DEX sem distrações.",
-    "hover2": "Utiliza tecnologia de preenchimento ou eliminação de pedidos para obter os preços desejados ou cancelar o pedido.",
-    "hover3": "Veja com quem você negociará no DEX e se eles ativaram condições de preenchimento em seus pedidos."
+    "hover1": "Negocie ativos instantaneamente na DEX sem distrações.",
+    "hover2": "Utiliza tecnologia de ordens fill-or-kill para obter os preços que deseja ou cancela a ordem.",
+    "hover3": "Veja com quem você negociará na DEX e se eles ativaram condições on-fill em suas ordens."
   },
   "vote": {
     "title": "🗳️ Votação",
@@ -80,13 +80,6 @@
     "title": "Transferir ativos",
     "subtitle": "Enviar ativos para outros usuários",
     "hover1": "Transfira ativos para qualquer pessoa na blockchain Bitshares em segundos."
-  },
-  "instant_trade": {
-    "title": "Negociação instantânea",
-    "subtitle": "Troque ativos rapidamente pelos melhores preços disponíveis",
-    "hover1": "Negocie ativos instantaneamente na DEX sem distrações.",
-    "hover2": "Utiliza tecnologia de ordens fill-or-kill para obter os preços que deseja ou cancela a ordem.",
-    "hover3": "Veja com quem você negociará na DEX e se eles ativaram condições on-fill em suas ordens."
   },
   "simple_asset_swap": {
     "title": "Troca simples de ativos",
@@ -235,6 +228,13 @@
     "hover1": "Crie apostas sobre literalmente qualquer coisa.",
     "hover2": "Seja o agenciador de apostas e defina sua própria comissão.",
     "hover3": "São possíveis apostas de curto e longo prazo."
+  },
+  "create_pma_org": {
+    "title": "Criar Organização PMA",
+    "subtitle": "Registre um nome de nível superior para emitir sub-ativos de mercado de previsão",
+    "hover1": "Registre um nome de marca sob o qual todos os seus ativos de mercado de previsão serão emitidos.",
+    "hover2": "Sub-ativos (ex. GAMBLE.0001) são criados com desconto significativo em comparação com ativos independentes.",
+    "hover3": "Fortalece o reconhecimento da marca — os investidores sabem instantaneamente qual organização emitiu um ativo de mercado de previsão."
   },
   "create_uia": {
     "title": "🍬 Ativo emitido pelo usuário",
@@ -494,5 +494,12 @@
     "hover1": "Veja ativos que estão atualmente em liquidação global.",
     "hover2": "Faça lances nos fundos de liquidação com desconto sobre o valor nominal.",
     "hover3": "Force a liquidação de ativos individuais por sua parte proporcional do pool de liquidação."
+  },
+  "prediction_organizations": {
+    "title": "Organizações de Mercado de Previsão",
+    "subtitle": "Explore organizações que emitem ativos de mercado de previsão",
+    "hover1": "Veja todas as organizações de mercado de previsão registradas e suas previsões ativas.",
+    "hover2": "Cada organização emite sub-ativos (ex. GAMBLE.0001) com desconto sob uma marca unificada.",
+    "hover3": "Filtre previsões por organização para encontrar todos os ativos de um único emissor."
   }
 }

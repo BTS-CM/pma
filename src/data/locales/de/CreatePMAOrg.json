@@ -1,0 +1,106 @@
+{
+  "card": {
+    "title": "Prediction Market Organisation erstellen",
+    "description": "Registrieren Sie einen Top-Level-Aktivnamen, der als übergeordnetes Element für Ihre Prediction Market-Unteractiven dient. Unteractiven, die unter dieser Organisation ausgegeben werden (z.B. GAMBLE.0001), profitieren von reduzierten Erstellungsgebühren und sofortiger Markenerkennung."
+  },
+  "steps": {
+    "identity": {
+      "title": "Organisationsidentität",
+      "description": "Wählen Sie Symbol und Details für Ihre PMA-Organisation"
+    },
+    "nft": {
+      "title": "Non-Fungible Token Metadaten",
+      "description": "Fügen Sie optional NFT-Metadaten und IPFS-Medien zu Ihrem Organisationsasset hinzu"
+    },
+    "pmo": {
+      "title": "Organisationsprofil (PMO-Objekt)",
+      "description": "Definieren Sie Identität, Governance und Attestierung Ihrer Organisation — die dezentrale Verfassung für alle Unteractiven"
+    }
+  },
+  "symbol": {
+    "label": "Organisationssymbol",
+    "help": "Das übergeordnete Aktivsymbol für Ihre Prediction Market-Organisation. Unteractiven werden als SYMBOL.0001, SYMBOL.0002 usw. ausgegeben. Darf keinen Punkt enthalten.",
+    "placeholder": "z.B. GAMBLE"
+  },
+  "shortName": {
+    "label": "Kurzname",
+    "help": "Ein menschenlesbarer Name für Ihr Organisationsasset.",
+    "placeholder": "z.B. Gambling Predictions"
+  },
+  "description": {
+    "label": "Beschreibung",
+    "help": "Eine Beschreibung Ihrer Prediction Market-Organisation und wofür sie steht.",
+    "placeholder": "Beschreiben Sie Ihre Prediction Market-Organisation..."
+  },
+  "market": {
+    "label": "Bevorzugter Markt",
+    "help": "Das bevorzugte Handelspaar für dieses Asset."
+  },
+  "pmo": {
+    "info": "Das PMO-Objekt wird im Beschreibungsfeld des Assets gespeichert und dient als dezentrale Nutzungsbedingungen Ihrer Organisation. Unteractiven erben diese Identität — Investoren können überprüfen, welche Organisation einen Markt ausgegeben hat, indem sie das PMO-Objekt des übergeordneten Assets prüfen.",
+    "identity": {
+      "heading": "Identität",
+      "name": {
+        "label": "Organisationsname",
+        "help": "Der offizielle Name Ihrer Prediction Market-Organisation.",
+        "placeholder": "z.B. GambleDAO"
+      },
+      "website": {
+        "label": "Website",
+        "help": "Die öffentliche URL der Website Ihrer Organisation.",
+        "placeholder": "https://organisation.com"
+      },
+      "manifest": {
+        "label": "Manifest-URL",
+        "help": "Eine URL zu einer gehosteten JSON-Datei, die Ihren BitShares-Account-Public-Key mit Ihrer offiziellen Webpräsenz verknüpft, um Identitätsdiebstahl-Assets zu verhindern.",
+        "placeholder": "https://organisation.com/bitshares-pmo.json"
+      }
+    },
+    "governance": {
+      "heading": "Governance",
+      "resolution": {
+        "label": "Auflösungsrichtlinie",
+        "help": "Wie die Organisation ihre Prediction Markets auflöst (z.B. API-gesteuert, Expertengemeinschaft, Community-Abstimmung).",
+        "placeholder": "z.B. Alle Märkte werden durch eine Kombination aus Oracle-Daten und Community-Governance-Abstimmung aufgelöst..."
+      },
+      "dispute": {
+        "label": "Streitbeilegungsmechanismus",
+        "help": "Anweisungen für Nutzer, wenn sie mit einer Marktauflösung nicht einverstanden sind.",
+        "placeholder": "z.B. Streitigkeiten müssen innerhalb von 48 Stunden nach der Auflösung über das Governance-Portal eingereicht werden..."
+      },
+      "account": {
+        "label": "On-chain-Account",
+        "help": "Der BitShares-Account-Name, der diese Organisation verwaltet.",
+        "placeholder": "z.B. der-organisation-name"
+      }
+    },
+    "attestation": {
+      "heading": "Attestierung",
+      "label": "Emittenten-Attestierung",
+      "help": "Ein formelles Versprechen, dass alle Märkte dieser Organisation gemäß den angegebenen Richtlinien aufgelöst werden. Dies ist das Engagement Ihrer Marke für Transparenz.",
+      "placeholder": "z.B. Ich, als Emittent dieses Assets, versichere, dass alle Märkte dieser Organisation gemäß den hier dargelegten Richtlinien aufgelöst werden."
+    }
+  },
+  "summary": {
+    "title": "Überprüfen & Absenden",
+    "subtitle": "Überprüfen Sie Ihre Organisationsdetails vor der Erstellung",
+    "symbol": "Organisationssymbol",
+    "name": "Kurzname",
+    "maxSupply": "Maximales Angebot",
+    "precision": "Genauigkeit",
+    "nftMedia": "NFT-Medien",
+    "pmo": "PMO-Organisation"
+  },
+  "ready": "Alle erforderlichen Felder sind ausgefüllt. Bereit, Ihre PMA-Organisation zu erstellen!",
+  "fieldsRequired": "Bitte geben Sie ein Organisationssymbol ein, um fortzufahren.",
+  "tips": {
+    "title": "Über PMA-Organisationen",
+    "hint": "Durch die Erstellung einer Prediction Market-Organisation wird ein Top-Level-Aktivname registriert, unter dem Sie Unteractiven mit erheblichem Rabatt ausgeben können. Wenn Sie beispielsweise 'GAMBLE' registrieren, können Sie GAMBLE.0001, GAMBLE.0002 usw. erstellen — jeweils zu geringeren Gebühren als ein eigenständiges Asset. Investoren erkennen diese Unteractiven sofort als Teil Ihrer Organisation."
+  },
+  "buttons": {
+    "submit": "Organisation erstellen"
+  },
+  "dialogContent": {
+    "headerText": "PMA-Organisation wird erstellt: {{symbol}}"
+  }
+}

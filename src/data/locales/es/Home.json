@@ -1,10 +1,10 @@
 {
   "instant_trade": {
-    "title": "⚡ Comercio instantáneo",
-    "subtitle": "Intercambie activos rápidamente a los mejores precios disponibles",
-    "hover1": "Opere activos instantáneamente en el DEX sin distracciones.",
-    "hover2": "Utiliza tecnología de pedidos de llenado o eliminación para obtener los precios que desea o cancelar el pedido.",
-    "hover3": "Vea con quién operará en el DEX y si han habilitado condiciones de cumplimiento en sus órdenes."
+    "title": "Operación instantánea",
+    "subtitle": "Intercambia activos rápidamente a los mejores precios disponibles",
+    "hover1": "Opera activos al instante en la DEX sin distracciones.",
+    "hover2": "Utiliza tecnología de órdenes fill-or-kill para obtener los precios que deseas o cancela la orden.",
+    "hover3": "Ve con quién operarás en la DEX y si han habilitado condiciones on-fill en sus órdenes."
   },
   "vote": {
     "title": "🗳️ Votación",
@@ -80,13 +80,6 @@
     "title": "Transferir activos",
     "subtitle": "Enviar activos a otros usuarios",
     "hover1": "Transfiere activos a cualquier persona en la blockchain de Bitshares en segundos."
-  },
-  "instant_trade": {
-    "title": "Operación instantánea",
-    "subtitle": "Intercambia activos rápidamente a los mejores precios disponibles",
-    "hover1": "Opera activos al instante en la DEX sin distracciones.",
-    "hover2": "Utiliza tecnología de órdenes fill-or-kill para obtener los precios que deseas o cancela la orden.",
-    "hover3": "Ve con quién operarás en la DEX y si han habilitado condiciones on-fill en sus órdenes."
   },
   "simple_asset_swap": {
     "title": "Intercambio simple de activos",
@@ -235,6 +228,13 @@
     "hover1": "Crea apuestas sobre literalmente cualquier cosa.",
     "hover2": "Sea el corredor de apuestas y establezca su propia comisión.",
     "hover3": "Son posibles apuestas tanto a corto como a largo plazo."
+  },
+  "create_pma_org": {
+    "title": "Crear Organización PMA",
+    "subtitle": "Registre un nombre de nivel superior para emitir sub-activos de mercado de predicción",
+    "hover1": "Registre un nombre de marca bajo el cual se emitirán todos sus activos de mercado de predicción.",
+    "hover2": "Los sub-activos (ej. GAMBLE.0001) se crean con un descuento significativo en comparación con activos independientes.",
+    "hover3": "Genera reconocimiento de marca — los inversores saben instantáneamente qué organización emitió un activo de mercado de predicción."
   },
   "create_uia": {
     "title": "🍬 Activo emitido por el usuario",
@@ -494,5 +494,12 @@
     "hover1": "Vea activos que están actualmente en liquidación global.",
     "hover2": "Haga ofertas sobre fondos de liquidación con descuento sobre su valor nominal.",
     "hover3": "Force-settle activos individuales por su parte proporcional del fondo de liquidación."
+  },
+  "prediction_organizations": {
+    "title": "Organizaciones de Mercado de Predicción",
+    "subtitle": "Explore organizaciones que emiten activos de mercado de predicción",
+    "hover1": "Vea todas las organizaciones de mercado de predicción registradas y sus predicciones activas.",
+    "hover2": "Cada organización emite sub-activos (por ejemplo, GAMBLE.0001) con descuento bajo una marca unificada.",
+    "hover3": "Filtre predicciones por organización para encontrar todos los activos de un solo emisor."
   }
 }

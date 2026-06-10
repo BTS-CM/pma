@@ -1,0 +1,106 @@
+{
+  "card": {
+    "title": "예측 시장 조직 생성",
+    "description": "예측 시장 서브 자산의 상위 자산으로 사용될 최상위 자산 이름을 등록합니다. 이 조직 하에서 발행된 서브 자산(예: GAMBLE.0001)은大幅히 할인된 생성 수수료와 즉각적인 브랜드 인식의 혜택을 받습니다."
+  },
+  "steps": {
+    "identity": {
+      "title": "조직 아이덴티티",
+      "description": "PMA 조직의 심볼과 세부 사항을 선택하세요"
+    },
+    "nft": {
+      "title": "대체 불가능 토큰 메타데이터",
+      "description": "선택적으로 조직 자산에 NFT 메타데이터와 IPFS 미디어를 첨부하세요"
+    },
+    "pmo": {
+      "title": "조직 프로필 (PMO 객체)",
+      "description": "조직의 아이덴티티, 거버넌스, 증명을 정의하세요 — 모든 서브 자산을 위한 탈중앙화 헌장"
+    }
+  },
+  "symbol": {
+    "label": "조직 심볼",
+    "help": "예측 시장 조직의 최상위 자산 심볼. 서브 자산은 SYMBOL.0001, SYMBOL.0002 등으로 발행됩니다. 점(.)을 포함할 수 없습니다.",
+    "placeholder": "예: GAMBLE"
+  },
+  "shortName": {
+    "label": "짧은 이름",
+    "help": "조직 자산의 사람이 읽을 수 있는 이름.",
+    "placeholder": "예: Gambling Predictions"
+  },
+  "description": {
+    "label": "설명",
+    "help": "예측 시장 조직과 그것이 대표하는 것에 대한 설명.",
+    "placeholder": "예측 시장 조직을 설명하세요..."
+  },
+  "market": {
+    "label": "선호 시장",
+    "help": "이 자산의 선호 거래 쌍."
+  },
+  "pmo": {
+    "info": "PMO 객체는 자산의 설명 필드에 저장되며 조직의 탈중앙화 이용약관 역할을 합니다. 서브 자산은 이 아이덴티티를 상속합니다 — 투자자는 상위 자산의 PMO 객체를 확인하여 시장을 어떤 조직이 발행했는지 검증할 수 있습니다.",
+    "identity": {
+      "heading": "아이덴티티",
+      "name": {
+        "label": "조직 이름",
+        "help": "예측 시장 조직의 공식 이름.",
+        "placeholder": "예: GambleDAO"
+      },
+      "website": {
+        "label": "웹사이트",
+        "help": "조직의 공개 웹사이트 URL.",
+        "placeholder": "https://organization.com"
+      },
+      "manifest": {
+        "label": "매니페스트 URL",
+        "help": "BitShares 계정 공개 키를 공식 웹 Presence에 매핑하는 호스팅 JSON 파일의 URL로, 모방 자산을 방지합니다.",
+        "placeholder": "https://organization.com/bitshares-pmo.json"
+      }
+    },
+    "governance": {
+      "heading": "거버넌스",
+      "resolution": {
+        "label": "해결 정책",
+        "help": "조직이 예측 시장을 어떻게 해결하는지(예: API 기반, 전문가 패널, 커뮤니티 투표).",
+        "placeholder": "예: 모든 시장은 오라클 데이터와 커뮤니티 거버넌스 투표의 조합을 통해 해결됩니다..."
+      },
+      "dispute": {
+        "label": "분쟁 메커니즘",
+        "help": "시장 해결에 이의가 있는 사용자를 위한 안내.",
+        "placeholder": "예: 분쟁은 해결 후 48시간 이내에 거버넌스 포털을 통해 제출해야 합니다..."
+      },
+      "account": {
+        "label": "온체인 계정",
+        "help": "이 조직을 관리하는 BitShares 계정 이름.",
+        "placeholder": "예: the-org-account-name"
+      }
+    },
+    "attestation": {
+      "heading": "증명",
+      "label": "발행자 증명",
+      "help": "이 조직 하의 모든 시장이 명시된 정책에 따라 해결된다는 공식 서약. 이는 브랜드의 투명성에 대한 약속입니다.",
+      "placeholder": "예: 본인은 본 자산의 발행자로서, 이 조직 하의 모든 시장이 본 문서에 명시된 정책에 따라 해결될 것을 서약합니다."
+    }
+  },
+  "summary": {
+    "title": "검토 및 제출",
+    "subtitle": "생성 전에 조직 세부 사항을 확인하세요",
+    "symbol": "조직 심볼",
+    "name": "짧은 이름",
+    "maxSupply": "최대 공급량",
+    "precision": "정밀도",
+    "nftMedia": "NFT 미디어",
+    "pmo": "PMO 조직"
+  },
+  "ready": "모든 필수 필드가 입력되었습니다. PMA 조직 생성 준비가 완료되었습니다!",
+  "fieldsRequired": "계속하려면 조직 심볼을 입력하세요.",
+  "tips": {
+    "title": "PMA 조직에 대해",
+    "hint": "예측 시장 조직을 생성하면 서브 자산을大幅히 할인된 수수료로 발행할 수 있는 최상위 자산 이름이 등록됩니다. 예를 들어, 'GAMBLE'를 등록하면 GAMBLE.0001, GAMBLE.0002 등을 만들 수 있으며 — 각각 단독 자산 생성보다 낮은 수수료로 이용할 수 있습니다. 투자자들은 이러한 서브 자산이 귀하의 조직의 것임을 즉시 인식할 수 있습니다."
+  },
+  "buttons": {
+    "submit": "조직 생성"
+  },
+  "dialogContent": {
+    "headerText": "PMA 조직 생성 중: {{symbol}}"
+  }
+}

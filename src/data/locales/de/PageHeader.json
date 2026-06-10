@@ -33,6 +33,7 @@
   "vestingBalances": "Freizügigkeitsguthaben",
   "predictions": "Vorhersagen",
   "createPrediction": "Vorhersage erstellen",
+  "createPMAOrg": "PMA-Organisation erstellen",
   "assetsHeading": "Vermögenserstellung",
   "issuedAssets": "Ihre ausgegebenen Vermögenswerte",
   "create_smartcoin": "Smartcoin erstellen",
@@ -82,6 +83,7 @@
     "offers": "Überwachen und verwalten Sie Ihre Kreditangebote mit dem untenstehenden Formular.",
     "vesting": "Überwachen und heben Sie Ihr Sperrguthaben mit dem untenstehenden Formular ab.",
     "create_prediction": "Verwenden Sie das folgende Formular, um ein Prognosemarkt-Asset zu erstellen.",
+    "create_pma_org": "Registrieren Sie eine Prediction Market-Organisation zur Ausgabe von Unteractiven unter einem einheitlichen Markennamen.",
     "predictions": "Suchen Sie unten nach einem Prognosemarkt-Asset, auf das Sie wetten können.",
     "tfunds": "Suchen, erstellen, aktualisieren oder löschen Sie unten Same-T-Fonds!",
     "create_vesting": "Verwenden Sie dieses Formular, um ein Sperrguthaben für jedes Konto zu erstellen!",
@@ -109,5 +111,6 @@
   "multiwallet": "Multiwallet",
   "tfund_user": "Same-T Fund Trade",
   "createAccount": "Konto erstellen",
-  "transferFundsHeading": "Geld überweisen"
+  "transferFundsHeading": "Geld überweisen",
+  "predictionOrganizations": "Vorhersage-Organisationen"
 }

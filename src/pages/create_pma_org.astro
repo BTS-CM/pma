@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader';
 import PageFooter from '../components/PageFooter';
-import Predictions from '../components/Predictions';
+import CreatePMAOrg from '../components/CreatePMAOrg';
 
 const btsAllAssets = await getCollection('btsAllAssets');
 const testAllAssets = await getCollection('testAllAssets');
@@ -18,18 +18,17 @@ const marketSearchBTS = btsMarketData.map(collection => collection.data);
 const marketSearchTEST = testMarketData.map(collection => collection.data);
 ---
 
-<Layout title="Bitshares Prediction Market UI - My prediction markets">
+<Layout title="Bitshares Prediction Market UI - Create Prediction Market Organization">
 	<main>
-		<PageHeader client:only="react" page="my_predictions" backURL="" />
-		<Predictions
+		<PageHeader client:only="react" page="create_pma_org" backURL="" />
+		<CreatePMAOrg
 			client:only="react"
-			view="mine"
 			_assetsBTS={btsAssets}
 			_assetsTEST={testAssets}
 			_marketSearchBTS={marketSearchBTS}
 			_marketSearchTEST={marketSearchTEST}
 		/>
-		<PageFooter client:only="react" sourceURL="https://github.com/BTS-CM/astro-ui/blob/main/src/components/Predictions.jsx" />
+		<PageFooter client:only="react" sourceURL="https://github.com/BTS-CM/astro-ui/blob/main/src/create_pma_org/index.astro" />
 	</main>
 </Layout>
 

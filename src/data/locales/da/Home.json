@@ -1,10 +1,10 @@
 {
   "instant_trade": {
-    "title": "⚡ Øjeblikkelig handel",
-    "subtitle": "Skift hurtigt aktiver til de bedste tilgængelige priser",
+    "title": "Øjeblikkelig handel",
+    "subtitle": "Byt hurtigt aktiver til de bedste tilgængelige priser",
     "hover1": "Handl øjeblikkeligt aktiver på DEX uden distraktioner.",
-    "hover2": "Bruger udfyld-eller-dræb ordreteknologi til enten at få de priser, du ønsker, eller annullere ordren.",
-    "hover3": "Se, hvem du vil handle med på DEX, og om de har aktiveret on-fill-betingelser på deres ordrer."
+    "hover2": "Bruger fill-or-kill-ordret teknologi til enten at få de priser, du ønsker, eller annullere ordren.",
+    "hover3": "Se hvem du handler med på DEX, og om de har aktiveret on-fill-betingelser på deres ordrer."
   },
   "vote": {
     "title": "🗳️ Afstemning",
@@ -80,13 +80,6 @@
     "title": "Overfør aktiver",
     "subtitle": "Send aktiver til andre brugere",
     "hover1": "Overfør aktiver til alle på Bitshares-blockchain på sekunder."
-  },
-  "instant_trade": {
-    "title": "Øjeblikkelig handel",
-    "subtitle": "Byt hurtigt aktiver til de bedste tilgængelige priser",
-    "hover1": "Handl øjeblikkeligt aktiver på DEX uden distraktioner.",
-    "hover2": "Bruger fill-or-kill-ordret teknologi til enten at få de priser, du ønsker, eller annullere ordren.",
-    "hover3": "Se hvem du handler med på DEX, og om de har aktiveret on-fill-betingelser på deres ordrer."
   },
   "simple_asset_swap": {
     "title": "Simpel aktivbytte",
@@ -235,6 +228,13 @@
     "hover1": "Lav væddemål om bogstaveligt talt alt.",
     "hover2": "Vær bookmaker og sæt din egen kommission.",
     "hover3": "Både kort- og langsigtede væddemål er mulige."
+  },
+  "create_pma_org": {
+    "title": "Opret PMA-organisation",
+    "subtitle": "Registrer et top-level navn til udstedelse af predictions market-underaktiver",
+    "hover1": "Registrer et brandnavn, under hvilket alle dine predictions market-aktiver vil blive udstedt.",
+    "hover2": "Underaktiver (f.eks. GAMBLE.0001) oprettes til en betydelig rabat sammenlignet med selvstændige aktiver.",
+    "hover3": "Opbygger genkendelse af brandnavnet — investorer ved øjeblikkeligt, hvilken organisation der har udstedt et predictions market-aktiv."
   },
   "create_uia": {
     "title": "🍬 Brugerudstedt aktiv",
@@ -494,5 +494,12 @@
     "hover1": "Se aktiver, der aktuelt er i global afvikling.",
     "hover2": "Afgiv bud på afviklingsfonde med rabat i forhold til pålydende værdi.",
     "hover3": "Tving-afvikl individuelle aktiver for deres pro-rata-andel af afviklingspuljen."
+  },
+  "prediction_organizations": {
+    "title": "Forudsigelsesmarkedsorganisationer",
+    "subtitle": "Gennemse organisationer der udsteder forudsigelsesmarkedsaktiver",
+    "hover1": "Se alle registrerede forudsigelsesmarkedsorganisationer og deres aktive forudsigelser.",
+    "hover2": "Hver organisation udsteder underaktiver (f.eks. GAMBLE.0001) med rabat under et ensartet brand.",
+    "hover3": "Filtrer forudsigelser efter organisation for at finde alle aktiver fra en enkelt udsteder."
   }
 }

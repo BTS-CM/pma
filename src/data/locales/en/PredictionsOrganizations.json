@@ -1,0 +1,19 @@
+{
+  "title": "Prediction Market Organizations",
+  "description": "Browse prediction market organizations and their active predictions.",
+  "showing": "Showing {{count}} of {{total}} organizations",
+  "searchPlaceholder": "Search by symbol or name…",
+  "empty": "No prediction market organizations found.",
+  "createOrg": "Create an Organization",
+  "active": "active",
+  "expired": "expired",
+  "resolutionPolicy": "Resolution Policy",
+  "disputeMechanism": "Dispute Mechanism",
+  "viewActive": "View active predictions",
+  "viewExpired": "View expired predictions",
+  "sort": {
+    "alpha": "Alphabetical",
+    "pmaCount": "Most predictions",
+    "newest": "Newest first"
+  }
+}

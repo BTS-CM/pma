@@ -1,0 +1,19 @@
+{
+  "title": "Forudsigelsesmarkedsorganisationer",
+  "description": "Gennemse forudsigelsesmarkedsorganisationer og deres aktive forudsigelser.",
+  "showing": "Viser {{count}} af {{total}} organisationer",
+  "searchPlaceholder": "Søg efter symbol eller navn…",
+  "empty": "Ingen forudsigelsesmarkedsorganisationer fundet.",
+  "createOrg": "Opret en organisation",
+  "active": "aktive",
+  "expired": "udløbet",
+  "resolutionPolicy": "Løsningspolitik",
+  "disputeMechanism": "Tvistløsningsmekanisme",
+  "viewActive": "Se aktive forudsigelser",
+  "viewExpired": "Se udløbne forudsigelser",
+  "sort": {
+    "alpha": "Alfabetisk",
+    "pmaCount": "Flest forudsigelser",
+    "newest": "Nyeste først"
+  }
+}

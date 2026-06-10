@@ -1,0 +1,106 @@
+{
+  "card": {
+    "title": "Create Prediction Market Organization",
+    "description": "Register a top-level asset name that will serve as the parent for your prediction market sub-assets. Sub-assets issued under this organization (e.g. GAMBLE.0001) benefit from reduced creation fees and instant brand recognition."
+  },
+  "steps": {
+    "identity": {
+      "title": "Organization Identity",
+      "description": "Choose the symbol and details for your PMA organization"
+    },
+    "nft": {
+      "title": "Non-Fungible Token Metadata",
+      "description": "Optionally attach NFT metadata and IPFS media to your organization asset"
+    },
+    "pmo": {
+      "title": "Organization Profile (PMO Object)",
+      "description": "Define your organization's identity, governance, and attestation — the decentralized constitution for all sub-assets"
+    }
+  },
+  "symbol": {
+    "label": "Organization Symbol",
+    "help": "The top-level asset symbol for your prediction market organization. Sub-assets will be issued as SYMBOL.0001, SYMBOL.0002, etc. Cannot contain a dot.",
+    "placeholder": "e.g. GAMBLE"
+  },
+  "shortName": {
+    "label": "Short Name",
+    "help": "A human-readable name for your organization asset.",
+    "placeholder": "e.g. Gambling Predictions"
+  },
+  "description": {
+    "label": "Description",
+    "help": "A description of your prediction market organization and what it represents.",
+    "placeholder": "Describe your prediction market organization..."
+  },
+  "market": {
+    "label": "Preferred Market",
+    "help": "The preferred trading pair for this asset."
+  },
+  "pmo": {
+    "info": "The PMO object is stored in the asset's description field and acts as your organization's decentralized Terms of Service. Sub-assets inherit this identity — investors can verify which organization issued a market by checking the parent asset's PMO object.",
+    "identity": {
+      "heading": "Identity",
+      "name": {
+        "label": "Organization Name",
+        "help": "The official name of your prediction market organization.",
+        "placeholder": "e.g. GambleDAO"
+      },
+      "website": {
+        "label": "Website",
+        "help": "Your organization's public website URL.",
+        "placeholder": "https://organization.com"
+      },
+      "manifest": {
+        "label": "Manifest URL",
+        "help": "A URL to a hosted JSON file that maps your BitShares account public key to your official web presence, preventing impersonation assets.",
+        "placeholder": "https://organization.com/bitshares-pmo.json"
+      }
+    },
+    "governance": {
+      "heading": "Governance",
+      "resolution": {
+        "label": "Resolution Policy",
+        "help": "How the organization resolves its prediction markets (e.g. API-driven, Expert Panel, Community Vote).",
+        "placeholder": "e.g. All markets are resolved via a combination of oracle data and community governance vote..."
+      },
+      "dispute": {
+        "label": "Dispute Mechanism",
+        "help": "Instructions for users if they disagree with a market resolution.",
+        "placeholder": "e.g. Disputes must be submitted within 48 hours of resolution via the governance portal..."
+      },
+      "account": {
+        "label": "On-chain Account",
+        "help": "The BitShares account name that governs this organization.",
+        "placeholder": "e.g. the-org-account-name"
+      }
+    },
+    "attestation": {
+      "heading": "Attestation",
+      "label": "Issuer Attestation",
+      "help": "A formal pledge that all markets under this organization will be resolved according to the stated policies. This is your brand's commitment to transparency.",
+      "placeholder": "e.g. I, as the issuer of this asset, pledge that all markets under this organization will be resolved according to the policies stated herein."
+    }
+  },
+  "summary": {
+    "title": "Review & Submit",
+    "subtitle": "Verify your organization details before creating",
+    "symbol": "Organization Symbol",
+    "name": "Short Name",
+    "maxSupply": "Max Supply",
+    "precision": "Precision",
+    "nftMedia": "NFT Media",
+    "pmo": "PMO Organization"
+  },
+  "ready": "All required fields are filled. Ready to create your PMA organization!",
+  "fieldsRequired": "Please enter an organization symbol to continue.",
+  "tips": {
+    "title": "About PMA Organizations",
+    "hint": "Creating a prediction market organization registers a top-level asset name under which you can issue sub-assets at a significant discount. For example, registering 'GAMBLE' allows you to later create GAMBLE.0001, GAMBLE.0002, etc. — each at a lower fee than creating a standalone asset. Investors will recognize these sub-assets as belonging to your organization."
+  },
+  "buttons": {
+    "submit": "Create Organization"
+  },
+  "dialogContent": {
+    "headerText": "Creating PMA Organization: {{symbol}}"
+  }
+}

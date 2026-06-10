@@ -33,6 +33,7 @@
   "vestingBalances": "Saldos adquiridos",
   "predictions": "Previsões",
   "createPrediction": "Criar previsão",
+  "createPMAOrg": "Criar organização PMA",
   "assetsHeading": "Criação de ativos",
   "issuedAssets": "Seus ativos emitidos",
   "create_smartcoin": "Criar moeda inteligente",
@@ -82,6 +83,7 @@
     "offers": "Monitore e gerencie suas ofertas de crédito com o formulário abaixo.",
     "vesting": "Monitore e retire seus saldos de aquisição com o formulário abaixo.",
     "create_prediction": "Use o formulário abaixo para criar um ativo de mercado de previsão.",
+    "create_pma_org": "Registre uma organização de mercado de previsão para emitir sub-ativos sob uma única marca.",
     "predictions": "Localize abaixo um ativo de mercado de previsão para apostar.",
     "tfunds": "Encontre, crie, atualize ou exclua fundos Same-T abaixo!",
     "create_vesting": "Use este formulário para criar um saldo de aquisição para qualquer conta!",
@@ -109,5 +111,6 @@
   "multiwallet": "carteira múltipla",
   "tfund_user": "Negociação de Fundo Same-T",
   "createAccount": "Criar Conta",
-  "transferFundsHeading": "Transferir fundos"
+  "transferFundsHeading": "Transferir fundos",
+  "predictionOrganizations": "Organizações de previsão"
 }

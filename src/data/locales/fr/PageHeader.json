@@ -33,6 +33,7 @@
   "vestingBalances": "Soldes d’acquisition",
   "predictions": "Prédictions",
   "createPrediction": "Créer une prédiction",
+  "createPMAOrg": "Créer une organisation PMA",
   "assetsHeading": "Création d'actifs",
   "issuedAssets": "Vos actifs émis",
   "create_smartcoin": "Créer une pièce intelligente",
@@ -82,6 +83,7 @@
     "offers": "Suivez et gérez vos offres de crédit avec le formulaire ci-dessous.",
     "vesting": "Surveillez et retirez vos soldes d’acquisition avec le formulaire ci-dessous.",
     "create_prediction": "Utilisez le formulaire ci-dessous pour créer un actif de marché de prédiction.",
+    "create_pma_org": "Enregistrez une organisation de marché de prédiction pour émettre des sous-actifs sous une seule marque.",
     "predictions": "Localisez ci-dessous un actif du marché de prédiction sur lequel parier.",
     "tfunds": "Recherchez, créez, mettez à jour ou supprimez des fonds Same-T ci-dessous !",
     "create_vesting": "Utilisez ce formulaire pour créer un solde d'acquisition pour n'importe quel compte !",
@@ -109,5 +111,6 @@
   "multiwallet": "multi-portefeuille",
   "tfund_user": "Échange de fonds Same-T",
   "createAccount": "Créer un compte",
-  "transferFundsHeading": "Transférer des fonds"
+  "transferFundsHeading": "Transférer des fonds",
+  "predictionOrganizations": "Organisations de prédiction"
 }

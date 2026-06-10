@@ -1,0 +1,19 @@
+{
+  "title": "Organizaciones de Mercado de Predicción",
+  "description": "Explore organizaciones de mercado de predicción y sus predicciones activas.",
+  "showing": "Mostrando {{count}} de {{total}} organizaciones",
+  "searchPlaceholder": "Buscar por símbolo o nombre…",
+  "empty": "No se encontraron organizaciones de mercado de predicción.",
+  "createOrg": "Crear una organización",
+  "active": "activas",
+  "expired": "expiradas",
+  "resolutionPolicy": "Política de resolución",
+  "disputeMechanism": "Mecanismo de disputa",
+  "viewActive": "Ver predicciones activas",
+  "viewExpired": "Ver predicciones expiradas",
+  "sort": {
+    "alpha": "Alfabético",
+    "pmaCount": "Más predicciones",
+    "newest": "Más recientes"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "title": "Vorhersagemarkt-Organisationen",
+  "description": "Durchsuchen Sie Vorhersagemarkt-Organisationen und deren aktive Vorhersagen.",
+  "showing": "{{count}} von {{total}} Organisationen",
+  "searchPlaceholder": "Nach Symbol oder Name suchen…",
+  "empty": "Keine Vorhersagemarkt-Organisationen gefunden.",
+  "createOrg": "Organisation erstellen",
+  "active": "aktiv",
+  "expired": "abgelaufen",
+  "resolutionPolicy": "Auflösungsrichtlinie",
+  "disputeMechanism": "Streitbeilegungsmechanismus",
+  "viewActive": "Aktive Vorhersagen anzeigen",
+  "viewExpired": "Abgelaufene Vorhersagen anzeigen",
+  "sort": {
+    "alpha": "Alphabetisch",
+    "pmaCount": "Meiste Vorhersagen",
+    "newest": "Neueste zuerst"
+  }
+}

@@ -33,6 +33,7 @@
   "vestingBalances": "Optjening af saldi",
   "predictions": "Forudsigelser",
   "createPrediction": "Opret forudsigelse",
+  "createPMAOrg": "Opret PMA-organisation",
   "assetsHeading": "Oprettelse af aktiver",
   "issuedAssets": "Dine udstedte aktiver",
   "create_smartcoin": "Opret smartcoin",
@@ -82,6 +83,8 @@
     "offers": "Overvåg og administrer dine kredittilbud med nedenstående formular.",
     "vesting": "Overvåg og træk dine optjente saldi med nedenstående formular.",
     "predictions": "Find et forudsigelsesmarkedsaktiv nedenfor for at spille på.",
+    "create_prediction": "Brug formularen nedenfor til at oprette et predictions market-aktiv.",
+    "create_pma_org": "Registrer en predictions market-organisation til at udstede underaktiver under ét enkelt brandnavn.",
     "tfunds": "Find, opret, opdater eller slet Same-T-midler nedenfor!",
     "create_vesting": "Brug denne formular til at oprette en optjeningssaldo for enhver konto!",
     "uia": "Opret dit eget brugerudstedte aktiv med formularen nedenfor!",
@@ -108,5 +111,6 @@
   "multiwallet": "multiwallet",
   "tfund_user": "Same-T Fund Trade",
   "createAccount": "Opret konto",
-  "transferFundsHeading": "Overfør midler"
+  "transferFundsHeading": "Overfør midler",
+  "predictionOrganizations": "Forudsigelsesorganisationer"
 }

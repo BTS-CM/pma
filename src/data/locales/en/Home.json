@@ -1,6 +1,6 @@
 {
   "instant_trade": {
-    "title": "⚡ Instant Trade",
+    "title": "Instant Trade",
     "subtitle": "Quickly swap assets at the best available prices",
     "hover1": "Instantly trade assets on the DEX without any distractions.",
     "hover2": "Utilizes fill-or-kill order technology to either get the prices you want or cancels the order.",
@@ -80,13 +80,6 @@
     "title": "Transfer Assets",
     "subtitle": "Send assets to other users",
     "hover1": "Transfer assets to anyone on the Bitshares blockchain in seconds."
-  },
-  "instant_trade": {
-    "title": "Instant Trade",
-    "subtitle": "Quickly swap assets at the best available prices",
-    "hover1": "Instantly trade assets on the DEX without any distractions.",
-    "hover2": "Utilizes fill-or-kill order technology to either get the prices you want or cancels the order.",
-    "hover3": "See who you'll be trading with on the DEX and whether they've enabled on-fill conditions on their orders."
   },
   "simple_asset_swap": {
     "title": "Simple Asset Swap",
@@ -270,6 +263,13 @@
     "hover1": "Create bets about literally anything.",
     "hover2": "Be the bookie and set your own commission.",
     "hover3": "Both short and long term bets are possible."
+  },
+  "create_pma_org": {
+    "title": "Create PMA Organization",
+    "subtitle": "Register a top-level name for issuing prediction market sub-assets",
+    "hover1": "Register a brand name under which all your prediction market assets will be issued.",
+    "hover2": "Sub-assets (e.g. GAMBLE.0001) are created at a significant discount compared to standalone assets.",
+    "hover3": "Builds brand recognition — investors instantly know which organization issued a prediction market asset."
   },
   "create_uia": {
     "title": "🍬 User Issued Asset",
@@ -487,5 +487,12 @@
     "subtitle": "Learn more about the features",
     "hover1": "View the features of the platform.",
     "hover2": "Learn about the supported blockchains, wallets and languages."
+  },
+  "prediction_organizations": {
+    "title": "Prediction Market Organizations",
+    "subtitle": "Browse organizations issuing prediction market assets",
+    "hover1": "View all registered prediction market organizations and their active predictions.",
+    "hover2": "Each organization issues sub-assets (e.g. GAMBLE.0001) at a discount under a unified brand.",
+    "hover3": "Filter predictions by organization to find all assets from a single issuer."
   }
 }
