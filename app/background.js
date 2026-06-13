@@ -547,9 +547,10 @@ electron__WEBPACK_IMPORTED_MODULE_9__.protocol.registerSchemesAsPrivileged([
 
 const createWindow = async () => {
   mainWindow = new electron__WEBPACK_IMPORTED_MODULE_9__.BrowserWindow({
-    minWidth: 540,
-    minHeight: 100,
+    minWidth: 800,
+    minHeight: 600,
     maximizable: true,
+    fullscreenable: true,
     useContentSize: true,
     autoHideMenuBar: true,
     webPreferences: {
@@ -562,6 +563,11 @@ const createWindow = async () => {
   });
 
   (0,_lib_applicationMenu_js__WEBPACK_IMPORTED_MODULE_10__.initApplicationMenu)(mainWindow);
+
+  // Start the app window maximized (full-windowed) by default.
+  try {
+    mainWindow.maximize();
+  } catch (e) {}
 
   // Load the local HTML file using the custom protocol
   mainWindow.loadURL("file://index.html");

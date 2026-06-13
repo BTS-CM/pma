@@ -20,6 +20,7 @@
   "portfolio": "Portfolio",
   "margin": "Marge",
   "bettingAsset": "Wettvermögen",
+  "prize_pool": "Gewinnpool",
   "card": {
     "title": {
       "active": "Aktive Prognosemärkte",

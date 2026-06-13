@@ -20,6 +20,7 @@
   "portfolio": "Portefeuille",
   "margin": "Marge",
   "bettingAsset": "Actif de pari",
+  "prize_pool": "Cagnotte",
   "card": {
     "title": {
       "active": "Marchés de prédiction actifs",

@@ -20,6 +20,7 @@
   "portfolio": "Cartera",
   "margin": "Margen",
   "bettingAsset": "Activo de apuesta",
+  "prize_pool": "Bote",
   "card": {
     "title": {
       "active": "Mercados de predicción activos",

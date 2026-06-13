@@ -20,6 +20,7 @@
   "portfolio": "Portefølje",
   "margin": "Margin",
   "bettingAsset": "Væddemålsaktiv",
+  "prize_pool": "Præmiepulje",
   "card": {
     "title": {
       "active": "Aktive forudsigelsesmarkeder",

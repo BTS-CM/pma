@@ -20,6 +20,7 @@
   "portfolio": "포트폴리오",
   "margin": "증거금",
   "bettingAsset": "베팅 자산",
+  "prize_pool": "상금 풀",
   "card": {
     "title": {
       "active": "활성 예측 시장",

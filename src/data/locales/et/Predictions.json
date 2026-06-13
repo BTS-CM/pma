@@ -20,6 +20,7 @@
   "portfolio": "Portfell",
   "margin": "Marginaali",
   "bettingAsset": "Panustamisvara",
+  "prize_pool": "Auhinnafond",
   "card": {
     "title": {
       "active": "Aktiivsed ennustusteturud",

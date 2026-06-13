@@ -20,6 +20,7 @@
   "portfolio": "Portfolio",
   "margin": "Margin",
   "bettingAsset": "Betting Asset",
+  "prize_pool": "Prize pool",
   "card": {
     "title": {
       "active": "Active Prediction Markets",
