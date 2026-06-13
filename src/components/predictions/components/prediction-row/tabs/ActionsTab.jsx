@@ -18,11 +18,7 @@ export function ActionsTab({
 }) {
   return (
     <div className="grid grid-cols-1 gap-2">
-      <HoverInfo
-        content={t("Predictions:seller_content")}
-        header={t("Predictions:seller")}
-        type="header"
-      />
+      <HoverInfo content={t("Predictions:seller_content")} header={t("Predictions:seller")} type="header" />
       <div className="grid grid-cols-3 gap-3">
         <IssueDialog
           res={res}
@@ -45,11 +41,7 @@ export function ActionsTab({
           t={t}
         />
       </div>
-      <HoverInfo
-        content={t("Predictions:buyer_content")}
-        header={t("Predictions:buyer")}
-        type="header"
-      />
+      <HoverInfo content={t("Predictions:buyer_content")} header={t("Predictions:buyer")} type="header" />
       <div className="grid grid-cols-3 gap-3">
         <BuyDialog
           res={res}

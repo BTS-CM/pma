@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-
 export function prettifyDate(date) {
   const d = new Date(date);
   const hours = d.getHours() < 10 ? `0${d.getHours()}` : d.getHours();
@@ -20,12 +18,4 @@ export function formatTimeRemaining(expiration) {
   if (days > 0) return `${days}d ${hours}h`;
   if (hours > 0) return `${hours}h ${minutes}m`;
   return `${minutes}m`;
-}
-
-export function humanReadableFloat(amount, precision) {
-  return (amount / Math.pow(10, precision)).toFixed(precision);
-}
-
-export function blockchainFloat(amount, precision) {
-  return Math.round(amount * Math.pow(10, precision));
 }
