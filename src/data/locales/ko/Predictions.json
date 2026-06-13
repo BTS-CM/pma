@@ -128,8 +128,10 @@
     "searchPlaceholder": "심볼 또는 질문으로 검색…",
     "noResults": "필터와 일치하는 예측이 없습니다.",
     "filterByIssuer": "이 발행자로 필터",
-    "clearFilter": "필터 지우기"
+    "clearFilter": "필터 지우기",
+    "clickToView": "세부정보를 보려면 클릭하세요"
   },
+  "loading": "예측 로딩 중…",
   "price_feeders": "가격 피더",
   "price_feeders_content": "이 예측은 증인, 위원회 또는 개인 가격 피더에 의해 해결될 수 있습니다.",
   "feed": "가격 피드 기반 해결",

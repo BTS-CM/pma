@@ -1,6 +1,7 @@
 import React from "react";
 import { NftHero, NftThumbStrip, StatBlock, LongText, MonoBlock } from "../../ui";
-import { ImageIcon, ExternalLink as ExternalLinkIcon } from "@radix-ui/react-icons";
+import { ImageIcon } from "@radix-ui/react-icons";
+import { ExternalLink as ExternalLinkIcon } from "lucide-react";
 import { ipfsUrl } from "@/lib/common.js";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

@@ -128,8 +128,10 @@
     "searchPlaceholder": "シンボルまたは質問で検索…",
     "noResults": "フィルターに一致する予測がありません。",
     "filterByIssuer": "この発行者でフィルター",
-    "clearFilter": "フィルターをクリア"
+    "clearFilter": "フィルターをクリア",
+    "clickToView": "詳細を表示するにはクリック"
   },
+  "loading": "予測を読み込み中…",
   "price_feeders": "価格フィーダー",
   "price_feeders_content": "この予測は、証人、委員会、または民間の価格フィーダーのいずれかによって解決されます。",
   "feed": "価格フィードによる解決",

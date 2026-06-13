@@ -8,8 +8,8 @@ import { ExclamationTriangleIcon, CalendarIcon } from "@radix-ui/react-icons";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { HoverInfo } from "@/components/common/HoverInfo.tsx";
-import { DeepLinkDialog } from "@/components/common/DeepLinkDialog.jsx";
+import HoverInfo from "@/components/common/HoverInfo.tsx";
+import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import { assetAmountRegex, blockchainFloat } from "@/lib/common.js";
 import { cn } from "@/lib/utils";
 

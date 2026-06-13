@@ -128,8 +128,10 @@
     "searchPlaceholder": "Search by symbol or question…",
     "noResults": "No predictions match your filters.",
     "filterByIssuer": "Filter by this issuer",
-    "clearFilter": "Clear filter"
+    "clearFilter": "Clear filter",
+    "clickToView": "Click to view details"
   },
+  "loading": "Loading predictions…",
   "price_feeders": "Price feeders",
   "price_feeders_content": "The prediction can be resolved by either the witnesses, committee or private price feeders.",
   "feed": "Price fed resolution",

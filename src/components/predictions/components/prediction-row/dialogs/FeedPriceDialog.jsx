@@ -3,8 +3,8 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { HoverInfo } from "@/components/common/HoverInfo.tsx";
-import { DeepLinkDialog } from "@/components/common/DeepLinkDialog.jsx";
+import HoverInfo from "@/components/common/HoverInfo.tsx";
+import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 
 export function FeedPriceDialog({ res, usr, _backingAssetID, t }) {
   const [priceFeedPrompt, setPriceFeedPrompt] = useState(false);

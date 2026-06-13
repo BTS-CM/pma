@@ -4,8 +4,8 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Avatar } from "@/components/Avatar.tsx";
-import { HoverInfo } from "@/components/common/HoverInfo.tsx";
-import { DeepLinkDialog } from "@/components/common/DeepLinkDialog.jsx";
+import HoverInfo from "@/components/common/HoverInfo.tsx";
+import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import AccountSearch from "@/components/AccountSearch.jsx";
 
 export function PricefeederDialog({ res, usr, t }) {

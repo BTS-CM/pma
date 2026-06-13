@@ -5,9 +5,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { HoverInfo } from "@/components/common/HoverInfo.tsx";
-import { DeepLinkDialog } from "@/components/common/DeepLinkDialog.jsx";
-import { prettifyDate } from "../../../../utils/formatters";
+import HoverInfo from "@/components/common/HoverInfo.tsx";
+import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
+import { prettifyDate } from "../../../utils/formatters";
 
 export function ResolveDialog({ res, usr, isExpired, expirationHours, expiration, cleanedPrediction, _backingAssetID, t }) {
   const [resolvePrompt, setResolvePrompt] = useState(false);

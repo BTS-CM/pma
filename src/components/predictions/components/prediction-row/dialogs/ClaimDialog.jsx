@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { HoverInfo } from "@/components/common/HoverInfo.tsx";
-import { DeepLinkDialog } from "@/components/common/DeepLinkDialog.jsx";
+import HoverInfo from "@/components/common/HoverInfo.tsx";
+import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import { assetAmountRegex, blockchainFloat, humanReadableFloat } from "@/lib/common.js";
 
 export function ClaimDialog({ res, usr, humanReadablePredictionMarketAssetBalance, relevantBitassetData, t }) {

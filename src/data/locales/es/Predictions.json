@@ -128,8 +128,10 @@
     "searchPlaceholder": "Buscar por símbolo o pregunta…",
     "noResults": "Ninguna predicción coincide con sus filtros.",
     "filterByIssuer": "Filtrar por este emisor",
-    "clearFilter": "Borrar filtro"
+    "clearFilter": "Borrar filtro",
+    "clickToView": "Haz clic para ver los detalles"
   },
+  "loading": "Cargando predicciones…",
   "price_feeders": "Alimentadores de precios",
   "price_feeders_content": "La predicción puede ser resuelta por los testigos, el comité o los alimentadores de precios privados.",
   "feed": "Resolución alimentada por precio",

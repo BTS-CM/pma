@@ -128,8 +128,10 @@
     "searchPlaceholder": "Cerca per simbolo o domanda…",
     "noResults": "Nessuna previsione corrisponde ai tuoi filtri.",
     "filterByIssuer": "Filtra per questo emittente",
-    "clearFilter": "Cancella filtro"
+    "clearFilter": "Cancella filtro",
+    "clickToView": "Clicca per vedere i dettagli"
   },
+  "loading": "Caricamento previsioni…",
   "price_feeders": "Alimentatori di prezzi",
   "price_feeders_content": "La previsione può essere risolta dai testimoni, dal comitato o dai fornitori di prezzi privati.",
   "feed": "Risoluzione basata sul prezzo",

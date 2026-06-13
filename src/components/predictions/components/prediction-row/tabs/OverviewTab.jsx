@@ -1,6 +1,6 @@
 import React from "react";
 import { StatBlock } from "../../ui";
-import { prettifyDate, formatTimeRemaining } from "../../../../utils/formatters";
+import { prettifyDate, formatTimeRemaining } from "../../../utils/formatters";
 import { humanReadableFloat } from "@/lib/common.js";
 
 export function OverviewTab({

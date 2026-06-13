@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
   useCallback,
+  useRef,
 } from "react";
 import { useStore } from "@nanostores/react";
 import { sha256 } from "@noble/hashes/sha2.js";
@@ -18,6 +19,7 @@ import {
   Briefcase,
   TrendingUp,
 } from "lucide-react";
+import { List } from "react-window";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 import { useTranslation } from "react-i18next";
@@ -26,7 +28,7 @@ import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Spinner } from "@/components/ui/spinner";
 import {
   Card,
   CardContent,
@@ -251,72 +253,77 @@ export default function Predictions(properties) {
 
   const [pmaProcessedData, setPmaProcessedData] = useState([]);
   const [hasLoadedPmas, setHasLoadedPmas] = useState(false);
+  const [fetchingPmas, setFetchingPmas] = useState(true);
+  const fetchingRef = useRef(true);
   useEffect(() => {
-    async function fetching() {
-      const _store = createObjectStore([
-        _chain,
-        JSON.stringify(predictionMarketAssets.map((x) => x.id)),
-        currentNode ? currentNode.url : null,
-      ]);
-
-      _store.subscribe(({ data, error, loading }) => {
-        if (data && !error && !loading) {
-          const now = new Date();
-          const processedData = data
-            .map((x) => {
-              const plainDescription = x.options.description;
-              if (
-                !plainDescription ||
-                !plainDescription.length ||
-                !plainDescription.includes("market") ||
-                !plainDescription.includes("expiry") ||
-                !plainDescription.includes("condition")
-              ) {
-                return;
-              }
-
-              const description = JSON.parse(x.options.description);
-              if (
-                !description ||
-                !description.market ||
-                !description.expiry ||
-                !description.condition
-              ) {
-                return;
-              }
-
-              const market = description.market;
-              const expiration = new Date(description.expiry);
-
-              const backingAsset = assets.find((x) => x.symbol === market);
-              return { ...x, backingAsset, expired: now > expiration };
-            })
-            .filter((x) => x)
-            .sort(
-              (a, b) =>
-                new Date(b.creation_time) - new Date(a.creation_time),
-            );
-          setPmaProcessedData(processedData);
-          setHasLoadedPmas(true);
-        }
-      });
-    }
+    let cancelled = false;
 
     if (predictionMarketAssets && predictionMarketAssets.length) {
-      fetching();
-    }
-  }, [predictionMarketAssets]);
+      fetchingRef.current = true;
+      setFetchingPmas(true);
 
-  useEffect(() => {
-    if (
-      predictionMarketAssets &&
-      predictionMarketAssets.length === 0 &&
-      _chain &&
-      currentNode
-    ) {
+      async function fetching() {
+        const _store = createObjectStore([
+          _chain,
+          JSON.stringify(predictionMarketAssets.map((x) => x.id)),
+          currentNode ? currentNode.url : null,
+        ]);
+
+        _store.subscribe(({ data, error, loading }) => {
+          if (cancelled) return;
+          if (data && !error && !loading) {
+            const now = new Date();
+            const processedData = data
+              .map((x) => {
+                const plainDescription = x.options.description;
+                if (
+                  !plainDescription ||
+                  !plainDescription.length ||
+                  !plainDescription.includes("market") ||
+                  !plainDescription.includes("expiry") ||
+                  !plainDescription.includes("condition")
+                ) {
+                  return;
+                }
+
+                const description = JSON.parse(x.options.description);
+                if (
+                  !description ||
+                  !description.market ||
+                  !description.expiry ||
+                  !description.condition
+                ) {
+                  return;
+                }
+
+                const market = description.market;
+                const expiration = new Date(description.expiry);
+
+                const backingAsset = assets.find((x) => x.symbol === market);
+                return { ...x, backingAsset, expired: now > expiration };
+              })
+              .filter((x) => x)
+              .sort(
+                (a, b) =>
+                  new Date(b.creation_time) - new Date(a.creation_time),
+              );
+            setPmaProcessedData(processedData);
+            setHasLoadedPmas(true);
+            fetchingRef.current = false;
+            setFetchingPmas(false);
+          }
+        });
+      }
+
+      fetching();
+    } else {
       setHasLoadedPmas(true);
+      fetchingRef.current = false;
+      setFetchingPmas(false);
     }
-  }, [predictionMarketAssets, _chain, currentNode]);
+
+    return () => { cancelled = true; };
+  }, [predictionMarketAssets]);
 
   const [usrBalances, setUsrBalances] = useState();
   const [balanceAssetIDs, setBalanceAssetIDs] = useState([]);
@@ -654,6 +661,50 @@ export default function Predictions(properties) {
     userBlockedIDs,
   ]);
 
+  const listContainerRef = useRef(null);
+
+  const PredictionRowItem = useCallback(({ index, style, items, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, expiredPMAs, userBlockedIDs, ipfsGateway, view, now, setIssuerFilter, t }) => {
+    const item = items[index];
+    if (!item) return null;
+    return (
+      <div style={{ ...style, paddingBottom: 4, paddingRight: 4 }}>
+        <PredictionRow
+          res={item}
+          completedPMAs={completedPMAs}
+          callOrders={callOrders}
+          usrBalances={usrBalances}
+          usr={usr}
+          marketSearch={marketSearch}
+          combinedAssets={combinedAssets}
+          expiredPMAs={expiredPMAs}
+          userBlockedIDs={userBlockedIDs}
+          ipfsGateway={ipfsGateway}
+          view={view}
+          now={now}
+          setIssuerFilter={setIssuerFilter}
+          t={t}
+        />
+      </div>
+    );
+  }, []);
+
+  const listRowProps = useMemo(() => ({
+    items: sortedFilteredPMAs || [],
+    completedPMAs,
+    callOrders,
+    usrBalances,
+    usr,
+    marketSearch,
+    combinedAssets,
+    expiredPMAs,
+    userBlockedIDs,
+    ipfsGateway,
+    view,
+    now,
+    setIssuerFilter,
+    t,
+  }), [sortedFilteredPMAs, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, expiredPMAs, userBlockedIDs, ipfsGateway, view, now, setIssuerFilter, t]);
+
   return (
     <div className="container mx-auto mt-5 mb-5 text-white">
       <div className="grid grid-cols-1 gap-3">
@@ -701,14 +752,12 @@ export default function Predictions(properties) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {!hasLoadedPmas ? (
-              <div className="grid grid-cols-1 gap-2 mt-3">
-                {[0, 1, 2].map((i) => (
-                  <Skeleton
-                    key={`skeleton-${i}`}
-                    className="h-[120px] w-full bg-white/10"
-                  />
-                ))}
+            {fetchingPmas ? (
+              <div className="flex flex-col items-center justify-center py-12 gap-3">
+                <Spinner className="size-6 text-white/40" />
+                <div className="text-sm text-white/40">
+                  {t("Predictions:loading")}
+                </div>
               </div>
             ) : null}
 
@@ -783,41 +832,23 @@ export default function Predictions(properties) {
                 </div>
 
                 {sortedFilteredPMAs && sortedFilteredPMAs.length ? (
-                  <div
-                    className="w-full max-h-[60vh] md:max-h-[70vh] overflow-auto pr-1"
-                    key={`list-${view}-${sortBy}-${filterBy}-${searchQuery}`}
-                  >
-                    <div className="grid grid-cols-1 gap-3 pb-2">
-                      {sortedFilteredPMAs.map((res) => (
-                        <PredictionRow
-                          key={res.id}
-                          res={res}
-                          completedPMAs={completedPMAs}
-                          callOrders={callOrders}
-                          usrBalances={usrBalances}
-                          usr={usr}
-                          marketSearch={marketSearch}
-                          combinedAssets={combinedAssets}
-                          expiredPMAs={expiredPMAs}
-                          userBlockedIDs={userBlockedIDs}
-                          ipfsGateway={ipfsGateway}
-                          view={view}
-                          now={now}
-                          setIssuerFilter={setIssuerFilter}
-                          t={t}
-                        />
-                      ))}
-                    </div>
+                  <div ref={listContainerRef} className="w-full max-h-[60vh] md:max-h-[70vh] overflow-auto pr-1">
+                    <List
+                      rowComponent={PredictionRowItem}
+                      rowCount={sortedFilteredPMAs.length}
+                      rowHeight={185}
+                      rowProps={listRowProps}
+                    />
                   </div>
-                ) : (
+                ) : !fetchingPmas ? (
                   <div className="text-center mt-5 text-sm text-white/40 italic">
                     {t("Predictions:list.noResults")}
                   </div>
-                )}
+                ) : null}
               </div>
             ) : null}
 
-            {hasLoadedPmas &&
+            {hasLoadedPmas && !fetchingPmas &&
             chosenPMAs &&
             !chosenPMAs.length &&
             view === "active" ? (
@@ -842,7 +873,7 @@ export default function Predictions(properties) {
                 </EmptyContent>
               </Empty>
             ) : null}
-            {hasLoadedPmas &&
+            {hasLoadedPmas && !fetchingPmas &&
             chosenPMAs &&
             !chosenPMAs.length &&
             view === "mine" ? (
@@ -867,7 +898,7 @@ export default function Predictions(properties) {
                 </EmptyContent>
               </Empty>
             ) : null}
-            {hasLoadedPmas &&
+            {hasLoadedPmas && !fetchingPmas &&
             chosenPMAs &&
             !chosenPMAs.length &&
             view === "portfolio" ? (
@@ -887,7 +918,7 @@ export default function Predictions(properties) {
                 </div>
               </div>
             ) : null}
-            {hasLoadedPmas &&
+            {hasLoadedPmas && !fetchingPmas &&
             chosenPMAs &&
             !chosenPMAs.length &&
             view === "margin" ? (
@@ -907,7 +938,7 @@ export default function Predictions(properties) {
                 </div>
               </div>
             ) : null}
-            {hasLoadedPmas &&
+            {hasLoadedPmas && !fetchingPmas &&
             chosenPMAs &&
             !chosenPMAs.length &&
             view === "expired" ? (

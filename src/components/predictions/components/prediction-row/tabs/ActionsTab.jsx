@@ -1,5 +1,5 @@
 import React from "react";
-import { HoverInfo } from "@/components/common/HoverInfo.tsx";
+import HoverInfo from "@/components/common/HoverInfo.tsx";
 import { IssueDialog } from "../dialogs/IssueDialog";
 import { SellDialog } from "../dialogs/SellDialog";
 import { BuyDialog } from "../dialogs/BuyDialog";

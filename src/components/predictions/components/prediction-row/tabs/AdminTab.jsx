@@ -1,5 +1,5 @@
 import React from "react";
-import { HoverInfo } from "@/components/common/HoverInfo.tsx";
+import HoverInfo from "@/components/common/HoverInfo.tsx";
 import { ResolveDialog } from "../dialogs/ResolveDialog";
 import { PricefeederDialog } from "../dialogs/PricefeederDialog";
 import { FeedPriceDialog } from "../dialogs/FeedPriceDialog";

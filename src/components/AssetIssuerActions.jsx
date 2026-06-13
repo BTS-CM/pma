@@ -300,69 +300,6 @@ function AssetIssuerActions(props) {
     );
   };
 
-  /*
-  const UserRow = ({ index: x, style: rowStyle }) => {
-    const user = users[x];
-    if (!user) {
-      return null;
-    }
-
-    return (
-      <div
-        style={{ ...rowStyle }}
-        key={`acard-${user.id}`}
-        onClick={() => {
-          setTargetUser({
-            name: user.username,
-            id: user.id,
-            chain: user.chain,
-          });
-          setSelectUserDialogOpen(false);
-          setNewIssuerUserOpen(false);
-        }}
-      >
-        <Card className="ml-2 mr-2">
-          <CardHeader className="pb-5">
-            <CardTitle>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <Avatar
-                  size={40}
-                  name={user.username}
-                  extra="Target"
-                  expression={{
-                    eye: "normal",
-                    mouth: "open",
-                  }}
-                  colors={[
-                    "#92A1C6",
-                    "#146A7C",
-                    "#F0AB3D",
-                    "#C271B4",
-                    "#C20D90",
-                  ]}
-                />
-                <span style={{ marginLeft: "10px" }}>
-                  {user.username} ({user.id})
-                </span>
-              </div>
-            </CardTitle>
-          </CardHeader>
-        </Card>
-      </div>
-    );
-  };
-  */
-
-  /*
-  useEffect(() => {
-    setDynamicData(dynamicAssetData ?? null);
-  }, [dynamicAssetData]);
-
-  useEffect(() => {
-    setBitassetDetails(bitassetData ?? null);
-  }, [bitassetData]);
-  */
-
   useEffect(() => {
     async function fetchDynamicAssetData() {
       if (dynamicAssetData || !asset?.dynamic_asset_data_id) {
