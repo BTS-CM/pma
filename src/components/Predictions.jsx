@@ -254,19 +254,23 @@ export default function Predictions(properties) {
   const [pmaProcessedData, setPmaProcessedData] = useState([]);
   const [hasLoadedPmas, setHasLoadedPmas] = useState(false);
   const [fetchingPmas, setFetchingPmas] = useState(true);
-  const fetchingRef = useRef(true);
-  useEffect(() => {
-    let cancelled = false;
+  const queriedStoreRef = useRef(false);
 
-    if (predictionMarketAssets && predictionMarketAssets.length) {
-      fetchingRef.current = true;
+  const predictionMarketAssetsCount = predictionMarketAssets?.length || 0;
+  const assetsCount = assets?.length || 0;
+  const currentNodeReady = !!(currentNode && currentNode.url);
+
+  useEffect(() => {
+    if (predictionMarketAssetsCount > 0 && currentNodeReady) {
+      queriedStoreRef.current = true;
+      let cancelled = false;
       setFetchingPmas(true);
 
       async function fetching() {
         const _store = createObjectStore([
           _chain,
           JSON.stringify(predictionMarketAssets.map((x) => x.id)),
-          currentNode ? currentNode.url : null,
+          currentNode.url,
         ]);
 
         _store.subscribe(({ data, error, loading }) => {
@@ -309,21 +313,23 @@ export default function Predictions(properties) {
               );
             setPmaProcessedData(processedData);
             setHasLoadedPmas(true);
-            fetchingRef.current = false;
             setFetchingPmas(false);
           }
         });
       }
 
       fetching();
-    } else {
+      return () => { cancelled = true; };
+    } else if (
+      queriedStoreRef.current &&
+      predictionMarketAssetsCount === 0 &&
+      currentNodeReady &&
+      assetsCount > 0
+    ) {
       setHasLoadedPmas(true);
-      fetchingRef.current = false;
       setFetchingPmas(false);
     }
-
-    return () => { cancelled = true; };
-  }, [predictionMarketAssets]);
+  }, [predictionMarketAssetsCount, currentNodeReady, assetsCount]);
 
   const [usrBalances, setUsrBalances] = useState();
   const [balanceAssetIDs, setBalanceAssetIDs] = useState([]);
