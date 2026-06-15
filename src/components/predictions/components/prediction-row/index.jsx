@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, memo } from "react";
 import DOMPurify from "dompurify";
-import { ExternalLink as ExternalLinkIcon } from "lucide-react";
+import { Ban, ExternalLink as ExternalLinkIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -8,11 +8,29 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar } from "@/components/Avatar.tsx";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { getNftImages, getFlagBooleans } from "@/lib/common.js";
 import { cn } from "@/lib/utils";
 import { CopyButton, StatBlock } from "../../PredictionUtils";
 import { prettifyDate, formatTimeRemaining } from "../../utils/formatters";
 import { humanReadableFloat } from "@/lib/common.js";
+import { addBlockedUser, removeBlockedUser } from "@/stores/blocklist.ts";
 import { PredictionDetailDialog } from "./PredictionDetailDialog";
 
 const STATUS_STYLES = {
@@ -39,6 +57,7 @@ export const PredictionRow = memo(function PredictionRow({
   t,
 }) {
   const [detailOpen, setDetailOpen] = useState(false);
+  const [blockConfirmOpen, setBlockConfirmOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
   useEffect(() => { setHeroIndex(0); }, [res?.id]);
 
@@ -126,7 +145,6 @@ export const PredictionRow = memo(function PredictionRow({
   const issuerDisplayName = issuerDisplayLabel ? issuerDisplayLabel.split(" (")[0] : null;
 
   const expiration = _desc.expiry;
-  const expirationMs = new Date(expiration).getTime();
   const market = _desc.market;
   const hasNft = !!(res.options && _desc && _desc.nft_object);
   const hasPmo = !!parentPmoObject;
@@ -139,7 +157,7 @@ export const PredictionRow = memo(function PredictionRow({
     <>
       <Card
         className={cn(
-          "w-full overflow-hidden border-l-4 rounded-lg ring-1 ring-white/[0.06] shadow-md shadow-black/20 transition-all duration-200 hover:shadow-xl hover:shadow-black/40 hover:-translate-y-1 hover:ring-white/[0.15] bg-slate-900/90 border-white/[0.10] backdrop-blur-sm cursor-pointer group",
+          "w-full overflow-hidden border-l-4 rounded-lg ring-1 ring-white/[0.06] shadow-md shadow-black/20 transition-all duration-200 hover:shadow-xl hover:shadow-black/40 hover:translate-x-1 hover:ring-white/[0.15] bg-slate-900/90 border-white/[0.10] backdrop-blur-sm cursor-pointer group",
           status.border,
         )}
         onClick={() => setDetailOpen(true)}
@@ -177,6 +195,35 @@ export const PredictionRow = memo(function PredictionRow({
               {issuerIsLtm ? (
                 <span className="inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-400">LTM</span>
               ) : null}
+              {usr && usr.id && house && house !== usr.id ? (
+                <TooltipProvider delayDuration={200}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className={cn(
+                          "h-6 w-6",
+                          userBlockedIDs.has(house) ? "text-red-600 hover:text-red-700" : "text-white/40 hover:text-red-400",
+                        )}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (userBlockedIDs.has(house)) {
+                            removeBlockedUser(usr.chain, { name: issuerDisplayLabel ?? username ?? house, id: house });
+                          } else {
+                            setBlockConfirmOpen(true);
+                          }
+                        }}
+                      >
+                        <Ban className="h-3.5 w-3.5" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="top">
+                      {userBlockedIDs.has(house) ? t("Predictions:json.unblockIssuer") : t("Predictions:json.blockIssuer")}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              ) : null}
             </div>
           </div>
         </CardHeader>
@@ -199,7 +246,7 @@ export const PredictionRow = memo(function PredictionRow({
           </div>
           <div className="mt-2 flex items-center gap-1 text-[11px] text-white/30 group-hover:text-white/50 transition-colors">
             <ExternalLinkIcon className="h-3 w-3" />
-            {t("Predictions:clickToView")}
+            {t("Predictions:list.clickToView")}
           </div>
         </CardContent>
       </Card>
@@ -227,6 +274,37 @@ export const PredictionRow = memo(function PredictionRow({
         issuerIsLtm={issuerIsLtm}
         t={t}
       />
+
+      {usr && usr.id && house && house !== usr.id ? (
+        <AlertDialog open={blockConfirmOpen} onOpenChange={setBlockConfirmOpen}>
+          <AlertDialogContent className="bg-slate-900 ring-1 ring-white/[0.08] border-white/[0.06] text-white shadow-2xl shadow-black/60">
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t("Predictions:blockConfirm.title")}</AlertDialogTitle>
+              <AlertDialogDescription>{t("Predictions:blockConfirm.description")}</AlertDialogDescription>
+            </AlertDialogHeader>
+            <div className="flex items-center gap-3 rounded-md border border-white/[0.08] bg-white/[0.03] p-3">
+              <span className="inline-flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-white/10">
+                <Avatar size={40} name={issuerDisplayName ?? house} extra="BlockConfirm" expression={{ eye: "normal", mouth: "unhappy" }} colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]} />
+              </span>
+              <div className="min-w-0">
+                <div className="text-sm font-semibold text-white truncate">{issuerDisplayName ?? house}</div>
+                <div className="font-mono text-xs text-white/50">{house}</div>
+              </div>
+            </div>
+            <AlertDialogFooter>
+              <AlertDialogCancel className="bg-white/[0.05] border-white/[0.08] text-white/70 hover:bg-white/10 hover:text-white">
+                {t("Predictions:blockConfirm.cancel")}
+              </AlertDialogCancel>
+              <AlertDialogAction
+                className="bg-red-600 hover:bg-red-700 text-white"
+                onClick={() => addBlockedUser(usr.chain, { name: issuerDisplayLabel ?? username ?? house, id: house })}
+              >
+                {t("Predictions:blockConfirm.confirm")}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      ) : null}
     </>
   );
 });
