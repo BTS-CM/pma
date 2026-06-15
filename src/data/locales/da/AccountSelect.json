@@ -3,27 +3,31 @@
   "forgetPrompt": "Konto: {{user}}",
   "forgetButton": "Glem denne konto",
   "noChain": {
-    "title": "⚙️ Vælg en blockchain for at fortsætte",
-    "description": "Hvilken blockchain vil du bruge?",
+    "title": "Vælg et netværk for at fortsætte",
+    "description": "Hvilket netværk vil du bruge?",
     "testnet": "testnet"
   },
   "noMode": {
-    "titleBTS": "Brug en ny eller eksisterende Bitshares-konto?",
-    "titleTEST": "Brug en ny eller eksisterende Bitshares testnet-konto?",
-    "description": "Hvordan vil du gå videre?",
+    "titleBTS": "Hvilken måde vil du tilgå Bitshares på?",
+    "titleTEST": "Hvilken måde vil du tilgå Bitshares testnet på?",
+    "description": "Vælg en mulighed nedenfor",
     "new": "Ny konto",
     "existing": "Eksisterende konto",
     "back": "Tilbage"
   },
   "new": {
-    "title": "kontovalg",
-    "initDesc": "Indtast dit Bitshares-kontonavn",
-    "description": "Vil du fortsætte med følgende konto?",
+    "title": "Find konto",
+    "initDesc": "Indtast dit Bitshares-kontonavn eller ID",
+    "description": "Er dette den korrekte konto?",
     "back": "Gå tilbage",
-    "continue": "Blive ved"
+    "continue": "Fortsæt"
   },
   "existing": {
     "description": "Vælg en af ​​dine tidligere brugte konti",
-    "none": "Ingen konti fundet."
-  }
+    "none": "Ingen gemte konti fundet",
+    "noneHint": "Du kan tilføje konti ved at bruge Ny konto-muligheden"
+  },
+  "step1": "Netværk",
+  "step2": "Konto",
+  "step3": "Bekræft"
 }

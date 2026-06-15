@@ -3,27 +3,31 @@
   "forgetPrompt": "Compte: {{user}}",
   "forgetButton": "Oubliez ce compte",
   "noChain": {
-    "title": "⚙️ Sélectionnez une blockchain pour continuer",
-    "description": "Quelle blockchain souhaitez-vous utiliser ?",
+    "title": "Sélectionnez un réseau pour continuer",
+    "description": "Quel réseau souhaitez-vous utiliser ?",
     "testnet": "testnet"
   },
   "noMode": {
-    "titleBTS": "Utiliser un compte Bitshares nouveau ou existant ?",
-    "titleTEST": "Utiliser un compte testnet Bitshares nouveau ou existant ?",
-    "description": "Comment veux-tu procéder?",
+    "titleBTS": "Comment souhaitez-vous accéder à Bitshares ?",
+    "titleTEST": "Comment souhaitez-vous accéder au testnet Bitshares ?",
+    "description": "Choisissez une option ci-dessous",
     "new": "Nouveau compte",
     "existing": "Compte existant",
-    "back": "Dos"
+    "back": "Retour"
   },
   "new": {
-    "title": "sélection de compte",
-    "initDesc": "Entrez le nom de votre compte Bitshares",
-    "description": "Continuer avec le compte suivant ?",
-    "back": "Retourner",
+    "title": "Trouver un compte",
+    "initDesc": "Entrez le nom ou l'ID de votre compte Bitshares",
+    "description": "Est-ce le bon compte ?",
+    "back": "Retour",
     "continue": "Continuer"
   },
   "existing": {
     "description": "Sélectionnez l'un de vos comptes précédemment utilisés",
-    "none": "Aucun compte trouvé."
-  }
+    "none": "Aucun compte enregistré trouvé",
+    "noneHint": "Vous pouvez ajouter des comptes en utilisant l'option Nouveau compte"
+  },
+  "step1": "Réseau",
+  "step2": "Compte",
+  "step3": "Confirmer"
 }

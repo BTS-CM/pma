@@ -3,27 +3,31 @@
   "forgetPrompt": "Account: {{user}}",
   "forgetButton": "Dimentica questo account",
   "noChain": {
-    "title": "⚙️ Seleziona una blockchain per continuare",
-    "description": "Quale blockchain vuoi utilizzare?",
+    "title": "Seleziona una rete per continuare",
+    "description": "Quale rete vuoi utilizzare?",
     "testnet": "testnet"
   },
   "noMode": {
-    "titleBTS": "Utilizzi un account Bitshares nuovo o esistente?",
-    "titleTEST": "Utilizzi un account testnet Bitshares nuovo o esistente?",
-    "description": "Come vuoi procedere?",
+    "titleBTS": "Come vuoi accedere a Bitshares?",
+    "titleTEST": "Come vuoi accedere al testnet Bitshares?",
+    "description": "Scegli un'opzione qui sotto",
     "new": "Nuovo account",
     "existing": "Account esistente",
     "back": "Indietro"
   },
   "new": {
-    "title": "selezione del conto",
-    "initDesc": "Inserisci il nome del tuo account Bitshares",
-    "description": "Procedere con il seguente account?",
-    "back": "Torna indietro",
+    "title": "Trova account",
+    "initDesc": "Inserisci il nome o l'ID del tuo account Bitshares",
+    "description": "Questo è l'account corretto?",
+    "back": "Indietro",
     "continue": "Continua"
   },
   "existing": {
     "description": "Seleziona uno degli account utilizzati in precedenza",
-    "none": "Nessun account trovato."
-  }
+    "none": "Nessun account salvato trovato",
+    "noneHint": "Puoi aggiungere account usando l'opzione Nuovo account"
+  },
+  "step1": "Rete",
+  "step2": "Account",
+  "step3": "Conferma"
 }

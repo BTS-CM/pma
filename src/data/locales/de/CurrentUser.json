@@ -1,7 +1,7 @@
 {
   "dialogContent": {
     "switchAccountChain": "Konto/Kette wechseln",
-    "replacingUser": "Aktuellen Benutzer ersetzen",
-    "selectChainAccount": "Wählen Sie eine Kette und ein Konto aus, um fortzufahren"
+    "replacingUser": "Konto wechseln",
+    "selectChainAccount": "Wählen Sie ein Netzwerk und ein Konto aus, um fortzufahren"
   }
 }

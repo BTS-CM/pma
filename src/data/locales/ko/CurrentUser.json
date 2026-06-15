@@ -1,7 +1,7 @@
 {
   "dialogContent": {
     "switchAccountChain": "계정/체인 전환",
-    "replacingUser": "현재 사용자 교체",
-    "selectChainAccount": "계속하려면 체인과 계정을 선택하세요."
+    "replacingUser": "계정 전환",
+    "selectChainAccount": "계속하려면 네트워크와 계정을 선택하세요"
   }
 }
