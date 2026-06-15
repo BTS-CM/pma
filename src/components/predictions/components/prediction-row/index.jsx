@@ -229,16 +229,18 @@ export const PredictionRow = memo(function PredictionRow({
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
             <StatBlock label={t(`Predictions:${isExpired ? "expired_at" : "expiration"}`)} value={prettifyDate(expiration)} mono />
             <StatBlock label={isExpired ? t("Predictions:timeExpired") : t("Predictions:timeLeft")} value={formatTimeRemaining(expiration)} mono />
-            {view === "expired" || view === "mine" ? (
+            {view === "expired" ? (
               <StatBlock label={t("Predictions:outcome")} accent={relevantBitassetData?.outcome === 1 ? "emerald" : relevantBitassetData?.outcome === 0 ? "rose" : "amber"}
                 value={relevantBitassetData?.outcome === 1 ? t("Predictions:outcome.yes") : relevantBitassetData?.outcome === 0 ? t("Predictions:outcome.no") : t("Predictions:outcome.unresolved")} />
+            ) : view === "mine" || view === "portfolio" ? (
+              <StatBlock label={t("Predictions:balance")} value={`${humanReadablePredictionMarketAssetBalance} ${symbol}`} mono />
             ) : (
               <StatBlock label={t("Predictions:unique_sellers")} value={relevantCallOrders?.length || 0} mono />
             )}
             <StatBlock label={t("Predictions:bettingAsset")} value={market} mono />
-            {view === "expired" || view === "mine" ? (
+            {view === "expired" ? (
               <StatBlock label={t("Predictions:prize_pool")} value={relevantBitassetData ? `${humanReadableFloat(relevantBitassetData.settlement_fund, res.precision)} ${market}` : `0 ${market}`} mono />
-            ) : (
+            ) : view === "mine" || view === "portfolio" ? null : (
               <StatBlock label={t("Predictions:openInterest")} help={t("Predictions:openInterest_help")} value={`${humanReadableFloat(totalBets, res.precision)} ${market}`} mono />
             )}
           </div>

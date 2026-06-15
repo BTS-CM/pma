@@ -156,6 +156,7 @@
   "time_till_expiration": "Tiempo hasta el vencimiento: {{hours}} horas",
   "total_bets": "Apuestas totales",
   "unique_sellers": "Vendedores únicos",
+  "balance": "Saldo",
   "pricefeeder": "Establecer alimentadores de precios",
   "permissions": "Permisos",
   "flags": "Banderas",

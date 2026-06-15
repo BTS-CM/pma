@@ -156,6 +156,7 @@
   "time_till_expiration": "Zeit bis zum Ablauf: {{hours}} Std.",
   "total_bets": "Gesamteinsätze",
   "unique_sellers": "Einzigartige Verkäufer",
+  "balance": "Saldo",
   "pricefeeder": "Preis-Feeder festlegen",
   "permissions": "Berechtigungen",
   "flags": "Flaggen",

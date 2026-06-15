@@ -156,6 +156,7 @@
   "time_till_expiration": "만료까지 남은 시간: {{hours}} 시간",
   "total_bets": "총 베팅",
   "unique_sellers": "고유한 판매자",
+  "balance": "잔액",
   "pricefeeder": "가격 피더 설정",
   "permissions": "권한",
   "flags": "플래그",

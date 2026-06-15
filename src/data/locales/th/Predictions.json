@@ -156,6 +156,7 @@
   "time_till_expiration": "เวลาจนถึงหมดอายุ: {{hours}} ชั่วโมง",
   "total_bets": "เดิมพันทั้งหมด",
   "unique_sellers": "ผู้ขายที่ไม่ซ้ำใคร",
+  "balance": "ยอดคงเหลือ",
   "pricefeeder": "ตั้งค่าตัวป้อนราคา",
   "permissions": "สิทธิ์",
   "flags": "ธง",

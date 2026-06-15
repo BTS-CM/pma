@@ -156,6 +156,7 @@
   "time_till_expiration": "Time till expiration: {{hours}} hours",
   "total_bets": "Total Bets",
   "unique_sellers": "Unique Sellers",
+  "balance": "Balance",
   "pricefeeder": "Set price feeders",
   "permissions": "Permissions",
   "flags": "Flags",

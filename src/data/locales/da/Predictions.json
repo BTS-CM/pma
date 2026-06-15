@@ -156,6 +156,7 @@
   "time_till_expiration": "Tid til udløb: {{hours}} timer",
   "total_bets": "Samlede indsatser",
   "unique_sellers": "Unikke sælgere",
+  "balance": "Saldo",
   "pricefeeder": "Indstil pris feeders",
   "permissions": "Tilladelser",
   "flags": "Flag",

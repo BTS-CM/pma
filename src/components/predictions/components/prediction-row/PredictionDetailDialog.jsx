@@ -470,7 +470,7 @@ export function PredictionDetailDialog({
             <div className="relative flex-shrink-0">
               <div className="absolute -top-4 left-0 right-0 h-4 bg-gradient-to-b from-transparent to-slate-900 pointer-events-none" />
               <div className="border-t border-white/[0.06] bg-slate-900 px-5 py-3">
-                {view !== "expired" ? (
+                {statusKey === "active" ? (
                   <div>
                     <HoverInfo content={t("Predictions:seller_content")} header={t("Predictions:seller")} type="header" />
                     <div className="grid grid-cols-3 gap-3 mt-1">

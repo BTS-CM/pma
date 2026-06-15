@@ -156,6 +156,7 @@
   "time_till_expiration": "Délai jusqu'à expiration : {{hours}} heures",
   "total_bets": "Paris totaux",
   "unique_sellers": "Vendeurs uniques",
+  "balance": "Solde",
   "pricefeeder": "Fixer les sources de prix",
   "permissions": "Autorisations",
   "flags": "Drapeaux",

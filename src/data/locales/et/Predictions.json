@@ -156,6 +156,7 @@
   "time_till_expiration": "Aeg aegumiseni: {{hours}} tundi",
   "total_bets": "Panused kokku",
   "unique_sellers": "Unikaalsed müüjad",
+  "balance": "Saldo",
   "pricefeeder": "Määra hinnasöötjad",
   "permissions": "Õigused",
   "flags": "Lipud",
