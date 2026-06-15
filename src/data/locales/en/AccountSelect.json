@@ -29,5 +29,12 @@
   },
   "step1": "Network",
   "step2": "Account",
-  "step3": "Confirm"
+  "step3": "Confirm",
+  "mainnet": "Mainnet (BTS)",
+  "testnetLabel": "Test network (TEST)",
+  "newAccountSubtitle": "Search for any account on the network",
+  "existingAccountSubtitle": "{{count}} account saved",
+  "existingAccountSubtitle_plural": "{{count}} accounts saved",
+  "removeAccount": "Remove account",
+  "removeAccountLabel": "Remove {{username}}"
 }

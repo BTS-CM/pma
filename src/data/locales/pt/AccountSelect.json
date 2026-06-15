@@ -29,5 +29,12 @@
   },
   "step1": "Rede",
   "step2": "Conta",
-  "step3": "Confirmar"
+  "step3": "Confirmar",
+  "mainnet": "Rede principal (BTS)",
+  "testnetLabel": "Rede de teste (TEST)",
+  "newAccountSubtitle": "Pesquisar uma conta na rede",
+  "existingAccountSubtitle": "{{count}} conta salva",
+  "existingAccountSubtitle_plural": "{{count}} contas salvas",
+  "removeAccount": "Remover conta",
+  "removeAccountLabel": "Remover {{username}}"
 }

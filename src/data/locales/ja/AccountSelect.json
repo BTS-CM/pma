@@ -29,5 +29,12 @@
   },
   "step1": "ネットワーク",
   "step2": "アカウント",
-  "step3": "確認"
+  "step3": "確認",
+  "mainnet": "メインネット (BTS)",
+  "testnetLabel": "テストネット (TEST)",
+  "newAccountSubtitle": "ネットワーク上のアカウントを検索",
+  "existingAccountSubtitle": "{{count}} 件のアカウントを保存済み",
+  "existingAccountSubtitle_plural": "{{count}} 件のアカウントを保存済み",
+  "removeAccount": "アカウントを削除",
+  "removeAccountLabel": "{{username}} を削除"
 }

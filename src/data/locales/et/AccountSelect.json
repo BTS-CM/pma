@@ -29,5 +29,12 @@
   },
   "step1": "Võrk",
   "step2": "Konto",
-  "step3": "Kinnita"
+  "step3": "Kinnita",
+  "mainnet": "Peavõrk (BTS)",
+  "testnetLabel": "Testvõrk (TEST)",
+  "newAccountSubtitle": "Otsi kontot võrgus",
+  "existingAccountSubtitle": "{{count}} konto salvestatud",
+  "existingAccountSubtitle_plural": "{{count}} kontot salvestatud",
+  "removeAccount": "Eemalda konto",
+  "removeAccountLabel": "Eemalda {{username}}"
 }

@@ -29,5 +29,12 @@
   },
   "step1": "네트워크",
   "step2": "계정",
-  "step3": "확인"
+  "step3": "확인",
+  "mainnet": "메인넷 (BTS)",
+  "testnetLabel": "테스트넷 (TEST)",
+  "newAccountSubtitle": "네트워크에서 계정 검색",
+  "existingAccountSubtitle": "{{count}}개 계정 저장됨",
+  "existingAccountSubtitle_plural": "{{count}}개 계정 저장됨",
+  "removeAccount": "계정 삭제",
+  "removeAccountLabel": "{{username}} 삭제"
 }

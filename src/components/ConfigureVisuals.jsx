@@ -39,6 +39,13 @@ const PALETTES = [
   { id: "custom", labelKey: "Visuals:palettes.custom" },
 ];
 
+const IPFS_GATEWAYS = [
+  { value: "https://ipfs.io/ipfs/", label: "ipfs.io" },
+  { value: "https://4everland.io/ipfs/", label: "4everland.io" },
+  { value: "https://dweb.link/ipfs/", label: "dweb.link" },
+  { value: "https://dget.top/ipfs/", label: "dget.top" },
+];
+
 const HEX_PATTERN = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 
 function isValidHex(value) {
@@ -126,19 +133,19 @@ export default function ConfigureVisuals() {
 
   const safeWaveCount = Number.isFinite(Number(waveCount))
     ? Math.round(Number(waveCount))
-    : 10;
+    : 4;
   const safeWaveSpeed = Number.isFinite(Number(waveSpeed))
     ? Number(waveSpeed)
-    : 1.0;
+    : 0.3;
   const safeWaveThickness = Number.isFinite(Number(waveThickness))
     ? Number(waveThickness)
-    : 1.0;
+    : 0.95;
   const safeAurora = Number.isFinite(Number(auroraIntensity))
     ? Number(auroraIntensity)
-    : 1.0;
+    : 0.65;
   const safeBlur = Number.isFinite(Number(blurAmount))
     ? Math.round(Number(blurAmount))
-    : 2;
+    : 0;
 
   return (
     <div className="container mx-auto mt-5 mb-5 text-white">
@@ -339,17 +346,21 @@ export default function ConfigureVisuals() {
               label={t("Visuals:externalServices.ipfsGateway.header")}
               description={t("Visuals:externalServices.ipfsGateway.help")}
             >
-              <Input
-                type="text"
+              <Select
                 value={settings.ipfsGateway ?? "https://ipfs.io/ipfs/"}
-                onChange={(e) =>
-                  setVisualSetting("ipfsGateway", e.target.value)
-                }
-                placeholder={t(
-                  "Visuals:externalServices.ipfsGateway.placeholder"
-                )}
-                className="font-mono bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
-              />
+                onValueChange={(v) => setVisualSetting("ipfsGateway", v)}
+              >
+                <SelectTrigger className="w-full sm:w-64 bg-white/[0.03] border-white/[0.08] text-white/70">
+                  <SelectValue className="text-white/70" />
+                </SelectTrigger>
+                <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                  {IPFS_GATEWAYS.map((gw) => (
+                    <SelectItem key={gw.value} value={gw.value} className="text-white/70 focus:bg-white/[0.08] focus:text-white">
+                      {gw.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </SettingRow>
           </CardContent>
         </Card>

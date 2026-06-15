@@ -1,15 +1,15 @@
 import { persistentMap } from "@nanostores/persistent";
 
 const DEFAULTS = {
-  waveCount: 10,
-  waveSpeed: 1.0,
-  waveThickness: 1.0,
+  waveCount: 4,
+  waveSpeed: 0.3,
+  waveThickness: 0.95,
   wavePalette: "rainbow",
   customColor1: "#4f46e5",
   customColor2: "#06b6d4",
-  auroraIntensity: 1.0,
-  particlesEnabled: true,
-  blurAmount: 2,
+  auroraIntensity: 0.65,
+  particlesEnabled: false,
+  blurAmount: 0,
   ipfsGateway: "https://ipfs.io/ipfs/",
 };
 

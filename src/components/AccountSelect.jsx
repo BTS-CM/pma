@@ -40,11 +40,11 @@ import { $currentNode } from "@/stores/node.ts";
 
 import { accountSearch } from "@/nanoeffects/UserSearch.ts";
 
-function StepIndicator({ currentStep, totalSteps, accentColor }) {
+function StepIndicator({ currentStep, totalSteps, accentColor, step1Label, step2Label, step3Label }) {
   const steps = [
-    { key: 1, label: "Network" },
-    { key: 2, label: "Account" },
-    { key: 3, label: "Confirm" },
+    { key: 1, label: step1Label },
+    { key: 2, label: step2Label },
+    { key: 3, label: step3Label },
   ];
 
   return (
@@ -143,7 +143,7 @@ function BlockchainButton({ name, subtitle, onClick, icon, accentColor }) {
   );
 }
 
-function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain }) {
+function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain, t }) {
   const userAccent = user.accentColor || accentColor;
 
   const content = (
@@ -205,8 +205,8 @@ function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain }) {
             "transition-all duration-200 group/remove",
             "focus:outline-none focus:ring-2 focus:ring-rose-500/40"
           )}
-          title="Remove account"
-          aria-label={`Remove ${user.username}`}
+          title={t("AccountSelect:removeAccount")}
+          aria-label={t("AccountSelect:removeAccountLabel", { username: user.username })}
         >
           <X className="w-4 h-4 text-white/25 group-hover/remove:text-rose-400 transition-colors" />
         </button>
@@ -305,6 +305,7 @@ export default function AccountSelect(properties) {
               }
               accentColor={accentColor}
               isCurrentChain={usr.chain === user.chain}
+              t={t}
             />
           </a>
         ) : (
@@ -316,6 +317,7 @@ export default function AccountSelect(properties) {
             onRemove={() => removeUser(user.id)}
             accentColor={accentColor}
             isCurrentChain={usr.chain === user.chain}
+            t={t}
           />
         )}
       </div>
@@ -324,7 +326,14 @@ export default function AccountSelect(properties) {
 
   return (
     <div className="min-h-[320px]">
-      <StepIndicator currentStep={currentStep} totalSteps={3} accentColor={accentColor} />
+      <StepIndicator
+        currentStep={currentStep}
+        totalSteps={3}
+        accentColor={accentColor}
+        step1Label={t("AccountSelect:step1")}
+        step2Label={t("AccountSelect:step2")}
+        step3Label={t("AccountSelect:step3")}
+      />
 
       {/* Step 1: Network Selection */}
       {!chain ? (
@@ -334,14 +343,14 @@ export default function AccountSelect(properties) {
           </div>
           <BlockchainButton
             name="Bitshares"
-            subtitle="Mainnet (BTS)"
+            subtitle={t("AccountSelect:mainnet")}
             icon={<Globe className="w-5 h-5" style={{ color: accentColor }} />}
             onClick={() => setChain("bitshares")}
             accentColor={accentColor}
           />
           <BlockchainButton
             name="Bitshares Testnet"
-            subtitle="Test network (TEST)"
+            subtitle={t("AccountSelect:testnetLabel")}
             icon={<Shield className="w-5 h-5" style={{ color: accentColor }} />}
             onClick={() => setChain("bitshares_testnet")}
             accentColor={accentColor}
@@ -359,14 +368,14 @@ export default function AccountSelect(properties) {
           </div>
           <BlockchainButton
             name={t("AccountSelect:noMode.new")}
-            subtitle="Search for any account on the network"
+            subtitle={t("AccountSelect:newAccountSubtitle")}
             icon={<Search className="w-5 h-5" style={{ color: accentColor }} />}
             onClick={() => setMode("new")}
             accentColor={accentColor}
           />
           <BlockchainButton
             name={t("AccountSelect:noMode.existing")}
-            subtitle={`${filteredUsers.length} account${filteredUsers.length !== 1 ? "s" : ""} saved`}
+            subtitle={t("AccountSelect:existingAccountSubtitle", { count: filteredUsers.length })}
             icon={<Users className="w-5 h-5" style={{ color: accentColor }} />}
             onClick={() => setMode("existing")}
             accentColor={accentColor}
@@ -493,6 +502,7 @@ export default function AccountSelect(properties) {
                   )
                 }
                 accentColor={accentColor}
+                t={t}
               />
             </a>
           ) : (
@@ -507,6 +517,7 @@ export default function AccountSelect(properties) {
                 )
               }
               accentColor={accentColor}
+              t={t}
             />
           )}
 

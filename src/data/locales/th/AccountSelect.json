@@ -29,5 +29,12 @@
   },
   "step1": "เครือข่าย",
   "step2": "บัญชี",
-  "step3": "ยืนยัน"
+  "step3": "ยืนยัน",
+  "mainnet": "เครือข่ายหลัก (BTS)",
+  "testnetLabel": "เครือข่ายทดสอบ (TEST)",
+  "newAccountSubtitle": "ค้นหาบัญชีบนเครือข่าย",
+  "existingAccountSubtitle": "{{count}} บัญชีที่บันทึกไว้",
+  "existingAccountSubtitle_plural": "{{count}} บัญชีที่บันทึกไว้",
+  "removeAccount": "ลบบัญชี",
+  "removeAccountLabel": "ลบ {{username}}"
 }

@@ -29,5 +29,12 @@
   },
   "step1": "Netzwerk",
   "step2": "Konto",
-  "step3": "Bestätigen"
+  "step3": "Bestätigen",
+  "mainnet": "Hauptnetz (BTS)",
+  "testnetLabel": "Testnetz (TEST)",
+  "newAccountSubtitle": "Ein Konto im Netzwerk suchen",
+  "existingAccountSubtitle": "{{count}} Konto gespeichert",
+  "existingAccountSubtitle_plural": "{{count}} Konten gespeichert",
+  "removeAccount": "Konto entfernen",
+  "removeAccountLabel": "{{username}} entfernen"
 }
