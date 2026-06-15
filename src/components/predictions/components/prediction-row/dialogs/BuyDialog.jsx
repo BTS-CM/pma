@@ -85,7 +85,7 @@ export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backing
   return (
     <Dialog open={buyPrompt} onOpenChange={setBuyPrompt}>
       <DialogTrigger asChild>
-        <Button onClick={() => setBuyPrompt(true)}>{t("Predictions:buy")}</Button>
+        <Button onClick={() => setBuyPrompt(true)} className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 shadow-md shadow-emerald-500/20">{t("Predictions:buy")}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
         <DialogHeader>

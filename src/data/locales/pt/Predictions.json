@@ -152,6 +152,7 @@
   },
   "resolve": "Resolver previsão",
   "not_expired": "Esta previsão ainda não expirou, por isso não pode ser resolvida.",
+  "already_resolved": "Esta previsão já foi resolvida.",
   "time_till_expiration": "Tempo até a expiração: {{hours}} horas",
   "total_bets": "Apostas totais",
   "unique_sellers": "Vendedores Únicos",

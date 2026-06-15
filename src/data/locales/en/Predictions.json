@@ -152,6 +152,7 @@
   },
   "resolve": "Resolve Prediction",
   "not_expired": "This prediction has not expired yet, so it's unable to be resolved.",
+  "already_resolved": "This prediction has already been resolved.",
   "time_till_expiration": "Time till expiration: {{hours}} hours",
   "total_bets": "Total Bets",
   "unique_sellers": "Unique Sellers",

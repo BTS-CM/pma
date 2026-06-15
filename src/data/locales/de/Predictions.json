@@ -152,6 +152,7 @@
   },
   "resolve": "Vorhersage auflösen",
   "not_expired": "Diese Vorhersage ist noch nicht abgelaufen und kann daher nicht gelöst werden.",
+  "already_resolved": "Diese Vorhersage wurde bereits gelöst.",
   "time_till_expiration": "Zeit bis zum Ablauf: {{hours}} Std.",
   "total_bets": "Gesamteinsätze",
   "unique_sellers": "Einzigartige Verkäufer",

@@ -152,6 +152,7 @@
   },
   "resolve": "Lahenda ennustus",
   "not_expired": "See ennustus ei ole veel aegunud, seega ei saa seda lahendada.",
+  "already_resolved": "See ennustus on juba lahendatud.",
   "time_till_expiration": "Aeg aegumiseni: {{hours}} tundi",
   "total_bets": "Panused kokku",
   "unique_sellers": "Unikaalsed müüjad",

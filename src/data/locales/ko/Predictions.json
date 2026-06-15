@@ -152,6 +152,7 @@
   },
   "resolve": "예측 해결",
   "not_expired": "이 예측은 아직 만료되지 않았으므로 해결할 수 없습니다.",
+  "already_resolved": "이 예측은 이미 해결되었습니다.",
   "time_till_expiration": "만료까지 남은 시간: {{hours}} 시간",
   "total_bets": "총 베팅",
   "unique_sellers": "고유한 판매자",

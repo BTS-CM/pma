@@ -18,7 +18,8 @@ export function ClaimDialog({ res, usr, humanReadablePredictionMarketAssetBalanc
       <DialogTrigger asChild>
         <Button
           onClick={() => setClaimPrompt(true)}
-          disabled={!humanReadablePredictionMarketAssetBalance || humanReadablePredictionMarketAssetBalance <= 0}
+          disabled={!humanReadablePredictionMarketAssetBalance || humanReadablePredictionMarketAssetBalance <= 0 || relevantBitassetData?.outcome !== 1}
+          className="bg-amber-600 hover:bg-amber-700 text-white border-0 shadow-md shadow-amber-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {t("Predictions:winner_claim")}
         </Button>

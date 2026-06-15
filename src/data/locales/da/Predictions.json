@@ -152,6 +152,7 @@
   },
   "resolve": "Løs forudsigelse",
   "not_expired": "Denne forudsigelse er ikke udløbet endnu, så den kan ikke løses.",
+  "already_resolved": "Denne forudsigelse er allerede blevet løst.",
   "time_till_expiration": "Tid til udløb: {{hours}} timer",
   "total_bets": "Samlede indsatser",
   "unique_sellers": "Unikke sælgere",

@@ -152,6 +152,7 @@
   },
   "resolve": "Résoudre la prédiction",
   "not_expired": "Cette prédiction n'a pas encore expiré et ne peut donc pas être résolue.",
+  "already_resolved": "Cette prédiction a déjà été résolue.",
   "time_till_expiration": "Délai jusqu'à expiration : {{hours}} heures",
   "total_bets": "Paris totaux",
   "unique_sellers": "Vendeurs uniques",

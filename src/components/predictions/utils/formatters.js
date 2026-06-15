@@ -8,12 +8,19 @@ export function prettifyDate(date) {
 export function formatTimeRemaining(expiration) {
   const expirationMs = new Date(expiration).getTime();
   const now = Date.now();
-  const diffMs = expirationMs - now;
-  if (diffMs <= 0) return "Expired";
+  const diffMs = now - expirationMs;
+  const isExpired = expirationMs <= now;
+  const absDiffMs = Math.abs(isExpired ? diffMs : expirationMs - now);
 
-  const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  const days = Math.floor(absDiffMs / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((absDiffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((absDiffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+  if (isExpired) {
+    if (days > 0) return `${days}d ${hours}h ago`;
+    if (hours > 0) return `${hours}h ${minutes}m ago`;
+    return `${minutes}m ago`;
+  }
 
   if (days > 0) return `${days}d ${hours}h`;
   if (hours > 0) return `${hours}h ${minutes}m`;

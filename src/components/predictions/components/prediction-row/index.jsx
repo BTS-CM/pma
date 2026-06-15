@@ -163,25 +163,23 @@ export const PredictionRow = memo(function PredictionRow({
         onClick={() => setDetailOpen(true)}
       >
         <CardHeader className="pb-2 pt-3">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-start">
-            <div className="min-w-0">
-              <CardTitle className="text-base sm:text-lg font-semibold leading-snug line-clamp-3 text-white">
-                {cleanedPrediction || symbol}
-              </CardTitle>
-              <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-white/50">
-                <span className="font-mono font-medium text-white/80">{symbol}</span>
-                <span className="text-white/20">·</span>
-                <span className="font-mono text-[10px]">{res.id}</span>
-                <CopyButton value={res.id} label={t("Predictions:copyAssetId")} />
-                <span className={cn("inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide", status.bg, status.text)}>
-                  <span className={cn("h-1.5 w-1.5 rounded-full", statusKey === "active" && "bg-emerald-500 animate-pulse", statusKey === "resolvedYes" && "bg-emerald-600", statusKey === "resolvedNo" && "bg-rose-500", statusKey === "awaiting" && "bg-amber-500")} />
-                  {statusLabel}
-                </span>
-                {hasNft ? <span className="inline-flex items-center rounded-full bg-violet-500/10 border border-violet-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-violet-400">NFT</span> : null}
-                {hasPmo ? <span className="inline-flex items-center rounded-full bg-cyan-500/10 border border-cyan-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-cyan-400">ORG</span> : null}
-              </div>
+          <CardTitle className="text-base sm:text-lg font-semibold leading-snug line-clamp-3 text-white">
+            {cleanedPrediction || symbol}
+          </CardTitle>
+          <div className="mt-1.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs text-white/50">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span className="font-mono font-medium text-white/80">{symbol}</span>
+              <span className="text-white/20">·</span>
+              <span className="font-mono text-[10px]">{res.id}</span>
+              <CopyButton value={res.id} label={t("Predictions:copyAssetId")} />
+              <span className={cn("inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide", status.bg, status.text)}>
+                <span className={cn("h-1.5 w-1.5 rounded-full", statusKey === "active" && "bg-emerald-500 animate-pulse", statusKey === "resolvedYes" && "bg-emerald-600", statusKey === "resolvedNo" && "bg-rose-500", statusKey === "awaiting" && "bg-amber-500")} />
+                {statusLabel}
+              </span>
+              {hasNft ? <span className="inline-flex items-center rounded-full bg-violet-500/10 border border-violet-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-violet-400">NFT</span> : null}
+              {hasPmo ? <span className="inline-flex items-center rounded-full bg-cyan-500/10 border border-cyan-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-cyan-400">ORG</span> : null}
             </div>
-            <div className="md:text-right text-xs flex flex-wrap items-center md:justify-end gap-x-2 gap-y-1">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
               <span
                 className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] pl-0.5 pr-2 py-0.5 text-[11px] font-medium cursor-pointer hover:bg-white/[0.08] transition-colors"
                 onClick={(e) => { e.stopPropagation(); setIssuerFilter(house); }}

@@ -152,6 +152,7 @@
   },
   "resolve": "予測を解決する",
   "not_expired": "この予測はまだ有効期限が切れていないため、解決できません。",
+  "already_resolved": "この予測は既に解決されています。",
   "time_till_expiration": "有効期限までの時間: {{hours}} 時間",
   "total_bets": "合計ベット数",
   "unique_sellers": "ユニークな販売者",

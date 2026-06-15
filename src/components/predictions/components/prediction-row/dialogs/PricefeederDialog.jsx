@@ -8,7 +8,7 @@ import HoverInfo from "@/components/common/HoverInfo.tsx";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import AccountSearch from "@/components/AccountSearch.jsx";
 
-export function PricefeederDialog({ res, usr, t }) {
+export function PricefeederDialog({ res, usr, isExpired, statusKey, t }) {
   const [pricefeederPrompt, setPricefeederPrompt] = useState(false);
   const [priceFeeders, setPriceFeeders] = useState([]);
   const [priceSearchDialog, setPriceSearchDialog] = useState(false);
@@ -38,10 +38,16 @@ export function PricefeederDialog({ res, usr, t }) {
     );
   };
 
+  const canSetFeeders = !isExpired || (isExpired && statusKey === "awaiting");
+
   return (
     <Dialog open={pricefeederPrompt} onOpenChange={setPricefeederPrompt}>
       <DialogTrigger asChild>
-        <Button onClick={() => setPricefeederPrompt(true)}>{t("Predictions:pricefeeder")}</Button>
+        {!canSetFeeders ? (
+          <Button disabled className="bg-amber-600 text-white cursor-not-allowed">{t("Predictions:pricefeeder")}</Button>
+        ) : (
+          <Button onClick={() => setPricefeederPrompt(true)} className="bg-amber-600 hover:bg-amber-700 text-white">{t("Predictions:pricefeeder")}</Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
         <DialogHeader>
@@ -84,7 +90,7 @@ export function PricefeederDialog({ res, usr, t }) {
             </span>
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <Button className="h-6 mt-1 w-1/2" onClick={() => setPricefeederDialog(true)}>{t("Predictions:submit")}</Button>
+            <Button className="h-6 mt-1 w-1/2 bg-amber-600 hover:bg-amber-700 text-white" onClick={() => setPricefeederDialog(true)}>{t("Predictions:submit")}</Button>
           </div>
         </div>
         {pricefeederDialog ? (

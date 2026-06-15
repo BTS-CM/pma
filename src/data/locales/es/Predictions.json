@@ -152,6 +152,7 @@
   },
   "resolve": "Resolver predicción",
   "not_expired": "Esta predicción aún no ha caducado, por lo que no se puede resolver.",
+  "already_resolved": "Esta predicción ya ha sido resuelta.",
   "time_till_expiration": "Tiempo hasta el vencimiento: {{hours}} horas",
   "total_bets": "Apuestas totales",
   "unique_sellers": "Vendedores únicos",

@@ -16,7 +16,7 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
   return (
     <Dialog open={issuePrompt} onOpenChange={setIssuePrompt}>
       <DialogTrigger asChild>
-        <Button type="button" onClick={() => setIssuePrompt(true)}>
+        <Button type="button" onClick={() => setIssuePrompt(true)} className="bg-rose-600 hover:bg-rose-700 text-white border-0 shadow-md shadow-rose-500/20">
           {t("Predictions:issue")}
         </Button>
       </DialogTrigger>

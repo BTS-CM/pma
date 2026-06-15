@@ -16,7 +16,7 @@ function SidebarBridge() {
 
 function SidebarBackdrop() {
   const { open, isMobile, setOpen } = useSidebar();
-  if (isMobile) return null;
+  if (!isMobile) return null;
   return open ? (
     <div
       aria-hidden

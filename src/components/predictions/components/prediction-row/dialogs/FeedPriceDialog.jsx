@@ -6,15 +6,21 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import HoverInfo from "@/components/common/HoverInfo.tsx";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 
-export function FeedPriceDialog({ res, usr, _backingAssetID, t }) {
+export function FeedPriceDialog({ res, usr, _backingAssetID, isExpired, statusKey, t }) {
   const [priceFeedPrompt, setPriceFeedPrompt] = useState(false);
   const [priceFeedOutcome, setPriceFeedOutcome] = useState();
   const [priceFeedDialog, setPriceFeedDialog] = useState(false);
 
+  const canFeed = isExpired && statusKey === "awaiting";
+
   return (
     <Dialog open={priceFeedPrompt} onOpenChange={setPriceFeedPrompt}>
       <DialogTrigger asChild>
-        <Button onClick={() => setPriceFeedPrompt(true)}>{t("Predictions:feed")}</Button>
+        {!canFeed ? (
+          <Button disabled className="bg-emerald-600 text-white cursor-not-allowed">{t("Predictions:feed")}</Button>
+        ) : (
+          <Button className="bg-emerald-600 hover:bg-emerald-700 text-white" onClick={() => setPriceFeedPrompt(true)}>{t("Predictions:feed")}</Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
         <DialogHeader>

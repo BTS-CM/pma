@@ -85,7 +85,7 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
   return (
     <Dialog open={sellPrompt} onOpenChange={setSellPrompt}>
       <DialogTrigger asChild>
-        <Button onClick={() => setSellPrompt(true)}>{t("Predictions:sell")}</Button>
+        <Button onClick={() => setSellPrompt(true)} className="bg-rose-600 hover:bg-rose-700 text-white border-0 shadow-md shadow-rose-500/20">{t("Predictions:sell")}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
         <DialogHeader>

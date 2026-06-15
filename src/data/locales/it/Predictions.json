@@ -152,6 +152,7 @@
   },
   "resolve": "Risolvi la previsione",
   "not_expired": "Questa previsione non è ancora scaduta, quindi non può essere risolta.",
+  "already_resolved": "Questa previsione è già stata risolta.",
   "time_till_expiration": "Tempo fino alla scadenza: {{hours}} ore",
   "total_bets": "Scommesse totali",
   "unique_sellers": "Venditori unici",

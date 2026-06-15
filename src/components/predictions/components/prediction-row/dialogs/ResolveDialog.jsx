@@ -9,30 +9,30 @@ import HoverInfo from "@/components/common/HoverInfo.tsx";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import { prettifyDate } from "../../../utils/formatters";
 
-export function ResolveDialog({ res, usr, isExpired, expirationHours, expiration, cleanedPrediction, _backingAssetID, t }) {
+export function ResolveDialog({ res, usr, isExpired, statusKey, expirationHours, expiration, cleanedPrediction, _backingAssetID, t }) {
   const [resolvePrompt, setResolvePrompt] = useState(false);
   const [chosenOutcome, setChosenOutcome] = useState();
   const [resolveDialog, setResolveDialog] = useState(false);
 
+  const canResolve = isExpired && statusKey === "awaiting";
+
   return (
     <>
-      {!isExpired ? (
+      {!canResolve ? (
         <HoverCard>
           <HoverCardTrigger>
-            <Button disabled>{t("Predictions:resolve")}</Button>
+            <Button disabled className="bg-violet-600 text-white cursor-not-allowed">{t("Predictions:resolve")}</Button>
           </HoverCardTrigger>
           <HoverCardContent className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]" align="start">
             <p className="leading-6 text-sm [&:not(:first-child)]:mt-1">
-              {t("Predictions:not_expired")}
-              <br />
-              {t("Predictions:time_till_expiration", { hours: expirationHours })}
+              {!isExpired ? t("Predictions:not_expired") : t("Predictions:already_resolved")}
             </p>
           </HoverCardContent>
         </HoverCard>
       ) : (
         <Dialog open={resolvePrompt} onOpenChange={setResolvePrompt}>
           <DialogTrigger asChild>
-            <Button onClick={() => setResolvePrompt(true)}>{t("Predictions:resolve")}</Button>
+            <Button onClick={() => setResolvePrompt(true)} className="bg-violet-600 hover:bg-violet-700 text-white">{t("Predictions:resolve")}</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
             <DialogHeader>
@@ -65,7 +65,7 @@ export function ResolveDialog({ res, usr, isExpired, expirationHours, expiration
                 </RadioGroup>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <Button className="h-6 mt-1 w-1/2" onClick={() => setResolveDialog(true)}>
+                <Button className="h-6 mt-1 w-1/2 bg-violet-600 hover:bg-violet-700 text-white" onClick={() => setResolveDialog(true)}>
                   {t("Predictions:submit")}
                 </Button>
               </div>
