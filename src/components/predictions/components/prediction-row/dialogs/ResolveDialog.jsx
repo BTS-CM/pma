@@ -9,12 +9,13 @@ import HoverInfo from "@/components/common/HoverInfo.tsx";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import { prettifyDate } from "../../../utils/formatters";
 
-export function ResolveDialog({ res, usr, isExpired, statusKey, expirationHours, expiration, cleanedPrediction, _backingAssetID, t }) {
+export function ResolveDialog({ res, usr, isExpired, statusKey, expirationHours, expiration, cleanedPrediction, _backingAssetID, settlementFundRaw, relevantBitassetData, t }) {
   const [resolvePrompt, setResolvePrompt] = useState(false);
   const [chosenOutcome, setChosenOutcome] = useState();
   const [resolveDialog, setResolveDialog] = useState(false);
 
-  const canResolve = isExpired && statusKey === "awaiting";
+  const settlementFund = Number(settlementFundRaw ?? relevantBitassetData?.settlement_fund ?? 0);
+  const canResolve = isExpired && statusKey === "awaiting" && settlementFund > 0;
 
   return (
     <>

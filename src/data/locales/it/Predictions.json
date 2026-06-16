@@ -11,6 +11,8 @@
   "outcome.yes": "Sì",
   "outcome.no": "No",
   "outcome.unresolved": "Non risolto",
+  "outcome.expired": "Scaduto",
+  "outcome.expired_description": "Non ci sono stati abbastanza partecipanti per procedere",
   "issue": "Passaggio 1: emetti token PMA",
   "buy": "Scommetti vero (acquista)",
   "sell": "Passaggio 2: scommessa falsa (vendita)",
@@ -58,7 +60,8 @@
     "active": "Attivo",
     "resolvedYes": "Risolto · SÌ",
     "resolvedNo": "Risolto · NO",
-    "awaiting": "In attesa di risoluzione"
+    "awaiting": "In attesa di risoluzione",
+    "expired": "Scaduto"
   },
   "timeLeft": "Tempo rimasto",
   "timeExpired": "Tempo dalla scadenza",

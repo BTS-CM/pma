@@ -118,33 +118,36 @@ function CollapsibleSection({ title, defaultOpen = false, accent = "white", chil
   );
 }
 
-function OutcomeBanner({ outcome, t }) {
-  const isYes = outcome === 1;
-  const isNo = outcome === 0;
+function OutcomeBanner({ outcome, statusKey, t }) {
+  const isYes = statusKey === "resolvedYes" || outcome === 1;
+  const isNo = statusKey === "resolvedNo" || outcome === 0;
+  const isExpiredState = statusKey === "expired";
   return (
     <div
       className={cn(
         "rounded-xl border p-5 text-center",
         isYes && "border-emerald-500/30 bg-gradient-to-br from-emerald-500/15 via-emerald-500/5 to-transparent",
         isNo && "border-rose-500/30 bg-gradient-to-br from-rose-500/15 via-rose-500/5 to-transparent",
-        !isYes && !isNo && "border-amber-500/30 bg-gradient-to-br from-amber-500/15 via-amber-500/5 to-transparent",
+        isExpiredState && "border-indigo-500/30 bg-gradient-to-br from-indigo-500/15 via-indigo-500/5 to-transparent",
+        !isYes && !isNo && !isExpiredState && "border-amber-500/30 bg-gradient-to-br from-amber-500/15 via-amber-500/5 to-transparent",
       )}
     >
       <div className="flex items-center justify-center gap-3 mb-1">
-        {isYes ? <CheckCircle className="h-7 w-7 text-emerald-400" /> : isNo ? <XCircle className="h-7 w-7 text-rose-400" /> : <Clock className="h-7 w-7 text-amber-400 animate-pulse" />}
+        {isYes ? <CheckCircle className="h-7 w-7 text-emerald-400" /> : isNo ? <XCircle className="h-7 w-7 text-rose-400" /> : isExpiredState ? <Clock className="h-7 w-7 text-indigo-400" /> : <Clock className="h-7 w-7 text-amber-400 animate-pulse" />}
         <span
           className={cn(
             "text-3xl font-black tracking-tight",
             isYes && "text-emerald-400",
             isNo && "text-rose-400",
-            !isYes && !isNo && "text-amber-400",
+            isExpiredState && "text-indigo-400",
+            !isYes && !isNo && !isExpiredState && "text-amber-400",
           )}
         >
-          {isYes ? "YES" : isNo ? "NO" : "UNRESOLVED"}
+          {isYes ? t("Predictions:outcome.yes") : isNo ? t("Predictions:outcome.no") : isExpiredState ? t("Predictions:outcome.expired") : t("Predictions:outcome.unresolved")}
         </span>
       </div>
       <div className="text-sm text-white/50">
-        {isYes ? "Buyers win — settlement price went to 1" : isNo ? "Sellers win — settlement price went to 0" : "Awaiting resolution by price feeders"}
+        {isYes ? "Buyers win — settlement price went to 1" : isNo ? "Sellers win — settlement price went to 0" : isExpiredState ? t("Predictions:outcome.expired_description") : "Awaiting resolution by price feeders"}
       </div>
     </div>
   );
@@ -206,7 +209,7 @@ export function PredictionDetailDialog({
                 <span className="font-mono text-[10px]">{res.id}</span>
                 <CopyButton value={res.id} label={t("Predictions:copyAssetId")} />
                 <span className={cn("inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide", status.bg, status.text)}>
-                  <span className={cn("h-1.5 w-1.5 rounded-full", statusKey === "active" && "bg-emerald-500 animate-pulse", statusKey === "resolvedYes" && "bg-emerald-600", statusKey === "resolvedNo" && "bg-rose-500", statusKey === "awaiting" && "bg-amber-500")} />
+                  <span className={cn("h-1.5 w-1.5 rounded-full", statusKey === "active" && "bg-emerald-500 animate-pulse", statusKey === "resolvedYes" && "bg-emerald-600", statusKey === "resolvedNo" && "bg-rose-500", statusKey === "expired" && "bg-indigo-400", statusKey === "awaiting" && "bg-amber-500")} />
                   {t(status.i18nKey)}
                 </span>
                 {hasNft ? <span className="inline-flex items-center rounded-full bg-violet-500/10 border border-violet-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-violet-400">NFT</span> : null}
@@ -262,7 +265,7 @@ export function PredictionDetailDialog({
                 </section>
               ) : (
                 <section>
-                  <OutcomeBanner outcome={relevantBitassetData?.outcome} t={t} />
+                  <OutcomeBanner outcome={relevantBitassetData?.outcome} statusKey={statusKey} t={t} />
                 </section>
               )}
 
@@ -447,16 +450,12 @@ export function PredictionDetailDialog({
 
               {/* ── ADMIN SECTION ── */}
               {usr && usr.id === house ? (
-                <CollapsibleSection title={t("Predictions:tab.admin")} accent="amber">
+                <CollapsibleSection title={t("Predictions:tab.admin")} accent="amber" defaultOpen={statusKey === "awaiting"}>
                   <div className="grid grid-cols-1 gap-2">
-                    <HoverInfo content={t("Predictions:admin_content")} header={t("Predictions:admin")} type="header" />
                     <div className="grid grid-cols-3 gap-3 mt-1">
-                      <ResolveDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} expirationHours={expirationHours} expiration={expiration} cleanedPrediction={cleanedPrediction} _backingAssetID={_backingAssetID} t={t} />
-                      <PricefeederDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} t={t} />
-                    </div>
-                    <HoverInfo content={t("Predictions:price_feeders_content")} header={t("Predictions:price_feeders")} type="header" />
-                    <div className="grid grid-cols-3 gap-3 mt-1">
-                      <FeedPriceDialog res={res} usr={usr} _backingAssetID={_backingAssetID} isExpired={isExpired} statusKey={statusKey} t={t} />
+                      <ResolveDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} expirationHours={expirationHours} expiration={expiration} cleanedPrediction={cleanedPrediction} _backingAssetID={_backingAssetID} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
+                      <PricefeederDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
+                      <FeedPriceDialog res={res} usr={usr} _backingAssetID={_backingAssetID} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
                     </div>
                   </div>
                 </CollapsibleSection>

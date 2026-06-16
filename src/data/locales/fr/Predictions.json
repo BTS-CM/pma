@@ -11,6 +11,8 @@
   "outcome.yes": "Oui",
   "outcome.no": "Non",
   "outcome.unresolved": "Non résolu",
+  "outcome.expired": "Expiré",
+  "outcome.expired_description": "Pas assez de participants pour procéder",
   "issue": "Étape 1 : Émettre des jetons PMA",
   "buy": "Parier vrai (acheter)",
   "sell": "Étape 2 : Parier faux (vendre)",
@@ -58,7 +60,8 @@
     "active": "Actif",
     "resolvedYes": "Résolu · OUI",
     "resolvedNo": "Résolu · NON",
-    "awaiting": "En attente de résolution"
+    "awaiting": "En attente de résolution",
+    "expired": "Expiré"
   },
   "timeLeft": "Temps restant",
   "timeExpired": "Temps depuis l'expiration",

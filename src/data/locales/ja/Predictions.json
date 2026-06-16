@@ -11,6 +11,8 @@
   "outcome.yes": "はい",
   "outcome.no": "いいえ",
   "outcome.unresolved": "未解決",
+  "outcome.expired": "期限切れ",
+  "outcome.expired_description": "進行するのに参加者が不足していました",
   "issue": "ステップ 1: PMA トークンを発行する",
   "buy": "トゥルーに賭ける（買う）",
   "sell": "ステップ 2: フォールスに賭ける (売る)",
@@ -58,7 +60,8 @@
     "active": "アクティブ",
     "resolvedYes": "解決済み · はい",
     "resolvedNo": "解決済み · いいえ",
-    "awaiting": "解決待ち"
+    "awaiting": "解決待ち",
+    "expired": "期限切れ"
   },
   "timeLeft": "残り時間",
   "timeExpired": "期限切れからの時間",

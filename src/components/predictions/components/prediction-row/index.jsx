@@ -38,6 +38,7 @@ const STATUS_STYLES = {
   resolvedYes: { border: "border-l-emerald-500", bg: "bg-emerald-500/15", text: "text-emerald-400", i18nKey: "Predictions:status.resolvedYes" },
   resolvedNo: { border: "border-l-rose-500", bg: "bg-rose-500/15", text: "text-rose-400", i18nKey: "Predictions:status.resolvedNo" },
   awaiting: { border: "border-l-amber-500", bg: "bg-amber-500/15", text: "text-amber-400", i18nKey: "Predictions:status.awaiting" },
+  expired: { border: "border-l-indigo-500", bg: "bg-indigo-500/15", text: "text-indigo-400", i18nKey: "Predictions:status.expired" },
 };
 
 export const PredictionRow = memo(function PredictionRow({
@@ -149,7 +150,20 @@ export const PredictionRow = memo(function PredictionRow({
   const hasNft = !!(res.options && _desc && _desc.nft_object);
   const hasPmo = !!parentPmoObject;
 
-  const statusKey = !isExpired ? "active" : relevantBitassetData?.outcome === 1 ? "resolvedYes" : relevantBitassetData?.outcome === 0 ? "resolvedNo" : "awaiting";
+  let statusKey;
+  const bitOutcome = relevantBitassetData?.outcome;
+  if (!isExpired) {
+    statusKey = "active";
+  } else if (bitOutcome === 1) {
+    statusKey = "resolvedYes";
+  } else if (bitOutcome === 0) {
+    statusKey = "resolvedNo";
+  } else if (settlementFundRaw === 0 && (bitOutcome === -1 || bitOutcome == null)) {
+    statusKey = "expired";
+  } else {
+    statusKey = "awaiting";
+  }
+
   const status = STATUS_STYLES[statusKey];
   const statusLabel = t(status.i18nKey);
 

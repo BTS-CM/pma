@@ -11,6 +11,8 @@
   "outcome.yes": "Jah",
   "outcome.no": "Ei",
   "outcome.unresolved": "Lahendamata",
+  "outcome.expired": "Aegunud",
+  "outcome.expired_description": "Puudus piisavalt osalejaid jätkamiseks",
   "issue": "1. toiming: väljastage PMA märgid",
   "buy": "Panusta tõele (osta)",
   "sell": "2. samm: panus vale (müüa)",
@@ -58,7 +60,8 @@
     "active": "Aktiivne",
     "resolvedYes": "Lahendatud · JAH",
     "resolvedNo": "Lahendatud · EI",
-    "awaiting": "Ootab lahendust"
+    "awaiting": "Ootab lahendust",
+    "expired": "Aegunud"
   },
   "timeLeft": "Järelejäänud aeg",
   "timeExpired": "Aeg alates aegumisest",

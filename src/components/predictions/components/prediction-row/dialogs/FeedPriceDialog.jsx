@@ -6,12 +6,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import HoverInfo from "@/components/common/HoverInfo.tsx";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 
-export function FeedPriceDialog({ res, usr, _backingAssetID, isExpired, statusKey, t }) {
+export function FeedPriceDialog({ res, usr, _backingAssetID, isExpired, statusKey, settlementFundRaw, relevantBitassetData, t }) {
   const [priceFeedPrompt, setPriceFeedPrompt] = useState(false);
   const [priceFeedOutcome, setPriceFeedOutcome] = useState();
   const [priceFeedDialog, setPriceFeedDialog] = useState(false);
 
-  const canFeed = isExpired && statusKey === "awaiting";
+  const settlementFund = Number(settlementFundRaw ?? relevantBitassetData?.settlement_fund ?? 0);
+  const canFeed = isExpired && statusKey === "awaiting" && settlementFund > 0;
 
   return (
     <Dialog open={priceFeedPrompt} onOpenChange={setPriceFeedPrompt}>

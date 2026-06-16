@@ -38,7 +38,7 @@ export default function HoverInfo({ header, content, type }: HoverInfoProps) {
           ) : null}
         </span>
       </HoverCardTrigger>
-      <HoverCardContent className={"w-80 mt-1"} align="start">
+      <HoverCardContent className={"w-80 mt-1 bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40 z-[9999]"} align="start">
         <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
           <div className="flex items-center">
             <span>{t("Predictions:about")}:</span>

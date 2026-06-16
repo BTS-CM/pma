@@ -11,6 +11,8 @@
   "outcome.yes": "예",
   "outcome.no": "아니오",
   "outcome.unresolved": "미해결",
+  "outcome.expired": "만료됨",
+  "outcome.expired_description": "참가자가 부족하여 진행할 수 없습니다",
   "issue": "1단계: PMA 토큰 발행",
   "buy": "참(매수)에 베팅",
   "sell": "2단계: 거짓(매도)에 베팅",
@@ -58,7 +60,8 @@
     "active": "활성",
     "resolvedYes": "해결됨 · 예",
     "resolvedNo": "해결됨 · 아니오",
-    "awaiting": "해결 대기 중"
+    "awaiting": "해결 대기 중",
+    "expired": "만료됨"
   },
   "timeLeft": "남은 시간",
   "timeExpired": "만료 후 경과 시간",

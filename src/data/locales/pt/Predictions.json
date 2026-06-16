@@ -11,6 +11,8 @@
   "outcome.yes": "Sim",
   "outcome.no": "Não",
   "outcome.unresolved": "Não resolvido",
+  "outcome.expired": "Expirado",
+  "outcome.expired_description": "Não houve participantes suficientes para prosseguir",
   "issue": "Etapa 1: emitir tokens PMA",
   "buy": "Aposte Verdadeiro (comprar)",
   "sell": "Etapa 2: aposta falsa (venda)",
@@ -58,7 +60,8 @@
     "active": "Ativo",
     "resolvedYes": "Resolvido · SIM",
     "resolvedNo": "Resolvido · NÃO",
-    "awaiting": "Aguardando resolução"
+    "awaiting": "Aguardando resolução",
+    "expired": "Expirado"
   },
   "timeLeft": "Tempo restante",
   "timeExpired": "Tempo desde a expiração",

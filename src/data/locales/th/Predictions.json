@@ -11,6 +11,8 @@
   "outcome.yes": "ใช่",
   "outcome.no": "ไม่",
   "outcome.unresolved": "ยังไม่ได้แก้ไข",
+  "outcome.expired": "หมดอายุ",
+  "outcome.expired_description": "ขาดผู้เข้าร่วมเพียงพอที่จะดำเนินการต่อ",
   "issue": "ขั้นตอนที่ 1: ออกโทเค็น PMA",
   "buy": "เดิมพันจริง (ซื้อ)",
   "sell": "ขั้นตอนที่ 2: เดิมพันเท็จ (ขาย)",
@@ -58,7 +60,8 @@
     "active": "ใช้งานอยู่",
     "resolvedYes": "แก้ไขแล้ว · ใช่",
     "resolvedNo": "แก้ไขแล้ว · ไม่",
-    "awaiting": "รอการแก้ไข"
+    "awaiting": "รอการแก้ไข",
+    "expired": "หมดอายุ"
   },
   "timeLeft": "เวลาที่เหลือ",
   "timeExpired": "เวลาตั้งแต่หมดอายุ",

@@ -11,6 +11,8 @@
   "outcome.yes": "Ja",
   "outcome.no": "Nein",
   "outcome.unresolved": "Ungelöst",
+  "outcome.expired": "Abgelaufen",
+  "outcome.expired_description": "Nicht genügend Teilnehmer, um fortzufahren",
   "issue": "Schritt 1: PMA-Tokens ausgeben",
   "buy": "Bet True (kaufen)",
   "sell": "Schritt 2: Falsch wetten (verkaufen)",
@@ -58,7 +60,8 @@
     "active": "Aktiv",
     "resolvedYes": "Gelöst · JA",
     "resolvedNo": "Gelöst · NEIN",
-    "awaiting": "Wartet auf Lösung"
+    "awaiting": "Wartet auf Lösung",
+    "expired": "Abgelaufen"
   },
   "timeLeft": "Verbleibende Zeit",
   "timeExpired": "Zeit seit Ablauf",

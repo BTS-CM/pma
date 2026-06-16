@@ -624,6 +624,10 @@ export default function Prediction(properties) {
   const [feeSharingWhitelist, setFeeSharingWhitelist] = useState([]); // whitelist_market_fee_sharing
   const [takerFee, setTakerFee] = useState(0); // taker_fee_percent
 
+  // Toggle visibility for optional steps
+  const [enabledExtensions, setEnabledExtensions] = useState(false);
+  const [enabledPermissions, setEnabledPermissions] = useState(false);
+
   // NFT info
   const [enabledNFT, setEnabledNFT] = useState(false);
   const [acknowledgements, setAcknowledgements] = useState("");
@@ -2020,14 +2024,45 @@ export default function Prediction(properties) {
           )}
         </Card>
 
-        {/* Step 4 — Market fee extensions */}
-        <Card className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20">
-          <SectionHeader
-            step={4}
-            icon={Settings2}
-            title={t("CreatePrediction:steps.extensions.title")}
-            description={t("CreatePrediction:steps.extensions.description")}
-          />
+        {/* Step 4 — Market fee extensions (optional) */}
+        <Card
+          className={
+            "overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
+            (enabledExtensions ? "ring-1 ring-emerald-500/30" : "")
+          }
+        >
+          <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
+            <div
+              className={
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ring-1 " +
+                (enabledExtensions
+                  ? "bg-emerald-500/15 text-emerald-400 ring-emerald-500/30"
+                  : "bg-white/5 text-white/40 ring-white/10")
+              }
+            >
+              <Settings2 className="h-4 w-4" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+                  {t("CreatePrediction:sectionHeader.step", { number: 4 })} · {t("CreatePrediction:sectionHeader.optional")}
+                </span>
+              </div>
+              <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
+                {t("CreatePrediction:steps.extensions.title")}
+              </h3>
+              <p className="mt-0.5 text-sm text-white/50">
+                {t("CreatePrediction:steps.extensions.description")}
+              </p>
+            </div>
+            <Switch
+              checked={enabledExtensions}
+              onCheckedChange={setEnabledExtensions}
+              className="mt-1 shrink-0 data-[state=checked]:bg-emerald-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white"
+            />
+          </div>
+
+          {enabledExtensions && (
           <CardContent className="space-y-4 pt-6">
             <ToggleCard
               icon={Settings2}
@@ -2246,16 +2281,48 @@ export default function Prediction(properties) {
               </div>
             )}
           </CardContent>
+          )}
         </Card>
 
-        {/* Step 5 — Permissions and flags */}
-        <Card className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20">
-          <SectionHeader
-            step={5}
-            icon={ShieldCheck}
-            title={t("CreatePrediction:steps.permissions.title")}
-            description={t("CreatePrediction:steps.permissions.description")}
-          />
+        {/* Step 5 — Permissions and flags (optional) */}
+        <Card
+          className={
+            "overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
+            (enabledPermissions ? "ring-1 ring-rose-500/30" : "")
+          }
+        >
+          <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
+            <div
+              className={
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ring-1 " +
+                (enabledPermissions
+                  ? "bg-rose-500/15 text-rose-400 ring-rose-500/30"
+                  : "bg-white/5 text-white/40 ring-white/10")
+              }
+            >
+              <ShieldCheck className="h-4 w-4" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center rounded-full bg-rose-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-rose-400">
+                  {t("CreatePrediction:sectionHeader.step", { number: 5 })} · {t("CreatePrediction:sectionHeader.optional")}
+                </span>
+              </div>
+              <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
+                {t("CreatePrediction:steps.permissions.title")}
+              </h3>
+              <p className="mt-0.5 text-sm text-white/50">
+                {t("CreatePrediction:steps.permissions.description")}
+              </p>
+            </div>
+            <Switch
+              checked={enabledPermissions}
+              onCheckedChange={setEnabledPermissions}
+              className="mt-1 shrink-0 data-[state=checked]:bg-rose-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white"
+            />
+          </div>
+
+          {enabledPermissions && (
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
@@ -2466,6 +2533,7 @@ export default function Prediction(properties) {
               </div>
             </div>
           </CardContent>
+          )}
         </Card>
 
         {/* Step 6 — Authorization (only visible when white_list is on) */}

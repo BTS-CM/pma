@@ -11,6 +11,8 @@
   "outcome.yes": "Ja",
   "outcome.no": "Nej",
   "outcome.unresolved": "Uafgjort",
+  "outcome.expired": "Udløbet",
+  "outcome.expired_description": "Manglede deltagere til at fortsætte",
   "issue": "Trin 1: Udsted PMA-tokens",
   "buy": "Sats rigtigt (køb)",
   "sell": "Trin 2: Indsats falsk (sælg)",
@@ -58,7 +60,8 @@
     "active": "Aktiv",
     "resolvedYes": "Løst · JA",
     "resolvedNo": "Løst · NEJ",
-    "awaiting": "Afventer opløsning"
+    "awaiting": "Afventer opløsning",
+    "expired": "Udløbet"
   },
   "timeLeft": "Tid tilbage",
   "timeExpired": "Tid siden udløb",
