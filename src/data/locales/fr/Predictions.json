@@ -170,6 +170,7 @@
     "existingContent": "Il s'agit du nombre de jetons d'actifs de marché de prédiction que vous avez déjà émis.",
     "totalHeader": "Garantie totale",
     "totalContent": "Il s'agit du montant total de la garantie que vous aurez engagée sur cet actif du marché de prédiction.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "Il s'agit approximativement du montant total de jetons d'actifs du marché de prédiction que vous obtiendrez en échange de cette transaction.",
     "receivingHeader": "Réception"
   },
@@ -197,12 +198,15 @@
   "buyDialog": {
     "title": "Acheter des actifs du marché de prédiction",
     "description": "Pour parier en faveur du résultat de la prédiction, vous devez acheter les jetons d'actifs du marché de prédiction auprès d'un vendeur qui parie contre le résultat.",
+    "qtyHeader": "Montant à dépenser",
     "receivingHeader": "Réception",
     "receivingContent": "Il s'agit approximativement du montant total de jetons d'actifs du marché de prédiction que vous obtiendrez en échange de cette transaction."
   },
   "claimDialog": {
     "qtyContent": "La quantité d'actifs du marché de prédiction que vous souhaitez réintégrer dans l'actif de garantie.",
-    "qtyHeader": "Quantité à régler"
+    "qtyHeader": "Quantité à régler",
+    "receivingHeader": "Réception",
+    "receivingContent": "Les jetons de l'actif de garantie que vous recevrez après le règlement de cette prédiction."
   },
   "resolveDialog": {
     "title": "Résoudre la prédiction",

@@ -12,10 +12,11 @@ export function CopyButton({ value, label, className }) {
   const [copied, setCopied] = useState(false);
   return (
     <TooltipProvider delayDuration={200}>
-      <Tooltip>
+      <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
           <Button
             type="button"
+            tabIndex={-1}
             variant="ghost"
             size="icon"
             className={cn("h-6 w-6", className)}

@@ -170,6 +170,7 @@
     "existingContent": "Questo è il numero di token di asset del mercato di previsione che hai già emesso.",
     "totalHeader": "Garanzia totale",
     "totalContent": "Questo è l'importo totale della garanzia che avrai impegnato per questo asset di mercato di previsione.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "Questo è approssimativamente l'importo totale di token asset del mercato di previsione che riceverai in cambio di questa operazione.",
     "receivingHeader": "Ricevere"
   },
@@ -197,12 +198,15 @@
   "buyDialog": {
     "title": "Acquisto di asset del mercato di previsione",
     "description": "Per scommettere a favore del risultato della previsione, è necessario acquistare i token asset del mercato di previsione da un venditore che scommette contro il risultato.",
+    "qtyHeader": "Importo da spendere",
     "receivingHeader": "Ricevere",
     "receivingContent": "Questo è approssimativamente l'importo totale di token asset del mercato di previsione che riceverai in cambio di questa operazione."
   },
   "claimDialog": {
     "qtyContent": "La quantità di asset del mercato di previsione che desideri reinvestire nell'asset di garanzia.",
-    "qtyHeader": "Quantità da saldare"
+    "qtyHeader": "Quantità da saldare",
+    "receivingHeader": "Ricezione",
+    "receivingContent": "I token dell'asset sottostante che riceverai dopo aver liquidato questa previsione."
   },
   "resolveDialog": {
     "title": "Risoluzione della previsione",

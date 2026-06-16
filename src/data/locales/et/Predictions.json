@@ -170,6 +170,7 @@
     "existingContent": "See on see, kui palju ennustusvarade turumärke olete juba väljastanud.",
     "totalHeader": "Tagatis kokku",
     "totalContent": "See on tagatise kogusumma, mille olete panustanud sellele prognoositavale turuvarale.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "See on ligikaudu ennustuste turu varade žetoonide kogusumma, mille saate selle tehingu eest vastutasuks.",
     "receivingHeader": "Vastuvõtmine"
   },
@@ -197,12 +198,15 @@
   "buyDialog": {
     "title": "Ennustusturu varade ostmine",
     "description": "Ennustuse tulemuse kasuks panustamiseks peate ostma ennustuse turu varade märgid müüjalt, kes panustab tulemuse vastu.",
+    "qtyHeader": "Kulutatav summa",
     "receivingHeader": "Vastuvõtmine",
     "receivingContent": "See on ligikaudu ennustuste turu varade žetoonide kogusumma, mille saate selle tehingu eest vastutasuks."
   },
   "claimDialog": {
     "qtyContent": "Prognoositud turuvarade kogus, mille soovite tagatisvaraks tagasi kanda.",
-    "qtyHeader": "Arveldatav kogus"
+    "qtyHeader": "Arveldatav kogus",
+    "receivingHeader": "Saadav",
+    "receivingContent": "Tagatiseks antud varad, mille saate peale selle ennustuse settle'imist."
   },
   "resolveDialog": {
     "title": "Prognoosi lahendamine",

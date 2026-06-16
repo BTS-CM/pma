@@ -170,6 +170,7 @@
     "existingContent": "Esta es la cantidad de estos tokens de activos del mercado de predicción que ya ha emitido.",
     "totalHeader": "Garantía total",
     "totalContent": "Esta es la cantidad total de garantía que habrá comprometido para este activo del mercado de predicción.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "Esta es aproximadamente la cantidad total de tokens de activos del mercado de predicción que obtendrá a cambio de esta operación.",
     "receivingHeader": "Recepción"
   },
@@ -197,12 +198,15 @@
   "buyDialog": {
     "title": "Comprar activos del mercado de predicción",
     "description": "Para apostar a favor del resultado de la predicción, debe comprar los tokens de activos del mercado de predicción a un vendedor que esté apostando en contra del resultado.",
+    "qtyHeader": "Cantidad a gastar",
     "receivingHeader": "Recepción",
     "receivingContent": "Esta es aproximadamente la cantidad total de tokens de activos del mercado de predicción que obtendrá a cambio de esta operación."
   },
   "claimDialog": {
     "qtyContent": "La cantidad de activos del mercado de predicción que desea volver a colocar en el activo de respaldo.",
-    "qtyHeader": "Cantidad a liquidar"
+    "qtyHeader": "Cantidad a liquidar",
+    "receivingHeader": "Recibiendo",
+    "receivingContent": "Los tokens del activo subyacente que recibirá después de liquidar esta predicción."
   },
   "resolveDialog": {
     "title": "Resolviendo la predicción",

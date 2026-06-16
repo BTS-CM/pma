@@ -290,7 +290,12 @@ export default function Predictions(properties) {
                   return;
                 }
 
-                const description = JSON.parse(x.options.description);
+                let description;
+                try {
+                  description = JSON.parse(x.options.description);
+                } catch {
+                  return;
+                }
                 if (
                   !description ||
                   !description.market ||
@@ -440,12 +445,8 @@ export default function Predictions(properties) {
 
   const marginPMAs = useMemo(() => {
     return pmaProcessedData.filter((pma) => {
-      return callOrders.some((order) => {
-        const orderEntries = Object.values(order);
-        return orderEntries.some((entries) => {
-          return entries.some((entry) => entry.borrower === usr.id);
-        });
-      });
+      const orders = callOrders[pma.id];
+      return orders && orders.some((entry) => entry.borrower === usr.id);
     });
   }, [pmaProcessedData, callOrders, usr.id]);
 

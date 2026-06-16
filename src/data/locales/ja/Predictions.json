@@ -170,6 +170,7 @@
     "existingContent": "これは、すでに発行した予測市場資産トークンの数です。",
     "totalHeader": "担保総額",
     "totalContent": "これは、この予測市場資産にコミットする担保の合計額です。",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "これは、この取引の見返りとして得られる予測市場資産トークンのおよその合計額です。",
     "receivingHeader": "受取"
   },
@@ -197,12 +198,15 @@
   "buyDialog": {
     "title": "予測市場資産の購入",
     "description": "予測の結果に有利に賭けるには、結果に逆らって賭けている売り手から予測市場資産トークンを購入する必要があります。",
+    "qtyHeader": "支出する金額",
     "receivingHeader": "受取",
     "receivingContent": "これは、この取引の見返りとして得られる予測市場資産トークンのおよその合計額です。"
   },
   "claimDialog": {
     "qtyContent": "担保資産に戻して決済する予測市場資産の数量。",
-    "qtyHeader": "決済数量"
+    "qtyHeader": "決済数量",
+    "receivingHeader": "受取予定",
+    "receivingContent": "この予想を決済した後に受け取る裏付け資産トークン。"
   },
   "resolveDialog": {
     "title": "予測の解決",

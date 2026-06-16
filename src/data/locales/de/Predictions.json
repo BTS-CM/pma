@@ -170,6 +170,7 @@
     "existingContent": "So viele dieser Prognosemarkt-Asset-Tokens haben Sie bereits ausgegeben.",
     "totalHeader": "Gesamtsicherheiten",
     "totalContent": "Dies ist der Gesamtbetrag der Sicherheiten, die Sie für diesen prognostizierten Marktwert bereitgestellt haben.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "Dies ist ungefähr die Gesamtmenge an Prognosemarkt-Asset-Tokens, die Sie als Gegenleistung für diesen Handel erhalten.",
     "receivingHeader": "Empfang"
   },
@@ -197,12 +198,15 @@
   "buyDialog": {
     "title": "Kauf von Vermögenswerten auf dem Prognosemarkt",
     "description": "Um auf das Ergebnis der Vorhersage zu wetten, müssen Sie die Vermögenswert-Token des Prognosemarktes von einem Verkäufer kaufen, der gegen das Ergebnis setzt.",
+    "qtyHeader": "Betrag zum Ausgeben",
     "receivingHeader": "Empfang",
     "receivingContent": "Dies ist ungefähr die Gesamtmenge an Prognosemarkt-Asset-Tokens, die Sie als Gegenleistung für diesen Handel erhalten."
   },
   "claimDialog": {
     "qtyContent": "Die Menge der prognostizierten Marktvermögenswerte, die Sie wieder in das Hintergrundvermögenswert einzahlen möchten.",
-    "qtyHeader": "Zu begleichende Menge"
+    "qtyHeader": "Zu begleichende Menge",
+    "receivingHeader": "Empfang",
+    "receivingContent": "Die hinterlegten Vermögenswerte, die Sie nach der Abrechnung dieser Vorhersage erhalten."
   },
   "resolveDialog": {
     "title": "Vorhersage auflösen",

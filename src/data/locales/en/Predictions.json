@@ -170,6 +170,7 @@
     "existingContent": "This is how many of these prediction market asset tokens you've already issued.",
     "totalHeader": "Total collateral",
     "totalContent": "This is the total amount of collateral you'll have committed to this prediction market asset.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "This is approximately the total amount of prediction market asset tokens you'll get in return for this trade.",
     "receivingHeader": "Receiving"
   },
@@ -197,12 +198,15 @@
   "buyDialog": {
     "title": "Buying prediction market assets",
     "description": "To bet in favour of the outcome of the prediction, you need to buy the prediction market asset tokens from a seller who is betting against the outcome.",
+    "qtyHeader": "Amount to spend",
     "receivingHeader": "Receiving",
     "receivingContent": "This is approximately the total amount of prediction market asset tokens you'll get in return for this trade."
   },
   "claimDialog": {
     "qtyContent": "The quantity of prediction market assets you want to settle back into the backing asset.",
-    "qtyHeader": "Quantity to settle"
+    "qtyHeader": "Quantity to settle",
+    "receivingHeader": "Receiving",
+    "receivingContent": "The backing asset tokens you will receive after settling this prediction."
   },
   "resolveDialog": {
     "title": "Resolving prediction",

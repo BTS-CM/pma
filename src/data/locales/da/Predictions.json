@@ -170,6 +170,7 @@
     "existingContent": "Dette er, hvor mange af disse forudsigelige markedsaktivtokens, du allerede har udstedt.",
     "totalHeader": "Samlet sikkerhed",
     "totalContent": "Dette er det samlede beløb af sikkerhed, du vil have forpligtet til dette forudsigelige markedsaktiv.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "Dette er tilnærmelsesvis den samlede mængde af forudsigelige markedsaktivtokens, du får til gengæld for denne handel.",
     "receivingHeader": "Modtager"
   },
@@ -197,12 +198,15 @@
   "buyDialog": {
     "title": "Køb af forudsigelige markedsaktiver",
     "description": "For at satse til fordel for udfaldet af forudsigelsen, skal du købe forudsigelsesmarkedets aktiv-tokens fra en sælger, der satser mod resultatet.",
+    "qtyHeader": "Beløb at bruge",
     "receivingHeader": "Modtager",
     "receivingContent": "Dette er tilnærmelsesvis den samlede mængde af forudsigelige markedsaktivtokens, du får til gengæld for denne handel."
   },
   "claimDialog": {
     "qtyContent": "Mængden af forudsigelige markedsaktiver, du ønsker at afregne i backing-aktivet.",
-    "qtyHeader": "Mængde at afregne"
+    "qtyHeader": "Mængde at afregne",
+    "receivingHeader": "Modtager",
+    "receivingContent": "De underliggende aktiver du modtager efter at denne forudsigelse er afgjort."
   },
   "resolveDialog": {
     "title": "Løsning af forudsigelse",
