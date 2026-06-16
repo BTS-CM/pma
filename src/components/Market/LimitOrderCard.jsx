@@ -1525,7 +1525,7 @@ export default function LimitOrderCard(properties) {
                   <div className="flex items-center justify-center gap-1.5 h-12 rounded-xl border border-amber-400/20 bg-amber-500/[0.06]">
                     <Zap className="h-3.5 w-3.5 text-amber-400" strokeWidth={2.5} />
                     <span className="font-mono text-xs text-amber-400">
-                      {fee ? `${fee.toFixed(5)} BTS` : "0.00000 BTS"}
+                      {fee ? `${fee.toFixed(5)} ${usr.chain === "bitshares" ? "BTS" : "TEST"}` : `0.00000 ${usr.chain === "bitshares" ? "BTS" : "TEST"}`}
                     </span>
                   </div>
                   <Button
@@ -1542,7 +1542,7 @@ export default function LimitOrderCard(properties) {
                   <div className="flex items-center justify-center gap-1.5 h-12 rounded-xl border border-amber-400/20 bg-amber-500/[0.06]">
                     <Zap className="h-3.5 w-3.5 text-amber-400" strokeWidth={2.5} />
                     <span className="font-mono text-xs text-amber-400">
-                      {fee ? `${fee.toFixed(5)} BTS` : "0.00000 BTS"}
+                      {fee ? `${fee.toFixed(5)} ${usr.chain === "bitshares" ? "BTS" : "TEST"}` : `0.00000 ${usr.chain === "bitshares" ? "BTS" : "TEST"}`}
                     </span>
                   </div>
                   <Button

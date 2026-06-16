@@ -11,11 +11,24 @@
   "disputeMechanism": "紛争解決メカニズム",
   "viewActive": "アクティブな予測を表示",
   "viewExpired": "期限切れの予測を表示",
+  "viewJson": "JSONを表示",
+  "viewPmoDetails": "PMOの詳細を表示",
   "sort": {
     "alpha": "アルファベット順",
     "pmaCount": "予測数順",
     "newest": "新しい順"
   },
   "editOrg": "組織を編集",
-  "createPrediction": "予測を作成"
+  "createPrediction": "予測を作成",
+  "json": {
+    "title": "アセットJSONデータ",
+    "description": "この組織アセットのブロックチェーン生データ。",
+    "assetData": "アセットデータ",
+    "descriptionData": "説明データ"
+  },
+  "pmoDetails": {
+    "identity": "組織のアイデンティティ",
+    "orgProfile": "組織プロフィール",
+    "nftDetails": "NFTメタデータ"
+  }
 }

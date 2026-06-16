@@ -84,6 +84,7 @@ import { Avatar } from "./Avatar.tsx";
 
 import { useInitCache } from "@/nanoeffects/Init.ts";
 import { createUserBalancesStore } from "@/nanoeffects/UserBalances.ts";
+import { createEveryObjectStore } from "@/nanoeffects/Objects.ts";
 
 import { $currentUser } from "@/stores/users.ts";
 import { $currentNode } from "@/stores/node.ts";
@@ -401,6 +402,30 @@ export default function Prediction(properties) {
     return [];
   }, [_assetsBTS, _assetsTEST, _chain]);
 
+  const [combinedAssets, setCombinedAssets] = useState([]);
+  useEffect(() => {
+    async function fetching() {
+      if (!assets || !assets.length || !currentNode) return;
+      const lastAsset = assets.at(-1);
+      if (!lastAsset || !lastAsset.id) return;
+      const requiredStore = createEveryObjectStore([
+        _chain,
+        parseInt(lastAsset.id.split(".")[0]),
+        parseInt(lastAsset.id.split(".")[1]),
+        parseInt(lastAsset.id.split(".")[2]),
+        currentNode.url,
+      ]);
+      requiredStore.subscribe(({ data, error, loading }) => {
+        if (data && !error && !loading) {
+          setCombinedAssets(!data.length ? assets : [...assets, ...data]);
+        }
+      });
+    }
+    if (_chain && assets && assets.length && currentNode) {
+      fetching();
+    }
+  }, [_chain, assets, currentNode]);
+
   const [balanceCounter, setBalanceCoutner] = useState(0);
   const [balances, setBalances] = useState();
   useEffect(() => {
@@ -448,8 +473,9 @@ export default function Prediction(properties) {
 
   // Filter PMO organizations owned by the current user
   const userOrgs = useMemo(() => {
-    if (!assets || !assets.length || !usr || !usr.id) return [];
-    return assets.filter((a) => {
+    const source = combinedAssets && combinedAssets.length ? combinedAssets : assets;
+    if (!source || !source.length || !usr || !usr.id) return [];
+    return source.filter((a) => {
       if (a.issuer !== usr.id) return false;
       if (a.symbol && a.symbol.includes(".")) return false;
       if (!a.options || !a.options.description) return false;
@@ -460,7 +486,7 @@ export default function Prediction(properties) {
         return false;
       }
     });
-  }, [assets, usr]);
+  }, [combinedAssets, assets, usr]);
 
   // Default to organization mode when user owns PMO assets
   useEffect(() => {
@@ -562,6 +588,14 @@ export default function Prediction(properties) {
     }
     return symbol;
   }, [creationMode, selectedOrg, subAssetName, symbol]);
+
+  // Max sub-asset name length: 16 total minus org symbol length minus 1 for the dot
+  const maxSubAssetLength = useMemo(() => {
+    if (creationMode === "organization" && selectedOrg) {
+      return Math.max(0, 16 - selectedOrg.symbol.length - 1);
+    }
+    return 16;
+  }, [creationMode, selectedOrg]);
 
   // Initializing permissions
   const [permWhiteList, setPermWhiteList] = useState(true);
@@ -997,7 +1031,7 @@ export default function Prediction(properties) {
   const symbolError = useMemo(() => {
     if (creationMode === "organization") {
       if (!subAssetName || subAssetName.length === 0) return null;
-      if (subAssetName.length > 16) return "Sub-asset name is too long (max 16 characters)";
+      if (subAssetName.length > maxSubAssetLength) return `Sub-asset name is too long (max ${maxSubAssetLength} characters)`;
       if (!/^[a-zA-Z0-9]+$/.test(subAssetName))
         return "Sub-asset name can only contain letters and digits";
       const full = `${selectedOrg?.symbol || ""}.${subAssetName}`;
@@ -1009,7 +1043,7 @@ export default function Prediction(properties) {
     if (!/^[a-zA-Z0-9]*\.?[a-zA-Z0-9]*$/.test(symbol))
       return "Symbol can only contain letters, digits and a single dot";
     return null;
-  }, [symbol, creationMode, subAssetName, selectedOrg]);
+  }, [symbol, creationMode, subAssetName, selectedOrg, maxSubAssetLength]);
 
   const commissionError = useMemo(() => {
     if (commission === "" || commission === "." || parseFloat(commission) === 0)
@@ -1210,10 +1244,10 @@ export default function Prediction(properties) {
                             setSubAssetName(value);
                           }
                         }}
-                        maxLength={16}
+                        maxLength={maxSubAssetLength}
                       />
                       <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
-                        {subAssetName.length}/16
+                        {subAssetName.length}/{maxSubAssetLength}
                       </span>
                     </div>
                   </Field>
@@ -1658,7 +1692,7 @@ export default function Prediction(properties) {
                                     )}
                                   />
                                 </SelectTrigger>
-                                <SelectContent className="bg-slate-950 border-white/10 text-white">
+                                <SelectContent className="bg-slate-950 border-white/10 text-white" style={{ maxHeight: '12.5rem', overflowY: 'auto' }}>
                                   <SelectGroup>
                                     <SelectLabel>
                                       {t("AssetCommon:nft.imageFormats")}
@@ -2618,7 +2652,7 @@ export default function Prediction(properties) {
                         <span className="font-mono text-amber-400">
                           {feeCalculating
                             ? t("CreatePrediction:fee.calculating")
-                            : `${(estimatedFee / 100000).toFixed(5)} BTS`}
+                            : `${(estimatedFee / 100000).toFixed(5)} ${_chain === "bitshares" ? "BTS" : "TEST"}`}
                         </span>
                       </div>
                     </TooltipTrigger>

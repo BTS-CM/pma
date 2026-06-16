@@ -11,11 +11,24 @@
   "disputeMechanism": "Tvistløsningsmekanisme",
   "viewActive": "Se aktive forudsigelser",
   "viewExpired": "Se udløbne forudsigelser",
+  "viewJson": "Se JSON",
+  "viewPmoDetails": "Se PMO-detaljer",
   "sort": {
     "alpha": "Alfabetisk",
     "pmaCount": "Flest forudsigelser",
     "newest": "Nyeste først"
   },
   "editOrg": "Rediger organisation",
-  "createPrediction": "Opret forudsigelse"
+  "createPrediction": "Opret forudsigelse",
+  "json": {
+    "title": "Asset JSON-data",
+    "description": "Rå blockchain-data for denne organisations-asset.",
+    "assetData": "Asset-data",
+    "descriptionData": "Beskrivelsesdata"
+  },
+  "pmoDetails": {
+    "identity": "Organisationsidentitet",
+    "orgProfile": "Organisationsprofil",
+    "nftDetails": "NFT-metadata"
+  }
 }

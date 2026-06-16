@@ -207,9 +207,10 @@ function genMonths(locale) {
 
 function genYears(yearRange = 50) {
   const today = new Date();
-  return Array.from({ length: yearRange * 2 + 1 }, (_, i) => ({
-    value: today.getFullYear() - yearRange + i,
-    label: (today.getFullYear() - yearRange + i).toString(),
+  const currentYear = today.getFullYear();
+  return Array.from({ length: yearRange }, (_, i) => ({
+    value: currentYear + i,
+    label: (currentYear + i).toString(),
   }));
 }
 
@@ -293,12 +294,12 @@ function Calendar({
                   props.onMonthChange?.(newDate);
                 }}
               >
-                <SelectTrigger className="w-fit gap-1 border-none p-0 focus:bg-accent focus:text-accent-foreground">
+                <SelectTrigger className="w-fit gap-1 border-none p-0 text-white focus:bg-white/10 focus:text-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-slate-900 border-white/10 text-white">
                   {MONTHS.map((month) => (
-                    <SelectItem key={month.value} value={month.value.toString()}>
+                    <SelectItem key={month.value} value={month.value.toString()} className="text-white focus:bg-violet-500/20 focus:text-white">
                       {month.label}
                     </SelectItem>
                   ))}
@@ -312,12 +313,12 @@ function Calendar({
                   props.onMonthChange?.(newDate);
                 }}
               >
-                <SelectTrigger className="w-fit gap-1 border-none p-0 focus:bg-accent focus:text-accent-foreground">
+                <SelectTrigger className="w-fit gap-1 border-none p-0 text-white focus:bg-white/10 focus:text-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-slate-900 border-white/10 text-white max-h-[200px]">
                   {YEARS.map((year) => (
-                    <SelectItem key={year.value} value={year.value.toString()}>
+                    <SelectItem key={year.value} value={year.value.toString()} className="text-white focus:bg-violet-500/20 focus:text-white">
                       {year.label}
                     </SelectItem>
                   ))}
@@ -652,7 +653,7 @@ const DateTimePicker = React.forwardRef(
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0">
+        <PopoverContent className="w-auto p-0 bg-slate-950 border-white/10 text-white shadow-2xl shadow-black/40">
           <Calendar
             mode="single"
             selected={value}

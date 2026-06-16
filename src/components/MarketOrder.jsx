@@ -1486,7 +1486,7 @@ export default function MarketOrder(properties) {
                         </div>
                         <div className="flex items-center gap-1 font-mono text-sm tabular-nums text-amber-400">
                           <Zap className="h-3.5 w-3.5" strokeWidth={2.5} />
-                          {fee ? fee.toFixed(5) : "0.00000"} BTS
+                          {fee ? fee.toFixed(5) : "0.00000"} {usr.chain === "bitshares" ? "BTS" : "TEST"}
                         </div>
                         {usr.id === usr.referrer ? (
                           <div className="text-xs text-amber-400/60 mt-1">

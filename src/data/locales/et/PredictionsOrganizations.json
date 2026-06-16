@@ -11,11 +11,24 @@
   "disputeMechanism": "Vaidluste mehhanism",
   "viewActive": "Vaata aktiivseid ennustusi",
   "viewExpired": "Vaata aegunud ennustusi",
+  "viewJson": "Vaata JSON",
+  "viewPmoDetails": "Vaata PMO detaile",
   "sort": {
     "alpha": "Tähestikuline",
     "pmaCount": "Enim ennustusi",
     "newest": "Uuemad esimesena"
   },
   "editOrg": "Redigeeri organisatsiooni",
-  "createPrediction": "Loo ennustus"
+  "createPrediction": "Loo ennustus",
+  "json": {
+    "title": "Vara JSON andmed",
+    "description": "Selle organisatsiooni vara blokeeringu tooandmed.",
+    "assetData": "Vara andmed",
+    "descriptionData": "Kirjelduse andmed"
+  },
+  "pmoDetails": {
+    "identity": "Organisatsiooni identiteet",
+    "orgProfile": "Organisatsiooni profiil",
+    "nftDetails": "NFT metaandmed"
+  }
 }

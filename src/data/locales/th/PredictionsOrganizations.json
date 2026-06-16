@@ -11,11 +11,24 @@
   "disputeMechanism": "กลไกการระงับข้อพิพาท",
   "viewActive": "ดูการทำนายที่ใช้งานอยู่",
   "viewExpired": "ดูการทำนายที่หมดอายุ",
+  "viewJson": "ดู JSON",
+  "viewPmoDetails": "ดูรายละเอียด PMO",
   "sort": {
     "alpha": "ตามตัวอักษร",
     "pmaCount": "การทำนายมากที่สุด",
     "newest": "ใหม่ล่าสุด"
   },
   "editOrg": "แก้ไของค์กร",
-  "createPrediction": "สร้างการทำนาย"
+  "createPrediction": "สร้างการทำนาย",
+  "json": {
+    "title": "ข้อมูล JSON ของสินทรัพย์",
+    "description": "ข้อมูลดิบบล็อกเชนสำหรับสินทรัพย์องค์กรนี้",
+    "assetData": "ข้อมูลสินทรัพย์",
+    "descriptionData": "ข้อมูลคำอธิบาย"
+  },
+  "pmoDetails": {
+    "identity": "การระบุองค์กร",
+    "orgProfile": "โปรไฟล์องค์กร",
+    "nftDetails": "ข้อมูลเมตา NFT"
+  }
 }

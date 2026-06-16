@@ -267,7 +267,7 @@ const createWindow = async () => {
   });
 
   ipcMain.handle("calculateOperationFees", async (event, arg) => {
-    const { nodeURL, trxJSON } = arg;
+    const { nodeURL, trxJSON, operationType } = arg;
 
     let currentAPI;
     try {
@@ -293,9 +293,12 @@ const createWindow = async () => {
 
     let fee;
     try {
+      const opArg = typeof operationType === "number"
+        ? [[operationType, _op]]
+        : [_op];
       fee = await currentAPI
         .db_api()
-        .exec("get_required_fees", [[[_op]], "1.3.0"]);
+        .exec("get_required_fees", [[opArg], "1.3.0"]);
     } catch (error) {
       console.log({ error });
     }

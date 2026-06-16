@@ -17,6 +17,11 @@ import {
   X as XIcon,
   Pen,
   Plus,
+  FileJson,
+  Eye,
+  Image as ImageIcon,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import {
   Card,
@@ -39,6 +44,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -81,7 +100,171 @@ function StatBlock({ label, value, mono, accent }) {
   );
 }
 
-function OrganizationCard({ org, pmaCounts, t, usr }) {
+function SectionHeader({ label, accent = "white" }) {
+  const colors = {
+    emerald: "bg-emerald-500",
+    amber: "bg-amber-500",
+    blue: "bg-blue-500",
+    cyan: "bg-cyan-500",
+    violet: "bg-violet-500",
+    rose: "bg-rose-500",
+    indigo: "bg-indigo-500",
+    white: "bg-white/30",
+  };
+  return (
+    <div className="flex items-center gap-2.5 mb-3">
+      <div className={cn("h-4 w-1 rounded-full", colors[accent] || colors.white)} />
+      <span className="text-[11px] uppercase tracking-widest font-semibold text-white/50">{label}</span>
+      <div className="h-px flex-1 bg-white/[0.06]" />
+    </div>
+  );
+}
+
+function CollapsibleSection({ title, defaultOpen = false, accent = "white", children }) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  return (
+    <section>
+      <button onClick={() => setIsOpen(!isOpen)} className="flex items-center gap-2 w-full text-left group cursor-pointer">
+        <SectionHeader label={title} accent={accent} />
+        <div className="flex-shrink-0 mb-3">
+          {isOpen ? <ChevronUp className="h-3.5 w-3.5 text-white/30 group-hover:text-white/60 transition-colors" /> : <ChevronDown className="h-3.5 w-3.5 text-white/30 group-hover:text-white/60 transition-colors" />}
+        </div>
+      </button>
+      <div className={cn("transition-all duration-300 overflow-hidden", isOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0")}>
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function HeroStat({ label, value, mono }) {
+  return (
+    <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
+      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-0.5">{label}</div>
+      <div className={cn("text-sm text-white break-words", mono && "font-mono")}>{value}</div>
+    </div>
+  );
+}
+
+function PmoDetailsDialog({ open, onOpenChange, org, t }) {
+  const desc = (() => {
+    try {
+      return JSON.parse(org.options?.description || "{}");
+    } catch {
+      return {};
+    }
+  })();
+  const pmo = desc.pmo_object;
+  const nft = desc.nft_object;
+  if (!pmo) return null;
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[650px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+        <DialogHeader>
+          <DialogTitle className="text-white flex items-center gap-2">
+            <ShieldCheck className="h-5 w-5 text-cyan-400" />
+            {pmo.identity?.name || org.symbol}
+          </DialogTitle>
+          <DialogDescription className="text-white/60 font-mono text-xs">
+            {org.symbol}
+          </DialogDescription>
+        </DialogHeader>
+        <ScrollArea className="max-h-[60vh]">
+          <div className="space-y-5 pr-4">
+            {/* Organization Identity */}
+            <CollapsibleSection title={t("PredictionsOrganizations:pmoDetails.identity")} accent="cyan" defaultOpen>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+                {pmo.identity?.name ? <HeroStat label={t("Predictions:org.name")} value={pmo.identity.name} /> : null}
+                {pmo.identity?.website ? <HeroStat label={t("Predictions:org.website")} value={pmo.identity.website} mono /> : null}
+                {pmo.identity?.manifest ? <HeroStat label={t("Predictions:org.manifest")} value={pmo.identity.manifest} mono /> : null}
+              </div>
+            </CollapsibleSection>
+
+            {/* Organization Profile */}
+            <CollapsibleSection title={t("PredictionsOrganizations:pmoDetails.orgProfile")} accent="emerald">
+              <div className="space-y-2 mb-3">
+                {pmo.governance?.onchain_account ? <HeroStat label={t("Predictions:org.onchainAccount")} value={pmo.governance.onchain_account} mono /> : null}
+                {pmo.governance?.resolution_policy ? (
+                  <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:org.resolutionPolicy")}</div>
+                    <div className="text-xs text-white/70 whitespace-pre-wrap">{pmo.governance.resolution_policy}</div>
+                  </div>
+                ) : null}
+                {pmo.governance?.dispute_mechanism ? (
+                  <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:org.disputeMechanism")}</div>
+                    <div className="text-xs text-white/70 whitespace-pre-wrap">{pmo.governance.dispute_mechanism}</div>
+                  </div>
+                ) : null}
+                {pmo.attestation ? (
+                  <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:org.attestation")}</div>
+                    <div className="text-xs text-white/70 whitespace-pre-wrap">{pmo.attestation}</div>
+                  </div>
+                ) : null}
+              </div>
+            </CollapsibleSection>
+
+            {/* NFT Details */}
+            {nft ? (
+              <CollapsibleSection title={t("PredictionsOrganizations:pmoDetails.nftDetails")} accent="violet">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+                  {nft.title ? <HeroStat label={t("Predictions:nft.title")} value={nft.title} /> : null}
+                  {nft.artist ? <HeroStat label={t("Predictions:nft.artist")} value={nft.artist} /> : null}
+                  {nft.type ? (
+                    <HeroStat label={t("Predictions:nft.type")} value={
+                      <span className="inline-flex items-center rounded-full bg-white/[0.06] border border-white/[0.08] px-2 py-0.5 text-xs font-medium text-white/70">{nft.type}</span>
+                    } />
+                  ) : null}
+                  {nft.encoding ? <HeroStat label={t("Predictions:nft.encoding")} value={<span className="font-mono text-xs">{nft.encoding}</span>} /> : null}
+                  {nft.license ? <HeroStat label={t("Predictions:nft.license")} value={nft.license} /> : null}
+                  {nft.holder_license ? <HeroStat label={t("Predictions:nft.holderLicense")} value={nft.holder_license} /> : null}
+                  {nft.narrative ? (
+                    <div className="col-span-full rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
+                      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:nft.narrative")}</div>
+                      <div className="text-xs text-white/70 whitespace-pre-wrap">{nft.narrative}</div>
+                    </div>
+                  ) : null}
+                  {nft.acknowledgements ? (
+                    <div className="col-span-full rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
+                      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:nft.acknowledgements")}</div>
+                      <div className="text-xs text-white/70 whitespace-pre-wrap">{nft.acknowledgements}</div>
+                    </div>
+                  ) : null}
+                  {nft.attestation ? (
+                    <div className="col-span-full rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
+                      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:nft.attestation")}</div>
+                      <div className="text-xs text-white/70 whitespace-pre-wrap">{nft.attestation}</div>
+                    </div>
+                  ) : null}
+                  {nft.tags ? (
+                    <div className="col-span-full rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
+                      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:nft.tags")}</div>
+                      <div className="flex flex-wrap gap-1">
+                        {String(nft.tags).split(",").map((s) => s.trim()).filter(Boolean).map((tag) => (
+                          <Badge key={tag} variant="outline" className="text-[10px] py-0">{tag}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              </CollapsibleSection>
+            ) : null}
+
+            {/* Issuer */}
+            <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
+              <div className="text-[10px] uppercase tracking-wide text-white/40 mb-0.5">Issuer</div>
+              <div className="text-sm text-white font-mono">{org.issuer}</div>
+            </div>
+          </div>
+        </ScrollArea>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
   const symbol = org.symbol;
   const isOwner = usr && usr.id && org.issuer === usr.id;
   const desc = (() => {
@@ -94,6 +277,19 @@ function OrganizationCard({ org, pmaCounts, t, usr }) {
   const pmo = desc.pmo_object;
   if (!pmo) return null;
 
+  const issuerAccountId = org.issuer;
+  let issuerUsername = null;
+  if (marketSearch && marketSearch.length && issuerAccountId) {
+    const found = marketSearch.find((x) => x.u && x.u.includes(`(${issuerAccountId})`));
+    if (found) {
+      issuerUsername = found.u.replace(/\s*\(LTM\)\s*$/, "").replace(/\s*\([^)]*\)\s*$/, "").trim();
+    }
+  }
+
+  const [jsonDialogOpen, setJsonDialogOpen] = useState(false);
+  const [jsonPayload, setJsonPayload] = useState(null);
+  const [pmoDetailsOpen, setPmoDetailsOpen] = useState(false);
+
   return (
     <Card className="bg-slate-900/80 border-white/[0.08] shadow-md shadow-black/20 hover:shadow-xl hover:shadow-black/30 transition-all hover:-translate-y-0.5 border-l-4 border-l-cyan-500">
       <CardHeader className="pb-2 pt-3">
@@ -101,7 +297,7 @@ function OrganizationCard({ org, pmaCounts, t, usr }) {
           <div className="min-w-0">
             <CardTitle className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
               <ShieldCheck className="h-5 w-5 text-cyan-400 flex-shrink-0" />
-              {pmo.name || symbol}
+              {pmo.identity?.name || symbol}
             </CardTitle>
             <CardDescription className="text-xs text-white/50 mt-1 font-mono">
               {symbol}
@@ -118,94 +314,109 @@ function OrganizationCard({ org, pmaCounts, t, usr }) {
                 {pmaCounts.expired} {t("PredictionsOrganizations:expired")}
               </Badge>
             ) : null}
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] pl-0.5 pr-2 py-0.5 text-[11px] font-medium"
+              title={issuerAccountId}
+            >
+              <span className="inline-flex h-5 w-5 overflow-hidden rounded-full ring-1 ring-white/10">
+                <Avatar size={20} name={issuerUsername ?? issuerAccountId} extra="Issuer" expression={{ eye: "normal", mouth: "open" }} colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]} />
+              </span>
+              <span className="text-white/60">{issuerUsername ?? issuerAccountId}</span>
+            </span>
           </div>
         </div>
       </CardHeader>
       <CardContent className="text-sm pb-3 text-white/70">
-        <div className="grid grid-cols-1 gap-2">
-          {pmo.website ? (
-            <div className="flex items-center gap-2 text-xs">
-              <Globe className="h-3.5 w-3.5 text-cyan-400 flex-shrink-0" />
-              <a
-                href={pmo.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cyan-400 hover:underline truncate"
+        <div className="flex flex-wrap gap-2 mt-1">
+          <a
+            href={`/active-predictions.html?search=${symbol}.&issuer=${org.issuer}`}
+            className="inline-flex items-center gap-1 text-xs text-cyan-400 hover:underline"
+          >
+            <ExternalLink className="h-3 w-3" />
+            {t("PredictionsOrganizations:viewActive")}
+          </a>
+          <a
+            href={`/expired-predictions.html?search=${symbol}.&issuer=${org.issuer}`}
+            className="inline-flex items-center gap-1 text-xs text-white/50 hover:text-white/70 hover:underline"
+          >
+            <ExternalLink className="h-3 w-3" />
+            {t("PredictionsOrganizations:viewExpired")}
+          </a>
+          <button
+            type="button"
+            onClick={() => setPmoDetailsOpen(true)}
+            className="inline-flex items-center gap-1 text-xs text-violet-400 hover:underline"
+          >
+            <Eye className="h-3 w-3" />
+            {t("PredictionsOrganizations:viewPmoDetails")}
+          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline"
               >
-                {pmo.website}
-              </a>
-            </div>
-          ) : null}
-          {pmo.manifest ? (
-            <div className="flex items-center gap-2 text-xs">
-              <FileText className="h-3.5 w-3.5 text-cyan-400 flex-shrink-0" />
-              <a
-                href={pmo.manifest}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cyan-400 hover:underline truncate"
+                <FileJson className="h-3 w-3" />
+                {t("PredictionsOrganizations:viewJson")}
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-slate-900 border-white/[0.08] shadow-2xl shadow-black/40">
+              <DropdownMenuItem
+                className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
+                onClick={() => { setJsonPayload(org); setJsonDialogOpen(true); }}
               >
-                {pmo.manifest}
+                {t("PredictionsOrganizations:json.assetData")}
+              </DropdownMenuItem>
+              {desc && Object.keys(desc).length > 0 ? (
+                <DropdownMenuItem
+                  className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
+                  onClick={() => { setJsonPayload(desc); setJsonDialogOpen(true); }}
+                >
+                  {t("PredictionsOrganizations:json.descriptionData")}
+                </DropdownMenuItem>
+              ) : null}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          {isOwner ? (
+            <>
+              <a
+                href={`/create_pma_org.html?asset_update=${symbol}`}
+                className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline"
+              >
+                <Pen className="h-3 w-3" />
+                {t("PredictionsOrganizations:editOrg")}
               </a>
-            </div>
+              <a
+                href={`/create_prediction.html?org=${symbol}`}
+                className="inline-flex items-center gap-1 text-xs text-fuchsia-400 hover:underline"
+              >
+                <Plus className="h-3 w-3" />
+                {t("PredictionsOrganizations:createPrediction")}
+              </a>
+            </>
           ) : null}
-          {pmo.resolution_policy ? (
-            <div className="text-xs text-white/60 line-clamp-2">
-              <span className="text-white/40 uppercase tracking-wide text-[10px]">
-                {t("PredictionsOrganizations:resolutionPolicy")}:{" "}
-              </span>
-              {pmo.resolution_policy}
-            </div>
-          ) : null}
-          {pmo.dispute_mechanism ? (
-            <div className="text-xs text-white/60 line-clamp-2">
-              <span className="text-white/40 uppercase tracking-wide text-[10px]">
-                {t("PredictionsOrganizations:disputeMechanism")}:{" "}
-              </span>
-              {pmo.dispute_mechanism}
-            </div>
-          ) : null}
-          {pmo.onchain_account ? (
-            <div className="text-xs text-white/40 font-mono">
-              {pmo.onchain_account}
-            </div>
-          ) : null}
-          <div className="flex flex-wrap gap-2 mt-1">
-            <a
-              href={`/active-predictions.html?search=${symbol}.`}
-              className="inline-flex items-center gap-1 text-xs text-cyan-400 hover:underline"
-            >
-              <ExternalLink className="h-3 w-3" />
-              {t("PredictionsOrganizations:viewActive")}
-            </a>
-            <a
-              href={`/expired-predictions.html?search=${symbol}.`}
-              className="inline-flex items-center gap-1 text-xs text-white/50 hover:text-white/70 hover:underline"
-            >
-              <ExternalLink className="h-3 w-3" />
-              {t("PredictionsOrganizations:viewExpired")}
-            </a>
-            {isOwner ? (
-              <>
-                <a
-                  href={`/create_pma_org.html?asset_update=${symbol}`}
-                  className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline"
-                >
-                  <Pen className="h-3 w-3" />
-                  {t("PredictionsOrganizations:editOrg")}
-                </a>
-                <a
-                  href={`/create_prediction.html?org=${symbol}`}
-                  className="inline-flex items-center gap-1 text-xs text-fuchsia-400 hover:underline"
-                >
-                  <Plus className="h-3 w-3" />
-                  {t("PredictionsOrganizations:createPrediction")}
-                </a>
-              </>
-            ) : null}
-          </div>
         </div>
       </CardContent>
+      <Dialog open={jsonDialogOpen} onOpenChange={setJsonDialogOpen}>
+        <DialogContent className="sm:max-w-[750px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+          <DialogHeader>
+            <DialogTitle className="text-white">{t("PredictionsOrganizations:json.title")}</DialogTitle>
+            <DialogDescription className="text-white/60">{t("PredictionsOrganizations:json.description")}</DialogDescription>
+          </DialogHeader>
+          <div className="font-mono text-xs bg-white/[0.03] border border-white/[0.08] rounded-md p-3 max-h-[50vh] overflow-auto">
+            <pre className="text-white/80 whitespace-pre-wrap break-words">{JSON.stringify(jsonPayload, null, 2)}</pre>
+          </div>
+          <Button
+            className="w-1/4 mt-2 bg-white/10 hover:bg-white/15 text-white border-white/[0.08]"
+            onClick={() => {
+              if (jsonPayload) navigator.clipboard.writeText(JSON.stringify(jsonPayload, null, 2));
+            }}
+          >
+            {t("Predictions:json.copy")}
+          </Button>
+        </DialogContent>
+      </Dialog>
+      <PmoDetailsDialog open={pmoDetailsOpen} onOpenChange={setPmoDetailsOpen} org={org} t={t} />
     </Card>
   );
 }
@@ -214,7 +425,7 @@ export default function PredictionsOrganizations(properties) {
   const usr = useStore($currentUser);
   const currentNode = useStore($currentNode);
 
-  const { _assetsBTS, _assetsTEST } = properties;
+  const { _assetsBTS, _assetsTEST, _marketSearchBTS, _marketSearchTEST } = properties;
 
   const _chain = useMemo(() => {
     if (usr && usr.chain) return usr.chain;
@@ -229,6 +440,13 @@ export default function PredictionsOrganizations(properties) {
     }
     return [];
   }, [_assetsBTS, _assetsTEST, _chain]);
+
+  const marketSearch = useMemo(() => {
+    if (_chain && (_marketSearchBTS || _marketSearchTEST)) {
+      return _chain === "bitshares" ? _marketSearchBTS : _marketSearchTEST;
+    }
+    return [];
+  }, [_marketSearchBTS, _marketSearchTEST, _chain]);
 
   const [combinedAssets, setCombinedAssets] = useState([]);
   useEffect(() => {
@@ -334,8 +552,8 @@ export default function PredictionsOrganizations(properties) {
           }
         })();
         const pmo = desc.pmo_object;
-        if (pmo?.name && pmo.name.toLowerCase().includes(q)) return true;
-        if (pmo?.website && pmo.website.toLowerCase().includes(q)) return true;
+        if (pmo?.identity?.name && pmo.identity.name.toLowerCase().includes(q)) return true;
+        if (pmo?.identity?.website && pmo.identity.website.toLowerCase().includes(q)) return true;
         return false;
       });
     }
@@ -447,6 +665,7 @@ export default function PredictionsOrganizations(properties) {
                         pmaCounts={pmaCounts[org.symbol] || { active: 0, expired: 0, total: 0 }}
                         t={t}
                         usr={usr}
+                        marketSearch={marketSearch}
                       />
                     ))}
                   </div>

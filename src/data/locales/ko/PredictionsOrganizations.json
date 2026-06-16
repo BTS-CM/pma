@@ -11,11 +11,24 @@
   "disputeMechanism": "분쟁 해결 메커니즘",
   "viewActive": "활성 예측 보기",
   "viewExpired": "만료된 예측 보기",
+  "viewJson": "JSON 보기",
+  "viewPmoDetails": "PMO 상세 정보 보기",
   "sort": {
     "alpha": "알파벳 순",
     "pmaCount": "예측 수 순",
     "newest": "최신 순"
   },
   "editOrg": "조직 편집",
-  "createPrediction": "예측 생성"
+  "createPrediction": "예측 생성",
+  "json": {
+    "title": "자산 JSON 데이터",
+    "description": "이 조직 자산의 블록체인 원시 데이터.",
+    "assetData": "자산 데이터",
+    "descriptionData": "설명 데이터"
+  },
+  "pmoDetails": {
+    "identity": "조직 ID",
+    "orgProfile": "조직 프로필",
+    "nftDetails": "NFT 메타데이터"
+  }
 }

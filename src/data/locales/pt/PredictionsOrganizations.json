@@ -11,11 +11,24 @@
   "disputeMechanism": "Mecanismo de disputa",
   "viewActive": "Ver previsões ativas",
   "viewExpired": "Ver previsões expiradas",
+  "viewJson": "Ver JSON",
+  "viewPmoDetails": "Ver detalhes PMO",
   "sort": {
     "alpha": "Alfabético",
     "pmaCount": "Mais previsões",
     "newest": "Mais recentes"
   },
   "editOrg": "Editar organização",
-  "createPrediction": "Criar previsão"
+  "createPrediction": "Criar previsão",
+  "json": {
+    "title": "Dados JSON do ativo",
+    "description": "Dados brutos da blockchain para este ativo de organização.",
+    "assetData": "Dados do ativo",
+    "descriptionData": "Dados de descrição"
+  },
+  "pmoDetails": {
+    "identity": "Identidade da organização",
+    "orgProfile": "Perfil da organização",
+    "nftDetails": "Metadados NFT"
+  }
 }

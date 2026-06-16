@@ -69,6 +69,7 @@ import ExternalLink from "@/components/common/ExternalLink.jsx";
 
 import { useInitCache } from "@/nanoeffects/Init.ts";
 import { createUserBalancesStore } from "@/nanoeffects/UserBalances.ts";
+import { createEveryObjectStore } from "@/nanoeffects/Objects.ts";
 
 import { $currentUser } from "@/stores/users.ts";
 import { $currentNode } from "@/stores/node.ts";
@@ -142,7 +143,7 @@ function SectionHeader({ icon: Icon, title, description, step, optional, recomme
 function Field({ label, help, required, htmlFor, children, className, error }) {
   return (
     <div className={className}>
-      <div className="mb-1.5 flex items-center gap-1.5">
+      <div className="mb-1.5 flex items-center gap-1.5 h-[1.375rem]">
         <Label
           htmlFor={htmlFor}
           className="text-sm font-medium text-white/90"
@@ -209,13 +210,116 @@ export default function CreatePMAOrg(properties) {
     return [];
   }, [_assetsBTS, _assetsTEST, _chain]);
 
-  // Fee schedule for asset creation (operation 10)
+  const [combinedAssets, setCombinedAssets] = useState([]);
+  useEffect(() => {
+    async function fetching() {
+      if (!assets || !assets.length || !currentNode) return;
+      const lastAsset = assets.at(-1);
+      if (!lastAsset || !lastAsset.id) return;
+      const requiredStore = createEveryObjectStore([
+        _chain,
+        parseInt(lastAsset.id.split(".")[0]),
+        parseInt(lastAsset.id.split(".")[1]),
+        parseInt(lastAsset.id.split(".")[2]),
+        currentNode.url,
+      ]);
+      requiredStore.subscribe(({ data, error, loading }) => {
+        if (data && !error && !loading) {
+          setCombinedAssets(!data.length ? assets : [...assets, ...data]);
+        }
+      });
+    }
+    if (_chain && assets && assets.length && currentNode) {
+      fetching();
+    }
+  }, [_chain, assets, currentNode]);
+
+  // Asset fields
+  const [symbol, setSymbol] = useState("");
+  const [desc, setDesc] = useState("");
+
+  // Estimate asset creation fee
+  const [estimatedFee, setEstimatedFee] = useState(0);
+  const [feeCalculating, setFeeCalculating] = useState(false);
+  // Market auto-derived from chain (needed for fee data size estimation)
+  const market = useMemo(() => {
+    return _chain === "bitshares" ? "BTS" : "TEST";
+  }, [_chain]);
+
+  // Fixed values (hidden from user)
+  const precision = 0;
+  const maxSupply = 1;
+
+  // Edit mode: read ?asset_update=SYMBOL from URL
+  const updateSymbol = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const params = new URLSearchParams(window.location.search);
+    return params.get("asset_update") || null;
+  }, []);
+  const isEditMode = !!updateSymbol;
+
+  // Find the existing asset when in edit mode
+  const existingAsset = useMemo(() => {
+    if (!updateSymbol) return null;
+    const source = combinedAssets && combinedAssets.length ? combinedAssets : assets;
+    if (!source || !source.length) return null;
+    return source.find((a) => a.symbol === updateSymbol) || null;
+  }, [updateSymbol, combinedAssets, assets]);
+
+  // Fee schedule: operation 10 (asset_create) or 11 (asset_update)
   const feeSchedule = useMemo(() => {
     const schedule = _chain === "bitshares" ? _feeScheduleBTS : _feeScheduleTEST;
     if (!schedule) return null;
-    const op10 = schedule.find((op) => op.id === 10);
-    return op10 ? op10.data : null;
-  }, [_chain, _feeScheduleBTS, _feeScheduleTEST]);
+    const opId = isEditMode ? 11 : 10;
+    const op = schedule.find((entry) => entry.id === opId);
+    return op ? op.data : null;
+  }, [_chain, _feeScheduleBTS, _feeScheduleTEST, isEditMode]);
+
+  const debouncedCalculateFee = useCallback(
+    debounce(() => {
+      if (!feeSchedule || !usr || !usr.id) return;
+      setFeeCalculating(true);
+
+      let totalFee = 0;
+
+      if (isEditMode) {
+        // asset_update (op 11): flat fee + data size
+        const baseFee = parseInt(feeSchedule.fee || "0", 10);
+        const dataStr = JSON.stringify({ main: desc, short_name: symbol, market });
+        const dataSizeKB = new Blob([dataStr]).size / 1024;
+        const pricePerKbyte = parseInt(feeSchedule.price_per_kbyte || "0", 10);
+        const dataFee = Math.ceil(dataSizeKB * pricePerKbyte);
+        totalFee = baseFee + dataFee;
+      } else {
+        // asset_create (op 10): symbol-length fee + data size
+        let symbolFee = 0;
+        const symLen = symbol.length;
+        if (symLen <= 3) {
+          symbolFee = parseInt(feeSchedule.symbol3 || "0", 10);
+        } else if (symLen === 4) {
+          symbolFee = parseInt(feeSchedule.symbol4 || "0", 10);
+        } else if (symLen >= 5) {
+          symbolFee = parseInt(feeSchedule.long_symbol || "0", 10);
+        }
+
+        const dataStr = JSON.stringify({ main: desc, short_name: symbol, market });
+        const dataSizeKB = new Blob([dataStr]).size / 1024;
+        const pricePerKbyte = parseInt(feeSchedule.price_per_kbyte || "0", 10);
+        const dataFee = Math.ceil(dataSizeKB * pricePerKbyte);
+        const coreExchangeRateFee = Math.ceil(0.5 * pricePerKbyte);
+
+        totalFee = symbolFee + dataFee + coreExchangeRateFee;
+      }
+
+      setEstimatedFee(totalFee);
+      setFeeCalculating(false);
+    }, 1000),
+    [feeSchedule, usr, symbol, desc, market, isEditMode]
+  );
+
+  useEffect(() => {
+    debouncedCalculateFee();
+  }, [debouncedCalculateFee]);
 
   const [balanceCounter, setBalanceCounter] = useState(0);
   const [balances, setBalances] = useState();
@@ -240,74 +344,6 @@ export default function CreatePMAOrg(properties) {
     fetchBalances();
   }, [usr, assets, currentNode, balanceCounter]);
 
-  // Asset fields
-  const [symbol, setSymbol] = useState("");
-  const [desc, setDesc] = useState("");
-
-  // Estimate asset creation fee
-  const [estimatedFee, setEstimatedFee] = useState(0);
-  const [feeCalculating, setFeeCalculating] = useState(false);
-  // Market auto-derived from chain (needed for fee data size estimation)
-  const market = useMemo(() => {
-    return _chain === "bitshares" ? "BTS" : "TEST";
-  }, [_chain]);
-
-  const debouncedCalculateFee = useCallback(
-    debounce(() => {
-      if (!feeSchedule || !usr || !usr.id) return;
-      setFeeCalculating(true);
-
-      // Symbol length fee
-      let symbolFee = 0;
-      const symLen = symbol.length;
-      if (symLen <= 3) {
-        symbolFee = parseInt(feeSchedule.symbol3 || "0", 10);
-      } else if (symLen === 4) {
-        symbolFee = parseInt(feeSchedule.symbol4 || "0", 10);
-      } else if (symLen >= 5) {
-        symbolFee = parseInt(feeSchedule.long_symbol || "0", 10);
-      }
-
-      // Data size fee (description, PMO object, NFT data, etc.)
-      const dataStr = JSON.stringify({ main: desc, short_name: symbol, market });
-      const dataSizeKB = new Blob([dataStr]).size / 1024;
-      const pricePerKbyte = parseInt(feeSchedule.price_per_kbyte || "0", 10);
-      const dataFee = Math.ceil(dataSizeKB * pricePerKbyte);
-
-      // Core exchange rate data (always included)
-      const coreExchangeRateFee = Math.ceil(0.5 * pricePerKbyte); // ~0.5 KB estimate
-
-      const totalFee = symbolFee + dataFee + coreExchangeRateFee;
-      setEstimatedFee(totalFee);
-      setFeeCalculating(false);
-    }, 1000),
-    [feeSchedule, usr, symbol, desc, market]
-  );
-
-  useEffect(() => {
-    debouncedCalculateFee();
-  }, [debouncedCalculateFee]);
-
-
-  // Fixed values (hidden from user)
-  const precision = 0;
-  const maxSupply = 1;
-
-  // Edit mode: read ?asset_update=SYMBOL from URL
-  const updateSymbol = useMemo(() => {
-    if (typeof window === "undefined") return null;
-    const params = new URLSearchParams(window.location.search);
-    return params.get("asset_update") || null;
-  }, []);
-  const isEditMode = !!updateSymbol;
-
-  // Find the existing asset when in edit mode
-  const existingAsset = useMemo(() => {
-    if (!updateSymbol || !assets || !assets.length) return null;
-    return assets.find((a) => a.symbol === updateSymbol) || null;
-  }, [updateSymbol, assets]);
-
-  // NFT fields
   const [enabledNFT, setEnabledNFT] = useState(false);
   const [acknowledgements, setAcknowledgements] = useState("");
   const [artist, setArtist] = useState("");
@@ -370,7 +406,7 @@ export default function CreatePMAOrg(properties) {
         setPmoResolutionPolicy(pmo.governance?.resolution_policy || "");
         setPmoDisputeMechanism(pmo.governance?.dispute_mechanism || "");
         setPmoOnchainAccount(pmo.governance?.onchain_account || "");
-        setPmoAttestation(pmo.attestation?.issuer_attestation || "");
+        setPmoAttestation(pmo.attestation || "");
       }
     } catch {}
   }, [existingAsset, isEditMode]);
@@ -976,7 +1012,7 @@ export default function CreatePMAOrg(properties) {
                                     placeholder={t("AssetCommon:nft.fileTypePlaceholder")}
                                   />
                                 </SelectTrigger>
-                                <SelectContent className="bg-slate-950 border-white/10 text-white">
+                                <SelectContent className="bg-slate-950 border-white/10 text-white" style={{ maxHeight: '12.5rem', overflowY: 'auto' }}>
                                   <SelectGroup>
                                     <SelectLabel>{t("AssetCommon:nft.imageFormats")}</SelectLabel>
                                     <SelectItem value="PNG">PNG</SelectItem>
@@ -1180,7 +1216,7 @@ export default function CreatePMAOrg(properties) {
                       <span className="font-mono text-amber-400">
                         {feeCalculating
                           ? t("CreatePrediction:fee.calculating")
-                          : `${(estimatedFee / 100000).toFixed(5)} BTS`}
+                            : `${(estimatedFee / 100000).toFixed(5)} ${_chain === "bitshares" ? "BTS" : "TEST"}`}
                       </span>
                     </div>
                   </TooltipTrigger>

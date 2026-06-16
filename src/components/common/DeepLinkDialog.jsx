@@ -281,6 +281,7 @@ export default function DeepLinkDialog(properties) {
           let currentFee = await window.electron.calculateOperationFees({
             nodeURL: currentNode,
             trxJSON: trxJSON[i],
+            operationType: operationNumbers[operationNames[i]],
           });
 
           if (currentFee) {

@@ -726,7 +726,7 @@ export default function Transfer(properties) {
                           </span>
                           <span className="flex items-center gap-1.5 font-mono text-violet-400 text-sm">
                             <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
-                            {fee.toFixed(5)} BTS
+                            {fee.toFixed(5)} {usr.chain === "bitshares" ? "BTS" : "TEST"}
                           </span>
                         </div>
                       )}

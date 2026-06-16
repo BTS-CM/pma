@@ -11,11 +11,24 @@
   "disputeMechanism": "Streitbeilegungsmechanismus",
   "viewActive": "Aktive Vorhersagen anzeigen",
   "viewExpired": "Abgelaufene Vorhersagen anzeigen",
+  "viewJson": "JSON anzeigen",
+  "viewPmoDetails": "PMO-Details anzeigen",
   "sort": {
     "alpha": "Alphabetisch",
     "pmaCount": "Meiste Vorhersagen",
     "newest": "Neueste zuerst"
   },
   "editOrg": "Organisation bearbeiten",
-  "createPrediction": "Vorhersage erstellen"
+  "createPrediction": "Vorhersage erstellen",
+  "json": {
+    "title": "Asset-JSON-Daten",
+    "description": "Rohblockchain-Daten für dieses Organisations-Asset.",
+    "assetData": "Asset-Daten",
+    "descriptionData": "Beschreibungsdaten"
+  },
+  "pmoDetails": {
+    "identity": "Organisationsidentität",
+    "orgProfile": "Organisationsprofil",
+    "nftDetails": "NFT-Metadaten"
+  }
 }
