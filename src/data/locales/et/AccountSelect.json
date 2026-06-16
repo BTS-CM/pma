@@ -3,27 +3,38 @@
   "forgetPrompt": "Konto: {{user}}",
   "forgetButton": "Unustage see konto",
   "noChain": {
-    "title": "⚙️ Jätkamiseks valige plokiahel",
-    "description": "Millist plokiahelat soovite kasutada?",
+    "title": "Jätkamiseks valige võrk",
+    "description": "Millist võrku soovite kasutada?",
     "testnet": "testnet"
   },
   "noMode": {
-    "titleBTS": "Kas kasutada uut või olemasolevat Bitsharesi kontot?",
-    "titleTEST": "Kas kasutada uut või olemasolevat Bitsharesi testneti kontot?",
-    "description": "Kuidas soovite edasi minna?",
+    "titleBTS": "Kuidas soovite Bitsharesi ligi pääseda?",
+    "titleTEST": "Kuidas soovite Bitsharesi testvõrku ligi pääseda?",
+    "description": "Valige allolev valik",
     "new": "Uus konto",
     "existing": "Olemasolev konto",
-    "back": "tagasi"
+    "back": "Tagasi"
   },
   "new": {
-    "title": "konto valik",
-    "initDesc": "Sisestage oma Bitsharesi konto nimi",
-    "description": "Kas jätkata järgmise kontoga?",
-    "back": "Mine tagasi",
+    "title": "Leia konto",
+    "initDesc": "Sisestage oma Bitsharesi konto nimi või ID",
+    "description": "Kas see on õige konto?",
+    "back": "Tagasi",
     "continue": "Jätka"
   },
   "existing": {
     "description": "Valige üks oma varem kasutatud kontodest",
-    "none": "Ühtegi kontot ei leitud."
-  }
+    "none": "Salvestatud kontosid ei leitud",
+    "noneHint": "Saate kontosid lisada, kasutades valikut Uus konto"
+  },
+  "step1": "Võrk",
+  "step2": "Konto",
+  "step3": "Kinnita",
+  "mainnet": "Peavõrk (BTS)",
+  "testnetLabel": "Testvõrk (TEST)",
+  "newAccountSubtitle": "Otsi kontot võrgus",
+  "existingAccountSubtitle": "{{count}} konto salvestatud",
+  "existingAccountSubtitle_plural": "{{count}} kontot salvestatud",
+  "removeAccount": "Eemalda konto",
+  "removeAccountLabel": "Eemalda {{username}}"
 }

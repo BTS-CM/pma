@@ -32,34 +32,34 @@ const chains = {
 };
 
 async function generateDeepLink(chain, nodeURL, opTypes, operations) {
-  return new Promise(async (resolve, reject) => {
+  let apiInstance = null;
     const _node =
       nodeURL && nodeURL.length ? nodeURL : chains[chain].nodeList[0].url;
 
     try {
-      await Apis.instance(
+      apiInstance = await Apis.instance(
         _node,
         true,
         4000,
         { enableCrypto: false, enableOrders: true },
         (error) => console.log({ error }),
-      ).init_promise;
+      );
+      await apiInstance.init_promise;
     } catch (error) {
       console.log({ error, location: "api instance failed" });
-      return reject(error);
+      throw error;
     }
 
     let includesMemos = false;
     const tr = new TransactionBuilder();
     for (let i = 0; i < operations.length; i++) {
-      // Convert the memo message to bytes
       if (operations[i].memo && operations[i].memo.message) {
         let encodedMessage;
         try {
           encodedMessage = Buffer.from(operations[i].memo.message, "utf-8");
         } catch (error) {
           console.log({ error, location: "encode memo failed" });
-          return reject(error);
+          throw error;
         }
         includesMemos = true;
         operations[i].memo.message = encodedMessage;
@@ -71,42 +71,31 @@ async function generateDeepLink(chain, nodeURL, opTypes, operations) {
       await tr.update_head_block();
     } catch (error) {
       console.log({ error, location: "update head block failed" });
-      reject(error);
-      return;
+      throw error;
     }
 
     try {
       await tr.set_required_fees();
     } catch (error) {
       console.log({ error, location: "set required fees failed" });
-      reject(error);
-      return;
+      throw error;
     }
 
     try {
       tr.set_expire_seconds(7200);
     } catch (error) {
       console.log({ error, location: "set expire seconds failed" });
-      reject(error);
-      return;
+      throw error;
     }
 
     try {
       tr.finalize();
     } catch (error) {
       console.log({ error, location: "finalize failed" });
-      reject(error);
-      return;
+      throw error;
     }
 
-    let id;
-    try {
-      id = await uuidv4();
-    } catch (error) {
-      console.log({ error, location: "uuid generation failed" });
-      reject(error);
-      return;
-    }
+    const id = await uuidv4();
 
     const request = {
       type: "api",
@@ -122,17 +111,8 @@ async function generateDeepLink(chain, nodeURL, opTypes, operations) {
       },
     };
 
-    let encodedPayload;
-    try {
-      encodedPayload = encodeURIComponent(JSON.stringify(request));
-    } catch (error) {
-      console.log({ error, location: "encode payload failed" });
-      reject(error);
-      return;
-    }
-
-    resolve(encodedPayload);
-  });
+    const encodedPayload = encodeURIComponent(JSON.stringify(request));
+    return encodedPayload;
 }
 
 export { generateDeepLink };

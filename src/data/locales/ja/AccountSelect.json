@@ -1,29 +1,40 @@
 {
   "noAccount": "アカウントが見つかりませんでした。",
   "forgetPrompt": "アカウント： {{user}}",
-  "forgetButton": "このアカウントを忘れてください",
+  "forgetButton": "このアカウントを削除",
   "noChain": {
-    "title": "⚙️ 続行するにはブロックチェーンを選択してください",
-    "description": "どのブロックチェーンを使用したいですか?",
+    "title": "続行するにはネットワークを選択してください",
+    "description": "どのネットワークを使用しますか？",
     "testnet": "テストネット"
   },
   "noMode": {
-    "titleBTS": "新規または既存の Bitshares アカウントを使用しますか?",
-    "titleTEST": "新規または既存の Bitshares テストネット アカウントを使用しますか?",
-    "description": "どのように進めたいですか?",
+    "titleBTS": "Bitsharesにどのようにアクセスしますか？",
+    "titleTEST": "Bitsharesテストネットにどのようにアクセスしますか？",
+    "description": "以下のオプションを選択してください",
     "new": "新しいアカウント",
     "existing": "既存のアカウント",
     "back": "戻る"
   },
   "new": {
-    "title": "アカウントの選択",
-    "initDesc": "Bitshares アカウント名を入力してください",
-    "description": "次のアカウントで続行しますか?",
+    "title": "アカウントを検索",
+    "initDesc": "Bitsharesアカウント名またはIDを入力してください",
+    "description": "このアカウントは正しいですか？",
     "back": "戻る",
-    "continue": "続く"
+    "continue": "続行"
   },
   "existing": {
     "description": "以前に使用したアカウントのいずれかを選択します",
-    "none": "アカウントが見つかりませんでした。"
-  }
+    "none": "保存されたアカウントが見つかりません",
+    "noneHint": "「新しいアカウント」オプションを使用してアカウントを追加できます"
+  },
+  "step1": "ネットワーク",
+  "step2": "アカウント",
+  "step3": "確認",
+  "mainnet": "メインネット (BTS)",
+  "testnetLabel": "テストネット (TEST)",
+  "newAccountSubtitle": "ネットワーク上のアカウントを検索",
+  "existingAccountSubtitle": "{{count}} 件のアカウントを保存済み",
+  "existingAccountSubtitle_plural": "{{count}} 件のアカウントを保存済み",
+  "removeAccount": "アカウントを削除",
+  "removeAccountLabel": "{{username}} を削除"
 }

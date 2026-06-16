@@ -20,6 +20,7 @@
   "portfolio": "포트폴리오",
   "margin": "증거금",
   "bettingAsset": "베팅 자산",
+  "prize_pool": "상금 풀",
   "card": {
     "title": {
       "active": "활성 예측 시장",
@@ -127,8 +128,10 @@
     "searchPlaceholder": "심볼 또는 질문으로 검색…",
     "noResults": "필터와 일치하는 예측이 없습니다.",
     "filterByIssuer": "이 발행자로 필터",
-    "clearFilter": "필터 지우기"
+    "clearFilter": "필터 지우기",
+    "clickToView": "세부정보를 보려면 클릭하세요"
   },
+  "loading": "예측 로딩 중…",
   "price_feeders": "가격 피더",
   "price_feeders_content": "이 예측은 증인, 위원회 또는 개인 가격 피더에 의해 해결될 수 있습니다.",
   "feed": "가격 피드 기반 해결",
@@ -149,9 +152,11 @@
   },
   "resolve": "예측 해결",
   "not_expired": "이 예측은 아직 만료되지 않았으므로 해결할 수 없습니다.",
+  "already_resolved": "이 예측은 이미 해결되었습니다.",
   "time_till_expiration": "만료까지 남은 시간: {{hours}} 시간",
   "total_bets": "총 베팅",
   "unique_sellers": "고유한 판매자",
+  "balance": "잔액",
   "pricefeeder": "가격 피더 설정",
   "permissions": "권한",
   "flags": "플래그",
@@ -165,6 +170,7 @@
     "existingContent": "이미 발행한 예측 시장 자산 토큰의 수입니다.",
     "totalHeader": "총 담보",
     "totalContent": "이 예측 시장 자산에 약정할 담보의 총 금액입니다.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "이 거래에 대한 대가로 받게 될 예측 시장 자산 토큰의 대략적인 총 금액입니다.",
     "receivingHeader": "수령"
   },
@@ -192,12 +198,15 @@
   "buyDialog": {
     "title": "예측 시장 자산 구매",
     "description": "예측 결과에 유리하게 베팅하려면 결과에 반대하여 베팅하는 판매자로부터 예측 시장 자산 토큰을 구매해야 합니다.",
+    "qtyHeader": "사용할 금액",
     "receivingHeader": "수령",
     "receivingContent": "이 거래에 대한 대가로 받게 될 예측 시장 자산 토큰의 대략적인 총 금액입니다."
   },
   "claimDialog": {
     "qtyContent": "담보 자산으로 다시 정산하려는 예측 시장 자산의 수량.",
-    "qtyHeader": "정산 수량"
+    "qtyHeader": "정산 수량",
+    "receivingHeader": "수령",
+    "receivingContent": "이 예측을 정산한 후 받게 되는 담보 자산 토큰입니다."
   },
   "resolveDialog": {
     "title": "예측 해결",

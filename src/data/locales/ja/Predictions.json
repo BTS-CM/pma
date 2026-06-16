@@ -20,6 +20,7 @@
   "portfolio": "ポートフォリオ",
   "margin": "マージン",
   "bettingAsset": "賭け資産",
+  "prize_pool": "賞金プール",
   "card": {
     "title": {
       "active": "アクティブな予測市場",
@@ -127,8 +128,10 @@
     "searchPlaceholder": "シンボルまたは質問で検索…",
     "noResults": "フィルターに一致する予測がありません。",
     "filterByIssuer": "この発行者でフィルター",
-    "clearFilter": "フィルターをクリア"
+    "clearFilter": "フィルターをクリア",
+    "clickToView": "詳細を表示するにはクリック"
   },
+  "loading": "予測を読み込み中…",
   "price_feeders": "価格フィーダー",
   "price_feeders_content": "この予測は、証人、委員会、または民間の価格フィーダーのいずれかによって解決されます。",
   "feed": "価格フィードによる解決",
@@ -149,9 +152,11 @@
   },
   "resolve": "予測を解決する",
   "not_expired": "この予測はまだ有効期限が切れていないため、解決できません。",
+  "already_resolved": "この予測は既に解決されています。",
   "time_till_expiration": "有効期限までの時間: {{hours}} 時間",
   "total_bets": "合計ベット数",
   "unique_sellers": "ユニークな販売者",
+  "balance": "残高",
   "pricefeeder": "価格フィーダーを設定",
   "permissions": "権限",
   "flags": "フラグ",
@@ -165,6 +170,7 @@
     "existingContent": "これは、すでに発行した予測市場資産トークンの数です。",
     "totalHeader": "担保総額",
     "totalContent": "これは、この予測市場資産にコミットする担保の合計額です。",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "これは、この取引の見返りとして得られる予測市場資産トークンのおよその合計額です。",
     "receivingHeader": "受取"
   },
@@ -192,12 +198,15 @@
   "buyDialog": {
     "title": "予測市場資産の購入",
     "description": "予測の結果に有利に賭けるには、結果に逆らって賭けている売り手から予測市場資産トークンを購入する必要があります。",
+    "qtyHeader": "支出する金額",
     "receivingHeader": "受取",
     "receivingContent": "これは、この取引の見返りとして得られる予測市場資産トークンのおよその合計額です。"
   },
   "claimDialog": {
     "qtyContent": "担保資産に戻して決済する予測市場資産の数量。",
-    "qtyHeader": "決済数量"
+    "qtyHeader": "決済数量",
+    "receivingHeader": "受取予定",
+    "receivingContent": "この予想を決済した後に受け取る裏付け資産トークン。"
   },
   "resolveDialog": {
     "title": "予測の解決",

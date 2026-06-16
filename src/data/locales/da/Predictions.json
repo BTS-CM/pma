@@ -20,6 +20,7 @@
   "portfolio": "Portefølje",
   "margin": "Margin",
   "bettingAsset": "Væddemålsaktiv",
+  "prize_pool": "Præmiepulje",
   "card": {
     "title": {
       "active": "Aktive forudsigelsesmarkeder",
@@ -127,8 +128,10 @@
     "searchPlaceholder": "Søg efter symbol eller spørgsmål…",
     "noResults": "Ingen forudsigelser matcher dine filtre.",
     "filterByIssuer": "Filtrer efter denne udsteder",
-    "clearFilter": "Ryd filter"
+    "clearFilter": "Ryd filter",
+    "clickToView": "Klik for at se detaljer"
   },
+  "loading": "Indlæser forudsigelser…",
   "price_feeders": "Prisfødere",
   "price_feeders_content": "Forudsigelsen kan løses af enten vidnerne, udvalget eller private prisfødere.",
   "feed": "Pris fodret opløsning",
@@ -149,9 +152,11 @@
   },
   "resolve": "Løs forudsigelse",
   "not_expired": "Denne forudsigelse er ikke udløbet endnu, så den kan ikke løses.",
+  "already_resolved": "Denne forudsigelse er allerede blevet løst.",
   "time_till_expiration": "Tid til udløb: {{hours}} timer",
   "total_bets": "Samlede indsatser",
   "unique_sellers": "Unikke sælgere",
+  "balance": "Saldo",
   "pricefeeder": "Indstil pris feeders",
   "permissions": "Tilladelser",
   "flags": "Flag",
@@ -165,6 +170,7 @@
     "existingContent": "Dette er, hvor mange af disse forudsigelige markedsaktivtokens, du allerede har udstedt.",
     "totalHeader": "Samlet sikkerhed",
     "totalContent": "Dette er det samlede beløb af sikkerhed, du vil have forpligtet til dette forudsigelige markedsaktiv.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "Dette er tilnærmelsesvis den samlede mængde af forudsigelige markedsaktivtokens, du får til gengæld for denne handel.",
     "receivingHeader": "Modtager"
   },
@@ -192,12 +198,15 @@
   "buyDialog": {
     "title": "Køb af forudsigelige markedsaktiver",
     "description": "For at satse til fordel for udfaldet af forudsigelsen, skal du købe forudsigelsesmarkedets aktiv-tokens fra en sælger, der satser mod resultatet.",
+    "qtyHeader": "Beløb at bruge",
     "receivingHeader": "Modtager",
     "receivingContent": "Dette er tilnærmelsesvis den samlede mængde af forudsigelige markedsaktivtokens, du får til gengæld for denne handel."
   },
   "claimDialog": {
     "qtyContent": "Mængden af forudsigelige markedsaktiver, du ønsker at afregne i backing-aktivet.",
-    "qtyHeader": "Mængde at afregne"
+    "qtyHeader": "Mængde at afregne",
+    "receivingHeader": "Modtager",
+    "receivingContent": "De underliggende aktiver du modtager efter at denne forudsigelse er afgjort."
   },
   "resolveDialog": {
     "title": "Løsning af forudsigelse",

@@ -162,13 +162,39 @@ export default function CurrentUser(properties) {
           </TooltipProvider>
         </span>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg-white">
-        <DialogHeader>
-          <DialogTitle>
+      <DialogContent
+        className={cn(
+          "sm:max-w-[600px] p-0 gap-0 overflow-hidden",
+          "bg-slate-950/95 backdrop-blur-xl",
+          "border border-white/[0.08]",
+          "shadow-2xl shadow-black/50"
+        )}
+      >
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-px"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${avatarColor}66, transparent)`,
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 h-40 w-[300px] rounded-full blur-3xl opacity-20"
+            style={{ background: avatarColor }}
+          />
+        </div>
+        <DialogHeader className="px-6 pt-6 pb-4">
+          <DialogTitle className="text-white text-xl font-semibold tracking-tight">
             {t("CurrentUser:dialogContent.replacingUser")}
           </DialogTitle>
+          <DialogDescription className="text-white/50 text-sm">
+            {t("CurrentUser:dialogContent.selectChainAccount")}
+          </DialogDescription>
         </DialogHeader>
-        <AccountSelect />
+        <div className="px-6 pb-6">
+          <AccountSelect accentColor={avatarColor} />
+        </div>
       </DialogContent>
     </Dialog>
   );

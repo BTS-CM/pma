@@ -3,21 +3,7 @@ import React, { useState, useEffect, useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
 import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from "@/components/ui/command";
+import LanguageSelector from "./LanguageSelector.jsx";
 
 import {
   HoverCard,
@@ -196,52 +182,9 @@ function HoverPopover({ section, accent, t, children }) {
   );
 }
 
-const STARLIGHT_LOCALES = ["da", "de", "es", "et", "fr", "it", "ja", "ko", "pt", "th"];
-
-function LanguageRow(properties) {
-  const { language, text, i18n } = properties;
-
-  const [isCurrentLanguage, setIsCurrentLanguage] = useState(false);
-
-  useEffect(() => {
-    setIsCurrentLanguage(language === locale.get());
-  }, [language]);
-
-  return (
-    <CommandItem
-      onSelect={() => {
-        i18n.changeLanguage(language);
-        locale.set(language);
-
-        const path = window.location.pathname;
-        const isAboutPage = path === "/about/" || path === "/about";
-
-        if (isAboutPage) {
-          const localePrefix = language === "en" ? "" : `/${language}`;
-          window.location.href = `${localePrefix}/about/`;
-        } else {
-          window.location.reload();
-        }
-      }}
-      className={cn(
-        "text-white/85",
-        "data-[selected=true]:!bg-white/[0.06] data-[selected=true]:!text-white",
-        isCurrentLanguage && "!bg-white/[0.08] !text-white"
-      )}
-    >
-      <span className="grid grid-cols-8 w-full">
-        <span className="col-span-6">{text}</span>
-        <span className="col-span-1 text-right">
-          {isCurrentLanguage ? "✓" : ""}
-        </span>
-      </span>
-    </CommandItem>
-  );
-}
-
 export default function PageHeader(properties) {
   const { page, backURL } = properties;
-  const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
+  const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
 
   const usr = useSyncExternalStore(
     $currentUser.subscribe,
@@ -331,125 +274,7 @@ export default function PageHeader(properties) {
         <div className="container mx-auto px-3 sm:px-4 relative z-10">
           <div className="grid grid-cols-12 gap-3 items-center min-h-[195px]">
             <div className="col-span-12 md:col-span-3 mt-2 flex items-center gap-2 relative z-10">
-              <div className="inline-flex items-center rounded-md border border-white/10 bg-white/10 backdrop-blur-md p-1 hover:bg-white/20 transition-colors">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button>
-                    <svg
-                      viewBox="0 0 512 512"
-                      fill="currentColor"
-                      height="1em"
-                      width="1em"
-                    >
-                      <path
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={32}
-                        d="M48 112h288M192 64v48M272 448l96-224 96 224M301.5 384h133M281.3 112S257 206 199 277 80 384 80 384"
-                      />
-                      <path
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={32}
-                        d="M256 336s-35-27-72-75-56-85-56-85"
-                      />
-                    </svg>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  side="end"
-                  align="end"
-                  sideOffset={8}
-                  style={{ backgroundColor: "#020617" }}
-                  className={cn(
-                    "mt-10 p-0 overflow-hidden rounded-2xl",
-                    "!bg-slate-950 border border-white/10",
-                    "shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.04)]"
-                  )}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  />
-                  <Command
-                    style={{ backgroundColor: "#020617" }}
-                    className="rounded-2xl bg-transparent border-0 shadow-none"
-                  >
-                    <CommandInput
-                      placeholder={t("PageHeader:commandSearchPlaceholder")}
-                      className={cn(
-                        "[&_[cmdk-input-wrapper]]:border-white/10",
-                        "[&_svg]:text-white/50 [&_svg]:opacity-100",
-                        "text-white placeholder:text-white/40"
-                      )}
-                    />
-                    <CommandList>
-                      <CommandEmpty className="py-6 text-center text-sm text-white/60">
-                        {t("PageHeader:noResultsFound")}
-                      </CommandEmpty>
-                      <CommandGroup
-                        heading={t("PageHeader:exchangingFundsHeading")}
-                        className="[&_[cmdk-group-heading]]:text-white/50 [&_[cmdk-group-heading]]:tracking-wide"
-                      >
-                        <LanguageRow
-                          language="en"
-                          i18n={i18n}
-                          text={t("PageHeader:english")}
-                        />
-                        <LanguageRow
-                          language="da"
-                          i18n={i18n}
-                          text={t("PageHeader:danish")}
-                        />
-                        <LanguageRow
-                          language="de"
-                          i18n={i18n}
-                          text={t("PageHeader:german")}
-                        />
-                        <LanguageRow
-                          language="es"
-                          i18n={i18n}
-                          text={t("PageHeader:spanish")}
-                        />
-                        <LanguageRow
-                          language="fr"
-                          i18n={i18n}
-                          text={t("PageHeader:french")}
-                        />
-                        <LanguageRow
-                          language="it"
-                          i18n={i18n}
-                          text={t("PageHeader:italian")}
-                        />
-                        <LanguageRow
-                          language="ja"
-                          i18n={i18n}
-                          text={t("PageHeader:japanese")}
-                        />
-                        <LanguageRow
-                          language="ko"
-                          i18n={i18n}
-                          text={t("PageHeader:korean")}
-                        />
-                        <LanguageRow
-                          language="pt"
-                          i18n={i18n}
-                          text={t("PageHeader:portuguese")}
-                        />
-                        <LanguageRow
-                          language="th"
-                          i18n={i18n}
-                          text={t("PageHeader:thai")}
-                        />
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <LanguageSelector />
 
               <Button
                 size="icon"
@@ -472,7 +297,6 @@ export default function PageHeader(properties) {
                   <path d="M3 4h18M3 12h18M3 20h18" />
                 </svg>
               </Button>
-              </div>
             </div>
 
             <div className="col-span-12 md:col-span-6 text-center relative z-10">

@@ -20,6 +20,7 @@
   "portfolio": "Portfólio",
   "margin": "Margem",
   "bettingAsset": "Ativo de apostas",
+  "prize_pool": "Premiação",
   "card": {
     "title": {
       "active": "Mercados de previsão ativos",
@@ -127,8 +128,10 @@
     "searchPlaceholder": "Pesquisar por símbolo ou pergunta…",
     "noResults": "Nenhuma previsão corresponde aos seus filtros.",
     "filterByIssuer": "Filtrar por este emissor",
-    "clearFilter": "Limpar filtro"
+    "clearFilter": "Limpar filtro",
+    "clickToView": "Clique para ver detalhes"
   },
+  "loading": "Carregando previsões…",
   "price_feeders": "Alimentadores de preços",
   "price_feeders_content": "A previsão pode ser resolvida pelas testemunhas, pelo comitê ou pelos alimentadores de preços privados.",
   "feed": "Resolução alimentada por preço",
@@ -149,9 +152,11 @@
   },
   "resolve": "Resolver previsão",
   "not_expired": "Esta previsão ainda não expirou, por isso não pode ser resolvida.",
+  "already_resolved": "Esta previsão já foi resolvida.",
   "time_till_expiration": "Tempo até a expiração: {{hours}} horas",
   "total_bets": "Apostas totais",
   "unique_sellers": "Vendedores Únicos",
+  "balance": "Saldo",
   "pricefeeder": "Definir alimentadores de preços",
   "permissions": "Permissões",
   "flags": "Bandeiras",
@@ -165,6 +170,7 @@
     "existingContent": "É quantos desses tokens de ativos de mercado de previsão você já emitiu.",
     "totalHeader": "Garantia total",
     "totalContent": "Este é o valor total da garantia que você comprometeu com esse ativo de mercado de previsão.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "Esta é aproximadamente a quantidade total de tokens de ativos de mercado de previsão que você receberá em troca desta negociação.",
     "receivingHeader": "Recebendo"
   },
@@ -192,12 +198,15 @@
   "buyDialog": {
     "title": "Compra de ativos de mercado de previsão",
     "description": "Para apostar a favor do resultado da previsão, você precisa comprar os tokens de ativos do mercado de previsão de um vendedor que está apostando contra o resultado.",
+    "qtyHeader": "Valor a gastar",
     "receivingHeader": "Recebendo",
     "receivingContent": "Esta é aproximadamente a quantidade total de tokens de ativos de mercado de previsão que você receberá em troca desta negociação."
   },
   "claimDialog": {
     "qtyContent": "A quantidade de ativos de mercado de previsão que você deseja liquidar no ativo de garantia.",
-    "qtyHeader": "Quantidade a liquidar"
+    "qtyHeader": "Quantidade a liquidar",
+    "receivingHeader": "Recebendo",
+    "receivingContent": "Os tokens do ativo colateral que você receberá após liquidar esta previsão."
   },
   "resolveDialog": {
     "title": "Resolvendo previsão",

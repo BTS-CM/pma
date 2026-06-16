@@ -44,7 +44,7 @@ function getAssetCallOrders(
       currentAPI.close();
 
       if (assetCallOrders) {
-        return resolve(assetCallOrders);
+        return resolve(Object.assign({}, ...assetCallOrders));
       }
 
       return reject(new Error("Couldn't retrieve asset call orders"));

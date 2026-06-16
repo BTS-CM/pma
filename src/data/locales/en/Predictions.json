@@ -20,6 +20,7 @@
   "portfolio": "Portfolio",
   "margin": "Margin",
   "bettingAsset": "Betting Asset",
+  "prize_pool": "Prize pool",
   "card": {
     "title": {
       "active": "Active Prediction Markets",
@@ -127,8 +128,10 @@
     "searchPlaceholder": "Search by symbol or question…",
     "noResults": "No predictions match your filters.",
     "filterByIssuer": "Filter by this issuer",
-    "clearFilter": "Clear filter"
+    "clearFilter": "Clear filter",
+    "clickToView": "Click to view details"
   },
+  "loading": "Loading predictions…",
   "price_feeders": "Price feeders",
   "price_feeders_content": "The prediction can be resolved by either the witnesses, committee or private price feeders.",
   "feed": "Price fed resolution",
@@ -149,9 +152,11 @@
   },
   "resolve": "Resolve Prediction",
   "not_expired": "This prediction has not expired yet, so it's unable to be resolved.",
+  "already_resolved": "This prediction has already been resolved.",
   "time_till_expiration": "Time till expiration: {{hours}} hours",
   "total_bets": "Total Bets",
   "unique_sellers": "Unique Sellers",
+  "balance": "Balance",
   "pricefeeder": "Set price feeders",
   "permissions": "Permissions",
   "flags": "Flags",
@@ -165,6 +170,7 @@
     "existingContent": "This is how many of these prediction market asset tokens you've already issued.",
     "totalHeader": "Total collateral",
     "totalContent": "This is the total amount of collateral you'll have committed to this prediction market asset.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "This is approximately the total amount of prediction market asset tokens you'll get in return for this trade.",
     "receivingHeader": "Receiving"
   },
@@ -192,12 +198,15 @@
   "buyDialog": {
     "title": "Buying prediction market assets",
     "description": "To bet in favour of the outcome of the prediction, you need to buy the prediction market asset tokens from a seller who is betting against the outcome.",
+    "qtyHeader": "Amount to spend",
     "receivingHeader": "Receiving",
     "receivingContent": "This is approximately the total amount of prediction market asset tokens you'll get in return for this trade."
   },
   "claimDialog": {
     "qtyContent": "The quantity of prediction market assets you want to settle back into the backing asset.",
-    "qtyHeader": "Quantity to settle"
+    "qtyHeader": "Quantity to settle",
+    "receivingHeader": "Receiving",
+    "receivingContent": "The backing asset tokens you will receive after settling this prediction."
   },
   "resolveDialog": {
     "title": "Resolving prediction",

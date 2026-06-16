@@ -10,8 +10,7 @@ import { TransactionBuilder } from "bitsharesjs";
  * @returns {Promise<object>} Transaction object
  */
 async function generateQRContents(chain, nodeURL, opTypes, operations) {
-  return new Promise(async (resolve, reject) => {
-    // If nodeURL is falsy, we'll pick a sensible default by chain
+  let apiInstance = null;
     const defaultNodes = {
       bitshares: [
         "wss://node.xbts.io/ws",
@@ -29,21 +28,21 @@ async function generateQRContents(chain, nodeURL, opTypes, operations) {
       nodeURL && nodeURL.length ? nodeURL : defaultNodes[chain]?.[0];
 
     try {
-      await Apis.instance(
+      apiInstance = await Apis.instance(
         _node,
         true,
         4000,
         { enableCrypto: false, enableOrders: true },
         (error) => console.log({ error }),
-      ).init_promise;
+      );
+      await apiInstance.init_promise;
     } catch (error) {
       console.log({ error, location: "api instance failed (QR)" });
-      return reject(error);
+      throw error;
     }
 
     const tr = new TransactionBuilder();
 
-    // Add all operations (encode memo message if string)
     for (let i = 0; i < operations.length; i++) {
       const op = { ...operations[i] };
       if (op.memo && typeof op.memo.message === "string") {
@@ -51,7 +50,7 @@ async function generateQRContents(chain, nodeURL, opTypes, operations) {
           op.memo.message = Buffer.from(op.memo.message, "utf-8");
         } catch (error) {
           console.log({ error, location: "encode memo failed (QR)" });
-          return reject(error);
+          throw error;
         }
       }
       tr.add_type_operation(opTypes[i], op);
@@ -61,28 +60,24 @@ async function generateQRContents(chain, nodeURL, opTypes, operations) {
       await tr.set_required_fees();
     } catch (error) {
       console.error(error);
-      reject(error);
-      return;
+      throw error;
     }
 
     try {
       await tr.update_head_block();
     } catch (error) {
       console.error(error);
-      reject(error);
-      return;
+      throw error;
     }
 
     try {
       await tr.set_expire_seconds(4000);
     } catch (error) {
       console.error(error);
-      reject(error);
-      return;
+      throw error;
     }
 
-    resolve(tr.toObject());
-  });
+    return tr.toObject();
 }
 
 export { generateQRContents };

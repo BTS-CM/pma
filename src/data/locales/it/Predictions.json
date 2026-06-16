@@ -20,6 +20,7 @@
   "portfolio": "Portafoglio",
   "margin": "Margine",
   "bettingAsset": "Asset di scommessa",
+  "prize_pool": "Montepremi",
   "card": {
     "title": {
       "active": "Mercati di previsione attivi",
@@ -127,8 +128,10 @@
     "searchPlaceholder": "Cerca per simbolo o domanda…",
     "noResults": "Nessuna previsione corrisponde ai tuoi filtri.",
     "filterByIssuer": "Filtra per questo emittente",
-    "clearFilter": "Cancella filtro"
+    "clearFilter": "Cancella filtro",
+    "clickToView": "Clicca per vedere i dettagli"
   },
+  "loading": "Caricamento previsioni…",
   "price_feeders": "Alimentatori di prezzi",
   "price_feeders_content": "La previsione può essere risolta dai testimoni, dal comitato o dai fornitori di prezzi privati.",
   "feed": "Risoluzione basata sul prezzo",
@@ -149,9 +152,11 @@
   },
   "resolve": "Risolvi la previsione",
   "not_expired": "Questa previsione non è ancora scaduta, quindi non può essere risolta.",
+  "already_resolved": "Questa previsione è già stata risolta.",
   "time_till_expiration": "Tempo fino alla scadenza: {{hours}} ore",
   "total_bets": "Scommesse totali",
   "unique_sellers": "Venditori unici",
+  "balance": "Saldo",
   "pricefeeder": "Imposta gli alimentatori di prezzo",
   "permissions": "Autorizzazioni",
   "flags": "Bandiere",
@@ -165,6 +170,7 @@
     "existingContent": "Questo è il numero di token di asset del mercato di previsione che hai già emesso.",
     "totalHeader": "Garanzia totale",
     "totalContent": "Questo è l'importo totale della garanzia che avrai impegnato per questo asset di mercato di previsione.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "Questo è approssimativamente l'importo totale di token asset del mercato di previsione che riceverai in cambio di questa operazione.",
     "receivingHeader": "Ricevere"
   },
@@ -192,12 +198,15 @@
   "buyDialog": {
     "title": "Acquisto di asset del mercato di previsione",
     "description": "Per scommettere a favore del risultato della previsione, è necessario acquistare i token asset del mercato di previsione da un venditore che scommette contro il risultato.",
+    "qtyHeader": "Importo da spendere",
     "receivingHeader": "Ricevere",
     "receivingContent": "Questo è approssimativamente l'importo totale di token asset del mercato di previsione che riceverai in cambio di questa operazione."
   },
   "claimDialog": {
     "qtyContent": "La quantità di asset del mercato di previsione che desideri reinvestire nell'asset di garanzia.",
-    "qtyHeader": "Quantità da saldare"
+    "qtyHeader": "Quantità da saldare",
+    "receivingHeader": "Ricezione",
+    "receivingContent": "I token dell'asset sottostante che riceverai dopo aver liquidato questa previsione."
   },
   "resolveDialog": {
     "title": "Risoluzione della previsione",

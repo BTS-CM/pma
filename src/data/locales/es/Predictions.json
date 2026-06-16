@@ -20,6 +20,7 @@
   "portfolio": "Cartera",
   "margin": "Margen",
   "bettingAsset": "Activo de apuesta",
+  "prize_pool": "Bote",
   "card": {
     "title": {
       "active": "Mercados de predicción activos",
@@ -127,8 +128,10 @@
     "searchPlaceholder": "Buscar por símbolo o pregunta…",
     "noResults": "Ninguna predicción coincide con sus filtros.",
     "filterByIssuer": "Filtrar por este emisor",
-    "clearFilter": "Borrar filtro"
+    "clearFilter": "Borrar filtro",
+    "clickToView": "Haz clic para ver los detalles"
   },
+  "loading": "Cargando predicciones…",
   "price_feeders": "Alimentadores de precios",
   "price_feeders_content": "La predicción puede ser resuelta por los testigos, el comité o los alimentadores de precios privados.",
   "feed": "Resolución alimentada por precio",
@@ -149,9 +152,11 @@
   },
   "resolve": "Resolver predicción",
   "not_expired": "Esta predicción aún no ha caducado, por lo que no se puede resolver.",
+  "already_resolved": "Esta predicción ya ha sido resuelta.",
   "time_till_expiration": "Tiempo hasta el vencimiento: {{hours}} horas",
   "total_bets": "Apuestas totales",
   "unique_sellers": "Vendedores únicos",
+  "balance": "Saldo",
   "pricefeeder": "Establecer alimentadores de precios",
   "permissions": "Permisos",
   "flags": "Banderas",
@@ -165,6 +170,7 @@
     "existingContent": "Esta es la cantidad de estos tokens de activos del mercado de predicción que ya ha emitido.",
     "totalHeader": "Garantía total",
     "totalContent": "Esta es la cantidad total de garantía que habrá comprometido para este activo del mercado de predicción.",
+    "collateralHeader": "Collateral Position",
     "receivingContent": "Esta es aproximadamente la cantidad total de tokens de activos del mercado de predicción que obtendrá a cambio de esta operación.",
     "receivingHeader": "Recepción"
   },
@@ -192,12 +198,15 @@
   "buyDialog": {
     "title": "Comprar activos del mercado de predicción",
     "description": "Para apostar a favor del resultado de la predicción, debe comprar los tokens de activos del mercado de predicción a un vendedor que esté apostando en contra del resultado.",
+    "qtyHeader": "Cantidad a gastar",
     "receivingHeader": "Recepción",
     "receivingContent": "Esta es aproximadamente la cantidad total de tokens de activos del mercado de predicción que obtendrá a cambio de esta operación."
   },
   "claimDialog": {
     "qtyContent": "La cantidad de activos del mercado de predicción que desea volver a colocar en el activo de respaldo.",
-    "qtyHeader": "Cantidad a liquidar"
+    "qtyHeader": "Cantidad a liquidar",
+    "receivingHeader": "Recibiendo",
+    "receivingContent": "Los tokens del activo subyacente que recibirá después de liquidar esta predicción."
   },
   "resolveDialog": {
     "title": "Resolviendo la predicción",
