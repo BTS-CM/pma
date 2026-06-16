@@ -11,7 +11,6 @@ import { TransactionBuilder } from "bitsharesjs";
  */
 async function generateQRContents(chain, nodeURL, opTypes, operations) {
   let apiInstance = null;
-  try {
     const defaultNodes = {
       bitshares: [
         "wss://node.xbts.io/ws",
@@ -79,13 +78,6 @@ async function generateQRContents(chain, nodeURL, opTypes, operations) {
     }
 
     return tr.toObject();
-  } finally {
-    if (apiInstance) {
-      try {
-        await apiInstance.close();
-      } catch (e) {}
-    }
-  }
 }
 
 export { generateQRContents };

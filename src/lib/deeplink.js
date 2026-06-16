@@ -33,7 +33,6 @@ const chains = {
 
 async function generateDeepLink(chain, nodeURL, opTypes, operations) {
   let apiInstance = null;
-  try {
     const _node =
       nodeURL && nodeURL.length ? nodeURL : chains[chain].nodeList[0].url;
 
@@ -114,13 +113,6 @@ async function generateDeepLink(chain, nodeURL, opTypes, operations) {
 
     const encodedPayload = encodeURIComponent(JSON.stringify(request));
     return encodedPayload;
-  } finally {
-    if (apiInstance) {
-      try {
-        await apiInstance.close();
-      } catch (e) {}
-    }
-  }
 }
 
 export { generateDeepLink };

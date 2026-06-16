@@ -479,7 +479,7 @@ export function PredictionDetailDialog({
                       <BuyDialog res={res} usr={usr} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} />
                     </div>
                   </div>
-                ) : (
+                ) : statusKey === "resolvedYes" ? (
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <div className="text-sm font-semibold text-white">{t("Predictions:winner_header")}</div>
@@ -489,7 +489,7 @@ export function PredictionDetailDialog({
                       <ClaimDialog res={res} usr={usr} humanReadablePredictionMarketAssetBalance={humanReadablePredictionMarketAssetBalance} relevantBitassetData={relevantBitassetData} t={t} />
                     </div>
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
           </div>
