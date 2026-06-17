@@ -452,10 +452,21 @@ export function PredictionDetailDialog({
               {usr && usr.id === house ? (
                 <CollapsibleSection title={t("Predictions:tab.admin")} accent="amber" defaultOpen={statusKey === "awaiting"}>
                   <div className="grid grid-cols-1 gap-2">
-                    <div className="grid grid-cols-3 gap-3 mt-1">
+                    <div className="grid grid-cols-4 gap-3 mt-1">
                       <ResolveDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} expirationHours={expirationHours} expiration={expiration} cleanedPrediction={cleanedPrediction} _backingAssetID={_backingAssetID} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
                       <PricefeederDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
                       <FeedPriceDialog res={res} usr={usr} _backingAssetID={_backingAssetID} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
+                      {relevantBitassetData?.outcome !== 0 && relevantBitassetData?.outcome !== 1 ? (
+                        <a href={`/create_prediction.html?asset_update=${res.symbol}&settlement=${settlementFundRaw ?? 0}`}>
+                          <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs">
+                            {t("Predictions:update")}
+                          </Button>
+                        </a>
+                      ) : (
+                        <Button disabled className="w-full bg-blue-600 text-white text-xs cursor-not-allowed">
+                          {t("Predictions:update")}
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </CollapsibleSection>

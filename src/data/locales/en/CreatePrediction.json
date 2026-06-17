@@ -5,11 +5,14 @@
     "recommended": "Recommended"
   },
   "dialogContent": {
-    "headerText": "Creating the following prediction market asset: {{symbol}}"
+    "headerText": "Creating the following prediction market asset: {{symbol}}",
+    "updateHeaderText": "Updating the following prediction market asset: {{symbol}}"
   },
   "card": {
     "title": "Creating a new Prediction Market Asset",
-    "description": "By creating a Prediction Market Assets you can act as the house for decentralized bets on future events in return for a comission fee without winnings pool counterparty risk exposure."
+    "description": "By creating a Prediction Market Assets you can act as the house for decentralized bets on future events in return for a comission fee without winnings pool counterparty risk exposure.",
+    "updateTitle": "Update Prediction Market Asset",
+    "updateDescription": "Update your prediction market asset's details, settings, and metadata."
   },
   "steps": {
     "asset": {
@@ -40,6 +43,7 @@
   "summary": {
     "label": "Review and submit",
     "ready": "Ready to create your prediction market asset.",
+    "readyUpdate": "Ready to update your prediction market asset.",
     "fieldsRequired": "A few required fields are still empty.",
     "title": "What you're creating",
     "subtitle": "A summary of the prediction market asset you are about to launch. Verify everything looks correct before submitting.",
@@ -91,10 +95,18 @@
   },
   "fee": {
     "calculating": "Estimating...",
-    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters."
+    "hover": "Estimated network fee for creating this prediction market asset. The actual fee depends on the symbol length, data size, and current network parameters.",
+    "updateHover": "Estimated network fee for updating this prediction market asset."
   },
   "buttons": {
-    "submit": "Create prediction market asset"
+    "submit": "Create prediction market asset",
+    "update": "Update prediction market asset"
+  },
+  "expiryWarning": {
+    "title": "Expiry time change warning",
+    "description": "This prediction market has already expired and there is an active prize pool with participants who have placed bets. Changing the expiry time may fundamentally alter the terms of their bets, which could upset participants and damage your organization's reputation. Please proceed only if you are certain this change is necessary.",
+    "cancel": "Cancel",
+    "confirm": "Continue anyway"
   },
   "fields": {
     "org": {

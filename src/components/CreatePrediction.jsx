@@ -97,267 +97,12 @@ import {
 
 import { blockchainFloat } from "@/bts/common";
 import ExternalLink from "./common/ExternalLink.jsx";
-
-const STEP_COLORS = {
-  1: { icon: "bg-violet-500/15 text-violet-400 ring-violet-500/30", badge: "bg-violet-500/15 text-violet-400", border: "border-violet-500/20" },
-  2: { icon: "bg-cyan-500/15 text-cyan-400 ring-cyan-500/30", badge: "bg-cyan-500/15 text-cyan-400", border: "border-cyan-500/20" },
-  3: { icon: "bg-amber-500/15 text-amber-400 ring-amber-500/30", badge: "bg-amber-500/15 text-amber-400", border: "border-amber-500/20" },
-  4: { icon: "bg-emerald-500/15 text-emerald-400 ring-emerald-500/30", badge: "bg-emerald-500/15 text-emerald-400", border: "border-emerald-500/20" },
-  5: { icon: "bg-rose-500/15 text-rose-400 ring-rose-500/30", badge: "bg-rose-500/15 text-rose-400", border: "border-rose-500/20" },
-  6: { icon: "bg-indigo-500/15 text-indigo-400 ring-indigo-500/30", badge: "bg-indigo-500/15 text-indigo-400", border: "border-indigo-500/20" },
-};
-
-function SectionHeader({ icon: Icon, title, description, step, optional, recommended, right }) {
-  const { t } = useTranslation(null, { i18n: i18nInstance });
-  const colors = STEP_COLORS[step] || STEP_COLORS[1];
-  return (
-    <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
-      <div className={"flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ring-1 " + colors.icon}>
-        <Icon className="h-4 w-4" />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          {step && (
-            <span className={"inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider " + colors.badge}>
-              {t("CreatePrediction:sectionHeader.step", { number: step })}
-              {recommended ? ` · ${t("CreatePrediction:sectionHeader.recommended")}` : ""}
-              {optional ? ` · ${t("CreatePrediction:sectionHeader.optional")}` : ""}
-            </span>
-          )}
-        </div>
-        <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
-          {title}
-        </h3>
-        {description && (
-          <p className="mt-0.5 text-sm text-white/50">{description}</p>
-        )}
-      </div>
-      {right && (
-        <div className="shrink-0 ml-auto">{right}</div>
-      )}
-    </div>
-  );
-}
-
-function Field({ label, help, required, htmlFor, children, className, error }) {
-  return (
-    <div className={className}>
-      <div className="mb-1.5 flex items-center gap-1.5">
-        <Label
-          htmlFor={htmlFor}
-          className="text-sm font-medium text-white/90"
-        >
-          {label}
-        </Label>
-        {required && <span className="text-rose-400">*</span>}
-        {help && (
-          <TooltipProvider delayDuration={150}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  tabIndex={-1}
-                  className="inline-flex items-center justify-center text-white/30 transition-colors hover:text-white/70 focus:outline-none"
-                >
-                  <HelpCircle className="h-3.5 w-3.5" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent
-                side="top"
-                className="max-w-xs text-xs leading-relaxed bg-slate-900 border-white/10 text-white/80"
-              >
-                <p>{help}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )}
-      </div>
-      {children}
-      {error && (
-        <p className="mt-1 flex items-center gap-1 text-xs text-rose-400">
-          <AlertCircle className="h-3 w-3" />
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}
-
-function SuffixInput({ suffix, ...props }) {
-  return (
-    <div className="relative">
-      <Input {...props} className={(props.className || "") + " pr-10 bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"} />
-      {suffix && (
-        <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-white/40">
-          {suffix}
-        </span>
-      )}
-    </div>
-  );
-}
-
-function ToggleCard({ enabled, onToggle, title, description, enabledTitle, enabledDescription, icon: Icon, accent = "violet" }) {
-  const accents = {
-    violet: { border: "border-violet-500/30", bg: "bg-violet-500/10", iconBg: "bg-violet-500/20 text-violet-400" },
-    cyan: { border: "border-cyan-500/30", bg: "bg-cyan-500/10", iconBg: "bg-cyan-500/20 text-cyan-400" },
-    emerald: { border: "border-emerald-500/30", bg: "bg-emerald-500/10", iconBg: "bg-emerald-500/20 text-emerald-400" },
-    rose: { border: "border-rose-500/30", bg: "bg-rose-500/10", iconBg: "bg-rose-500/20 text-rose-400" },
-  };
-  const a = accents[accent] || accents.violet;
-  return (
-    <div
-      className={
-        "flex items-center justify-between gap-4 rounded-lg border px-4 py-3 transition-colors " +
-        (enabled
-          ? a.border + " " + a.bg
-          : "border-white/10 bg-white/[0.03] hover:border-white/20")
-      }
-    >
-      <div className="flex items-start gap-3">
-        {Icon && (
-          <div
-            className={
-              "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md transition-colors " +
-              (enabled
-                ? a.iconBg
-                : "bg-white/5 text-white/40")
-            }
-          >
-            <Icon className="h-4 w-4" />
-          </div>
-        )}
-        <div>
-          <div className="text-sm font-medium text-white">{enabled ? (enabledTitle || title) : title}</div>
-          {description && (
-            <div className="mt-0.5 text-xs text-white/50">
-              {enabled ? (enabledDescription || description) : description}
-            </div>
-          )}
-        </div>
-      </div>
-      <Switch checked={enabled} onCheckedChange={onToggle} className="shrink-0 data-[state=checked]:bg-violet-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white" />
-    </div>
-  );
-}
-
-function AuthorityList({
-  title,
-  help,
-  list,
-  onRemove,
-  dialogOpen,
-  setDialogOpen,
-  onChoose,
-  chain,
-}) {
-  const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
-  return (
-    <Field label={title} help={help}>
-      <div className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
-        {list.length > 0 ? (
-          <div className="max-h-[210px] divide-y divide-white/10 overflow-auto">
-            {list.map((res, i) => (
-              <div
-                key={`auth-${title}-${res.id}`}
-                className="flex items-center gap-3 px-3 py-2 hover:bg-white/5"
-              >
-                <Avatar
-                  size={32}
-                  name={res.name}
-                  extra={title.replaceAll(" ", "")}
-                  expression={{ eye: "normal", mouth: "open" }}
-                  colors={[
-                    "#92A1C6",
-                    "#146A7C",
-                    "#F0AB3D",
-                    "#C271B4",
-                    "#C20D90",
-                  ]}
-                />
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium text-white">
-                    {res.name || `#${i + 1}`}
-                  </div>
-                  <div className="truncate font-mono text-[10px] text-white/50">
-                    {res.id}
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => onRemove(res.id)}
-                  className="text-white/40 hover:text-rose-400"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="px-4 py-8 text-center">
-            <UserCheck className="mx-auto h-6 w-6 text-white/20" />
-            <p className="mt-2 text-sm text-white/40">
-              No accounts added yet
-            </p>
-          </div>
-        )}
-        <div className="border-t border-white/10 p-2">
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="sm" className="w-full border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white">
-                <Plus className="h-3.5 w-3.5" />
-                {t("Favourites:addUser")}
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white sm:max-w-[375px]">
-              <DialogHeader>
-                <DialogTitle className="text-white">
-                  {!chain ? t("Transfer:bitsharesAccountSearch") : null}
-                  {chain === "bitshares"
-                    ? t("Transfer:bitsharesAccountSearchBTS")
-                    : null}
-                  {chain !== "bitshares"
-                    ? t("Transfer:bitsharesAccountSearchTEST")
-                    : null}
-                </DialogTitle>
-              </DialogHeader>
-              <AccountSearch
-                chain={chain || "bitshares"}
-                excludedUsers={[]}
-                setChosenAccount={(_account) => {
-                  onChoose(_account);
-                  setDialogOpen(false);
-                }}
-              />
-            </DialogContent>
-          </Dialog>
-        </div>
-      </div>
-    </Field>
-  );
-}
-
-function SummaryRow({ icon: Icon, label, value, mono }) {
-  return (
-    <div className="flex items-start gap-3 py-2">
-      {Icon && (
-        <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/40" />
-      )}
-      <div className="min-w-0 flex-1">
-        <div className="text-xs uppercase tracking-wider text-white/40">
-          {label}
-        </div>
-        <div
-          className={
-            "mt-0.5 truncate text-sm text-white " + (mono ? "font-mono" : "")
-          }
-        >
-          {value || <span className="text-white/20">—</span>}
-        </div>
-      </div>
-    </div>
-  );
-}
+import SectionHeader from "./create-prediction/SectionHeader";
+import Field from "./create-prediction/Field";
+import SuffixInput from "./create-prediction/SuffixInput";
+import ToggleCard from "./create-prediction/ToggleCard";
+import AuthorityList from "./create-prediction/AuthorityList";
+import SummaryRow from "./create-prediction/SummaryRow";
 
 export default function Prediction(properties) {
   const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
@@ -385,13 +130,28 @@ export default function Prediction(properties) {
     return [];
   }, [_marketSearchBTS, _marketSearchTEST, usr]);
 
-  // Fee schedule for asset creation (operation 10)
+  // Edit mode: read ?asset_update=SYMBOL and ?settlement=N from URL
+  // Declared early because feeSchedule depends on isEditMode
+  const updateSymbol = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const params = new URLSearchParams(window.location.search);
+    return params.get("asset_update") || null;
+  }, []);
+  const isEditMode = !!updateSymbol;
+  const settlementParam = useMemo(() => {
+    if (typeof window === "undefined") return 0;
+    const params = new URLSearchParams(window.location.search);
+    return parseFloat(params.get("settlement") || "0");
+  }, []);
+
+  // Fee schedule (operation 10 for create, 11 for update)
   const feeSchedule = useMemo(() => {
     const schedule = _chain === "bitshares" ? _feeScheduleBTS : _feeScheduleTEST;
     if (!schedule) return null;
-    const op10 = schedule.find((op) => op.id === 10);
-    return op10 ? op10.data : null;
-  }, [_chain, _feeScheduleBTS, _feeScheduleTEST]);
+    const opId = isEditMode ? 11 : 10;
+    const op = schedule.find((entry) => entry.id === opId);
+    return op ? op.data : null;
+  }, [_chain, _feeScheduleBTS, _feeScheduleTEST, isEditMode]);
 
   useInitCache(_chain ?? "bitshares", []);
 
@@ -471,6 +231,14 @@ export default function Prediction(properties) {
     return params.get("org") || null;
   }, []);
 
+  // Find the existing asset when in edit mode
+  const existingAsset = useMemo(() => {
+    if (!updateSymbol) return null;
+    const source = combinedAssets && combinedAssets.length ? combinedAssets : assets;
+    if (!source || !source.length) return null;
+    return source.find((a) => a.symbol === updateSymbol) || null;
+  }, [updateSymbol, combinedAssets, assets]);
+
   // Filter PMO organizations owned by the current user
   const userOrgs = useMemo(() => {
     const source = combinedAssets && combinedAssets.length ? combinedAssets : assets;
@@ -488,12 +256,12 @@ export default function Prediction(properties) {
     });
   }, [combinedAssets, assets, usr]);
 
-  // Default to organization mode when user owns PMO assets
+  // Default to organization mode when user owns PMO assets (skip in edit mode)
   useEffect(() => {
-    if (userOrgs.length > 0 && creationMode === "manual") {
+    if (!isEditMode && userOrgs.length > 0 && creationMode === "manual") {
       setCreationMode("organization");
     }
-  }, [userOrgs]);
+  }, [userOrgs, isEditMode]);
 
   // Pre-select org from URL param
   useEffect(() => {
@@ -514,6 +282,124 @@ export default function Prediction(properties) {
       // (leave user-typed value untouched)
     }
   }, [creationMode, subAssetName]);
+
+  // Pre-fill form when in edit mode
+  useEffect(() => {
+    if (!existingAsset || !isEditMode) return;
+    setSymbol(existingAsset.symbol);
+    setPrecision(String(existingAsset.precision ?? 5));
+    setMaxSupply(String(humanReadableFloat(existingAsset.options?.max_supply ?? "1000000000", existingAsset.precision ?? 5)));
+    setCommission(String((existingAsset.options?.market_fee_percent ?? 0) / 100));
+    // Determine creation mode from symbol (contains dot = org sub-asset)
+    if (existingAsset.symbol && existingAsset.symbol.includes(".")) {
+      setCreationMode("organization");
+      const parts = existingAsset.symbol.split(".");
+      const subName = parts[parts.length - 1];
+      setSubAssetName(subName);
+      setShortName(subName);
+      // Find matching org
+      const orgSymbol = parts.slice(0, -1).join(".");
+      const source = combinedAssets && combinedAssets.length ? combinedAssets : assets;
+      const org = source?.find((a) => a.symbol === orgSymbol);
+      if (org) setSelectedOrg(org);
+    } else {
+      setCreationMode("manual");
+    }
+    try {
+      const d = JSON.parse(existingAsset.options?.description || "{}");
+      setDesc(d.main || "");
+      setShortName(d.short_name || "");
+      setCondition(d.condition || "");
+      setBackingAsset(d.market || (usr.chain === "bitshares" ? "BTS" : "TEST"));
+      if (d.expiry) {
+        setDate(new Date(d.expiry));
+      }
+      if (d.nft_object) {
+        setEnabledNFT(true);
+        setAcknowledgements(d.nft_object.acknowledgements || "");
+        setArtist(d.nft_object.artist || "");
+        setAttestation(d.nft_object.attestation || "");
+        setHolderLicense(d.nft_object.holder_license || "");
+        setLicense(d.nft_object.license || "");
+        setNarrative(d.nft_object.narrative || "");
+        setTitle(d.nft_object.title || "");
+        setTags(d.nft_object.tags || "");
+        setType(d.nft_object.type || "NFT/ART/VISUAL");
+        const media = [];
+        for (const imgType of ["PNG", "JPEG", "WEBP", "GIF", "TIFF"]) {
+          const url = d.nft_object[`media_${imgType}_multihash`];
+          if (url) media.push({ type: imgType, url });
+        }
+        if (media.length) setNFTMedia(media);
+      }
+    } catch {}
+    // Restore permissions and flags from existing asset
+    const perms = existingAsset.options?.issuer_permissions;
+    const flgs = existingAsset.options?.flags;
+    let hasNonDefaultPerms = false;
+    let hasNonDefaultFlags = false;
+    if (typeof perms === "number") {
+      const pWhiteList = !!(perms & 1);
+      const pTransferRestricted = !!(perms & 2);
+      const pDisableConfidential = !!(perms & 4);
+      const pWitnessFedAsset = !!(perms & 16);
+      const pCommitteeFedAsset = !!(perms & 32);
+      setPermWhiteList(pWhiteList);
+      setPermTransferRestricted(pTransferRestricted);
+      setPermDisableConfidential(pDisableConfidential);
+      setPermWitnessFedAsset(pWitnessFedAsset);
+      setPermCommitteeFedAsset(pCommitteeFedAsset);
+      // Defaults: all true. If any is false, section should be expanded
+      if (!pWhiteList || !pTransferRestricted || !pDisableConfidential || !pWitnessFedAsset || !pCommitteeFedAsset) {
+        hasNonDefaultPerms = true;
+      }
+    }
+    if (typeof flgs === "number") {
+      const fWhiteList = !!(flgs & 1);
+      const fTransferRestricted = !!(flgs & 2);
+      const fDisableConfidential = !!(flgs & 4);
+      const fWitnessFedAsset = !!(flgs & 16);
+      const fCommitteeFedAsset = !!(flgs & 32);
+      setFlagWhiteList(fWhiteList);
+      setFlagTransferRestricted(fTransferRestricted);
+      setFlagDisableConfidential(fDisableConfidential);
+      setFlagWitnessFedAsset(fWitnessFedAsset);
+      setFlagCommitteeFedAsset(fCommitteeFedAsset);
+      // Defaults: all false. If any is true, section should be expanded
+      if (fWhiteList || fTransferRestricted || fDisableConfidential || fWitnessFedAsset || fCommitteeFedAsset) {
+        hasNonDefaultFlags = true;
+      }
+    }
+    if (hasNonDefaultPerms || hasNonDefaultFlags) {
+      setEnabledPermissions(true);
+    }
+    // Restore extensions
+    const ext = existingAsset.options?.extensions || {};
+    let hasExtensions = false;
+    if (ext.reward_percent) {
+      setEnabledReferrerReward(true);
+      setReferrerReward(ext.reward_percent / 100);
+      hasExtensions = true;
+    }
+    if (ext.whitelist_market_fee_sharing) {
+      setEnabledFeeSharingWhitelist(true);
+      const extSource = combinedAssets && combinedAssets.length ? combinedAssets : assets;
+      const shared = (ext.whitelist_market_fee_sharing || []).map((id) => {
+        const found = extSource?.find((a) => a.id === id);
+        return found ? { id: found.id, name: found.symbol || found.id } : { id, name: id };
+      });
+      setFeeSharingWhitelist(shared);
+      hasExtensions = true;
+    }
+    if (ext.taker_fee_percent) {
+      setEnabledTakerFee(true);
+      setTakerFee(ext.taker_fee_percent / 100);
+      hasExtensions = true;
+    }
+    if (hasExtensions) {
+      setEnabledExtensions(true);
+    }
+  }, [existingAsset, isEditMode]);
 
   // Maximum supply is constrained by the asset's precision: total digits
   // (excluding the decimal point) cap at 15. If precision is N, the integer
@@ -785,6 +671,21 @@ export default function Prediction(properties) {
   }, [flagCommitteeFedAsset]);
 
   const [showDialog, setShowDialog] = useState(false);
+  const [expiryWarningDialog, setExpiryWarningDialog] = useState(false);
+
+  // Check if the PMA has expired and has a positive settlement fund (prize pool)
+  const hasExpiredWithPrize = useMemo(() => {
+    if (!isEditMode || !existingAsset) return false;
+    if (settlementParam <= 0) return false;
+    try {
+      const d = JSON.parse(existingAsset.options?.description || "{}");
+      if (!d.expiry) return false;
+      const expiryDate = new Date(d.expiry);
+      return expiryDate < new Date();
+    } catch {
+      return false;
+    }
+  }, [isEditMode, existingAsset, settlementParam]);
 
   const issuer_permissions = useMemo(() => {
     return getPermissions(
@@ -921,6 +822,43 @@ export default function Prediction(properties) {
       _extensions.taker_fee_percent = takerFee ? takerFee * 100 : 0;
     }
 
+    if (isEditMode && existingAsset) {
+      return {
+        issuer: usr.id,
+        asset_to_update: existingAsset.id,
+        new_options: {
+          description,
+          max_supply: blockchainFloat(parseFloat(maxSupply) || 0, precisionNum),
+          market_fee_percent: commissionNum ? Math.round(commissionNum * 100) : 0,
+          max_market_fee: blockchainFloat(parseFloat(maxSupply) || 0, precisionNum),
+          issuer_permissions,
+          flags,
+          core_exchange_rate: {
+            base: {
+              amount: blockchainFloat(1, backingAssetData ? backingAssetData.precision : 5),
+              asset_id: backingAssetData ? backingAssetData.id : "1.3.0",
+            },
+            quote: {
+              amount: blockchainFloat(1, precisionNum),
+              asset_id: "1.3.1",
+            },
+          },
+          whitelist_authorities:
+            flagWhiteList && whitelistAuthorities && whitelistAuthorities.length
+              ? whitelistAuthorities.map((x) => x.id)
+              : [],
+          blacklist_authorities:
+            flagWhiteList && blacklistAuthorities && blacklistAuthorities.length
+              ? blacklistAuthorities.map((x) => x.id)
+              : [],
+          whitelist_markets: [],
+          blacklist_markets: [],
+          extensions: _extensions,
+        },
+        extensions: [],
+      };
+    }
+
     return {
       issuer: usr.id,
       symbol: fullSymbol,
@@ -983,6 +921,8 @@ export default function Prediction(properties) {
     enabledReferrerReward,
     enabledFeeSharingWhitelist,
     enabledTakerFee,
+    isEditMode,
+    existingAsset,
   ]);
 
   const debouncedPercent = useCallback(
@@ -1127,10 +1067,10 @@ export default function Prediction(properties) {
             </div>
             <div className="min-w-0">
               <h1 className="text-2xl font-semibold tracking-tight text-white">
-                {t("CreatePrediction:card.title")}
+                {isEditMode ? t("CreatePrediction:card.updateTitle") : t("CreatePrediction:card.title")}
               </h1>
               <p className="mt-1 max-w-2xl text-sm leading-relaxed text-white/50">
-                {t("CreatePrediction:card.description")}
+                {isEditMode ? t("CreatePrediction:card.updateDescription") : t("CreatePrediction:card.description")}
               </p>
             </div>
           </div>
@@ -1159,7 +1099,8 @@ export default function Prediction(properties) {
                       setSelectedOrg(null);
                       setSubAssetName("");
                     }}
-                    className={`rounded-md px-3 py-1 text-[11px] font-medium transition-colors ${
+                    disabled={isEditMode}
+                    className={`rounded-md px-3 py-1 text-[11px] font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                       creationMode === "manual"
                         ? "bg-violet-500/20 text-violet-300 ring-1 ring-violet-500/40"
                         : "text-white/40 hover:text-white/70"
@@ -1173,7 +1114,7 @@ export default function Prediction(properties) {
                       setCreationMode("organization");
                       setSymbol("");
                     }}
-                    disabled={userOrgs.length === 0}
+                    disabled={isEditMode || userOrgs.length === 0}
                     title={userOrgs.length === 0 ? t("CreatePrediction:creationMode.noOrgs") : ""}
                     className={`rounded-md px-3 py-1 text-[11px] font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
                       creationMode === "organization"
@@ -1199,6 +1140,7 @@ export default function Prediction(properties) {
                   >
                     <Select
                       value={selectedOrg?.symbol || ""}
+                      disabled={isEditMode}
                       onValueChange={(val) => {
                         const org = userOrgs.find((o) => o.symbol === val);
                         setSelectedOrg(org || null);
@@ -1240,7 +1182,8 @@ export default function Prediction(properties) {
                         placeholder={t("CreatePrediction:fields.subAssetName.placeholder")}
                         value={subAssetName}
                         type="text"
-                        className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-fuchsia-500/50"
+                        disabled={isEditMode}
+                        className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-fuchsia-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
                         onInput={(e) => {
                           const value = e.currentTarget.value;
                           const regex = /^[a-zA-Z0-9]*$/;
@@ -1266,23 +1209,24 @@ export default function Prediction(properties) {
                     error={symbolError}
                   >
                     <div className="relative">
-                      <Input
-                        id="cp-symbol"
-                        placeholder={t(
-                          "AssetCommon:asset_details.symbol.placeholder"
-                        )}
-                        value={symbol}
-                        type="text"
-                        className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
-                        onInput={(e) => {
-                          const value = e.currentTarget.value;
-                          const regex = /^[a-zA-Z0-9]*\.?[a-zA-Z0-9]*$/;
-                          if (regex.test(value)) {
-                            setSymbol(value);
-                          }
-                        }}
-                        maxLength={16}
-                      />
+                        <Input
+                          id="cp-symbol"
+                          placeholder={t(
+                            "AssetCommon:asset_details.symbol.placeholder"
+                          )}
+                          value={symbol}
+                          type="text"
+                          disabled={isEditMode}
+                          className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                          onInput={(e) => {
+                            const value = e.currentTarget.value;
+                            const regex = /^[a-zA-Z0-9]*\.?[a-zA-Z0-9]*$/;
+                            if (regex.test(value)) {
+                              setSymbol(value);
+                            }
+                          }}
+                          maxLength={16}
+                        />
                       <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
                         {symbol.length}/16
                       </span>
@@ -2686,7 +2630,7 @@ export default function Prediction(properties) {
               <div className="flex items-start gap-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-3">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
                 <p className="text-sm font-medium text-emerald-400">
-                  {t("CreatePrediction:summary.ready")}
+                  {isEditMode ? t("CreatePrediction:summary.readyUpdate") : t("CreatePrediction:summary.ready")}
                 </p>
               </div>
             ) : (
@@ -2728,7 +2672,7 @@ export default function Prediction(properties) {
                       side="top"
                       className="bg-slate-900 border-white/10 text-white max-w-xs"
                     >
-                      <p className="text-xs">{t("CreatePrediction:fee.hover")}</p>
+                      <p className="text-xs">{isEditMode ? t("CreatePrediction:fee.updateHover") : t("CreatePrediction:fee.hover")}</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -2736,26 +2680,55 @@ export default function Prediction(properties) {
               <Button
                 size="lg"
                 disabled={!isFormValid}
-                onClick={() => setShowDialog(true)}
+                onClick={() => {
+                  if (hasExpiredWithPrize) {
+                    setExpiryWarningDialog(true);
+                  } else {
+                    setShowDialog(true);
+                  }
+                }}
                 className="gap-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold shadow-lg shadow-violet-500/25 hover:brightness-110 active:scale-[0.99] transition-all"
               >
                 <Send className="h-4 w-4" />
-                {t("CreatePrediction:buttons.submit")}
+                {isEditMode ? t("CreatePrediction:buttons.update") : t("CreatePrediction:buttons.submit")}
               </Button>
             </div>
           </CardContent>
         </Card>
       </div>
 
+      {/* Expiry edit warning dialog */}
+      {expiryWarningDialog ? (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={() => setExpiryWarningDialog(false)}>
+          <div className="mx-4 w-full max-w-md rounded-xl border border-amber-500/30 bg-slate-900 p-6 shadow-2xl shadow-black/40" onClick={(e) => e.stopPropagation()}>
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500/15 text-amber-400">
+                <AlertCircle className="h-5 w-5" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">{t("CreatePrediction:expiryWarning.title")}</h3>
+            </div>
+            <p className="mb-6 text-sm leading-relaxed text-white/70">{t("CreatePrediction:expiryWarning.description")}</p>
+            <div className="flex justify-end gap-3">
+              <Button variant="outline" className="border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white" onClick={() => setExpiryWarningDialog(false)}>
+                {t("CreatePrediction:expiryWarning.cancel")}
+              </Button>
+              <Button className="bg-amber-600 hover:bg-amber-700 text-white" onClick={() => { setExpiryWarningDialog(false); setShowDialog(true); }}>
+                {t("CreatePrediction:expiryWarning.confirm")}
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       {showDialog ? (
         <DeepLinkDialog
-          operationNames={["asset_create"]}
+          operationNames={[isEditMode ? "asset_update" : "asset_create"]}
           username={usr.username}
           usrChain={usr.chain}
           userID={usr.id}
           dismissCallback={setShowDialog}
-          key={`CreatingPMA-${usr.id}-${fullSymbol}`}
-          headerText={t("CreatePrediction:dialogContent.headerText", {
+          key={`${isEditMode ? "Updating" : "Creating"}PMA-${usr.id}-${fullSymbol}`}
+          headerText={t(isEditMode ? "CreatePrediction:dialogContent.updateHeaderText" : "CreatePrediction:dialogContent.headerText", {
             symbol: fullSymbol,
           })}
           trxJSON={[trx]}

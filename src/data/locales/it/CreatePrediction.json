@@ -5,11 +5,14 @@
     "recommended": "Consigliato"
   },
   "dialogContent": {
-    "headerText": "Creazione del seguente asset di mercato di previsione: {{symbol}}"
+    "headerText": "Creazione del seguente asset di mercato di previsione: {{symbol}}",
+    "updateHeaderText": "Updating the following prediction market asset: {{symbol}}"
   },
   "card": {
     "title": "Creazione di un nuovo asset del mercato di previsione",
-    "description": "Creando un Prediction Market Assets puoi agire come casa per le scommesse decentralizzate su eventi futuri in cambio di una commissione senza esposizione al rischio di controparte del pool di vincite."
+    "description": "Creando un Prediction Market Assets puoi agire come casa per le scommesse decentralizzate su eventi futuri in cambio di una commissione senza esposizione al rischio di controparte del pool di vincite.",
+    "updateTitle": "Update Prediction Market Asset",
+    "updateDescription": "Update your prediction market asset's details, settings, and metadata."
   },
   "steps": {
     "asset": {
@@ -40,6 +43,7 @@
   "summary": {
     "label": "Rivedi e invia",
     "ready": "Pronto a creare il tuo asset di mercato di previsione.",
+    "readyUpdate": "Ready to update your prediction market asset.",
     "fieldsRequired": "Alcuni campi obbligatori sono ancora vuoti.",
     "title": "Stai creando",
     "subtitle": "Un riepilogo dell'asset di mercato di previsione che stai per lanciare. Verifica che tutto sembri corretto prima di inviare.",
@@ -91,10 +95,18 @@
   },
   "fee": {
     "calculating": "Stima in corso...",
-    "hover": "Commissione di rete stimata per la creazione di questo asset di mercato di previsione. La commissione effettiva dipende dalla lunghezza del simbolo, dalla dimensione dei dati e dai parametri di rete attuali."
+    "hover": "Commissione di rete stimata per la creazione di questo asset di mercato di previsione. La commissione effettiva dipende dalla lunghezza del simbolo, dalla dimensione dei dati e dai parametri di rete attuali.",
+    "updateHover": "Estimated network fee for updating this prediction market asset."
   },
   "buttons": {
-    "submit": "Crea asset del mercato di previsione"
+    "submit": "Crea asset del mercato di previsione",
+    "update": "Update prediction market asset"
+  },
+  "expiryWarning": {
+    "title": "Expiry time change warning",
+    "description": "This prediction market has already expired and there is an active prize pool with participants who have placed bets. Changing the expiry time may fundamentally alter the terms of their bets, which could upset participants and damage your organization's reputation. Please proceed only if you are certain this change is necessary.",
+    "cancel": "Cancel",
+    "confirm": "Continue anyway"
   },
   "fields": {
     "org": {

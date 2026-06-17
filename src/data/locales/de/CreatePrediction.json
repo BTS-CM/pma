@@ -5,11 +5,14 @@
     "recommended": "Empfohlen"
   },
   "dialogContent": {
-    "headerText": "Erstellen des folgenden Prognosemarkt-Assets: {{symbol}}"
+    "headerText": "Erstellen des folgenden Prognosemarkt-Assets: {{symbol}}",
+    "updateHeaderText": "Updating the following prediction market asset: {{symbol}}"
   },
   "card": {
     "title": "Erstellen eines neuen Prognosemarkt-Assets",
-    "description": "Durch die Schaffung eines Prognosemarktes können Sie gegen eine Provision als Plattform für dezentrale Wetten auf zukünftige Ereignisse fungieren, ohne dass Sie dem Kontrahentenrisiko des Gewinnpools ausgesetzt sind."
+    "description": "Durch die Schaffung eines Prognosemarktes können Sie gegen eine Provision als Plattform für dezentrale Wetten auf zukünftige Ereignisse fungieren, ohne dass Sie dem Kontrahentenrisiko des Gewinnpools ausgesetzt sind.",
+    "updateTitle": "Update Prediction Market Asset",
+    "updateDescription": "Update your prediction market asset's details, settings, and metadata."
   },
   "steps": {
     "asset": {
@@ -40,6 +43,7 @@
   "summary": {
     "label": "Überprüfen und einreichen",
     "ready": "Bereit, Ihr Prognosemarkt-Asset zu erstellen.",
+    "readyUpdate": "Ready to update your prediction market asset.",
     "fieldsRequired": "Einige erforderliche Felder sind noch leer.",
     "title": "Was Sie erstellen",
     "subtitle": "Eine Zusammenfassung des Prognosemarkt-Assets, das Sie starten möchten. Überprüfen Sie, ob alles korrekt aussieht, bevor Sie einreichen.",
@@ -91,10 +95,18 @@
   },
   "fee": {
     "calculating": "Berechnung...",
-    "hover": "Geschätzte Netzwerkgebühr für die Erstellung dieses Prognosemarkt-Assets. Die tatsächliche Gebühr hängt von der Symbollänge, der Datengröße und den aktuellen Netzwerkparametern ab."
+    "hover": "Geschätzte Netzwerkgebühr für die Erstellung dieses Prognosemarkt-Assets. Die tatsächliche Gebühr hängt von der Symbollänge, der Datengröße und den aktuellen Netzwerkparametern ab.",
+    "updateHover": "Estimated network fee for updating this prediction market asset."
   },
   "buttons": {
-    "submit": "Prognosemarkt-Asset erstellen"
+    "submit": "Prognosemarkt-Asset erstellen",
+    "update": "Update prediction market asset"
+  },
+  "expiryWarning": {
+    "title": "Expiry time change warning",
+    "description": "This prediction market has already expired and there is an active prize pool with participants who have placed bets. Changing the expiry time may fundamentally alter the terms of their bets, which could upset participants and damage your organization's reputation. Please proceed only if you are certain this change is necessary.",
+    "cancel": "Cancel",
+    "confirm": "Continue anyway"
   },
   "fields": {
     "org": {

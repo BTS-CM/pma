@@ -5,11 +5,14 @@
     "recommended": "권장"
   },
   "dialogContent": {
-    "headerText": "다음 예측 시장 자산 생성: {{symbol}}"
+    "headerText": "다음 예측 시장 자산 생성: {{symbol}}",
+    "updateHeaderText": "Updating the following prediction market asset: {{symbol}}"
   },
   "card": {
     "title": "새로운 예측 시장 자산 생성",
-    "description": "예측 시장 자산을 생성하면 상금풀 상대방 위험에 노출되지 않고 수수료를 받는 대가로 향후 이벤트에 대한 분산형 베팅을 위한 하우스 역할을 할 수 있습니다."
+    "description": "예측 시장 자산을 생성하면 상금풀 상대방 위험에 노출되지 않고 수수료를 받는 대가로 향후 이벤트에 대한 분산형 베팅을 위한 하우스 역할을 할 수 있습니다.",
+    "updateTitle": "Update Prediction Market Asset",
+    "updateDescription": "Update your prediction market asset's details, settings, and metadata."
   },
   "steps": {
     "asset": {
@@ -40,6 +43,7 @@
   "summary": {
     "label": "검토 및 제출",
     "ready": "예측 시장 자산을 생성할 준비가 되었습니다.",
+    "readyUpdate": "Ready to update your prediction market asset.",
     "fieldsRequired": "몇몇 필수 필드가 아직 비어 있습니다.",
     "title": "생성 중인 내용",
     "subtitle": "출시하려는 예측 시장 자산의 요약입니다. 제출하기 전에 모든 것이 올바른지 확인하세요.",
@@ -91,10 +95,18 @@
   },
   "fee": {
     "calculating": "추정 중...",
-    "hover": "이 예측 시장 자산 생성에 대한 추정 네트워크 수수료입니다. 실제 수수료는 심볼 길이, 데이터 크기 및 현재 네트워크 매개변수에 따라 달라집니다."
+    "hover": "이 예측 시장 자산 생성에 대한 추정 네트워크 수수료입니다. 실제 수수료는 심볼 길이, 데이터 크기 및 현재 네트워크 매개변수에 따라 달라집니다.",
+    "updateHover": "Estimated network fee for updating this prediction market asset."
   },
   "buttons": {
-    "submit": "예측 시장 자산 생성"
+    "submit": "예측 시장 자산 생성",
+    "update": "Update prediction market asset"
+  },
+  "expiryWarning": {
+    "title": "Expiry time change warning",
+    "description": "This prediction market has already expired and there is an active prize pool with participants who have placed bets. Changing the expiry time may fundamentally alter the terms of their bets, which could upset participants and damage your organization's reputation. Please proceed only if you are certain this change is necessary.",
+    "cancel": "Cancel",
+    "confirm": "Continue anyway"
   },
   "fields": {
     "org": {

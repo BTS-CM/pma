@@ -5,11 +5,14 @@
     "recommended": "Anbefalet"
   },
   "dialogContent": {
-    "headerText": "Oprettelse af følgende forudsigelige markedsaktiv: {{symbol}}"
+    "headerText": "Oprettelse af følgende forudsigelige markedsaktiv: {{symbol}}",
+    "updateHeaderText": "Updating the following prediction market asset: {{symbol}}"
   },
   "card": {
     "title": "Oprettelse af et nyt Prediction Market Asset",
-    "description": "Ved at oprette en Prediction Market Assets kan du fungere som huset for decentraliserede væddemål på fremtidige begivenheder til gengæld for et kommissionsgebyr uden gevinstpuljens modpartsrisikoeksponering."
+    "description": "Ved at oprette en Prediction Market Assets kan du fungere som huset for decentraliserede væddemål på fremtidige begivenheder til gengæld for et kommissionsgebyr uden gevinstpuljens modpartsrisikoeksponering.",
+    "updateTitle": "Update Prediction Market Asset",
+    "updateDescription": "Update your prediction market asset's details, settings, and metadata."
   },
   "steps": {
     "asset": {
@@ -40,6 +43,7 @@
   "summary": {
     "label": "Gennemgå og indsend",
     "ready": "Klar til at oprette dit forudsigelsesmarkedsaktiv.",
+    "readyUpdate": "Ready to update your prediction market asset.",
     "fieldsRequired": "Et par påkrævede felter er stadig tomme.",
     "title": "Hvad du opretter",
     "subtitle": "Et resumé af forudsigelsesmarkedsaktivet du er ved at lancere. Kontroller at alt ser korrekt ud inden indsendelse.",
@@ -91,10 +95,18 @@
   },
   "fee": {
     "calculating": "Beregner...",
-    "hover": "Estimeret netværksgebyr for oprettelse af dette forudsigelsesmarkedsaktiv. Det faktiske gebyr afhænger af symbol længden, datastørrelsen og aktuelle netværksparametre."
+    "hover": "Estimeret netværksgebyr for oprettelse af dette forudsigelsesmarkedsaktiv. Det faktiske gebyr afhænger af symbol længden, datastørrelsen og aktuelle netværksparametre.",
+    "updateHover": "Estimated network fee for updating this prediction market asset."
   },
   "buttons": {
-    "submit": "Indsend"
+    "submit": "Indsend",
+    "update": "Update prediction market asset"
+  },
+  "expiryWarning": {
+    "title": "Expiry time change warning",
+    "description": "This prediction market has already expired and there is an active prize pool with participants who have placed bets. Changing the expiry time may fundamentally alter the terms of their bets, which could upset participants and damage your organization's reputation. Please proceed only if you are certain this change is necessary.",
+    "cancel": "Cancel",
+    "confirm": "Continue anyway"
   },
   "fields": {
     "org": {

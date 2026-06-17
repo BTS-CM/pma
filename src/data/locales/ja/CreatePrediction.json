@@ -5,11 +5,14 @@
     "recommended": "推奨"
   },
   "dialogContent": {
-    "headerText": "次の予測市場アセットを作成します。 {{symbol}}"
+    "headerText": "次の予測市場アセットを作成します。 {{symbol}}",
+    "updateHeaderText": "Updating the following prediction market asset: {{symbol}}"
   },
   "card": {
     "title": "新しい予測市場アセットの作成",
-    "description": "予測市場アセットを作成すると、賞金プールのカウンターパーティのリスクにさらされることなく、手数料と引き換えに将来のイベントに対する分散型ベットのハウスとして機能できます。"
+    "description": "予測市場アセットを作成すると、賞金プールのカウンターパーティのリスクにさらされることなく、手数料と引き換えに将来のイベントに対する分散型ベットのハウスとして機能できます。",
+    "updateTitle": "Update Prediction Market Asset",
+    "updateDescription": "Update your prediction market asset's details, settings, and metadata."
   },
   "steps": {
     "asset": {
@@ -40,6 +43,7 @@
   "summary": {
     "label": "確認して送信",
     "ready": "予測市場アセットの作成準備ができています。",
+    "readyUpdate": "Ready to update your prediction market asset.",
     "fieldsRequired": "いくつかの必須フィールドがまだ空です。",
     "title": "作成内容",
     "subtitle": "立ち上げようとしている予測市場アセットの概要。送信前にすべてが正しいか確認してください。",
@@ -91,10 +95,18 @@
   },
   "fee": {
     "calculating": "見積もり中...",
-    "hover": "この予測市場アセットの作成に対する推定ネットワーク手数料。実際の手数料はシンボルの長さ、データサイズ、現在のネットワークパラメータによって異なります。"
+    "hover": "この予測市場アセットの作成に対する推定ネットワーク手数料。実際の手数料はシンボルの長さ、データサイズ、現在のネットワークパラメータによって異なります。",
+    "updateHover": "Estimated network fee for updating this prediction market asset."
   },
   "buttons": {
-    "submit": "予測市場アセットを作成"
+    "submit": "予測市場アセットを作成",
+    "update": "Update prediction market asset"
+  },
+  "expiryWarning": {
+    "title": "Expiry time change warning",
+    "description": "This prediction market has already expired and there is an active prize pool with participants who have placed bets. Changing the expiry time may fundamentally alter the terms of their bets, which could upset participants and damage your organization's reputation. Please proceed only if you are certain this change is necessary.",
+    "cancel": "Cancel",
+    "confirm": "Continue anyway"
   },
   "fields": {
     "org": {

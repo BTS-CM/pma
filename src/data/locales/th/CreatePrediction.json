@@ -5,11 +5,14 @@
     "recommended": "แนะนำ"
   },
   "dialogContent": {
-    "headerText": "การสร้างสินทรัพย์ตลาดการคาดการณ์ต่อไปนี้: {{symbol}}"
+    "headerText": "การสร้างสินทรัพย์ตลาดการคาดการณ์ต่อไปนี้: {{symbol}}",
+    "updateHeaderText": "Updating the following prediction market asset: {{symbol}}"
   },
   "card": {
     "title": "การสร้างสินทรัพย์ตลาดการคาดการณ์ใหม่",
-    "description": "ด้วยการสร้างสินทรัพย์ในตลาดการทำนาย คุณสามารถทำหน้าที่เป็นแหล่งกระจายการเดิมพันในเหตุการณ์ในอนาคตเพื่อแลกกับค่าธรรมเนียมคอมมิชชั่นโดยไม่ต้องชนะความเสี่ยงจากคู่สัญญา"
+    "description": "ด้วยการสร้างสินทรัพย์ในตลาดการทำนาย คุณสามารถทำหน้าที่เป็นแหล่งกระจายการเดิมพันในเหตุการณ์ในอนาคตเพื่อแลกกับค่าธรรมเนียมคอมมิชชั่นโดยไม่ต้องชนะความเสี่ยงจากคู่สัญญา",
+    "updateTitle": "Update Prediction Market Asset",
+    "updateDescription": "Update your prediction market asset's details, settings, and metadata."
   },
   "steps": {
     "asset": {
@@ -40,6 +43,7 @@
   "summary": {
     "label": "ตรวจสอบและส่ง",
     "ready": "พร้อมสร้างสินทรัพย์ตลาดการคาดการณ์ของคุณ",
+    "readyUpdate": "Ready to update your prediction market asset.",
     "fieldsRequired": "ช่องที่จำเป็นบางช่องยังว่างอยู่",
     "title": "สิ่งที่คุณกำลังสร้าง",
     "subtitle": "สรุปสินทรัพย์ตลาดการคาดการณ์ที่คุณกำลังจะเปิดตัว ตรวจสอบให้แน่ใจว่าทุกอย่างถูกต้องก่อนส่ง",
@@ -91,10 +95,18 @@
   },
   "fee": {
     "calculating": "กำลังคำนวณ...",
-    "hover": "ค่าเครือข่ายโดยประมาณสำหรับการสร้างสินทรัพย์ตลาดการคาดการณ์นี้ ค่าธรรมเนียมจริงขึ้นอยู่กับความยาวสัญลักษณ์ ขนาดข้อมูล และพารามิเตอร์เครือข่ายปัจจุบัน"
+    "hover": "ค่าเครือข่ายโดยประมาณสำหรับการสร้างสินทรัพย์ตลาดการคาดการณ์นี้ ค่าธรรมเนียมจริงขึ้นอยู่กับความยาวสัญลักษณ์ ขนาดข้อมูล และพารามิเตอร์เครือข่ายปัจจุบัน",
+    "updateHover": "Estimated network fee for updating this prediction market asset."
   },
   "buttons": {
-    "submit": "สร้างสินทรัพย์ตลาดการคาดการณ์"
+    "submit": "สร้างสินทรัพย์ตลาดการคาดการณ์",
+    "update": "Update prediction market asset"
+  },
+  "expiryWarning": {
+    "title": "Expiry time change warning",
+    "description": "This prediction market has already expired and there is an active prize pool with participants who have placed bets. Changing the expiry time may fundamentally alter the terms of their bets, which could upset participants and damage your organization's reputation. Please proceed only if you are certain this change is necessary.",
+    "cancel": "Cancel",
+    "confirm": "Continue anyway"
   },
   "fields": {
     "org": {

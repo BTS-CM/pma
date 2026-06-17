@@ -5,11 +5,14 @@
     "recommended": "Recomendado"
   },
   "dialogContent": {
-    "headerText": "Creando el siguiente activo de mercado de predicción: {{symbol}}"
+    "headerText": "Creando el siguiente activo de mercado de predicción: {{symbol}}",
+    "updateHeaderText": "Updating the following prediction market asset: {{symbol}}"
   },
   "card": {
     "title": "Creando un nuevo activo de mercado de predicción",
-    "description": "Al crear un activo de mercado de predicción, puede actuar como casa para apuestas descentralizadas sobre eventos futuros a cambio de una comisión sin exposición al riesgo de contraparte del grupo de ganancias."
+    "description": "Al crear un activo de mercado de predicción, puede actuar como casa para apuestas descentralizadas sobre eventos futuros a cambio de una comisión sin exposición al riesgo de contraparte del grupo de ganancias.",
+    "updateTitle": "Update Prediction Market Asset",
+    "updateDescription": "Update your prediction market asset's details, settings, and metadata."
   },
   "steps": {
     "asset": {
@@ -40,6 +43,7 @@
   "summary": {
     "label": "Revisar y enviar",
     "ready": "Listo para crear su activo de mercado de predicción.",
+    "readyUpdate": "Ready to update your prediction market asset.",
     "fieldsRequired": "Algunos campos obligatorios aún están vacíos.",
     "title": "Lo que está creando",
     "subtitle": "Un resumen del activo de mercado de predicción que está a punto de lanzar. Verifique que todo se vea correcto antes de enviar.",
@@ -91,10 +95,18 @@
   },
   "fee": {
     "calculating": "Estimando...",
-    "hover": "Tarifa de red estimada para crear este activo de mercado de predicción. La tarifa real depende de la longitud del símbolo, el tamaño de los datos y los parámetros de red actuales."
+    "hover": "Tarifa de red estimada para crear este activo de mercado de predicción. La tarifa real depende de la longitud del símbolo, el tamaño de los datos y los parámetros de red actuales.",
+    "updateHover": "Estimated network fee for updating this prediction market asset."
   },
   "buttons": {
-    "submit": "Crear activo de mercado de predicción"
+    "submit": "Crear activo de mercado de predicción",
+    "update": "Update prediction market asset"
+  },
+  "expiryWarning": {
+    "title": "Expiry time change warning",
+    "description": "This prediction market has already expired and there is an active prize pool with participants who have placed bets. Changing the expiry time may fundamentally alter the terms of their bets, which could upset participants and damage your organization's reputation. Please proceed only if you are certain this change is necessary.",
+    "cancel": "Cancel",
+    "confirm": "Continue anyway"
   },
   "fields": {
     "org": {
