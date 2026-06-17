@@ -83,6 +83,7 @@ import AccountSearch from "@/components/AccountSearch.jsx";
 import { Avatar } from "./Avatar.tsx";
 
 import { useInitCache } from "@/nanoeffects/Init.ts";
+import { createFullAssetFromSymbolStore } from "@/nanoeffects/Assets.ts";
 import { createUserBalancesStore } from "@/nanoeffects/UserBalances.ts";
 import { createEveryObjectStore } from "@/nanoeffects/Objects.ts";
 
@@ -103,6 +104,18 @@ import SuffixInput from "./create-prediction/SuffixInput";
 import ToggleCard from "./create-prediction/ToggleCard";
 import AuthorityList from "./create-prediction/AuthorityList";
 import SummaryRow from "./create-prediction/SummaryRow";
+
+function hasCompleteAssetDetails(asset) {
+  return !!(
+    asset?.options &&
+    typeof asset.options === "object" &&
+    "description" in asset.options &&
+    "max_supply" in asset.options &&
+    "market_fee_percent" in asset.options &&
+    "issuer_permissions" in asset.options &&
+    "flags" in asset.options
+  );
+}
 
 export default function Prediction(properties) {
   const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
@@ -232,12 +245,58 @@ export default function Prediction(properties) {
   }, []);
 
   // Find the existing asset when in edit mode
-  const existingAsset = useMemo(() => {
+  // First try the local cache, then fall back to a full blockchain fetch via nanoeffects
+  const cachedExistingAsset = useMemo(() => {
     if (!updateSymbol) return null;
     const source = combinedAssets && combinedAssets.length ? combinedAssets : assets;
     if (!source || !source.length) return null;
-    return source.find((a) => a.symbol === updateSymbol) || null;
+    return source.find((asset) => asset.symbol === updateSymbol) ?? null;
   }, [updateSymbol, combinedAssets, assets]);
+
+  const [fetchedExistingAsset, setFetchedExistingAsset] = useState(null);
+
+  const shouldFetchExistingAsset =
+    !!isEditMode &&
+    !!updateSymbol &&
+    !!currentNode?.url &&
+    !hasCompleteAssetDetails(cachedExistingAsset);
+
+  const existingAsset = useMemo(() => {
+    if (!updateSymbol) return null;
+    if (hasCompleteAssetDetails(cachedExistingAsset)) {
+      return cachedExistingAsset;
+    }
+    return fetchedExistingAsset ?? cachedExistingAsset;
+  }, [updateSymbol, cachedExistingAsset, fetchedExistingAsset]);
+
+  useEffect(() => {
+    if (!shouldFetchExistingAsset) {
+      setFetchedExistingAsset(null);
+      return;
+    }
+
+    const existingAssetStore = createFullAssetFromSymbolStore([
+      _chain,
+      updateSymbol,
+      currentNode.url,
+    ]);
+
+    return existingAssetStore.subscribe(({ data, error, loading }) => {
+      if (error) {
+        console.log("[CreatePrediction] Failed to fetch full asset:", error);
+        setFetchedExistingAsset(null);
+        return;
+      }
+
+      if (loading) {
+        return;
+      }
+
+      if (data) {
+        setFetchedExistingAsset(data);
+      }
+    });
+  }, [shouldFetchExistingAsset, _chain, updateSymbol, currentNode]);
 
   // Filter PMO organizations owned by the current user
   const userOrgs = useMemo(() => {
@@ -286,31 +345,49 @@ export default function Prediction(properties) {
   // Pre-fill form when in edit mode
   useEffect(() => {
     if (!existingAsset || !isEditMode) return;
+    console.log("[CreatePrediction] Pre-filling from asset:", JSON.stringify(existingAsset, null, 2));
+    const assetOptions = existingAsset.options || {};
+    const maxSupplyValue =
+      assetOptions.max_supply ?? existingAsset.max_supply ?? "1000000000";
+    const marketFeePercent =
+      assetOptions.market_fee_percent ?? existingAsset.market_fee_percent ?? 0;
     setSymbol(existingAsset.symbol);
     setPrecision(String(existingAsset.precision ?? 5));
-    setMaxSupply(String(humanReadableFloat(existingAsset.options?.max_supply ?? "1000000000", existingAsset.precision ?? 5)));
-    setCommission(String((existingAsset.options?.market_fee_percent ?? 0) / 100));
-    // Determine creation mode from symbol (contains dot = org sub-asset)
+    setMaxSupply(
+      String(humanReadableFloat(maxSupplyValue, existingAsset.precision ?? 5))
+    );
+    setCommission(String(marketFeePercent / 100));
+    // Determine creation mode: only org mode if the parent symbol matches a real user org
+    let isOrgMode = false;
     if (existingAsset.symbol && existingAsset.symbol.includes(".")) {
-      setCreationMode("organization");
       const parts = existingAsset.symbol.split(".");
-      const subName = parts[parts.length - 1];
-      setSubAssetName(subName);
-      setShortName(subName);
-      // Find matching org
       const orgSymbol = parts.slice(0, -1).join(".");
       const source = combinedAssets && combinedAssets.length ? combinedAssets : assets;
-      const org = source?.find((a) => a.symbol === orgSymbol);
-      if (org) setSelectedOrg(org);
-    } else {
+      const matchingOrg = source?.find((a) => a.symbol === orgSymbol && a.issuer === usr?.id);
+      if (matchingOrg) {
+        isOrgMode = true;
+        setCreationMode("organization");
+        setSelectedOrg(matchingOrg);
+        const subName = parts[parts.length - 1];
+        setSubAssetName(subName);
+        setShortName(subName);
+      }
+    }
+    if (!isOrgMode) {
       setCreationMode("manual");
     }
     try {
-      const d = JSON.parse(existingAsset.options?.description || "{}");
+      const d = JSON.parse(assetOptions.description || "{}");
       setDesc(d.main || "");
-      setShortName(d.short_name || "");
+      if (!isOrgMode) {
+        setShortName(d.short_name || "");
+      }
       setCondition(d.condition || "");
-      setBackingAsset(d.market || (usr.chain === "bitshares" ? "BTS" : "TEST"));
+      setBackingAsset(
+        d.market ||
+          existingAsset.backingAsset?.symbol ||
+          (usr.chain === "bitshares" ? "BTS" : "TEST")
+      );
       if (d.expiry) {
         setDate(new Date(d.expiry));
       }
@@ -333,17 +410,17 @@ export default function Prediction(properties) {
         if (media.length) setNFTMedia(media);
       }
     } catch {}
-    // Restore permissions and flags from existing asset
-    const perms = existingAsset.options?.issuer_permissions;
-    const flgs = existingAsset.options?.flags;
+    // Restore permissions and flags from existing asset using correct bitmask values
+    const perms = assetOptions.issuer_permissions;
+    const flgs = assetOptions.flags;
     let hasNonDefaultPerms = false;
     let hasNonDefaultFlags = false;
     if (typeof perms === "number") {
-      const pWhiteList = !!(perms & 1);
-      const pTransferRestricted = !!(perms & 2);
-      const pDisableConfidential = !!(perms & 4);
-      const pWitnessFedAsset = !!(perms & 16);
-      const pCommitteeFedAsset = !!(perms & 32);
+      const pWhiteList = !!(perms & 0x02);
+      const pTransferRestricted = !!(perms & 0x08);
+      const pDisableConfidential = !!(perms & 0x40);
+      const pWitnessFedAsset = !!(perms & 0x80);
+      const pCommitteeFedAsset = !!(perms & 0x100);
       setPermWhiteList(pWhiteList);
       setPermTransferRestricted(pTransferRestricted);
       setPermDisableConfidential(pDisableConfidential);
@@ -355,11 +432,11 @@ export default function Prediction(properties) {
       }
     }
     if (typeof flgs === "number") {
-      const fWhiteList = !!(flgs & 1);
-      const fTransferRestricted = !!(flgs & 2);
-      const fDisableConfidential = !!(flgs & 4);
-      const fWitnessFedAsset = !!(flgs & 16);
-      const fCommitteeFedAsset = !!(flgs & 32);
+      const fWhiteList = !!(flgs & 0x02);
+      const fTransferRestricted = !!(flgs & 0x08);
+      const fDisableConfidential = !!(flgs & 0x40);
+      const fWitnessFedAsset = !!(flgs & 0x80);
+      const fCommitteeFedAsset = !!(flgs & 0x100);
       setFlagWhiteList(fWhiteList);
       setFlagTransferRestricted(fTransferRestricted);
       setFlagDisableConfidential(fDisableConfidential);
@@ -374,7 +451,7 @@ export default function Prediction(properties) {
       setEnabledPermissions(true);
     }
     // Restore extensions
-    const ext = existingAsset.options?.extensions || {};
+    const ext = assetOptions.extensions || {};
     let hasExtensions = false;
     if (ext.reward_percent) {
       setEnabledReferrerReward(true);
@@ -399,7 +476,7 @@ export default function Prediction(properties) {
     if (hasExtensions) {
       setEnabledExtensions(true);
     }
-  }, [existingAsset, isEditMode]);
+  }, [existingAsset, isEditMode, combinedAssets, assets, usr]);
 
   // Maximum supply is constrained by the asset's precision: total digits
   // (excluding the decimal point) cap at 15. If precision is N, the integer
