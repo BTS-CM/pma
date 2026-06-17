@@ -140,6 +140,26 @@
       "about": "담보 입찰 비활성화",
       "enabledInfo": "글로벌 결제 풀의 담보 입찰이 비활성화되었습니다. 이 자산이 글로벌 결제된 경우 글로벌 결제 풀의 담보에 대한 입찰은 허용되지 않습니다.",
       "disabledInfo": "글로벌 정산 풀의 담보에 대한 입찰이 활성화됩니다."
+    },
+    "disable_mcr_update": {
+      "about": "소유자의 MCR 업데이트 비활성화",
+      "enabledInfo": "유지 보수 담보 비율이 잠겨 있어 자산 소유자가 변경할 수 없습니다.",
+      "disabledInfo": "자산 소유자는 유지 보수 담보 비율을 업데이트할 수 있습니다."
+    },
+    "disable_icr_update": {
+      "about": "소유자의 ICR 업데이트 비활성화",
+      "enabledInfo": "초기 담보 비율이 잠겨 있어 자산 소유자가 변경할 수 없습니다.",
+      "disabledInfo": "자산 소유자는 초기 담보 비율을 업데이트할 수 있습니다."
+    },
+    "disable_mssr_update": {
+      "about": "소유자의 MSSR 업데이트 비활성화",
+      "enabledInfo": "최대 숏 스퀴즈 비율이 잠겨 있어 자산 소유자가 변경할 수 없습니다.",
+      "disabledInfo": "자산 소유자는 최대 숏 스퀴즈 비율을 업데이트할 수 있습니다."
+    },
+    "disable_bsrm_update": {
+      "about": "소유자의 BSRM 업데이트 비활성화",
+      "enabledInfo": "백 swan 리스크 관리 전략이 잠겨 있어 자산 소유자가 변경할 수 없습니다.",
+      "disabledInfo": "자산 소유자는 백 swan 리스크 관리 전략을 업데이트할 수 있습니다."
     }
   },
   "asset_details": {

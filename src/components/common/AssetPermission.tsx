@@ -23,6 +23,7 @@ interface Props {
   flag: boolean;
   setFlag: (flag: boolean) => void;
   className?: string;
+  forceDisabled?: boolean;
 }
 
 interface MakeHoverProps {
@@ -41,6 +42,7 @@ export default function AssetPermission({
   flag,
   setFlag,
   className,
+  forceDisabled = false,
 }: Props) {
   const { t, i18n } = useTranslation(locale.get(), { i18n: i18nInstance });
 
@@ -62,19 +64,19 @@ export default function AssetPermission({
     );
   };
 
-  if (alreadyDisabled) {
+  if (alreadyDisabled || forceDisabled) {
     return (
-      <span className={"grid grid-cols-12 items-center gap-2 pl-3 " + (className || "")}>
+      <span className={"grid grid-cols-12 items-center gap-2 pl-3 " + (className || "")}> 
         <span>
           <Checkbox
-            checked={false}
+            checked={permission}
             id={id}
             disabled
           />
         </span>
         <span className="col-span-10 text-white/70">
           <MakeHover>
-            <Label htmlFor={id}>{permission || disabledText}</Label>
+            <Label htmlFor={id}>{permission ? allowedText : disabledText}</Label>
           </MakeHover>
         </span>
         <MakeHover>

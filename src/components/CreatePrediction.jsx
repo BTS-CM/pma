@@ -416,34 +416,76 @@ export default function Prediction(properties) {
     let hasNonDefaultPerms = false;
     let hasNonDefaultFlags = false;
     if (typeof perms === "number") {
+      const pChargeMarketFee = !!(perms & 0x01);
       const pWhiteList = !!(perms & 0x02);
+      const pOverrideAuthority = !!(perms & 0x04);
       const pTransferRestricted = !!(perms & 0x08);
+      const pDisableForceSettle = !!(perms & 0x10);
+      const pGlobalSettle = !!(perms & 0x20);
       const pDisableConfidential = !!(perms & 0x40);
       const pWitnessFedAsset = !!(perms & 0x80);
       const pCommitteeFedAsset = !!(perms & 0x100);
+      const pLockMaxSupply = !!(perms & 0x200);
+      const pDisableNewSupply = !!(perms & 0x400);
+      const pDisableMcrUpdate = !!(perms & 0x800);
+      const pDisableIcrUpdate = !!(perms & 0x1000);
+      const pDisableMssrUpdate = !!(perms & 0x2000);
+      const pDisableBsrmUpdate = !!(perms & 0x4000);
+      const pDisableCollateralBidding = !!(perms & 0x8000);
+      setPermChargeMarketFee(pChargeMarketFee);
       setPermWhiteList(pWhiteList);
+      setPermOverrideAuthority(pOverrideAuthority);
       setPermTransferRestricted(pTransferRestricted);
+      setPermDisableForceSettle(pDisableForceSettle);
+      setPermGlobalSettle(pGlobalSettle);
       setPermDisableConfidential(pDisableConfidential);
       setPermWitnessFedAsset(pWitnessFedAsset);
       setPermCommitteeFedAsset(pCommitteeFedAsset);
-      // Defaults: all true. If any is false, section should be expanded
-      if (!pWhiteList || !pTransferRestricted || !pDisableConfidential || !pWitnessFedAsset || !pCommitteeFedAsset) {
+      setPermLockMaxSupply(pLockMaxSupply);
+      setPermDisableNewSupply(pDisableNewSupply);
+      setPermDisableMcrUpdate(pDisableMcrUpdate);
+      setPermDisableIcrUpdate(pDisableIcrUpdate);
+      setPermDisableMssrUpdate(pDisableMssrUpdate);
+      setPermDisableBsrmUpdate(pDisableBsrmUpdate);
+      setPermDisableCollateralBidding(pDisableCollateralBidding);
+      // Defaults: most permissions are true, while the owner-update locks default to false.
+      if (!pChargeMarketFee || !pWhiteList || !pOverrideAuthority || !pTransferRestricted || !pDisableForceSettle || !pGlobalSettle || !pDisableConfidential || !pWitnessFedAsset || !pCommitteeFedAsset || !pLockMaxSupply || !pDisableNewSupply || pDisableMcrUpdate || pDisableIcrUpdate || pDisableMssrUpdate || pDisableBsrmUpdate || !pDisableCollateralBidding) {
         hasNonDefaultPerms = true;
       }
     }
     if (typeof flgs === "number") {
+      const fChargeMarketFee = !!(flgs & 0x01);
       const fWhiteList = !!(flgs & 0x02);
+      const fOverrideAuthority = !!(flgs & 0x04);
       const fTransferRestricted = !!(flgs & 0x08);
+      const fDisableForceSettle = !!(flgs & 0x10);
       const fDisableConfidential = !!(flgs & 0x40);
       const fWitnessFedAsset = !!(flgs & 0x80);
       const fCommitteeFedAsset = !!(flgs & 0x100);
+      const fLockMaxSupply = !!(flgs & 0x200);
+      const fDisableNewSupply = !!(flgs & 0x400);
+      const fDisableMcrUpdate = !!(flgs & 0x800);
+      const fDisableIcrUpdate = !!(flgs & 0x1000);
+      const fDisableMssrUpdate = !!(flgs & 0x2000);
+      const fDisableBsrmUpdate = !!(flgs & 0x4000);
+      const fDisableCollateralBidding = !!(flgs & 0x8000);
+      setFlagChargeMarketFee(fChargeMarketFee);
       setFlagWhiteList(fWhiteList);
+      setFlagOverrideAuthority(fOverrideAuthority);
       setFlagTransferRestricted(fTransferRestricted);
+      setFlagDisableForceSettle(fDisableForceSettle);
       setFlagDisableConfidential(fDisableConfidential);
       setFlagWitnessFedAsset(fWitnessFedAsset);
       setFlagCommitteeFedAsset(fCommitteeFedAsset);
+      setFlagLockMaxSupply(fLockMaxSupply);
+      setFlagDisableNewSupply(fDisableNewSupply);
+      setFlagDisableMcrUpdate(fDisableMcrUpdate);
+      setFlagDisableIcrUpdate(fDisableIcrUpdate);
+      setFlagDisableMssrUpdate(fDisableMssrUpdate);
+      setFlagDisableBsrmUpdate(fDisableBsrmUpdate);
+      setFlagDisableCollateralBidding(fDisableCollateralBidding);
       // Defaults: all false. If any is true, section should be expanded
-      if (fWhiteList || fTransferRestricted || fDisableConfidential || fWitnessFedAsset || fCommitteeFedAsset) {
+      if (fChargeMarketFee || fWhiteList || fOverrideAuthority || fTransferRestricted || fDisableForceSettle || fDisableConfidential || fWitnessFedAsset || fCommitteeFedAsset || fLockMaxSupply || fDisableNewSupply || fDisableMcrUpdate || fDisableIcrUpdate || fDisableMssrUpdate || fDisableBsrmUpdate || fDisableCollateralBidding) {
         hasNonDefaultFlags = true;
       }
     }
@@ -560,19 +602,41 @@ export default function Prediction(properties) {
     return 16;
   }, [creationMode, selectedOrg]);
 
-  // Initializing permissions
+  // Most permissions default to true. The owner-update locks are permission-only
+  // and default to disabled until explicitly and permanently enabled on-chain.
+  const [permChargeMarketFee, setPermChargeMarketFee] = useState(true);
   const [permWhiteList, setPermWhiteList] = useState(true);
+  const [permOverrideAuthority, setPermOverrideAuthority] = useState(true);
   const [permTransferRestricted, setPermTransferRestricted] = useState(true);
+  const [permDisableForceSettle, setPermDisableForceSettle] = useState(false);
+  const [permGlobalSettle, setPermGlobalSettle] = useState(true);
   const [permDisableConfidential, setPermDisableConfidential] = useState(true);
   const [permWitnessFedAsset, setPermWitnessFedAsset] = useState(true);
   const [permCommitteeFedAsset, setPermCommitteeFedAsset] = useState(true);
+  const [permLockMaxSupply, setPermLockMaxSupply] = useState(true);
+  const [permDisableNewSupply, setPermDisableNewSupply] = useState(true);
+  const [permDisableMcrUpdate, setPermDisableMcrUpdate] = useState(true);
+  const [permDisableIcrUpdate, setPermDisableIcrUpdate] = useState(true);
+  const [permDisableMssrUpdate, setPermDisableMssrUpdate] = useState(true);
+  const [permDisableBsrmUpdate, setPermDisableBsrmUpdate] = useState(true);
+  const [permDisableCollateralBidding, setPermDisableCollateralBidding] = useState(true);
 
-  // Initializing flags
+  // Initializing flags (all default to false)
+  const [flagChargeMarketFee, setFlagChargeMarketFee] = useState(true);
   const [flagWhiteList, setFlagWhiteList] = useState(false);
+  const [flagOverrideAuthority, setFlagOverrideAuthority] = useState(false);
   const [flagTransferRestricted, setFlagTransferRestricted] = useState(false);
+  const [flagDisableForceSettle, setFlagDisableForceSettle] = useState(false);
   const [flagDisableConfidential, setFlagDisableConfidential] = useState(false);
   const [flagWitnessFedAsset, setFlagWitnessFedAsset] = useState(false);
   const [flagCommitteeFedAsset, setFlagCommitteeFedAsset] = useState(false);
+  const [flagLockMaxSupply, setFlagLockMaxSupply] = useState(false);
+  const [flagDisableNewSupply, setFlagDisableNewSupply] = useState(false);
+  const [flagDisableMcrUpdate, setFlagDisableMcrUpdate] = useState(false);
+  const [flagDisableIcrUpdate, setFlagDisableIcrUpdate] = useState(false);
+  const [flagDisableMssrUpdate, setFlagDisableMssrUpdate] = useState(false);
+  const [flagDisableBsrmUpdate, setFlagDisableBsrmUpdate] = useState(false);
+  const [flagDisableCollateralBidding, setFlagDisableCollateralBidding] = useState(true);
 
   const [whitelistAuthorities, setWhitelistAuthorities] = useState([]); // whitelist_authorities
   const [blacklistAuthorities, setBlacklistAuthorities] = useState([]); // blacklist_authorities
@@ -705,47 +769,26 @@ export default function Prediction(properties) {
     debouncedCalculateFee();
   }, [debouncedCalculateFee]);
 
-  useEffect(() => {
-    if (!permWhiteList) {
-      setFlagWhiteList(false);
-    }
-  }, [permWhiteList]);
+  // When a permission is disabled, its flag must also be off
+  useEffect(() => { if (!permChargeMarketFee) setFlagChargeMarketFee(false); }, [permChargeMarketFee]);
+  useEffect(() => { if (!permWhiteList) setFlagWhiteList(false); }, [permWhiteList]);
+  useEffect(() => { if (!permOverrideAuthority) setFlagOverrideAuthority(false); }, [permOverrideAuthority]);
+  useEffect(() => { if (!permTransferRestricted) setFlagTransferRestricted(false); }, [permTransferRestricted]);
+  useEffect(() => { if (!permDisableForceSettle) setFlagDisableForceSettle(false); }, [permDisableForceSettle]);
+  useEffect(() => { if (!permDisableConfidential) setFlagDisableConfidential(false); }, [permDisableConfidential]);
+  useEffect(() => { if (!permWitnessFedAsset) setFlagWitnessFedAsset(false); }, [permWitnessFedAsset]);
+  useEffect(() => { if (!permCommitteeFedAsset) setFlagCommitteeFedAsset(false); }, [permCommitteeFedAsset]);
+  useEffect(() => { if (permLockMaxSupply) setFlagLockMaxSupply(false); }, [permLockMaxSupply]);
+  useEffect(() => { if (permDisableNewSupply) setFlagDisableNewSupply(false); }, [permDisableNewSupply]);
+  useEffect(() => { if (!permDisableMcrUpdate) setFlagDisableMcrUpdate(false); }, [permDisableMcrUpdate]);
+  useEffect(() => { if (!permDisableIcrUpdate) setFlagDisableIcrUpdate(false); }, [permDisableIcrUpdate]);
+  useEffect(() => { if (!permDisableMssrUpdate) setFlagDisableMssrUpdate(false); }, [permDisableMssrUpdate]);
+  useEffect(() => { if (!permDisableBsrmUpdate) setFlagDisableBsrmUpdate(false); }, [permDisableBsrmUpdate]);
+  useEffect(() => { if (permDisableCollateralBidding) setFlagDisableCollateralBidding(false); }, [permDisableCollateralBidding]);
 
-  useEffect(() => {
-    if (!permTransferRestricted) {
-      setFlagTransferRestricted(false);
-    }
-  }, [permTransferRestricted]);
-
-  useEffect(() => {
-    if (!permDisableConfidential) {
-      setFlagDisableConfidential(false);
-    }
-  }, [permDisableConfidential]);
-
-  useEffect(() => {
-    if (!permWitnessFedAsset) {
-      setFlagWitnessFedAsset(false);
-    }
-  }, [permWitnessFedAsset]);
-
-  useEffect(() => {
-    if (!permCommitteeFedAsset) {
-      setFlagCommitteeFedAsset(false);
-    }
-  }, [permCommitteeFedAsset]);
-
-  useEffect(() => {
-    if (flagWitnessFedAsset) {
-      setFlagCommitteeFedAsset(false); // if witness fed selected, disable committee fed
-    }
-  }, [flagWitnessFedAsset]);
-
-  useEffect(() => {
-    if (flagCommitteeFedAsset) {
-      setFlagWitnessFedAsset(false); // if committee fed selected, disable witness fed
-    }
-  }, [flagCommitteeFedAsset]);
+  // Witness fed and committee fed are mutually exclusive
+  useEffect(() => { if (flagWitnessFedAsset) setFlagCommitteeFedAsset(false); }, [flagWitnessFedAsset]);
+  useEffect(() => { if (flagCommitteeFedAsset) setFlagWitnessFedAsset(false); }, [flagCommitteeFedAsset]);
 
   const [showDialog, setShowDialog] = useState(false);
   const [expiryWarningDialog, setExpiryWarningDialog] = useState(false);
@@ -767,51 +810,99 @@ export default function Prediction(properties) {
   const issuer_permissions = useMemo(() => {
     return getPermissions(
       {
-        // user configurable
+        charge_market_fee: permChargeMarketFee,
         white_list: permWhiteList,
+        override_authority: permOverrideAuthority,
         transfer_restricted: permTransferRestricted,
+        disable_force_settle: permDisableForceSettle,
+        global_settle: permGlobalSettle,
         disable_confidential: permDisableConfidential,
-        // static
-        charge_market_fee: true,
-        override_authority: false,
-        disable_force_settle: true,
-        global_settle: true,
-        // optional
         witness_fed_asset: permWitnessFedAsset,
         committee_fed_asset: permCommitteeFedAsset,
+        lock_max_supply: permLockMaxSupply,
+        disable_new_supply: permDisableNewSupply,
+        disable_mcr_update: permDisableMcrUpdate,
+        disable_icr_update: permDisableIcrUpdate,
+        disable_mssr_update: permDisableMssrUpdate,
+        disable_bsrm_update: permDisableBsrmUpdate,
+        disable_collateral_bidding: permDisableCollateralBidding,
       },
       true
     );
   }, [
-    permWhiteList,
-    permTransferRestricted,
-    permDisableConfidential,
-    permWitnessFedAsset,
-    permCommitteeFedAsset,
+    permChargeMarketFee, permWhiteList, permOverrideAuthority,
+    permTransferRestricted, permDisableForceSettle, permGlobalSettle,
+    permDisableConfidential, permWitnessFedAsset, permCommitteeFedAsset,
+    permLockMaxSupply, permDisableNewSupply, permDisableMcrUpdate,
+    permDisableIcrUpdate, permDisableMssrUpdate, permDisableBsrmUpdate,
+    permDisableCollateralBidding,
   ]);
 
   const flags = useMemo(() => {
     return getFlags({
-      // user configurable
+      charge_market_fee: flagChargeMarketFee,
       white_list: flagWhiteList,
+      override_authority: flagOverrideAuthority,
       transfer_restricted: flagTransferRestricted,
+      disable_force_settle: flagDisableForceSettle,
       disable_confidential: flagDisableConfidential,
-      // static
-      charge_market_fee: true,
-      override_authority: false,
-      disable_force_settle: true,
-      global_settle: false,
-      // optional
       witness_fed_asset: flagWitnessFedAsset,
       committee_fed_asset: flagCommitteeFedAsset,
+      lock_max_supply: flagLockMaxSupply,
+      disable_new_supply: flagDisableNewSupply,
+      disable_collateral_bidding: flagDisableCollateralBidding,
     });
   }, [
-    flagWhiteList,
-    flagTransferRestricted,
-    flagDisableConfidential,
-    flagWitnessFedAsset,
-    flagCommitteeFedAsset,
+    flagChargeMarketFee, flagWhiteList, flagOverrideAuthority,
+    flagTransferRestricted, flagDisableForceSettle,
+    flagDisableConfidential, flagWitnessFedAsset, flagCommitteeFedAsset,
+    flagLockMaxSupply, flagDisableNewSupply, flagDisableCollateralBidding,
   ]);
+
+  // When editing an existing asset, any permission that is already disabled
+  // on the blockchain must remain disabled and cannot be re-enabled via UI.
+  // Compute a map of locked permissions based on the existing asset's
+  // issuer_permissions bitmask (if present).
+  const lockedPermissions = useMemo(() => {
+    const mask = existingAsset?.options?.issuer_permissions;
+    if (!isEditMode || typeof mask !== "number") return {
+      charge_market_fee: false,
+      white_list: false,
+      override_authority: false,
+      transfer_restricted: false,
+      disable_force_settle: false,
+      global_settle: false,
+      disable_confidential: false,
+      witness_fed_asset: false,
+      committee_fed_asset: false,
+      lock_max_supply: false,
+      disable_new_supply: false,
+      disable_mcr_update: false,
+      disable_icr_update: false,
+      disable_mssr_update: false,
+      disable_bsrm_update: false,
+      disable_collateral_bidding: false,
+    };
+
+    return {
+      charge_market_fee: !(mask & 0x01),
+      white_list: !(mask & 0x02),
+      override_authority: !(mask & 0x04),
+      transfer_restricted: !(mask & 0x08),
+      disable_force_settle: !(mask & 0x10),
+      global_settle: !(mask & 0x20),
+      disable_confidential: !(mask & 0x40),
+      witness_fed_asset: !(mask & 0x80),
+      committee_fed_asset: !(mask & 0x100),
+      lock_max_supply: !(mask & 0x200),
+      disable_new_supply: !(mask & 0x400),
+      disable_mcr_update: !!(mask & 0x800),
+      disable_icr_update: !!(mask & 0x1000),
+      disable_mssr_update: !!(mask & 0x2000),
+      disable_bsrm_update: !!(mask & 0x4000),
+      disable_collateral_bidding: !(mask & 0x8000),
+    };
+  }, [existingAsset, isEditMode]);
 
   const description = useMemo(() => {
     let _description = {
@@ -2351,106 +2442,71 @@ export default function Prediction(properties) {
                   {t("AssetCommon:permissions.header")}
                 </h4>
                 <div className="rounded-lg border border-white/10 bg-white/[0.03] [&_button[role=checkbox]]:border-white/30 [&_button[role=checkbox]]:bg-white/5 [&_button[role=checkbox][data-state=checked]]:bg-violet-500 [&_button[role=checkbox][data-state=checked]]:border-violet-500 [&_button[role=checkbox][data-state=checked]]:text-white">
-                  <AssetPermission
-                    alreadyDisabled={false}
-                    id={"white_list"}
-                    allowedText={t(
-                      "AssetCommon:permissions.white_list.about"
-                    )}
-                    enabledInfo={t(
-                      "AssetCommon:permissions.white_list.enabledInfo"
-                    )}
-                    disabledText={t(
-                      "AssetCommon:permissions.white_list.about"
-                    )}
-                    disabledInfo={t(
-                      "AssetCommon:permissions.white_list.disabledInfo"
-                    )}
-                    permission={permWhiteList}
-                    setPermission={setPermWhiteList}
-                    flag={flagWhiteList}
-                    setFlag={setFlagWhiteList}
-                  />
-                  <AssetPermission
-                    alreadyDisabled={false}
-                    id={"transfer_restricted"}
-                    allowedText={t(
-                      "AssetCommon:permissions.transfer_restricted.about"
-                    )}
-                    enabledInfo={t(
-                      "AssetCommon:permissions.transfer_restricted.enabledInfo"
-                    )}
-                    disabledText={t(
-                      "AssetCommon:permissions.transfer_restricted.about"
-                    )}
-                    disabledInfo={t(
-                      "AssetCommon:permissions.transfer_restricted.disabledInfo"
-                    )}
-                    permission={permTransferRestricted}
-                    setPermission={setPermTransferRestricted}
-                    flag={flagTransferRestricted}
-                    setFlag={setFlagTransferRestricted}
-                  />
-                  <AssetPermission
-                    alreadyDisabled={false}
-                    id={"disable_confidential"}
-                    allowedText={t(
-                      "AssetCommon:permissions.disable_confidential.about"
-                    )}
-                    enabledInfo={t(
-                      "AssetCommon:permissions.disable_confidential.enabledInfo"
-                    )}
-                    disabledText={t(
-                      "AssetCommon:permissions.disable_confidential.about"
-                    )}
-                    disabledInfo={t(
-                      "AssetCommon:permissions.disable_confidential.disabledInfo"
-                    )}
-                    permission={permDisableConfidential}
-                    setPermission={setPermDisableConfidential}
-                    flag={flagDisableConfidential}
-                    setFlag={setFlagDisableConfidential}
-                  />
-                  <AssetPermission
-                    alreadyDisabled={false}
-                    id={"witness_fed_asset"}
-                    allowedText={t(
-                      "AssetCommon:permissions.witness_fed_asset.about"
-                    )}
-                    enabledInfo={t(
-                      "AssetCommon:permissions.witness_fed_asset.enabledInfo"
-                    )}
-                    disabledText={t(
-                      "AssetCommon:permissions.witness_fed_asset.about"
-                    )}
-                    disabledInfo={t(
-                      "AssetCommon:permissions.witness_fed_asset.disabledInfo"
-                    )}
-                    permission={permWitnessFedAsset}
-                    setPermission={setPermWitnessFedAsset}
-                    flag={flagWitnessFedAsset}
-                    setFlag={setFlagWitnessFedAsset}
-                  />
-                  <AssetPermission
-                    alreadyDisabled={false}
-                    id={"committee_fed_asset"}
-                    allowedText={t(
-                      "AssetCommon:permissions.committee_fed_asset.about"
-                    )}
-                    enabledInfo={t(
-                      "AssetCommon:permissions.committee_fed_asset.enabledInfo"
-                    )}
-                    disabledText={t(
-                      "AssetCommon:permissions.committee_fed_asset.about"
-                    )}
-                    disabledInfo={t(
-                      "AssetCommon:permissions.committee_fed_asset.disabledInfo"
-                    )}
-                    permission={permCommitteeFedAsset}
-                    setPermission={setPermCommitteeFedAsset}
-                    flag={flagCommitteeFedAsset}
-                    setFlag={setFlagCommitteeFedAsset}
-                  />
+                  <AssetPermission alreadyDisabled={lockedPermissions.charge_market_fee} id="charge_market_fee"
+                    allowedText={t("AssetCommon:permissions.charge_market_fee.about")} enabledInfo={t("AssetCommon:permissions.charge_market_fee.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.charge_market_fee.about")} disabledInfo={t("AssetCommon:permissions.charge_market_fee.disabledInfo")}
+                    permission={permChargeMarketFee} setPermission={setPermChargeMarketFee} flag={flagChargeMarketFee} setFlag={setFlagChargeMarketFee} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.white_list} id="white_list"
+                    allowedText={t("AssetCommon:permissions.white_list.about")} enabledInfo={t("AssetCommon:permissions.white_list.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.white_list.about")} disabledInfo={t("AssetCommon:permissions.white_list.disabledInfo")}
+                    permission={permWhiteList} setPermission={setPermWhiteList} flag={flagWhiteList} setFlag={setFlagWhiteList} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.override_authority} id="override_authority"
+                    allowedText={t("AssetCommon:permissions.override_authority.about")} enabledInfo={t("AssetCommon:permissions.override_authority.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.override_authority.about")} disabledInfo={t("AssetCommon:permissions.override_authority.disabledInfo")}
+                    permission={permOverrideAuthority} setPermission={setPermOverrideAuthority} flag={flagOverrideAuthority} setFlag={setFlagOverrideAuthority} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.transfer_restricted} id="transfer_restricted"
+                    allowedText={t("AssetCommon:permissions.transfer_restricted.about")} enabledInfo={t("AssetCommon:permissions.transfer_restricted.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.transfer_restricted.about")} disabledInfo={t("AssetCommon:permissions.transfer_restricted.disabledInfo")}
+                    permission={permTransferRestricted} setPermission={setPermTransferRestricted} flag={flagTransferRestricted} setFlag={setFlagTransferRestricted} />
+                  
+                  <AssetPermission alreadyDisabled={lockedPermissions.disable_confidential} id="disable_confidential"
+                    allowedText={t("AssetCommon:permissions.disable_confidential.about")} enabledInfo={t("AssetCommon:permissions.disable_confidential.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.disable_confidential.about")} disabledInfo={t("AssetCommon:permissions.disable_confidential.disabledInfo")}
+                    permission={permDisableConfidential} setPermission={setPermDisableConfidential} flag={flagDisableConfidential} setFlag={setFlagDisableConfidential} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.witness_fed_asset} id="witness_fed_asset"
+                    allowedText={t("AssetCommon:permissions.witness_fed_asset.about")} enabledInfo={t("AssetCommon:permissions.witness_fed_asset.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.witness_fed_asset.about")} disabledInfo={t("AssetCommon:permissions.witness_fed_asset.disabledInfo")}
+                    permission={permWitnessFedAsset} setPermission={setPermWitnessFedAsset} flag={flagWitnessFedAsset} setFlag={setFlagWitnessFedAsset} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.committee_fed_asset} id="committee_fed_asset"
+                    allowedText={t("AssetCommon:permissions.committee_fed_asset.about")} enabledInfo={t("AssetCommon:permissions.committee_fed_asset.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.committee_fed_asset.about")} disabledInfo={t("AssetCommon:permissions.committee_fed_asset.disabledInfo")}
+                    permission={permCommitteeFedAsset} setPermission={setPermCommitteeFedAsset} flag={flagCommitteeFedAsset} setFlag={setFlagCommitteeFedAsset} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.lock_max_supply} id="lock_max_supply"
+                    allowedText={t("AssetCommon:permissions.lock_max_supply.about")} enabledInfo={t("AssetCommon:permissions.lock_max_supply.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.lock_max_supply.about")} disabledInfo={t("AssetCommon:permissions.lock_max_supply.disabledInfo")}
+                    permission={permLockMaxSupply} setPermission={setPermLockMaxSupply} flag={flagLockMaxSupply} setFlag={setFlagLockMaxSupply} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.disable_new_supply} id="disable_new_supply"
+                    allowedText={t("AssetCommon:permissions.disable_new_supply.about")} enabledInfo={t("AssetCommon:permissions.disable_new_supply.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.disable_new_supply.about")} disabledInfo={t("AssetCommon:permissions.disable_new_supply.disabledInfo")}
+                    permission={permDisableNewSupply} setPermission={setPermDisableNewSupply} flag={flagDisableNewSupply} setFlag={setFlagDisableNewSupply} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.disable_collateral_bidding} id="disable_collateral_bidding" forceDisabled={true}
+                    allowedText={t("AssetCommon:permissions.disable_collateral_bidding.about")} enabledInfo={t("AssetCommon:permissions.disable_collateral_bidding.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.disable_collateral_bidding.about")} disabledInfo={t("AssetCommon:permissions.disable_collateral_bidding.disabledInfo")}
+                    permission={permDisableCollateralBidding} setPermission={setPermDisableCollateralBidding} flag={flagDisableCollateralBidding} setFlag={setFlagDisableCollateralBidding} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.disable_force_settle} id="disable_force_settle" forceDisabled={true}
+                    allowedText={t("AssetCommon:permissions.disable_force_settle.about")} enabledInfo={t("AssetCommon:permissions.disable_force_settle.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.disable_force_settle.about")} disabledInfo={t("AssetCommon:permissions.disable_force_settle.disabledInfo")}
+                    permission={permDisableForceSettle} setPermission={setPermDisableForceSettle} flag={flagDisableForceSettle} setFlag={setFlagDisableForceSettle} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.global_settle} id="global_settle" forceDisabled={true}
+                    allowedText={t("AssetCommon:permissions.global_settle.about")} enabledInfo={t("AssetCommon:permissions.global_settle.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.global_settle.about")} disabledInfo={t("AssetCommon:permissions.global_settle.disabledInfo")}
+                    permission={permGlobalSettle} setPermission={setPermGlobalSettle} flag={false} setFlag={() => {}} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.disable_mcr_update} id="disable_mcr_update" forceDisabled={true}
+                    allowedText={t("AssetCommon:permissions.disable_mcr_update.about")} enabledInfo={t("AssetCommon:permissions.disable_mcr_update.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.disable_mcr_update.about")} disabledInfo={t("AssetCommon:permissions.disable_mcr_update.disabledInfo")}
+                    permission={permDisableMcrUpdate} setPermission={setPermDisableMcrUpdate} flag={false} setFlag={() => {}} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.disable_icr_update} id="disable_icr_update" forceDisabled={true}
+                    allowedText={t("AssetCommon:permissions.disable_icr_update.about")} enabledInfo={t("AssetCommon:permissions.disable_icr_update.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.disable_icr_update.about")} disabledInfo={t("AssetCommon:permissions.disable_icr_update.disabledInfo")}
+                    permission={permDisableIcrUpdate} setPermission={setPermDisableIcrUpdate} flag={false} setFlag={() => {}} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.disable_mssr_update} id="disable_mssr_update" forceDisabled={true}
+                    allowedText={t("AssetCommon:permissions.disable_mssr_update.about")} enabledInfo={t("AssetCommon:permissions.disable_mssr_update.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.disable_mssr_update.about")} disabledInfo={t("AssetCommon:permissions.disable_mssr_update.disabledInfo")}
+                    permission={permDisableMssrUpdate} setPermission={setPermDisableMssrUpdate} flag={false} setFlag={() => {}} />
+                  <AssetPermission alreadyDisabled={lockedPermissions.disable_bsrm_update} id="disable_bsrm_update" forceDisabled={true}
+                    allowedText={t("AssetCommon:permissions.disable_bsrm_update.about")} enabledInfo={t("AssetCommon:permissions.disable_bsrm_update.enabledInfo")}
+                    disabledText={t("AssetCommon:permissions.disable_bsrm_update.about")} disabledInfo={t("AssetCommon:permissions.disable_bsrm_update.disabledInfo")}
+                    permission={permDisableBsrmUpdate} setPermission={setPermDisableBsrmUpdate} flag={false} setFlag={() => {}} />
                 </div>
               </div>
 
@@ -2459,97 +2515,50 @@ export default function Prediction(properties) {
                   {t("AssetCommon:flags.header")}
                 </h4>
                 <div className="rounded-lg border border-white/10 bg-white/[0.03] [&_button[role=checkbox]]:border-white/30 [&_button[role=checkbox]]:bg-white/5 [&_button[role=checkbox][data-state=checked]]:bg-violet-500 [&_button[role=checkbox][data-state=checked]]:border-violet-500 [&_button[role=checkbox][data-state=checked]]:text-white">
-                  <AssetFlag
-                    alreadyDisabled={false}
-                    id={"white_list_flag"}
-                    allowedText={t("AssetCommon:flags.white_list.about")}
-                    enabledInfo={t(
-                      "AssetCommon:flags.white_list.enabledInfo"
-                    )}
-                    disabledText={t("AssetCommon:flags.white_list.about")}
-                    disabledInfo={t(
-                      "AssetCommon:flags.white_list.disabledInfo"
-                    )}
-                    permission={permWhiteList}
-                    flag={flagWhiteList}
-                    setFlag={setFlagWhiteList}
-                  />
-                  <AssetFlag
-                    alreadyDisabled={false}
-                    id={"transfer_restricted_flag"}
-                    allowedText={t(
-                      "AssetCommon:flags.transfer_restricted.about"
-                    )}
-                    enabledInfo={t(
-                      "AssetCommon:flags.transfer_restricted.enabledInfo"
-                    )}
-                    disabledText={t(
-                      "AssetCommon:flags.transfer_restricted.about"
-                    )}
-                    disabledInfo={t(
-                      "AssetCommon:flags.transfer_restricted.disabledInfo"
-                    )}
-                    permission={permTransferRestricted}
-                    flag={flagTransferRestricted}
-                    setFlag={setFlagTransferRestricted}
-                  />
-                  <AssetFlag
-                    alreadyDisabled={false}
-                    id={"disable_confidential_flag"}
-                    allowedText={t(
-                      "AssetCommon:flags.disable_confidential.about"
-                    )}
-                    enabledInfo={t(
-                      "AssetCommon:flags.disable_confidential.enabledInfo"
-                    )}
-                    disabledText={t(
-                      "AssetCommon:flags.disable_confidential.about"
-                    )}
-                    disabledInfo={t(
-                      "AssetCommon:flags.disable_confidential.disabledInfo"
-                    )}
-                    permission={permDisableConfidential}
-                    flag={flagDisableConfidential}
-                    setFlag={setFlagDisableConfidential}
-                  />
-                  <AssetFlag
-                    alreadyDisabled={false}
-                    id={"witness_fed_asset_flag"}
-                    allowedText={t(
-                      "AssetCommon:flags.witness_fed_asset.about"
-                    )}
-                    enabledInfo={t(
-                      "AssetCommon:flags.witness_fed_asset.enabledInfo"
-                    )}
-                    disabledText={t(
-                      "AssetCommon:flags.witness_fed_asset.about"
-                    )}
-                    disabledInfo={t(
-                      "AssetCommon:flags.witness_fed_asset.disabledInfo"
-                    )}
-                    permission={permWitnessFedAsset}
-                    flag={flagWitnessFedAsset}
-                    setFlag={setFlagWitnessFedAsset}
-                  />
-                  <AssetFlag
-                    alreadyDisabled={false}
-                    id={"committee_fed_asset_flag"}
-                    allowedText={t(
-                      "AssetCommon:flags.committee_fed_asset.about"
-                    )}
-                    enabledInfo={t(
-                      "AssetCommon:flags.committee_fed_asset.enabledInfo"
-                    )}
-                    disabledText={t(
-                      "AssetCommon:flags.committee_fed_asset.about"
-                    )}
-                    disabledInfo={t(
-                      "AssetCommon:flags.committee_fed_asset.disabledInfo"
-                    )}
-                    permission={permCommitteeFedAsset}
-                    flag={flagCommitteeFedAsset}
-                    setFlag={setFlagCommitteeFedAsset}
-                  />
+                  <AssetFlag alreadyDisabled={lockedPermissions.charge_market_fee} id="charge_market_fee_flag" permission={permChargeMarketFee}
+                    allowedText={t("AssetCommon:flags.charge_market_fee.about")} enabledInfo={t("AssetCommon:flags.charge_market_fee.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.charge_market_fee.about")} disabledInfo={t("AssetCommon:flags.charge_market_fee.disabledInfo")}
+                    flag={flagChargeMarketFee} setFlag={setFlagChargeMarketFee} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.white_list} id="white_list_flag" permission={permWhiteList}
+                    allowedText={t("AssetCommon:flags.white_list.about")} enabledInfo={t("AssetCommon:flags.white_list.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.white_list.about")} disabledInfo={t("AssetCommon:flags.white_list.disabledInfo")}
+                    flag={flagWhiteList} setFlag={setFlagWhiteList} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.override_authority} id="override_authority_flag" permission={permOverrideAuthority}
+                    allowedText={t("AssetCommon:flags.override_authority.about")} enabledInfo={t("AssetCommon:flags.override_authority.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.override_authority.about")} disabledInfo={t("AssetCommon:flags.override_authority.disabledInfo")}
+                    flag={flagOverrideAuthority} setFlag={setFlagOverrideAuthority} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.transfer_restricted} id="transfer_restricted_flag" permission={permTransferRestricted}
+                    allowedText={t("AssetCommon:flags.transfer_restricted.about")} enabledInfo={t("AssetCommon:flags.transfer_restricted.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.transfer_restricted.about")} disabledInfo={t("AssetCommon:flags.transfer_restricted.disabledInfo")}
+                    flag={flagTransferRestricted} setFlag={setFlagTransferRestricted} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.disable_confidential} id="disable_confidential_flag" permission={permDisableConfidential}
+                    allowedText={t("AssetCommon:flags.disable_confidential.about")} enabledInfo={t("AssetCommon:flags.disable_confidential.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.disable_confidential.about")} disabledInfo={t("AssetCommon:flags.disable_confidential.disabledInfo")}
+                    flag={flagDisableConfidential} setFlag={setFlagDisableConfidential} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.witness_fed_asset} id="witness_fed_asset_flag" permission={permWitnessFedAsset}
+                    allowedText={t("AssetCommon:flags.witness_fed_asset.about")} enabledInfo={t("AssetCommon:flags.witness_fed_asset.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.witness_fed_asset.about")} disabledInfo={t("AssetCommon:flags.witness_fed_asset.disabledInfo")}
+                    flag={flagWitnessFedAsset} setFlag={setFlagWitnessFedAsset} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.committee_fed_asset} id="committee_fed_asset_flag" permission={permCommitteeFedAsset}
+                    allowedText={t("AssetCommon:flags.committee_fed_asset.about")} enabledInfo={t("AssetCommon:flags.committee_fed_asset.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.committee_fed_asset.about")} disabledInfo={t("AssetCommon:flags.committee_fed_asset.disabledInfo")}
+                    flag={flagCommitteeFedAsset} setFlag={setFlagCommitteeFedAsset} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.lock_max_supply} id="lock_max_supply_flag" permission={!permLockMaxSupply}
+                    allowedText={t("AssetCommon:flags.lock_max_supply.about")} enabledInfo={t("AssetCommon:flags.lock_max_supply.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.lock_max_supply.about")} disabledInfo={t("AssetCommon:flags.lock_max_supply.disabledInfo")}
+                    flag={flagLockMaxSupply} setFlag={setFlagLockMaxSupply} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.disable_new_supply} id="disable_new_supply_flag" permission={!permDisableNewSupply}
+                    allowedText={t("AssetCommon:flags.disable_new_supply.about")} enabledInfo={t("AssetCommon:flags.disable_new_supply.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.disable_new_supply.about")} disabledInfo={t("AssetCommon:flags.disable_new_supply.disabledInfo")}
+                    flag={flagDisableNewSupply} setFlag={setFlagDisableNewSupply} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.disable_collateral_bidding} id="disable_collateral_bidding_flag" permission={!permDisableCollateralBidding}
+                    allowedText={t("AssetCommon:flags.disable_collateral_bidding.about")} enabledInfo={t("AssetCommon:flags.disable_collateral_bidding.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.disable_collateral_bidding.about")} disabledInfo={t("AssetCommon:flags.disable_collateral_bidding.disabledInfo")}
+                    flag={flagDisableCollateralBidding} setFlag={setFlagDisableCollateralBidding} />
+                  <AssetFlag alreadyDisabled={lockedPermissions.disable_force_settle} id="disable_force_settle_flag" permission={permDisableForceSettle}
+                    allowedText={t("AssetCommon:flags.disable_force_settle.about")} enabledInfo={t("AssetCommon:flags.disable_force_settle.enabledInfo")}
+                    disabledText={t("AssetCommon:flags.disable_force_settle.about")} disabledInfo={t("AssetCommon:flags.disable_force_settle.disabledInfo")}
+                    flag={flagDisableForceSettle} setFlag={setFlagDisableForceSettle} />
                 </div>
               </div>
             </div>

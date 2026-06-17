@@ -140,6 +140,26 @@
       "about": "Désactiver les enchères de garantie",
       "enabledInfo": "Les enchères pour des garanties dans le pool de règlement global sont désactivées. Il n'est PAS autorisé de soumissionner pour des garanties dans le pool de règlement mondial lorsque cet actif a été réglé globalement.",
       "disabledInfo": "Les enchères pour les garanties dans le pool de règlement global sont activées."
+    },
+    "disable_mcr_update": {
+      "about": "Désactiver la mise à jour du MCR par le propriétaire",
+      "enabledInfo": "Le ratio de garantie de maintenance est verrouillé et ne peut pas être modifié par le propriétaire de l'actif.",
+      "disabledInfo": "Le propriétaire de l'actif peut mettre à jour le ratio de garantie de maintenance."
+    },
+    "disable_icr_update": {
+      "about": "Désactiver la mise à jour de l'ICR par le propriétaire",
+      "enabledInfo": "Le ratio de garantie initial est verrouillé et ne peut pas être modifié par le propriétaire de l'actif.",
+      "disabledInfo": "Le propriétaire de l'actif peut mettre à jour le ratio de garantie initial."
+    },
+    "disable_mssr_update": {
+      "about": "Désactiver la mise à jour du MSSR par le propriétaire",
+      "enabledInfo": "Le ratio de raccourcissement maximal est verrouillé et ne peut pas être modifié par le propriétaire de l'actif.",
+      "disabledInfo": "Le propriétaire de l'actif peut mettre à jour le ratio de raccourcissement maximal."
+    },
+    "disable_bsrm_update": {
+      "about": "Désactiver la mise à jour du BSRM par le propriétaire",
+      "enabledInfo": "La stratégie de gestion du risque de cygne noir est verrouillée et ne peut pas être modifiée par le propriétaire de l'actif.",
+      "disabledInfo": "Le propriétaire de l'actif peut mettre à jour la stratégie de gestion du risque de cygne noir."
     }
   },
   "asset_details": {

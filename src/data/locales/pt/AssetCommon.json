@@ -140,6 +140,26 @@
       "about": "Desativar lances colaterais",
       "enabledInfo": "A licitação de garantias no pool de liquidação global está desativada. NÃO é permitida a licitação de garantias no pool de liquidação global quando este ativo tiver sido liquidado globalmente.",
       "disabledInfo": "A licitação de garantias no pool de liquidação global está habilitada."
+    },
+    "disable_mcr_update": {
+      "about": "Desativar atualização de MCR pelo proprietário",
+      "enabledInfo": "A proporção de garantia de manutenção está bloqueada e não pode ser alterada pelo proprietário do ativo.",
+      "disabledInfo": "O proprietário do ativo pode atualizar a proporção de garantia de manutenção."
+    },
+    "disable_icr_update": {
+      "about": "Desativar atualização de ICR pelo proprietário",
+      "enabledInfo": "A proporção de garantia inicial está bloqueada e não pode ser alterada pelo proprietário do ativo.",
+      "disabledInfo": "O proprietário do ativo pode atualizar a proporção de garantia inicial."
+    },
+    "disable_mssr_update": {
+      "about": "Desativar atualização de MSSR pelo proprietário",
+      "enabledInfo": "A proporção máxima de short squeeze está bloqueada e não pode ser alterada pelo proprietário do ativo.",
+      "disabledInfo": "O proprietário do ativo pode atualizar a proporção máxima de short squeeze."
+    },
+    "disable_bsrm_update": {
+      "about": "Desativar atualização de BSRM pelo proprietário",
+      "enabledInfo": "A estratégia de gestão de risco de cisne negro está bloqueada e não pode ser alterada pelo proprietário do ativo.",
+      "disabledInfo": "O proprietário do ativo pode atualizar a estratégia de gestão de risco de cisne negro."
     }
   },
   "asset_details": {

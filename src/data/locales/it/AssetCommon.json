@@ -140,6 +140,26 @@
       "about": "Disabilita le offerte collaterali",
       "enabledInfo": "Le offerte per la garanzia nel pool di regolamento globale sono disabilitate. NON è consentito fare offerte per la garanzia nel pool di regolamento globale quando questa attività è stata regolata a livello globale.",
       "disabledInfo": "Le offerte per la garanzia nel pool di regolamento globale sono abilitate."
+    },
+    "disable_mcr_update": {
+      "about": "Disabilita aggiornamento MCR da parte del proprietario",
+      "enabledInfo": "Il rapporto di garanzia di manutenzione è bloccato e non può essere modificato dal proprietario dell'asset.",
+      "disabledInfo": "Il proprietario dell'asset può aggiornare il rapporto di garanzia di manutenzione."
+    },
+    "disable_icr_update": {
+      "about": "Disabilita aggiornamento ICR da parte del proprietario",
+      "enabledInfo": "Il rapporto di garanzia iniziale è bloccato e non può essere modificato dal proprietario dell'asset.",
+      "disabledInfo": "Il proprietario dell'asset può aggiornare il rapporto di garanzia iniziale."
+    },
+    "disable_mssr_update": {
+      "about": "Disabilita aggiornamento MSSR da parte del proprietario",
+      "enabledInfo": "Il rapporto massimo di short squeeze è bloccato e non può essere modificato dal proprietario dell'asset.",
+      "disabledInfo": "Il proprietario dell'asset può aggiornare il rapporto massimo di short squeeze."
+    },
+    "disable_bsrm_update": {
+      "about": "Disabilita aggiornamento BSRM da parte del proprietario",
+      "enabledInfo": "La strategia di gestione del rischio cigno nero è bloccata e non può essere modificata dal proprietario dell'asset.",
+      "disabledInfo": "Il proprietario dell'asset può aggiornare la strategia di gestione del rischio cigno nero."
     }
   },
   "asset_details": {

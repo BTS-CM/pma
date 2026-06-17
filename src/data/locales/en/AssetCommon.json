@@ -140,6 +140,26 @@
       "about": "Disable collateral bidding",
       "enabledInfo": "Bidding for collateral in the global-settlement pool is disabled, It is NOT allowed to bid for collateral in the global-settlement pool when this asset has been globally settled.",
       "disabledInfo": "Bidding for collateral in the global-settlement pool is enabled."
+    },
+    "disable_mcr_update": {
+      "about": "Disable owner update MCR",
+      "enabledInfo": "The maintenance collateral ratio is locked and cannot be changed by the asset owner.",
+      "disabledInfo": "The asset owner can update the maintenance collateral ratio."
+    },
+    "disable_icr_update": {
+      "about": "Disable owner update ICR",
+      "enabledInfo": "The initial collateral ratio is locked and cannot be changed by the asset owner.",
+      "disabledInfo": "The asset owner can update the initial collateral ratio."
+    },
+    "disable_mssr_update": {
+      "about": "Disable owner update MSSR",
+      "enabledInfo": "The maximum short squeeze ratio is locked and cannot be changed by the asset owner.",
+      "disabledInfo": "The asset owner can update the maximum short squeeze ratio."
+    },
+    "disable_bsrm_update": {
+      "about": "Disable owner update BSRM",
+      "enabledInfo": "The black swan risk management strategy is locked and cannot be changed by the asset owner.",
+      "disabledInfo": "The asset owner can update the black swan risk management strategy."
     }
   },
   "asset_details": {

@@ -101,6 +101,13 @@ const uia_permission_mask = [
   "disable_confidential",
 ];
 
+const permission_only_flags = new Set([
+  "disable_mcr_update",
+  "disable_icr_update",
+  "disable_mssr_update",
+  "disable_bsrm_update",
+]);
+
 /**
  * Given flag mask, return an object with booleans indicating which flags are set
  * @param {number} mask
@@ -127,7 +134,11 @@ function getFlags(flagBooleans) {
   let flags = 0;
 
   keys.forEach((key) => {
-    if (flagBooleans[key] && key !== "global_settle") {
+    if (
+      flagBooleans[key] &&
+      key !== "global_settle" &&
+      !permission_only_flags.has(key)
+    ) {
       flags += permission_flags[key];
     }
   });

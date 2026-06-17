@@ -140,6 +140,26 @@
       "about": "Deaktivieren Sie das Bieten von Sicherheiten",
       "enabledInfo": "Das Bieten für Sicherheiten im Global-Settlement-Pool ist deaktiviert. Es ist NICHT gestattet, für Sicherheiten im Global-Settlement-Pool zu bieten, wenn dieser Vermögenswert global abgewickelt wurde.",
       "disabledInfo": "Das Bieten für Sicherheiten im Global-Settlement-Pool ist aktiviert."
+    },
+    "disable_mcr_update": {
+      "about": "Eigentümer-Update von MCR deaktivieren",
+      "enabledInfo": "Das Maintenance-Collateral-Ratio ist gesperrt und kann vom Eigentümer des Vermögenswerts nicht geändert werden.",
+      "disabledInfo": "Der Eigentümer des Vermögenswerts kann das Maintenance-Collateral-Ratio aktualisieren."
+    },
+    "disable_icr_update": {
+      "about": "Eigentümer-Update von ICR deaktivieren",
+      "enabledInfo": "Das Initial-Collateral-Ratio ist gesperrt und kann vom Eigentümer des Vermögenswerts nicht geändert werden.",
+      "disabledInfo": "Der Eigentümer des Vermögenswerts kann das Initial-Collateral-Ratio aktualisieren."
+    },
+    "disable_mssr_update": {
+      "about": "Eigentümer-Update von MSSR deaktivieren",
+      "enabledInfo": "Das Maximum-Short-Squeeze-Ratio ist gesperrt und kann vom Eigentümer des Vermögenswerts nicht geändert werden.",
+      "disabledInfo": "Der Eigentümer des Vermögenswerts kann das Maximum-Short-Squeeze-Ratio aktualisieren."
+    },
+    "disable_bsrm_update": {
+      "about": "Eigentümer-Update von BSRM deaktivieren",
+      "enabledInfo": "Die Black-Swan-Risk-Management-Strategie ist gesperrt und kann vom Eigentümer des Vermögenswerts nicht geändert werden.",
+      "disabledInfo": "Der Eigentümer des Vermögenswerts kann die Black-Swan-Risk-Management-Strategie aktualisieren."
     }
   },
   "asset_details": {

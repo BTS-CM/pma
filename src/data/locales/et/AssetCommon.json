@@ -140,6 +140,26 @@
       "about": "Keela tagatispakkumine",
       "enabledInfo": "Üldiste arvelduste kogumi tagatise pakkumine on keelatud. Üldiste arvelduste kogumi tagatisele EI OLE lubatud pakkumist teha, kui see vara on globaalselt arveldatud.",
       "disabledInfo": "Globaalses arvelduskogumis tagatise pakkumine on lubatud."
+    },
+    "disable_mcr_update": {
+      "about": "Keela omaniku MCR värskendus",
+      "enabledInfo": "Hoolduskapitali suhe on lukustatud ja vara omanik ei saa seda muuta.",
+      "disabledInfo": "Vara omanik saab värskendada hoolduskapitali suhet."
+    },
+    "disable_icr_update": {
+      "about": "Keela omaniku ICR värskendus",
+      "enabledInfo": "Esialgne kapitali suhe on lukustatud ja vara omanik ei saa seda muuta.",
+      "disabledInfo": "Vara omanik saab värskendada esialgset kapitali suhet."
+    },
+    "disable_mssr_update": {
+      "about": "Keela omaniku MSSR värskendus",
+      "enabledInfo": "Maksimaalne lühikese pigistamise suhe on lukustatud ja vara omanik ei saa seda muuta.",
+      "disabledInfo": "Vara omanik saab värskendada maksimaalset lühikese pigistamise suhet."
+    },
+    "disable_bsrm_update": {
+      "about": "Keela omaniku BSRM värskendus",
+      "enabledInfo": "Musta luige riskihaldusstrateegia on lukustatud ja vara omanik ei saa seda muuta.",
+      "disabledInfo": "Vara omanik saab värskendada musta luige riskihaldusstrateegiat."
     }
   },
   "asset_details": {

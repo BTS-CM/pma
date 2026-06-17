@@ -140,6 +140,26 @@
       "about": "Deshabilitar ofertas de garantía",
       "enabledInfo": "La oferta de garantía en el fondo de liquidación global está deshabilitada. NO está permitido ofertar por garantía en el fondo de liquidación global cuando este activo se haya liquidado globalmente.",
       "disabledInfo": "Está habilitada la oferta de garantías en el fondo de liquidación global."
+    },
+    "disable_mcr_update": {
+      "about": "Deshabilitar actualización de MCR por el propietario",
+      "enabledInfo": "La proporción de garantía de mantenimiento está bloqueada y no puede ser cambiada por el propietario del activo.",
+      "disabledInfo": "El propietario del activo puede actualizar la proporción de garantía de mantenimiento."
+    },
+    "disable_icr_update": {
+      "about": "Deshabilitar actualización de ICR por el propietario",
+      "enabledInfo": "La proporción de garantía inicial está bloqueada y no puede ser cambiada por el propietario del activo.",
+      "disabledInfo": "El propietario del activo puede actualizar la proporción de garantía inicial."
+    },
+    "disable_mssr_update": {
+      "about": "Deshabilitar actualización de MSSR por el propietario",
+      "enabledInfo": "La proporción máxima de short squeeze está bloqueada y no puede ser cambiada por el propietario del activo.",
+      "disabledInfo": "El propietario del activo puede actualizar la proporción máxima de short squeeze."
+    },
+    "disable_bsrm_update": {
+      "about": "Deshabilitar actualización de BSRM por el propietario",
+      "enabledInfo": "La estrategia de gestión de riesgos de cisne negro está bloqueada y no puede ser cambiada por el propietario del activo.",
+      "disabledInfo": "El propietario del activo puede actualizar la estrategia de gestión de riesgos de cisne negro."
     }
   },
   "asset_details": {

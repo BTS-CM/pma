@@ -140,6 +140,26 @@
       "about": "Deaktiver sikkerhedsstillelse",
       "enabledInfo": "Bud på sikkerhed i den globale afviklingspulje er deaktiveret. Det er IKKE tilladt at byde på sikkerhed i den globale afviklingspulje, når dette aktiv er blevet afviklet globalt.",
       "disabledInfo": "Byd på sikkerhed i den globale afviklingspulje er aktiveret."
+    },
+    "disable_mcr_update": {
+      "about": "Deaktiver ejeropdatering af MCR",
+      "enabledInfo": "Vedligeholdelses-kapitalforholdet er låst og kan ikke ændres af aktivets ejer.",
+      "disabledInfo": "Aktivets ejer kan opdatere vedligeholdelses-kapitalforholdet."
+    },
+    "disable_icr_update": {
+      "about": "Deaktiver ejeropdatering af ICR",
+      "enabledInfo": "Det indledende kapitalforhold er låst og kan ikke ændres af aktivets ejer.",
+      "disabledInfo": "Aktivets ejer kan opdatere det indledende kapitalforhold."
+    },
+    "disable_mssr_update": {
+      "about": "Deaktiver ejeropdatering af MSSR",
+      "enabledInfo": "Det maksimale short squeeze-forhold er låst og kan ikke ændres af aktivets ejer.",
+      "disabledInfo": "Aktivets ejer kan opdatere det maksimale short squeeze-forhold."
+    },
+    "disable_bsrm_update": {
+      "about": "Deaktiver ejeropdatering af BSRM",
+      "enabledInfo": "Black swan risikostyringsstrategien er låst og kan ikke ændres af aktivets ejer.",
+      "disabledInfo": "Aktivets ejer kan opdatere black swan risikostyringsstrategien."
     }
   },
   "asset_details": {

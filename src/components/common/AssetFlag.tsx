@@ -22,6 +22,7 @@ interface Props {
   flag: boolean;
   setFlag: (flag: boolean) => void;
   className?: string;
+  forceDisabled?: boolean;
 }
 
 interface MakeHoverProps {
@@ -67,7 +68,7 @@ export default function AssetFlag({
       <span>
         {alreadyDisabled || !permission ? (
           <Checkbox
-            checked={false}
+            checked={flag}
             id={id}
             disabled
           />
@@ -88,7 +89,7 @@ export default function AssetFlag({
       <span className="col-span-10 text-white/70">
         <MakeHover>
           {alreadyDisabled ? (
-            <Label htmlFor={id}>{permission || disabledText}</Label>
+            <Label htmlFor={id}>{disabledText}</Label>
           ) : (
             <Label htmlFor={id}>{flag ? allowedText : disabledText}</Label>
           )}
