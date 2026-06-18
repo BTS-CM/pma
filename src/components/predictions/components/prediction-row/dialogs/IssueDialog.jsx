@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +22,14 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
   const [issuePrompt, setIssuePrompt] = useState(false);
   const [issueAmount, setIssueAmount] = useState(0);
   const [issueDialog, setIssueDialog] = useState(false);
+
+  // Reset dialog state when closed so reopened dialog is fresh
+  useEffect(() => {
+    if (!issuePrompt) {
+      setIssueAmount(0);
+      setIssueDialog(false);
+    }
+  }, [issuePrompt]);
 
   const exceedsBalance = Number(issueAmount) > Number(humanReadableBackingAssetBalance || 0);
   const isZero = !issueAmount || issueAmount <= 0;

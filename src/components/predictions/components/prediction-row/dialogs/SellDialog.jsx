@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -8,9 +8,32 @@ import { ExclamationTriangleIcon, CalendarIcon, Cross2Icon } from "@radix-ui/rea
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+import { Slider } from "@/components/ui/slider";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import { assetAmountRegex, blockchainFloat } from "@/lib/common.js";
 import { cn } from "@/lib/utils";
+
+const DEFAULT_ORDER_PRICE = 0.5;
+const MIN_ORDER_PRICE = 0.00001;
+const MAX_ORDER_PRICE = 0.99999;
+
+function clampOrderPrice(value) {
+  const numericValue = Number(value);
+  if (!Number.isFinite(numericValue)) {
+    return DEFAULT_ORDER_PRICE;
+  }
+
+  return Math.min(MAX_ORDER_PRICE, Math.max(MIN_ORDER_PRICE, numericValue));
+}
+
+function formatAmount(value, precision = 5) {
+  const numericValue = Number(value || 0);
+  if (!Number.isFinite(numericValue)) {
+    return "0";
+  }
+
+  return numericValue.toFixed(precision).replace(/\.?0+$/, "");
+}
 
 function SectionHeader({ label, accent = "rose" }) {
   const accentMap = { rose: "bg-rose-500/60" };
@@ -75,6 +98,10 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t, expiratio
                 fromDate={new Date()}
                 toDate={expiration ? new Date(expiration) : undefined}
                 onSelect={(e) => {
+                  if (!e) {
+                    return;
+                  }
+
                   const selected = new Date(e);
                   const now = new Date();
                   if (selected < now) {
@@ -105,16 +132,37 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t, expiratio
   );
 }
 
-export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance, _backingAssetID, _backingPrecision, market, t, expiration }) {
+export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance, _backingAssetID, _backingPrecision, market, t, expiration, defaultPrice }) {
   const [sellPrompt, setSellPrompt] = useState(false);
-  const [sellAmount, setSellAmount] = useState(0);
+  const [sellAmount, setSellAmount] = useState("");
+  const [sellPrice, setSellPrice] = useState(formatAmount(clampOrderPrice(defaultPrice ?? DEFAULT_ORDER_PRICE)));
   const [sellDialog, setSellDialog] = useState(false);
   const [expiryType, setExpiryType] = useState("specific");
   const [date, setDate] = useState(expiration ? new Date(expiration) : new Date(Date.now() + 1 * 24 * 60 * 60 * 1000));
 
-  const exceedsBalance = sellAmount > humanReadablePredictionMarketAssetBalance;
-  const isZero = !sellAmount || sellAmount <= 0;
-  const canSubmit = !isZero && !exceedsBalance;
+  const initialPrice = clampOrderPrice(defaultPrice ?? DEFAULT_ORDER_PRICE);
+
+  // Reset dialog state when closed so reopened dialog is fresh
+  useEffect(() => {
+    if (!sellPrompt) {
+      setSellAmount("");
+      setSellPrice(formatAmount(initialPrice));
+      setSellDialog(false);
+      setExpiryType("specific");
+      setDate(expiration ? new Date(expiration) : new Date(Date.now() + 1 * 24 * 60 * 60 * 1000));
+    }
+  }, [sellPrompt, expiration, initialPrice]);
+
+  const sellQuantity = Number(sellAmount || 0);
+  const sellPriceValue = clampOrderPrice(sellPrice || initialPrice);
+  const availablePmaBalance = Number(humanReadablePredictionMarketAssetBalance || 0);
+  const orderProceeds = sellQuantity * sellPriceValue;
+  const totalBackingIfNo = sellQuantity + orderProceeds;
+  const exceedsBalance = sellQuantity > availablePmaBalance;
+  const isZero = sellQuantity <= 0;
+  const hasValidPrice = sellPriceValue > 0 && sellPriceValue < 1;
+  const canSubmit = !isZero && !exceedsBalance && hasValidPrice;
+
 
   return (
     <Dialog open={sellPrompt} onOpenChange={setSellPrompt}>
@@ -145,15 +193,25 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
                 <Input
                   type="number"
                   value={sellAmount}
-                  min={1}
-                  step={1}
+                  min={0}
+                  step="any"
                   aria-label={t("Predictions:sellDialog.qtyHeader")}
                   className={cn("pr-16", exceedsBalance && "border-red-500/50 focus-visible:ring-red-500/30")}
-                  onInput={(e) => { if (assetAmountRegex({ precision: res.precision }).test(e.currentTarget.value)) setSellAmount(e.currentTarget.value); }}
+                  onInput={(e) => {
+                    const input = e.currentTarget.value;
+                    if (input === "") {
+                      setSellAmount("");
+                      return;
+                    }
+
+                    if (assetAmountRegex({ precision: res.precision }).test(input)) {
+                      setSellAmount(input);
+                    }
+                  }}
                 />
                 <Button
                   className="absolute right-1 top-1/2 -translate-y-1/2 h-6 px-2 text-[10px] border border-white/[0.12] bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white"
-                  onClick={() => setSellAmount(humanReadablePredictionMarketAssetBalance || 0)}
+                  onClick={() => setSellAmount(formatAmount(availablePmaBalance, res.precision))}
                 >
                   MAX
                 </Button>
@@ -161,16 +219,73 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
               <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
             </div>
             <div className="mt-1 text-xs text-white/50">
-              {t("Predictions:available_balance", { defaultValue: "Available" })}: {humanReadablePredictionMarketAssetBalance} {res.symbol}
+              {t("Predictions:available_balance", { defaultValue: "Available" })}: {formatAmount(availablePmaBalance, res.precision)} {res.symbol}
+            </div>
+          </section>
+
+          <section>
+            <SectionHeader label={t("Predictions:sellDialog.priceHeader", { defaultValue: "Asking price" })} accent="rose" />
+            <div className="space-y-3 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_190px]">
+                <div>
+                  <Slider
+                    variant="rose"
+                    min={0.01}
+                    max={0.99}
+                    step={0.01}
+                    value={[Math.min(0.99, Math.max(0.01, sellPriceValue))]}
+                    onValueChange={(value) => setSellPrice(formatAmount(value[0]))}
+                  />
+                  <div className="mt-2 flex items-center justify-between text-[11px] text-white/40">
+                    <span>0.01</span>
+                    <span>{t("Predictions:sellDialog.priceHelp", { defaultValue: "Backing asset paid per 1 PMA" })}</span>
+                    <span>0.99</span>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <Input
+                    type="number"
+                    value={sellPrice}
+                    min={MIN_ORDER_PRICE}
+                    max={MAX_ORDER_PRICE}
+                    step={0.01}
+                    aria-label={t("Predictions:sellDialog.priceHeader", { defaultValue: "Asking price" })}
+                    onInput={(e) => {
+                      const input = e.currentTarget.value;
+                      if (input === "") {
+                        setSellPrice("");
+                        return;
+                      }
+
+                      if (assetAmountRegex({ precision: Math.min(_backingPrecision || 5, 5) }).test(input)) {
+                        setSellPrice(input);
+                      }
+                    }}
+                    onBlur={() => setSellPrice(formatAmount(sellPriceValue))}
+                  />
+                  <div className="text-[11px] text-white/45">
+                    {formatAmount(sellPriceValue)} {market} / {res.symbol}
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
           {/* Receiving Section */}
           <section>
             <SectionHeader label={t("Predictions:sellDialog.receivingHeader")} accent="rose" />
-            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
-              <div className="text-xs text-white/40 mb-0.5">{t("Predictions:sellDialog.receivingContent")}</div>
-              <div className="text-sm font-semibold text-white">{sellAmount ?? 0} {res.backingAsset.symbol} ({res.backingAsset.id})</div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
+                <div className="text-xs text-white/40 mb-0.5">{t("Predictions:sellDialog.receivingContent", { defaultValue: "Minimum proceeds if filled" })}</div>
+                <div className="text-sm font-semibold text-white">{formatAmount(orderProceeds, _backingPrecision)} {res.backingAsset.symbol} ({res.backingAsset.id})</div>
+              </div>
+              <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 px-4 py-3">
+                <div className="text-xs text-rose-200/60 mb-0.5">{t("Predictions:sellDialog.winEstimate", { defaultValue: "If NO resolves on your own short" })}</div>
+                <div className="text-sm font-semibold text-rose-100">{formatAmount(totalBackingIfNo, _backingPrecision)} {market}</div>
+                <div className="mt-1 text-[11px] text-rose-100/60">
+                  {t("Predictions:sellDialog.winEstimateHelp", { defaultValue: "Sale proceeds plus up to 1:1 collateral returned." })}
+                </div>
+              </div>
             </div>
           </section>
 
@@ -210,8 +325,8 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
             headerText={t("Predictions:dialogContent.header_sell")}
             trxJSON={[{
               seller: usr.id,
-              amount_to_sell: { amount: blockchainFloat(sellAmount, res.precision).toFixed(0), asset_id: res.id },
-              min_to_receive: { amount: blockchainFloat(sellAmount, _backingPrecision).toFixed(0), asset_id: _backingAssetID },
+              amount_to_sell: { amount: blockchainFloat(sellQuantity, res.precision).toFixed(0), asset_id: res.id },
+              min_to_receive: { amount: blockchainFloat(orderProceeds, _backingPrecision).toFixed(0), asset_id: _backingAssetID },
               expiration: date,
               fill_or_kill: expiryType === "fkill",
               extensions: {},

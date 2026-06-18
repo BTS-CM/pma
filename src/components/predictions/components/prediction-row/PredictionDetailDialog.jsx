@@ -682,8 +682,8 @@ export function PredictionDetailDialog({
                     <HoverInfo content={t("Predictions:seller_content")} header={t("Predictions:seller")} type="header" />
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-1">
                       <IssueDialog res={res} usr={usr} backingAssetBalance={backingAssetBalance} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} existingCollateral={existingCollateral} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} />
-                      <SellDialog res={res} usr={usr} humanReadablePredictionMarketAssetBalance={humanReadablePredictionMarketAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} />
-                      <BuyDialog res={res} usr={usr} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} />
+                      <SellDialog res={res} usr={usr} humanReadablePredictionMarketAssetBalance={humanReadablePredictionMarketAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} defaultPrice={marketStats?.impliedYesPrice} />
+                      <BuyDialog res={res} usr={usr} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} defaultPrice={marketStats?.impliedYesPrice} />
                     </div>
                   </div>
                 ) : statusKey === "resolvedYes" ? (
