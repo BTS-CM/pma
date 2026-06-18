@@ -134,7 +134,7 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t, expiratio
 
 export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backingAssetID, _backingPrecision, market, t, expiration, defaultPrice }) {
   const [buyPrompt, setBuyPrompt] = useState(false);
-  const [buyAmount, setBuyAmount] = useState("");
+  const [spendAmount, setSpendAmount] = useState("");
   const [buyPrice, setBuyPrice] = useState(formatAmount(clampOrderPrice(defaultPrice ?? DEFAULT_ORDER_PRICE)));
   const [buyDialog, setBuyDialog] = useState(false);
   const [expiryType, setExpiryType] = useState("specific");
@@ -145,7 +145,7 @@ export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backing
   // Reset dialog state when closed so reopened dialog is fresh
   useEffect(() => {
     if (!buyPrompt) {
-      setBuyAmount("");
+      setSpendAmount("");
       setBuyPrice(formatAmount(initialPrice));
       setBuyDialog(false);
       setExpiryType("specific");
@@ -153,14 +153,14 @@ export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backing
     }
   }, [buyPrompt, expiration, initialPrice]);
 
-  const buyQuantity = Number(buyAmount || 0);
+  const spendAmountValue = Number(spendAmount || 0);
   const buyPriceValue = clampOrderPrice(buyPrice || initialPrice);
   const availableBackingBalance = Number(humanReadableBackingAssetBalance || 0);
-  const totalCost = buyQuantity * buyPriceValue;
-  const redeemableBacking = buyQuantity;
-  const netIfYes = redeemableBacking - totalCost;
-  const exceedsBalance = totalCost > availableBackingBalance;
-  const isZero = buyQuantity <= 0;
+  const estimatedPmaReceived = buyPriceValue > 0 ? spendAmountValue / buyPriceValue : 0;
+  const redeemableBacking = estimatedPmaReceived;
+  const netIfYes = redeemableBacking - spendAmountValue;
+  const exceedsBalance = spendAmountValue > availableBackingBalance;
+  const isZero = spendAmountValue <= 0;
   const hasValidPrice = buyPriceValue > 0 && buyPriceValue < 1;
   const canSubmit = !isZero && !exceedsBalance && hasValidPrice;
 
@@ -187,42 +187,44 @@ export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backing
         <div className="space-y-5">
           {/* Amount Section */}
           <section>
-            <SectionHeader label={t("Predictions:buyDialog.qtyHeader")} accent="emerald" />
+            <SectionHeader label={t("Predictions:buyDialog.amountToSpend", { defaultValue: "Amount to spend" })} accent="emerald" />
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
                 <Input
                   type="number"
-                  value={buyAmount}
+                  value={spendAmount}
                   min={0}
                   step="any"
-                  aria-label={t("Predictions:buyDialog.qtyHeader")}
+                  aria-label={t("Predictions:buyDialog.amountToSpend", { defaultValue: "Amount to spend" })}
                   className={cn("pr-16", exceedsBalance && "border-red-500/50 focus-visible:ring-red-500/30")}
                   onInput={(e) => {
                     const input = e.currentTarget.value;
                     if (input === "") {
-                      setBuyAmount("");
+                      setSpendAmount("");
                       return;
                     }
 
-                    if (assetAmountRegex({ precision: res.precision }).test(input)) {
-                      setBuyAmount(input);
+                    if (assetAmountRegex({ precision: _backingPrecision || 5 }).test(input)) {
+                      setSpendAmount(input);
                     }
                   }}
                 />
                 <Button
                   className="absolute right-1 top-1/2 -translate-y-1/2 h-6 px-2 text-[10px] border border-white/[0.12] bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white"
-                  onClick={() => {
-                    const maxQuantity = buyPriceValue > 0 ? availableBackingBalance / buyPriceValue : 0;
-                    setBuyAmount(formatAmount(maxQuantity, res.precision));
-                  }}
+                  onClick={() => setSpendAmount(formatAmount(availableBackingBalance, _backingPrecision))}
                 >
                   MAX
                 </Button>
               </div>
-              <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
+              <Input type="text" value={`${res.backingAsset.symbol} (${res.backingAsset.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
             </div>
-            <div className="mt-1 text-xs text-white/50">
-              {t("Predictions:available_balance", { defaultValue: "Available" })}: {formatAmount(availableBackingBalance, _backingPrecision)} {res.backingAsset.symbol}
+            <div className="mt-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-xs text-white/55">
+              <div>
+                {t("Predictions:available_balance", { defaultValue: "Available" })}: {formatAmount(availableBackingBalance, _backingPrecision)} {res.backingAsset.symbol}
+              </div>
+              <div className="mt-1 text-white/40">
+                {t("Predictions:buyDialog.estimatedQtyHelp", { defaultValue: "At this price, your spend would buy about" })} {formatAmount(estimatedPmaReceived, res.precision)} {res.symbol}
+              </div>
             </div>
           </section>
 
@@ -279,8 +281,11 @@ export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backing
             <SectionHeader label={t("Predictions:buyDialog.receivingHeader")} accent="emerald" />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
-                <div className="text-xs text-white/40 mb-0.5">{t("Predictions:buyDialog.receivingContent", { defaultValue: "Order cost if filled" })}</div>
-                <div className="text-sm font-semibold text-white">{formatAmount(totalCost, _backingPrecision)} {res.backingAsset.symbol} ({res.backingAsset.id})</div>
+                <div className="text-xs text-white/40 mb-0.5">{t("Predictions:buyDialog.receivingContent", { defaultValue: "Estimated PMA received if filled" })}</div>
+                <div className="text-sm font-semibold text-white">{formatAmount(estimatedPmaReceived, res.precision)} {res.symbol} ({res.id})</div>
+                <div className="mt-1 text-[11px] text-white/45">
+                  {formatAmount(spendAmountValue, _backingPrecision)} {res.backingAsset.symbol} at {formatAmount(buyPriceValue)} {market} per token
+                </div>
               </div>
               <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
                 <div className="text-xs text-emerald-200/60 mb-0.5">{t("Predictions:buyDialog.winEstimate", { defaultValue: "If YES resolves" })}</div>
@@ -328,8 +333,8 @@ export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backing
             headerText={t("Predictions:dialogContent.header_buy")}
             trxJSON={[{
               seller: usr.id,
-              amount_to_sell: { amount: blockchainFloat(totalCost, _backingPrecision).toFixed(0), asset_id: _backingAssetID },
-              min_to_receive: { amount: blockchainFloat(buyQuantity, res.precision).toFixed(0), asset_id: res.id },
+              amount_to_sell: { amount: blockchainFloat(spendAmountValue, _backingPrecision).toFixed(0), asset_id: _backingAssetID },
+              min_to_receive: { amount: blockchainFloat(estimatedPmaReceived, res.precision).toFixed(0), asset_id: res.id },
               expiration: date,
               fill_or_kill: expiryType === "fkill",
               extensions: {},

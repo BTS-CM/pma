@@ -187,7 +187,7 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
         <div className="space-y-5">
           {/* Amount Section */}
           <section>
-            <SectionHeader label={t("Predictions:sellDialog.qtyHeader")} accent="rose" />
+            <SectionHeader label={t("Predictions:sellDialog.quantityToSell", { defaultValue: "Quantity to sell" })} accent="rose" />
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
                 <Input
@@ -195,7 +195,7 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
                   value={sellAmount}
                   min={0}
                   step="any"
-                  aria-label={t("Predictions:sellDialog.qtyHeader")}
+                  aria-label={t("Predictions:sellDialog.quantityToSell", { defaultValue: "Quantity to sell" })}
                   className={cn("pr-16", exceedsBalance && "border-red-500/50 focus-visible:ring-red-500/30")}
                   onInput={(e) => {
                     const input = e.currentTarget.value;
@@ -218,8 +218,13 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
               </div>
               <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
             </div>
-            <div className="mt-1 text-xs text-white/50">
-              {t("Predictions:available_balance", { defaultValue: "Available" })}: {formatAmount(availablePmaBalance, res.precision)} {res.symbol}
+            <div className="mt-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-xs text-white/55">
+              <div>
+                {t("Predictions:available_balance", { defaultValue: "Available" })}: {formatAmount(availablePmaBalance, res.precision)} {res.symbol}
+              </div>
+              <div className="mt-1 text-white/40">
+                {t("Predictions:sellDialog.proceedsHelp", { defaultValue: "At this price, selling this amount would return about" })} {formatAmount(orderProceeds, _backingPrecision)} {res.backingAsset.symbol}
+              </div>
             </div>
           </section>
 
@@ -276,8 +281,11 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
             <SectionHeader label={t("Predictions:sellDialog.receivingHeader")} accent="rose" />
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
-                <div className="text-xs text-white/40 mb-0.5">{t("Predictions:sellDialog.receivingContent", { defaultValue: "Minimum proceeds if filled" })}</div>
+                <div className="text-xs text-white/40 mb-0.5">{t("Predictions:sellDialog.receivingContent", { defaultValue: "Estimated backing received if filled" })}</div>
                 <div className="text-sm font-semibold text-white">{formatAmount(orderProceeds, _backingPrecision)} {res.backingAsset.symbol} ({res.backingAsset.id})</div>
+                <div className="mt-1 text-[11px] text-white/45">
+                  {formatAmount(sellQuantity, res.precision)} {res.symbol} at {formatAmount(sellPriceValue)} {market} per token
+                </div>
               </div>
               <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 px-4 py-3">
                 <div className="text-xs text-rose-200/60 mb-0.5">{t("Predictions:sellDialog.winEstimate", { defaultValue: "If NO resolves on your own short" })}</div>
