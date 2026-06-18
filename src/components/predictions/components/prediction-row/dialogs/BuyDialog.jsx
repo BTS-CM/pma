@@ -26,6 +26,7 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t }) {
   return (
     <div className="space-y-3">
       <Select
+        value={expiryType}
         onValueChange={(selectedExpiry) => {
           setExpiryType(selectedExpiry);
           const oneHour = 60 * 60 * 1000;
@@ -44,7 +45,7 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t }) {
         }}
       >
         <SelectTrigger className="w-full bg-white/[0.04] border-white/[0.08] text-white/80 hover:text-white hover:bg-white/[0.06]">
-          <SelectValue placeholder="1hr" />
+          <SelectValue placeholder={t("LimitOrderCard:expiry.specific")} />
         </SelectTrigger>
         <SelectContent className="bg-slate-900 border-white/[0.08] shadow-2xl shadow-black/40">
           <SelectItem value="1hr">{t("LimitOrderCard:expiry.1hr")}</SelectItem>
@@ -66,13 +67,17 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t }) {
                 {date ? format(date, "PPP") : <span>{t("LimitOrderCard:expiry.pickDate")}</span>}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 bg-slate-900 border-white/[0.08]" align="start">
+            <PopoverContent className="w-80 p-0 bg-slate-900 border-white/[0.08]" align="start">
               <Calendar
+                className="w-72"
                 mode="single"
                 selected={date}
+                fromDate={new Date()}
                 onSelect={(e) => {
-                  if (new Date(e) < new Date()) {
-                    setDate(new Date(Date.now() + 1 * 24 * 60 * 60 * 1000));
+                  const selected = new Date(e);
+                  const now = new Date();
+                  if (selected < now) {
+                    setDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
                     return;
                   }
                   setDate(e);
@@ -92,12 +97,12 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t }) {
   );
 }
 
-export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backingAssetID, _backingPrecision, market, t }) {
+export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backingAssetID, _backingPrecision, market, t, expiration }) {
   const [buyPrompt, setBuyPrompt] = useState(false);
   const [buyAmount, setBuyAmount] = useState(0);
   const [buyDialog, setBuyDialog] = useState(false);
-  const [expiryType, setExpiryType] = useState("1hr");
-  const [date, setDate] = useState(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
+  const [expiryType, setExpiryType] = useState("specific");
+  const [date, setDate] = useState(expiration ? new Date(expiration) : new Date(Date.now() + 1 * 24 * 60 * 60 * 1000));
 
   const exceedsBalance = buyAmount > humanReadableBackingAssetBalance;
   const isZero = !buyAmount || buyAmount <= 0;

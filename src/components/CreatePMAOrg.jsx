@@ -593,10 +593,10 @@ export default function CreatePMAOrg(properties) {
           </Dialog>
         </div>
         <div className="col-span-1 text-white/50 text-sm">{res.url.split("/").pop()}</div>
-        <div className="col-span-1">
+        <div className="col-span-1 flex items-center justify-end">
           <Button
             variant="outline"
-            className="w-5 h-5 border-white/10 bg-white/5 text-white/50 hover:bg-rose-500/10 hover:text-rose-400 hover:border-rose-500/30"
+            className="w-6 h-6 bg-rose-600 text-white border-rose-600 hover:bg-rose-500"
             onClick={() => setNFTMedia(nftMedia.filter((x) => x.url !== res.url))}
           >
             <X className="h-3 w-3" />

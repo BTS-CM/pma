@@ -214,6 +214,49 @@ function assetAmountRegex(asset) {
 }
 
 /**
+ * Extract multimedia entries from an nft_object. Supports both the singular
+ * media_<type>_multihash field and the plural media_<type>_multihashes
+ * array of {url, sha512} objects.
+ * @param {Object|null} nft_object
+ * @returns {Array<{url: string, type: string}>}
+ */
+function getNftMediaEntries(nft_object) {
+  if (!nft_object || typeof nft_object !== "object") {
+    return [];
+  }
+
+  return Object.entries(nft_object)
+    .flatMap(([key, value]) => {
+      const pluralMatch = key.match(/^media_(.+)_multihashes$/);
+      if (pluralMatch) {
+        const type = pluralMatch[1].toUpperCase();
+        if (!Array.isArray(value)) {
+          return [];
+        }
+        return value
+          .map((entry) => {
+            if (typeof entry === "string") {
+              return { url: entry, type };
+            }
+            if (entry && typeof entry.url === "string") {
+              return { url: entry.url, type };
+            }
+            return null;
+          })
+          .filter((entry) => entry && entry.url);
+      }
+
+      const singularMatch = key.match(/^media_(.+)_multihash$/);
+      if (singularMatch && typeof value === "string" && value.trim().length) {
+        return [{ url: value, type: singularMatch[1].toUpperCase() }];
+      }
+
+      return [];
+    })
+    .filter((entry) => entry && typeof entry.url === "string");
+}
+
+/**
  * Extract image entries from an nft_object. Supports both the singular
  * media_<type>_multihash field and the plural media_<type>_multihashes
  * array of {url, sha512} objects. Returns an array of {url, type} sorted
@@ -222,37 +265,20 @@ function assetAmountRegex(asset) {
  * @returns {Array<{url: string, type: string}>}
  */
 function getNftImages(nft_object) {
-  if (!nft_object || typeof nft_object !== "object") {
-    return [];
-  }
-  const objectKeys = Object.keys(nft_object);
-  const hasArray =
-    objectKeys.find(
-      (x) => x.includes("media_") && x.includes("_multihashes"),
-    );
-  let images = [];
-  if (hasArray) {
-    images = objectKeys
-      .filter(
-        (key) => key.includes("media_") && key.includes("_multihashes"),
-      )
-      .map((key) => {
-        const current = nft_object[key];
-        const type = key.split("_")[1].toUpperCase();
-        return current.map((image) => ({ url: image.url, type }));
-      })
-      .flat();
-  } else {
-    images = objectKeys
-      .filter(
-        (key) => key.includes("media_") && !key.includes("_multihash"),
-      )
-      .map((key) => {
-        const current = nft_object[key];
-        const type = key.split("_")[1].toUpperCase();
-        return { url: current, type };
-      });
-  }
+  const imageTypes = new Set([
+    "PNG",
+    "JPEG",
+    "JPG",
+    "GIF",
+    "WEBP",
+    "AVIF",
+    "BMP",
+    "SVG",
+    "TIFF",
+  ]);
+  const images = getNftMediaEntries(nft_object).filter((entry) =>
+    imageTypes.has(entry.type),
+  );
   const typeOrder = { PNG: 0, JPEG: 1, JPG: 2, GIF: 3 };
   images.sort((a, b) => {
     const ao = typeOrder[a.type] ?? 99;
@@ -331,6 +357,7 @@ export {
   getPermissions,
   isInvertedMarket,
   assetAmountRegex,
+  getNftMediaEntries,
   getNftImages,
   ipfsUrl,
   formatTimeRemaining,

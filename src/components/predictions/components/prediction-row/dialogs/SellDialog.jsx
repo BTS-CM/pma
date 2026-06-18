@@ -22,10 +22,11 @@ function SectionHeader({ label, accent = "rose" }) {
   );
 }
 
-function ExpirySelector({ expiryType, setExpiryType, date, setDate, t }) {
+function ExpirySelector({ expiryType, setExpiryType, date, setDate, t, expiration }) {
   return (
     <div className="space-y-3">
       <Select
+        value={expiryType}
         onValueChange={(selectedExpiry) => {
           setExpiryType(selectedExpiry);
           const oneHour = 60 * 60 * 1000;
@@ -44,7 +45,7 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t }) {
         }}
       >
         <SelectTrigger className="w-full bg-white/[0.04] border-white/[0.08] text-white/80 hover:text-white hover:bg-white/[0.06]">
-          <SelectValue placeholder="1hr" />
+          <SelectValue placeholder={t("LimitOrderCard:expiry.specific")} />
         </SelectTrigger>
         <SelectContent className="bg-slate-900 border-white/[0.08] shadow-2xl shadow-black/40">
           <SelectItem value="1hr">{t("LimitOrderCard:expiry.1hr")}</SelectItem>
@@ -66,14 +67,26 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t }) {
                 {date ? format(date, "PPP") : <span>{t("LimitOrderCard:expiry.pickDate")}</span>}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 bg-slate-900 border-white/[0.08]" align="start">
+            <PopoverContent className="w-80 p-0 bg-slate-900 border-white/[0.08]" align="start">
               <Calendar
+                className="w-72"
                 mode="single"
                 selected={date}
+                fromDate={new Date()}
+                toDate={expiration ? new Date(expiration) : undefined}
                 onSelect={(e) => {
-                  if (new Date(e) < new Date()) {
-                    setDate(new Date(Date.now() + 1 * 24 * 60 * 60 * 1000));
+                  const selected = new Date(e);
+                  const now = new Date();
+                  if (selected < now) {
+                    setDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
                     return;
+                  }
+                  if (expiration) {
+                    const expDate = new Date(expiration);
+                    if (selected > expDate) {
+                      setDate(expDate);
+                      return;
+                    }
                   }
                   setDate(e);
                 }}
@@ -92,12 +105,12 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t }) {
   );
 }
 
-export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance, _backingAssetID, _backingPrecision, market, t }) {
+export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance, _backingAssetID, _backingPrecision, market, t, expiration }) {
   const [sellPrompt, setSellPrompt] = useState(false);
   const [sellAmount, setSellAmount] = useState(0);
   const [sellDialog, setSellDialog] = useState(false);
-  const [expiryType, setExpiryType] = useState("1hr");
-  const [date, setDate] = useState(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
+  const [expiryType, setExpiryType] = useState("specific");
+  const [date, setDate] = useState(expiration ? new Date(expiration) : new Date(Date.now() + 1 * 24 * 60 * 60 * 1000));
 
   const exceedsBalance = sellAmount > humanReadablePredictionMarketAssetBalance;
   const isZero = !sellAmount || sellAmount <= 0;
@@ -147,6 +160,9 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
               </div>
               <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
             </div>
+            <div className="mt-1 text-xs text-white/50">
+              {t("Predictions:available_balance", { defaultValue: "Available" })}: {humanReadablePredictionMarketAssetBalance} {res.symbol}
+            </div>
           </section>
 
           {/* Receiving Section */}
@@ -161,7 +177,7 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
           {/* Expiry Section */}
           <section>
             <SectionHeader label={t("Predictions:sellDialog.expiryHeader")} accent="rose" />
-            <ExpirySelector expiryType={expiryType} setExpiryType={setExpiryType} date={date} setDate={setDate} t={t} />
+            <ExpirySelector expiryType={expiryType} setExpiryType={setExpiryType} date={date} setDate={setDate} t={t} expiration={expiration} />
           </section>
         </div>
 

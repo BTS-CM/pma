@@ -29,9 +29,13 @@ import { getNftImages, getFlagBooleans } from "@/lib/common.js";
 import { cn } from "@/lib/utils";
 import { CopyButton, StatBlock } from "../../PredictionUtils";
 import { prettifyDate, formatTimeRemaining } from "../../utils/formatters";
-import { humanReadableFloat } from "@/lib/common.js";
+import { humanReadableFloat, trimPrice } from "@/lib/common.js";
 import { addBlockedUser, removeBlockedUser } from "@/stores/blocklist.ts";
 import { PredictionDetailDialog } from "./PredictionDetailDialog";
+import { createMarketOrderStore } from "@/nanoeffects/MarketOrderBook.ts";
+import { createTickerStore } from "@/nanoeffects/MarketTradeHistory.ts";
+import { $currentNode } from "@/stores/node.ts";
+import { useStore } from "@nanostores/react";
 
 const STATUS_STYLES = {
   active: { border: "border-l-emerald-500", bg: "bg-emerald-500/15", text: "text-emerald-400", i18nKey: "Predictions:status.active" },
@@ -52,6 +56,7 @@ export const PredictionRow = memo(function PredictionRow({
   expiredPMAs,
   userBlockedIDs,
   ipfsGateway,
+  dynamicAssetDataById,
   view,
   now,
   setIssuerFilter,
@@ -60,7 +65,12 @@ export const PredictionRow = memo(function PredictionRow({
   const [detailOpen, setDetailOpen] = useState(false);
   const [blockConfirmOpen, setBlockConfirmOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
+  const [orderBookData, setOrderBookData] = useState(null);
+  const [tickerData, setTickerData] = useState(null);
+  const currentNode = useStore($currentNode);
   useEffect(() => { setHeroIndex(0); }, [res?.id]);
+
+  const chain = usr?.chain || "bitshares";
 
   const nftImages = useMemo(() => {
     if (!res?.options?.description) return [];
@@ -76,18 +86,24 @@ export const PredictionRow = memo(function PredictionRow({
     if (!res?.options?.description) return null;
     try { return JSON.parse(res.options.description); } catch { return null; }
   }, [res?.options?.description]);
+  const symbol = res?.symbol;
+  const house = res?.issuer;
+  const market = _desc?.market;
+  const expiration = _desc?.expiry;
 
-  const parentPmoObject = useMemo(() => {
+  const parentPmoDescription = useMemo(() => {
     if (!_desc) return null;
-    if (_desc.pmo_object) return _desc.pmo_object;
+    if (_desc.pmo_object) return _desc;
     const sym = res?.symbol;
     if (!sym || !sym.includes(".")) return null;
     const prefix = sym.split(".")[0];
     if (!prefix) return null;
     const parent = combinedAssets.find((a) => a.symbol === prefix);
     if (!parent?.options?.description) return null;
-    try { const pd = JSON.parse(parent.options.description); return pd?.pmo_object || null; } catch { return null; }
+    try { return JSON.parse(parent.options.description); } catch { return null; }
   }, [res?.id, combinedAssets, _desc]);
+
+  const parentPmoObject = parentPmoDescription?.pmo_object || null;
 
   const cleanedPrediction = useMemo(() => DOMPurify.sanitize(_desc?.condition ?? ""), [_desc?.condition]);
   const cleanedDescription = useMemo(() => DOMPurify.sanitize(_desc?.main ?? ""), [_desc?.main]);
@@ -99,41 +115,150 @@ export const PredictionRow = memo(function PredictionRow({
   const _backingPrecision = res?.backingAsset?.precision;
   const backingAssetBalance = useMemo(() => usrBalances?.find((x) => x.asset_id === _backingAssetID), [usrBalances, _backingAssetID]);
   const predictionMarketAssetBalance = useMemo(() => usrBalances?.find((x) => x.asset_id === res?.id), [usrBalances, res?.id]);
+  const dynamicAssetData = useMemo(() => {
+    if (!res?.dynamic_asset_data_id || !dynamicAssetDataById) {
+      return null;
+    }
+
+    return dynamicAssetDataById[res.dynamic_asset_data_id] || null;
+  }, [res?.dynamic_asset_data_id, dynamicAssetDataById]);
 
   const relevantCallOrders = callOrders[res?.id] || null;
-  const existingCollateral = useMemo(() => {
-    const usrCallOrder = relevantCallOrders?.filter((x) => x.borrower === usr?.id) || null;
-    return usrCallOrder?.collateral || 0;
+  const existingCollateralRaw = useMemo(() => {
+    if (!relevantCallOrders || !usr?.id) return 0;
+    const usrOrders = relevantCallOrders.filter((x) => x.borrower === usr.id);
+    return usrOrders.reduce((acc, entry) => acc + (Number(entry.collateral) || 0), 0);
   }, [relevantCallOrders, usr?.id]);
 
-  const totalBets = relevantCallOrders?.length ? relevantCallOrders.reduce((acc, val) => acc + val.collateral, 0) : 0;
+  const existingCollateral = useMemo(() => {
+    return humanReadableFloat(existingCollateralRaw, _backingPrecision);
+  }, [existingCollateralRaw, _backingPrecision]);
+
+  const openInterestRaw = dynamicAssetData ? Number(dynamicAssetData.current_supply || 0) : 0;
   const settlementFundRaw = relevantBitassetData ? Number(relevantBitassetData.settlement_fund || 0) : 0;
-  const totalCollateral = totalBets + settlementFundRaw;
   const humanReadableBackingAssetBalance = backingAssetBalance ? (backingAssetBalance.amount / Math.pow(10, _backingPrecision || 0)).toFixed(_backingPrecision || 0) : 0;
   const humanReadablePredictionMarketAssetBalance = predictionMarketAssetBalance ? (predictionMarketAssetBalance.amount / Math.pow(10, res?.precision || 0)).toFixed(res?.precision || 0) : 0;
 
   const isExpired = _desc ? new Date(_desc.expiry).getTime() <= now : false;
   const expirationHours = _desc ? Math.floor((new Date(_desc.expiry).getTime() - now) / 3600000) : 0;
 
+  useEffect(() => {
+    if (!detailOpen || !symbol || !market || !res?.id || !_backingAssetID || !currentNode?.url) {
+      return;
+    }
+
+    let cancelled = false;
+    setOrderBookData(null);
+    setTickerData(null);
+
+    const orderBookStore = createMarketOrderStore([
+      chain,
+      symbol,
+      market,
+      25,
+      currentNode.url,
+    ]);
+    const tickerStore = createTickerStore([
+      chain,
+      res.id,
+      _backingAssetID,
+      currentNode.url,
+    ]);
+
+    const unsubscribeOrderBook = orderBookStore.subscribe(({ data, error, loading }) => {
+      if (cancelled || error || loading) {
+        return;
+      }
+      setOrderBookData(data || null);
+    });
+
+    const unsubscribeTicker = tickerStore.subscribe(({ data, error, loading }) => {
+      if (cancelled || error || loading) {
+        return;
+      }
+      setTickerData(data || null);
+    });
+
+    return () => {
+      cancelled = true;
+      unsubscribeOrderBook?.();
+      unsubscribeTicker?.();
+    };
+  }, [detailOpen, chain, symbol, market, res?.id, _backingAssetID, currentNode?.url]);
+
+  const marketStats = useMemo(() => {
+    const bestAsk = parseFloat(orderBookData?.asks?.[0]?.price);
+    const bestBid = parseFloat(orderBookData?.bids?.[0]?.price);
+    const latestTrade = parseFloat(tickerData?.latest);
+
+    let impliedYesPrice = null;
+    let priceSourceKey = null;
+
+    if (Number.isFinite(bestAsk) && bestAsk > 0 && Number.isFinite(bestBid) && bestBid > 0) {
+      impliedYesPrice = (bestAsk + bestBid) / 2;
+      priceSourceKey = "midpoint";
+    } else if (Number.isFinite(bestAsk) && bestAsk > 0) {
+      impliedYesPrice = bestAsk;
+      priceSourceKey = "bestAsk";
+    } else if (Number.isFinite(bestBid) && bestBid > 0) {
+      impliedYesPrice = bestBid;
+      priceSourceKey = "bestBid";
+    } else if (Number.isFinite(latestTrade) && latestTrade > 0) {
+      impliedYesPrice = latestTrade;
+      priceSourceKey = "lastTrade";
+    }
+
+    const normalizedYesPrice =
+      impliedYesPrice == null
+        ? null
+        : Math.max(0, Math.min(1, impliedYesPrice));
+
+    let decimalOdds = null;
+    let americanOdds = null;
+
+    if (normalizedYesPrice != null && normalizedYesPrice > 0 && normalizedYesPrice < 1) {
+      decimalOdds = 1 / normalizedYesPrice;
+      americanOdds = normalizedYesPrice >= 0.5
+        ? -((normalizedYesPrice / (1 - normalizedYesPrice)) * 100)
+        : (((1 - normalizedYesPrice) / normalizedYesPrice) * 100);
+    }
+
+    return {
+      buyOrderCount: orderBookData?.bids?.length || 0,
+      sellOrderCount: orderBookData?.asks?.length || 0,
+      bestAsk: Number.isFinite(bestAsk) ? bestAsk : null,
+      bestBid: Number.isFinite(bestBid) ? bestBid : null,
+      latestTrade: Number.isFinite(latestTrade) ? latestTrade : null,
+      impliedYesPrice: normalizedYesPrice,
+      impliedYesPercent:
+        normalizedYesPrice == null ? null : normalizedYesPrice * 100,
+      decimalOdds,
+      americanOdds:
+        americanOdds == null ? null : Math.round(americanOdds),
+      priceSourceKey,
+      formattedPrice:
+        normalizedYesPrice == null
+          ? null
+          : trimPrice(normalizedYesPrice, Math.min(_backingPrecision || 5, 5)),
+    };
+  }, [orderBookData, tickerData, _backingPrecision]);
+
   const tabProps = useMemo(() => ({
-    res, usr, _desc, relevantBitassetData, relevantCallOrders, totalBets, settlementFundRaw,
-    impliedYesPercent: totalCollateral > 0 ? (settlementFundRaw / totalCollateral) * 100 : 0,
+    res, usr, _desc, relevantBitassetData, relevantCallOrders, openInterestRaw, settlementFundRaw,
+    impliedYesPercent: marketStats.impliedYesPercent,
     isExpired, expiration: _desc?.expiry, expirationHours, now, market: _desc?.market, view, t,
     cleanedPrediction, cleanedDescription, hasNft: !!(res?.options && _desc && _desc.nft_object), hasPmo: !!parentPmoObject, parentPmoObject, nftImages,
     heroIndex, setHeroIndex, ipfsGateway, backingAssetBalance, humanReadableBackingAssetBalance,
-    humanReadablePredictionMarketAssetBalance, existingCollateral, _backingAssetID, _backingPrecision,
-    _issuer_permissions, _flags, expiredPMAs, house: res?.issuer,
-  }), [res?.id, usr?.id, _desc, relevantBitassetData, relevantCallOrders, totalBets, settlementFundRaw,
+    humanReadablePredictionMarketAssetBalance, existingCollateral, existingCollateralRaw, _backingAssetID, _backingPrecision,
+    _issuer_permissions, _flags, expiredPMAs, house: res?.issuer, marketStats,
+  }), [res?.id, usr?.id, _desc, relevantBitassetData, relevantCallOrders, openInterestRaw, settlementFundRaw,
     isExpired, expirationHours, now, view, t,
     cleanedPrediction, cleanedDescription, nftImages,
     heroIndex, ipfsGateway, backingAssetBalance, humanReadableBackingAssetBalance,
-    humanReadablePredictionMarketAssetBalance, existingCollateral, _backingAssetID, _backingPrecision,
-    _issuer_permissions, _flags, expiredPMAs, totalCollateral]);
+    humanReadablePredictionMarketAssetBalance, existingCollateral, existingCollateralRaw, _backingAssetID, _backingPrecision,
+    _issuer_permissions, _flags, expiredPMAs, parentPmoObject, marketStats]);
 
   if (!res || !relevantBitassetData) return null;
-
-  const symbol = res.symbol;
-  const house = res.issuer;
 
   let foundAsset = marketSearch?.length && symbol ? marketSearch.find((x) => x.s === symbol) : null;
   let username = foundAsset ? foundAsset.u : null;
@@ -145,8 +270,6 @@ export const PredictionRow = memo(function PredictionRow({
   const issuerDisplayLabel = username ? username.replace(/\s*\(LTM\)\s*$/, "").trim() : null;
   const issuerDisplayName = issuerDisplayLabel ? issuerDisplayLabel.split(" (")[0] : null;
 
-  const expiration = _desc.expiry;
-  const market = _desc.market;
   const hasNft = !!(res.options && _desc && _desc.nft_object);
   const hasPmo = !!parentPmoObject;
 
@@ -251,11 +374,16 @@ export const PredictionRow = memo(function PredictionRow({
             ) : (
               <StatBlock label={t("Predictions:unique_sellers")} value={relevantCallOrders?.length || 0} mono />
             )}
-            <StatBlock label={t("Predictions:bettingAsset")} value={market} mono />
+              <StatBlock label={t("Predictions:bettingAsset")} value={market} mono />
             {view === "expired" ? (
               <StatBlock label={t("Predictions:prize_pool")} value={relevantBitassetData ? `${humanReadableFloat(relevantBitassetData.settlement_fund, res.precision)} ${market}` : `0 ${market}`} mono />
             ) : view === "mine" || view === "portfolio" ? null : (
-              <StatBlock label={t("Predictions:openInterest")} help={t("Predictions:openInterest_help")} value={`${humanReadableFloat(totalBets, res.precision)} ${market}`} mono />
+              <StatBlock
+                label={t("Predictions:openInterest")}
+                help={t("Predictions:market.openInterestSupply_help", { defaultValue: "Current PMA token supply outstanding in the market." })}
+                value={`${humanReadableFloat(openInterestRaw, res.precision)} ${symbol}`}
+                mono
+              />
             )}
           </div>
           <div className="mt-2 flex items-center gap-1 text-[11px] text-white/30 group-hover:text-white/50 transition-colors">

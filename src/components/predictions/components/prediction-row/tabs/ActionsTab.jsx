@@ -15,6 +15,7 @@ export function ActionsTab({
   _backingPrecision,
   market,
   t,
+  expiration,
 }) {
   return (
     <div className="grid grid-cols-1 gap-2">
@@ -39,6 +40,7 @@ export function ActionsTab({
           _backingPrecision={_backingPrecision}
           market={market}
           t={t}
+          expiration={expiration}
         />
       </div>
       <HoverInfo content={t("Predictions:buyer_content")} header={t("Predictions:buyer")} type="header" />

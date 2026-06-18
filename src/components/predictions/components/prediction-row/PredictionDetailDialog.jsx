@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -31,10 +31,10 @@ import {
 import { Avatar } from "@/components/Avatar.tsx";
 import JsonDetailsDialog from "@/components/common/JsonDetailsDialog.jsx";
 import { addBlockedUser, removeBlockedUser } from "@/stores/blocklist.ts";
-import { Ban, ExternalLink, TrendingUp, ChevronDown, ChevronUp, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Ban, TrendingUp, ChevronDown, ChevronUp, CheckCircle, XCircle, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CopyButton, ProbabilityBar, LongText, MonoBlock, NftHero, NftThumbStrip } from "../../PredictionUtils";
-import { humanReadableFloat, ipfsUrl } from "@/lib/common.js";
+import { getNftMediaEntries, humanReadableFloat, ipfsUrl } from "@/lib/common.js";
 import { prettifyDate, formatTimeRemaining } from "../../utils/formatters";
 import DOMPurify from "dompurify";
 import { Badge } from "@/components/ui/badge";
@@ -60,7 +60,7 @@ function HeroStat({ label, value, accent, mono, help }) {
     indigo: "border-indigo-500/20 bg-indigo-500/[0.07] text-indigo-400",
   };
   return (
-    <div className={cn("rounded-xl border px-4 py-3 transition-all hover:brightness-110", accents[accent] || "border-white/[0.08] bg-white/[0.03]")}>
+    <div className={cn("min-w-0 rounded-xl border px-4 py-3 transition-all hover:brightness-110", accents[accent] || "border-white/[0.08] bg-white/[0.03]")}>
       <div className="text-[10px] uppercase tracking-wider font-semibold text-white/40 mb-1 flex items-center gap-1">
         {label}
         {help ? (
@@ -74,11 +74,75 @@ function HeroStat({ label, value, accent, mono, help }) {
           </TooltipProvider>
         ) : null}
       </div>
-      <div className={cn("text-lg font-bold text-white leading-tight", mono && "font-mono tabular-nums")}>
+      <div className={cn("break-words text-lg font-bold leading-tight text-white", mono && "font-mono tabular-nums")}>
         {value}
       </div>
     </div>
   );
+}
+
+function SubsectionLabel({ children }) {
+  return (
+    <div className="text-[11px] font-semibold uppercase tracking-widest text-white/40">
+      {children}
+    </div>
+  );
+}
+
+function MediaUrlList({ title, entries }) {
+  if (!entries || !entries.length) {
+    return null;
+  }
+
+  return (
+    <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
+      <div className="text-[11px] font-semibold uppercase tracking-widest text-white/40">
+        {title}
+      </div>
+      <div className="mt-2 grid grid-cols-1 gap-2">
+        {entries.map((entry, index) => (
+          <div key={`${entry.type}-${entry.url}-${index}`} className="min-w-0 rounded-lg border border-white/[0.06] bg-black/10 px-3 py-2">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-white/40">
+              {entry.type}
+            </div>
+            <div className="mt-1 break-all font-mono text-xs text-white/70">
+              {entry.url}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function normalizePmoMetadata(parentPmoObject) {
+  if (!parentPmoObject) {
+    return null;
+  }
+
+  return {
+    identity: {
+      name: parentPmoObject.identity?.name || parentPmoObject.name || null,
+      website: parentPmoObject.identity?.website || parentPmoObject.website || null,
+      manifest: parentPmoObject.identity?.manifest || parentPmoObject.manifest || null,
+    },
+    governance: {
+      onchain_account:
+        parentPmoObject.governance?.onchain_account ||
+        parentPmoObject.onchain_account ||
+        null,
+      resolution_policy:
+        parentPmoObject.governance?.resolution_policy ||
+        parentPmoObject.resolution_policy ||
+        null,
+      dispute_mechanism:
+        parentPmoObject.governance?.dispute_mechanism ||
+        parentPmoObject.dispute_mechanism ||
+        null,
+    },
+    attestation: parentPmoObject.attestation || null,
+    pmo_signature: parentPmoObject.pmo_signature || null,
+  };
 }
 
 function SectionHeader({ label, accent = "white" }) {
@@ -179,24 +243,80 @@ export function PredictionDetailDialog({
   const [detailJsonDialogOpen, setDetailJsonDialogOpen] = useState(false);
   const [detailJsonPayload, setDetailJsonPayload] = useState(null);
   const [detailBlockConfirmOpen, setDetailBlockConfirmOpen] = useState(false);
-  const [descExpanded, setDescExpanded] = useState(false);
 
   const {
     nftImages, heroIndex, setHeroIndex, ipfsGateway,
-    relevantCallOrders, totalBets, settlementFundRaw, impliedYesPercent,
+    relevantCallOrders, openInterestRaw, settlementFundRaw, impliedYesPercent,
     isExpired, expiration, expirationHours, now, market, cleanedDescription,
     _backingAssetID, _backingPrecision, _issuer_permissions, _flags,
     backingAssetBalance, humanReadableBackingAssetBalance,
     humanReadablePredictionMarketAssetBalance, existingCollateral,
-    parentPmoObject,
+    parentPmoObject, marketStats,
   } = tabProps;
 
+  const marketPriceSourceLabel = useMemo(() => {
+    switch (marketStats?.priceSourceKey) {
+      case "midpoint":
+        return t("Predictions:market.priceSource.midpoint", { defaultValue: "Midpoint of best bid and ask" });
+      case "bestAsk":
+        return t("Predictions:market.priceSource.bestAsk", { defaultValue: "Best ask" });
+      case "bestBid":
+        return t("Predictions:market.priceSource.bestBid", { defaultValue: "Best bid" });
+      case "lastTrade":
+        return t("Predictions:market.priceSource.lastTrade", { defaultValue: "Latest trade" });
+      default:
+        return null;
+    }
+  }, [marketStats?.priceSourceKey, t]);
+
   const descIsLong = cleanedDescription && cleanedDescription.length > 250;
+  const nftObject = _desc?.nft_object || null;
+  const previewableNftTypes = useMemo(
+    () => new Set(["PNG", "JPEG", "JPG", "GIF", "WEBP", "AVIF", "BMP", "SVG", "TIFF"]),
+    [],
+  );
+  const pmaNftMediaEntries = useMemo(() => getNftMediaEntries(nftObject), [nftObject]);
+  const pmaNonPreviewableMedia = useMemo(
+    () => pmaNftMediaEntries.filter((entry) => !previewableNftTypes.has(entry.type)),
+    [pmaNftMediaEntries, previewableNftTypes],
+  );
+  const normalizedPmo = useMemo(
+    () => normalizePmoMetadata(parentPmoObject),
+    [parentPmoObject],
+  );
+
+  const expirationTime = useMemo(() => {
+    if (!expiration) return null;
+    try {
+      const d = new Date(expiration);
+      const hours = d.getHours() < 10 ? `0${d.getHours()}` : d.getHours();
+      const minutes = d.getMinutes() < 10 ? `0${d.getMinutes()}` : d.getMinutes();
+      return `${hours}:${minutes}`;
+    } catch {
+      return null;
+    }
+  }, [expiration]);
+
+  const oddsDisplay = useMemo(() => {
+    const m = marketStats || {};
+    if (!m) return "-";
+    const percent = m.impliedYesPercent != null ? `${Number(m.impliedYesPercent).toFixed(2)}%` : (m.decimalOdds != null ? `${((1 / m.decimalOdds) * 100).toFixed(2)}%` : null);
+    const decimal = m.decimalOdds != null ? Number(m.decimalOdds).toFixed(2) : null;
+    const american = m.americanOdds != null ? `${m.americanOdds > 0 ? "+" : ""}${m.americanOdds}` : null;
+
+    if (percent && decimal && american) return `${percent} (${decimal} / ${american})`;
+    if (percent && decimal) return `${percent} (${decimal})`;
+    if (percent && american) return `${percent} (${american})`;
+    if (percent) return `${percent}`;
+    if (decimal && american) return `${decimal} (${american})`;
+    if (decimal) return `${decimal}`;
+    return "-";
+  }, [marketStats]);
 
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-[900px] max-h-[90vh] overflow-hidden flex flex-col bg-slate-900 ring-1 ring-white/[0.08] border-white/[0.06] text-white shadow-2xl shadow-black/60">
+        <DialogContent className="w-[calc(100vw-1rem)] sm:max-w-[900px] max-h-[90vh] overflow-hidden flex flex-col bg-slate-900 ring-1 ring-white/[0.08] border-white/[0.06] text-white shadow-2xl shadow-black/60">
           {/* ─── HEADER ─── */}
           <DialogHeader className="pb-3 border-b border-white/[0.06]">
             <DialogTitle className="text-base sm:text-lg font-semibold leading-snug line-clamp-2 text-white">
@@ -251,16 +371,43 @@ export function PredictionDetailDialog({
 
           <div className="flex-1 overflow-hidden flex flex-col min-h-0">
             {/* ─── SCROLLABLE CONTENT ─── */}
-            <div className="flex-1 overflow-y-auto pr-3 space-y-5 py-4">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden pr-2 sm:pr-3 space-y-5 py-4">
               {/* ── HERO: Probability or Outcome ── */}
-              {!isExpired && statusKey !== "awaiting" ? (
+              {!isExpired && statusKey !== "awaiting" && impliedYesPercent != null ? (
                 <section>
                   <div className="rounded-xl border border-emerald-500/15 bg-gradient-to-br from-emerald-500/5 via-transparent to-rose-500/5 p-5">
                     <div className="text-[11px] uppercase tracking-wider font-semibold text-white/50 mb-3">{t("Predictions:market.impliedProbability")}</div>
-                    <div className="scale-110 origin-left">
+                    <div className="min-w-0 max-w-full overflow-hidden">
                       <ProbabilityBar yesPercent={impliedYesPercent} />
                     </div>
-                    <div className="mt-3 text-[11px] text-white/40">{t("Predictions:market.impliedProbability_help")}</div>
+                    <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-white/40">
+                      <span>
+                        {t("Predictions:market.impliedProbability_market_help", { defaultValue: "Market-derived YES probability from live DEX pricing, falling back to the latest trade when no live orders are available." })}
+                      </span>
+                      {marketPriceSourceLabel ? (
+                        <span className="font-mono text-white/55">{marketPriceSourceLabel}</span>
+                      ) : null}
+                    </div>
+                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <HeroStat
+                        label={t("Predictions:market.yesPrice", { defaultValue: "YES price" })}
+                        value={marketStats?.formattedPrice != null ? `${marketStats.formattedPrice} ${market}` : "-"}
+                        accent="emerald"
+                        mono
+                      />
+                      <HeroStat
+                        label={t("Predictions:market.odds", { defaultValue: "Odds" })}
+                        value={oddsDisplay}
+                        accent="cyan"
+                        mono
+                      />
+                    </div>
+                  </div>
+                </section>
+              ) : !isExpired && statusKey !== "awaiting" ? (
+                <section>
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-5 text-sm text-white/55">
+                    {t("Predictions:market.noDexPriceEstimate", { defaultValue: "No live DEX price or recent trade is available to estimate current odds yet." })}
                   </div>
                 </section>
               ) : (
@@ -269,16 +416,55 @@ export function PredictionDetailDialog({
                 </section>
               )}
 
+              {/* ── DESCRIPTION (Collapsible) ── */}
+              {cleanedDescription ? (
+                <CollapsibleSection title={t("Predictions:description")} accent="indigo" defaultOpen={!descIsLong}>
+                  <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
+                    <p className="text-sm text-white/60 leading-relaxed whitespace-pre-wrap break-words">{cleanedDescription}</p>
+                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="rounded-lg border border-white/[0.06] bg-black/10 px-3 py-2">
+                        <SubsectionLabel>{t(`Predictions:${isExpired ? "expired_at" : "expiration"}`)}</SubsectionLabel>
+                        <div className="mt-1 font-mono text-sm text-white/80">{prettifyDate(expiration)}</div>
+                      </div>
+                      <div className="rounded-lg border border-white/[0.06] bg-black/10 px-3 py-2">
+                        <SubsectionLabel>{t("Predictions:time", { defaultValue: "Time" })}</SubsectionLabel>
+                        <div className="mt-1 font-mono text-sm text-white/80">{expirationTime ?? "-"}</div>
+                      </div>
+                      <div className="rounded-lg border border-white/[0.06] bg-black/10 px-3 py-2">
+                        <SubsectionLabel>{t("Predictions:bettingAsset")}</SubsectionLabel>
+                        <div className="mt-1 font-mono text-sm text-white/80">{market}</div>
+                      </div>
+                    </div>
+                  </div>
+                </CollapsibleSection>
+              ) : null}
+
               {/* ── KEY STATS ROW ── */}
               <CollapsibleSection title={t("Predictions:tab.overview")} accent="emerald" defaultOpen>
                 {!isExpired ? (
-                  <div className="grid grid-cols-3 gap-3">
-                    <HeroStat label={t("Predictions:openInterest")} value={`${humanReadableFloat(totalBets, res.precision)} ${market}`} accent="amber" mono help={t("Predictions:openInterest_help")} />
-                    <HeroStat label={t("Predictions:market.settlementFund")} value={`${humanReadableFloat(settlementFundRaw, res.precision)} ${market}`} accent="blue" mono help={t("Predictions:market.settlementFund_help")} />
-                    <HeroStat label={t("Predictions:unique_sellers")} value={relevantCallOrders?.length || 0} accent="cyan" mono />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+                    <HeroStat
+                      label={t("Predictions:openInterest")}
+                      value={`${humanReadableFloat(openInterestRaw, res.precision)} ${res.symbol}`}
+                      accent="amber"
+                      mono
+                      help={t("Predictions:market.openInterestSupply_help", { defaultValue: "Current PMA token supply outstanding in the market." })}
+                    />
+                    <HeroStat
+                      label={t("Predictions:market.limitOrderBuyers", { defaultValue: "Limit order buyers" })}
+                      value={marketStats?.buyOrderCount ?? 0}
+                      accent="emerald"
+                      mono
+                    />
+                    <HeroStat
+                      label={t("Predictions:market.limitOrderSellers", { defaultValue: "Limit order sellers" })}
+                      value={marketStats?.sellOrderCount ?? 0}
+                      accent="cyan"
+                      mono
+                    />
                   </div>
                 ) : (
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                     <HeroStat label={t("Predictions:prize_pool")} value={relevantBitassetData ? `${humanReadableFloat(relevantBitassetData.settlement_fund, res.precision)} ${market}` : `0 ${market}`} accent="amber" mono />
                     <HeroStat label={t("Predictions:winner.yourPmaBalance")} value={`${humanReadablePredictionMarketAssetBalance} ${symbol}`} accent="violet" mono />
                     <HeroStat label={isExpired ? t("Predictions:timeExpired") : t("Predictions:timeLeft")} value={formatTimeRemaining(expiration)} accent="blue" mono />
@@ -288,11 +474,26 @@ export function PredictionDetailDialog({
 
               {/* ── MARKET DETAILS ── */}
               <CollapsibleSection title={t("Predictions:tab.market")} accent="blue" defaultOpen>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                   <HeroStat label={t("Predictions:market.commission")} value={res.options?.market_fee_percent ? `${(res.options.market_fee_percent / 100).toFixed(2)}%` : "0%"} accent="violet" mono help={t("Predictions:market.commission_help")} />
-                  <HeroStat label={t(`Predictions:${isExpired ? "expired_at" : "expiration"}`)} value={prettifyDate(expiration)} accent="white" mono />
-                  <HeroStat label={t("Predictions:bettingAsset")} value={market} accent="white" mono />
+                  <HeroStat
+                    label={t("Predictions:market.yesPrice", { defaultValue: "YES price" })}
+                    value={marketStats?.formattedPrice != null ? `${marketStats.formattedPrice} ${market}` : "-"}
+                    accent="emerald"
+                    mono
+                  />
+                  <HeroStat
+                    label={t("Predictions:market.odds", { defaultValue: "Odds" })}
+                    value={oddsDisplay}
+                    accent="cyan"
+                    mono
+                  />
                 </div>
+                {marketPriceSourceLabel ? (
+                  <div className="mt-3 text-xs text-white/45">
+                    {t("Predictions:market.priceSource", { defaultValue: "Price source" })}: <span className="font-mono text-white/60">{marketPriceSourceLabel}</span>
+                  </div>
+                ) : null}
                 {!isExpired ? (
                   <div className="mt-3">
                     <Button variant="outline" size="sm" asChild className="w-fit border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-300">
@@ -305,61 +506,53 @@ export function PredictionDetailDialog({
                 ) : null}
               </CollapsibleSection>
 
-              {/* ── DESCRIPTION (Collapsible) ── */}
-              {cleanedDescription ? (
-                <CollapsibleSection title={t("Predictions:description")} accent="indigo" defaultOpen={!descIsLong}>
-                  <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
-                    <p className="text-sm text-white/60 leading-relaxed whitespace-pre-wrap">{cleanedDescription}</p>
-                  </div>
-                </CollapsibleSection>
-              ) : null}
-
               {/* ── NFT SECTION ── */}
-              {hasNft ? (
+              {hasNft && nftObject ? (
                 <CollapsibleSection title={t("Predictions:tab.nft")} accent="violet">
-                  <div className="grid grid-cols-1 gap-3">
+                  <div className="grid grid-cols-1 gap-3 min-w-0">
                     {nftImages && nftImages.length > 0 ? (
                       <>
                         <div>
                           <NftHero images={nftImages} heroIndex={heroIndex} ipfsGateway={ipfsGateway} />
                           {nftImages.length > 1 ? <NftThumbStrip images={nftImages} heroIndex={heroIndex} setHeroIndex={setHeroIndex} ipfsGateway={ipfsGateway} /> : null}
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          {_desc.nft_object.title ? <HeroStat label={t("Predictions:nft.title")} value={_desc.nft_object.title} /> : null}
-                          {_desc.nft_object.artist ? <HeroStat label={t("Predictions:nft.artist")} value={_desc.nft_object.artist} /> : null}
-                          {_desc.nft_object.type ? <HeroStat label={t("Predictions:nft.type")} value={_desc.nft_object.type} /> : null}
-                          {_desc.nft_object.encoding ? <HeroStat label={t("Predictions:nft.encoding")} value={_desc.nft_object.encoding} mono /> : null}
-                          {_desc.nft_object.license ? <HeroStat label={t("Predictions:nft.license")} value={_desc.nft_object.license} /> : null}
-                          {_desc.nft_object.holder_license ? <HeroStat label={t("Predictions:nft.holderLicense")} value={_desc.nft_object.holder_license} /> : null}
-                        </div>
-                        {_desc.nft_object.tags ? (
-                          <div>
-                            <div className="text-[11px] uppercase tracking-wide text-white/50 mb-1.5">{t("Predictions:nft.tags")}</div>
-                            <div className="flex flex-wrap gap-1">
-                              {String(_desc.nft_object.tags).split(",").map((s) => s.trim()).filter(Boolean).map((tag) => (
-                                <Badge key={tag} variant="outline" className="text-[10px] py-0 border-white/[0.1] text-white/60">{tag}</Badge>
-                              ))}
-                            </div>
-                          </div>
-                        ) : null}
-                        {_desc.nft_object.narrative ? <LongText label={t("Predictions:nft.narrative")} value={DOMPurify.sanitize(_desc.nft_object.narrative)} /> : null}
-                        {_desc.nft_object.acknowledgements ? <LongText label={t("Predictions:nft.acknowledgements")} value={DOMPurify.sanitize(_desc.nft_object.acknowledgements)} /> : null}
-                        {_desc.nft_object.attestation ? <LongText label={t("Predictions:nft.attestation")} value={DOMPurify.sanitize(_desc.nft_object.attestation)} /> : null}
-                        {nftImages.length ? (
-                          <Button variant="outline" size="sm" asChild className="self-start border-white/[0.12] text-white/70 hover:text-white hover:bg-white/[0.06]">
-                            <a href={ipfsUrl(nftImages[heroIndex].url, ipfsGateway)} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="mr-2 h-3.5 w-3.5" />
-                              {t("Predictions:nft.viewOnIpfs")}
-                            </a>
-                          </Button>
-                        ) : null}
                       </>
                     ) : (
-                      <div className="flex items-center justify-center h-32 rounded-md border border-dashed border-white/20 text-white/40 text-sm">
+                      <div className="flex items-center justify-center h-32 rounded-md border border-dashed border-white/20 text-white/40 text-sm px-4 text-center">
                         <ImageIcon className="mr-2 h-4 w-4" />
                         {t("Predictions:nft.noImage")}
                       </div>
                     )}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {_desc.nft_object.title ? <HeroStat label={t("Predictions:nft.title")} value={_desc.nft_object.title} /> : null}
+                      {_desc.nft_object.artist ? <HeroStat label={t("Predictions:nft.artist")} value={_desc.nft_object.artist} /> : null}
+                      {_desc.nft_object.type ? <HeroStat label={t("Predictions:nft.type")} value={_desc.nft_object.type} /> : null}
+                      {_desc.nft_object.encoding ? <HeroStat label={t("Predictions:nft.encoding")} value={_desc.nft_object.encoding} mono /> : null}
+                      {_desc.nft_object.license ? <HeroStat label={t("Predictions:nft.license")} value={_desc.nft_object.license} /> : null}
+                      {_desc.nft_object.holder_license ? <HeroStat label={t("Predictions:nft.holderLicense")} value={_desc.nft_object.holder_license} /> : null}
+                    </div>
+                    {_desc.nft_object.tags ? (
+                      <div>
+                        <div className="text-[11px] uppercase tracking-wide text-white/50 mb-1.5">{t("Predictions:nft.tags")}</div>
+                        <div className="flex flex-wrap gap-1">
+                          {String(_desc.nft_object.tags).split(",").map((s) => s.trim()).filter(Boolean).map((tag) => (
+                            <Badge key={tag} variant="outline" className="text-[10px] py-0 border-white/[0.1] text-white/60">{tag}</Badge>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                    {_desc.nft_object.narrative ? <LongText label={t("Predictions:nft.narrative")} value={DOMPurify.sanitize(_desc.nft_object.narrative)} /> : null}
+                    {_desc.nft_object.acknowledgements ? <LongText label={t("Predictions:nft.acknowledgements")} value={DOMPurify.sanitize(_desc.nft_object.acknowledgements)} /> : null}
+                    {_desc.nft_object.attestation ? <LongText label={t("Predictions:nft.attestation")} value={DOMPurify.sanitize(_desc.nft_object.attestation)} /> : null}
+                    <MediaUrlList title="Media URLs" entries={pmaNonPreviewableMedia} />
+                    {nftImages.length ? (
+                      <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-3">
+                        <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1">{t("Predictions:nft.viewOnIpfs")}</div>
+                        <div className="font-mono text-xs break-all text-white/70">
+                          <MonoBlock value={ipfsUrl(nftImages[heroIndex].url, ipfsGateway)} copyable label={t("Predictions:copy")} />
+                        </div>
+                      </div>
+                    ) : null}
                     {(_desc.nft_signature || _desc.sig_pubkey_or_address) ? (
                       <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-3 grid grid-cols-1 gap-2 text-xs">
                         <div>
@@ -378,34 +571,38 @@ export function PredictionDetailDialog({
               ) : null}
 
               {/* ── ORG SECTION ── */}
-              {hasPmo && parentPmoObject ? (
-                <CollapsibleSection title={t("Predictions:tab.org")} accent="cyan" defaultOpen>
-                  <div className="grid grid-cols-1 gap-3">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {parentPmoObject.name ? <HeroStat label={t("Predictions:org.name")} value={parentPmoObject.name} /> : null}
-                      {parentPmoObject.website ? (
-                        <HeroStat label={t("Predictions:org.website")} value={<a href={parentPmoObject.website} target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline text-sm">{parentPmoObject.website}</a>} />
-                      ) : null}
-                      {parentPmoObject.manifest ? (
-                        <HeroStat label={t("Predictions:org.manifest")} value={<a href={parentPmoObject.manifest} target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline text-sm">{parentPmoObject.manifest}</a>} />
-                      ) : null}
-                      {parentPmoObject.onchain_account ? <HeroStat label={t("Predictions:org.onchainAccount")} value={parentPmoObject.onchain_account} mono /> : null}
+              {hasPmo && normalizedPmo ? (
+                <CollapsibleSection title={t("Predictions:tab.org")} accent="cyan">
+                  <div className="grid grid-cols-1 gap-4 min-w-0">
+                    <div className="space-y-3">
+                      <SubsectionLabel>Organization Identity</SubsectionLabel>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {normalizedPmo.identity.name ? <HeroStat label={t("Predictions:org.name")} value={normalizedPmo.identity.name} /> : null}
+                        {normalizedPmo.identity.website ? (
+                          <HeroStat label={t("Predictions:org.website")} value={<a href={normalizedPmo.identity.website} target="_blank" rel="noopener noreferrer" className="break-all text-cyan-400 hover:underline text-sm">{normalizedPmo.identity.website}</a>} />
+                        ) : null}
+                        {normalizedPmo.identity.manifest ? (
+                          <HeroStat label={t("Predictions:org.manifest")} value={<a href={normalizedPmo.identity.manifest} target="_blank" rel="noopener noreferrer" className="break-all text-cyan-400 hover:underline text-sm">{normalizedPmo.identity.manifest}</a>} />
+                        ) : null}
+                      </div>
                     </div>
-                    {parentPmoObject.resolution_policy ? <LongText label={t("Predictions:org.resolutionPolicy")} value={DOMPurify.sanitize(parentPmoObject.resolution_policy)} /> : null}
-                    {parentPmoObject.dispute_mechanism ? <LongText label={t("Predictions:org.disputeMechanism")} value={DOMPurify.sanitize(parentPmoObject.dispute_mechanism)} /> : null}
-                    {parentPmoObject.attestation ? <LongText label={t("Predictions:org.attestation")} value={DOMPurify.sanitize(parentPmoObject.attestation)} /> : null}
-                    {parentPmoObject.pmo_signature ? (
+
+                    <div className="space-y-3">
+                      <SubsectionLabel>Organization Profile</SubsectionLabel>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {normalizedPmo.governance.onchain_account ? <HeroStat label={t("Predictions:org.onchainAccount")} value={normalizedPmo.governance.onchain_account} mono /> : null}
+                      </div>
+                      {normalizedPmo.governance.resolution_policy ? <LongText label={t("Predictions:org.resolutionPolicy")} value={DOMPurify.sanitize(normalizedPmo.governance.resolution_policy)} /> : null}
+                      {normalizedPmo.governance.dispute_mechanism ? <LongText label={t("Predictions:org.disputeMechanism")} value={DOMPurify.sanitize(normalizedPmo.governance.dispute_mechanism)} /> : null}
+                      {normalizedPmo.attestation ? <LongText label={t("Predictions:org.attestation")} value={DOMPurify.sanitize(normalizedPmo.attestation)} /> : null}
+                    </div>
+
+                    {normalizedPmo.pmo_signature ? (
                       <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-3 text-xs">
                         <div className="text-[11px] uppercase tracking-wide text-white/50 mb-0.5">{t("Predictions:org.signature")}</div>
-                        <MonoBlock value={parentPmoObject.pmo_signature} truncate={32} copyable label={t("Predictions:nft.copySig")} />
+                        <MonoBlock value={normalizedPmo.pmo_signature} truncate={32} copyable label={t("Predictions:nft.copySig")} />
                       </div>
                     ) : null}
-                    <Button variant="outline" size="sm" asChild className="self-start border-white/[0.12] text-white/70 hover:text-white hover:bg-white/[0.06]">
-                      <a href={`/active-predictions.html?search=${res.symbol.split(".")[0]}.`}>
-                        <ExternalLink className="mr-2 h-3.5 w-3.5" />
-                        {t("Predictions:org.viewAll", { symbol: res.symbol.split(".")[0] })}
-                      </a>
-                    </Button>
                   </div>
                 </CollapsibleSection>
               ) : null}
@@ -413,7 +610,7 @@ export function PredictionDetailDialog({
               {/* ── TECHNICAL DETAILS (Collapsible) ── */}
               <CollapsibleSection title={t("Predictions:tab.details")} accent="indigo">
                 <div className="grid grid-cols-1 gap-2">
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
                     <HeroStat label={t("Predictions:permissions")} value={Object.keys(_issuer_permissions).length > 0 ? (
                       <HoverCard>
                         <HoverCardTrigger>
@@ -452,7 +649,7 @@ export function PredictionDetailDialog({
               {usr && usr.id === house ? (
                 <CollapsibleSection title={t("Predictions:tab.admin")} accent="amber" defaultOpen={statusKey === "awaiting"}>
                   <div className="grid grid-cols-1 gap-2">
-                    <div className="grid grid-cols-4 gap-3 mt-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 mt-1">
                       <ResolveDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} expirationHours={expirationHours} expiration={expiration} cleanedPrediction={cleanedPrediction} _backingAssetID={_backingAssetID} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
                       <PricefeederDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
                       <FeedPriceDialog res={res} usr={usr} _backingAssetID={_backingAssetID} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
@@ -483,14 +680,14 @@ export function PredictionDetailDialog({
                 {statusKey === "active" ? (
                   <div>
                     <HoverInfo content={t("Predictions:seller_content")} header={t("Predictions:seller")} type="header" />
-                    <div className="grid grid-cols-3 gap-3 mt-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-1">
                       <IssueDialog res={res} usr={usr} backingAssetBalance={backingAssetBalance} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} existingCollateral={existingCollateral} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} />
-                      <SellDialog res={res} usr={usr} humanReadablePredictionMarketAssetBalance={humanReadablePredictionMarketAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} />
-                      <BuyDialog res={res} usr={usr} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} />
+                      <SellDialog res={res} usr={usr} humanReadablePredictionMarketAssetBalance={humanReadablePredictionMarketAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} />
+                      <BuyDialog res={res} usr={usr} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} />
                     </div>
                   </div>
                 ) : statusKey === "resolvedYes" ? (
-                  <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                       <div className="text-sm font-semibold text-white">{t("Predictions:winner_header")}</div>
                       <p className="text-xs text-white/50">{t("Predictions:winner_content")}</p>

@@ -255,6 +255,7 @@ export default function Predictions(properties) {
   const [hasLoadedPmas, setHasLoadedPmas] = useState(false);
   const [fetchingPmas, setFetchingPmas] = useState(true);
   const queriedStoreRef = useRef(false);
+  const [dynamicAssetDataById, setDynamicAssetDataById] = useState({});
 
   const predictionMarketAssetsCount = predictionMarketAssets?.length || 0;
   const assetsCount = assets?.length || 0;
@@ -336,6 +337,53 @@ export default function Predictions(properties) {
     }
   }, [predictionMarketAssetsCount, currentNodeReady, assetsCount]);
 
+  useEffect(() => {
+    if (!_chain || !currentNodeReady || !pmaProcessedData?.length) {
+      setDynamicAssetDataById({});
+      return;
+    }
+
+    const dynamicAssetIds = [
+      ...new Set(
+        pmaProcessedData
+          .map((asset) => asset?.dynamic_asset_data_id)
+          .filter(Boolean),
+      ),
+    ];
+
+    if (!dynamicAssetIds.length) {
+      setDynamicAssetDataById({});
+      return;
+    }
+
+    let cancelled = false;
+    const dynamicAssetStore = createObjectStore([
+      _chain,
+      JSON.stringify(dynamicAssetIds),
+      currentNode.url,
+    ]);
+
+    const unsubscribe = dynamicAssetStore.subscribe(({ data, error, loading }) => {
+      if (cancelled || !data || error || loading) {
+        return;
+      }
+
+      setDynamicAssetDataById(
+        data.reduce((accumulator, entry) => {
+          if (entry?.id) {
+            accumulator[entry.id] = entry;
+          }
+          return accumulator;
+        }, {}),
+      );
+    });
+
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+    };
+  }, [_chain, currentNode, currentNodeReady, pmaProcessedData]);
+
   const [usrBalances, setUsrBalances] = useState();
   const [balanceAssetIDs, setBalanceAssetIDs] = useState([]);
   useEffect(() => {
@@ -348,17 +396,18 @@ export default function Predictions(properties) {
         ]);
         userBalancesStore.subscribe(({ data, error, loading }) => {
           if (data && !error && !loading) {
-            const filteredData = data.filter((balance) =>
-              assets.find((x) => x.id === balance.asset_id),
-            );
-            setBalanceAssetIDs(filteredData.map((x) => x.asset_id));
-            setUsrBalances(filteredData);
+            // Do not filter by the initially loaded `assets` list here because
+            // PMA assets may be minted/added dynamically and may not appear
+            // in the smaller assets list. Keep all balances so PMA balances
+            // are available for lookup in the list/detail components.
+            setBalanceAssetIDs(data.map((x) => x.asset_id));
+            setUsrBalances(data);
           }
         });
       }
     }
     fetchUserBalances();
-  }, [usr]);
+  }, [usr, currentNode?.url]);
 
   const activePMAs = useMemo(() => {
     return pmaProcessedData.filter((x) => !x.expired);
@@ -670,7 +719,7 @@ export default function Predictions(properties) {
 
   const listContainerRef = useRef(null);
 
-  const PredictionRowItem = useCallback(({ index, style, items, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, expiredPMAs, userBlockedIDs, ipfsGateway, view, now, setIssuerFilter, t }) => {
+  const PredictionRowItem = useCallback(({ index, style, items, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, expiredPMAs, userBlockedIDs, ipfsGateway, view, now, setIssuerFilter, t, dynamicAssetDataById }) => {
     const item = items[index];
     if (!item) return null;
     return (
@@ -686,6 +735,7 @@ export default function Predictions(properties) {
           expiredPMAs={expiredPMAs}
           userBlockedIDs={userBlockedIDs}
           ipfsGateway={ipfsGateway}
+          dynamicAssetDataById={dynamicAssetDataById}
           view={view}
           now={now}
           setIssuerFilter={setIssuerFilter}
@@ -706,11 +756,12 @@ export default function Predictions(properties) {
     expiredPMAs,
     userBlockedIDs,
     ipfsGateway,
+    dynamicAssetDataById,
     view,
     now,
     setIssuerFilter,
     t,
-  }), [sortedFilteredPMAs, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, expiredPMAs, userBlockedIDs, ipfsGateway, view, now, setIssuerFilter, t]);
+  }), [sortedFilteredPMAs, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, expiredPMAs, userBlockedIDs, ipfsGateway, dynamicAssetDataById, view, now, setIssuerFilter, t]);
 
   return (
     <div className="container mx-auto mt-5 mb-5 text-white">

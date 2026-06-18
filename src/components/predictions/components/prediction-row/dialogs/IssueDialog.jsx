@@ -18,12 +18,12 @@ function SectionHeader({ label, accent = "rose" }) {
   );
 }
 
-export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackingAssetBalance, existingCollateral, _backingAssetID, _backingPrecision, market, t }) {
+export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackingAssetBalance, existingCollateral, existingCollateralRaw, _backingAssetID, _backingPrecision, market, t }) {
   const [issuePrompt, setIssuePrompt] = useState(false);
   const [issueAmount, setIssueAmount] = useState(0);
   const [issueDialog, setIssueDialog] = useState(false);
 
-  const exceedsBalance = issueAmount > humanReadableBackingAssetBalance;
+  const exceedsBalance = Number(issueAmount) > Number(humanReadableBackingAssetBalance || 0);
   const isZero = !issueAmount || issueAmount <= 0;
   const canSubmit = !isZero && !exceedsBalance;
 
@@ -58,14 +58,21 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
                 <Input
                   type="number"
                   value={issueAmount}
-                  min={1}
+                  min={0}
                   step={1}
                   aria-label={t("Predictions:issueDialog.qtyHeader")}
                   className={cn("pr-16", exceedsBalance && "border-red-500/50 focus-visible:ring-red-500/30")}
                   onInput={(e) => {
                     const input = e.currentTarget.value;
-                    const regex = assetAmountRegex({ precision: _backingPrecision });
-                    if (regex.test(input)) setIssueAmount(e.currentTarget.value);
+                    if (input === "") {
+                      setIssueAmount(0);
+                      return;
+                    }
+                    const regex = assetAmountRegex({ precision: res?.precision });
+                    if (regex.test(input)) {
+                      const num = Number(input);
+                      if (!Number.isNaN(num)) setIssueAmount(num);
+                    }
                   }}
                 />
                 <Button
@@ -75,7 +82,10 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
                   MAX
                 </Button>
               </div>
-              <Input type="text" value={`${res.backingAsset.symbol} (${res.backingAsset.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
+              <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
+            </div>
+            <div className="mt-1 text-xs text-white/50">
+              {t("Predictions:issueDialog.available", { defaultValue: "Available" })}: {humanReadableBackingAssetBalance} {res.backingAsset?.symbol}
             </div>
           </section>
 
@@ -89,7 +99,9 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
               </div>
               <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
                 <div className="text-[10px] uppercase tracking-wide text-amber-400/60 mb-1">{t("Predictions:issueDialog.totalHeader")}</div>
-                <div className="text-sm font-semibold text-amber-300">{existingCollateral + issueAmount} {res.backingAsset.symbol}</div>
+                <div className="text-sm font-semibold text-amber-300">
+                  {humanReadableFloat((Number(existingCollateralRaw || 0) + blockchainFloat(Number(issueAmount || 0), _backingPrecision)), _backingPrecision)} {res.backingAsset.symbol}
+                </div>
               </div>
             </div>
           </section>
@@ -124,13 +136,15 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
             headerText={t("Predictions:dialogContent.header_issue")}
             trxJSON={[{
               funding_account: usr.id,
+              // delta_collateral is the backing asset amount (added collateral)
               delta_collateral: {
-                amount: blockchainFloat(existingCollateral + issueAmount, res.precision),
-                asset_id: res.id,
-              },
-              delta_debt: {
-                amount: blockchainFloat(existingCollateral + issueAmount, _backingPrecision),
+                amount: blockchainFloat(Number(issueAmount || 0), _backingPrecision),
                 asset_id: _backingAssetID,
+              },
+              // delta_debt is the PMA amount (new debt)
+              delta_debt: {
+                amount: blockchainFloat(Number(issueAmount || 0), res.precision),
+                asset_id: res.id,
               },
               extensions: {},
             }]}
