@@ -192,8 +192,9 @@
   "sellDialog": {
     "qtyHeader": "Mængde at sælge",
     "qtyContent": "Mængden af tokens, du ønsker at sælge på dette forudsigelsesmarked, væddemål mod resultatet af forudsigelsen.",
-    "receivingHeader": "Modtager",
-    "receivingContent": "Dette er cirka det samlede beløb af sikkerhedsaktiver, du får til gengæld for denne handel.",
+    "outcomeHeader": "Potentielt resultat",
+    "outcomeIfWin": "Hvis forudsigelsen løses til din fordel (Falsk)",
+    "outcomeIfWinHelp": "Du modtager dit salgsprovenu plus 1:1-sikkerhed returneret på dine udstedte PMA.",
     "title": "Salg af forudsigelige markedsaktiver",
     "description": "For at satse mod resultatet af forudsigelsen skal du sælge de forudsigelsesmarkedsaktivtokens, som du tidligere har udstedt.",
     "expiryContent": "Din limitordre vil forblive aktiv på DEX så længe, før den ikke længere eksisterer. Hvis du vælger 'fyld eller dræb', så vil operationen mislykkes, hvis der ikke er nogen matchende DEX salgsgrænseordre, hvilket sparer tid og gebyrer.",

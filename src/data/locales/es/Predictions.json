@@ -192,8 +192,9 @@
   "sellDialog": {
     "qtyHeader": "Cantidad a vender",
     "qtyContent": "La cantidad de tokens que deseas vender en este mercado de predicción, apostando contra el resultado de la predicción.",
-    "receivingHeader": "Recepción",
-    "receivingContent": "Esta es aproximadamente la cantidad total de activo de respaldo que obtendrá a cambio de esta operación.",
+    "outcomeHeader": "Resultado potencial",
+    "outcomeIfWin": "Si la predicción resuelve a su favor (Falso)",
+    "outcomeIfWinHelp": "Recibe sus ganancias de la venta más garantía 1:1 devuelta en sus PMA emitidos.",
     "title": "Vender activos del mercado de predicción",
     "description": "Para apostar en contra del resultado de la predicción, debe vender los tokens de activos del mercado de predicción que emitió anteriormente.",
     "expiryContent": "Su orden límite permanecerá activa en el DEX durante este tiempo antes de que ya no exista. Si selecciona \"completar o eliminar\", si no hay una orden límite de venta DEX coincidente, la operación fallará, ahorrándole tiempo y tarifas.",

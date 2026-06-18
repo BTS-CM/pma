@@ -192,8 +192,9 @@
   "sellDialog": {
     "qtyHeader": "Müüdav kogus",
     "qtyContent": "Märkide kogus, mida soovite sellel ennustusturul müüa, panustades ennustuse tulemusele.",
-    "receivingHeader": "Vastuvõtmine",
-    "receivingContent": "See on ligikaudu tagatisvara kogusumma, mille saate selle tehingu eest vastutasuks.",
+    "outcomeHeader": "Võimalik tulemus",
+    "outcomeIfWin": "Kui ennustus lahendatakse teie kasuks (Vale)",
+    "outcomeIfWinHelp": "Saate müügitulu pluss 1:1 tagatis tagastatud teie väljastatud PMA-lt.",
     "title": "Ennustusturu varade müük",
     "description": "Ennustuse tulemuse vastu panustamiseks peate müüma eelnevalt välja antud ennustuste turu varade märgid.",
     "expiryContent": "Teie limiittellimus jääb DEX-is aktiivseks kaua, enne kui see enam ei eksisteeri. Kui valite täitke või tapke, siis kui sobivat DEX-i müügilimiittellimust pole, toiming nurjub, säästes teie aega ja tasusid.",

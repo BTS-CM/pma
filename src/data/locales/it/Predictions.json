@@ -192,8 +192,9 @@
   "sellDialog": {
     "qtyHeader": "Quantità da vendere",
     "qtyContent": "La quantità di token che desideri vendere in questo mercato di previsione, scommettendo contro l'esito della previsione.",
-    "receivingHeader": "Ricevere",
-    "receivingContent": "Questo è approssimativamente l'importo totale dell'asset di garanzia che riceverai in cambio di questa operazione.",
+    "outcomeHeader": "Risultato potenziale",
+    "outcomeIfWin": "Se la previsione si risolve a tuo favore (Falso)",
+    "outcomeIfWinHelp": "Ricevi i proventi della vendita più la garanzia 1:1 restituita sui tuoi PMA emessi.",
     "title": "Vendita di asset del mercato di previsione",
     "description": "Per scommettere contro il risultato della previsione, devi vendere i token asset del mercato di previsione che hai emesso in precedenza.",
     "expiryContent": "Il tuo ordine limite rimarrà attivo sul DEX per questo periodo prima di non esistere più. Se selezioni \"riempi o uccidi\", se non esiste un ordine limite di vendita DEX corrispondente l'operazione fallirà, risparmiando tempo e commissioni.",

@@ -192,11 +192,12 @@
   "sellDialog": {
     "qtyHeader": "Zu verkaufende Menge",
     "qtyContent": "Die Menge an Token, die Sie in diesem Prognosemarkt verkaufen möchten, indem Sie auf das Ergebnis der Prognose wetten.",
-    "receivingHeader": "Empfang",
-    "receivingContent": "Dies ist ungefähr der Gesamtbetrag des Sicherungsvermögens, den Sie als Gegenleistung für diesen Handel erhalten.",
+    "outcomeHeader": "Mögliches Ergebnis",
+    "outcomeIfWin": "Wenn die Prognose zu Ihren Gunsten aufgelöst wird (Falsch)",
+    "outcomeIfWinHelp": "Sie erhalten Ihren Verkaufserlös plus 1:1-Sicherheit für Ihre ausgegebenen PMA zurückgegeben.",
     "title": "Verkauf von Prognosemarkt-Assets",
     "description": "Um gegen das Ergebnis der Prognose zu wetten, müssen Sie die zuvor ausgegebenen Prognosemarkt-Asset-Tokens verkaufen.",
-    "expiryContent": "Ihre Limit-Order bleibt so lange am DEX aktiv, bevor sie nicht mehr existiert. Wenn Sie „Fill or Kill“ wählen und keine passende DEX-Verkaufs-Limit-Order vorhanden ist, schlägt der Vorgang fehl, was Ihnen Zeit und Gebühren spart.",
+    "expiryContent": "Ihre Limit-Order bleibt so lange am DEX aktiv, bevor sie nicht mehr existiert. Wenn Sie „Fill or Kill" wählen und keine passende DEX-Verkaufs-Limit-Order vorhanden ist, schlägt der Vorgang fehl, was Ihnen Zeit und Gebühren spart.",
     "expiryHeader": "Ablauf"
   },
   "buyDialog": {

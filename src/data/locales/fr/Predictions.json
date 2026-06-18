@@ -192,8 +192,9 @@
   "sellDialog": {
     "qtyHeader": "Quantité à vendre",
     "qtyContent": "La quantité de jetons que vous souhaitez vendre sur ce marché de prédiction, en pariant contre le résultat de la prédiction.",
-    "receivingHeader": "Réception",
-    "receivingContent": "Il s'agit approximativement du montant total de l'actif de garantie que vous obtiendrez en échange de cette transaction.",
+    "outcomeHeader": "Résultat potentiel",
+    "outcomeIfWin": "Si la prédiction se résout en votre faveur (Faux)",
+    "outcomeIfWinHelp": "Vous recevez vos produits de vente plus la garantie 1:1 retournée sur vos PMA émis.",
     "title": "Vendre des actifs du marché de prédiction",
     "description": "Pour parier contre le résultat de la prédiction, vous devez vendre les jetons d'actifs du marché de prédiction que vous avez précédemment émis.",
     "expiryContent": "Votre ordre limité restera actif sur le DEX pendant cette période avant de ne plus exister. Si vous sélectionnez « remplir ou tuer », alors s'il n'y a pas d'ordre limite de vente DEX correspondant, l'opération échouera, ce qui vous fera gagner du temps et des frais.",

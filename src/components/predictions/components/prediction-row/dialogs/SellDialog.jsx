@@ -218,81 +218,66 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
               </div>
               <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
             </div>
-            <div className="mt-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-xs text-white/55">
-              <div>
-                {t("Predictions:available_balance", { defaultValue: "Available" })}: {formatAmount(availablePmaBalance, res.precision)} {res.symbol}
-              </div>
-              <div className="mt-1 text-white/40">
-                {t("Predictions:sellDialog.proceedsHelp", { defaultValue: "At this price, selling this amount would return about" })} {formatAmount(orderProceeds, _backingPrecision)} {res.backingAsset.symbol}
-              </div>
+            <div className="mt-1 text-xs text-white/50">
+              {t("Predictions:available_balance", { defaultValue: "Available" })}: {formatAmount(availablePmaBalance, res.precision)} {res.symbol}
             </div>
           </section>
 
           <section>
             <SectionHeader label={t("Predictions:sellDialog.priceHeader", { defaultValue: "Asking price" })} accent="rose" />
             <div className="space-y-3 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_190px]">
-                <div>
-                  <Slider
-                    variant="rose"
-                    min={0.01}
-                    max={0.99}
-                    step={0.01}
-                    value={[Math.min(0.99, Math.max(0.01, sellPriceValue))]}
-                    onValueChange={(value) => setSellPrice(formatAmount(value[0]))}
-                  />
-                  <div className="mt-2 flex items-center justify-between text-[11px] text-white/40">
-                    <span>0.01</span>
-                    <span>{t("Predictions:sellDialog.priceHelp", { defaultValue: "Backing asset paid per 1 PMA" })}</span>
-                    <span>0.99</span>
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <Input
-                    type="number"
-                    value={sellPrice}
-                    min={MIN_ORDER_PRICE}
-                    max={MAX_ORDER_PRICE}
-                    step={0.01}
-                    aria-label={t("Predictions:sellDialog.priceHeader", { defaultValue: "Asking price" })}
-                    onInput={(e) => {
-                      const input = e.currentTarget.value;
-                      if (input === "") {
-                        setSellPrice("");
-                        return;
-                      }
+              <Slider
+                variant="rose"
+                min={0.01}
+                max={0.99}
+                step={0.01}
+                value={[Math.min(0.99, Math.max(0.01, sellPriceValue))]}
+                onValueChange={(value) => setSellPrice(formatAmount(value[0]))}
+              />
+              <div className="flex items-center justify-between text-[11px] text-white/40">
+                <span>0.01</span>
+                <span>{formatAmount(sellPriceValue)} {res.backingAsset.symbol} / {res.symbol}</span>
+                <span>0.99</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Input
+                  type="number"
+                  value={sellPrice}
+                  min={MIN_ORDER_PRICE}
+                  max={MAX_ORDER_PRICE}
+                  step={0.01}
+                  aria-label={t("Predictions:sellDialog.priceHeader", { defaultValue: "Asking price" })}
+                  onInput={(e) => {
+                    const input = e.currentTarget.value;
+                    if (input === "") {
+                      setSellPrice("");
+                      return;
+                    }
 
-                      if (assetAmountRegex({ precision: Math.min(_backingPrecision || 5, 5) }).test(input)) {
-                        setSellPrice(input);
-                      }
-                    }}
-                    onBlur={() => setSellPrice(formatAmount(sellPriceValue))}
-                  />
-                  <div className="text-[11px] text-white/45">
-                    {formatAmount(sellPriceValue)} {market} / {res.symbol}
-                  </div>
-                </div>
+                    if (assetAmountRegex({ precision: Math.min(_backingPrecision || 5, 5) }).test(input)) {
+                      setSellPrice(input);
+                    }
+                  }}
+                  onBlur={() => setSellPrice(formatAmount(sellPriceValue))}
+                />
+                <Input
+                  type="text"
+                  value={`${res.backingAsset.symbol} (${res.backingAsset.id})`}
+                  disabled
+                  className="bg-white/[0.03] border-white/[0.06] text-white/50"
+                />
               </div>
             </div>
           </section>
 
-          {/* Receiving Section */}
+          {/* Potential Outcome Section */}
           <section>
-            <SectionHeader label={t("Predictions:sellDialog.receivingHeader")} accent="rose" />
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
-                <div className="text-xs text-white/40 mb-0.5">{t("Predictions:sellDialog.receivingContent", { defaultValue: "Estimated backing received if filled" })}</div>
-                <div className="text-sm font-semibold text-white">{formatAmount(orderProceeds, _backingPrecision)} {res.backingAsset.symbol} ({res.backingAsset.id})</div>
-                <div className="mt-1 text-[11px] text-white/45">
-                  {formatAmount(sellQuantity, res.precision)} {res.symbol} at {formatAmount(sellPriceValue)} {market} per token
-                </div>
-              </div>
-              <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 px-4 py-3">
-                <div className="text-xs text-rose-200/60 mb-0.5">{t("Predictions:sellDialog.winEstimate", { defaultValue: "If NO resolves on your own short" })}</div>
-                <div className="text-sm font-semibold text-rose-100">{formatAmount(totalBackingIfNo, _backingPrecision)} {market}</div>
-                <div className="mt-1 text-[11px] text-rose-100/60">
-                  {t("Predictions:sellDialog.winEstimateHelp", { defaultValue: "Sale proceeds plus up to 1:1 collateral returned." })}
-                </div>
+            <SectionHeader label={t("Predictions:sellDialog.outcomeHeader", { defaultValue: "Potential outcome" })} accent="rose" />
+            <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 px-4 py-3">
+              <div className="text-xs text-rose-200/60 mb-0.5">{t("Predictions:sellDialog.outcomeIfWin", { defaultValue: "If the prediction resolves in your favour (False)" })}</div>
+              <div className="text-sm font-semibold text-rose-100">{formatAmount(totalBackingIfNo, _backingPrecision)} {res.backingAsset.symbol}</div>
+              <div className="mt-1 text-[11px] text-rose-100/60">
+                {t("Predictions:sellDialog.outcomeIfWinHelp", { defaultValue: "You receive your sale proceeds plus 1:1 collateral returned on your issued PMA." })}
               </div>
             </div>
           </section>

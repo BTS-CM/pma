@@ -192,8 +192,9 @@
   "sellDialog": {
     "qtyHeader": "Quantity to sell",
     "qtyContent": "The quantity of tokens you want to sell in this prediction market, betting against the outcome of the prediction.",
-    "receivingHeader": "Receiving",
-    "receivingContent": "This is approximately the total amount of backing asset you'll get in return for this trade.",
+    "outcomeHeader": "Potential outcome",
+    "outcomeIfWin": "If the prediction resolves in your favour (False)",
+    "outcomeIfWinHelp": "You receive your sale proceeds plus 1:1 collateral returned on your issued PMA.",
     "title": "Selling prediction market assets",
     "description": "To bet against the outcome of the prediction, you need to sell the prediction market asset tokens which you previously issued.",
     "expiryContent": "Your limit order will remain active on the DEX for this long before no longer existing, If you select 'fill or kill' then if there's no matching DEX sell limit order the operation will fail, saving your time and fees.",
