@@ -4,11 +4,12 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ExclamationTriangleIcon, CalendarIcon, PlusIcon } from "@radix-ui/react-icons";
+import { ExclamationTriangleIcon, CalendarIcon, PlusIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Slider } from "@/components/ui/slider";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import { assetAmountRegex, blockchainFloat } from "@/lib/common.js";
 import { cn } from "@/lib/utils";
@@ -47,7 +48,7 @@ function SectionHeader({ label, accent = "emerald" }) {
 
 function ExpirySelector({ expiryType, setExpiryType, date, setDate, t, expiration }) {
   return (
-    <div className="space-y-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <Select
         value={expiryType}
         onValueChange={(selectedExpiry) => {
@@ -81,58 +82,55 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t, expiratio
         </SelectContent>
       </Select>
 
-      <div className="flex items-center gap-3">
-        {expiryType === "specific" ? (
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" className={cn("w-full justify-start text-left font-normal border-white/[0.08] bg-white/[0.04] text-white/70 hover:bg-white/[0.06] hover:text-white", !date && "text-white/40")}>
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? format(date, "PPP") : <span>{t("LimitOrderCard:expiry.pickDate")}</span>}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-80 p-0 bg-slate-900 border-white/[0.08]" align="start">
-                  <Calendar
-                    className="w-72"
-                    mode="single"
-                    selected={date}
-                    fromDate={new Date()}
-                    toDate={expiration ? new Date(expiration) : undefined}
-                    onSelect={(e) => {
-                      if (!e) {
-                        return;
-                      }
+      {expiryType === "specific" ? (
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" className={cn("w-full justify-start text-left font-normal border-white/[0.08] bg-white/[0.04] text-white/70 hover:bg-white/[0.06] hover:text-white", !date && "text-white/40")}>
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {date ? format(date, "PPP") : <span>{t("LimitOrderCard:expiry.pickDate")}</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80 p-0 bg-slate-900 border-white/[0.08]" align="start">
+            <Calendar
+              className="w-72"
+              mode="single"
+              selected={date}
+              fromDate={new Date()}
+              toDate={expiration ? new Date(expiration) : undefined}
+              onSelect={(e) => {
+                if (!e) {
+                  return;
+                }
 
-                      const selected = new Date(e);
-                      const now = new Date();
-                      if (selected < now) {
-                        setDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
-                        return;
-                      }
-                      if (expiration) {
-                        const expDate = new Date(expiration);
-                        if (selected > expDate) {
-                          setDate(expDate);
-                          return;
-                        }
-                      }
-                      setDate(e);
-                    }}
-                    initialFocus
-                  />
-            </PopoverContent>
-          </Popover>
-        ) : null}
-
-        <span className="text-xs text-white/40 italic">
-          {expiryType === "fkill" ? t("LimitOrderCard:expiry.fkillDescription") : null}
-          {expiryType !== "specific" && expiryType !== "fkill" ? t("LimitOrderCard:expiry.generalDescription", { expiryType }) : null}
+                const selected = new Date(e);
+                const now = new Date();
+                if (selected < now) {
+                  setDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
+                  return;
+                }
+                if (expiration) {
+                  const expDate = new Date(expiration);
+                  if (selected > expDate) {
+                    setDate(expDate);
+                    return;
+                  }
+                }
+                setDate(e);
+              }}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+      ) : (
+        <span className="flex items-center text-xs text-white/40 italic">
+          {expiryType === "fkill" ? t("LimitOrderCard:expiry.fkillDescription") : t("LimitOrderCard:expiry.generalDescription", { expiryType })}
         </span>
-      </div>
+      )}
     </div>
   );
 }
 
-export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backingAssetID, _backingPrecision, market, t, expiration, defaultPrice }) {
+export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backingAssetID, _backingPrecision, market, t, expiration, defaultPrice, marketStats }) {
   const [buyPrompt, setBuyPrompt] = useState(false);
   const [spendAmount, setSpendAmount] = useState("");
   const [buyPrice, setBuyPrice] = useState(formatAmount(clampOrderPrice(defaultPrice ?? DEFAULT_ORDER_PRICE)));
@@ -163,6 +161,19 @@ export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backing
   const isZero = spendAmountValue <= 0;
   const hasValidPrice = buyPriceValue > 0 && buyPriceValue < 1;
   const canSubmit = !isZero && !exceedsBalance && hasValidPrice;
+
+  // Odds calculations (buyer is betting YES)
+  const decimalOddsYes = buyPriceValue > 0 ? 1 / buyPriceValue : 0;
+  const fractionalNumerator = Math.round((1 - buyPriceValue) * 100);
+  const fractionalDenominator = Math.round(buyPriceValue * 100);
+  const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
+  const fracGcd = gcd(fractionalNumerator, fractionalDenominator);
+  const fracNum = fractionalNumerator / fracGcd;
+  const fracDen = fractionalDenominator / fracGcd;
+  const americanOddsYes = buyPriceValue >= 0.5
+    ? Math.round(-((buyPriceValue / (1 - buyPriceValue)) * 100))
+    : Math.round(((1 - buyPriceValue) / buyPriceValue) * 100);
+  const impliedProbabilityYes = buyPriceValue * 100;
 
   return (
     <Dialog open={buyPrompt} onOpenChange={setBuyPrompt}>
@@ -218,90 +229,143 @@ export function BuyDialog({ res, usr, humanReadableBackingAssetBalance, _backing
               </div>
               <Input type="text" value={`${res.backingAsset.symbol} (${res.backingAsset.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
             </div>
-            <div className="mt-2 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-xs text-white/55">
-              <div>
-                {t("Predictions:available_balance", { defaultValue: "Available" })}: {formatAmount(availableBackingBalance, _backingPrecision)} {res.backingAsset.symbol}
-              </div>
-              <div className="mt-1 text-white/40">
-                {t("Predictions:buyDialog.estimatedQtyHelp", { defaultValue: "At this price, your spend would buy about" })} {formatAmount(estimatedPmaReceived, res.precision)} {res.symbol}
-              </div>
+            <div className="mt-1 text-xs text-white/50">
+              {t("Predictions:available_balance", { defaultValue: "Available" })}: {formatAmount(availableBackingBalance, _backingPrecision)} {res.backingAsset.symbol}
             </div>
           </section>
 
+          {/* Price Section */}
           <section>
             <SectionHeader label={t("Predictions:buyDialog.priceHeader", { defaultValue: "Bid price" })} accent="emerald" />
             <div className="space-y-3 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-[1fr_190px]">
-                <div>
-                  <Slider
-                    variant="emerald"
-                    min={0.01}
-                    max={0.99}
-                    step={0.01}
-                    value={[Math.min(0.99, Math.max(0.01, buyPriceValue))]}
-                    onValueChange={(value) => setBuyPrice(formatAmount(value[0]))}
-                  />
-                  <div className="mt-2 flex items-center justify-between text-[11px] text-white/40">
-                    <span>0.01</span>
-                    <span>{t("Predictions:buyDialog.priceHelp", { defaultValue: "Backing asset paid per 1 PMA" })}</span>
-                    <span>0.99</span>
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <Input
-                    type="number"
-                    value={buyPrice}
-                    min={MIN_ORDER_PRICE}
-                    max={MAX_ORDER_PRICE}
-                    step={0.01}
-                    aria-label={t("Predictions:buyDialog.priceHeader", { defaultValue: "Bid price" })}
-                    onInput={(e) => {
-                      const input = e.currentTarget.value;
-                      if (input === "") {
-                        setBuyPrice("");
-                        return;
-                      }
-
-                      if (assetAmountRegex({ precision: Math.min(_backingPrecision || 5, 5) }).test(input)) {
-                        setBuyPrice(input);
-                      }
-                    }}
-                    onBlur={() => setBuyPrice(formatAmount(buyPriceValue))}
-                  />
-                  <div className="text-[11px] text-white/45">
-                    {formatAmount(buyPriceValue)} {market} / {res.symbol}
-                  </div>
-                </div>
+              <Slider
+                variant="emerald"
+                min={0.01}
+                max={0.99}
+                step={0.01}
+                value={[Math.min(0.99, Math.max(0.01, buyPriceValue))]}
+                onValueChange={(value) => setBuyPrice(formatAmount(value[0]))}
+              />
+              <div className="flex items-center justify-between text-[11px] text-white/40">
+                <span>0.01</span>
+                <span>{formatAmount(buyPriceValue)} {res.backingAsset.symbol} / {res.symbol}</span>
+                <span>0.99</span>
               </div>
-            </div>
-          </section>
+              <div className="grid grid-cols-2 gap-3">
+                <Input
+                  type="number"
+                  value={buyPrice}
+                  min={MIN_ORDER_PRICE}
+                  max={MAX_ORDER_PRICE}
+                  step={0.01}
+                  aria-label={t("Predictions:buyDialog.priceHeader", { defaultValue: "Bid price" })}
+                  onInput={(e) => {
+                    const input = e.currentTarget.value;
+                    if (input === "") {
+                      setBuyPrice("");
+                      return;
+                    }
 
-          {/* Receiving Section */}
-          <section>
-            <SectionHeader label={t("Predictions:buyDialog.receivingHeader")} accent="emerald" />
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
-                <div className="text-xs text-white/40 mb-0.5">{t("Predictions:buyDialog.receivingContent", { defaultValue: "Estimated PMA received if filled" })}</div>
-                <div className="text-sm font-semibold text-white">{formatAmount(estimatedPmaReceived, res.precision)} {res.symbol} ({res.id})</div>
-                <div className="mt-1 text-[11px] text-white/45">
-                  {formatAmount(spendAmountValue, _backingPrecision)} {res.backingAsset.symbol} at {formatAmount(buyPriceValue)} {market} per token
-                </div>
-              </div>
-              <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
-                <div className="text-xs text-emerald-200/60 mb-0.5">{t("Predictions:buyDialog.winEstimate", { defaultValue: "If YES resolves" })}</div>
-                <div className="text-sm font-semibold text-emerald-100">{formatAmount(redeemableBacking, _backingPrecision)} {market}</div>
-                <div className="mt-1 text-[11px] text-emerald-100/60">
-                  {t("Predictions:buyDialog.winEstimateHelp", { defaultValue: "Redeem up to 1:1 backing collateral; net change" })}: {netIfYes >= 0 ? "+" : ""}{formatAmount(netIfYes, _backingPrecision)} {market}
-                </div>
+                    if (assetAmountRegex({ precision: Math.min(_backingPrecision || 5, 5) }).test(input)) {
+                      setBuyPrice(input);
+                    }
+                  }}
+                  onBlur={() => setBuyPrice(formatAmount(buyPriceValue))}
+                />
+                <Input
+                  type="text"
+                  value={`${res.backingAsset.symbol} (${res.backingAsset.id})`}
+                  disabled
+                  className="bg-white/[0.03] border-white/[0.06] text-white/50"
+                />
               </div>
             </div>
           </section>
 
           {/* Expiry Section */}
           <section>
-            <SectionHeader label={t("Predictions:sellDialog.expiryHeader")} accent="emerald" />
+            <SectionHeader label={t("Predictions:buyDialog.expiryHeader", { defaultValue: "Expiry" })} accent="emerald" />
             <ExpirySelector expiryType={expiryType} setExpiryType={setExpiryType} date={date} setDate={setDate} t={t} expiration={expiration} />
           </section>
+
+          {/* Estimated Odds Section */}
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger className="flex items-center gap-2 w-full group">
+              <SectionHeader label={t("Predictions:buyDialog.oddsHeader", { defaultValue: "Estimated odds" })} accent="emerald" />
+              <ChevronDownIcon className="h-4 w-4 text-white/40 group-data-[state=open]:rotate-180 transition-transform" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
+                <div className="grid grid-cols-4 gap-3 text-center">
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:buyDialog.oddsFractional", { defaultValue: "Fraction" })}</div>
+                    <div className="text-sm font-semibold text-white">{fracNum}:{fracDen}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:buyDialog.oddsDecimal", { defaultValue: "Decimal" })}</div>
+                    <div className="text-sm font-semibold text-white">{decimalOddsYes.toFixed(2)}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:buyDialog.oddsAmerican", { defaultValue: "American" })}</div>
+                    <div className="text-sm font-semibold text-white">{americanOddsYes > 0 ? "+" : ""}{americanOddsYes}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:buyDialog.oddsProbability", { defaultValue: "Implied prob." })}</div>
+                    <div className="text-sm font-semibold text-white">{impliedProbabilityYes.toFixed(1)}%</div>
+                  </div>
+                </div>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Market Context Section */}
+          {marketStats && (marketStats.bestAsk != null || marketStats.bestBid != null || (marketStats.latestTrade != null && marketStats.latestTrade > 0)) ? (
+            <Collapsible defaultOpen>
+              <CollapsibleTrigger className="flex items-center gap-2 w-full group">
+                <SectionHeader label={t("Predictions:buyDialog.marketHeader", { defaultValue: "Market context" })} accent="emerald" />
+                <ChevronDownIcon className="h-4 w-4 text-white/40 group-data-[state=open]:rotate-180 transition-transform" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 space-y-2">
+                  {marketStats.bestBid != null && marketStats.buyOrderCount > 0 ? (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-white/50">{t("Predictions:buyDialog.marketBestBid", { defaultValue: "Best bid" })} <span className="text-white/30">({t("Predictions:buyDialog.trueBet", { defaultValue: "true bet" })})</span></span>
+                      <span className="text-xs font-mono text-white/70">{formatAmount(marketStats.bestBid, Math.min(_backingPrecision || 5, 5))} {market}</span>
+                    </div>
+                  ) : null}
+                  {marketStats.bestAsk != null && marketStats.sellOrderCount > 0 ? (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-white/50">{t("Predictions:buyDialog.marketBestAsk", { defaultValue: "Best ask" })} <span className="text-white/30">({t("Predictions:buyDialog.falseBet", { defaultValue: "false bet" })})</span></span>
+                      <span className="text-xs font-mono text-white/70">{formatAmount(marketStats.bestAsk, Math.min(_backingPrecision || 5, 5))} {market}</span>
+                    </div>
+                  ) : null}
+                  {marketStats.latestTrade != null && marketStats.latestTrade > 0 ? (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-white/50">{t("Predictions:buyDialog.marketLastTrade", { defaultValue: "Last trade" })}</span>
+                      <span className="text-xs font-mono text-white/70">{formatAmount(marketStats.latestTrade, Math.min(_backingPrecision || 5, 5))} {market}</span>
+                    </div>
+                  ) : null}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          ) : null}
+
+          {/* Potential Outcome Section */}
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger className="flex items-center gap-2 w-full group">
+              <SectionHeader label={t("Predictions:buyDialog.outcomeHeader", { defaultValue: "Potential outcome" })} accent="emerald" />
+              <ChevronDownIcon className="h-4 w-4 text-white/40 group-data-[state=open]:rotate-180 transition-transform" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
+                <div className="text-xs text-emerald-200/60 mb-0.5">{t("Predictions:buyDialog.outcomeIfWin", { defaultValue: "If the prediction resolves in your favour (True)" })}</div>
+                <div className="text-sm font-semibold text-emerald-100">{formatAmount(redeemableBacking, _backingPrecision)} {res.backingAsset.symbol}</div>
+                <div className="mt-1 text-[11px] text-emerald-100/60">
+                  {t("Predictions:buyDialog.outcomeIfWinHelp", { defaultValue: "Redeem up to 1:1 backing collateral; net change" })}: {netIfYes >= 0 ? "+" : ""}{formatAmount(netIfYes, _backingPrecision)} {res.backingAsset.symbol}
+                </div>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
 
         <div className="h-px bg-white/[0.06]" />

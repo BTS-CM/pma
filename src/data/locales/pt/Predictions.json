@@ -203,9 +203,23 @@
   "buyDialog": {
     "title": "Compra de ativos de mercado de previsão",
     "description": "Para apostar a favor do resultado da previsão, você precisa comprar os tokens de ativos do mercado de previsão de um vendedor que está apostando contra o resultado.",
-    "qtyHeader": "Valor a gastar",
-    "receivingHeader": "Recebendo",
-    "receivingContent": "Esta é aproximadamente a quantidade total de tokens de ativos de mercado de previsão que você receberá em troca desta negociação."
+    "amountToSpend": "Valor a gastar",
+    "priceHeader": "Oferta",
+    "outcomeHeader": "Resultado potencial",
+    "outcomeIfWin": "Se a previsão resolver a seu favor (Verdadeiro)",
+    "outcomeIfWinHelp": "Resgate até 1:1 de garantia; variação líquida",
+    "oddsHeader": "Probabilidades estimadas",
+    "oddsFractional": "Fração",
+    "oddsDecimal": "Decimal",
+    "oddsAmerican": "Americano",
+    "oddsProbability": "Probabilidade",
+    "marketHeader": "Contexto do mercado",
+    "marketBestBid": "Melhor oferta",
+    "marketBestAsk": "Melhor preço",
+    "marketLastTrade": "Última negociação",
+    "trueBet": "aposta verdadeira",
+    "falseBet": "aposta falsa",
+    "expiryHeader": "Expiração"
   },
   "claimDialog": {
     "qtyContent": "A quantidade de ativos de mercado de previsão que você deseja liquidar no ativo de garantia.",

@@ -10,7 +10,6 @@ import { TransactionBuilder } from "bitsharesjs";
  * @returns {Promise<object>} Transaction object
  */
 async function generateQRContents(chain, nodeURL, opTypes, operations) {
-  let apiInstance = null;
     const defaultNodes = {
       bitshares: [
         "wss://node.xbts.io/ws",
@@ -28,13 +27,17 @@ async function generateQRContents(chain, nodeURL, opTypes, operations) {
       nodeURL && nodeURL.length ? nodeURL : defaultNodes[chain]?.[0];
 
     try {
-      apiInstance = await Apis.instance(
-        _node,
-        true,
-        4000,
-        { enableCrypto: false, enableOrders: true },
-        (error) => console.log({ error }),
-      );
+      const apiInstance = Apis.instance(_node, false);
+      const rs = apiInstance.ws_rpc?.ws?.readyState;
+      if (!apiInstance.init_promise || (rs !== 1 && rs !== 0)) {
+        await Apis.instance(
+          _node,
+          true,
+          4000,
+          { enableCrypto: false, enableOrders: true },
+          (error) => console.log({ error }),
+        );
+      }
       await apiInstance.init_promise;
     } catch (error) {
       console.log({ error, location: "api instance failed (QR)" });

@@ -136,6 +136,10 @@ export const PredictionRow = memo(function PredictionRow({
 
   const openInterestRaw = dynamicAssetData ? Number(dynamicAssetData.current_supply || 0) : 0;
   const settlementFundRaw = relevantBitassetData ? Number(relevantBitassetData.settlement_fund || 0) : 0;
+  const prizePoolFromCallOrders = relevantCallOrders
+    ? relevantCallOrders.reduce((acc, entry) => acc + (Number(entry.collateral) || 0), 0)
+    : 0;
+  const prizePoolRaw = settlementFundRaw + prizePoolFromCallOrders;
   const humanReadableBackingAssetBalance = backingAssetBalance ? (backingAssetBalance.amount / Math.pow(10, _backingPrecision || 0)).toFixed(_backingPrecision || 0) : 0;
   const humanReadablePredictionMarketAssetBalance = predictionMarketAssetBalance ? (predictionMarketAssetBalance.amount / Math.pow(10, res?.precision || 0)).toFixed(res?.precision || 0) : 0;
 
@@ -244,14 +248,14 @@ export const PredictionRow = memo(function PredictionRow({
   }, [orderBookData, tickerData, _backingPrecision]);
 
   const tabProps = useMemo(() => ({
-    res, usr, _desc, relevantBitassetData, relevantCallOrders, openInterestRaw, settlementFundRaw,
+    res, usr, _desc, relevantBitassetData, relevantCallOrders, openInterestRaw, settlementFundRaw, prizePoolRaw,
     impliedYesPercent: marketStats.impliedYesPercent,
     isExpired, expiration: _desc?.expiry, expirationHours, now, market: _desc?.market, view, t,
     cleanedPrediction, cleanedDescription, hasNft: !!(res?.options && _desc && _desc.nft_object), hasPmo: !!parentPmoObject, parentPmoObject, nftImages,
     heroIndex, setHeroIndex, ipfsGateway, backingAssetBalance, humanReadableBackingAssetBalance,
     humanReadablePredictionMarketAssetBalance, existingCollateral, existingCollateralRaw, _backingAssetID, _backingPrecision,
     _issuer_permissions, _flags, expiredPMAs, house: res?.issuer, marketStats,
-  }), [res?.id, usr?.id, _desc, relevantBitassetData, relevantCallOrders, openInterestRaw, settlementFundRaw,
+  }), [res?.id, usr?.id, _desc, relevantBitassetData, relevantCallOrders, openInterestRaw, settlementFundRaw, prizePoolRaw,
     isExpired, expirationHours, now, view, t,
     cleanedPrediction, cleanedDescription, nftImages,
     heroIndex, ipfsGateway, backingAssetBalance, humanReadableBackingAssetBalance,
@@ -281,7 +285,7 @@ export const PredictionRow = memo(function PredictionRow({
     statusKey = "resolvedYes";
   } else if (bitOutcome === 0) {
     statusKey = "resolvedNo";
-  } else if (settlementFundRaw === 0 && (bitOutcome === -1 || bitOutcome == null)) {
+  } else if (prizePoolRaw === 0 && (bitOutcome === -1 || bitOutcome == null)) {
     statusKey = "expired";
   } else {
     statusKey = "awaiting";
@@ -376,7 +380,7 @@ export const PredictionRow = memo(function PredictionRow({
             )}
               <StatBlock label={t("Predictions:bettingAsset")} value={market} mono />
             {view === "expired" ? (
-              <StatBlock label={t("Predictions:prize_pool")} value={relevantBitassetData ? `${humanReadableFloat(relevantBitassetData.settlement_fund, res.precision)} ${market}` : `0 ${market}`} mono />
+              <StatBlock label={t("Predictions:prize_pool")} value={prizePoolRaw > 0 ? `${humanReadableFloat(prizePoolRaw, _backingPrecision)} ${market}` : `0 ${market}`} mono />
             ) : view === "mine" || view === "portfolio" ? null : (
               <StatBlock
                 label={t("Predictions:openInterest")}

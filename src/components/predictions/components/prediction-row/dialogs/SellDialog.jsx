@@ -4,11 +4,12 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ExclamationTriangleIcon, CalendarIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { ExclamationTriangleIcon, CalendarIcon, Cross2Icon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Slider } from "@/components/ui/slider";
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import { assetAmountRegex, blockchainFloat } from "@/lib/common.js";
 import { cn } from "@/lib/utils";
@@ -47,7 +48,7 @@ function SectionHeader({ label, accent = "rose" }) {
 
 function ExpirySelector({ expiryType, setExpiryType, date, setDate, t, expiration }) {
   return (
-    <div className="space-y-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <Select
         value={expiryType}
         onValueChange={(selectedExpiry) => {
@@ -81,58 +82,55 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t, expiratio
         </SelectContent>
       </Select>
 
-      <div className="flex items-center gap-3">
-        {expiryType === "specific" ? (
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" className={cn("w-full justify-start text-left font-normal border-white/[0.08] bg-white/[0.04] text-white/70 hover:bg-white/[0.06] hover:text-white", !date && "text-white/40")}>
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? format(date, "PPP") : <span>{t("LimitOrderCard:expiry.pickDate")}</span>}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-80 p-0 bg-slate-900 border-white/[0.08]" align="start">
-              <Calendar
-                className="w-72"
-                mode="single"
-                selected={date}
-                fromDate={new Date()}
-                toDate={expiration ? new Date(expiration) : undefined}
-                onSelect={(e) => {
-                  if (!e) {
+      {expiryType === "specific" ? (
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" className={cn("w-full justify-start text-left font-normal border-white/[0.08] bg-white/[0.04] text-white/70 hover:bg-white/[0.06] hover:text-white", !date && "text-white/40")}>
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {date ? format(date, "PPP") : <span>{t("LimitOrderCard:expiry.pickDate")}</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80 p-0 bg-slate-900 border-white/[0.08]" align="start">
+            <Calendar
+              className="w-72"
+              mode="single"
+              selected={date}
+              fromDate={new Date()}
+              toDate={expiration ? new Date(expiration) : undefined}
+              onSelect={(e) => {
+                if (!e) {
+                  return;
+                }
+
+                const selected = new Date(e);
+                const now = new Date();
+                if (selected < now) {
+                  setDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
+                  return;
+                }
+                if (expiration) {
+                  const expDate = new Date(expiration);
+                  if (selected > expDate) {
+                    setDate(expDate);
                     return;
                   }
-
-                  const selected = new Date(e);
-                  const now = new Date();
-                  if (selected < now) {
-                    setDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
-                    return;
-                  }
-                  if (expiration) {
-                    const expDate = new Date(expiration);
-                    if (selected > expDate) {
-                      setDate(expDate);
-                      return;
-                    }
-                  }
-                  setDate(e);
-                }}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        ) : null}
-
-        <span className="text-xs text-white/40 italic">
-          {expiryType === "fkill" ? t("LimitOrderCard:expiry.fkillDescription") : null}
-          {expiryType !== "specific" && expiryType !== "fkill" ? t("LimitOrderCard:expiry.generalDescription", { expiryType }) : null}
+                }
+                setDate(e);
+              }}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+      ) : (
+        <span className="flex items-center text-xs text-white/40 italic">
+          {expiryType === "fkill" ? t("LimitOrderCard:expiry.fkillDescription") : t("LimitOrderCard:expiry.generalDescription", { expiryType })}
         </span>
-      </div>
+      )}
     </div>
   );
 }
 
-export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance, _backingAssetID, _backingPrecision, market, t, expiration, defaultPrice }) {
+export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance, _backingAssetID, _backingPrecision, market, t, expiration, defaultPrice, marketStats }) {
   const [sellPrompt, setSellPrompt] = useState(false);
   const [sellAmount, setSellAmount] = useState("");
   const [sellPrice, setSellPrice] = useState(formatAmount(clampOrderPrice(defaultPrice ?? DEFAULT_ORDER_PRICE)));
@@ -162,6 +160,20 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
   const isZero = sellQuantity <= 0;
   const hasValidPrice = sellPriceValue > 0 && sellPriceValue < 1;
   const canSubmit = !isZero && !exceedsBalance && hasValidPrice;
+
+  // Odds calculations (seller is betting against YES)
+  const userNoProbability = 1 - sellPriceValue;
+  const decimalOddsNo = userNoProbability > 0 ? 1 / userNoProbability : 0;
+  const fractionalNumerator = Math.round(userNoProbability * 100);
+  const fractionalDenominator = Math.round(sellPriceValue * 100);
+  const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
+  const fracGcd = gcd(fractionalNumerator, fractionalDenominator);
+  const fracNum = fractionalNumerator / fracGcd;
+  const fracDen = fractionalDenominator / fracGcd;
+  const americanOddsNo = userNoProbability >= 0.5
+    ? Math.round((userNoProbability / sellPriceValue) * 100)
+    : Math.round(-100 / decimalOddsNo);
+  const impliedProbabilityNo = userNoProbability * 100;
 
 
   return (
@@ -270,23 +282,90 @@ export function SellDialog({ res, usr, humanReadablePredictionMarketAssetBalance
             </div>
           </section>
 
-          {/* Potential Outcome Section */}
-          <section>
-            <SectionHeader label={t("Predictions:sellDialog.outcomeHeader", { defaultValue: "Potential outcome" })} accent="rose" />
-            <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 px-4 py-3">
-              <div className="text-xs text-rose-200/60 mb-0.5">{t("Predictions:sellDialog.outcomeIfWin", { defaultValue: "If the prediction resolves in your favour (False)" })}</div>
-              <div className="text-sm font-semibold text-rose-100">{formatAmount(totalBackingIfNo, _backingPrecision)} {res.backingAsset.symbol}</div>
-              <div className="mt-1 text-[11px] text-rose-100/60">
-                {t("Predictions:sellDialog.outcomeIfWinHelp", { defaultValue: "You receive your sale proceeds plus 1:1 collateral returned on your issued PMA." })}
-              </div>
-            </div>
-          </section>
-
           {/* Expiry Section */}
           <section>
             <SectionHeader label={t("Predictions:sellDialog.expiryHeader")} accent="rose" />
             <ExpirySelector expiryType={expiryType} setExpiryType={setExpiryType} date={date} setDate={setDate} t={t} expiration={expiration} />
           </section>
+
+          {/* Estimated Odds Section */}
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger className="flex items-center gap-2 w-full group">
+              <SectionHeader label={t("Predictions:sellDialog.oddsHeader", { defaultValue: "Estimated odds" })} accent="rose" />
+              <ChevronDownIcon className="h-4 w-4 text-white/40 group-data-[state=open]:rotate-180 transition-transform" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3">
+                <div className="grid grid-cols-4 gap-3 text-center">
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:sellDialog.oddsFractional", { defaultValue: "Fraction" })}</div>
+                    <div className="text-sm font-semibold text-white">{fracNum}:{fracDen}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:sellDialog.oddsDecimal", { defaultValue: "Decimal" })}</div>
+                    <div className="text-sm font-semibold text-white">{decimalOddsNo.toFixed(2)}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:sellDialog.oddsAmerican", { defaultValue: "American" })}</div>
+                    <div className="text-sm font-semibold text-white">{americanOddsNo > 0 ? "+" : ""}{americanOddsNo}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:sellDialog.oddsProbability", { defaultValue: "Implied prob." })}</div>
+                    <div className="text-sm font-semibold text-white">{impliedProbabilityNo.toFixed(1)}%</div>
+                  </div>
+                </div>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+
+          {/* Market Context Section */}
+          {marketStats && (marketStats.bestAsk != null || marketStats.bestBid != null || (marketStats.latestTrade != null && marketStats.latestTrade > 0)) ? (
+            <Collapsible defaultOpen>
+              <CollapsibleTrigger className="flex items-center gap-2 w-full group">
+                <SectionHeader label={t("Predictions:sellDialog.marketHeader", { defaultValue: "Market context" })} accent="rose" />
+                <ChevronDownIcon className="h-4 w-4 text-white/40 group-data-[state=open]:rotate-180 transition-transform" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] px-4 py-3 space-y-2">
+                  {marketStats.bestBid != null && marketStats.buyOrderCount > 0 ? (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-white/50">{t("Predictions:sellDialog.marketBestBid", { defaultValue: "Best bid" })} <span className="text-white/30">({t("Predictions:sellDialog.trueBet", { defaultValue: "true bet" })})</span></span>
+                      <span className="text-xs font-mono text-white/70">{formatAmount(marketStats.bestBid, Math.min(_backingPrecision || 5, 5))} {market}</span>
+                    </div>
+                  ) : null}
+                  {marketStats.bestAsk != null && marketStats.sellOrderCount > 0 ? (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-white/50">{t("Predictions:sellDialog.marketBestAsk", { defaultValue: "Best ask" })} <span className="text-white/30">({t("Predictions:sellDialog.falseBet", { defaultValue: "false bet" })})</span></span>
+                      <span className="text-xs font-mono text-white/70">{formatAmount(marketStats.bestAsk, Math.min(_backingPrecision || 5, 5))} {market}</span>
+                    </div>
+                  ) : null}
+                  {marketStats.latestTrade != null && marketStats.latestTrade > 0 ? (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-white/50">{t("Predictions:sellDialog.marketLastTrade", { defaultValue: "Last trade" })}</span>
+                      <span className="text-xs font-mono text-white/70">{formatAmount(marketStats.latestTrade, Math.min(_backingPrecision || 5, 5))} {market}</span>
+                    </div>
+                  ) : null}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          ) : null}
+
+          {/* Potential Outcome Section */}
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger className="flex items-center gap-2 w-full group">
+              <SectionHeader label={t("Predictions:sellDialog.outcomeHeader", { defaultValue: "Potential outcome" })} accent="rose" />
+              <ChevronDownIcon className="h-4 w-4 text-white/40 group-data-[state=open]:rotate-180 transition-transform" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 px-4 py-3">
+                <div className="text-xs text-rose-200/60 mb-0.5">{t("Predictions:sellDialog.outcomeIfWin", { defaultValue: "If the prediction resolves in your favour (False)" })}</div>
+                <div className="text-sm font-semibold text-rose-100">{formatAmount(totalBackingIfNo, _backingPrecision)} {res.backingAsset.symbol}</div>
+                <div className="mt-1 text-[11px] text-rose-100/60">
+                  {t("Predictions:sellDialog.outcomeIfWinHelp", { defaultValue: "You receive your sale proceeds plus 1:1 collateral returned on your issued PMA." })}
+                </div>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
 
         <div className="h-px bg-white/[0.06]" />

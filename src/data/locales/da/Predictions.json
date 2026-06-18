@@ -203,9 +203,23 @@
   "buyDialog": {
     "title": "Køb af forudsigelige markedsaktiver",
     "description": "For at satse til fordel for udfaldet af forudsigelsen, skal du købe forudsigelsesmarkedets aktiv-tokens fra en sælger, der satser mod resultatet.",
-    "qtyHeader": "Beløb at bruge",
-    "receivingHeader": "Modtager",
-    "receivingContent": "Dette er tilnærmelsesvis den samlede mængde af forudsigelige markedsaktivtokens, du får til gengæld for denne handel."
+    "amountToSpend": "Beløb at bruge",
+    "priceHeader": "Budpris",
+    "outcomeHeader": "Potentielt resultat",
+    "outcomeIfWin": "Hvis forudsigelsen løses til din fordel (Sandt)",
+    "outcomeIfWinHelp": "Indløs op til 1:1 sikkerhed; nettoændring",
+    "oddsHeader": "Anslåede odds",
+    "oddsFractional": "Brøkdel",
+    "oddsDecimal": "Decimal",
+    "oddsAmerican": "Amerikansk",
+    "oddsProbability": "Implicit sandsynlighed",
+    "marketHeader": "Markedskontekst",
+    "marketBestBid": "Bedste bud",
+    "marketBestAsk": "Bedste tilbud",
+    "marketLastTrade": "Seneste handel",
+    "trueBet": "sand væddemål",
+    "falseBet": "falsk væddemål",
+    "expiryHeader": "Udløb"
   },
   "claimDialog": {
     "qtyContent": "Mængden af forudsigelige markedsaktiver, du ønsker at afregne i backing-aktivet.",

@@ -246,7 +246,7 @@ export function PredictionDetailDialog({
 
   const {
     nftImages, heroIndex, setHeroIndex, ipfsGateway,
-    relevantCallOrders, openInterestRaw, settlementFundRaw, impliedYesPercent,
+    relevantCallOrders, openInterestRaw, settlementFundRaw, prizePoolRaw, impliedYesPercent,
     isExpired, expiration, expirationHours, now, market, cleanedDescription,
     _backingAssetID, _backingPrecision, _issuer_permissions, _flags,
     backingAssetBalance, humanReadableBackingAssetBalance,
@@ -465,7 +465,7 @@ export function PredictionDetailDialog({
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-                    <HeroStat label={t("Predictions:prize_pool")} value={relevantBitassetData ? `${humanReadableFloat(relevantBitassetData.settlement_fund, res.precision)} ${market}` : `0 ${market}`} accent="amber" mono />
+                    <HeroStat label={t("Predictions:prize_pool")} value={prizePoolRaw > 0 ? `${humanReadableFloat(prizePoolRaw, _backingPrecision)} ${market}` : `0 ${market}`} accent="amber" mono />
                     <HeroStat label={t("Predictions:winner.yourPmaBalance")} value={`${humanReadablePredictionMarketAssetBalance} ${symbol}`} accent="violet" mono />
                     <HeroStat label={isExpired ? t("Predictions:timeExpired") : t("Predictions:timeLeft")} value={formatTimeRemaining(expiration)} accent="blue" mono />
                   </div>
@@ -650,11 +650,11 @@ export function PredictionDetailDialog({
                 <CollapsibleSection title={t("Predictions:tab.admin")} accent="amber" defaultOpen={statusKey === "awaiting"}>
                   <div className="grid grid-cols-1 gap-2">
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 mt-1">
-                      <ResolveDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} expirationHours={expirationHours} expiration={expiration} cleanedPrediction={cleanedPrediction} _backingAssetID={_backingAssetID} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
-                      <PricefeederDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
-                      <FeedPriceDialog res={res} usr={usr} _backingAssetID={_backingAssetID} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} relevantBitassetData={relevantBitassetData} t={t} />
+                      <ResolveDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} expirationHours={expirationHours} expiration={expiration} cleanedPrediction={cleanedPrediction} _backingAssetID={_backingAssetID} settlementFundRaw={settlementFundRaw} prizePoolRaw={prizePoolRaw} relevantBitassetData={relevantBitassetData} t={t} />
+                      <PricefeederDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} prizePoolRaw={prizePoolRaw} relevantBitassetData={relevantBitassetData} t={t} />
+                      <FeedPriceDialog res={res} usr={usr} _backingAssetID={_backingAssetID} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} prizePoolRaw={prizePoolRaw} relevantBitassetData={relevantBitassetData} t={t} />
                       {relevantBitassetData?.outcome !== 0 && relevantBitassetData?.outcome !== 1 ? (
-                        <a href={`/create_prediction.html?asset_update=${res.symbol}&settlement=${settlementFundRaw ?? 0}`}>
+                        <a href={`/create_prediction.html?asset_update=${res.symbol}&settlement=${prizePoolRaw ?? 0}`}>
                           <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs">
                             {t("Predictions:update")}
                           </Button>
@@ -682,8 +682,8 @@ export function PredictionDetailDialog({
                     <HoverInfo content={t("Predictions:seller_content")} header={t("Predictions:seller")} type="header" />
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-1">
                       <IssueDialog res={res} usr={usr} backingAssetBalance={backingAssetBalance} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} existingCollateral={existingCollateral} existingCollateralRaw={existingCollateralRaw} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} />
-                      <SellDialog res={res} usr={usr} humanReadablePredictionMarketAssetBalance={humanReadablePredictionMarketAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} defaultPrice={marketStats?.impliedYesPrice} />
-                      <BuyDialog res={res} usr={usr} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} defaultPrice={marketStats?.impliedYesPrice} />
+                      <SellDialog res={res} usr={usr} humanReadablePredictionMarketAssetBalance={humanReadablePredictionMarketAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} defaultPrice={marketStats?.impliedYesPrice} marketStats={marketStats} />
+                      <BuyDialog res={res} usr={usr} humanReadableBackingAssetBalance={humanReadableBackingAssetBalance} _backingAssetID={_backingAssetID} _backingPrecision={_backingPrecision} market={market} t={t} expiration={expiration} defaultPrice={marketStats?.impliedYesPrice} marketStats={marketStats} />
                     </div>
                   </div>
                 ) : statusKey === "resolvedYes" ? (

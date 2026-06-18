@@ -203,9 +203,23 @@
   "buyDialog": {
     "title": "Ennustusturu varade ostmine",
     "description": "Ennustuse tulemuse kasuks panustamiseks peate ostma ennustuse turu varade märgid müüjalt, kes panustab tulemuse vastu.",
-    "qtyHeader": "Kulutatav summa",
-    "receivingHeader": "Vastuvõtmine",
-    "receivingContent": "See on ligikaudu ennustuste turu varade žetoonide kogusumma, mille saate selle tehingu eest vastutasuks."
+    "amountToSpend": "Kulutatav summa",
+    "priceHeader": "Pakkumishind",
+    "outcomeHeader": "Võimalik tulemus",
+    "outcomeIfWin": "Kui ennustus lahendatakse teie kasuks (Tõsi)",
+    "outcomeIfWinHelp": " lunastage kuni 1:1 tagatis; netomuutus",
+    "oddsHeader": "Hinnangulised koefitsiendid",
+    "oddsFractional": "Murdarv",
+    "oddsDecimal": "Kümnendmurd",
+    "oddsAmerican": "Ameerika",
+    "oddsProbability": "Tõenäosus",
+    "marketHeader": "Turu kontekst",
+    "marketBestBid": "Parim pakkumine",
+    "marketBestAsk": "Parim hind",
+    "marketLastTrade": "Viimane tehing",
+    "trueBet": "tõeline panus",
+    "falseBet": "vale panus",
+    "expiryHeader": "Aegumine"
   },
   "claimDialog": {
     "qtyContent": "Prognoositud turuvarade kogus, mille soovite tagatisvaraks tagasi kanda.",

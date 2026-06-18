@@ -32,23 +32,26 @@ const chains = {
 };
 
 async function generateDeepLink(chain, nodeURL, opTypes, operations) {
-  let apiInstance = null;
-    const _node =
-      nodeURL && nodeURL.length ? nodeURL : chains[chain].nodeList[0].url;
+  const _node =
+    nodeURL && nodeURL.length ? nodeURL : chains[chain].nodeList[0].url;
 
-    try {
-      apiInstance = await Apis.instance(
+  try {
+    const apiInstance = Apis.instance(_node, false);
+    const rs = apiInstance.ws_rpc?.ws?.readyState;
+    if (!apiInstance.init_promise || (rs !== 1 && rs !== 0)) {
+      await Apis.instance(
         _node,
         true,
         4000,
         { enableCrypto: false, enableOrders: true },
         (error) => console.log({ error }),
       );
-      await apiInstance.init_promise;
-    } catch (error) {
-      console.log({ error, location: "api instance failed" });
-      throw error;
     }
+    await apiInstance.init_promise;
+  } catch (error) {
+    console.log({ error, location: "api instance failed" });
+    throw error;
+  }
 
     let includesMemos = false;
     const tr = new TransactionBuilder();

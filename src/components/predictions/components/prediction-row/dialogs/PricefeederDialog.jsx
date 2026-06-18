@@ -8,7 +8,7 @@ import HoverInfo from "@/components/common/HoverInfo.tsx";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import AccountSearch from "@/components/AccountSearch.jsx";
 
-export function PricefeederDialog({ res, usr, isExpired, statusKey, settlementFundRaw, relevantBitassetData, t }) {
+export function PricefeederDialog({ res, usr, isExpired, statusKey, settlementFundRaw, prizePoolRaw, relevantBitassetData, t }) {
   const [pricefeederPrompt, setPricefeederPrompt] = useState(false);
   const [priceFeeders, setPriceFeeders] = useState([]);
   const [priceSearchDialog, setPriceSearchDialog] = useState(false);
@@ -38,7 +38,7 @@ export function PricefeederDialog({ res, usr, isExpired, statusKey, settlementFu
     );
   };
 
-  const settlementFund = Number(settlementFundRaw ?? relevantBitassetData?.settlement_fund ?? 0);
+  const settlementFund = Number(prizePoolRaw ?? settlementFundRaw ?? relevantBitassetData?.settlement_fund ?? 0);
   const canSetFeeders = !isExpired || (isExpired && statusKey === "awaiting" && settlementFund > 0);
 
   return (

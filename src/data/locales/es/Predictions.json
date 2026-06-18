@@ -203,9 +203,23 @@
   "buyDialog": {
     "title": "Comprar activos del mercado de predicción",
     "description": "Para apostar a favor del resultado de la predicción, debe comprar los tokens de activos del mercado de predicción a un vendedor que esté apostando en contra del resultado.",
-    "qtyHeader": "Cantidad a gastar",
-    "receivingHeader": "Recepción",
-    "receivingContent": "Esta es aproximadamente la cantidad total de tokens de activos del mercado de predicción que obtendrá a cambio de esta operación."
+    "amountToSpend": "Cantidad a gastar",
+    "priceHeader": "Oferta",
+    "outcomeHeader": "Resultado potencial",
+    "outcomeIfWin": "Si la predicción resuelve a su favor (Verdadero)",
+    "outcomeIfWinHelp": "Canjea hasta 1:1 de garantía; cambio neto",
+    "oddsHeader": "Cuotas estimadas",
+    "oddsFractional": "Fracción",
+    "oddsDecimal": "Decimal",
+    "oddsAmerican": "Americano",
+    "oddsProbability": "Probabilidad",
+    "marketHeader": "Contexto del mercado",
+    "marketBestBid": "Mejor oferta",
+    "marketBestAsk": "Mejor demanda",
+    "marketLastTrade": "Última operación",
+    "trueBet": "apuesta verdadera",
+    "falseBet": "apuesta falsa",
+    "expiryHeader": "Expiración"
   },
   "claimDialog": {
     "qtyContent": "La cantidad de activos del mercado de predicción que desea volver a colocar en el activo de respaldo.",

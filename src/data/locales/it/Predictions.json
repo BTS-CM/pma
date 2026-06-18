@@ -203,9 +203,23 @@
   "buyDialog": {
     "title": "Acquisto di asset del mercato di previsione",
     "description": "Per scommettere a favore del risultato della previsione, è necessario acquistare i token asset del mercato di previsione da un venditore che scommette contro il risultato.",
-    "qtyHeader": "Importo da spendere",
-    "receivingHeader": "Ricevere",
-    "receivingContent": "Questo è approssimativamente l'importo totale di token asset del mercato di previsione che riceverai in cambio di questa operazione."
+    "amountToSpend": "Importo da spendere",
+    "priceHeader": "Offerta",
+    "outcomeHeader": "Risultato potenziale",
+    "outcomeIfWin": "Se la previsione si risolve a tuo favore (Vero)",
+    "outcomeIfWinHelp": "Riscatta fino a 1:1 di garanzia; variazione netta",
+    "oddsHeader": "Quote stimate",
+    "oddsFractional": "Frazione",
+    "oddsDecimal": "Decimale",
+    "oddsAmerican": "Americano",
+    "oddsProbability": "Probabilità",
+    "marketHeader": "Contesto di mercato",
+    "marketBestBid": "Miglior offerta",
+    "marketBestAsk": "Miglior domanda",
+    "marketLastTrade": "Ultimo scambio",
+    "trueBet": "scommessa vera",
+    "falseBet": "scommessa falsa",
+    "expiryHeader": "Scadenza"
   },
   "claimDialog": {
     "qtyContent": "La quantità di asset del mercato di previsione che desideri reinvestire nell'asset di garanzia.",
