@@ -386,7 +386,9 @@ export default function Prediction(properties) {
           (usr.chain === "bitshares" ? "BTS" : "TEST")
       );
       if (d.expiry) {
-        setDate(new Date(d.expiry));
+        const expiryDate = new Date(d.expiry);
+        originalExpiryRef.current = expiryDate.getTime();
+        setDate(expiryDate);
       }
       if (d.nft_object) {
         setEnabledNFT(true);
@@ -550,6 +552,7 @@ export default function Prediction(properties) {
   // Prediction market info
   const [condition, setCondition] = useState("");
   const [date, setDate] = useState();
+  const originalExpiryRef = useRef(null);
   const [backingAsset, setBackingAsset] = useState(
     usr.chain === "bitshares" ? "BTS" : "TEST"
   );
@@ -1099,11 +1102,24 @@ export default function Prediction(properties) {
     return false;
   }, [isEditMode, existingAsset]);
 
+  const _resolvedConfirmedRef = useRef(false);
   const isResolvedInEditMode = useMemo(() => {
-    if (!isEditMode) return false;
-    const outcome = existingAsset?.bitasset_data?.outcome;
-    return outcome === 0 || outcome === 1;
-  }, [isEditMode, existingAsset]);
+    if (!isEditMode || !isExpiredInEditMode) {
+      _resolvedConfirmedRef.current = false;
+      return false;
+    }
+    if (_resolvedConfirmedRef.current) return true;
+    const sp = existingAsset?.bitasset_data?.settlement_price;
+    if (!sp) return false;
+    const baseAmount = parseInt(sp.base?.amount);
+    if (!baseAmount) return false;
+    const quoteAmount = parseInt(sp.quote?.amount);
+    if (quoteAmount > 0 || quoteAmount === 0) {
+      _resolvedConfirmedRef.current = true;
+      return true;
+    }
+    return false;
+  }, [isEditMode, isExpiredInEditMode, existingAsset]);
 
   const symbolError = useMemo(() => {
     if (creationMode === "organization") {
@@ -1532,23 +1548,29 @@ export default function Prediction(properties) {
                 required
                 className="md:col-span-3"
               >
-                <div className={"flex flex-col gap-3 [&_button]:bg-slate-950/60 [&_button]:border-white/10 [&_button]:text-white [&_button]:hover:bg-white/10 [&_[role=gridcell]]:text-white [&_[data-selected]]:bg-violet-500 [&_[data-selected]]:text-white [&_.rdp-day]:text-white [&_.rdp-caption_label]:text-white [&_.rdp-button_previous]:text-white/60 [&_.rdp-button_next]:text-white/60 [&_input]:bg-slate-950/60 [&_input]:border-white/10 [&_input]:text-white [&_input]:focus:bg-violet-500/20 [&_input]:focus:text-white [&_.border-t]:border-white/10" + (isEditMode && isResolvedInEditMode ? " pointer-events-none opacity-50" : "")}>
-                  <DateTimePicker
-                    granularity="day"
-                    value={date}
-                    disabled={isEditMode && isResolvedInEditMode}
-                    onChange={(newDate) => {
-                      const now = new Date();
-                      const minDate = new Date(now.getTime() + 60 * 60 * 1000); // 1 hour from now
-                      if (newDate >= minDate) {
-                        setDate(newDate);
-                      } else {
-                        setDate(minDate);
-                      }
-                    }}
-                  />
-                  <TimePicker date={date} onChange={setDate} />
-                </div>
+                {isEditMode && isResolvedInEditMode ? (
+                  <div className="rounded-md border border-white/10 bg-slate-950/60 px-4 py-2 text-sm text-white/70">
+                    {date ? date.toLocaleString() : t("CreatePrediction:pma.resolution.noDate")}
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-3 [&_button]:bg-slate-950/60 [&_button]:border-white/10 [&_button]:text-white [&_button]:hover:bg-white/10 [&_[role=gridcell]]:text-white [&_[data-selected]]:bg-violet-500 [&_[data-selected]]:text-white [&_.rdp-day]:text-white [&_.rdp-caption_label]:text-white [&_.rdp-button_previous]:text-white/60 [&_.rdp-button_next]:text-white/60 [&_input]:bg-slate-950/60 [&_input]:border-white/10 [&_input]:text-white [&_input]:focus:bg-violet-500/20 [&_input]:focus:text-white [&_.border-t]:border-white/10">
+                    <DateTimePicker
+                      granularity="day"
+                      value={date}
+                      disabled={false}
+                      onChange={(newDate) => {
+                        const now = new Date();
+                        const minDate = new Date(now.getTime() + 60 * 60 * 1000); // 1 hour from now
+                        if (newDate >= minDate) {
+                          setDate(newDate);
+                        } else {
+                          setDate(minDate);
+                        }
+                      }}
+                    />
+                    <TimePicker date={date} onChange={setDate} />
+                  </div>
+                )}
               </Field>
             </div>
           </CardContent>
@@ -2672,7 +2694,8 @@ export default function Prediction(properties) {
                 size="lg"
                 disabled={!isFormValid}
                 onClick={() => {
-                  if (hasExpiredWithPrize) {
+                  const expiryChanged = originalExpiryRef.current !== null && date && date.getTime() !== originalExpiryRef.current;
+                  if (hasExpiredWithPrize && expiryChanged) {
                     setExpiryWarningDialog(true);
                   } else {
                     setShowDialog(true);
