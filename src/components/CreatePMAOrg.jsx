@@ -4,6 +4,7 @@ import React, {
   useSyncExternalStore,
   useMemo,
   useCallback,
+  useRef,
 } from "react";
 import { useStore } from "@nanostores/react";
 import { List } from "react-window";
@@ -68,6 +69,7 @@ import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import ExternalLink from "@/components/common/ExternalLink.jsx";
 
 import { useInitCache } from "@/nanoeffects/Init.ts";
+import { createAssetExistsStore } from "@/nanoeffects/AssetExists.ts";
 import { createUserBalancesStore } from "@/nanoeffects/UserBalances.ts";
 import { createEveryObjectStore } from "@/nanoeffects/Objects.ts";
 
@@ -560,10 +562,47 @@ export default function CreatePMAOrg(properties) {
     return null;
   }, [symbol]);
 
+  // Symbol existence check — debounced 3s after typing stops
+  const [symbolExists, setSymbolExists] = useState(null); // null = not checked, true = exists, false = doesn't exist
+  const symbolExistsTimerRef = useRef(null);
+
+  useEffect(() => {
+    if (isEditMode) return;
+    if (!symbol || symbol.length < 1) {
+      setSymbolExists(null);
+      return;
+    }
+    if (symbolError) {
+      setSymbolExists(null);
+      return;
+    }
+
+    setSymbolExists(null);
+    if (symbolExistsTimerRef.current) clearTimeout(symbolExistsTimerRef.current);
+
+    symbolExistsTimerRef.current = setTimeout(() => {
+      const store = createAssetExistsStore([_chain, symbol, currentNode?.url]);
+      const unsub = store.subscribe(({ data, error, loading }) => {
+        if (loading) return;
+        if (error) {
+          setSymbolExists(null);
+          return;
+        }
+        setSymbolExists(!!data && typeof data === "string" && data.length > 0);
+        unsub();
+      });
+    }, 3000);
+
+    return () => {
+      if (symbolExistsTimerRef.current) clearTimeout(symbolExistsTimerRef.current);
+    };
+  }, [symbol, isEditMode, symbolError]);
+
   const isFormValid = useMemo(() => {
     if (!symbol || symbolError) return false;
+    if (!isEditMode && symbolExists === true) return false;
     return true;
-  }, [symbol, symbolError]);
+  }, [symbol, symbolError, isEditMode, symbolExists]);
 
   const [showDialog, setShowDialog] = useState(false);
 
@@ -666,6 +705,11 @@ export default function CreatePMAOrg(properties) {
                   {symbol.length}/11
                 </span>
               </div>
+              {!isEditMode && symbolExists === true && (
+                <p className="mt-1.5 text-sm text-red-400">
+                  {t("CreatePMAOrg:symbolAlreadyExists", "This symbol already exists on-chain. Please choose a different one.")}
+                </p>
+              )}
             </Field>
 
             <Field

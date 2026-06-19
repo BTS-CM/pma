@@ -83,6 +83,7 @@ import { Avatar } from "./Avatar.tsx";
 
 import { useInitCache } from "@/nanoeffects/Init.ts";
 import { createFullAssetFromSymbolStore } from "@/nanoeffects/Assets.ts";
+import { createAssetExistsStore } from "@/nanoeffects/AssetExists.ts";
 import { createUserBalancesStore } from "@/nanoeffects/UserBalances.ts";
 import { createEveryObjectStore } from "@/nanoeffects/Objects.ts";
 
@@ -1071,18 +1072,6 @@ export default function Prediction(properties) {
     []
   );
 
-  // Form validity — used by the summary card and submit button.
-  const isFormValid = useMemo(() => {
-    if (creationMode === "organization") {
-      if (!selectedOrg || !subAssetName) return false;
-    } else {
-      if (!symbol) return false;
-    }
-    if (!condition) return false;
-    if (!date) return false;
-    return true;
-  }, [symbol, condition, date, creationMode, selectedOrg, subAssetName]);
-
   // Days until resolution — used by the summary card to render a relative
   // hint next to the absolute resolution date.
   const daysUntil = useMemo(() => {
@@ -1137,6 +1126,56 @@ export default function Prediction(properties) {
       return "Symbol can only contain letters, digits and a single dot";
     return null;
   }, [symbol, creationMode, subAssetName, selectedOrg, maxSubAssetLength]);
+
+  // Symbol existence check — debounced 3s after typing stops
+  const [symbolExists, setSymbolExists] = useState(null); // null = not checked, true = exists, false = doesn't exist
+  const symbolExistsTimerRef = useRef(null);
+
+  useEffect(() => {
+    if (isEditMode) return;
+    if (!fullSymbol || fullSymbol.length < 1) {
+      setSymbolExists(null);
+      return;
+    }
+    if (symbolError) {
+      setSymbolExists(null);
+      return;
+    }
+
+    setSymbolExists(null);
+    if (symbolExistsTimerRef.current) clearTimeout(symbolExistsTimerRef.current);
+
+    symbolExistsTimerRef.current = setTimeout(() => {
+      const store = createAssetExistsStore([_chain, fullSymbol, currentNode?.url]);
+      const unsub = store.subscribe(({ data, error, loading }) => {
+        if (loading) return;
+        if (error) {
+          setSymbolExists(null);
+          return;
+        }
+        // If data is a non-empty string (asset ID like "1.3.XXX"), the asset exists
+        setSymbolExists(!!data && typeof data === "string" && data.length > 0);
+        unsub();
+      });
+    }, 3000);
+
+    return () => {
+      if (symbolExistsTimerRef.current) clearTimeout(symbolExistsTimerRef.current);
+    };
+  }, [fullSymbol, isEditMode, symbolError]);
+
+  // Form validity — used by the summary card and submit button.
+  const isFormValid = useMemo(() => {
+    if (creationMode === "organization") {
+      if (!selectedOrg || !subAssetName) return false;
+    } else {
+      if (!symbol) return false;
+    }
+    if (!condition) return false;
+    if (!date) return false;
+    if (!isEditMode && symbolExists === true) return false;
+    return true;
+  }, [symbol, condition, date, creationMode, selectedOrg, subAssetName, isEditMode, symbolExists]);
 
   const commissionError = useMemo(() => {
     if (commission === "" || commission === "." || parseFloat(commission) === 0)
@@ -1380,6 +1419,11 @@ export default function Prediction(properties) {
                         {symbol.length}/16
                       </span>
                     </div>
+                    {!isEditMode && symbolExists === true && (
+                      <p className="mt-1.5 text-sm text-red-400">
+                        {t("CreatePrediction:symbolAlreadyExists", "This symbol already exists on-chain. Please choose a different one.")}
+                      </p>
+                    )}
                   </Field>
 
                   <Field
@@ -1406,16 +1450,25 @@ export default function Prediction(properties) {
             </div>
 
             {creationMode === "organization" && fullSymbol && (
-              <div className="rounded-lg border border-fuchsia-500/20 bg-fuchsia-500/5 px-4 py-2.5">
-                <span className="text-xs text-white/50">
-                  {t("CreatePrediction:fields.fullSymbol.label")}:{" "}
-                </span>
-                <span className="font-mono text-sm font-medium text-fuchsia-300">
-                  {fullSymbol}
-                </span>
-                <span className="ml-2 text-xs text-white/30">
-                  ({fullSymbol.length}/16)
-                </span>
+              <div className={"grid gap-2 rounded-lg border border-fuchsia-500/20 bg-fuchsia-500/5 px-4 py-2.5" + (!isEditMode && symbolExists === true ? " grid-cols-2" : "")}>
+                <div>
+                  <span className="text-xs text-white/50">
+                    {t("CreatePrediction:fields.fullSymbol.label")}:{" "}
+                  </span>
+                  <span className="font-mono text-sm font-medium text-fuchsia-300">
+                    {fullSymbol}
+                  </span>
+                  <span className="ml-2 text-xs text-white/30">
+                    ({fullSymbol.length}/16)
+                  </span>
+                </div>
+                {!isEditMode && symbolExists === true && (
+                  <div className="flex items-center justify-end">
+                    <p className="text-sm text-red-400">
+                      {t("CreatePrediction:symbolAlreadyExists", "This symbol already exists on-chain.")}
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 
