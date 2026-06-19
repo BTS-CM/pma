@@ -379,7 +379,7 @@ export default function Favourites(properties) {
         : null;
 
     const tradeHref = `/dex.html?market=${item.symbol}_${
-      item.symbol === "BTS" ? "CNY" : "BTS"
+      item.symbol === "BTS" ? "HONEST.USD" : "BTS"
     }`;
 
     const renderCard = (layout) => {

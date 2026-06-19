@@ -31,7 +31,7 @@ import {
 import { Avatar } from "@/components/Avatar.tsx";
 import JsonDetailsDialog from "@/components/common/JsonDetailsDialog.jsx";
 import { addBlockedUser, removeBlockedUser } from "@/stores/blocklist.ts";
-import { Ban, TrendingUp, ChevronDown, ChevronUp, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Ban, ChevronDown, ChevronUp, CheckCircle, XCircle, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CopyButton, ProbabilityBar, LongText, MonoBlock, NftHero, NftThumbStrip } from "../../PredictionUtils";
 import { getNftMediaEntries, humanReadableFloat, ipfsUrl } from "@/lib/common.js";
@@ -298,21 +298,6 @@ export function PredictionDetailDialog({
     }
   }, [expiration]);
 
-  const oddsDisplay = useMemo(() => {
-    const m = marketStats || {};
-    if (!m) return "-";
-    const percent = m.impliedYesPercent != null ? `${Number(m.impliedYesPercent).toFixed(2)}%` : (m.decimalOdds != null ? `${((1 / m.decimalOdds) * 100).toFixed(2)}%` : null);
-    const decimal = m.decimalOdds != null ? Number(m.decimalOdds).toFixed(2) : null;
-    const american = m.americanOdds != null ? `${m.americanOdds > 0 ? "+" : ""}${m.americanOdds}` : null;
-
-    if (percent && decimal && american) return `${percent} (${decimal} / ${american})`;
-    if (percent && decimal) return `${percent} (${decimal})`;
-    if (percent && american) return `${percent} (${american})`;
-    if (percent) return `${percent}`;
-    if (decimal && american) return `${decimal} (${american})`;
-    if (decimal) return `${decimal}`;
-    return "-";
-  }, [marketStats]);
 
   return (
     <>
@@ -389,20 +374,7 @@ export function PredictionDetailDialog({
                         <span className="font-mono text-white/55">{marketPriceSourceLabel}</span>
                       ) : null}
                     </div>
-                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <HeroStat
-                        label={t("Predictions:market.yesPrice", { defaultValue: "YES price" })}
-                        value={marketStats?.formattedPrice != null ? `${marketStats.formattedPrice} ${market}` : "-"}
-                        accent="emerald"
-                        mono
-                      />
-                      <HeroStat
-                        label={t("Predictions:market.odds", { defaultValue: "Odds" })}
-                        value={oddsDisplay}
-                        accent="cyan"
-                        mono
-                      />
-                    </div>
+
                   </div>
                 </section>
               ) : !isExpired && statusKey !== "awaiting" ? (
@@ -484,27 +456,12 @@ export function PredictionDetailDialog({
                     mono
                   />
                   <HeroStat
-                    label={t("Predictions:market.odds", { defaultValue: "Odds" })}
-                    value={oddsDisplay}
+                    label={t("Predictions:market.sellPrice", { defaultValue: "Sell price" })}
+                    value={marketStats?.bestAsk != null ? `${Number(marketStats.bestAsk).toFixed(Math.min(_backingPrecision || 5, 5))} ${market}` : "-"}
                     accent="cyan"
                     mono
                   />
                 </div>
-                {marketPriceSourceLabel ? (
-                  <div className="mt-3 text-xs text-white/45">
-                    {t("Predictions:market.priceSource", { defaultValue: "Price source" })}: <span className="font-mono text-white/60">{marketPriceSourceLabel}</span>
-                  </div>
-                ) : null}
-                {!isExpired ? (
-                  <div className="mt-3">
-                    <Button variant="outline" size="sm" asChild className="w-fit border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:text-cyan-300">
-                      <a href={`/dex.html?market=${res.symbol}_${market}`}>
-                        <TrendingUp className="mr-2 h-3.5 w-3.5" />
-                        {t("Predictions:market.tradeOnDex")}
-                      </a>
-                    </Button>
-                  </div>
-                ) : null}
               </CollapsibleSection>
 
               {/* ── NFT SECTION ── */}

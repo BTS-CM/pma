@@ -78,17 +78,10 @@ export function ClaimDialog({ res, usr, humanReadablePredictionMarketAssetBalanc
               </div>
               <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
             </div>
-            <p className="mt-1.5 text-[11px] text-white/40">{t("Predictions:claimDialog.qtyContent")}</p>
-          </section>
-
-          <div className="h-px bg-white/[0.06]" />
-
-          {/* Receiving Section */}
-          <section>
-            <SectionHeader label={t("Predictions:claimDialog.receivingHeader")} accent="amber" />
-            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3">
-              <div className="text-xs text-white/40">{t("Predictions:claimDialog.receivingContent")}</div>
+            <div className="text-[11px] text-white/50 mt-1.5">
+              {t("Predictions:claimDialog.balance", { defaultValue: "Balance" })}: {humanReadablePredictionMarketAssetBalance ?? "0"} {res.symbol}
             </div>
+
           </section>
 
           {/* Validation */}

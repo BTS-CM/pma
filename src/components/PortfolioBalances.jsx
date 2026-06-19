@@ -266,7 +266,7 @@ export default function PortfolioBalances({
       <>
         <a
           href={`/dex.html?market=${currentAsset.symbol}_${
-            currentAsset.symbol === "BTS" ? "CNY" : "BTS"
+            currentAsset.symbol === "BTS" ? "HONEST.USD" : "BTS"
           }`}
         >
           <Button variant="outline" className="mr-2 h-8 gap-1.5 px-3 rounded-full border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:text-emerald-300">

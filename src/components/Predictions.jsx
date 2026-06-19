@@ -68,7 +68,6 @@ import { createUserBalancesStore } from "@/nanoeffects/UserBalances.ts";
 import { createAssetCallOrdersStore } from "@/nanoeffects/AssetCallOrders.ts";
 
 import {
-  humanReadableFloat,
   debounce,
 } from "@/lib/common.js";
 
@@ -489,29 +488,11 @@ export default function Predictions(properties) {
                 return { ...x, outcome: undefined };
               }
               const baseAmount = parseInt(x.settlement_price.base.amount);
+              const quoteAmount = parseInt(x.settlement_price.quote.amount);
               if (baseAmount === 0) {
                 return { ...x, outcome: -1 };
               }
-
-              const quoteAsset = assets.find(
-                (y) => x.options.short_backing_asset === y.id,
-              );
-              const baseAsset = assets.find((y) => x.asset_id === y.id);
-
-              if (!quoteAsset || !baseAsset) {
-                return { ...x, outcome: undefined };
-              }
-
-              const _outcome = parseFloat(
-                (
-                  humanReadableFloat(
-                    parseInt(x.settlement_price.quote.amount),
-                    quoteAsset.precision,
-                  ) / humanReadableFloat(baseAmount, baseAsset.precision)
-                ).toFixed(quoteAsset.precision),
-              );
-
-              return { ...x, outcome: _outcome > 0 ? 1 : 0 };
+              return { ...x, outcome: quoteAmount > 0 ? 1 : 0 };
             });
 
           console.log(`[PMA:completedPMAs] received ${data.length} bitasset_data, ${enriched.filter((x) => x.outcome != null).length} resolved`);
