@@ -242,6 +242,7 @@ export function PredictionDetailDialog({
 }) {
   const [detailJsonDialogOpen, setDetailJsonDialogOpen] = useState(false);
   const [detailJsonPayload, setDetailJsonPayload] = useState(null);
+  const [detailJsonDialogTitle, setDetailJsonDialogTitle] = useState("");
   const [detailBlockConfirmOpen, setDetailBlockConfirmOpen] = useState(false);
 
   const {
@@ -360,9 +361,9 @@ export function PredictionDetailDialog({
                     <Button variant="ghost" size="sm" className="h-6 text-[10px] text-white/40 hover:text-white hover:bg-white/10">{t("Predictions:json.button")}</Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="bg-slate-900 border-white/[0.08] shadow-2xl shadow-black/40">
-                    <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70" onClick={() => { setDetailJsonPayload(res); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.assetData")}</DropdownMenuItem>
-                    {relevantBitassetData ? <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70" onClick={() => { setDetailJsonPayload(relevantBitassetData); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.bitassetData")}</DropdownMenuItem> : null}
-                    {_desc ? <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70" onClick={() => { setDetailJsonPayload(_desc); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.descriptionData")}</DropdownMenuItem> : null}
+                    <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70" onClick={() => { setDetailJsonPayload(res); setDetailJsonDialogTitle(t("Predictions:json.assetData")); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.assetData")}</DropdownMenuItem>
+                    {relevantBitassetData ? <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70" onClick={() => { setDetailJsonPayload(relevantBitassetData); setDetailJsonDialogTitle(t("Predictions:json.bitassetData")); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.bitassetData")}</DropdownMenuItem> : null}
+                    {_desc ? <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70" onClick={() => { setDetailJsonPayload(_desc); setDetailJsonDialogTitle(t("Predictions:json.descriptionData")); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.descriptionData")}</DropdownMenuItem> : null}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -703,7 +704,7 @@ export function PredictionDetailDialog({
         </DialogContent>
       </Dialog>
 
-      <JsonDetailsDialog open={detailJsonDialogOpen} onOpenChange={setDetailJsonDialogOpen} data={detailJsonPayload} />
+      <JsonDetailsDialog open={detailJsonDialogOpen} onOpenChange={setDetailJsonDialogOpen} data={detailJsonPayload} title={detailJsonDialogTitle} />
 
       {usr && usr.id && house && house !== usr.id ? (
         <AlertDialog open={detailBlockConfirmOpen} onOpenChange={setDetailBlockConfirmOpen}>

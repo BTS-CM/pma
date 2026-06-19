@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 // Returns an id if the asset exists
 async function checkAssetExists(
@@ -15,13 +15,7 @@ async function checkAssetExists(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error, node });
       reject(error);
@@ -37,7 +31,7 @@ async function checkAssetExists(
       console.log({ error });
     }
 
-    currentAPI.close();
+    releaseConnection(node, currentAPI);
 
     resolve(assetID ?? null);
   });

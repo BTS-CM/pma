@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 function getAccountReferences(
   chain: string,
@@ -14,13 +14,7 @@ function getAccountReferences(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
@@ -34,11 +28,12 @@ function getAccountReferences(
         .exec("get_account_references", [accountID]);
     } catch (error) {
       console.log({ error });
-      currentAPI.close();
+      releaseConnection(node, currentAPI);
       reject(error);
+      return;
     }
 
-    currentAPI.close();
+    releaseConnection(node, currentAPI);
 
     if (!accountReferences) {
       reject(new Error("Account references not found..."));

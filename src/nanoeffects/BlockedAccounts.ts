@@ -1,5 +1,5 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
+import { acquireConnection } from "./src/ConnectionPool";
 import { chains } from "@/config/chains";
 
 import { sha256 } from "@noble/hashes/sha2.js";
@@ -21,43 +21,40 @@ async function getBlockedaccounts(chain: string, node: string) {
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
       return;
     }
 
-    let committeeAccount: any;
     try {
-      committeeAccount = await currentAPI
-        .db_api()
-        .exec("get_accounts", [["committee-blacklist-manager"]]);
-    } catch (error) {
-      console.log({ error });
-      reject(error);
-      return;
+      let committeeAccount: any;
+      try {
+        committeeAccount = await currentAPI
+          .db_api()
+          .exec("get_accounts", [["committee-blacklist-manager"]]);
+      } catch (error) {
+        console.log({ error });
+        reject(error);
+        return;
+      }
+
+      if (!committeeAccount || !committeeAccount.length) {
+        reject(new Error("Unable to retrieve committee account"));
+        return;
+      }
+
+      const blockedList = committeeAccount[0].blacklisted_accounts;
+
+      let hashedBlockList = blockedList.map((account: string) =>
+        toHex(sha256(utf8ToBytes(account)))
+      );
+
+      resolve(hashedBlockList);
+    } finally {
+      releaseConnection(node, currentAPI);
     }
-
-    if (!committeeAccount || !committeeAccount.length) {
-      reject(new Error("Unable to retrieve committee account"));
-      return;
-    }
-
-    const blockedList = committeeAccount[0].blacklisted_accounts;
-
-    // [1.2.x, ...] -> hex string
-    let hashedBlockList = blockedList.map((account: string) =>
-      toHex(sha256(utf8ToBytes(account)))
-    );
-
-    resolve(hashedBlockList);
   });
 }
 

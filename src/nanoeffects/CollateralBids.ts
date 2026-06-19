@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 function getCollateralBids(
   chain: string,
@@ -17,13 +17,7 @@ function getCollateralBids(
         ? specificNode
         : (chains as any)[chain].nodeList[0].url;
       try {
-        currentAPI = await Apis.instance(
-          node,
-          true,
-          4000,
-          { enableDatabase: true },
-          (error: Error) => console.log({ error })
-        );
+        currentAPI = await acquireConnection(node);
       } catch (error) {
         console.log({ error });
         reject(error);
@@ -36,7 +30,9 @@ function getCollateralBids(
         currentAPI.db_api().exec("get_collateral_bids", [assetID, 100, 0]), // get first 100 active collateral bids
       ]);
 
-      currentAPI.close();
+      if (!existingAPI) {
+        releaseConnection(specificNode || (chains as any)[chain].nodeList[0].url, currentAPI);
+      }
 
       if (collateralBids) {
         return resolve(collateralBids);
@@ -45,7 +41,9 @@ function getCollateralBids(
       return reject(new Error("Couldn't retrieve collateral bids"));
     } catch (error) {
       console.log({ error });
-      currentAPI.close();
+      if (!existingAPI) {
+        releaseConnection(specificNode || (chains as any)[chain].nodeList[0].url, currentAPI);
+      }
       return reject(error);
     }
   });

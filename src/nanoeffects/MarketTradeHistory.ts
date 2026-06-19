@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 function getTicker(
   chain: string,
@@ -15,13 +15,7 @@ function getTicker(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true, enableHistory: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node, { enableDatabase: true, enableHistory: true });
     } catch (error) {
       console.log({ error });
       reject(error);
@@ -35,14 +29,9 @@ function getTicker(
       resolve(_ticker);
     } catch (error) {
       console.log({ error });
-      currentAPI.close();
       reject(error);
     } finally {
-      try {
-        currentAPI.close();
-      } catch (error) {
-        console.log({ error });
-      }
+      releaseConnection(node, currentAPI);
     }
   });
 }
@@ -59,13 +48,7 @@ function getMultipleTickers(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true, enableHistory: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node, { enableDatabase: true, enableHistory: true });
     } catch (error) {
       console.log({ error });
       reject(error);
@@ -82,7 +65,7 @@ function getMultipleTickers(
           .exec("get_ticker", [pair.split("_")[0], pair.split("_")[1]]);
       } catch (error) {
         console.log({ error });
-        currentAPI.close();
+        releaseConnection(node, currentAPI);
         reject(error);
         return;
       }
@@ -90,7 +73,7 @@ function getMultipleTickers(
       marketTickers[pair] = _result;
     }
 
-    currentAPI.close();
+    releaseConnection(node, currentAPI);
     return resolve(marketTickers);
   });
 }
@@ -109,13 +92,7 @@ function getMarketTradeHistory(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true, enableHistory: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node, { enableDatabase: true, enableHistory: true });
     } catch (error) {
       console.log({ error });
       reject(error);
@@ -204,14 +181,9 @@ function getMarketTradeHistory(
       resolve(result);
     } catch (error) {
       console.log({ error });
-      currentAPI.close();
       reject(error);
     } finally {
-      try {
-        currentAPI.close();
-      } catch (error) {
-        console.log({ error });
-      }
+      releaseConnection(node, currentAPI);
     }
   });
 }

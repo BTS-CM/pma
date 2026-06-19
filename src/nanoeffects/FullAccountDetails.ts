@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 function getFullAccountDetails(
   chain: string,
@@ -14,43 +14,39 @@ function getFullAccountDetails(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
       return;
     }
 
-    let object;
     try {
-      object = await currentAPI
-        .db_api()
-        .exec("get_full_accounts", [[accountID], false])
-        .then((results: Object[]) => {
-          if (results && results.length) {
-            return results;
-          }
-        });
-    } catch (error) {
-      console.log({ error });
-      currentAPI.close();
-      reject(error);
+      let object;
+      try {
+        object = await currentAPI
+          .db_api()
+          .exec("get_full_accounts", [[accountID], false])
+          .then((results: Object[]) => {
+            if (results && results.length) {
+              return results;
+            }
+          });
+      } catch (error) {
+        console.log({ error });
+        reject(error);
+        return;
+      }
+
+      if (!object) {
+        reject(new Error("Full account details not found"));
+        return;
+      }
+
+      resolve(object);
+    } finally {
+      releaseConnection(node, currentAPI);
     }
-
-    currentAPI.close();
-
-    if (!object) {
-      reject(new Error("Full account details not found"));
-      return;
-    }
-
-    resolve(object);
   });
 }
 

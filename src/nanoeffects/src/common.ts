@@ -1,5 +1,5 @@
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./ConnectionPool";
 
 // Split the input object ids into acceptably sized chunks
 function _sliceIntoChunks(arr: any[], size: number) {
@@ -27,13 +27,7 @@ async function getObjects(
     try {
       currentAPI = existingAPI
         ? existingAPI
-        : await Apis.instance(
-            node,
-            true,
-            4000,
-            { enableDatabase: true },
-            (error: Error) => console.log({ error })
-          );
+        : await acquireConnection(node);
     } catch (error) {
       console.log({ error, node });
       return reject(error);
@@ -53,7 +47,7 @@ async function getObjects(
           .db_api()
           .exec("get_objects", [currentChunk, false]);
       } catch (error) {
-        console.log({ error });
+        console.warn(`[getObjects] chunk ${i + 1}/${chunksOfInputs.length} (${currentChunk.length} IDs) failed:`, error?.message || error);
         continue;
       }
 
@@ -65,7 +59,7 @@ async function getObjects(
     }
 
     if (!existingAPI) {
-      currentAPI.close();
+      releaseConnection(node, currentAPI);
     }
 
     resolve(retrievedObjects);

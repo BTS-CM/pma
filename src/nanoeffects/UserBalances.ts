@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 //Fetch account balances
 async function getAccountBalances(
@@ -16,52 +16,50 @@ async function getAccountBalances(
       : (chains as any)[chain].nodeList[0].url;
 
     let currentAPI;
+    let isExisting = false;
     try {
-      currentAPI = existingAPI
-        ? existingAPI
-        : await Apis.instance(
-            node,
-            true,
-            4000,
-            { enableDatabase: true },
-            (error: Error) => console.log({ error })
-          );
+      if (existingAPI) {
+        currentAPI = existingAPI;
+        isExisting = true;
+      } else {
+        currentAPI = await acquireConnection(node);
+      }
     } catch (error) {
       console.log({ error });
       reject(error);
       return;
     }
 
-    let balances;
     try {
-      balances = await currentAPI
-        .db_api()
-        .exec("get_account_balances", [
-          accountID,
-          specificAssets ? specificAssets : [],
-        ])
-        .then((results: Object[]) => {
-          if (results && results.length) {
-            return results;
-          }
-        });
-    } catch (error) {
-      console.log({ error });
-      if (!existingAPI) {
-        currentAPI.close();
+      let balances;
+      try {
+        balances = await currentAPI
+          .db_api()
+          .exec("get_account_balances", [
+            accountID,
+            specificAssets ? specificAssets : [],
+          ])
+          .then((results: Object[]) => {
+            if (results && results.length) {
+              return results;
+            }
+          });
+      } catch (error) {
+        console.log({ error });
+        reject(error);
+        return;
       }
-      reject(error);
-    }
 
-    if (!existingAPI) {
-      currentAPI.close();
-    }
+      if (!balances) {
+        return resolve([]);
+      }
 
-    if (!balances) {
-      return resolve([]);
+      return resolve(balances);
+    } finally {
+      if (!isExisting) {
+        releaseConnection(node, currentAPI);
+      }
     }
-
-    return resolve(balances);
   });
 }
 
@@ -101,44 +99,42 @@ const [createUsersCoreBalanceStore] = nanoquery({
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       return;
     }
 
-    let userBalances: any = [];
-    for (let i = 0; i < accountIDs.length; i++) {
-      const accountID = accountIDs[i];
-      let response;
-      try {
-        response = await getAccountBalances(
-          chain,
-          accountID,
-          specificNode,
-          currentAPI,
-          ["1.3.0"]
-        );
-      } catch (error) {
-        console.log({ error });
-        return;
+    try {
+      let userBalances: any = [];
+      for (let i = 0; i < accountIDs.length; i++) {
+        const accountID = accountIDs[i];
+        let response;
+        try {
+          response = await getAccountBalances(
+            chain,
+            accountID,
+            specificNode,
+            currentAPI,
+            ["1.3.0"]
+          );
+        } catch (error) {
+          console.log({ error });
+          return;
+        }
+
+        if (!response) {
+          console.log(`Failed to fetch user balances`);
+          continue;
+        }
+
+        userBalances.push({ id: accountID, balance: response });
       }
 
-      if (!response) {
-        console.log(`Failed to fetch user balances`);
-        continue;
-      }
-
-      userBalances.push({ id: accountID, balance: response });
+      return userBalances;
+    } finally {
+      releaseConnection(node, currentAPI);
     }
-
-    return userBalances;
   },
 });
 

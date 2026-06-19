@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 function getMarketOrderBook(
   chain: string,
@@ -16,13 +16,7 @@ function getMarketOrderBook(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
@@ -39,7 +33,7 @@ function getMarketOrderBook(
     }
 
     try {
-      await currentAPI.close();
+      releaseConnection(node, currentAPI);
     } catch (error) {
       console.log({ error });
     }

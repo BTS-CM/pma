@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 function getAssetCallOrders(
   chain: string,
@@ -17,13 +17,7 @@ function getAssetCallOrders(
         ? specificNode
         : (chains as any)[chain].nodeList[0].url;
       try {
-        currentAPI = await Apis.instance(
-          node,
-          true,
-          4000,
-          { enableDatabase: true },
-          (error: Error) => console.log({ error })
-        );
+        currentAPI = await acquireConnection(node);
       } catch (error) {
         console.log({ error });
         reject(error);
@@ -41,7 +35,9 @@ function getAssetCallOrders(
         })
       );
 
-      currentAPI.close();
+      if (!existingAPI) {
+        releaseConnection(specificNode || (chains as any)[chain].nodeList[0].url, currentAPI);
+      }
 
       if (assetCallOrders) {
         return resolve(Object.assign({}, ...assetCallOrders));
@@ -50,7 +46,9 @@ function getAssetCallOrders(
       return reject(new Error("Couldn't retrieve asset call orders"));
     } catch (error) {
       console.log({ error });
-      currentAPI.close();
+      if (!existingAPI) {
+        releaseConnection(specificNode || (chains as any)[chain].nodeList[0].url, currentAPI);
+      }
       return reject(error);
     }
   });

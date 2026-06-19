@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 function getFullSmartcoin(
   chain: string,
@@ -18,13 +18,7 @@ function getFullSmartcoin(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
@@ -57,7 +51,7 @@ function getFullSmartcoin(
           .exec("get_order_book", [assetID, collateralAssetID, 10]),
       ]);
 
-      currentAPI.close();
+      releaseConnection(node, currentAPI);
 
       if (smartcoinData && smartcoinData.length) {
         const assetData = smartcoinData.slice(0, 2);
@@ -85,7 +79,7 @@ function getFullSmartcoin(
       return reject(new Error("Couldn't retrieve objects"));
     } catch (error) {
       console.log({ error });
-      currentAPI.close();
+      releaseConnection(node, currentAPI);
       return reject(error);
     }
   });

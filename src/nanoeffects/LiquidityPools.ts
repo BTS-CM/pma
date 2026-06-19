@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 const MAXIMUM_DEALS = 1000;
 const BTS_LIMIT = 50;
@@ -22,13 +22,7 @@ function fetchLiquidityPools(
     try {
       currentAPI = existingAPI
         ? existingAPI
-        : await Apis.instance(
-            node,
-            true,
-            4000,
-            { enableDatabase: true },
-            (error: Error) => console.log({ error }),
-          );
+        : await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
@@ -47,7 +41,7 @@ function fetchLiquidityPools(
     } catch (error) {
       console.log({ error });
       if (!existingAPI) {
-        currentAPI.close();
+        releaseConnection(node, currentAPI);
       }
       reject(error);
       return;
@@ -122,13 +116,7 @@ function fetchLPTradingVolume(
     try {
       currentAPI = existingAPI
         ? existingAPI
-        : await Apis.instance(
-            node,
-            true,
-            4000,
-            { enableDatabase: true },
-            (error: Error) => console.log({ error }),
-          );
+        : await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
@@ -162,17 +150,13 @@ function fetchLPTradingVolume(
     } catch (error) {
       console.log({ error });
       if (!existingAPI) {
-        currentAPI.close();
+        releaseConnection(node, currentAPI);
       }
       reject(error);
       return;
     } finally {
       if (!existingAPI) {
-        try {
-          currentAPI.close();
-        } catch (error) {
-          console.log({ error });
-        }
+        releaseConnection(node, currentAPI);
       }
     }
 

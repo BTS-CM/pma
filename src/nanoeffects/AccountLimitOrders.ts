@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 const MAX_LIMIT_ORDERS = 1000;
 const BTS_LIMIT = 50;
@@ -21,75 +21,71 @@ function getAccountLimitOrders(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
       return;
     }
 
-    const API_LIMIT = chain === "bitshares" ? BTS_LIMIT : TEST_LIMIT;
-    const API_ITERATIONS =
-      chain === "bitshares" ? MAX_BTS_ITERATIONS : MAX_TEST_ITERATIONS;
-
-    let limitOrders: any;
     try {
-      limitOrders = await currentAPI
-        .db_api()
-        .exec("get_limit_orders_by_account", [accountID, API_LIMIT])
-        .then((results: Object[]) => {
-          if (results && results.length) {
-            return results;
+      const API_LIMIT = chain === "bitshares" ? BTS_LIMIT : TEST_LIMIT;
+      const API_ITERATIONS =
+        chain === "bitshares" ? MAX_BTS_ITERATIONS : MAX_TEST_ITERATIONS;
+
+      let limitOrders: any;
+      try {
+        limitOrders = await currentAPI
+          .db_api()
+          .exec("get_limit_orders_by_account", [accountID, API_LIMIT])
+          .then((results: Object[]) => {
+            if (results && results.length) {
+              return results;
+            }
+          });
+      } catch (error) {
+        console.log({ error });
+        reject(error);
+        return;
+      }
+
+      if (!limitOrders || !limitOrders.length) {
+        reject(new Error("Account limit orders not found"));
+        return;
+      }
+
+      if (limitOrders && limitOrders.length === API_LIMIT) {
+        for (let i = 1; i < API_ITERATIONS; i++) {
+          let nextLimitOrders;
+          try {
+            nextLimitOrders = await currentAPI
+              .db_api()
+              .exec("get_limit_orders_by_account", [
+                accountID,
+                API_LIMIT,
+                limitOrders[limitOrders.length - 1].id,
+              ])
+              .then((results: Object[]) => {
+                if (results && results.length) {
+                  return results;
+                }
+              });
+          } catch (error) {
+            console.log({ error });
+            reject(error);
+            return;
           }
-        });
-    } catch (error) {
-      console.log({ error });
-      currentAPI.close();
-      reject(error);
-    }
 
-    if (!limitOrders || !limitOrders.length) {
-      currentAPI.close();
-      reject(new Error("Account limit orders not found"));
-      return;
-    }
-
-    if (limitOrders && limitOrders.length === API_LIMIT) {
-      for (let i = 1; i < API_ITERATIONS; i++) {
-        let nextLimitOrders;
-        try {
-          nextLimitOrders = await currentAPI
-            .db_api()
-            .exec("get_limit_orders_by_account", [
-              accountID,
-              API_LIMIT,
-              limitOrders[limitOrders.length - 1].id,
-            ])
-            .then((results: Object[]) => {
-              if (results && results.length) {
-                return results;
-              }
-            });
-        } catch (error) {
-          console.log({ error });
-          currentAPI.close();
-          reject(error);
-        }
-
-        if (nextLimitOrders) {
-          limitOrders = limitOrders.concat(nextLimitOrders);
+          if (nextLimitOrders) {
+            limitOrders = limitOrders.concat(nextLimitOrders);
+          }
         }
       }
-    }
 
-    currentAPI.close();
-    resolve(limitOrders);
+      resolve(limitOrders);
+    } finally {
+      releaseConnection(node, currentAPI);
+    }
   });
 }
 

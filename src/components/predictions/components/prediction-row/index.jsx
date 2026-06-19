@@ -262,7 +262,10 @@ export const PredictionRow = memo(function PredictionRow({
     humanReadablePredictionMarketAssetBalance, existingCollateral, existingCollateralRaw, _backingAssetID, _backingPrecision,
     _issuer_permissions, _flags, expiredPMAs, parentPmoObject, marketStats]);
 
-  if (!res || !relevantBitassetData) return null;
+  if (!res) return null;
+  if (!relevantBitassetData && completedPMAs?.length) {
+    console.warn(`[PMA:Row] missing bitasset_data for ${res.id}, bitasset_data_id=${res.bitasset_data_id}`);
+  }
 
   let foundAsset = marketSearch?.length && symbol ? marketSearch.find((x) => x.s === symbol) : null;
   let username = foundAsset ? foundAsset.u : null;

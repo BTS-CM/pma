@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 
 // Retrieve the quantity of registered blockchain accounts
 async function getAccountCount(chain: string, specificNode?: string | null) {
@@ -11,35 +11,33 @@ async function getAccountCount(chain: string, specificNode?: string | null) {
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error, node });
       reject(error);
       return;
     }
 
-    let accountCount;
     try {
-      accountCount = await currentAPI.db_api().exec("get_account_count", []);
-    } catch (error) {
-      console.log({ error });
-    }
+      let accountCount;
+      try {
+        accountCount = await currentAPI.db_api().exec("get_account_count", []);
+      } catch (error) {
+        console.log({ error });
+      }
 
-    if (!accountCount) {
-      console.log(
-        `Failed to fetch the quantity of registered blockchain accounts`
-      );
-      reject();
-      return;
-    }
+      if (!accountCount) {
+        console.log(
+          `Failed to fetch the quantity of registered blockchain accounts`
+        );
+        reject();
+        return;
+      }
 
-    resolve(accountCount);
+      resolve(accountCount);
+    } finally {
+      releaseConnection(node, currentAPI);
+    }
   });
 }
 

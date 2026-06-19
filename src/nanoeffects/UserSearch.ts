@@ -1,6 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 import { $nodes } from "@/stores/node";
 
 async function accountSearch(
@@ -23,36 +23,34 @@ async function accountSearch(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
       return;
     }
 
-    let object;
     try {
-      object = await currentAPI
-        .db_api()
-        .exec("get_accounts", [[search_string]]);
-    } catch (error) {
-      console.log({ error });
-      currentAPI.close();
-      reject(error);
-    }
+      let object;
+      try {
+        object = await currentAPI
+          .db_api()
+          .exec("get_accounts", [[search_string]]);
+      } catch (error) {
+        console.log({ error });
+        reject(error);
+        return;
+      }
 
-    if (!object || !object.length) {
-      return reject(new Error("Couldn't retrieve account"));
-    }
+      if (!object || !object.length) {
+        reject(new Error("Couldn't retrieve account"));
+        return;
+      }
 
-    currentAPI.close();
-    resolve(object[0]);
+      resolve(object[0]);
+    } finally {
+      releaseConnection(node, currentAPI);
+    }
   });
 }
 

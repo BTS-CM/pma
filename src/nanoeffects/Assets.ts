@@ -1,7 +1,6 @@
 import { nanoquery } from "@nanostores/query";
-import Apis from "@/bts/ws/ApiInstances";
 import { chains } from "@/config/chains";
-
+import { acquireConnection, releaseConnection } from "./src/ConnectionPool";
 import { humanReadableFloat } from "@/lib/common";
 import { getObjects } from "./src/common";
 
@@ -19,64 +18,58 @@ const [createAssetFromSymbolStore] = nanoquery({
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       return;
     }
 
-    let assetID;
     try {
-      assetID = await currentAPI
-        .db_api()
-        .exec("get_asset_id_from_string", [symbol]);
-    } catch (error) {
-      console.log({ error });
+      let assetID;
+      try {
+        assetID = await currentAPI
+          .db_api()
+          .exec("get_asset_id_from_string", [symbol]);
+      } catch (error) {
+        console.log({ error });
+      }
+
+      if (!assetID) {
+        console.log(`Failed to fetch asset id for ${symbol}`);
+        return;
+      }
+
+      let assetData;
+      try {
+        assetData = await getObjects(chain, [assetID], null, currentAPI);
+      } catch (error) {
+        console.log({ error });
+        return;
+      }
+
+      const result = assetData && assetData.length ? assetData[0] : null;
+      if (!result) {
+        console.log(`Failed to fetch asset data for ${symbol}`);
+        return;
+      }
+
+      let objectIDs = [result.id.replace("1.3.", "2.3.")];
+      if (result.bitasset_data_id) {
+        objectIDs.push(result.bitasset_data_id);
+      }
+
+      let extraData;
+      try {
+        extraData = await getObjects(chain, objectIDs, null, currentAPI);
+      } catch (error) {
+        console.log({ error });
+        return;
+      }
+
+      return { assetData: assetData[0], extra: extraData, assetID };
+    } finally {
+      releaseConnection(node, currentAPI);
     }
-
-    if (!assetID) {
-      currentAPI.close();
-      console.log(`Failed to fetch asset id for ${symbol}`);
-      return;
-    }
-
-    let assetData;
-    try {
-      assetData = await getObjects(chain, [assetID], null, currentAPI);
-    } catch (error) {
-      console.log({ error });
-      return;
-    }
-
-    const result = assetData && assetData.length ? assetData[0] : null;
-    if (!result) {
-      currentAPI.close();
-      console.log(`Failed to fetch asset data for ${symbol}`);
-      return;
-    }
-
-    let objectIDs = [result.id.replace("1.3.", "2.3.")];
-    if (result.bitasset_data_id) {
-      objectIDs.push(result.bitasset_data_id);
-    }
-
-    let extraData;
-    try {
-      extraData = await getObjects(chain, objectIDs, null, currentAPI);
-    } catch (error) {
-      console.log({ error });
-      return;
-    }
-
-    currentAPI.close();
-
-    return { assetData: assetData[0], extra: extraData, assetID };
   },
 });
 
@@ -92,13 +85,7 @@ async function getFullAssetFromSymbol(
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       reject(error);
@@ -111,7 +98,7 @@ async function getFullAssetFromSymbol(
         .exec("get_asset_id_from_string", [symbol]);
 
       if (!assetID) {
-        currentAPI.close();
+        releaseConnection(node, currentAPI);
         reject(new Error(`Failed to fetch asset id for ${symbol}`));
         return;
       }
@@ -120,7 +107,7 @@ async function getFullAssetFromSymbol(
       const asset = assetData && assetData.length ? assetData[0] : null;
 
       if (!asset) {
-        currentAPI.close();
+        releaseConnection(node, currentAPI);
         reject(new Error(`Failed to fetch asset data for ${symbol}`));
         return;
       }
@@ -160,7 +147,7 @@ async function getFullAssetFromSymbol(
           backingAssets && backingAssets.length ? backingAssets[0] : null;
       }
 
-      currentAPI.close();
+      releaseConnection(node, currentAPI);
 
       resolve({
         ...asset,
@@ -170,7 +157,7 @@ async function getFullAssetFromSymbol(
       });
     } catch (error) {
       console.log({ error });
-      currentAPI.close();
+      releaseConnection(node, currentAPI);
       reject(error);
     }
   });
@@ -212,13 +199,7 @@ const [createPoolAssetStore] = nanoquery({
 
     let currentAPI;
     try {
-      currentAPI = await Apis.instance(
-        node,
-        true,
-        4000,
-        { enableDatabase: true },
-        (error: Error) => console.log({ error })
-      );
+      currentAPI = await acquireConnection(node);
     } catch (error) {
       console.log({ error });
       return;
@@ -258,7 +239,7 @@ const [createPoolAssetStore] = nanoquery({
       console.log({ error });
     }
 
-    currentAPI.close();
+    releaseConnection(node, currentAPI);
 
     if (!retrievedData || !retrievedData.length) {
       console.log(`Failed to retrieve pool data`);

@@ -208,6 +208,11 @@ export default function Predictions(properties) {
 
   const [combinedAssets, setCombinedAssets] = useState([]);
   useEffect(() => {
+    if (!_chain || !assets?.length || !currentNode) return;
+
+    let cancelled = false;
+    let unsubscribeCombined = null;
+
     async function fetching() {
       const lastAsset = assets.at(-1);
       const requiredStore = createEveryObjectStore([
@@ -218,16 +223,23 @@ export default function Predictions(properties) {
         currentNode.url,
       ]);
 
-      requiredStore.subscribe(({ data, error, loading }) => {
+      unsubscribeCombined = requiredStore.subscribe(({ data, error, loading }) => {
+        if (cancelled) return;
         if (data && !error && !loading) {
           setCombinedAssets(!data.length ? assets : [...assets, ...data]);
         }
       });
     }
 
-    if (_chain && assets && assets.length && currentNode) {
-      fetching();
-    }
+    fetching();
+
+    return () => {
+      cancelled = true;
+      if (unsubscribeCombined) {
+        unsubscribeCombined();
+        unsubscribeCombined = null;
+      }
+    };
   }, [_chain, assets, currentNode]);
 
   const predictionMarketAssets = useMemo(() => {
@@ -265,6 +277,7 @@ export default function Predictions(properties) {
     if (predictionMarketAssetsCount > 0 && currentNodeReady) {
       queriedStoreRef.current = true;
       let cancelled = false;
+      let unsubscribePma = null;
       setFetchingPmas(true);
 
       async function fetching() {
@@ -274,9 +287,10 @@ export default function Predictions(properties) {
           currentNode.url,
         ]);
 
-        _store.subscribe(({ data, error, loading }) => {
+        unsubscribePma = _store.subscribe(({ data, error, loading }) => {
           if (cancelled) return;
           if (data && !error && !loading) {
+            console.log(`[PMA:Objects] received ${data.length} objects, first id=${data[0]?.id}, last id=${data[data.length-1]?.id}`);
             const now = new Date();
             const processedData = data
               .map((x) => {
@@ -325,7 +339,13 @@ export default function Predictions(properties) {
       }
 
       fetching();
-      return () => { cancelled = true; };
+      return () => {
+        cancelled = true;
+        if (unsubscribePma) {
+          unsubscribePma();
+          unsubscribePma = null;
+        }
+      };
     } else if (
       queriedStoreRef.current &&
       predictionMarketAssetsCount === 0 &&
@@ -387,26 +407,36 @@ export default function Predictions(properties) {
   const [usrBalances, setUsrBalances] = useState();
   const [balanceAssetIDs, setBalanceAssetIDs] = useState([]);
   useEffect(() => {
+    if (!usr?.id) return;
+
+    let cancelled = false;
+    let unsubscribeBal = null;
+
     async function fetchUserBalances() {
-      if (usr && usr.id) {
-        const userBalancesStore = createUserBalancesStore([
-          usr.chain,
-          usr.id,
-          currentNode ? currentNode.url : null,
-        ]);
-        userBalancesStore.subscribe(({ data, error, loading }) => {
-          if (data && !error && !loading) {
-            // Do not filter by the initially loaded `assets` list here because
-            // PMA assets may be minted/added dynamically and may not appear
-            // in the smaller assets list. Keep all balances so PMA balances
-            // are available for lookup in the list/detail components.
-            setBalanceAssetIDs(data.map((x) => x.asset_id));
-            setUsrBalances(data);
-          }
-        });
-      }
+      const userBalancesStore = createUserBalancesStore([
+        usr.chain,
+        usr.id,
+        currentNode ? currentNode.url : null,
+      ]);
+
+      unsubscribeBal = userBalancesStore.subscribe(({ data, error, loading }) => {
+        if (cancelled) return;
+        if (data && !error && !loading) {
+          setBalanceAssetIDs(data.map((x) => x.asset_id));
+          setUsrBalances(data);
+        }
+      });
     }
+
     fetchUserBalances();
+
+    return () => {
+      cancelled = true;
+      if (unsubscribeBal) {
+        unsubscribeBal();
+        unsubscribeBal = null;
+      }
+    };
   }, [usr, currentNode?.url]);
 
   const activePMAs = useMemo(() => {
@@ -427,18 +457,37 @@ export default function Predictions(properties) {
 
   const [completedPMAs, setCompletedPMAs] = useState([]);
   useEffect(() => {
+    if (!pmaProcessedData?.length) return;
+
+    let cancelled = false;
+    let unsubscribe = null;
+
     async function fetching() {
+      const uniqueIDs = [...new Set(pmaProcessedData.map((x) => x.bitasset_data_id).filter(Boolean))];
+      console.log(`[PMA:completedPMAs] requesting ${uniqueIDs.length} unique bitasset_data IDs:`, uniqueIDs);
+
       const _store = createObjectStore([
         _chain,
-        JSON.stringify(pmaProcessedData.map((x) => x.bitasset_data_id)),
+        JSON.stringify(uniqueIDs),
         currentNode ? currentNode.url : null,
       ]);
 
-      _store.subscribe(({ data, error, loading }) => {
+      unsubscribe = _store.subscribe(({ data, error, loading }) => {
+        if (cancelled) return;
         if (data && !error && !loading) {
-          const outcomes = data
-            .filter((x) => x.settlement_price)
+          const requestedIDs = new Set(uniqueIDs);
+          const receivedIDs = new Set(data.map((x) => x?.id).filter(Boolean));
+          const missing = [...requestedIDs].filter((id) => !receivedIDs.has(id));
+          if (missing.length) {
+            console.warn(`[PMA:completedPMAs] ${missing.length} bitasset_data IDs NOT returned:`, missing);
+          }
+
+          const enriched = data
+            .filter(Boolean)
             .map((x) => {
+              if (!x.settlement_price) {
+                return { ...x, outcome: undefined };
+              }
               const baseAmount = parseInt(x.settlement_price.base.amount);
               if (baseAmount === 0) {
                 return { ...x, outcome: -1 };
@@ -448,6 +497,10 @@ export default function Predictions(properties) {
                 (y) => x.options.short_backing_asset === y.id,
               );
               const baseAsset = assets.find((y) => x.asset_id === y.id);
+
+              if (!quoteAsset || !baseAsset) {
+                return { ...x, outcome: undefined };
+              }
 
               const _outcome = parseFloat(
                 (
@@ -461,18 +514,30 @@ export default function Predictions(properties) {
               return { ...x, outcome: _outcome > 0 ? 1 : 0 };
             });
 
-          setCompletedPMAs(outcomes);
+          console.log(`[PMA:completedPMAs] received ${data.length} bitasset_data, ${enriched.filter((x) => x.outcome != null).length} resolved`);
+          setCompletedPMAs(enriched);
         }
       });
     }
 
-    if (pmaProcessedData && pmaProcessedData.length) {
-      fetching();
-    }
+    fetching();
+
+    return () => {
+      cancelled = true;
+      if (unsubscribe) {
+        unsubscribe();
+        unsubscribe = null;
+      }
+    };
   }, [pmaProcessedData]);
 
   const [callOrders, setCallOrders] = useState([]);
   useEffect(() => {
+    if (!completedPMAs?.length) return;
+
+    let cancelled = false;
+    let unsubscribeCall = null;
+
     async function fetching() {
       const _assetStore = createAssetCallOrdersStore([
         _chain,
@@ -480,16 +545,23 @@ export default function Predictions(properties) {
         currentNode.url,
       ]);
 
-      _assetStore.subscribe(({ data, error, loading }) => {
+      unsubscribeCall = _assetStore.subscribe(({ data, error, loading }) => {
+        if (cancelled) return;
         if (data && !error && !loading) {
           setCallOrders(data);
         }
       });
     }
 
-    if (completedPMAs && completedPMAs.length) {
-      fetching();
-    }
+    fetching();
+
+    return () => {
+      cancelled = true;
+      if (unsubscribeCall) {
+        unsubscribeCall();
+        unsubscribeCall = null;
+      }
+    };
   }, [completedPMAs]);
 
   const marginPMAs = useMemo(() => {
