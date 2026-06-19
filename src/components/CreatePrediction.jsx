@@ -1088,6 +1088,23 @@ export default function Prediction(properties) {
     return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
   }, [date]);
 
+  const isExpiredInEditMode = useMemo(() => {
+    if (!isEditMode || !existingAsset?.options?.description) return false;
+    try {
+      const d = JSON.parse(existingAsset.options.description);
+      if (d.expiry) {
+        return new Date(d.expiry).getTime() <= Date.now();
+      }
+    } catch {}
+    return false;
+  }, [isEditMode, existingAsset]);
+
+  const isResolvedInEditMode = useMemo(() => {
+    if (!isEditMode) return false;
+    const outcome = existingAsset?.bitasset_data?.outcome;
+    return outcome === 0 || outcome === 1;
+  }, [isEditMode, existingAsset]);
+
   const symbolError = useMemo(() => {
     if (creationMode === "organization") {
       if (!subAssetName || subAssetName.length === 0) return null;
@@ -1460,18 +1477,19 @@ export default function Prediction(properties) {
                 )}
                 value={condition}
                 rows={3}
-                className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
+                disabled={isEditMode && (isExpiredInEditMode || isResolvedInEditMode)}
+                className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50 disabled:opacity-50"
                 onInput={(e) => setCondition(e.currentTarget.value)}
               />
             </Field>
 
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-9">
               <Field
                 label={t("CreatePrediction:pma.commission.header")}
                 help={t("CreatePrediction:pma.commission.header_content")}
                 htmlFor="prediction-commission"
                 error={commissionError}
-                className="md:col-span-1"
+                className="md:col-span-3 mt-3"
               >
                 <SuffixInput
                   id="prediction-commission"
@@ -1482,6 +1500,7 @@ export default function Prediction(properties) {
                   value={commission}
                   type="text"
                   inputMode="decimal"
+                  disabled={isEditMode && isResolvedInEditMode}
                   onInput={(e) => {
                     setCommission(sanitizeCommission(e.currentTarget.value));
                   }}
@@ -1492,7 +1511,7 @@ export default function Prediction(properties) {
                 label={t("CreatePrediction:pma.backing_asset.header")}
                 help={t("CreatePrediction:pma.backing_asset.header_content")}
                 htmlFor="prediction-backing"
-                className="md:col-span-3"
+                className="md:col-span-3 mt-3"
               >
                 <Input
                   id="prediction-backing"
@@ -1506,30 +1525,32 @@ export default function Prediction(properties) {
                   className="font-mono bg-slate-950/60 border-white/10 text-white disabled:opacity-100 placeholder:text-white/30"
                 />
               </Field>
-            </div>
 
-            <Field
-              label={t("CreatePrediction:pma.resolution.header")}
-              help={t("CreatePrediction:pma.resolution.header_content")}
-              required
-            >
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-2 [&_button]:bg-slate-950/60 [&_button]:border-white/10 [&_button]:text-white [&_button]:hover:bg-white/10 [&_[role=gridcell]]:text-white [&_[data-selected]]:bg-violet-500 [&_[data-selected]]:text-white [&_.rdp-day]:text-white [&_.rdp-caption_label]:text-white [&_.rdp-button_previous]:text-white/60 [&_.rdp-button_next]:text-white/60 [&_input]:bg-slate-950/60 [&_input]:border-white/10 [&_input]:text-white [&_input]:focus:bg-violet-500/20 [&_input]:focus:text-white [&_.border-t]:border-white/10">
-                <DateTimePicker
-                  granularity="day"
-                  value={date}
-                  onChange={(newDate) => {
-                    const now = new Date();
-                    const minDate = new Date(now.getTime() + 60 * 60 * 1000); // 1 hour from now
-                    if (newDate >= minDate) {
-                      setDate(newDate);
-                    } else {
-                      setDate(minDate);
-                    }
-                  }}
-                />
-                <TimePicker date={date} onChange={setDate} />
-              </div>
-            </Field>
+              <Field
+                label={t("CreatePrediction:pma.resolution.header")}
+                help={t("CreatePrediction:pma.resolution.header_content")}
+                required
+                className="md:col-span-3"
+              >
+                <div className={"flex flex-col gap-3 [&_button]:bg-slate-950/60 [&_button]:border-white/10 [&_button]:text-white [&_button]:hover:bg-white/10 [&_[role=gridcell]]:text-white [&_[data-selected]]:bg-violet-500 [&_[data-selected]]:text-white [&_.rdp-day]:text-white [&_.rdp-caption_label]:text-white [&_.rdp-button_previous]:text-white/60 [&_.rdp-button_next]:text-white/60 [&_input]:bg-slate-950/60 [&_input]:border-white/10 [&_input]:text-white [&_input]:focus:bg-violet-500/20 [&_input]:focus:text-white [&_.border-t]:border-white/10" + (isEditMode && isResolvedInEditMode ? " pointer-events-none opacity-50" : "")}>
+                  <DateTimePicker
+                    granularity="day"
+                    value={date}
+                    disabled={isEditMode && isResolvedInEditMode}
+                    onChange={(newDate) => {
+                      const now = new Date();
+                      const minDate = new Date(now.getTime() + 60 * 60 * 1000); // 1 hour from now
+                      if (newDate >= minDate) {
+                        setDate(newDate);
+                      } else {
+                        setDate(minDate);
+                      }
+                    }}
+                  />
+                  <TimePicker date={date} onChange={setDate} />
+                </div>
+              </Field>
+            </div>
           </CardContent>
         </Card>
 

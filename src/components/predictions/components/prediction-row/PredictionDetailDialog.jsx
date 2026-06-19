@@ -611,17 +611,11 @@ export function PredictionDetailDialog({
                       <ResolveDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} expirationHours={expirationHours} expiration={expiration} cleanedPrediction={cleanedPrediction} _backingAssetID={_backingAssetID} settlementFundRaw={settlementFundRaw} prizePoolRaw={prizePoolRaw} relevantBitassetData={relevantBitassetData} t={t} />
                       <PricefeederDialog res={res} usr={usr} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} prizePoolRaw={prizePoolRaw} relevantBitassetData={relevantBitassetData} t={t} />
                       <FeedPriceDialog res={res} usr={usr} _backingAssetID={_backingAssetID} isExpired={isExpired} statusKey={statusKey} settlementFundRaw={settlementFundRaw} prizePoolRaw={prizePoolRaw} relevantBitassetData={relevantBitassetData} t={t} />
-                      {relevantBitassetData?.outcome !== 0 && relevantBitassetData?.outcome !== 1 ? (
-                        <a href={`/create_prediction.html?asset_update=${res.symbol}&settlement=${prizePoolRaw ?? 0}`}>
-                          <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs">
-                            {t("Predictions:update")}
-                          </Button>
-                        </a>
-                      ) : (
-                        <Button disabled className="w-full bg-blue-600 text-white text-xs cursor-not-allowed">
+                      <a href={`/create_prediction.html?asset_update=${res.symbol}&settlement=${prizePoolRaw ?? 0}`}>
+                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs">
                           {t("Predictions:update")}
                         </Button>
-                      )}
+                      </a>
                     </div>
                   </div>
                 </CollapsibleSection>
