@@ -8,6 +8,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import HoverInfo from "@/components/common/HoverInfo.tsx";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
 import { prettifyDate } from "../../../utils/formatters";
+import { blockchainFloat } from "@/lib/common.js";
 
 export function ResolveDialog({ res, usr, isExpired, statusKey, expirationHours, expiration, cleanedPrediction, _backingAssetID, settlementFundRaw, prizePoolRaw, relevantBitassetData, t }) {
   const [resolvePrompt, setResolvePrompt] = useState(false);
@@ -84,8 +85,8 @@ export function ResolveDialog({ res, usr, isExpired, statusKey, expirationHours,
                   issuer: usr.id,
                   asset_to_settle: res.id,
                   settle_price: {
-                    base: { amount: 1, asset_id: res.id },
-                    quote: { amount: chosenOutcome === "1" ? 1 : 0, asset_id: _backingAssetID },
+                    base: { amount: blockchainFloat(1, res.precision), asset_id: res.id },
+                    quote: { amount: chosenOutcome === "1" ? blockchainFloat(1, res.precision) : 0, asset_id: _backingAssetID },
                   },
                   extensions: {},
                 }]}

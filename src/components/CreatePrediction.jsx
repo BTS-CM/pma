@@ -77,7 +77,6 @@ import {
 import AssetPermission from "@/components/common/AssetPermission.tsx";
 import AssetFlag from "@/components/common/AssetFlag.tsx";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
-import AssetDropDown from "@/components/Market/AssetDropDownCard.jsx";
 
 import AccountSearch from "@/components/AccountSearch.jsx";
 import { Avatar } from "./Avatar.tsx";
@@ -228,8 +227,7 @@ export default function Prediction(properties) {
   const [shortName, setShortName] = useState("");
   const [symbol, setSymbol] = useState("");
   const [desc, setDesc] = useState("");
-  const [precision, setPrecision] = useState("5");
-  const precisionNum = parseInt(precision, 10) || 0;
+  const precisionNum = 5;
   const [maxSupply, setMaxSupply] = useState("1000000000");
 
   // Creation mode: "manual" (default) or "organization"
@@ -352,7 +350,6 @@ export default function Prediction(properties) {
     const marketFeePercent =
       assetOptions.market_fee_percent ?? existingAsset.market_fee_percent ?? 0;
     setSymbol(existingAsset.symbol);
-    setPrecision(String(existingAsset.precision ?? 5));
     setMaxSupply(
       String(humanReadableFloat(maxSupplyValue, existingAsset.precision ?? 5))
     );
@@ -1254,7 +1251,7 @@ export default function Prediction(properties) {
                   <Field
                     label={t("CreatePrediction:fields.org.label")}
                     help={t("CreatePrediction:fields.org.help")}
-                    htmlFor="cp-org-select"
+                    htmlFor="prediction-org-select"
                     required
                   >
                     <Select
@@ -1266,7 +1263,7 @@ export default function Prediction(properties) {
                       }}
                     >
                       <SelectTrigger
-                        id="cp-org-select"
+                        id="prediction-org-select"
                         className="bg-slate-950/60 border-white/10 text-white"
                       >
                         <SelectValue placeholder="Select an organization...">
@@ -1291,13 +1288,13 @@ export default function Prediction(properties) {
                   <Field
                     label={t("CreatePrediction:fields.subAssetName.label")}
                     help={t("CreatePrediction:fields.subAssetName.help")}
-                    htmlFor="cp-subassetname"
+                    htmlFor="prediction-subassetname"
                     required
                     error={symbolError}
                   >
                     <div className="relative">
                       <Input
-                        id="cp-subassetname"
+                        id="prediction-subassetname"
                         placeholder={t("CreatePrediction:fields.subAssetName.placeholder")}
                         value={subAssetName}
                         type="text"
@@ -1323,13 +1320,13 @@ export default function Prediction(properties) {
                   <Field
                     label={t("AssetCommon:asset_details.symbol.header")}
                     help={t("AssetCommon:asset_details.symbol.header_content")}
-                    htmlFor="cp-symbol"
+                    htmlFor="prediction-symbol"
                     required
                     error={symbolError}
                   >
                     <div className="relative">
                         <Input
-                          id="cp-symbol"
+                          id="prediction-symbol"
                           placeholder={t(
                             "AssetCommon:asset_details.symbol.placeholder"
                           )}
@@ -1357,11 +1354,11 @@ export default function Prediction(properties) {
                     help={t(
                       "AssetCommon:asset_details.shortName.header_content"
                     )}
-                    htmlFor="cp-shortname"
+                    htmlFor="prediction-shortname"
                     required
                   >
                     <Input
-                      id="cp-shortname"
+                      id="prediction-shortname"
                       placeholder={t(
                         "AssetCommon:asset_details.shortName.placeholder"
                       )}
@@ -1394,10 +1391,10 @@ export default function Prediction(properties) {
               help={t(
                 "AssetCommon:asset_details.description.header_content"
               )}
-              htmlFor="cp-desc"
+              htmlFor="prediction-desc"
             >
               <Textarea
-                id="cp-desc"
+                id="prediction-desc"
                 placeholder={t(
                   "AssetCommon:asset_details.description.placeholder"
                 )}
@@ -1414,11 +1411,11 @@ export default function Prediction(properties) {
                 help={t(
                   "AssetCommon:asset_details.max_supply.header_content"
                 )}
-                htmlFor="cp-maxsupply"
+                htmlFor="prediction-maxsupply"
               >
                 <div className="relative">
                   <Input
-                    id="cp-maxsupply"
+                    id="prediction-maxsupply"
                     placeholder={t(
                       "AssetCommon:asset_details.max_supply.placeholder"
                     )}
@@ -1437,34 +1434,6 @@ export default function Prediction(properties) {
                   )}
                 </div>
               </Field>
-              <Field
-                label={t("AssetCommon:asset_details.precision.header")}
-                help={t("AssetCommon:asset_details.precision.header_content")}
-                htmlFor="cp-precision"
-              >
-                  <Input
-                    id="cp-precision"
-                    placeholder={t(
-                      "AssetCommon:asset_details.precision.placeholder"
-                    )}
-                    value={precision}
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={1}
-                    className="font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
-                  onInput={(e) => {
-                    const cleaned = e.currentTarget.value
-                      .replace(/\D/g, "")
-                      .slice(0, 1);
-                    if (cleaned === "") {
-                      setPrecision("");
-                    } else {
-                      const num = parseInt(cleaned, 10);
-                      setPrecision(num > 8 ? "8" : cleaned);
-                    }
-                  }}
-                />
-              </Field>
             </div>
           </CardContent>
         </Card>
@@ -1481,11 +1450,11 @@ export default function Prediction(properties) {
             <Field
               label={t("CreatePrediction:pma.condition.header")}
               help={t("CreatePrediction:pma.condition.header_content")}
-              htmlFor="cp-condition"
+              htmlFor="prediction-condition"
               required
             >
               <Textarea
-                id="cp-condition"
+                id="prediction-condition"
                 placeholder={t(
                   "CreatePrediction:pma.condition.placeholder"
                 )}
@@ -1500,12 +1469,12 @@ export default function Prediction(properties) {
               <Field
                 label={t("CreatePrediction:pma.commission.header")}
                 help={t("CreatePrediction:pma.commission.header_content")}
-                htmlFor="cp-commission"
+                htmlFor="prediction-commission"
                 error={commissionError}
                 className="md:col-span-1"
               >
                 <SuffixInput
-                  id="cp-commission"
+                  id="prediction-commission"
                   suffix="%"
                   placeholder={t(
                     "CreatePrediction:pma.commission.placeholder"
@@ -1522,33 +1491,20 @@ export default function Prediction(properties) {
               <Field
                 label={t("CreatePrediction:pma.backing_asset.header")}
                 help={t("CreatePrediction:pma.backing_asset.header_content")}
-                htmlFor="cp-backing"
+                htmlFor="prediction-backing"
                 className="md:col-span-3"
               >
-                <div className="flex gap-2">
-                  <Input
-                    id="cp-backing"
-                    disabled
-                    value={
-                      backingAssetData
-                        ? `${backingAssetData.symbol} (${backingAssetData.id})`
-                        : backingAsset
-                    }
-                    type="text"
-                    className="flex-1 font-mono bg-slate-950/60 border-white/10 text-white disabled:opacity-100 placeholder:text-white/30"
-                  />
-                  <AssetDropDown
-                    assetSymbol={backingAsset ?? ""}
-                    assetData={null}
-                    storeCallback={setBackingAsset}
-                    otherAsset={null}
-                    marketSearch={marketSearch}
-                    type={"backing"}
-                    chain={usr && usr.chain ? usr.chain : "bitshares"}
-                    balances={balances}
-                    triggerClassName="!w-auto shrink-0"
-                  />
-                </div>
+                <Input
+                  id="prediction-backing"
+                  disabled
+                  value={
+                    backingAssetData
+                      ? `${backingAssetData.symbol} (${backingAssetData.id})`
+                      : backingAsset
+                  }
+                  type="text"
+                  className="font-mono bg-slate-950/60 border-white/10 text-white disabled:opacity-100 placeholder:text-white/30"
+                />
               </Field>
             </div>
 
@@ -1563,11 +1519,11 @@ export default function Prediction(properties) {
                   value={date}
                   onChange={(newDate) => {
                     const now = new Date();
-                    if (newDate >= now) {
+                    const minDate = new Date(now.getTime() + 60 * 60 * 1000); // 1 hour from now
+                    if (newDate >= minDate) {
                       setDate(newDate);
                     } else {
-                      now.setDate(now.getDate() + 7); // default a week ahead
-                      setDate(now);
+                      setDate(minDate);
                     }
                   }}
                 />
@@ -1962,10 +1918,10 @@ export default function Prediction(properties) {
                 <Field
                   label={t("AssetCommon:nft.NFTTitleHeader")}
                   help={t("AssetCommon:nft.NFTTitleContent")}
-                  htmlFor="cp-nft-title"
+                  htmlFor="prediction-nft-title"
                 >
                   <Input
-                    id="cp-nft-title"
+                    id="prediction-nft-title"
                     placeholder={t("AssetCommon:nft.TitlePlaceholder")}
                     value={title}
                     className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
@@ -1975,10 +1931,10 @@ export default function Prediction(properties) {
                 <Field
                   label={t("AssetCommon:nft.NFTArtistHeader")}
                   help={t("AssetCommon:nft.NFTArtistContent")}
-                  htmlFor="cp-nft-artist"
+                  htmlFor="prediction-nft-artist"
                 >
                   <Input
-                    id="cp-nft-artist"
+                    id="prediction-nft-artist"
                     placeholder={t("AssetCommon:nft.ArtistPlaceholder")}
                     value={artist}
                     className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
@@ -1988,10 +1944,10 @@ export default function Prediction(properties) {
                 <Field
                   label={t("AssetCommon:nft.NFTNarrativeHeader")}
                   help={t("AssetCommon:nft.NFTNarrativeContent")}
-                  htmlFor="cp-nft-narrative"
+                  htmlFor="prediction-nft-narrative"
                 >
                   <Input
-                    id="cp-nft-narrative"
+                    id="prediction-nft-narrative"
                     placeholder={t("AssetCommon:nft.NarrativePlaceholder")}
                     value={narrative}
                     className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
@@ -2001,10 +1957,10 @@ export default function Prediction(properties) {
                 <Field
                   label={t("AssetCommon:nft.NFTTagsHeader")}
                   help={t("AssetCommon:nft.NFTTagsContent")}
-                  htmlFor="cp-nft-tags"
+                  htmlFor="prediction-nft-tags"
                 >
                   <Input
-                    id="cp-nft-tags"
+                    id="prediction-nft-tags"
                     placeholder={t("AssetCommon:nft.TagsPlaceholder")}
                     value={tags}
                     className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
@@ -2014,10 +1970,10 @@ export default function Prediction(properties) {
                 <Field
                   label={t("AssetCommon:nft.NFTTypeHeader")}
                   help={t("AssetCommon:nft.NFTTypeContent")}
-                  htmlFor="cp-nft-type"
+                  htmlFor="prediction-nft-type"
                 >
                   <Input
-                    id="cp-nft-type"
+                    id="prediction-nft-type"
                     placeholder={t("AssetCommon:nft.TypePlaceholder")}
                     value={type}
                     className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
@@ -2027,10 +1983,10 @@ export default function Prediction(properties) {
                 <Field
                   label={t("AssetCommon:nft.NFTAttestationHeader")}
                   help={t("AssetCommon:nft.NFTAttestationContent")}
-                  htmlFor="cp-nft-attestation"
+                  htmlFor="prediction-nft-attestation"
                 >
                   <Input
-                    id="cp-nft-attestation"
+                    id="prediction-nft-attestation"
                     placeholder={t("AssetCommon:nft.AttestationPlaceholder")}
                     value={attestation}
                     className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
@@ -2040,10 +1996,10 @@ export default function Prediction(properties) {
                 <Field
                   label={t("AssetCommon:nft.NFTAcknowledgementsHeader")}
                   help={t("AssetCommon:nft.NFTAcknowledgementsContent")}
-                  htmlFor="cp-nft-ack"
+                  htmlFor="prediction-nft-ack"
                 >
                   <Input
-                    id="cp-nft-ack"
+                    id="prediction-nft-ack"
                     placeholder={t(
                       "AssetCommon:nft.AcknowledgementsPlaceholder"
                     )}
@@ -2057,10 +2013,10 @@ export default function Prediction(properties) {
                 <Field
                   label={t("AssetCommon:nft.NFTHolderLicenseHeader")}
                   help={t("AssetCommon:nft.NFTHolderLicenseContent")}
-                  htmlFor="cp-nft-holderlic"
+                  htmlFor="prediction-nft-holderlic"
                 >
                   <Input
-                    id="cp-nft-holderlic"
+                    id="prediction-nft-holderlic"
                     placeholder={t(
                       "AssetCommon:nft.HolderLicensePlaceholder"
                     )}
@@ -2072,10 +2028,10 @@ export default function Prediction(properties) {
                 <Field
                   label={t("AssetCommon:nft.NFTLicenseHeader")}
                   help={t("AssetCommon:nft.NFTLicenseContent")}
-                  htmlFor="cp-nft-license"
+                  htmlFor="prediction-nft-license"
                 >
                   <Input
-                    id="cp-nft-license"
+                    id="prediction-nft-license"
                     placeholder={t("AssetCommon:nft.LicensePlaceholder")}
                     value={license}
                     className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
@@ -2149,11 +2105,11 @@ export default function Prediction(properties) {
                   help={t(
                     "AssetCommon:extensions.reward_percent.header_content"
                   )}
-                  htmlFor="cp-reward-percent"
+                  htmlFor="prediction-reward-percent"
                 >
                   <div className="max-w-[120px]">
                     <SuffixInput
-                      id="cp-reward-percent"
+                      id="prediction-reward-percent"
                       suffix="%"
                       placeholder="0"
                       value={referrerReward}
@@ -2320,11 +2276,11 @@ export default function Prediction(properties) {
                   help={t(
                     "AssetCommon:extensions.taker_fee_percent.header_content"
                   )}
-                  htmlFor="cp-taker-fee"
+                  htmlFor="prediction-taker-fee"
                 >
                   <div className="max-w-[120px]">
                     <SuffixInput
-                      id="cp-taker-fee"
+                      id="prediction-taker-fee"
                       suffix="%"
                       placeholder={t(
                         "AssetCommon:extensions.taker_fee_percent.placeholder"
