@@ -15,33 +15,46 @@ A Prediction Market Asset (PMA) is a special kind of Bitshares smartcoin that le
 Each PMA is created with a plain-English `condition` and `expiry` written into the asset description, e.g. *"Will SpaceX land on Mars by 2027?"*. The market resolves via two complementary mechanisms:
 
 - **Price feed** — A designated feed publisher (or a committee feed) sets a settlement price for the asset between 0 and 1. `1.0` means the condition is true / has happened; `0.0` means false / didn't happen; values in between represent partial confidence.
-- **Global settlement (collateral bids)** — When the price feed stalls or the market wants to wind down, the chain auctions the PMA's backing collateral to the highest bidder. This is the "last-resort" resolution path that guarantees every open position can always be closed.
+- **Global settlement (resolution)** — When a prediction expires, the creator (or a price feeder) resolves it by triggering global settlement at the outcome price: `1.0` for YES (true) or `0.0` for NO (false). This is how the market closes and winners are determined.
 
-PMAs are tradable like any other asset on the Bitshares DEX, and they support the full limit-order and cancel flow. When a PMA settles, every holder of the asset ends up holding an equivalent amount of its backing collateral — so winning a bet is just "be on the right side of the price".
+PMAs are tradable like any other asset on the Bitshares DEX, and they support the full limit-order and cancel flow. After a PMA is resolved, winning holders settle their tokens for the backing collateral — so being "on the right side of the price" means you win.
 
 ## What can you do with this app?
 
 The app is organised around the full lifecycle of a prediction market asset, from creation to settlement.
 
 ### Creating PMAs
-- **Launch a new market** — define a custom ticker, set a description, condition and expiry, pick a backing collateral asset, choose a feed publisher (yourself, another account, or the committee), and decide the initial feed parameters. The whole PMA is created in a single transaction.
+- **Launch a new market** — define a custom ticker, set a description, condition and expiry, choose a feed publisher (yourself, another account, or the committee), and decide the initial feed parameters. The backing asset is fixed to the chain's core asset (BTS on mainnet, TEST on testnet) — no manual selection needed. The whole PMA is created in a single transaction.
+
+### Prediction Market Organizations (PMOs)
+- **Create a PMO** — register a top-level asset symbol (e.g., `MYORG`) that acts as an organizational brand. The PMO stores a `pmo_object` in its description with governance policy, resolution method, website, and verification details — serving as decentralized Terms of Service.
+- **Sub-assets under PMO** — create prediction markets as sub-assets (e.g., `MYORG.ELECTION2024`) at reduced fees. Investors can verify the issuing organization by checking the parent asset's PMO object.
+- **Organization management** — PMO owners can edit organization metadata, governance policy, and create new predictions directly from the organization view.
+- **Browse organizations** — dedicated page listing all PMOs with active/expired prediction counts, governance policy, and quick links to their markets.
 
 ### Managing your markets
 - **Issued assets view** — see every prediction market asset you've created, filterable by status (active, expired, settled), with quick actions to update the description, edit the feed producer, or trigger a global settlement.
-- **Issuer controls** — as the creator of a PMA, you can adjust its description, change the feed producer, force a global settlement, or open the asset for collateral bids on demand.
+- **Issuer controls** — as the creator of a PMA, you can adjust its description, change the price feeders, or resolve the prediction once it expires.
 
 ### Trading and betting
 - **DEX limit orders** — buy or sell any PMA against its backing collateral on the Bitshares DEX, with full support for limit orders, partial fills, and cancellation.
 - **Place a bet** — a streamlined flow for buying PMA outright (i.e. taking a "yes" or "no" position) without having to construct a limit order manually. The app shows you the current implied probability based on the order book and recent trades.
+- **Live odds display** — when buying or selling PMA, the app shows estimated odds derived from the live DEX limit order book (mid-price) with fallback to recent trade price. Odds shown in **Fractional**, **Decimal**, **American**, and **Implied probability** formats. Updates in real-time as the order book changes.
 - **Cancel orders** — every open order has a one-click cancel, with a confirmation dialog showing the order ID and a deep link to broadcast the cancellation on Beet/BeetEOS.
 
-### Portfolio
+### Portfolio & Views
 - **Balances** — see all of your holdings, with the prediction market assets (and the collateral that backs them) clearly highlighted.
 - **Activity** — a history of your trades, transfers and settlements.
 - **Open orders** — every limit order you have on the book, with a live countdown to each order's expiry, a copyable order ID, and one-click cancel. Includes a manual **Refresh** button that busts the cache and re-fetches from the chain with a loading indicator.
+- **Active Predictions** — browse live, unresolved markets accepting bets, filterable by closing soon or newest.
+- **Expired Predictions** — past markets awaiting resolution by price feeders or creator.
+- **My Predictions** — markets you've created or interacted with (hold positions/orders).
+- **Prediction Portfolio** — PMA tokens currently held in your balance, with unrealised PnL tracking and quick settle/sell actions.
+- **Prediction Margin** — open margin (call) positions on PMAs with collateral ratio monitoring.
 
 ### Settlement
-- **Global settlement (collateral bids)** — if a PMA is stalled or you want to force a resolution, place a collateral bid on the global-settlement engine. The chain auctions the backing collateral to the highest bidder, and the winning bidder ends up holding the collateral outright.
+- **Resolve predictions** — after a prediction expires, the creator (or designated price feeder) resolves it by triggering global settlement at the outcome price (1.0 for YES, 0.0 for NO). This marks the market as resolved and determines which side wins.
+- **Claim winnings** — once a prediction is resolved, winning PMA holders (those who bought YES and the outcome is true, or sold NO and the outcome is false) can settle their tokens 1:1 for the backing asset collateral. Sellers who won receive their backing collateral back automatically.
 
 ## Supporting features
 
