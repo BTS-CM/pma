@@ -1,4 +1,4 @@
-<img width="1919" height="1038" alt="image" src="https://github.com/user-attachments/assets/8911d0e5-97c1-4f83-af37-b93e0aff270f" />
+<img width="1900" height="2250" alt="image" src="https://github.com/user-attachments/assets/c9e73ba8-0473-4646-a14d-debe42d2cb68" />
 
 # Bitshares Prediction Markets UI
 
