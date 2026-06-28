@@ -64,14 +64,14 @@ export function StatBlock({ label, value, help, mono, accent }) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 transition-all hover:bg-white/[0.06]",
+        "rounded-lg border border-border bg-accent/30 px-3 py-2 transition-all hover:bg-accent/50",
         accent ? "border-l-2 border-l-current" : "",
         accent === "emerald" && "border-emerald-500/50 bg-emerald-500/5",
         accent === "rose" && "border-rose-500/50 bg-rose-500/5",
         accent === "amber" && "border-amber-500/50 bg-amber-500/5",
       )}
     >
-      <div className="text-[10px] uppercase tracking-wider font-semibold text-white/60 flex items-center gap-1">
+      <div className="text-[10px] uppercase tracking-wider font-semibold text-muted-foreground flex items-center gap-1">
         {label}
         {help ? (
           <TooltipProvider delayDuration={200}>
@@ -86,7 +86,7 @@ export function StatBlock({ label, value, help, mono, accent }) {
           </TooltipProvider>
         ) : null}
       </div>
-      <div className={cn("mt-1 text-sm font-semibold text-white", mono && "font-mono tabular-nums")}>
+      <div className={cn("mt-1 text-sm font-semibold text-foreground", mono && "font-mono tabular-nums")}>
         {value}
       </div>
     </div>
@@ -114,11 +114,11 @@ export function NftHero({ images, heroIndex, ipfsGateway }) {
   if (!hero) return null;
   const src = ipfsUrl(hero.url, ipfsGateway);
   return (
-    <div className="rounded-md border border-white/10 overflow-hidden bg-white/5">
+    <div className="rounded-md border border-border overflow-hidden bg-accent/30 dark:bg-white/5">
       {src ? (
         <img src={src} alt={hero.type} loading="lazy" className="w-full h-auto object-contain max-h-[420px]" onError={(e) => { e.currentTarget.style.display = "none"; }} />
       ) : (
-        <div className="flex items-center justify-center h-32 text-white/40 text-sm">
+        <div className="flex items-center justify-center h-32 text-muted-foreground text-sm">
           <ImageIcon className="mr-2 h-4 w-4" />
           {t("Predictions:nft.noImage")}
         </div>
@@ -137,12 +137,12 @@ export function NftThumbStrip({ images, heroIndex, setHeroIndex, ipfsGateway }) 
         return (
           <button key={`thumb-${idx}-${img.url}`} type="button" onClick={() => setHeroIndex(idx)}
             className={cn("h-14 w-14 rounded-md overflow-hidden border-2 transition-colors",
-              active ? "border-violet-500 ring-2 ring-violet-500/30" : "border-white/[0.08] hover:border-violet-500/40",
+              active ? "border-violet-500 ring-2 ring-violet-500/30" : "border-border hover:border-violet-500/40",
             )} aria-label={`Image ${idx + 1}`}>
             {src ? (
               <img src={src} alt={img.type} loading="lazy" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
             ) : (
-              <div className="h-full w-full flex items-center justify-center bg-white/10 text-white/40">
+              <div className="h-full w-full flex items-center justify-center bg-accent/40 dark:bg-white/10 text-muted-foreground">
                 <ImageIcon className="h-4 w-4" />
               </div>
             )}
@@ -156,8 +156,8 @@ export function NftThumbStrip({ images, heroIndex, setHeroIndex, ipfsGateway }) 
 export function LongText({ label, value }) {
   if (!value) return null;
   return (
-    <div className="rounded-md border border-white/10 bg-white/5 p-3">
-      {label ? <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1">{label}</div> : null}
+    <div className="rounded-md border border-border bg-accent/30 dark:bg-white/5 p-3">
+      {label ? <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">{label}</div> : null}
       <div className="whitespace-pre-wrap break-words text-sm">{value}</div>
     </div>
   );

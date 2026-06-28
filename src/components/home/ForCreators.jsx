@@ -20,17 +20,17 @@ export default function ForCreators() {
         className="absolute -left-10 -bottom-10 h-40 w-40 rounded-full bg-fuchsia-500/15 blur-3xl"
       />
       <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-        <span className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-indigo-500/25 text-indigo-200">
+        <span className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-indigo-500/25 dark:text-indigo-200 text-indigo-600">
           <Crown className="h-6 w-6" />
         </span>
         <div className="flex-1 min-w-0">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-200/80 mb-1">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] dark:text-indigo-200/80 text-indigo-600/80 mb-1">
             {t("Home:creators.eyebrow")}
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">
+          <h2 className="text-xl sm:text-2xl font-bold dark:text-white text-foreground mb-1">
             {t("Home:creators.title")}
           </h2>
-          <p className="text-sm sm:text-base text-white/75 max-w-2xl leading-relaxed">
+          <p className="text-sm sm:text-base dark:text-white/75 text-muted-foreground max-w-2xl leading-relaxed">
             {t("Home:creators.body")}
           </p>
         </div>

@@ -636,7 +636,7 @@ export default function SimpleSwap(properties) {
   return (
     <>
       <div className="container mx-auto mt-5 mb-5 max-w-4xl">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7),inset_0_1px_0_0_rgba(255,255,255,0.04)]">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7),inset_0_1px_0_0_rgba(255,255,255,0.04)]">
           <span
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent"
@@ -653,23 +653,23 @@ export default function SimpleSwap(properties) {
           <div className="relative p-5 sm:p-6">
             <div className="flex items-start justify-between gap-3 mb-5">
               <div>
-                <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-2">
+                <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground flex items-center gap-2">
                   <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500/30 to-blue-500/30 border border-cyan-400/40 shadow-[0_0_18px_-2px_rgba(34,211,238,0.4)]">
                     <Sparkles className="h-4 w-4 text-cyan-100" />
                   </span>
                   {t("SimpleSwap:title")}
                 </h2>
-                <p className="mt-1 text-sm text-white/60">
+                <p className="mt-1 text-sm text-muted-foreground">
                   {t("SimpleSwap:description")}
                 </p>
               </div>
             </div>
 
             {!pools ? (
-              <p className="text-white/60 text-sm">{t("SimpleSwap:loadingPoolData")}</p>
+              <p className="text-muted-foreground text-sm">{t("SimpleSwap:loadingPoolData")}</p>
             ) : null}
             {!assets ? (
-              <p className="text-white/60 text-sm">{t("SimpleSwap:loadingAssetData")}</p>
+              <p className="text-muted-foreground text-sm">{t("SimpleSwap:loadingAssetData")}</p>
             ) : null}
 
             {pools && assets ? (
@@ -713,7 +713,7 @@ export default function SimpleSwap(properties) {
                                     <Info className="h-3.5 w-3.5" />
                                   </button>
                                 </TooltipTrigger>
-                                <TooltipContent className="bg-slate-950 border-cyan-400/30 text-white/85">
+                                <TooltipContent className="bg-card border-cyan-400/30 text-foreground/85">
                                   <p className="max-w-xs">
                                     {t("SimpleSwap:enterAmountToSwap", {
                                       symbolA: selectedAssetASymbol ?? "???",
@@ -725,10 +725,10 @@ export default function SimpleSwap(properties) {
                             </TooltipProvider>
                           </div>
                           <div className="flex items-center gap-2 text-[11px]">
-                            <Wallet className="h-3 w-3 text-white/40" />
+                            <Wallet className="h-3 w-3 text-muted-foreground" />
                             {userSellBalance !== null ? (
                               <>
-                                <span className="text-white/50 font-mono">
+                                <span className="text-muted-foreground font-mono">
                                   {userSellBalance.toLocaleString(undefined, {
                                     maximumFractionDigits: Math.min(
                                       6,
@@ -747,7 +747,7 @@ export default function SimpleSwap(properties) {
                                 )}
                               </>
                             ) : (
-                              <span className="text-white/30">—</span>
+                              <span className="text-muted-foreground/60">—</span>
                             )}
                           </div>
                         </div>
@@ -773,7 +773,7 @@ export default function SimpleSwap(properties) {
                                     setSellAmount(input);
                                   }
                                 }}
-                                className="h-16 text-3xl sm:text-4xl font-semibold bg-slate-950/60 border-white/10 text-white placeholder:text-white/20 focus-visible:ring-cyan-400/40 focus-visible:border-cyan-400/60 px-4"
+                                className="h-16 text-3xl sm:text-4xl font-semibold bg-card/60 border-border text-foreground placeholder:text-muted-foreground/40 focus-visible:ring-cyan-400/40 focus-visible:border-cyan-400/60 px-4"
                               />
                             </FieldContent>
                             {fieldState.invalid && (
@@ -799,7 +799,7 @@ export default function SimpleSwap(properties) {
                                       "SimpleSwap:selectSendAsset"
                                     )}
                                     aria-invalid={fieldState.invalid}
-                                    className="h-16 px-4 min-w-[140px] bg-slate-950/60 border-white/10 hover:bg-slate-900/80 hover:border-cyan-400/40 text-white text-lg font-semibold justify-between gap-2"
+                                    className="h-16 px-4 min-w-[140px] bg-card/60 border-border hover:bg-card/80 hover:border-cyan-400/40 text-foreground text-lg font-semibold justify-between gap-2"
                                   >
                                     <span className="flex items-center gap-2">
                                       <Coins className="h-4 w-4 text-cyan-300" />
@@ -807,13 +807,13 @@ export default function SimpleSwap(properties) {
                                         "SimpleSwap:sendAsset"
                                       )}
                                     </span>
-                                    <ChevronDown className="h-4 w-4 text-white/50" />
+                                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent
-                                  className="p-0 w-[320px] !bg-slate-950 border border-white/10 rounded-2xl overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)]"
+                                  className="p-0 w-[320px] !bg-card border border-border rounded-2xl overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)]"
                                   align="end"
-                                  style={{ backgroundColor: "#020617" }}
+
                                 >
                                   <span
                                     aria-hidden="true"
@@ -824,13 +824,13 @@ export default function SimpleSwap(properties) {
                                       placeholder={t(
                                         "PageHeader:commandSearchPlaceholder"
                                       )}
-                                      className="[&_[cmdk-input-wrapper]]:border-white/10 [&_svg]:text-white/50 [&_svg]:opacity-100 text-white placeholder:text-white/40"
+                                      className="[&_[cmdk-input-wrapper]]:border-border [&_svg]:text-muted-foreground [&_svg]:opacity-100 text-foreground placeholder:text-muted-foreground"
                                     />
                                     <CommandList>
-                                      <CommandEmpty className="py-6 text-center text-sm text-white/60">
+                                      <CommandEmpty className="py-6 text-center text-sm text-muted-foreground">
                                         {t("PageHeader:noResultsFound")}
                                       </CommandEmpty>
-                                      <CommandGroup className="[&_[cmdk-group-heading]]:text-white/50">
+                                      <CommandGroup className="[&_[cmdk-group-heading]]:text-muted-foreground">
                                         {poolAssets.length > 0 ? (
                                           poolAssets.map((assetSymbol) => (
                                             <CommandItem
@@ -848,7 +848,7 @@ export default function SimpleSwap(properties) {
                                                 );
                                                 setSendMenuOpen(false);
                                               }}
-                                              className="cursor-pointer text-white/85 data-[selected=true]:!bg-cyan-500/15 data-[selected=true]:!text-white aria-selected:bg-cyan-500/15"
+                                              className="cursor-pointer text-foreground/85 data-[selected=true]:!bg-cyan-500/15 data-[selected=true]:!text-foreground aria-selected:bg-cyan-500/15"
                                             >
                                               <span className="flex items-center gap-2">
                                                 <Coins className="h-3.5 w-3.5 text-cyan-300/70" />
@@ -863,7 +863,7 @@ export default function SimpleSwap(properties) {
                                         ) : (
                                           <CommandItem
                                             disabled
-                                            className="text-white/40"
+                                            className="text-muted-foreground"
                                           >
                                             {t("SimpleSwap:loading")}
                                           </CommandItem>
@@ -889,15 +889,15 @@ export default function SimpleSwap(properties) {
                       className={cn(
                         "absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2",
                         "group h-11 w-11 rounded-full",
-                        "bg-slate-900 border-2 border-white/10",
+                        "bg-card border-2 border-border",
                         "shadow-[0_8px_24px_-4px_rgba(0,0,0,0.6)]",
                         "flex items-center justify-center",
                         "hover:border-cyan-400/60 hover:shadow-[0_0_24px_-2px_rgba(34,211,238,0.5)]",
                         "active:scale-95 transition-all duration-300",
-                        "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-white/10"
+                        "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border"
                       )}
                     >
-                      <ArrowDownUp className="h-4 w-4 text-white group-hover:text-cyan-200 group-hover:rotate-180 transition-all duration-300" />
+                      <ArrowDownUp className="h-4 w-4 text-foreground group-hover:text-cyan-200 group-hover:rotate-180 transition-all duration-300" />
                     </button>
                   </div>
 
@@ -921,7 +921,7 @@ export default function SimpleSwap(properties) {
                                 <Info className="h-3.5 w-3.5" />
                               </button>
                             </TooltipTrigger>
-                            <TooltipContent className="bg-slate-950 border-blue-400/30 text-white/85">
+                            <TooltipContent className="bg-card border-blue-400/30 text-foreground/85">
                               <p className="max-w-xs">
                                 {t("SimpleSwap:totalAmountDescription", {
                                   symbolA: selectedAssetASymbol ?? "???",
@@ -935,7 +935,7 @@ export default function SimpleSwap(properties) {
                       {exchangeRate !== null &&
                         selectedAssetASymbol &&
                         selectedAssetBSymbol && (
-                          <div className="flex items-center gap-1.5 text-[11px] text-white/55">
+                          <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
                             <TrendingUp className="h-3 w-3 text-blue-300/70" />
                             <span className="font-mono">
                               1 {selectedAssetASymbol} ={" "}
@@ -965,7 +965,7 @@ export default function SimpleSwap(properties) {
                                   })
                                 : "0.0"
                             }
-                            className="h-16 text-3xl sm:text-4xl font-semibold bg-slate-950/60 border-white/10 text-blue-100 placeholder:text-white/20 px-4"
+                            className="h-16 text-3xl sm:text-4xl font-semibold bg-card/60 border-border text-blue-100 placeholder:text-muted-foreground/40 px-4"
                           />
                         </FieldContent>
                       </Field>
@@ -997,7 +997,7 @@ export default function SimpleSwap(properties) {
                                       "SimpleSwap:selectReceiveAsset"
                                     )}
                                     aria-invalid={fieldState.invalid}
-                                    className="h-16 px-4 min-w-[140px] bg-slate-950/60 border-white/10 hover:bg-slate-900/80 hover:border-blue-400/40 text-white text-lg font-semibold justify-between gap-2 disabled:opacity-50"
+                                    className="h-16 px-4 min-w-[140px] bg-card/60 border-border hover:bg-card/80 hover:border-blue-400/40 text-foreground text-lg font-semibold justify-between gap-2 disabled:opacity-50"
                                   >
                                     <span className="flex items-center gap-2">
                                       <Coins className="h-4 w-4 text-blue-300" />
@@ -1005,13 +1005,13 @@ export default function SimpleSwap(properties) {
                                         "SimpleSwap:sendAsset"
                                       )}
                                     </span>
-                                    <ChevronDown className="h-4 w-4 text-white/50" />
+                                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent
-                                  className="p-0 w-[320px] !bg-slate-950 border border-white/10 rounded-2xl overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)]"
+                                  className="p-0 w-[320px] !bg-card border border-border rounded-2xl overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)]"
                                   align="end"
-                                  style={{ backgroundColor: "#020617" }}
+
                                 >
                                   <span
                                     aria-hidden="true"
@@ -1022,13 +1022,13 @@ export default function SimpleSwap(properties) {
                                       placeholder={t(
                                         "PageHeader:commandSearchPlaceholder"
                                       )}
-                                      className="[&_[cmdk-input-wrapper]]:border-white/10 [&_svg]:text-white/50 [&_svg]:opacity-100 text-white placeholder:text-white/40"
+                                      className="[&_[cmdk-input-wrapper]]:border-border [&_svg]:text-muted-foreground [&_svg]:opacity-100 text-foreground placeholder:text-muted-foreground"
                                     />
                                     <CommandList>
-                                      <CommandEmpty className="py-6 text-center text-sm text-white/60">
+                                      <CommandEmpty className="py-6 text-center text-sm text-muted-foreground">
                                         {t("PageHeader:noResultsFound")}
                                       </CommandEmpty>
-                                      <CommandGroup className="[&_[cmdk-group-heading]]:text-white/50">
+                                      <CommandGroup className="[&_[cmdk-group-heading]]:text-muted-foreground">
                                         {possiblePoolAssets.length > 0 ? (
                                           possiblePoolAssets.map(
                                             (assetSymbol) => (
@@ -1043,7 +1043,7 @@ export default function SimpleSwap(properties) {
                                                   );
                                                   setReceiveMenuOpen(false);
                                                 }}
-                                                className="cursor-pointer text-white/85 data-[selected=true]:!bg-blue-500/15 data-[selected=true]:!text-white aria-selected:bg-blue-500/15"
+                                                className="cursor-pointer text-foreground/85 data-[selected=true]:!bg-blue-500/15 data-[selected=true]:!text-foreground aria-selected:bg-blue-500/15"
                                               >
                                                 <span className="flex items-center gap-2">
                                                   <Coins className="h-3.5 w-3.5 text-blue-300/70" />
@@ -1059,7 +1059,7 @@ export default function SimpleSwap(properties) {
                                         ) : (
                                           <CommandItem
                                             disabled
-                                            className="text-white/40"
+                                            className="text-muted-foreground"
                                           >
                                             {selectedAssetASymbol
                                               ? t(
@@ -1094,11 +1094,11 @@ export default function SimpleSwap(properties) {
                   selectedAssetBSymbol ? (
                     <div className="space-y-2.5">
                       <div className="flex items-center gap-2 px-1">
-                        <span className="text-[11px] font-semibold uppercase tracking-wider text-white/55">
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                           {t("SimpleSwap:poolFee")}
                         </span>
-                        <span className="text-[11px] text-white/30">·</span>
-                        <span className="text-[11px] text-white/40">
+                        <span className="text-[11px] text-muted-foreground/60">·</span>
+                        <span className="text-[11px] text-muted-foreground">
                           {finalPools.length}{" "}
                           {finalPools.length === 1 ? "pool" : "pools"}
                         </span>
@@ -1107,13 +1107,13 @@ export default function SimpleSwap(properties) {
                             <TooltipTrigger asChild>
                               <button
                                 type="button"
-                                className="text-white/40 hover:text-cyan-200 transition-colors"
+                                className="text-muted-foreground hover:text-cyan-200 transition-colors"
                                 aria-label="More info"
                               >
                                 <Info className="h-3 w-3" />
                               </button>
                             </TooltipTrigger>
-                            <TooltipContent className="bg-slate-950 border-white/10 text-white/85">
+                            <TooltipContent className="bg-card border-border text-foreground/85">
                               <p className="max-w-xs">
                                 {t("SimpleSwap:poolFeeDescription")}
                               </p>
@@ -1153,7 +1153,7 @@ export default function SimpleSwap(properties) {
                                 "transition-all duration-200 ease-out",
                                 isSelected
                                   ? "border-cyan-400/60 bg-gradient-to-br from-cyan-500/15 to-blue-500/10 shadow-[0_0_24px_-4px_rgba(34,211,238,0.5)]"
-                                  : "border-white/10 bg-slate-950/40 hover:border-white/25 hover:bg-slate-900/60"
+                                  : "border-border bg-card/40 hover:border-accent/60 dark:hover:border-white/25 hover:bg-card/60"
                               )}
                             >
                               {isSelected && (
@@ -1168,12 +1168,12 @@ export default function SimpleSwap(properties) {
                                     <Check className="h-2.5 w-2.5 text-cyan-100" />
                                   </span>
                                 ) : (
-                                  <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-white/15" />
+                                  <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-border dark:border-white/15" />
                                 )}
                                 <span
                                   className={cn(
                                     "text-xs font-mono font-semibold tracking-wider",
-                                    isSelected ? "text-cyan-100" : "text-white/70"
+                                    isSelected ? "text-cyan-100" : "text-foreground/70"
                                   )}
                                 >
                                   #{p.id.split(".")[2]}
@@ -1183,7 +1183,7 @@ export default function SimpleSwap(properties) {
                                     "text-[10px] px-1.5 py-0.5 rounded-md border font-semibold",
                                     isSelected
                                       ? "bg-cyan-400/15 border-cyan-300/40 text-cyan-100"
-                                      : "bg-white/[0.04] border-white/10 text-white/60"
+                                      : "bg-accent/40 border-border text-muted-foreground"
                                   )}
                                 >
                                   {feePct.toFixed(2)}%
@@ -1192,7 +1192,7 @@ export default function SimpleSwap(properties) {
                               <div
                                 className={cn(
                                   "mt-2 grid grid-cols-2 gap-x-3 text-[11px] font-mono tabular-nums",
-                                  isSelected ? "text-white/85" : "text-white/50"
+                                  isSelected ? "text-foreground/85" : "text-muted-foreground"
                                 )}
                               >
                                 <span className="text-right truncate">
@@ -1220,9 +1220,9 @@ export default function SimpleSwap(properties) {
                     )}
 
                   {foundPool && fee ? (
-                    <div className="rounded-xl border border-white/[0.06] bg-slate-950/40 px-4 py-3 space-y-2 text-sm">
+                    <div className="rounded-xl border border-border/60 bg-card/40 px-4 py-3 space-y-2 text-sm">
                       <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-2 text-white/55">
+                        <span className="inline-flex items-center gap-2 text-muted-foreground">
                           <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-cyan-400/30 bg-cyan-500/10 text-cyan-200">
                             <Percent className="h-3 w-3" strokeWidth={2.5} />
                           </span>
@@ -1232,15 +1232,15 @@ export default function SimpleSwap(properties) {
                           {((foundPool.taker_fee_percent ?? 0) / 100).toFixed(2)}%
                         </span>
                       </div>
-                      <div className="border-t border-white/[0.04]" />
+                      <div className="border-t border-border/40" />
                       <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-2 text-white/55">
+                        <span className="inline-flex items-center gap-2 text-muted-foreground">
                           <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-violet-400/30 bg-violet-500/10 text-violet-200">
                             <Coins className="h-3 w-3" strokeWidth={2.5} />
                           </span>
                           {t("SimpleSwap:networkFee")}
                         </span>
-                        <span className="font-mono tabular-nums text-white/85">
+                        <span className="font-mono tabular-nums text-foreground/85">
                           {fee} {t("SimpleSwap:feeCurrency")}
                         </span>
                       </div>
@@ -1254,13 +1254,13 @@ export default function SimpleSwap(properties) {
                       "group/exchange relative overflow-hidden mt-1 w-full h-14 text-base font-semibold rounded-2xl",
                       "bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500",
                       "hover:from-indigo-400 hover:via-violet-400 hover:to-purple-400",
-                      "text-white border-0",
+                      "text-foreground border-0",
                       "shadow-[0_8px_30px_-8px_rgba(139,92,246,0.6)]",
                       "hover:shadow-[0_12px_40px_-8px_rgba(139,92,246,0.9)]",
                       "transition-all duration-200",
                       "active:scale-[0.99]",
-                      "disabled:from-slate-800 disabled:via-slate-800 disabled:to-slate-800",
-                      "disabled:text-white/30 disabled:shadow-none",
+                      "disabled:from-slate-200 disabled:via-slate-200 disabled:to-slate-200 dark:disabled:from-slate-800 dark:disabled:via-slate-800 dark:disabled:to-slate-800",
+                      "disabled:text-muted-foreground/60 disabled:shadow-none",
                       "disabled:cursor-not-allowed"
                     )}
                   >
@@ -1275,13 +1275,13 @@ export default function SimpleSwap(properties) {
                         <Zap className="h-4 w-4" />
                         <span>{t("SimpleSwap:exchange")}</span>
                         {assetA && assetB && sellAmount && buyAmount > 0 ? (
-                          <span className="inline-flex items-center gap-1.5 text-white/85 font-mono text-sm">
-                            <span className="text-white/95 font-semibold tabular-nums">
+                          <span className="inline-flex items-center gap-1.5 text-foreground/85 font-mono text-sm">
+                            <span className="text-foreground/95 font-semibold tabular-nums">
                               {sellAmount}
                             </span>
-                            <span className="text-white/55">{assetA.symbol}</span>
-                            <ArrowRight className="h-3.5 w-3.5 text-white/70" />
-                            <span className="text-white/95 font-semibold tabular-nums">
+                            <span className="text-muted-foreground">{assetA.symbol}</span>
+                            <ArrowRight className="h-3.5 w-3.5 text-foreground/70" />
+                            <span className="text-foreground/95 font-semibold tabular-nums">
                               {buyAmount.toLocaleString(undefined, {
                                 maximumFractionDigits: Math.min(
                                   6,
@@ -1289,7 +1289,7 @@ export default function SimpleSwap(properties) {
                                 ),
                               })}
                             </span>
-                            <span className="text-white/55">{assetB.symbol}</span>
+                            <span className="text-muted-foreground">{assetB.symbol}</span>
                           </span>
                         ) : null}
                       </span>
@@ -1304,12 +1304,12 @@ export default function SimpleSwap(properties) {
               </form>
             ) : (
               <div className="space-y-3 mt-2">
-                <Skeleton className="h-20 w-full rounded-2xl bg-white/[0.04]" />
+                <Skeleton className="h-20 w-full rounded-2xl bg-accent/40" />
                 <div className="flex justify-center -my-1">
-                  <Skeleton className="h-11 w-11 rounded-full bg-white/[0.04]" />
+                  <Skeleton className="h-11 w-11 rounded-full bg-accent/40" />
                 </div>
-                <Skeleton className="h-20 w-full rounded-2xl bg-white/[0.04]" />
-                <Skeleton className="h-14 w-full rounded-2xl bg-white/[0.04] mt-3" />
+                <Skeleton className="h-20 w-full rounded-2xl bg-accent/40" />
+                <Skeleton className="h-14 w-full rounded-2xl bg-accent/40 mt-3" />
               </div>
             )}
           </div>
@@ -1439,24 +1439,24 @@ export default function SimpleSwap(properties) {
 function AssetCardSkeleton({ title }) {
   const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl p-4">
+    <div className="relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl p-4">
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
       />
       <div className="pb-1">
-        <h3 className="text-sm font-semibold text-white/80 tracking-tight">
+        <h3 className="text-sm font-semibold text-foreground/80 tracking-tight">
           {title}
         </h3>
-        <p className="text-sm text-white/40 mt-0.5">
+        <p className="text-sm text-muted-foreground mt-0.5">
           {t("SimpleSwap:loading")}
         </p>
       </div>
       <div className="space-y-2 mt-3">
-        <Skeleton className="h-4 w-[250px] bg-white/[0.06]" />
-        <Skeleton className="h-4 w-[200px] bg-white/[0.06]" />
-        <Skeleton className="h-4 w-[250px] bg-white/[0.06]" />
-        <Skeleton className="h-4 w-[200px] bg-white/[0.06]" />
+        <Skeleton className="h-4 w-[250px] bg-accent/50" />
+        <Skeleton className="h-4 w-[200px] bg-accent/50" />
+        <Skeleton className="h-4 w-[250px] bg-accent/50" />
+        <Skeleton className="h-4 w-[200px] bg-accent/50" />
       </div>
     </div>
   );
@@ -1492,11 +1492,11 @@ function ActionCard({ title, description, content, icon, accent = "emerald" }) {
     <div
       className={cn(
         "group/action relative overflow-hidden",
-        "rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl",
+        "rounded-2xl border border-border bg-card/60 backdrop-blur-xl",
         "shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.04)]",
         "transition-all duration-200 ease-out",
         a.border,
-        "hover:bg-slate-900/60"
+        "hover:bg-card/60"
       )}
     >
       <span
@@ -1526,15 +1526,15 @@ function ActionCard({ title, description, content, icon, accent = "emerald" }) {
             </span>
           )}
           <div className="min-w-0 flex-1">
-            <h3 className="text-sm font-semibold text-white tracking-tight">
+            <h3 className="text-sm font-semibold text-foreground tracking-tight">
               {title}
             </h3>
-            <p className="mt-0.5 text-[12px] text-white/55 font-mono truncate">
+            <p className="mt-0.5 text-[12px] text-muted-foreground font-mono truncate">
               {description}
             </p>
           </div>
         </div>
-        <p className="mt-3 text-[13px] text-white/70 leading-relaxed">
+        <p className="mt-3 text-[13px] text-foreground/70 leading-relaxed">
           {content}
         </p>
       </div>

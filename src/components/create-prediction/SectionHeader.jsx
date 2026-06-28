@@ -14,7 +14,7 @@ export default function SectionHeader({ icon: Icon, title, description, step, op
   const { t } = useTranslation(null, { i18n: i18nInstance });
   const colors = STEP_COLORS[step] || STEP_COLORS[1];
   return (
-    <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
+    <div className="flex items-start gap-3 border-b border-border px-6 py-4">
       <div className={"flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ring-1 " + colors.icon}>
         <Icon className="h-4 w-4" />
       </div>
@@ -28,11 +28,11 @@ export default function SectionHeader({ icon: Icon, title, description, step, op
             </span>
           )}
         </div>
-        <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
+        <h3 className="mt-0.5 text-base font-semibold leading-tight text-foreground">
           {title}
         </h3>
         {description && (
-          <p className="mt-0.5 text-sm text-white/50">{description}</p>
+          <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
         )}
       </div>
       {right && (

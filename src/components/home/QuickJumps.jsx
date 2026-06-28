@@ -77,7 +77,7 @@ export default function QuickJumps({ liveStats }) {
       aria-label={t("Home:quickJump.heading")}
       className="mt-8 sm:mt-10"
     >
-      <h2 className="text-sm sm:text-base font-semibold uppercase tracking-[0.18em] text-white/60 mb-3 text-center">
+      <h2 className="text-sm sm:text-base font-semibold uppercase tracking-[0.18em] dark:text-white/60 text-muted-foreground mb-3 text-center">
         {t("Home:quickJump.heading")}
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -87,7 +87,7 @@ export default function QuickJumps({ liveStats }) {
             <a
               key={j.key}
               href={j.href}
-              className={`group relative overflow-hidden rounded-xl border bg-gradient-to-br ${j.accent} bg-white/[0.03] hover:bg-white/[0.07] transition-all p-3 sm:p-4 flex items-start gap-3`}
+              className={`group relative overflow-hidden rounded-xl border bg-gradient-to-br ${j.accent} dark:bg-white/[0.03] bg-accent/30 dark:hover:bg-white/[0.07] hover:bg-accent/40 transition-all p-3 sm:p-4 flex items-start gap-3`}
             >
               <span
                 className={`inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg ${j.iconAccent}`}
@@ -97,18 +97,18 @@ export default function QuickJumps({ liveStats }) {
               </span>
               <span className="min-w-0 flex-1">
                 <span className="flex items-center justify-between gap-1">
-                  <span className="font-semibold text-sm text-white truncate">
+                  <span className="font-semibold text-sm dark:text-white text-foreground truncate">
                     {t(j.titleKey)}
                   </span>
                   {j.badge != null ? (
-                    <span className="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full text-[10px] font-semibold tabular-nums bg-white/15 text-white">
+                    <span className="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full text-[10px] font-semibold tabular-nums bg-accent/50 dark:bg-white/15 dark:text-white text-foreground">
                       {j.badge.toLocaleString()}
                     </span>
                   ) : (
-                    <ArrowUpRight className="h-3.5 w-3.5 text-white/40 group-hover:text-white transition-colors flex-shrink-0" />
+                    <ArrowUpRight className="h-3.5 w-3.5 dark:text-white/40 text-muted-foreground dark:group-hover:text-white group-hover:text-accent-foreground transition-colors flex-shrink-0" />
                   )}
                 </span>
-                <span className="block text-[11px] sm:text-xs text-white/60 mt-0.5 line-clamp-2">
+                <span className="block text-[11px] sm:text-xs dark:text-white/60 text-muted-foreground mt-0.5 line-clamp-2">
                   {t(j.hintKey)}
                 </span>
               </span>

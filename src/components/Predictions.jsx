@@ -817,16 +817,16 @@ export default function Predictions(properties) {
   }), [sortedFilteredPMAs, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, expiredPMAs, userBlockedIDs, ipfsGateway, dynamicAssetDataById, view, now, setIssuerFilter, t]);
 
   return (
-    <div className="container mx-auto mt-5 mb-5 text-white">
+    <div className="container mx-auto mt-5 mb-5 text-foreground">
       <div className="grid grid-cols-1 gap-3">
         <Card
           className={cn(
-            "bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm",
+            "bg-card/60 border-border shadow-lg shadow-black/20 backdrop-blur-sm",
             currentView.border && `border-l-2 ${currentView.border}`,
           )}
         >
           <CardHeader className="pb-1">
-            <CardTitle className="text-white flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2">
               <span
                 className={cn(
                   "flex items-center justify-center w-7 h-7 rounded-lg",
@@ -849,7 +849,7 @@ export default function Predictions(properties) {
                 </button>
               ) : null}
             </CardTitle>
-            <CardDescription className="text-white/50">
+            <CardDescription className="text-muted-foreground">
               {pageStats
                 ? `${t("Predictions:card.showing", { primary: pageStats.primary })}${pageStats.secondary
                     .map((s) =>
@@ -865,8 +865,8 @@ export default function Predictions(properties) {
           <CardContent>
             {fetchingPmas ? (
               <div className="flex flex-col items-center justify-center py-12 gap-3">
-                <Spinner className="size-6 text-white/40" />
-                <div className="text-sm text-white/40">
+                <Spinner className="size-6 text-muted-foreground" />
+                <div className="text-sm text-muted-foreground">
                   {t("Predictions:loading")}
                 </div>
               </div>
@@ -876,13 +876,13 @@ export default function Predictions(properties) {
               <div className="grid grid-cols-1 gap-3 mt-3">
                 <div className="flex flex-wrap items-center gap-2">
                   <div className="relative flex-1 min-w-[200px]">
-                    <MagnifyingGlassIcon className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/40 pointer-events-none" />
+                    <MagnifyingGlassIcon className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                     <Input
                       type="text"
                       value={searchInput}
                       onChange={onSearchInput}
                       placeholder={t("Predictions:list.searchPlaceholder")}
-                      className="pl-7 h-8 text-sm bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
+                      className="pl-7 h-8 text-sm bg-accent/30 dark:bg-white/[0.05] border-border text-foreground placeholder:text-muted-foreground/60"
                     />
                     {searchInput ? (
                       <button
@@ -891,7 +891,7 @@ export default function Predictions(properties) {
                           setSearchInput("");
                           setSearchQuery("");
                         }}
-                        className="absolute right-1 top-1/2 -translate-y-1/2 p-1 hover:text-white text-white/40"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 p-1 hover:text-accent-foreground text-muted-foreground"
                         aria-label="Clear"
                       >
                         <XIcon className="h-3.5 w-3.5" />
@@ -899,11 +899,11 @@ export default function Predictions(properties) {
                     ) : null}
                   </div>
                   <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger className="h-8 w-[160px] text-xs bg-white/[0.03] border-white/[0.08] text-white/70">
+                    <SelectTrigger className="h-8 w-[160px] text-xs bg-accent/30 dark:bg-white/[0.05] border-border text-foreground/70">
                       <ArrowUpDown className="mr-1.5 h-3.5 w-3.5" />
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                    <SelectContent className="bg-card border-border shadow-2xl shadow-black/40">
                       <SelectItem value="newest">
                         {t("Predictions:list.sort.newest")}
                       </SelectItem>
@@ -920,11 +920,11 @@ export default function Predictions(properties) {
                   </Select>
                   {view === "active" ? (
                     <Select value={filterBy} onValueChange={setFilterBy}>
-                      <SelectTrigger className="h-8 w-[160px] text-xs bg-white/[0.03] border-white/[0.08] text-white/70">
+                      <SelectTrigger className="h-8 w-[160px] text-xs bg-accent/30 dark:bg-white/[0.05] border-border text-foreground/70">
                         <Filter className="mr-1.5 h-3.5 w-3.5" />
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                      <SelectContent className="bg-card border-border shadow-2xl shadow-black/40">
                         <SelectItem value="all">
                           {t("Predictions:list.filter.all")}
                         </SelectItem>
@@ -952,7 +952,7 @@ export default function Predictions(properties) {
                     />
                   </div>
                 ) : !fetchingPmas ? (
-                  <div className="text-center mt-5 text-sm text-white/40 italic">
+                  <div className="text-center mt-5 text-sm text-muted-foreground italic">
                     {t("Predictions:list.noResults")}
                   </div>
                 ) : null}
@@ -963,7 +963,7 @@ export default function Predictions(properties) {
             chosenPMAs &&
             !chosenPMAs.length &&
             view === "active" ? (
-              <Empty className="mt-5 border-white/[0.06]">
+              <Empty className="mt-5 border-border/60">
                 <EmptyHeader>
                   <EmptyMedia
                     variant="icon"
@@ -971,13 +971,13 @@ export default function Predictions(properties) {
                   >
                     <currentView.icon className="w-6 h-6" />
                   </EmptyMedia>
-                  <EmptyTitle className="text-white/80">
+                  <EmptyTitle className="text-foreground/80">
                     {t("Predictions:card.emptyActive")}
                   </EmptyTitle>
                 </EmptyHeader>
                 <EmptyContent>
                   <a href="/create_prediction.html">
-                    <Button className="bg-violet-600 hover:bg-violet-500 text-white">
+                    <Button className="bg-violet-600 hover:bg-violet-500 text-foreground">
                       {t("PageHeader:createPrediction")}
                     </Button>
                   </a>
@@ -988,7 +988,7 @@ export default function Predictions(properties) {
             chosenPMAs &&
             !chosenPMAs.length &&
             view === "mine" ? (
-              <Empty className="mt-5 border-white/[0.06]">
+              <Empty className="mt-5 border-border/60">
                 <EmptyHeader>
                   <EmptyMedia
                     variant="icon"
@@ -996,13 +996,13 @@ export default function Predictions(properties) {
                   >
                     <currentView.icon className="w-6 h-6" />
                   </EmptyMedia>
-                  <EmptyTitle className="text-white/80">
+                  <EmptyTitle className="text-foreground/80">
                     {t("Predictions:card.emptyMine")}
                   </EmptyTitle>
                 </EmptyHeader>
                 <EmptyContent>
                   <a href="/create_prediction.html">
-                    <Button className="bg-violet-600 hover:bg-violet-500 text-white">
+                    <Button className="bg-violet-600 hover:bg-violet-500 text-foreground">
                       {t("PageHeader:createPrediction")}
                     </Button>
                   </a>
@@ -1024,7 +1024,7 @@ export default function Predictions(properties) {
                     className={cn("w-5 h-5", currentView.color)}
                   />
                 </span>
-                <div className="text-white/50 text-sm">
+                <div className="text-muted-foreground text-sm">
                   {t("Predictions:card.emptyPortfolio")}
                 </div>
               </div>
@@ -1044,7 +1044,7 @@ export default function Predictions(properties) {
                     className={cn("w-5 h-5", currentView.color)}
                   />
                 </span>
-                <div className="text-white/50 text-sm">
+                <div className="text-muted-foreground text-sm">
                   {t("Predictions:card.emptyMargin")}
                 </div>
               </div>
@@ -1064,7 +1064,7 @@ export default function Predictions(properties) {
                     className={cn("w-5 h-5", currentView.color)}
                   />
                 </span>
-                <div className="text-white/50 text-sm">
+                <div className="text-muted-foreground text-sm">
                   {t("Predictions:card.emptyExpired")}
                 </div>
               </div>

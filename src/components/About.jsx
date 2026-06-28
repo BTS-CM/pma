@@ -66,12 +66,12 @@ export default function About() {
   const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
 
   return (
-    <div className="container mx-auto mt-5 mb-5 text-white">
+    <div className="container mx-auto mt-5 mb-5 text-foreground">
       <div className="grid grid-cols-1 gap-3">
-        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm">
+        <Card className="bg-card/60 border-border shadow-lg shadow-black/20 backdrop-blur-sm">
           <div className="h-1 w-full bg-gradient-to-r from-blue-500 to-indigo-500" />
           <CardHeader className="pb-3">
-            <CardTitle className="text-white flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2">
               <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-500/15 flex-shrink-0">
                 <Info className="h-5 w-5 text-blue-400" />
               </span>
@@ -86,7 +86,7 @@ export default function About() {
             return (
               <Card
                 key={key}
-                className="group bg-slate-900/60 border-white/[0.08] hover:bg-white/[0.03] hover:border-white/[0.15] transition-all rounded-xl relative overflow-hidden"
+                className="group bg-card/60 border-border hover:bg-accent/30 hover:border-border transition-all rounded-xl relative overflow-hidden"
               >
                 <span
                   aria-hidden="true"
@@ -104,10 +104,10 @@ export default function About() {
                       <Icon className="h-5 w-5" />
                     </span>
                     <div className="min-w-0">
-                      <h3 className="text-sm font-semibold text-white leading-snug">
+                      <h3 className="text-sm font-semibold text-foreground leading-snug">
                         {t(`About:features.${key}.title`)}
                       </h3>
-                      <p className="mt-1 text-[12.5px] leading-snug text-white/55">
+                      <p className="mt-1 text-[12.5px] leading-snug text-muted-foreground">
                         {t(`About:features.${key}.description`)}
                       </p>
                     </div>

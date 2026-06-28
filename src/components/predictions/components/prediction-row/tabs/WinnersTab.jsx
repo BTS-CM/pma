@@ -6,9 +6,9 @@ import { humanReadableFloat } from "@/lib/common.js";
 export function WinnersTab({ res, relevantBitassetData, humanReadablePredictionMarketAssetBalance, symbol, market, usr, t }) {
   return (
     <div className="grid grid-cols-1 gap-3">
-      <div className="rounded-md border border-white/10 bg-white/5 p-3 text-sm">
-        <div className="font-medium text-white mb-1">{t("Predictions:winner_header")}</div>
-        <p className="text-white/50">{t("Predictions:winner_content")}</p>
+      <div className="rounded-md border border-border bg-accent/30 dark:bg-white/5 p-3 text-sm">
+        <div className="font-medium text-foreground mb-1">{t("Predictions:winner_header")}</div>
+        <p className="text-muted-foreground">{t("Predictions:winner_content")}</p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         <StatBlock

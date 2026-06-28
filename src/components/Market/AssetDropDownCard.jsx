@@ -164,15 +164,15 @@ export default function AssetDropDown(properties) {
             }, 0);
             setDialogOpen(false);
           }}
-          className="w-full text-left rounded-lg border border-white/[0.06] bg-white/[0.02] hover:bg-cyan-500/[0.08] hover:border-cyan-500/30 transition-colors px-3 py-2.5 cursor-pointer"
+          className="w-full text-left rounded-lg border border-border/60 bg-accent/20 hover:bg-cyan-500/[0.08] hover:border-cyan-500/30 transition-colors px-3 py-2.5 cursor-pointer"
         >
-          <div className="text-sm font-semibold text-white/90">
+          <div className="text-sm font-semibold text-foreground/90">
             {mode === "search" || mode === "featured" || mode === "balances"
               ? `${res.s} (${res.id})`
               : null}
             {mode === "favourites" ? `${res.symbol} (${res.id})` : null}
           </div>
-          <div className="text-[11px] text-white/45 mt-0.5 truncate">
+          <div className="text-[11px] text-muted-foreground/70 mt-0.5 truncate">
             {mode === "search" || mode === "featured" || mode === "balances"
               ? t("AssetDropDownCard:issued", { user: res.u })
               : null}
@@ -266,8 +266,8 @@ export default function AssetDropDown(properties) {
               size && size === "small" ? "h-7 text-xs px-2 " : "h-9 px-3 "
             } w-full justify-between font-semibold ${
               type === "quote"
-                ? "bg-white/[0.06] hover:bg-white/[0.1] text-white border border-white/10"
-                : "bg-white/[0.04] hover:bg-white/[0.08] text-white/85 border border-white/10"
+                ? "bg-accent/50 hover:bg-white/[0.1] text-foreground border border-border"
+                : "bg-accent/40 hover:bg-accent/60 text-foreground/85 border border-border"
             } ${triggerClassName ?? ""}`}
             onClick={() => setDialogOpen(true)}
           >
@@ -288,11 +288,10 @@ export default function AssetDropDown(properties) {
         )}
       </DialogTrigger>
       <DialogContent
-        className="sm:max-w-[550px] !bg-slate-950 border border-white/10 text-white"
-        style={{ backgroundColor: "#020617" }}
+        className="sm:max-w-[550px] !bg-card border border-border text-foreground"
       >
         <DialogHeader>
-          <DialogTitle className="text-white">
+          <DialogTitle>
             <h3 className="text-xl font-bold tracking-tight">
               {assetSymbol
                 ? t("AssetDropDownCard:replacing", { assetSymbol: assetSymbol })
@@ -304,7 +303,7 @@ export default function AssetDropDown(properties) {
           <div
             className={`grid grid-cols-${
               balances && balances.length ? 4 : 3
-            } gap-1 rounded-lg border border-white/10 bg-white/[0.02] p-1`}
+            } gap-1 rounded-lg border border-border bg-accent/20 p-1`}
           >
             <Button
               variant="ghost"
@@ -313,7 +312,7 @@ export default function AssetDropDown(properties) {
               className={
                 mode === "search"
                   ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/20 hover:text-cyan-100"
-                  : "text-white/55 hover:text-white hover:bg-white/[0.04] border border-transparent"
+                  : "text-muted-foreground hover:text-accent-foreground hover:bg-accent/40 border border-transparent"
               }
             >
               {t("AssetDropDownCard:search")}
@@ -326,7 +325,7 @@ export default function AssetDropDown(properties) {
                 className={
                   mode === "balances"
                     ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/20 hover:text-cyan-100"
-                    : "text-white/55 hover:text-white hover:bg-white/[0.04] border border-transparent"
+                    : "text-muted-foreground hover:text-accent-foreground hover:bg-accent/40 border border-transparent"
                 }
               >
                 {t("PortfolioTabs:balances")}
@@ -339,7 +338,7 @@ export default function AssetDropDown(properties) {
               className={
                 mode === "featured"
                   ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/20 hover:text-cyan-100"
-                  : "text-white/55 hover:text-white hover:bg-white/[0.04] border border-transparent"
+                  : "text-muted-foreground hover:text-accent-foreground hover:bg-accent/40 border border-transparent"
               }
             >
               {t("AssetDropDownCard:featured")}
@@ -351,7 +350,7 @@ export default function AssetDropDown(properties) {
               className={
                 mode === "favourites"
                   ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/20 hover:text-cyan-100"
-                  : "text-white/55 hover:text-white hover:bg-white/[0.04] border border-transparent"
+                  : "text-muted-foreground hover:text-accent-foreground hover:bg-accent/40 border border-transparent"
               }
             >
               {t("AssetDropDownCard:favourites")}
@@ -360,7 +359,7 @@ export default function AssetDropDown(properties) {
 
           {mode === "search" ? (
             <>
-              <h4 className="text-sm font-semibold tracking-tight text-white/55">
+              <h4 className="text-sm font-semibold tracking-tight text-muted-foreground">
                 {!type ? t("AssetDropDownCard:noType") : null}
                 {type && type === "base"
                   ? t("AssetDropDownCard:baseType")
@@ -378,7 +377,7 @@ export default function AssetDropDown(properties) {
                 onChange={(event) => {
                   setThisInput(event.target.value);
                 }}
-                className="bg-white/[0.04] border-white/10 text-white placeholder:text-white/35"
+                className="bg-accent/40 border-border text-foreground placeholder:text-muted-foreground"
               />
               {thisResult && thisResult.length ? (
                 <div className="w-full max-h-[350px] overflow-auto">
@@ -394,7 +393,7 @@ export default function AssetDropDown(properties) {
           ) : null}
           {mode === "balances" ? (
             <>
-              <h4 className="text-sm font-semibold tracking-tight text-white/55">
+              <h4 className="text-sm font-semibold tracking-tight text-muted-foreground">
                 {!type ? t("AssetDropDownCard:noType") : null}
                 {type && type === "base"
                   ? t("AssetDropDownCard:baseType")
@@ -416,7 +415,7 @@ export default function AssetDropDown(properties) {
                   />
                 </div>
               ) : (
-                <div className="rounded-lg border border-dashed border-white/10 bg-white/[0.02] px-4 py-8 text-center text-sm text-white/45">
+                <div className="rounded-lg border border-dashed border-border bg-accent/20 px-4 py-8 text-center text-sm text-muted-foreground/70">
                   No balances...
                 </div>
               )}
@@ -425,7 +424,7 @@ export default function AssetDropDown(properties) {
 
           {mode === "featured" ? (
             <>
-              <h4 className="text-sm font-semibold tracking-tight text-white/55">
+              <h4 className="text-sm font-semibold tracking-tight text-muted-foreground">
                 {!type ? t("AssetDropDownCard:noType") : null}
                 {type && type === "base"
                   ? t("AssetDropDownCard:baseType")
@@ -447,7 +446,7 @@ export default function AssetDropDown(properties) {
                   />
                 </div>
               ) : (
-                <div className="rounded-lg border border-dashed border-white/10 bg-white/[0.02] px-4 py-8 text-center text-sm text-white/45">
+                <div className="rounded-lg border border-dashed border-border bg-accent/20 px-4 py-8 text-center text-sm text-muted-foreground/70">
                   No featured assets...
                 </div>
               )}
@@ -456,7 +455,7 @@ export default function AssetDropDown(properties) {
 
           {mode === "favourites" ? (
             <>
-              <h4 className="text-sm font-semibold tracking-tight text-white/55">
+              <h4 className="text-sm font-semibold tracking-tight text-muted-foreground">
                 {!type ? t("AssetDropDownCard:noType") : null}
                 {type && type === "base"
                   ? t("AssetDropDownCard:baseType")
@@ -478,7 +477,7 @@ export default function AssetDropDown(properties) {
                   />
                 </div>
               ) : (
-                <div className="rounded-lg border border-dashed border-white/10 bg-white/[0.02] px-4 py-8 text-center text-sm text-white/45">
+                <div className="rounded-lg border border-dashed border-border bg-accent/20 px-4 py-8 text-center text-sm text-muted-foreground/70">
                   No favourite assets...
                 </div>
               )}

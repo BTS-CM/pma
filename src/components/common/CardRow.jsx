@@ -35,11 +35,11 @@ export default function CardRow(properties) {
   return (
     <div className="col-span-1" key={`${properties.dialogtitle}`}>
       <div className="grid grid-cols-10 items-center gap-2">
-        <div className="col-span-4 text-[11px] font-medium uppercase tracking-wider text-white/45">
+        <div className="col-span-4 text-[11px] font-medium uppercase tracking-wider text-muted-foreground/70">
           {properties.title}
         </div>
         <div className="col-span-5 mr-2 min-w-0">
-          <div className="w-full rounded-md border border-white/[0.08] bg-slate-950/40 px-2.5 py-1 text-xs text-white/85 font-mono tabular-nums truncate">
+          <div className="w-full rounded-md border border-border bg-card/40 px-2.5 py-1 text-xs text-foreground/85 font-mono tabular-nums truncate">
             {properties.button}
           </div>
         </div>
@@ -53,14 +53,13 @@ export default function CardRow(properties) {
               }}
             >
               <DialogContent
-                style={{ backgroundColor: "#020617" }}
-                className="sm:max-w-[400px] !bg-slate-950 border border-white/10 text-white/85"
+                className="sm:max-w-[400px] !bg-card border border-border text-foreground/85"
               >
                 <DialogHeader>
-                  <DialogTitle className="text-white">
+                  <DialogTitle>
                     {properties.dialogtitle}
                   </DialogTitle>
-                  <div className="text-white/65 [&_ul]:text-white/65 [&_li]:text-white/65">
+                  <div className="text-muted-foreground/80 [&_ul]:text-muted-foreground/80 [&_li]:text-muted-foreground/80">
                     {properties.dialogdescription}
                   </div>
                 </DialogHeader>
@@ -77,7 +76,7 @@ export default function CardRow(properties) {
                     <Button
                       variant="outline"
                       size="icon"
-                      className="h-6 w-6 border-white/[0.08] bg-slate-950/40 text-white/40 hover:text-cyan-200 hover:border-cyan-400/40 hover:bg-cyan-500/10"
+                      className="h-6 w-6 border-border bg-card/40 text-muted-foreground hover:text-cyan-200 hover:border-cyan-400/40 hover:bg-cyan-500/10"
                       onClick={handleTooltipClick}
                       aria-label={properties.tooltip}
                     >
@@ -86,7 +85,7 @@ export default function CardRow(properties) {
                   </DialogTrigger>
                 </TooltipTrigger>
                 {tooltipOpen && (
-                  <TooltipContent className="!bg-slate-950 border border-white/10 text-white/85">
+                  <TooltipContent className="!bg-card border border-border text-foreground/85">
                     {properties.tooltip}
                   </TooltipContent>
                 )}

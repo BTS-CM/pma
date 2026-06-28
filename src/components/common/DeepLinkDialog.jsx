@@ -349,16 +349,16 @@ export default function DeepLinkDialog(properties) {
         dismissCallback(open);
       }}
     >
-      <DialogContent className="sm:max-w-[800px] border border-white/10 bg-slate-950 backdrop-blur-2xl text-white shadow-xl shadow-black/50">
+      <DialogContent className="sm:max-w-[800px] backdrop-blur-2xl">
         <DialogHeader>
-          <DialogTitle className="text-white text-lg">
+          <DialogTitle className="text-lg">
             {!deeplink ? (
               t("DeepLinkDialog:dialogContent.generatingDeeplink")
             ) : (
               <>{headerText}</>
             )}
           </DialogTitle>
-          <DialogDescription className="text-white/45 text-sm">
+          <DialogDescription className="text-muted-foreground/70 text-sm">
             {t("DeepLinkDialog:dialogContent.withAccount", {
               username: username,
               userID: userID,
@@ -375,7 +375,7 @@ export default function DeepLinkDialog(properties) {
         </DialogHeader>
         {activeTab ? (
           <>
-            <div className="border-t border-white/[0.06] mt-3" />
+            <div className="border-t border-border/60 mt-3" />
             <div className="grid grid-cols-1 gap-3">
               <div className="flex flex-wrap gap-2 mt-3">
                 <button
@@ -383,8 +383,8 @@ export default function DeepLinkDialog(properties) {
                   className={cn(
                     "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
                     activeTab === "object"
-                      ? "bg-violet-600 text-white shadow-lg shadow-violet-900/30"
-                      : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                      ? "bg-violet-600 text-foreground shadow-lg shadow-violet-900/30"
+                      : "border border-border text-muted-foreground hover:text-accent-foreground hover:bg-accent/50"
                   )}
                 >
                   {t("DeepLinkDialog:tabs.viewTRXObject")}
@@ -394,8 +394,8 @@ export default function DeepLinkDialog(properties) {
                   className={cn(
                     "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
                     activeTab === "deeplink"
-                      ? "bg-violet-600 text-white shadow-lg shadow-violet-900/30"
-                      : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                      ? "bg-violet-600 text-foreground shadow-lg shadow-violet-900/30"
+                      : "border border-border text-muted-foreground hover:text-accent-foreground hover:bg-accent/50"
                   )}
                 >
                   {t("DeepLinkDialog:tabs.rawDeeplink")}
@@ -405,8 +405,8 @@ export default function DeepLinkDialog(properties) {
                   className={cn(
                     "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
                     activeTab === "localJSON"
-                      ? "bg-violet-600 text-white shadow-lg shadow-violet-900/30"
-                      : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                      ? "bg-violet-600 text-foreground shadow-lg shadow-violet-900/30"
+                      : "border border-border text-muted-foreground hover:text-accent-foreground hover:bg-accent/50"
                   )}
                 >
                   {t("DeepLinkDialog:tabs.localJSONFile")}
@@ -416,8 +416,8 @@ export default function DeepLinkDialog(properties) {
                   className={cn(
                     "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
                     activeTab === "qr"
-                      ? "bg-violet-600 text-white shadow-lg shadow-violet-900/30"
-                      : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                      ? "bg-violet-600 text-foreground shadow-lg shadow-violet-900/30"
+                      : "border border-border text-muted-foreground hover:text-accent-foreground hover:bg-accent/50"
                   )}
                 >
                   {t("DeepLinkDialog:tabs.qrCode")}
@@ -428,8 +428,8 @@ export default function DeepLinkDialog(properties) {
                     className={cn(
                       "rounded-full px-4 py-1.5 text-xs font-medium transition-colors",
                       activeTab === "propose"
-                        ? "bg-amber-600 text-white shadow-lg shadow-amber-900/30"
-                        : "border border-white/10 text-white/55 hover:text-white hover:bg-white/[0.06]"
+                        ? "bg-amber-600 text-foreground shadow-lg shadow-amber-900/30"
+                        : "border border-border text-muted-foreground hover:text-accent-foreground hover:bg-accent/50"
                     )}
                   >
                     {t("DeepLinkDialog:tabs.propose")}
@@ -439,21 +439,21 @@ export default function DeepLinkDialog(properties) {
               {activeTab === "object" ? (
                 <>
                   <div className="grid w-full gap-1.5 mb-3">
-                    <Label className="text-white/70 text-xs uppercase tracking-wider">
+                    <Label className="text-foreground/70 text-xs uppercase tracking-wider">
                       {t("DeepLinkDialog:tabsContent.transactionObjectJSON")}
                     </Label>
-                    <span className="text-white/40 text-xs">
+                    <span className="text-muted-foreground text-xs">
                       {t("DeepLinkDialog:tabsContent.operationType")}
                     </span>
                     <Textarea
                       value={JSON.stringify(operationNames, null, 4)}
-                      className="min-h-[125px] bg-slate-950/40 border-white/[0.08] text-white/90 text-xs font-mono"
+                      className="min-h-[125px] bg-card/40 border-border text-foreground/90 text-xs font-mono"
                       id="trxJSON"
                       readOnly
                     />
                     <Textarea
                       value={JSON.stringify(trxJSON, null, 4)}
-                      className="min-h-[250px] bg-slate-950/40 border-white/[0.08] text-white/90 text-xs font-mono"
+                      className="min-h-[250px] bg-card/40 border-border text-foreground/90 text-xs font-mono"
                       id="trxJSON"
                       readOnly
                     />
@@ -471,10 +471,10 @@ export default function DeepLinkDialog(properties) {
               ) : null}
               {activeTab === "deeplink" ? (
                 <>
-                  <Label className="text-white/70 text-xs uppercase tracking-wider">
+                  <Label className="text-foreground/70 text-xs uppercase tracking-wider">
                     {t("DeepLinkDialog:tabsContent.usingDeeplink")}
                   </Label>
-                  <ol className="ml-4 text-sm text-white/70 space-y-1">
+                  <ol className="ml-4 text-sm text-foreground/70 space-y-1">
                     <li type="1">{t("DeepLinkDialog:tabsContent.step1")}</li>
                     <li type="1">
                       {t("DeepLinkDialog:tabsContent.step2", {
@@ -492,7 +492,7 @@ export default function DeepLinkDialog(properties) {
                           usrChain === "bitshares" ? "BTS" : "BTS_TEST"
                         }&request=${deeplink}`}
                       >
-                        <Button className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-900/30">
+                        <Button className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-foreground border-0 shadow-lg shadow-violet-900/30">
                           BEET
                         </Button>
                       </a>
@@ -501,7 +501,7 @@ export default function DeepLinkDialog(properties) {
                           usrChain === "bitshares" ? "BTS" : "BTS_TEST"
                         }&request=${deeplink}`}
                       >
-                        <Button className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white border-0 shadow-lg shadow-cyan-900/30">
+                        <Button className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-foreground border-0 shadow-lg shadow-cyan-900/30">
                           BeetEOS
                         </Button>
                       </a>
@@ -511,10 +511,10 @@ export default function DeepLinkDialog(properties) {
               ) : null}
               {activeTab === "localJSON" ? (
                 <>
-                  <Label className="text-white/70 text-xs uppercase tracking-wider">
+                  <Label className="text-foreground/70 text-xs uppercase tracking-wider">
                     {t("DeepLinkDialog:tabsContent.viaLocalFile")}
                   </Label>
-                  <ol className="ml-4 text-sm text-white/70 space-y-1">
+                  <ol className="ml-4 text-sm text-foreground/70 space-y-1">
                     <li type="1">
                       {t("DeepLinkDialog:tabsContent.step1Local")}
                     </li>
@@ -535,7 +535,7 @@ export default function DeepLinkDialog(properties) {
                   </ol>
                   <div className="mt-4">
                     {deeplink && downloadClicked ? (
-                      <Button variant="outline" disabled className="border-white/[0.08] text-white/30">
+                      <Button variant="outline" disabled className="border-border text-muted-foreground/60">
                         {t("DeepLinkDialog:tabsContent.downloading")}
                       </Button>
                     ) : null}
@@ -559,11 +559,11 @@ export default function DeepLinkDialog(properties) {
               ) : null}
               {activeTab === "qr" ? (
                 <>
-                  <Label className="text-white/70 text-xs uppercase tracking-wider">
+                  <Label className="text-foreground/70 text-xs uppercase tracking-wider">
                     {t("DeepLinkDialog:tabs.qrCode")}
                   </Label>
                   <div className="flex flex-col sm:flex-row gap-6 items-start">
-                    <div className="flex items-center justify-center p-2 border border-white/[0.08] rounded-lg bg-slate-950/40">
+                    <div className="flex items-center justify-center p-2 border border-border rounded-lg bg-card/40">
                       {qrContents ? (
                         <QRCode
                           value={JSON.stringify(qrContents)}
@@ -575,21 +575,21 @@ export default function DeepLinkDialog(properties) {
                           fgColor={qrFGC}
                         />
                       ) : (
-                        <span className="text-sm text-white/45">
+                        <span className="text-sm text-muted-foreground/70">
                           {t("DeepLinkDialog:qr.generating")}
                         </span>
                       )}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                       <div>
-                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
+                        <Label className="mb-1 block text-muted-foreground text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.ecl")}
                         </Label>
                         <Select onValueChange={(v) => setQRECL(v)}>
-                          <SelectTrigger className="w-full bg-slate-950/40 border-white/[0.08] text-white">
+                          <SelectTrigger className="w-full bg-card/40 border-border text-foreground">
                             <SelectValue placeholder={qrECL} />
                           </SelectTrigger>
-                          <SelectContent className="bg-slate-950 border border-white/10 text-white">
+                          <SelectContent className="bg-card border border-border text-foreground">
                             {["L", "M", "Q", "H"].map((lvl) => (
                               <SelectItem key={lvl} value={lvl}>
                                 {lvl}
@@ -599,14 +599,14 @@ export default function DeepLinkDialog(properties) {
                         </Select>
                       </div>
                       <div>
-                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
+                        <Label className="mb-1 block text-muted-foreground text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.size")}
                         </Label>
                         <Select onValueChange={(v) => setQRSize(v)}>
-                          <SelectTrigger className="w-full bg-slate-950/40 border-white/[0.08] text-white">
+                          <SelectTrigger className="w-full bg-card/40 border-border text-foreground">
                             <SelectValue placeholder={qrSize} />
                           </SelectTrigger>
-                          <SelectContent className="bg-slate-950 border border-white/10 text-white">
+                          <SelectContent className="bg-card border border-border text-foreground">
                             {["150", "250", "300", "350", "385"].map((s) => (
                               <SelectItem key={s} value={s}>
                                 {s}
@@ -616,14 +616,14 @@ export default function DeepLinkDialog(properties) {
                         </Select>
                       </div>
                       <div>
-                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
+                        <Label className="mb-1 block text-muted-foreground text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.padding")}
                         </Label>
                         <Select onValueChange={(v) => setQRQZ(v)}>
-                          <SelectTrigger className="w-full bg-slate-950/40 border-white/[0.08] text-white">
+                          <SelectTrigger className="w-full bg-card/40 border-border text-foreground">
                             <SelectValue placeholder={qrQZ} />
                           </SelectTrigger>
-                          <SelectContent className="bg-slate-950 border border-white/10 text-white">
+                          <SelectContent className="bg-card border border-border text-foreground">
                             {["5", "10", "25", "50"].map((p) => (
                               <SelectItem key={p} value={p}>
                                 {p}
@@ -633,14 +633,14 @@ export default function DeepLinkDialog(properties) {
                         </Select>
                       </div>
                       <div>
-                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
+                        <Label className="mb-1 block text-muted-foreground text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.style")}
                         </Label>
                         <Select onValueChange={(v) => setQRStyle(v)}>
-                          <SelectTrigger className="w-full bg-slate-950/40 border-white/[0.08] text-white">
+                          <SelectTrigger className="w-full bg-card/40 border-border text-foreground">
                             <SelectValue placeholder={qrStyle} />
                           </SelectTrigger>
-                          <SelectContent className="bg-slate-950 border border-white/10 text-white">
+                          <SelectContent className="bg-card border border-border text-foreground">
                             {["dots", "squares"].map((st) => (
                               <SelectItem key={st} value={st}>
                                 {st}
@@ -650,25 +650,25 @@ export default function DeepLinkDialog(properties) {
                         </Select>
                       </div>
                       <div>
-                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
+                        <Label className="mb-1 block text-muted-foreground text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.bgc")}
                         </Label>
                         <Input
                           type="color"
                           value={qrBGC}
                           onChange={(e) => setQRBGC(e.target.value)}
-                          className="bg-slate-950/40 border-white/[0.08] h-9 w-full"
+                          className="bg-card/40 border-border h-9 w-full"
                         />
                       </div>
                       <div>
-                        <Label className="mb-1 block text-white/60 text-xs uppercase tracking-wider">
+                        <Label className="mb-1 block text-muted-foreground text-xs uppercase tracking-wider">
                           {t("DeepLinkDialog:qr.fgc")}
                         </Label>
                         <Input
                           type="color"
                           value={qrFGC}
                           onChange={(e) => setQRFGC(e.target.value)}
-                          className="bg-slate-950/40 border-white/[0.08] h-9 w-full"
+                          className="bg-card/40 border-border h-9 w-full"
                         />
                       </div>
                     </div>
@@ -677,10 +677,10 @@ export default function DeepLinkDialog(properties) {
               ) : null}
               {activeTab === "propose" && !proposal && !disablePropose ? (
                 <>
-                  <Label className="text-white/70 text-xs uppercase tracking-wider">
+                  <Label className="text-foreground/70 text-xs uppercase tracking-wider">
                     {t("DeepLinkDialog:tabsContent.propose")}
                   </Label>
-                  <p className="text-sm text-white/60">
+                  <p className="text-sm text-muted-foreground">
                     {t("DeepLinkDialog:tabsContent.proposeDescription")}
                   </p>
                   <div className="grid grid-cols-8 mt-4">
@@ -711,7 +711,7 @@ export default function DeepLinkDialog(properties) {
                         />
                       ) : (
                         <Av>
-                          <AvatarFallback className="bg-slate-800 text-white/40 text-xs">
+                          <AvatarFallback className="bg-card/80 text-muted-foreground text-xs">
                             ?
                           </AvatarFallback>
                         </Av>
@@ -725,7 +725,7 @@ export default function DeepLinkDialog(properties) {
                             ? `${targetUser.name} (${targetUser.id})`
                             : "Bitshares account (1.2.x)"
                         }
-                        className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-1 mt-1"
+                        className="bg-card/40 border-border text-foreground placeholder:text-muted-foreground/60 mb-1 mt-1"
                       />
                     </div>
                     <div className="col-span-2">
@@ -742,9 +742,9 @@ export default function DeepLinkDialog(properties) {
                               : t("AccountLists:provideTarget")}
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[375px] border border-white/10 bg-slate-950 text-white backdrop-blur-2xl shadow-xl shadow-black/50">
+                        <DialogContent className="backdrop-blur-2xl shadow-xl dark:shadow-black/50 shadow-black/20">
                           <DialogHeader>
-                            <DialogTitle className="text-white/90 text-sm">
+                            <DialogTitle className="text-foreground/90 text-sm">
                               {!usr || !usr.chain
                                 ? t("AccountLists:bitsharesAccountSearch")
                                 : null}
@@ -755,7 +755,7 @@ export default function DeepLinkDialog(properties) {
                                 ? t("AccountLists:bitsharesAccountSearchTEST")
                                 : null}
                             </DialogTitle>
-                            <DialogDescription className="text-white/40 text-xs">
+                            <DialogDescription className="text-muted-foreground text-xs">
                               {t("AccountLists:searchingForAccount")}
                             </DialogDescription>
                           </DialogHeader>
@@ -770,7 +770,7 @@ export default function DeepLinkDialog(properties) {
                     </div>
                   </div>
 
-                  <div className="border-t border-white/[0.06] my-4" />
+                  <div className="border-t border-border/60 my-4" />
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="grid grid-cols-1 gap-3">
@@ -812,10 +812,10 @@ export default function DeepLinkDialog(properties) {
                           }
                         }}
                       >
-                        <SelectTrigger className="mb-3 mt-1 w-3/4 bg-slate-950/40 border-white/[0.08] text-white">
+                        <SelectTrigger className="mb-3 mt-1 w-3/4 bg-card/40 border-border text-foreground">
                           <SelectValue placeholder="1hr" />
                         </SelectTrigger>
-                        <SelectContent className="bg-slate-950 border border-white/10 text-white">
+                        <SelectContent className="bg-card border border-border text-foreground">
                           <SelectItem value="1hr">
                             {t("LimitOrderCard:expiry.1hr")}
                           </SelectItem>
@@ -842,8 +842,8 @@ export default function DeepLinkDialog(properties) {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "w-[240px] justify-start text-left font-normal bg-slate-950/40 border-white/[0.08] text-white",
-                                !date && "text-white/40"
+                                "w-[240px] justify-start text-left font-normal bg-card/40 border-border text-foreground",
+                                !date && "text-muted-foreground"
                               )}
                             >
                               <CalendarIcon className="mr-2 h-4 w-4" />
@@ -856,7 +856,7 @@ export default function DeepLinkDialog(properties) {
                               )}
                             </Button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0 border border-white/10 bg-slate-950 text-white" align="start">
+                          <PopoverContent className="w-auto p-0 border border-border bg-card text-foreground" align="start">
                             <Calendar
                               mode="single"
                               selected={date}
@@ -895,10 +895,10 @@ export default function DeepLinkDialog(properties) {
                           setReviewPeriodSeconds(selectedReviewPeriod);
                         }}
                       >
-                        <SelectTrigger className="mb-3 mt-1 w-3/4 bg-slate-950/40 border-white/[0.08] text-white">
+                        <SelectTrigger className="mb-3 mt-1 w-3/4 bg-card/40 border-border text-foreground">
                           <SelectValue placeholder="60s" />
                         </SelectTrigger>
-                        <SelectContent className="bg-slate-950 border border-white/10 text-white">
+                        <SelectContent className="bg-card border border-border text-foreground">
                           <SelectItem value={60000}>60s</SelectItem>
                           <SelectItem value={300000}>300s</SelectItem>
                           <SelectItem value={600000}>600s</SelectItem>
@@ -909,13 +909,13 @@ export default function DeepLinkDialog(properties) {
                     </div>
                   </div>
 
-                  <div className="border-t border-white/[0.06] my-4" />
+                  <div className="border-t border-border/60 my-4" />
 
                   <Button
                     onClick={() => {
                       setProposalDialogOpen(true);
                     }}
-                    className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white border-0 shadow-lg shadow-amber-900/30"
+                    className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-foreground border-0 shadow-lg shadow-amber-900/30"
                   >
                     Submit
                   </Button>

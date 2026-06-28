@@ -50,7 +50,7 @@ function getAccountLimitOrders(
       }
 
       if (!limitOrders || !limitOrders.length) {
-        reject(new Error("Account limit orders not found"));
+        resolve([]);
         return;
       }
 

@@ -10,7 +10,7 @@ import DOMPurify from "dompurify";
 export function NftTab({ res, _desc, nftImages, heroIndex, setHeroIndex, ipfsGateway, t }) {
   if (!nftImages || !nftImages.length) {
     return (
-      <div className="flex items-center justify-center h-32 rounded-md border border-dashed border-white/20 text-white/40 text-sm">
+      <div className="flex items-center justify-center h-32 rounded-md border border-dashed border-border dark:border-white/20 text-muted-foreground text-sm">
         <ImageIcon className="mr-2 h-4 w-4" />
         {t("Predictions:nft.noImage")}
       </div>
@@ -31,7 +31,7 @@ export function NftTab({ res, _desc, nftImages, heroIndex, setHeroIndex, ipfsGat
         {_desc.nft_object.artist ? <StatBlock label={t("Predictions:nft.artist")} value={_desc.nft_object.artist} /> : null}
         {_desc.nft_object.type ? (
           <StatBlock label={t("Predictions:nft.type")} value={
-            <span className="inline-flex items-center rounded-full bg-white/[0.06] border border-white/[0.08] px-2 py-0.5 text-xs font-medium text-white/70">
+            <span className="inline-flex items-center rounded-full bg-accent/50 border border-border px-2 py-0.5 text-xs font-medium text-foreground/70">
               {_desc.nft_object.type}
             </span>
           } />
@@ -43,7 +43,7 @@ export function NftTab({ res, _desc, nftImages, heroIndex, setHeroIndex, ipfsGat
 
       {_desc.nft_object.tags ? (
         <div>
-          <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1">{t("Predictions:nft.tags")}</div>
+          <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">{t("Predictions:nft.tags")}</div>
           <div className="flex flex-wrap gap-1">
             {String(_desc.nft_object.tags).split(",").map((s) => s.trim()).filter(Boolean).map((tag) => (
               <Badge key={tag} variant="outline" className="text-[10px] py-0">{tag}</Badge>
@@ -66,16 +66,16 @@ export function NftTab({ res, _desc, nftImages, heroIndex, setHeroIndex, ipfsGat
       ) : null}
 
       {(_desc.nft_signature || _desc.sig_pubkey_or_address) ? (
-        <div className="rounded-md border border-white/10 bg-white/5 p-3 grid grid-cols-1 gap-2 text-xs">
+        <div className="rounded-md border border-border bg-accent/30 dark:bg-white/5 p-3 grid grid-cols-1 gap-2 text-xs">
           <div>
-            <div className="text-[11px] uppercase tracking-wide text-white/60 mb-0.5">{t("Predictions:nft.signature")}</div>
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-0.5">{t("Predictions:nft.signature")}</div>
             <MonoBlock value={_desc.nft_signature} truncate={32} copyable label={t("Predictions:nft.copySig")} />
           </div>
           <div>
-            <div className="text-[11px] uppercase tracking-wide text-white/60 mb-0.5">{t("Predictions:nft.sigPubkey")}</div>
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-0.5">{t("Predictions:nft.sigPubkey")}</div>
             <MonoBlock value={_desc.sig_pubkey_or_address} truncate={32} copyable label={t("Predictions:nft.copyPubkey")} />
           </div>
-          <div className="text-[10px] text-white/40 italic">{t("Predictions:nft.verifyNote")}</div>
+          <div className="text-[10px] text-muted-foreground italic">{t("Predictions:nft.verifyNote")}</div>
         </div>
       ) : null}
     </div>

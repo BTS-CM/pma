@@ -23,9 +23,9 @@ export function ResolveDialog({ res, usr, isExpired, statusKey, expirationHours,
       {!canResolve ? (
         <HoverCard>
           <HoverCardTrigger>
-            <Button disabled className="bg-violet-600 text-white cursor-not-allowed">{t("Predictions:resolve")}</Button>
+            <Button disabled className="bg-violet-600 text-foreground cursor-not-allowed">{t("Predictions:resolve")}</Button>
           </HoverCardTrigger>
-          <HoverCardContent className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]" align="start">
+          <HoverCardContent className="w-80 mt-1 bg-card border-border text-foreground z-[9999]" align="start">
             <p className="leading-6 text-sm [&:not(:first-child)]:mt-1">
               {!isExpired ? t("Predictions:not_expired") : t("Predictions:already_resolved")}
             </p>
@@ -34,9 +34,9 @@ export function ResolveDialog({ res, usr, isExpired, statusKey, expirationHours,
       ) : (
         <Dialog open={resolvePrompt} onOpenChange={setResolvePrompt}>
           <DialogTrigger asChild>
-            <Button onClick={() => setResolvePrompt(true)} className="bg-violet-600 hover:bg-violet-700 text-white">{t("Predictions:resolve")}</Button>
+            <Button onClick={() => setResolvePrompt(true)} className="bg-violet-600 hover:bg-violet-700 text-foreground">{t("Predictions:resolve")}</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[600px] bg-card border-border text-foreground shadow-2xl dark:shadow-black/40 shadow-black/15">
             <DialogHeader>
               <DialogTitle>{t("Predictions:resolveDialog.title")}</DialogTitle>
               <DialogDescription>{t("Predictions:resolveDialog.description")}</DialogDescription>
@@ -67,7 +67,7 @@ export function ResolveDialog({ res, usr, isExpired, statusKey, expirationHours,
                 </RadioGroup>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <Button className="h-6 mt-1 w-1/2 bg-violet-600 hover:bg-violet-700 text-white" onClick={() => setResolveDialog(true)}>
+                <Button className="h-6 mt-1 w-1/2 bg-violet-600 hover:bg-violet-700 text-foreground" onClick={() => setResolveDialog(true)}>
                   {t("Predictions:submit")}
                 </Button>
               </div>

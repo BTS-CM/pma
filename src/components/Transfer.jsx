@@ -296,7 +296,7 @@ export default function Transfer(properties) {
   return (
     <>
       <div className="container mx-auto mt-5 mb-5 w-full md:w-3/4 lg:1/2 space-y-6">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-xl shadow-black/30">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl shadow-xl shadow-black/30">
           <span
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-violet-400/70 to-transparent"
@@ -306,10 +306,10 @@ export default function Transfer(properties) {
             className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-violet-500/[0.06] blur-3xl"
           />
           <div className="relative px-5 sm:px-6 pt-5 sm:pt-6 pb-3">
-            <h2 className="text-lg font-semibold text-white tracking-tight">
+            <h2 className="text-lg font-semibold text-foreground tracking-tight">
               {t("Transfer:transferAssets")}
             </h2>
-            <p className="text-sm text-white/40 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               {t("Transfer:sendFundsDescription")}
             </p>
           </div>
@@ -325,7 +325,7 @@ export default function Transfer(properties) {
                     control={form.control}
                     render={({ field, fieldState }) => (
                       <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel className="text-white/70 text-xs uppercase tracking-wider">
+                        <FieldLabel className="text-foreground/70 text-xs uppercase tracking-wider">
                           {t("Transfer:sendingAccount")}
                         </FieldLabel>
                         <div className="grid grid-cols-8 gap-2">
@@ -351,14 +351,14 @@ export default function Transfer(properties) {
                             <Input
                               {...field}
                               disabled
-                              className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-1 mt-1"
+                              className="bg-card/40 border-border text-foreground placeholder:text-muted-foreground/60 mb-1 mt-1"
                               value={`${
                                 usr && usr.username ? usr.username : "?"
                               } (${usr && usr.id ? usr.id : "?"})`}
                             />
                           </div>
                         </div>
-                        <FieldDescription className="text-white/40 text-xs">
+                        <FieldDescription className="text-muted-foreground text-xs">
                           {t("Transfer:sendingAccountDescription")}
                         </FieldDescription>
                         {fieldState.invalid && (
@@ -373,7 +373,7 @@ export default function Transfer(properties) {
                     control={form.control}
                     render={({ field, fieldState }) => (
                       <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel className="text-white/70 text-xs uppercase tracking-wider">
+                        <FieldLabel className="text-foreground/70 text-xs uppercase tracking-wider">
                           {t("Transfer:targetAccount")}
                         </FieldLabel>
                         <div className="grid grid-cols-8 mt-4">
@@ -397,7 +397,7 @@ export default function Transfer(properties) {
                               />
                             ) : (
                               <Av>
-                                <AvatarFallback className="bg-slate-800 text-white/40 text-xs">
+                                <AvatarFallback className="bg-card/80 text-muted-foreground text-xs">
                                   ?
                                 </AvatarFallback>
                               </Av>
@@ -412,7 +412,7 @@ export default function Transfer(properties) {
                                   ? `${targetUser.name} (${targetUser.id})`
                                   : "Bitshares account (1.2.x)"
                               }
-                              className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-1 mt-1"
+                              className="bg-card/40 border-border text-foreground placeholder:text-muted-foreground/60 mb-1 mt-1"
                             />
                           </div>
                           <div className="col-span-2">
@@ -429,9 +429,9 @@ export default function Transfer(properties) {
                                     : t("Transfer:provideTarget")}
                                 </Button>
                               </DialogTrigger>
-                              <DialogContent className="sm:max-w-[375px] border border-white/10 bg-slate-950 text-white backdrop-blur-2xl shadow-xl shadow-black/50">
+                              <DialogContent className="sm:max-w-[375px] border border-border bg-card text-foreground backdrop-blur-2xl shadow-xl shadow-black/50">
                                 <DialogHeader>
-                                  <DialogTitle className="text-white/90 text-sm">
+                                  <DialogTitle className="text-foreground/90 text-sm">
                                     {!usr || !usr.chain
                                       ? t("Transfer:bitsharesAccountSearch")
                                       : null}
@@ -442,7 +442,7 @@ export default function Transfer(properties) {
                                       ? t("Transfer:bitsharesAccountSearchTEST")
                                       : null}
                                   </DialogTitle>
-                                  <DialogDescription className="text-white/40 text-xs">
+                                  <DialogDescription className="text-muted-foreground text-xs">
                                     {t("Transfer:searchingForAccount")}
                                   </DialogDescription>
                                 </DialogHeader>
@@ -461,7 +461,7 @@ export default function Transfer(properties) {
                             </Dialog>
                           </div>
                         </div>
-                        <FieldDescription className="text-white/40 text-xs">
+                        <FieldDescription className="text-muted-foreground text-xs">
                           {!targetUser || !targetUser.name
                             ? t("Transfer:targetAccountDescription")
                             : t("Transfer:targetAccountDescriptionWithName", {
@@ -480,21 +480,21 @@ export default function Transfer(properties) {
                     control={form.control}
                     render={({ field, fieldState }) => (
                       <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel className="text-white/70 text-xs uppercase tracking-wider">
+                        <FieldLabel className="text-foreground/70 text-xs uppercase tracking-wider">
                           {t("Transfer:assetToTransfer")}
                         </FieldLabel>
                         <div className="grid grid-cols-8 mt-4">
                           <div className="col-span-1 ml-5">
                             {!selectedAsset || !foundAsset ? (
                               <Av>
-                                <AvatarFallback className="bg-slate-800 text-white/40 text-xs">
+                                <AvatarFallback className="bg-card/80 text-muted-foreground text-xs">
                                   ?
                                 </AvatarFallback>
                               </Av>
                             ) : null}
                             {foundAsset ? (
                               <Av>
-                                <AvatarFallback className="bg-slate-800 text-white/70 text-xs">
+                                <AvatarFallback className="bg-card/80 text-foreground/70 text-xs">
                                   {foundAsset.bitasset_data_id
                                     ? "MPA"
                                     : "UIA"}
@@ -508,7 +508,7 @@ export default function Transfer(properties) {
                                 {...field}
                                 disabled
                                 placeholder="Bitshares asset (1.3.x)"
-                                className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-1 mt-1"
+                                className="bg-card/40 border-border text-foreground placeholder:text-muted-foreground/60 mb-1 mt-1"
                               />
                             ) : null}
                             {foundAsset ? (
@@ -516,7 +516,7 @@ export default function Transfer(properties) {
                                 {...field}
                                 disabled
                                 placeholder={`${foundAsset.symbol} (${foundAsset.id})`}
-                                className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-1 mt-1"
+                                className="bg-card/40 border-border text-foreground placeholder:text-muted-foreground/60 mb-1 mt-1"
                               />
                             ) : null}
                           </div>
@@ -535,7 +535,7 @@ export default function Transfer(properties) {
                             />
                           </div>
                         </div>
-                        <FieldDescription className="text-white/40 text-xs">
+                        <FieldDescription className="text-muted-foreground text-xs">
                           {t("Transfer:assetToTransferDescription")}
                         </FieldDescription>
                         <FieldError className="text-rose-400 text-xs">
@@ -556,7 +556,7 @@ export default function Transfer(properties) {
                     )}
                   />
 
-                  <div className="border-t border-white/[0.06] -mt-2 mb-2" />
+                  <div className="border-t border-border/60 -mt-2 mb-2" />
 
                   {selectedAsset && targetUser ? (
                     <Controller
@@ -564,7 +564,7 @@ export default function Transfer(properties) {
                       control={form.control}
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                          <FieldLabel className="text-white/70 text-xs uppercase tracking-wider">
+                          <FieldLabel className="text-foreground/70 text-xs uppercase tracking-wider">
                             {t("Transfer:amountAvailableToTransfer", {
                               asset: selectedAsset ?? "???",
                             })}
@@ -585,9 +585,9 @@ export default function Transfer(properties) {
                                   )} ${foundAsset.symbol}`
                                 : "0"
                             }
-                            className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-1"
+                            className="bg-card/40 border-border text-foreground placeholder:text-muted-foreground/60 mb-1"
                           />
-                          <FieldDescription className="text-white/40 text-xs">
+                          <FieldDescription className="text-muted-foreground text-xs">
                             {t("Transfer:maximumAmountDescription", {
                               asset: selectedAsset,
                             })}
@@ -606,7 +606,7 @@ export default function Transfer(properties) {
                       control={form.control}
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                          <FieldLabel className="text-white/70 text-xs uppercase tracking-wider">
+                          <FieldLabel className="text-foreground/70 text-xs uppercase tracking-wider">
                             {t("Transfer:amountToTransfer", {
                               asset: selectedAsset ?? "???",
                             })}
@@ -616,7 +616,7 @@ export default function Transfer(properties) {
                             label={t("Transfer:amountToTransferLabel")}
                             value={transferAmount}
                             placeholder={transferAmount}
-                            className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-1 focus-visible:ring-violet-400/50"
+                            className="bg-card/40 border-border text-foreground placeholder:text-muted-foreground/60 mb-1 focus-visible:ring-violet-400/50"
                             onChange={(event) => {
                               const input = event.target.value;
                               const regex = assetAmountRegex(foundAsset);
@@ -627,7 +627,7 @@ export default function Transfer(properties) {
                               }
                             }}
                           />
-                          <FieldDescription className="text-white/40 text-xs">
+                          <FieldDescription className="text-muted-foreground text-xs">
                             {t("Transfer:amountToTransferDescription")}
                           </FieldDescription>
                           {fieldState.invalid && (
@@ -644,7 +644,7 @@ export default function Transfer(properties) {
                       control={form.control}
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                          <FieldLabel className="text-white/70 text-xs uppercase tracking-wider">
+                          <FieldLabel className="text-foreground/70 text-xs uppercase tracking-wider">
                             {t("Transfer:optionalMemo")}
                           </FieldLabel>
                           <Input
@@ -652,14 +652,14 @@ export default function Transfer(properties) {
                             label={t("Transfer:memoFieldLabel")}
                             value={memoContents}
                             placeholder={memoContents}
-                            className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-1 focus-visible:ring-violet-400/50"
+                            className="bg-card/40 border-border text-foreground placeholder:text-muted-foreground/60 mb-1 focus-visible:ring-violet-400/50"
                             onChange={(event) => {
                               const input = event.target.value;
                               setMemoContents(input);
                               field.onChange(input);
                             }}
                           />
-                          <FieldDescription className="text-white/40 text-xs">
+                          <FieldDescription className="text-muted-foreground text-xs">
                             {t("Transfer:memoFieldDescription", {
                               targetUser: targetUser.name,
                             })}
@@ -678,7 +678,7 @@ export default function Transfer(properties) {
                       control={form.control}
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                          <FieldLabel className="text-white/70 text-xs uppercase tracking-wider">
+                          <FieldLabel className="text-foreground/70 text-xs uppercase tracking-wider">
                             {t("Transfer:networkFee")}
                           </FieldLabel>
                           <Input
@@ -688,7 +688,7 @@ export default function Transfer(properties) {
                               "Transfer:networkFeePlaceholder",
                               { fee: fee }
                             )}`}
-                            className="bg-slate-950/40 border-white/[0.08] text-white placeholder:text-white/30 mb-3 mt-3"
+                            className="bg-card/40 border-border text-foreground placeholder:text-muted-foreground/60 mb-3 mt-3"
                           />
                           {usr.id === usr.referrer ? (
                             <FieldError className="text-emerald-400 text-xs">
@@ -705,7 +705,7 @@ export default function Transfer(properties) {
                     />
                   ) : null}
 
-                  <div className="border-t border-white/[0.06] -mt-2 mb-2" />
+                  <div className="border-t border-border/60 -mt-2 mb-2" />
 
                   {!transferAmount ? (
                     <Button
@@ -721,7 +721,7 @@ export default function Transfer(properties) {
                     <>
                       {fee && (
                         <div className="mt-4 flex items-center justify-between px-1">
-                          <span className="text-xs font-medium uppercase tracking-wider text-white/50">
+                          <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                             {t("Transfer:networkFee")}
                           </span>
                           <span className="flex items-center gap-1.5 font-mono text-violet-400 text-sm">
@@ -731,7 +731,7 @@ export default function Transfer(properties) {
                         </div>
                       )}
                       <Button
-                      className="mt-5 mb-3 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white border-0 shadow-lg shadow-violet-900/30 hover:shadow-violet-800/40 transition-all w-full sm:w-auto"
+                      className="mt-5 mb-3 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-foreground border-0 shadow-lg shadow-violet-900/30 hover:shadow-violet-800/40 transition-all w-full sm:w-auto"
                       type="submit"
                     >
                       <ArrowRight className="h-4 w-4 mr-1.5" />

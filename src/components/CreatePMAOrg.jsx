@@ -117,7 +117,7 @@ function SectionHeader({ icon: Icon, title, description, step, optional, recomme
   const { t } = useTranslation(null, { i18n: i18nInstance });
   const colors = STEP_COLORS[step] || STEP_COLORS[1];
   return (
-    <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
+    <div className="flex items-start gap-3 border-b border-border px-6 py-4">
       <div className={"flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ring-1 " + colors.icon}>
         <Icon className="h-4 w-4" />
       </div>
@@ -131,11 +131,11 @@ function SectionHeader({ icon: Icon, title, description, step, optional, recomme
             </span>
           )}
         </div>
-        <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
+        <h3 className="mt-0.5 text-base font-semibold leading-tight text-foreground">
           {title}
         </h3>
         {description && (
-          <p className="mt-0.5 text-sm text-white/50">{description}</p>
+          <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
         )}
       </div>
     </div>
@@ -148,7 +148,7 @@ function Field({ label, help, required, htmlFor, children, className, error }) {
       <div className="mb-1.5 flex items-center gap-1.5 h-[1.375rem]">
         <Label
           htmlFor={htmlFor}
-          className="text-sm font-medium text-white/90"
+          className="text-sm font-medium text-foreground/90"
         >
           {label}
         </Label>
@@ -160,14 +160,14 @@ function Field({ label, help, required, htmlFor, children, className, error }) {
                 <button
                   type="button"
                   tabIndex={-1}
-                  className="inline-flex items-center justify-center text-white/30 transition-colors hover:text-white/70 focus:outline-none"
+                  className="inline-flex items-center justify-center text-muted-foreground/60 transition-colors hover:text-foreground/70 focus:outline-none"
                 >
                   <HelpCircle className="h-3.5 w-3.5" />
                 </button>
               </TooltipTrigger>
               <TooltipContent
                 side="top"
-                className="max-w-xs text-xs leading-relaxed bg-slate-900 border-white/10 text-white/80"
+                className="max-w-xs text-xs leading-relaxed bg-card border-border text-foreground/80"
               >
                 <p>{help}</p>
               </TooltipContent>
@@ -615,23 +615,23 @@ export default function CreatePMAOrg(properties) {
         key={`dialogrow-${index}`}
         className="grid grid-cols-4"
       >
-        <div className="col-span-1 text-white/60">{res.type}</div>
+        <div className="col-span-1 text-muted-foreground">{res.type}</div>
         <div className="col-span-1">
           <Dialog>
             <DialogTrigger>
-              <Button className="h-5 border-white/10 bg-white/5 text-white/70 hover:bg-white/10" variant="outline">
+              <Button className="h-5 border-border bg-accent/30 dark:bg-white/[0.05] text-foreground/70 hover:bg-accent/40" variant="outline">
                 Full URL
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white w-full max-w-4xl">
+            <DialogContent className="w-full max-w-4xl backdrop-blur-2xl">
               <DialogHeader>
-                <DialogTitle className="text-white">Full IPFS URL</DialogTitle>
+                <DialogTitle>Full IPFS URL</DialogTitle>
               </DialogHeader>
-              <p className="text-white/70 font-mono text-sm">{res.url}</p>
+              <p className="text-foreground/70 font-mono text-sm">{res.url}</p>
             </DialogContent>
           </Dialog>
         </div>
-        <div className="col-span-1 text-white/50 text-sm">{res.url.split("/").pop()}</div>
+        <div className="col-span-1 text-muted-foreground text-sm">{res.url.split("/").pop()}</div>
         <div className="col-span-1 flex items-center justify-end">
           <Button
             variant="outline"
@@ -649,16 +649,16 @@ export default function CreatePMAOrg(properties) {
     <div className="min-h-screen pb-16">
       {/* Page header */}
       <div className="container mx-auto max-w-4xl px-4 pt-6 sm:pt-8">
-        <div className="rounded-xl border border-white/10 bg-slate-950/60 backdrop-blur-xl px-6 py-5 shadow-lg shadow-black/20 ring-1 ring-white/[0.06]">
+        <div className="rounded-xl border border-border bg-card/60 backdrop-blur-xl px-6 py-5 shadow-lg shadow-black/20 ring-1 dark:ring-white/[0.06] ring-border">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/20 text-violet-400 shadow-md shadow-violet-500/10 ring-1 ring-violet-500/30">
               <Sparkles className="h-6 w-6" />
             </div>
             <div className="min-w-0">
-              <h1 className="text-2xl font-semibold tracking-tight text-white">
+              <h1 className="text-2xl font-semibold tracking-tight text-foreground">
                 {t(isEditMode ? "CreatePMAOrg:card.updateTitle" : "CreatePMAOrg:card.title")}
               </h1>
-              <p className="mt-1 max-w-2xl text-sm leading-relaxed text-white/50">
+              <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">
                 {t(isEditMode ? "CreatePMAOrg:card.updateDescription" : "CreatePMAOrg:card.description")}
               </p>
             </div>
@@ -669,7 +669,7 @@ export default function CreatePMAOrg(properties) {
       {/* Form sections */}
       <div className="container mx-auto max-w-4xl space-y-6 px-4 py-6">
         {/* Step 1 — Organization identity */}
-        <Card className="overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20">
+        <Card className="overflow-hidden border-border bg-card/60 backdrop-blur-xl shadow-lg shadow-black/20">
           <SectionHeader
             step={1}
             icon={Hash}
@@ -691,7 +691,7 @@ export default function CreatePMAOrg(properties) {
                   value={symbol}
                   type="text"
                   disabled={isEditMode}
-                  className="pr-14 font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="pr-14 font-mono bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   onInput={(e) => {
                     const value = e.currentTarget.value;
                     const regex = /^[a-zA-Z0-9]*$/;
@@ -701,7 +701,7 @@ export default function CreatePMAOrg(properties) {
                   }}
                   maxLength={11}
                 />
-                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-white/40">
+                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-xs text-muted-foreground">
                   {symbol.length}/11
                 </span>
               </div>
@@ -722,7 +722,7 @@ export default function CreatePMAOrg(properties) {
                 placeholder={t("CreatePMAOrg:description.placeholder")}
                 value={desc}
                 rows={3}
-                className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
+                className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50"
                 onInput={(e) => setDesc(e.currentTarget.value)}
               />
             </Field>
@@ -732,17 +732,17 @@ export default function CreatePMAOrg(properties) {
         {/* Step 2 — PMO Organization Profile (recommended) */}
         <Card
           className={
-            "overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
+            "overflow-hidden border-border bg-card/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
             (enabledPMO ? "ring-1 ring-cyan-500/30" : "")
           }
         >
-          <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
+          <div className="flex items-start gap-3 border-b border-border px-6 py-4">
             <div
               className={
                 "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ring-1 " +
                 (enabledPMO
                   ? "bg-cyan-500/15 text-cyan-400 ring-cyan-500/30"
-                  : "bg-white/5 text-white/40 ring-white/10")
+                  : "bg-accent/30 dark:bg-white/[0.05] text-muted-foreground ring-foreground/10")
               }
             >
               <ShieldCheck className="h-4 w-4" />
@@ -753,17 +753,17 @@ export default function CreatePMAOrg(properties) {
                   {t("CreatePMAOrg:sectionHeader.step", { number: 2 })} · {t("CreatePMAOrg:sectionHeader.recommended")}
                 </span>
               </div>
-              <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
+              <h3 className="mt-0.5 text-base font-semibold leading-tight text-foreground">
                 {t("CreatePMAOrg:steps.pmo.title")}
               </h3>
-              <p className="mt-0.5 text-sm text-white/50">
+              <p className="mt-0.5 text-sm text-muted-foreground">
                 {t("CreatePMAOrg:steps.pmo.description")}
               </p>
             </div>
             <Switch
               checked={enabledPMO}
               onCheckedChange={setEnabledPMO}
-              className="mt-1 shrink-0 data-[state=checked]:bg-cyan-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white"
+              className="mt-1 shrink-0 data-[state=checked]:bg-cyan-500 data-[state=unchecked]:bg-input dark:data-[state=unchecked]:bg-white/[0.12] [&>span]:bg-white"
             />
           </div>
 
@@ -771,7 +771,7 @@ export default function CreatePMAOrg(properties) {
             <CardContent className="space-y-5 pt-6">
               {/* Identity section */}
               <div className="space-y-1">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   <Globe className="h-3.5 w-3.5" />
                   {t("CreatePMAOrg:pmo.identity.heading")}
                 </div>
@@ -788,7 +788,7 @@ export default function CreatePMAOrg(properties) {
                     placeholder={t("CreatePMAOrg:pmo.identity.name.placeholder")}
                     value={pmoOrgName}
                     type="text"
-                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                    className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-cyan-500/50"
                     onInput={(e) => setPmoOrgName(e.currentTarget.value)}
                   />
                 </Field>
@@ -802,7 +802,7 @@ export default function CreatePMAOrg(properties) {
                     placeholder="https://organization.com"
                     value={pmoWebsite}
                     type="url"
-                    className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                    className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-cyan-500/50"
                     onInput={(e) => setPmoWebsite(e.currentTarget.value)}
                   />
                 </Field>
@@ -817,14 +817,14 @@ export default function CreatePMAOrg(properties) {
                   placeholder="https://organization.com/bitshares-pmo.json"
                   value={pmoManifest}
                   type="url"
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-cyan-500/50"
                   onInput={(e) => setPmoManifest(e.currentTarget.value)}
                 />
               </Field>
 
               {/* Governance section */}
               <div className="space-y-1 pt-2">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   <FileText className="h-3.5 w-3.5" />
                   {t("CreatePMAOrg:pmo.governance.heading")}
                 </div>
@@ -839,7 +839,7 @@ export default function CreatePMAOrg(properties) {
                   placeholder={t("CreatePMAOrg:pmo.governance.resolution.placeholder")}
                   value={pmoResolutionPolicy}
                   rows={3}
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-cyan-500/50"
                   onInput={(e) => setPmoResolutionPolicy(e.currentTarget.value)}
                 />
               </Field>
@@ -853,7 +853,7 @@ export default function CreatePMAOrg(properties) {
                   placeholder={t("CreatePMAOrg:pmo.governance.dispute.placeholder")}
                   value={pmoDisputeMechanism}
                   rows={3}
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-cyan-500/50"
                   onInput={(e) => setPmoDisputeMechanism(e.currentTarget.value)}
                 />
               </Field>
@@ -867,14 +867,14 @@ export default function CreatePMAOrg(properties) {
                   placeholder={t("CreatePMAOrg:pmo.governance.account.placeholder")}
                   value={pmoOnchainAccount}
                   type="text"
-                  className="font-mono bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  className="font-mono bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-cyan-500/50"
                   onInput={(e) => setPmoOnchainAccount(e.currentTarget.value)}
                 />
               </Field>
 
               {/* Attestation section */}
               <div className="space-y-1 pt-2">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   <Pen className="h-3.5 w-3.5" />
                   {t("CreatePMAOrg:pmo.attestation.heading")}
                 </div>
@@ -889,7 +889,7 @@ export default function CreatePMAOrg(properties) {
                   placeholder={t("CreatePMAOrg:pmo.attestation.placeholder")}
                   value={pmoAttestation}
                   rows={3}
-                  className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-cyan-500/50"
+                  className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-cyan-500/50"
                   onInput={(e) => setPmoAttestation(e.currentTarget.value)}
                 />
               </Field>
@@ -901,17 +901,17 @@ export default function CreatePMAOrg(properties) {
         {/* Step 3 — NFT options (optional) */}
         <Card
           className={
-            "overflow-hidden border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
+            "overflow-hidden border-border bg-card/60 backdrop-blur-xl shadow-lg shadow-black/20 transition-colors " +
             (enabledNFT ? "ring-1 ring-amber-500/30" : "")
           }
         >
-          <div className="flex items-start gap-3 border-b border-white/10 px-6 py-4">
+          <div className="flex items-start gap-3 border-b border-border px-6 py-4">
             <div
               className={
                 "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ring-1 " +
                 (enabledNFT
                   ? "bg-amber-500/15 text-amber-400 ring-amber-500/30"
-                  : "bg-white/5 text-white/40 ring-white/10")
+                  : "bg-accent/30 dark:bg-white/[0.05] text-muted-foreground ring-foreground/10")
               }
             >
               <ImageIcon className="h-4 w-4" />
@@ -922,34 +922,34 @@ export default function CreatePMAOrg(properties) {
                   {t("CreatePMAOrg:sectionHeader.step", { number: 3 })} · {t("CreatePMAOrg:sectionHeader.optional")}
                 </span>
               </div>
-              <h3 className="mt-0.5 text-base font-semibold leading-tight text-white">
+              <h3 className="mt-0.5 text-base font-semibold leading-tight text-foreground">
                 {t("CreatePMAOrg:steps.nft.title")}
               </h3>
-              <p className="mt-0.5 text-sm text-white/50">
+              <p className="mt-0.5 text-sm text-muted-foreground">
                 {t("CreatePMAOrg:steps.nft.description")}
               </p>
             </div>
             <Switch
               checked={enabledNFT}
               onCheckedChange={setEnabledNFT}
-              className="mt-1 shrink-0 data-[state=checked]:bg-amber-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white"
+              className="mt-1 shrink-0 data-[state=checked]:bg-amber-500 data-[state=unchecked]:bg-input dark:data-[state=unchecked]:bg-white/[0.12] [&>span]:bg-white"
             />
           </div>
 
           {enabledNFT && (
             <CardContent className="space-y-5 pt-6">
               {/* Media section */}
-              <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+              <div className="rounded-lg border border-border bg-accent/30 dark:bg-white/[0.05] p-4">
                 <div className="mb-3 flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-white">
+                      <span className="text-sm font-medium text-foreground">
                         {t("AssetCommon:nft.currentIPFSFiles", {
                           count: nftMedia.length,
                         })}
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-white/40">
+                    <p className="mt-1 text-xs text-muted-foreground">
                       {t("AssetCommon:nft.supportedFiletypes")}
                     </p>
                   </div>
@@ -959,22 +959,22 @@ export default function CreatePMAOrg(properties) {
                     }}
                   >
                     <DialogTrigger asChild>
-                      <Button variant="outline" size="sm" className="border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white">
+                      <Button variant="outline" size="sm" className="border-border bg-accent/30 dark:bg-white/[0.05] text-foreground/70 hover:bg-accent/40 hover:text-accent-foreground">
                         {t("AssetCommon:nft.modifyMultimediaContents")}
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white w-full max-w-4xl">
-                      <DialogHeader>
-                        <DialogTitle className="text-white">
-                          {t("AssetCommon:nft.modifyingMultimediaContents")}
-                        </DialogTitle>
-                      </DialogHeader>
-                      <Card className="bg-slate-900/60 border-white/10">
+                <DialogContent className="w-full max-w-4xl">
+                  <DialogHeader>
+                    <DialogTitle>
+                      {t("AssetCommon:nft.modifyingMultimediaContents")}
+                    </DialogTitle>
+                  </DialogHeader>
+                      <Card className="bg-card/60 border-border">
                         <CardHeader>
-                          <CardTitle className="text-white">
+                          <CardTitle>
                             {t("AssetCommon:nft.currentIPFSMedia")}
                           </CardTitle>
-                          <CardDescription className="text-white/50">
+                          <CardDescription className="text-muted-foreground">
                             {t("AssetCommon:nft.referencesIPFSObjects", {
                               count: nftMedia.length,
                             })}
@@ -982,12 +982,12 @@ export default function CreatePMAOrg(properties) {
                         </CardHeader>
                         <CardContent>
                           {!nftMedia || !nftMedia.length ? (
-                            <p className="text-sm text-white/40">
+                            <p className="text-sm text-muted-foreground">
                               {t("AssetCommon:nft.noIPFSMediaFound")}
                             </p>
                           ) : (
                             <>
-                              <div className="grid grid-cols-4 gap-2 border-b border-white/10 pb-2 text-xs font-semibold uppercase tracking-wider text-white/40">
+                              <div className="grid grid-cols-4 gap-2 border-b border-border pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                                 <div className="col-span-1">
                                   {t("AssetCommon:nft.type")}
                                 </div>
@@ -1014,12 +1014,12 @@ export default function CreatePMAOrg(properties) {
                         </CardContent>
                       </Card>
 
-                      <Card className="bg-slate-900/60 border-white/10">
+                      <Card className="bg-card/60 border-border">
                         <CardHeader>
-                          <CardTitle className="text-white">
+                          <CardTitle>
                             {t("AssetCommon:nft.addNewIPFSMedia")}
                           </CardTitle>
-                          <CardDescription className="text-white/50">
+                          <CardDescription className="text-muted-foreground">
                             {t("AssetCommon:nft.noIPFSGateway")}
                           </CardDescription>
                         </CardHeader>
@@ -1029,7 +1029,7 @@ export default function CreatePMAOrg(properties) {
                               <Input
                                 placeholder={t("AssetCommon:nft.mediaURLPlaceholder")}
                                 type="text"
-                                className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50"
+                                className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50"
                                 onInput={(e) => setNewMediaUrl(e.currentTarget.value)}
                                 onKeyDown={(e) => {
                                   if (e.key === "Enter" && newMediaUrl && newMediaType) {
@@ -1051,12 +1051,12 @@ export default function CreatePMAOrg(properties) {
                             </div>
                             <div className="col-span-1">
                               <Select onValueChange={setNewMediaType}>
-                                <SelectTrigger className="w-full bg-slate-950/60 border-white/10 text-white">
+                                <SelectTrigger className="w-full bg-card/60 border-border text-foreground">
                                   <SelectValue
                                     placeholder={t("AssetCommon:nft.fileTypePlaceholder")}
                                   />
                                 </SelectTrigger>
-                                <SelectContent className="bg-slate-950 border-white/10 text-white" style={{ maxHeight: '12.5rem', overflowY: 'auto' }}>
+                                <SelectContent className="bg-card border-border text-foreground" style={{ maxHeight: '12.5rem', overflowY: 'auto' }}>
                                   <SelectGroup>
                                     <SelectLabel>{t("AssetCommon:nft.imageFormats")}</SelectLabel>
                                     <SelectItem value="PNG">PNG</SelectItem>
@@ -1107,7 +1107,7 @@ export default function CreatePMAOrg(properties) {
                             <div className="col-span-4 flex flex-wrap gap-2">
                               {newMediaType && newMediaType.length && newMediaUrl && newMediaUrl.length ? (
                                 <Button
-                                  className="bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:brightness-110"
+                                  className="bg-gradient-to-r from-violet-500 to-purple-600 text-foreground hover:brightness-110"
                                   onClick={() => {
                                     const temp_urls = nftMedia.map((x) => x.url);
                                     if (temp_urls.includes(newMediaUrl)) {
@@ -1124,34 +1124,34 @@ export default function CreatePMAOrg(properties) {
                                   {t("AssetCommon:nft.submit")}
                                 </Button>
                               ) : (
-                                <Button disabled className="bg-white/10 text-white/40 cursor-not-allowed">
+                                <Button disabled className="bg-accent/40 dark:bg-white/[0.08] text-muted-foreground cursor-not-allowed">
                                   {t("AssetCommon:nft.submit")}
                                 </Button>
                               )}
                               <Dialog>
                                 <DialogTrigger asChild>
-                                  <Button variant="outline" className="border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white">
+                                  <Button variant="outline" className="border-border bg-accent/30 dark:bg-white/[0.05] text-foreground/70 hover:bg-accent/40 hover:text-accent-foreground">
                                     {t("AssetCommon:nft.ipfsHostingSolutions")}
                                   </Button>
                                 </DialogTrigger>
-                                <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white">
+                                <DialogContent className="bg-card backdrop-blur-2xl border-border text-foreground">
                                   <DialogHeader>
-                                    <DialogTitle className="text-white">
+                                    <DialogTitle>
                                       {t("AssetCommon:nft.ipfsHostingSolutions")}
                                     </DialogTitle>
-                                    <DialogDescription className="text-white/50">
+                                    <DialogDescription className="text-muted-foreground">
                                       {t("AssetCommon:nft.ipfsHostingDescription")}
                                     </DialogDescription>
                                   </DialogHeader>
                                   <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                                    <ExternalLink classnamecontents="hover:text-violet-400 text-white/60" type="button" text={"Pinata.cloud"} hyperlink={"https://www.pinata.cloud/"} />
-                                    <ExternalLink classnamecontents="hover:text-violet-400 text-white/60" type="button" text={"NFT.storage"} hyperlink={"https://nft.storage/"} />
-                                    <ExternalLink classnamecontents="hover:text-violet-400 text-white/60" type="button" text={"Web3.storage"} hyperlink={"https://web3.storage/"} />
-                                    <ExternalLink classnamecontents="hover:text-violet-400 text-white/60" type="button" text={"Fleek.co"} hyperlink={"https://fleek.co/ipfs-gateway/"} />
-                                    <ExternalLink classnamecontents="hover:text-violet-400 text-white/60" type="button" text={"Infura.io"} hyperlink={"https://infura.io/product/ipfs"} />
-                                    <ExternalLink classnamecontents="hover:text-violet-400 text-white/60" type="button" text={"StorJ"} hyperlink={"https://landing.storj.io/permanently-pin-with-storj-dcs"} />
-                                    <ExternalLink classnamecontents="hover:text-violet-400 text-white/60" type="button" text={"Eternum.io"} hyperlink={"https://www.eternum.io/"} />
-                                    <ExternalLink classnamecontents="hover:text-violet-400 text-white/60" type="button" text={"IPFS Docs"} hyperlink={"https://blog.ipfs.io/2021-04-05-storing-nfts-on-ipfs/"} />
+                                    <ExternalLink classnamecontents="hover:text-violet-400 text-muted-foreground" type="button" text={"Pinata.cloud"} hyperlink={"https://www.pinata.cloud/"} />
+                                    <ExternalLink classnamecontents="hover:text-violet-400 text-muted-foreground" type="button" text={"NFT.storage"} hyperlink={"https://nft.storage/"} />
+                                    <ExternalLink classnamecontents="hover:text-violet-400 text-muted-foreground" type="button" text={"Web3.storage"} hyperlink={"https://web3.storage/"} />
+                                    <ExternalLink classnamecontents="hover:text-violet-400 text-muted-foreground" type="button" text={"Fleek.co"} hyperlink={"https://fleek.co/ipfs-gateway/"} />
+                                    <ExternalLink classnamecontents="hover:text-violet-400 text-muted-foreground" type="button" text={"Infura.io"} hyperlink={"https://infura.io/product/ipfs"} />
+                                    <ExternalLink classnamecontents="hover:text-violet-400 text-muted-foreground" type="button" text={"StorJ"} hyperlink={"https://landing.storj.io/permanently-pin-with-storj-dcs"} />
+                                    <ExternalLink classnamecontents="hover:text-violet-400 text-muted-foreground" type="button" text={"Eternum.io"} hyperlink={"https://www.eternum.io/"} />
+                                    <ExternalLink classnamecontents="hover:text-violet-400 text-muted-foreground" type="button" text={"IPFS Docs"} hyperlink={"https://blog.ipfs.io/2021-04-05-storing-nfts-on-ipfs/"} />
                                   </div>
                                 </DialogContent>
                               </Dialog>
@@ -1167,20 +1167,20 @@ export default function CreatePMAOrg(properties) {
                     {nftMedia.map((m) => (
                       <div
                         key={m.url}
-                        className="flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.03] px-3 py-2 text-sm"
+                        className="flex items-center gap-2 rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] px-3 py-2 text-sm"
                       >
-                        <Link2 className="h-3.5 w-3.5 text-white/40" />
-                        <span className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-white/50">
+                        <Link2 className="h-3.5 w-3.5 text-muted-foreground" />
+                        <span className="rounded bg-accent/40 dark:bg-white/[0.08] px-1.5 py-0.5 font-mono text-[10px] font-semibold text-muted-foreground">
                           {m.type}
                         </span>
-                        <span className="truncate font-mono text-xs text-white">
+                        <span className="truncate font-mono text-xs text-foreground">
                           {m.url}
                         </span>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-white/40">
+                  <p className="text-xs text-muted-foreground">
                     {t("AssetCommon:nft.noIPFSMediaFound")}
                   </p>
                 )}
@@ -1189,31 +1189,31 @@ export default function CreatePMAOrg(properties) {
               {/* NFT metadata fields */}
               <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <Field label={t("AssetCommon:nft.NFTTitleHeader")} help={t("AssetCommon:nft.NFTTitleContent")} htmlFor="org-nft-title">
-                  <Input id="org-nft-title" placeholder={t("AssetCommon:nft.TitlePlaceholder")} value={title} className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50" onInput={(e) => setTitle(e.currentTarget.value)} />
+                  <Input id="org-nft-title" placeholder={t("AssetCommon:nft.TitlePlaceholder")} value={title} className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50" onInput={(e) => setTitle(e.currentTarget.value)} />
                 </Field>
                 <Field label={t("AssetCommon:nft.NFTArtistHeader")} help={t("AssetCommon:nft.NFTArtistContent")} htmlFor="org-nft-artist">
-                  <Input id="org-nft-artist" placeholder={t("AssetCommon:nft.ArtistPlaceholder")} value={artist} className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50" onInput={(e) => setArtist(e.currentTarget.value)} />
+                  <Input id="org-nft-artist" placeholder={t("AssetCommon:nft.ArtistPlaceholder")} value={artist} className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50" onInput={(e) => setArtist(e.currentTarget.value)} />
                 </Field>
                 <Field label={t("AssetCommon:nft.NFTNarrativeHeader")} help={t("AssetCommon:nft.NFTNarrativeContent")} htmlFor="org-nft-narrative">
-                  <Input id="org-nft-narrative" placeholder={t("AssetCommon:nft.NarrativePlaceholder")} value={narrative} className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50" onInput={(e) => setNarrative(e.currentTarget.value)} />
+                  <Input id="org-nft-narrative" placeholder={t("AssetCommon:nft.NarrativePlaceholder")} value={narrative} className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50" onInput={(e) => setNarrative(e.currentTarget.value)} />
                 </Field>
                 <Field label={t("AssetCommon:nft.NFTTagsHeader")} help={t("AssetCommon:nft.NFTTagsContent")} htmlFor="org-nft-tags">
-                  <Input id="org-nft-tags" placeholder={t("AssetCommon:nft.TagsPlaceholder")} value={tags} className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50" onInput={(e) => setTags(e.currentTarget.value)} />
+                  <Input id="org-nft-tags" placeholder={t("AssetCommon:nft.TagsPlaceholder")} value={tags} className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50" onInput={(e) => setTags(e.currentTarget.value)} />
                 </Field>
                 <Field label={t("AssetCommon:nft.NFTTypeHeader")} help={t("AssetCommon:nft.NFTTypeContent")} htmlFor="org-nft-type">
-                  <Input id="org-nft-type" placeholder={t("AssetCommon:nft.TypePlaceholder")} value={type} className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50" onInput={(e) => setType(e.currentTarget.value)} />
+                  <Input id="org-nft-type" placeholder={t("AssetCommon:nft.TypePlaceholder")} value={type} className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50" onInput={(e) => setType(e.currentTarget.value)} />
                 </Field>
                 <Field label={t("AssetCommon:nft.NFTAttestationHeader")} help={t("AssetCommon:nft.NFTAttestationContent")} htmlFor="org-nft-attestation">
-                  <Input id="org-nft-attestation" placeholder={t("AssetCommon:nft.AttestationPlaceholder")} value={attestation} className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50" onInput={(e) => setAttestation(e.currentTarget.value)} />
+                  <Input id="org-nft-attestation" placeholder={t("AssetCommon:nft.AttestationPlaceholder")} value={attestation} className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50" onInput={(e) => setAttestation(e.currentTarget.value)} />
                 </Field>
                 <Field label={t("AssetCommon:nft.NFTAcknowledgementsHeader")} help={t("AssetCommon:nft.NFTAcknowledgementsContent")} htmlFor="org-nft-ack">
-                  <Input id="org-nft-ack" placeholder={t("AssetCommon:nft.AcknowledgementsPlaceholder")} value={acknowledgements} className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50" onInput={(e) => setAcknowledgements(e.currentTarget.value)} />
+                  <Input id="org-nft-ack" placeholder={t("AssetCommon:nft.AcknowledgementsPlaceholder")} value={acknowledgements} className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50" onInput={(e) => setAcknowledgements(e.currentTarget.value)} />
                 </Field>
                 <Field label={t("AssetCommon:nft.NFTHolderLicenseHeader")} help={t("AssetCommon:nft.NFTHolderLicenseContent")} htmlFor="org-nft-holderlic">
-                  <Input id="org-nft-holderlic" placeholder={t("AssetCommon:nft.HolderLicensePlaceholder")} value={holderLicense} className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50" onInput={(e) => setHolderLicense(e.currentTarget.value)} />
+                  <Input id="org-nft-holderlic" placeholder={t("AssetCommon:nft.HolderLicensePlaceholder")} value={holderLicense} className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50" onInput={(e) => setHolderLicense(e.currentTarget.value)} />
                 </Field>
                 <Field label={t("AssetCommon:nft.NFTLicenseHeader")} help={t("AssetCommon:nft.NFTLicenseContent")} htmlFor="org-nft-license">
-                  <Input id="org-nft-license" placeholder={t("AssetCommon:nft.LicensePlaceholder")} value={license} className="bg-slate-950/60 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-violet-500/50" onInput={(e) => setLicense(e.currentTarget.value)} />
+                  <Input id="org-nft-license" placeholder={t("AssetCommon:nft.LicensePlaceholder")} value={license} className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-violet-500/50" onInput={(e) => setLicense(e.currentTarget.value)} />
                 </Field>
               </div>
             </CardContent>
@@ -1238,13 +1238,13 @@ export default function CreatePMAOrg(properties) {
             </div>
           )}
 
-          <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3">
-            <Info className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+          <div className="flex items-start gap-3 rounded-lg border border-border bg-accent/30 dark:bg-white/[0.05] p-3">
+            <Info className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-white">
+              <p className="text-sm font-medium text-foreground">
                 {t("CreatePMAOrg:tips.title")}
               </p>
-              <p className="mt-0.5 text-xs leading-relaxed text-white/50">
+              <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
                 {t("CreatePMAOrg:tips.hint")}
               </p>
             </div>
@@ -1266,7 +1266,7 @@ export default function CreatePMAOrg(properties) {
                   </TooltipTrigger>
                   <TooltipContent
                     side="top"
-                    className="bg-slate-900 border-white/10 text-white max-w-xs"
+                    className="bg-card border-border text-foreground max-w-xs"
                   >
                     <p className="text-xs">{t("CreatePrediction:fee.hover")}</p>
                   </TooltipContent>
@@ -1277,7 +1277,7 @@ export default function CreatePMAOrg(properties) {
               size="lg"
               disabled={!isFormValid}
               onClick={() => setShowDialog(true)}
-              className="gap-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-semibold shadow-lg shadow-violet-500/25 hover:brightness-110 active:scale-[0.99] transition-all"
+              className="gap-2 bg-gradient-to-r from-violet-500 to-purple-600 text-foreground font-semibold shadow-lg shadow-violet-500/25 hover:brightness-110 active:scale-[0.99] transition-all"
             >
               <Send className="h-4 w-4" />
               {t(isEditMode ? "CreatePMAOrg:buttons.update" : "CreatePMAOrg:buttons.submit")}

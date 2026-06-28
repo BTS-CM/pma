@@ -479,10 +479,9 @@ export default function LimitOrderCard(properties) {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl border bg-slate-950/60 backdrop-blur-xl",
+        "relative overflow-hidden rounded-xl border bg-card/60 backdrop-blur-xl",
         accent.border
       )}
-      style={{ backgroundColor: "rgba(2, 6, 23, 0.6)" }}
     >
       <div
         className={cn(
@@ -516,7 +515,7 @@ export default function LimitOrderCard(properties) {
                     assetB: thisAssetB,
                   })}
             </h3>
-            <p className="text-[11px] text-white/45">
+            <p className="text-[11px] text-muted-foreground/70">
               {t("LimitOrderCard:createLimitOrder")}
             </p>
           </div>
@@ -550,19 +549,19 @@ export default function LimitOrderCard(properties) {
                           placeholder={price}
                           disabled
                           readOnly
-                          className="bg-white/[0.04] border-white/10 text-white/85 placeholder:text-white/55 font-mono tabular-nums disabled:opacity-100 h-11"
+                          className="bg-accent/40 border-border text-foreground/85 placeholder:text-muted-foreground font-mono tabular-nums disabled:opacity-100 h-11"
                         />
                       </span>
                       <span className="col-span-3 ml-3 text-center">
                         <Popover>
                           <PopoverTrigger>
-                            <span className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer">
+                            <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-accent/40 hover:bg-accent/60 hover:border-accent/50 dark:hover:border-white/20 px-3 py-1.5 text-xs font-medium text-foreground/70 hover:text-accent-foreground transition-all cursor-pointer">
                               <Label>{t("LimitOrderCard:editLabel")}</Label>
                             </span>
                           </PopoverTrigger>
                           <PopoverContent
-                            className="!bg-slate-950 border border-white/10 text-white"
-                            style={{ backgroundColor: "#020617" }}
+                            className="!bg-card border border-border text-foreground"
+
                           >
                             <Label>
                               {t("LimitOrderCard:priceAmount.provideNewLabel")}
@@ -703,12 +702,12 @@ export default function LimitOrderCard(properties) {
                           })}
                     </FieldDescription>
                     {orderType === "sell" && assetABalance ? (
-                      <div className="mt-2 flex items-center justify-between rounded-md border border-white/[0.06] bg-white/[0.02] px-2.5 py-1.5">
-                        <div className="flex items-center gap-1.5 text-[11px] text-white/55">
-                          <Wallet className="h-3 w-3 text-white/40" />
+                      <div className="mt-2 flex items-center justify-between rounded-md border border-border/60 bg-accent/20 px-2.5 py-1.5">
+                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                          <Wallet className="h-3 w-3 text-muted-foreground" />
                           <span>
                             {t("LimitOrderCard:useBalance")}:{" "}
-                            <span className="font-mono tabular-nums text-white/80">
+                            <span className="font-mono tabular-nums text-foreground/80">
                               {assetABalance} {thisAssetA}
                             </span>
                           </span>
@@ -730,19 +729,19 @@ export default function LimitOrderCard(properties) {
                           placeholder={amount}
                           disabled
                           readOnly
-                          className="bg-white/[0.04] border-white/10 text-white/85 placeholder:text-white/55 font-mono tabular-nums disabled:opacity-100 h-11"
+                          className="bg-accent/40 border-border text-foreground/85 placeholder:text-muted-foreground font-mono tabular-nums disabled:opacity-100 h-11"
                         />
                       </span>
                       <span className="col-span-3 ml-3 text-center">
                         <Popover>
                           <PopoverTrigger>
-                            <span className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer">
+                            <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-accent/40 hover:bg-accent/60 hover:border-accent/50 dark:hover:border-white/20 px-3 py-1.5 text-xs font-medium text-foreground/70 hover:text-accent-foreground transition-all cursor-pointer">
                               <Label>{t("LimitOrderCard:editLabel")}</Label>
                             </span>
                           </PopoverTrigger>
                           <PopoverContent
-                            className="!bg-slate-950 border border-white/10 text-white"
-                            style={{ backgroundColor: "#020617" }}
+                            className="!bg-card border border-border text-foreground"
+
                           >
                             <Label>
                               {t("LimitOrderCard:sellAmount.provideNewLabel")}
@@ -846,12 +845,12 @@ export default function LimitOrderCard(properties) {
                           })}
                     </FieldDescription>
                     {orderType === "buy" && assetBBalance ? (
-                      <div className="mt-2 flex items-center justify-between rounded-md border border-white/[0.06] bg-white/[0.02] px-2.5 py-1.5">
-                        <div className="flex items-center gap-1.5 text-[11px] text-white/55">
-                          <Wallet className="h-3 w-3 text-white/40" />
+                      <div className="mt-2 flex items-center justify-between rounded-md border border-border/60 bg-accent/20 px-2.5 py-1.5">
+                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                          <Wallet className="h-3 w-3 text-muted-foreground" />
                           <span>
                             {t("LimitOrderCard:useBalance")}:{" "}
-                            <span className="font-mono tabular-nums text-white/80">
+                            <span className="font-mono tabular-nums text-foreground/80">
                               {assetBBalance} {thisAssetB}
                             </span>
                           </span>
@@ -873,19 +872,19 @@ export default function LimitOrderCard(properties) {
                           placeholder={total}
                           disabled
                           readOnly
-                          className="bg-white/[0.04] border-white/10 text-white/85 placeholder:text-white/55 font-mono tabular-nums disabled:opacity-100 h-11"
+                          className="bg-accent/40 border-border text-foreground/85 placeholder:text-muted-foreground font-mono tabular-nums disabled:opacity-100 h-11"
                         />
                       </span>
                       <span className="col-span-3 ml-3 text-center">
                         <Popover>
                           <PopoverTrigger>
-                            <span className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer">
+                            <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-accent/40 hover:bg-accent/60 hover:border-accent/50 dark:hover:border-white/20 px-3 py-1.5 text-xs font-medium text-foreground/70 hover:text-accent-foreground transition-all cursor-pointer">
                               <Label>{t("LimitOrderCard:editLabel")}</Label>
                             </span>
                           </PopoverTrigger>
                           <PopoverContent
-                            className="!bg-slate-950 border border-white/10 text-white"
-                            style={{ backgroundColor: "#020617" }}
+                            className="!bg-card border border-border text-foreground"
+
                           >
                             <Label>
                               {t("LimitOrderCard:sellTotal.provideNewLabel")}
@@ -1021,46 +1020,46 @@ export default function LimitOrderCard(properties) {
                       <SelectTrigger className="mb-1">
                         <SelectValue placeholder="1hr" />
                       </SelectTrigger>
-                      <SelectContent className="!bg-slate-950 border border-white/10 text-white">
+                      <SelectContent className="!bg-card border border-border text-foreground">
                         <SelectItem
                           value="1hr"
-                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                          className="text-foreground/85 focus:bg-accent/50 focus:text-foreground data-[highlighted]:bg-accent/50"
                         >
                           {t("LimitOrderCard:expiry.1hr")}
                         </SelectItem>
                         <SelectItem
                           value="12hr"
-                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                          className="text-foreground/85 focus:bg-accent/50 focus:text-foreground data-[highlighted]:bg-accent/50"
                         >
                           {t("LimitOrderCard:expiry.12hr")}
                         </SelectItem>
                         <SelectItem
                           value="24hr"
-                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                          className="text-foreground/85 focus:bg-accent/50 focus:text-foreground data-[highlighted]:bg-accent/50"
                         >
                           {t("LimitOrderCard:expiry.24hr")}
                         </SelectItem>
                         <SelectItem
                           value="7d"
-                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                          className="text-foreground/85 focus:bg-accent/50 focus:text-foreground data-[highlighted]:bg-accent/50"
                         >
                           {t("LimitOrderCard:expiry.7d")}
                         </SelectItem>
                         <SelectItem
                           value="30d"
-                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                          className="text-foreground/85 focus:bg-accent/50 focus:text-foreground data-[highlighted]:bg-accent/50"
                         >
                           {t("LimitOrderCard:expiry.30d")}
                         </SelectItem>
                         <SelectItem
                           value="specific"
-                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                          className="text-foreground/85 focus:bg-accent/50 focus:text-foreground data-[highlighted]:bg-accent/50"
                         >
                           {t("LimitOrderCard:expiry.specific")}
                         </SelectItem>
                         <SelectItem
                           value="fkill"
-                          className="text-white/85 focus:bg-white/[0.06] focus:text-white data-[highlighted]:bg-white/[0.06]"
+                          className="text-foreground/85 focus:bg-accent/50 focus:text-foreground data-[highlighted]:bg-accent/50"
                         >
                           {t("LimitOrderCard:expiry.fkill")}
                         </SelectItem>
@@ -1073,8 +1072,8 @@ export default function LimitOrderCard(properties) {
                             <Button
                               variant={"outline"}
                               className={cn(
-                                "w-[240px] justify-start text-left font-normal border-white/10 bg-white/[0.04] text-white/85 hover:bg-white/[0.08] hover:text-white hover:border-white/20",
-                                !date && "text-white/45"
+                                "w-[240px] justify-start text-left font-normal border-border bg-accent/40 text-foreground/85 hover:bg-accent/60 hover:text-accent-foreground hover:border-accent/50 dark:hover:border-white/20",
+                                !date && "text-muted-foreground/70"
                               )}
                             >
                               <CalendarIcon className="mr-2 h-4 w-4" />
@@ -1124,7 +1123,7 @@ export default function LimitOrderCard(properties) {
                 )}
               />
 
-              <Separator className="mb-1 mt-1 bg-white/[0.06]" />
+              <Separator className="mb-1 mt-1 bg-accent/50" />
 
               <Controller
                 name="osoValue"
@@ -1136,7 +1135,7 @@ export default function LimitOrderCard(properties) {
                         "flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5 transition-colors cursor-pointer",
                         osoEnabled
                           ? "border-cyan-500/30 bg-cyan-500/[0.06]"
-                          : "border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04]"
+                          : "border-border/60 bg-accent/20 hover:bg-accent/40"
                       )}
                       onClick={() => {
                         const next = !osoEnabled;
@@ -1151,18 +1150,18 @@ export default function LimitOrderCard(properties) {
                             "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border",
                             osoEnabled
                               ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-300"
-                              : "border-white/10 bg-white/[0.04] text-white/45"
+                              : "border-border bg-accent/40 text-muted-foreground/70"
                           )}
                         >
                           <Zap className="h-3.5 w-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-medium leading-none text-white/90">
+                          <p className="text-sm font-medium leading-none text-foreground/90">
                             {osoEnabled
                               ? t("LimitOrderCard:osoValue.enabled")
                               : t("LimitOrderCard:osoValue.enable")}
                           </p>
-                          <p className="text-[11px] text-white/45 mt-0.5 truncate">
+                          <p className="text-[11px] text-muted-foreground/70 mt-0.5 truncate">
                             {t("LimitOrderCard:osoValue.description")}
                           </p>
                         </div>
@@ -1171,8 +1170,8 @@ export default function LimitOrderCard(properties) {
                         className={cn(
                           "h-5 w-5 shrink-0 rounded-sm border flex items-center justify-center transition-colors",
                           osoEnabled
-                            ? "border-cyan-400 bg-cyan-500 text-white"
-                            : "border-white/20 bg-transparent"
+                            ? "border-cyan-400 bg-cyan-500 text-foreground"
+                            : "border-accent/50 dark:border-white/20 bg-transparent"
                         )}
                       >
                         {osoEnabled && <Check className="h-3 w-3" />}
@@ -1230,14 +1229,14 @@ export default function LimitOrderCard(properties) {
                                   onClick={() => {
                                     event.preventDefault();
                                   }}
-                                  className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer"
+                                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-accent/40 hover:bg-accent/60 hover:border-accent/50 dark:hover:border-white/20 px-3 py-1.5 text-xs font-medium text-foreground/70 hover:text-accent-foreground transition-all cursor-pointer"
                                 >
                                   <Label>{t("LimitOrderCard:editLabel")}</Label>
                                 </span>
                               </PopoverTrigger>
                               <PopoverContent
-                            className="!bg-slate-950 border border-white/10 text-white"
-                            style={{ backgroundColor: "#020617" }}
+                            className="!bg-card border border-border text-foreground"
+
                           >
                                 <Label>
                                   {t(
@@ -1313,14 +1312,14 @@ export default function LimitOrderCard(properties) {
                                   onClick={() => {
                                     event.preventDefault();
                                   }}
-                                  className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-3 py-1.5 text-xs font-medium text-white/70 hover:text-white transition-all cursor-pointer"
+                                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-accent/40 hover:bg-accent/60 hover:border-accent/50 dark:hover:border-white/20 px-3 py-1.5 text-xs font-medium text-foreground/70 hover:text-accent-foreground transition-all cursor-pointer"
                                 >
                                   <Label>{t("LimitOrderCard:editLabel")}</Label>
                                 </span>
                               </PopoverTrigger>
                               <PopoverContent
-                            className="!bg-slate-950 border border-white/10 text-white"
-                            style={{ backgroundColor: "#020617" }}
+                            className="!bg-card border border-border text-foreground"
+
                           >
                                 <Label>
                                   {t(
@@ -1493,8 +1492,8 @@ export default function LimitOrderCard(properties) {
                   )}
                 >
                   <div className="flex items-center gap-2 min-w-0">
-                    <ArrowRight className="h-3.5 w-3.5 text-white/40 shrink-0" />
-                    <span className="text-xs text-white/70 truncate">
+                    <ArrowRight className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                    <span className="text-xs text-foreground/70 truncate">
                       {isBuy
                         ? t("LimitOrderCard:headerText.buying", {
                             amount: parseFloat(amount).toFixed(
@@ -1529,7 +1528,7 @@ export default function LimitOrderCard(properties) {
                     </span>
                   </div>
                   <Button
-                    className="h-12 text-white font-semibold bg-gradient-to-r from-white/10 to-white/5 cursor-not-allowed opacity-60"
+                    className="h-12 dark:text-white text-muted-foreground font-semibold bg-gradient-to-r dark:from-white/10 dark:to-white/5 from-slate-200 to-slate-100 cursor-not-allowed opacity-60"
                     disabled
                     type="submit"
                   >
@@ -1547,7 +1546,7 @@ export default function LimitOrderCard(properties) {
                   </div>
                   <Button
                     className={cn(
-                      "h-12 gap-2 text-white font-semibold",
+                      "h-12 gap-2 text-foreground font-semibold",
                       "bg-gradient-to-r shadow-lg shadow-black/30",
                       accent.gradient,
                       "hover:brightness-110 active:scale-[0.99] transition-all"
@@ -1570,7 +1569,7 @@ export default function LimitOrderCard(properties) {
                     <div className="mt-1">
                       {t("LimitOrderCard:sellPrice.label")}
                     </div>
-                    <div className="text-gray-500 text-right">
+                    <div className="text-muted-foreground text-right">
                       <span variant="link">
                         <Badge>
                           {t("LimitOrderCard:sellPrice.useLowestAsk")}
@@ -1580,7 +1579,7 @@ export default function LimitOrderCard(properties) {
                   </div>
                 </FieldLabel>
 
-                <Input disabled className="mb-1 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
+                <Input disabled className="mb-1 bg-accent/40 border-border disabled:opacity-100 placeholder:text-muted-foreground" />
                 <FieldDescription>
                   {t("LimitOrderCard:sellPrice.description")}
                 </FieldDescription>
@@ -1592,7 +1591,7 @@ export default function LimitOrderCard(properties) {
                     <div className="mt-1">
                       {t("LimitOrderCard:sellAmount2.label")}
                     </div>
-                    <div className="text-gray-500 text-right">
+                    <div className="text-muted-foreground text-right">
                       {orderType === "sell" && assetABalance ? (
                         <Badge>{t("LimitOrderCard:useBalance")}</Badge>
                       ) : null}
@@ -1604,7 +1603,7 @@ export default function LimitOrderCard(properties) {
                     ? t("LimitOrderCard:sellAmount2.buyDescription")
                     : t("LimitOrderCard:sellAmount2.sellDescription")}
                 </FieldDescription>
-                <Input disabled className="mb-1 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
+                <Input disabled className="mb-1 bg-accent/40 border-border disabled:opacity-100 placeholder:text-muted-foreground" />
               </Field>
 
               <Field>
@@ -1613,7 +1612,7 @@ export default function LimitOrderCard(properties) {
                     <div className="mt-1">
                       {t("LimitOrderCard:sellTotal2.label")}
                     </div>
-                    <div className="text-gray-500 text-right">
+                    <div className="text-muted-foreground text-right">
                       {orderType === "buy" && assetBBalance ? (
                         <Badge>{t("LimitOrderCard:useBalance")}</Badge>
                       ) : null}
@@ -1625,7 +1624,7 @@ export default function LimitOrderCard(properties) {
                     ? t("LimitOrderCard:sellTotal2.buyDescription")
                     : t("LimitOrderCard:sellTotal2.sellDescription")}
                 </FieldDescription>
-                <Input disabled className="mb-1 bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35" />
+                <Input disabled className="mb-1 bg-accent/40 border-border disabled:opacity-100 placeholder:text-muted-foreground" />
               </Field>
 
               <Field>
@@ -1645,7 +1644,7 @@ export default function LimitOrderCard(properties) {
                 <Input
                   disabled
                   label={t("LimitOrderCard:fee.label")}
-                  className="bg-white/[0.04] border-white/10 disabled:opacity-100 placeholder:text-white/35"
+                  className="bg-accent/40 border-border disabled:opacity-100 placeholder:text-muted-foreground"
                 />
                 <FieldDescription>
                   {t("LimitOrderCard:fee.description")}
@@ -1668,7 +1667,7 @@ export default function LimitOrderCard(properties) {
 
               <Button
                 disabled
-                className="mt-6 mb-1 w-full h-12 text-white font-semibold bg-gradient-to-r from-white/10 to-white/5 cursor-not-allowed opacity-60"
+                className="mt-6 mb-1 w-full h-12 dark:text-white text-muted-foreground font-semibold bg-gradient-to-r dark:from-white/10 dark:to-white/5 from-slate-200 to-slate-100 cursor-not-allowed opacity-60"
                 type="submit"
               >
                 <Zap className="h-4 w-4 mr-2" />

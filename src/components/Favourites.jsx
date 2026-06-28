@@ -86,7 +86,7 @@ function RemoveButton({ onClick, label }) {
             size="icon"
             aria-label={label}
             onClick={onClick}
-            className="h-8 w-8 rounded-full text-white/30 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+            className="h-8 w-8 rounded-full text-muted-foreground/60 hover:text-red-400 hover:bg-red-500/10 transition-colors"
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -101,7 +101,7 @@ function RemoveButton({ onClick, label }) {
 
 function ActionPill({ href, icon: Icon, children, accent = "slate" }) {
   const palette = {
-    slate: "border-white/[0.12] text-white/70 hover:bg-white/[0.08] hover:text-white",
+    slate: "border-border text-foreground/70 hover:bg-accent/60 hover:text-accent-foreground",
     emerald: "border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10",
   }[accent];
 
@@ -385,8 +385,8 @@ export default function Favourites(properties) {
     const renderCard = (layout) => {
       const isStacked = layout === "stacked";
       const cardCls = isStacked
-        ? "mb-3 group bg-slate-900/60 border border-amber-500/15 hover:border-amber-500/30 hover:bg-amber-500/[0.03] hover:shadow-md hover:shadow-amber-500/5 transition-all rounded-xl block md:hidden"
-        : "mb-3 group bg-slate-900/60 border border-amber-500/15 hover:border-amber-500/30 hover:bg-amber-500/[0.03] hover:shadow-md hover:shadow-amber-500/5 transition-all rounded-xl hidden md:block";
+        ? "mb-3 group bg-card/60 border border-amber-500/15 hover:border-amber-500/30 hover:bg-amber-500/[0.03] hover:shadow-md hover:shadow-amber-500/5 transition-all rounded-xl block md:hidden"
+        : "mb-3 group bg-card/60 border border-amber-500/15 hover:border-amber-500/30 hover:bg-amber-500/[0.03] hover:shadow-md hover:shadow-amber-500/5 transition-all rounded-xl hidden md:block";
       const headerCls = isStacked
         ? "px-4 py-4"
         : "px-4 py-4 flex flex-row items-center justify-between gap-3";
@@ -395,13 +395,13 @@ export default function Favourites(properties) {
         <Card className={cardCls}>
           <CardHeader className={headerCls}>
             <div className="space-y-1 min-w-0">
-              <CardTitle className="text-base text-white truncate">
+              <CardTitle className="text-base text-foreground truncate">
                 <span className="font-semibold">{item.symbol}</span>
-                <span className="ml-2 text-xs font-mono font-normal text-white/30">
+                <span className="ml-2 text-xs font-mono font-normal text-muted-foreground/60">
                   {item.id}
                 </span>
               </CardTitle>
-              <CardDescription className="text-xs text-white/40 truncate">
+              <CardDescription className="text-xs text-muted-foreground truncate">
                 {issuerName || item.issuer}
               </CardDescription>
             </div>
@@ -428,7 +428,7 @@ export default function Favourites(properties) {
                   priceFeederAccounts={priceFeederAccounts}
                   buttonVariant="outline"
                   buttonSize="sm"
-                  className="border-white/[0.12] text-white/60 hover:bg-white/[0.08] hover:text-white"
+                  className="border-border text-muted-foreground hover:bg-accent/60 hover:text-accent-foreground"
                 />
               ) : null}
 
@@ -453,20 +453,20 @@ export default function Favourites(properties) {
   };
 
   return (
-    <div className="container mx-auto mt-5 mb-10 max-w-4xl text-white">
-      <Card className="mb-8 rounded-xl overflow-hidden bg-slate-900/60 border-white/[0.08]">
+    <div className="container mx-auto mt-5 mb-10 max-w-4xl text-foreground">
+      <Card className="mb-8 rounded-xl overflow-hidden bg-card/60 border-border">
         <div className="h-1 w-full bg-gradient-to-r from-amber-500 to-yellow-500" />
-        <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-white/[0.03] border-b border-white/[0.06]">
+        <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-accent/30 dark:bg-white/[0.05] border-b border-border/60">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-lg bg-amber-500/15 border border-amber-500/25 flex items-center justify-center">
               <Star className="h-4 w-4 text-amber-400" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold tracking-tight text-white">
+              <CardTitle className="text-xl font-bold tracking-tight text-foreground">
                 {t("Favourites:assetsHeader")}
               </CardTitle>
               {chainFavourites && chainFavourites.length ? (
-                <p className="text-xs text-white/40 mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   {chainFavourites.length}
                 </p>
               ) : null}
@@ -496,7 +496,7 @@ export default function Favourites(properties) {
                   {[0, 1, 2].map((i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-3 p-4 rounded-xl border border-white/[0.08] bg-white/[0.03]"
+                      className="flex items-center gap-3 p-4 rounded-xl border border-border bg-accent/30 dark:bg-white/[0.05]"
                     >
                       <Skeleton className="h-5 w-24" />
                       <Skeleton className="h-3 w-40 flex-1" />
@@ -530,8 +530,8 @@ export default function Favourites(properties) {
             <Empty className="mt-2 border border-dashed border-amber-500/20 rounded-xl bg-amber-500/[0.03]">
               <EmptyHeader>
                 <EmptyMedia variant="icon" className="bg-amber-500/15 text-amber-400"><Star className="w-6 h-6" /></EmptyMedia>
-                <EmptyTitle className="text-white/80">{t("Favourites:assetsEmptyTitle")}</EmptyTitle>
-                <EmptyDescription className="text-white/40">
+                <EmptyTitle className="text-foreground/80">{t("Favourites:assetsEmptyTitle")}</EmptyTitle>
+                <EmptyDescription className="text-muted-foreground">
                   {t("Favourites:assetsEmptyDescription")}
                 </EmptyDescription>
               </EmptyHeader>
@@ -540,19 +540,19 @@ export default function Favourites(properties) {
         </CardContent>
       </Card>
 
-      <Card className="mb-8 rounded-xl overflow-hidden bg-slate-900/60 border-white/[0.08]">
+      <Card className="mb-8 rounded-xl overflow-hidden bg-card/60 border-border">
         <div className="h-1 w-full bg-gradient-to-r from-cyan-500 to-sky-500" />
-        <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-white/[0.03] border-b border-white/[0.06]">
+        <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-accent/30 dark:bg-white/[0.05] border-b border-border/60">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-lg bg-cyan-500/15 border border-cyan-500/25 flex items-center justify-center">
               <ArrowLeftRight className="h-4 w-4 text-cyan-400" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold tracking-tight text-white">
+              <CardTitle className="text-xl font-bold tracking-tight text-foreground">
                 {t("Favourites:pairsHeader")}
               </CardTitle>
               {chainPairs && chainPairs.length ? (
-                <p className="text-xs text-white/40 mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   {chainPairs.length}
                 </p>
               ) : null}
@@ -567,7 +567,7 @@ export default function Favourites(properties) {
                 {t("Favourites:addPair")}
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[560px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+            <DialogContent className="sm:max-w-[560px]">
               <DialogHeader>
                 <DialogTitle>{t("Favourites:addPairDialogTitle")}</DialogTitle>
                 <DialogDescription>
@@ -609,7 +609,7 @@ export default function Favourites(properties) {
                 />
               </div>
               <div className="mt-4 flex items-center justify-between">
-                <div className="text-sm text-white/50">
+                <div className="text-sm text-muted-foreground">
                   <span className="mr-3">
                     {t("Favourites:selectBase")}:
                     <strong className="ml-1">{pairBaseSelection || "—"}</strong>
@@ -624,7 +624,7 @@ export default function Favourites(properties) {
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
-                    className="border-white/[0.12] text-white/60 hover:bg-white/[0.08]"
+                    className="border-border text-muted-foreground hover:bg-accent/60"
                     onClick={() => {
                       setPairBaseSelection(undefined);
                       setPairQuoteSelection(undefined);
@@ -667,10 +667,10 @@ export default function Favourites(properties) {
                     if (!pair) return null;
                     return (
                       <div style={{ ...style, paddingRight: "10px" }}>
-                        <Card className="mb-3 group bg-slate-900/60 border border-cyan-500/15 hover:border-cyan-500/30 hover:bg-cyan-500/[0.03] hover:shadow-md transition-all rounded-xl">
+                        <Card className="mb-3 group bg-card/60 border border-cyan-500/15 hover:border-cyan-500/30 hover:bg-cyan-500/[0.03] hover:shadow-md transition-all rounded-xl">
                           <CardHeader className="px-4 py-4">
                             <div className="space-y-1">
-                              <CardTitle className="text-base text-white font-semibold">
+                              <CardTitle className="text-base text-foreground font-semibold">
                                 {pair}
                               </CardTitle>
                             </div>
@@ -709,10 +709,10 @@ export default function Favourites(properties) {
                     if (!pair) return null;
                     return (
                       <div style={{ ...style, paddingRight: "10px" }}>
-                        <Card className="mb-3 group bg-slate-900/60 border border-cyan-500/15 hover:border-cyan-500/30 hover:bg-cyan-500/[0.03] hover:shadow-md transition-all rounded-xl">
+                        <Card className="mb-3 group bg-card/60 border border-cyan-500/15 hover:border-cyan-500/30 hover:bg-cyan-500/[0.03] hover:shadow-md transition-all rounded-xl">
                           <CardHeader className="px-4 py-4 flex flex-row items-center justify-between gap-3">
                             <div className="space-y-1">
-                              <CardTitle className="text-base text-white font-semibold">
+                              <CardTitle className="text-base text-foreground font-semibold">
                                 {pair}
                               </CardTitle>
                             </div>
@@ -748,8 +748,8 @@ export default function Favourites(properties) {
             <Empty className="mt-2 border border-dashed border-cyan-500/20 rounded-xl bg-cyan-500/[0.03]">
               <EmptyHeader>
                 <EmptyMedia variant="icon" className="bg-cyan-500/15 text-cyan-400"><ArrowLeftRight className="w-6 h-6" /></EmptyMedia>
-                <EmptyTitle className="text-white/80">{t("Favourites:pairsEmptyTitle")}</EmptyTitle>
-                <EmptyDescription className="text-white/40">
+                <EmptyTitle className="text-foreground/80">{t("Favourites:pairsEmptyTitle")}</EmptyTitle>
+                <EmptyDescription className="text-muted-foreground">
                   {t("Favourites:pairsEmptyDescription")}
                 </EmptyDescription>
               </EmptyHeader>
@@ -758,19 +758,19 @@ export default function Favourites(properties) {
         </CardContent>
       </Card>
 
-      <Card className="rounded-xl overflow-hidden bg-slate-900/60 border-white/[0.08]">
+      <Card className="rounded-xl overflow-hidden bg-card/60 border-border">
         <div className="h-1 w-full bg-gradient-to-r from-sky-500 to-blue-500" />
-        <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-white/[0.03] border-b border-white/[0.06]">
+        <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-accent/30 dark:bg-white/[0.05] border-b border-border/60">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-lg bg-sky-500/15 border border-sky-500/25 flex items-center justify-center">
               <Send className="h-4 w-4 text-sky-400" />
             </div>
             <div>
-              <CardTitle className="text-xl font-bold tracking-tight text-white">
+              <CardTitle className="text-xl font-bold tracking-tight text-foreground">
                 {t("Favourites:usersHeader")}
               </CardTitle>
               {favouriteUsers && (favouriteUsers[_chain] ?? []).length ? (
-                <p className="text-xs text-white/40 mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   {favouriteUsers[_chain].length}
                 </p>
               ) : null}
@@ -785,7 +785,7 @@ export default function Favourites(properties) {
                 {t("Favourites:addUser")}
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[420px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+            <DialogContent className="sm:max-w-[420px]">
               <DialogHeader>
                 <DialogTitle>{t("Favourites:addUserDialogTitle")}</DialogTitle>
                 <DialogDescription>
@@ -810,12 +810,12 @@ export default function Favourites(properties) {
                     if (!user) return null;
                     return (
                       <div style={{ ...style, paddingRight: "10px" }}>
-                        <Card className="mb-3 group bg-slate-900/60 border border-sky-500/15 hover:border-sky-500/30 hover:bg-sky-500/[0.03] hover:shadow-md transition-all rounded-xl">
+                        <Card className="mb-3 group bg-card/60 border border-sky-500/15 hover:border-sky-500/30 hover:bg-sky-500/[0.03] hover:shadow-md transition-all rounded-xl">
                           <CardHeader className="px-4 py-4">
                             <div className="space-y-1 min-w-0">
-                              <CardTitle className="text-base text-white truncate">
+                              <CardTitle className="text-base text-foreground truncate">
                                 <span className="font-semibold">{user.name}</span>
-                                <span className="ml-2 text-xs font-mono font-normal text-white/30">
+                                <span className="ml-2 text-xs font-mono font-normal text-muted-foreground/60">
                                   {user.id}
                                 </span>
                               </CardTitle>
@@ -857,12 +857,12 @@ export default function Favourites(properties) {
                     if (!user) return null;
                     return (
                       <div style={{ ...style, paddingRight: "10px" }}>
-                        <Card className="mb-3 group bg-slate-900/60 border border-sky-500/15 hover:border-sky-500/30 hover:bg-sky-500/[0.03] hover:shadow-md transition-all rounded-xl">
+                        <Card className="mb-3 group bg-card/60 border border-sky-500/15 hover:border-sky-500/30 hover:bg-sky-500/[0.03] hover:shadow-md transition-all rounded-xl">
                           <CardHeader className="px-4 py-4 flex flex-row items-center justify-between gap-3">
                             <div className="space-y-1 min-w-0">
-                              <CardTitle className="text-base text-white truncate">
+                              <CardTitle className="text-base text-foreground truncate">
                                 <span className="font-semibold">{user.name}</span>
-                                <span className="ml-2 text-xs font-mono font-normal text-white/30">
+                                <span className="ml-2 text-xs font-mono font-normal text-muted-foreground/60">
                                   {user.id}
                                 </span>
                               </CardTitle>
@@ -901,8 +901,8 @@ export default function Favourites(properties) {
             <Empty className="mt-2 border border-dashed border-sky-500/20 rounded-xl bg-sky-500/[0.03]">
               <EmptyHeader>
                 <EmptyMedia variant="icon" className="bg-sky-500/15 text-sky-400"><Send className="w-6 h-6" /></EmptyMedia>
-                <EmptyTitle className="text-white/80">{t("Favourites:usersEmptyTitle")}</EmptyTitle>
-                <EmptyDescription className="text-white/40">
+                <EmptyTitle className="text-foreground/80">{t("Favourites:usersEmptyTitle")}</EmptyTitle>
+                <EmptyDescription className="text-muted-foreground">
                   {t("Favourites:usersEmptyDescription")}
                 </EmptyDescription>
               </EmptyHeader>

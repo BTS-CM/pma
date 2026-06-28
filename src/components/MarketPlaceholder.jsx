@@ -23,7 +23,7 @@ function PlaceholderCard({ children, className, accent }) {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-xl shadow-black/30",
+        "relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl shadow-xl shadow-black/30",
         className,
       )}
     >
@@ -68,11 +68,11 @@ export default function MarketPlaceholder(properties) {
           <PlaceholderCard className="mb-5" accent="from-cyan-400/70">
             <div className="relative p-4 sm:p-5">
               <div className="flex items-center justify-between gap-3 mb-3">
-                <h3 className="text-sm font-semibold text-white/30 tracking-tight">
+                <h3 className="text-sm font-semibold text-muted-foreground/60 tracking-tight">
                   {usr.chain === "bitshares"
                     ? "Bitshares"
                     : "Bitshares (Testnet)"}
-                  <span className="text-white/20 mx-1">·</span>
+                  <span className="text-muted-foreground/40 mx-1">·</span>
                   <span className="font-normal">DEX Market controls</span>
                 </h3>
               </div>
@@ -80,21 +80,21 @@ export default function MarketPlaceholder(properties) {
                 <Button
                   variant="outline"
                   disabled
-                  className="h-8 border-white/[0.08] bg-slate-950/40 text-white/40 text-xs"
+                  className="h-8 border-border bg-card/40 text-muted-foreground text-xs"
                 >
                   {assetA}
                 </Button>
                 <Button
                   variant="outline"
                   disabled
-                  className="h-8 border-white/[0.08] bg-slate-950/40 text-white/40"
+                  className="h-8 border-border bg-card/40 text-muted-foreground"
                 >
                   <ReloadIcon className="h-3 w-3" />
                 </Button>
                 <Button
                   variant="outline"
                   disabled
-                  className="h-8 border-white/[0.08] bg-slate-950/40 text-white/40 text-xs"
+                  className="h-8 border-border bg-card/40 text-muted-foreground text-xs"
                 >
                   {assetB}
                 </Button>
@@ -104,10 +104,10 @@ export default function MarketPlaceholder(properties) {
 
           {/* Buy / Sell pill toggle */}
           <div className="flex gap-2 mb-4">
-            <div className="rounded-full border border-white/10 bg-slate-950/80 px-5 py-1.5 text-xs font-medium text-white/25 cursor-default">
+            <div className="rounded-full border border-border bg-card/80 px-5 py-1.5 text-xs font-medium text-muted-foreground/50 cursor-default">
               {t("MarketPlaceholder:buyTab")}
             </div>
-            <div className="rounded-full border border-white/10 bg-slate-950/80 px-5 py-1.5 text-xs font-medium text-white/25 cursor-default">
+            <div className="rounded-full border border-border bg-card/80 px-5 py-1.5 text-xs font-medium text-muted-foreground/50 cursor-default">
               {t("MarketPlaceholder:sellTab")}
             </div>
           </div>
@@ -116,10 +116,10 @@ export default function MarketPlaceholder(properties) {
           <PlaceholderCard>
             <div className="relative p-4 sm:p-5 space-y-4">
               <div>
-                <h4 className="text-sm font-semibold text-white/30">
+                <h4 className="text-sm font-semibold text-muted-foreground/60">
                   {t("MarketPlaceholder:marketLimitOrderFormTitle")}
                 </h4>
-                <p className="text-xs text-white/20 mt-0.5">
+                <p className="text-xs text-muted-foreground/40 mt-0.5">
                   {t("MarketPlaceholder:marketLimitOrderFormDescription")}
                 </p>
               </div>
@@ -127,13 +127,13 @@ export default function MarketPlaceholder(properties) {
               {/* Price */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[11px] font-medium uppercase tracking-wider text-white/35">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                     {t("MarketPlaceholder:priceLabel")}
                   </span>
-                  <span className="text-[10px] text-white/20">?</span>
+                  <span className="text-[10px] text-muted-foreground/40">?</span>
                 </div>
                 <SkeletonBar className="h-9" />
-                <p className="text-[10px] text-white/20 mt-1">
+                <p className="text-[10px] text-muted-foreground/40 mt-1">
                   {t("MarketPlaceholder:pricePerAsset")}
                 </p>
               </div>
@@ -141,13 +141,13 @@ export default function MarketPlaceholder(properties) {
               {/* Amount */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[11px] font-medium uppercase tracking-wider text-white/35">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                     {t("MarketPlaceholder:amountLabel")}
                   </span>
-                  <span className="text-[10px] text-white/20">?</span>
+                  <span className="text-[10px] text-muted-foreground/40">?</span>
                 </div>
                 <SkeletonBar className="h-9" />
-                <p className="text-[10px] text-white/20 mt-1">
+                <p className="text-[10px] text-muted-foreground/40 mt-1">
                   {t("MarketPlaceholder:amountDescription")}
                 </p>
               </div>
@@ -155,35 +155,35 @@ export default function MarketPlaceholder(properties) {
               {/* Total */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[11px] font-medium uppercase tracking-wider text-white/35">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                     {t("MarketPlaceholder:totalLabel")}
                   </span>
-                  <span className="text-[10px] text-white/20">?</span>
+                  <span className="text-[10px] text-muted-foreground/40">?</span>
                 </div>
                 <SkeletonBar className="h-9" />
-                <p className="text-[10px] text-white/20 mt-1">
+                <p className="text-[10px] text-muted-foreground/40 mt-1">
                   {t("MarketPlaceholder:totalDescription")}
                 </p>
               </div>
 
               {/* Expiration */}
               <div>
-                <span className="text-[11px] font-medium uppercase tracking-wider text-white/35 block mb-1.5">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground block mb-1.5">
                   {t("MarketPlaceholder:expirationLabel")}
                 </span>
                 <SkeletonBar className="h-9" />
-                <p className="text-[10px] text-white/20 mt-1">
+                <p className="text-[10px] text-muted-foreground/40 mt-1">
                   {t("MarketPlaceholder:expirationDescription")}
                 </p>
               </div>
 
               {/* Fee */}
               <div>
-                <span className="text-[11px] font-medium uppercase tracking-wider text-white/35 block mb-1.5">
+                <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground block mb-1.5">
                   {t("MarketPlaceholder:feeLabel")}
                 </span>
                 <SkeletonBar className="h-9" />
-                <p className="text-[10px] text-white/20 mt-1">
+                <p className="text-[10px] text-muted-foreground/40 mt-1">
                   {t("MarketPlaceholder:feeDescription")}
                 </p>
               </div>
@@ -192,7 +192,7 @@ export default function MarketPlaceholder(properties) {
               <Button
                 disabled
                 variant="outline"
-                className="w-full border-white/[0.08] bg-slate-950/40 text-white/25 cursor-default"
+                className="w-full border-border bg-card/40 text-muted-foreground/50 cursor-default"
               >
                 {t("MarketPlaceholder:submitButton")}
               </Button>
@@ -207,12 +207,12 @@ export default function MarketPlaceholder(properties) {
             <div className="relative p-4 sm:p-5">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-base sm:text-lg font-semibold text-white/40 tracking-tight">
+                  <h3 className="text-base sm:text-lg font-semibold text-muted-foreground tracking-tight">
                     {assetAData ? assetAData.id : "1.3.x"}
                   </h3>
-                  <div className="text-xs text-white/25 mt-0.5">
+                  <div className="text-xs text-muted-foreground/50 mt-0.5">
                     {assetA}
-                    <span className="text-white/20 mx-1">·</span>
+                    <span className="text-muted-foreground/40 mx-1">·</span>
                     <span>{t("Market:quoteAsset")}</span>
                   </div>
                 </div>
@@ -231,12 +231,12 @@ export default function MarketPlaceholder(properties) {
             <div className="relative p-4 sm:p-5">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-base sm:text-lg font-semibold text-white/40 tracking-tight">
+                  <h3 className="text-base sm:text-lg font-semibold text-muted-foreground tracking-tight">
                     {assetBData ? assetBData.id : "1.3.x"}
                   </h3>
-                  <div className="text-xs text-white/25 mt-0.5">
+                  <div className="text-xs text-muted-foreground/50 mt-0.5">
                     {assetB}
-                    <span className="text-white/20 mx-1">·</span>
+                    <span className="text-muted-foreground/40 mx-1">·</span>
                     <span>{t("Market:baseAsset")}</span>
                   </div>
                 </div>
@@ -253,10 +253,10 @@ export default function MarketPlaceholder(properties) {
           {/* Market summary card */}
           <PlaceholderCard>
             <div className="relative p-4 sm:p-5">
-              <h3 className="text-base sm:text-lg font-semibold text-white/40 tracking-tight">
+              <h3 className="text-base sm:text-lg font-semibold text-muted-foreground tracking-tight">
                 {t("MarketPlaceholder:marketSummaryTitle")}
               </h3>
-              <p className="text-xs text-white/25 mt-0.5 mb-4">
+              <p className="text-xs text-muted-foreground/50 mt-0.5 mb-4">
                 {assetA} / {assetB}
               </p>
               <div className="space-y-2">

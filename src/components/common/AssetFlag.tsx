@@ -50,11 +50,11 @@ export default function AssetFlag({
       <HoverCard>
         <HoverCardTrigger>{children}</HoverCardTrigger>
         <HoverCardPortal>
-          <HoverCardContent className={"w-80 mt-1 bg-slate-950 border-white/10 text-white z-[9999]"} align="start">
+          <HoverCardContent className={"w-80 mt-1 bg-popover text-popover-foreground border-border z-[9999]"} align="start">
             <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
               {t("Predictions:about")}: {id}
             </h4>
-            <p className="leading-6 text-sm text-white/70 [&:not(:first-child)]:mt-1">
+            <p className="leading-6 text-sm text-popover-foreground/70 [&:not(:first-child)]:mt-1">
               {alreadyDisabled || !flag ? disabledInfo : enabledInfo}
             </p>
           </HoverCardContent>
@@ -86,7 +86,7 @@ export default function AssetFlag({
         )}
       </span>
 
-      <span className="col-span-10 text-white/70">
+      <span className="col-span-10 text-foreground/70">
         <MakeHover>
           {alreadyDisabled ? (
             <Label htmlFor={id}>{disabledText}</Label>
@@ -96,7 +96,7 @@ export default function AssetFlag({
         </MakeHover>
       </span>
       <MakeHover>
-        <InfoCircledIcon className="text-white/40" />
+        <InfoCircledIcon className="text-muted-foreground/60" />
       </MakeHover>
     </span>
   );

@@ -194,7 +194,7 @@ export default function WaveBackground({ className = "", overrideSettings = null
 
   return (
     <svg
-      className={`pointer-events-none absolute inset-0 -z-10 h-full w-full ${className}`}
+      className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
       viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
       preserveAspectRatio="none"
       aria-hidden="true"
@@ -262,7 +262,7 @@ export default function WaveBackground({ className = "", overrideSettings = null
       </defs>
 
       {auroraMul > 0 && (
-        <g filter="url(#blur-huge)" style={{ mixBlendMode: "screen" }}>
+        <g filter="url(#blur-huge)" className="dark:mix-blend-screen mix-blend-normal">
           <ellipse cx="400" cy="150" rx="700" ry="240" fill="url(#auroraA)">
             <animate
               attributeName="cx"
@@ -291,7 +291,7 @@ export default function WaveBackground({ className = "", overrideSettings = null
       )}
 
       {particlesEnabled && (
-        <g style={{ mixBlendMode: "screen" }}>
+        <g className="dark:mix-blend-screen mix-blend-normal">
           {PARTICLES.map((p, i) => (
             <circle
               key={i}
@@ -322,7 +322,7 @@ export default function WaveBackground({ className = "", overrideSettings = null
         filter="url(#blur-strong)"
         strokeLinecap="round"
         mask="url(#fadeBandMask)"
-        style={{ mixBlendMode: "screen" }}
+        className="dark:mix-blend-screen mix-blend-normal"
       >
         {waves.map((w) => (
           <path

@@ -47,21 +47,21 @@ export default function JsonDetailsDialog({
         onOpenChange(isOpen);
       }}
     >
-      <DialogContent className="sm:max-w-[750px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+      <DialogContent className="sm:max-w-[750px]">
         <DialogHeader>
-          <DialogTitle className="text-white">{resolvedTitle}</DialogTitle>
+          <DialogTitle>{resolvedTitle}</DialogTitle>
           {resolvedDescription ? (
-            <DialogDescription className="text-white/60">{resolvedDescription}</DialogDescription>
+            <DialogDescription className="text-muted-foreground">{resolvedDescription}</DialogDescription>
           ) : null}
         </DialogHeader>
         <Textarea
           value={jsonString}
           readOnly={true}
           rows={15}
-          className="font-mono text-xs bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
+          className="font-mono text-xs bg-accent/30 dark:bg-white/[0.05] border-border text-foreground placeholder:text-muted-foreground/60"
         />
         <Button
-          className="w-1/4 mt-2 bg-white/10 hover:bg-white/15 text-white border-white/[0.08]"
+          className="w-1/4 mt-2 bg-accent/40 hover:bg-accent/60 text-foreground border-border"
           onClick={async () => {
             try {
               await navigator.clipboard.writeText(jsonString);

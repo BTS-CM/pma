@@ -20,7 +20,7 @@ export function DetailsTab({ res, house, cleanedDescription, _issuer_permissions
                     <QuestionMarkCircledIcon className="h-3 w-3" />
                   </span>
                 </HoverCardTrigger>
-                <HoverCardContent className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]" align="start">
+                <HoverCardContent className="w-80 mt-1 bg-card border-border text-foreground z-[9999]" align="start">
                   {Object.keys(_issuer_permissions).join(", ")}
                 </HoverCardContent>
               </HoverCard>
@@ -38,7 +38,7 @@ export function DetailsTab({ res, house, cleanedDescription, _issuer_permissions
                     <QuestionMarkCircledIcon className="h-3 w-3" />
                   </span>
                 </HoverCardTrigger>
-                <HoverCardContent className="w-80 mt-1 bg-slate-950 border-white/[0.08] text-white z-[9999]" align="start">
+                <HoverCardContent className="w-80 mt-1 bg-card border-border text-foreground z-[9999]" align="start">
                   {Object.keys(_flags).join(", ")}
                 </HoverCardContent>
               </HoverCard>
@@ -46,22 +46,22 @@ export function DetailsTab({ res, house, cleanedDescription, _issuer_permissions
           }
         />
       </div>
-      <div className="rounded-md border border-white/10 bg-white/5 p-3 text-xs">
+      <div className="rounded-md border border-border bg-accent/30 dark:bg-white/5 p-3 text-xs">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <div>
-            <div className="text-[11px] uppercase tracking-wide text-white/60">{t("Predictions:details.assetId")}</div>
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">{t("Predictions:details.assetId")}</div>
             <MonoBlock value={res.id} copyable label={t("Predictions:copyAssetId")} />
           </div>
           <div>
-            <div className="text-[11px] uppercase tracking-wide text-white/60">{t("Predictions:details.issuer")}</div>
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">{t("Predictions:details.issuer")}</div>
             <MonoBlock value={house} copyable label={t("Predictions:copyIssuerId")} />
           </div>
           <div>
-            <div className="text-[11px] uppercase tracking-wide text-white/60">{t("Predictions:details.precision")}</div>
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">{t("Predictions:details.precision")}</div>
             <span className="font-mono">{res.precision}</span>
           </div>
           <div>
-            <div className="text-[11px] uppercase tracking-wide text-white/60">{t("Predictions:details.maxSupply")}</div>
+            <div className="text-[11px] uppercase tracking-wide text-muted-foreground">{t("Predictions:details.maxSupply")}</div>
             <span className="font-mono">{humanReadableFloat(res.options.max_supply, res.precision)}</span>
           </div>
         </div>

@@ -18,12 +18,12 @@ export function FeedPriceDialog({ res, usr, _backingAssetID, isExpired, statusKe
     <Dialog open={priceFeedPrompt} onOpenChange={setPriceFeedPrompt}>
       <DialogTrigger asChild>
         {!canFeed ? (
-          <Button disabled className="bg-emerald-600 text-white cursor-not-allowed">{t("Predictions:feed")}</Button>
+          <Button disabled className="bg-emerald-600 text-foreground cursor-not-allowed">{t("Predictions:feed")}</Button>
         ) : (
-          <Button className="bg-emerald-600 hover:bg-emerald-700 text-white" onClick={() => setPriceFeedPrompt(true)}>{t("Predictions:feed")}</Button>
+          <Button className="bg-emerald-600 hover:bg-emerald-700 text-foreground" onClick={() => setPriceFeedPrompt(true)}>{t("Predictions:feed")}</Button>
         )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+      <DialogContent className="sm:max-w-[600px] bg-card border-border text-foreground shadow-2xl dark:shadow-black/40 shadow-black/15">
         <DialogHeader>
           <DialogTitle>{t("Predictions:feederDialog.title")}</DialogTitle>
           <DialogDescription>{t("Predictions:feederDialog.description")}</DialogDescription>

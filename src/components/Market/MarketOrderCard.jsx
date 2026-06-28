@@ -104,7 +104,7 @@ export default function MarketOrderCard(properties) {
               type="button"
               className={cn(
                 "group relative w-full text-left px-3 py-1.5 transition-colors",
-                "border-b border-white/[0.04] cursor-pointer",
+                "border-b border-border/40 cursor-pointer",
                 accent.bgHover
               )}
             >
@@ -124,15 +124,14 @@ export default function MarketOrderCard(properties) {
                 >
                   {price}
                 </div>
-                <div className="text-right text-white/80">{baseAmt}</div>
-                <div className="text-right text-white/60">{quoteAmt}</div>
-                <div className="text-right text-white/40">{cumulativeBase}</div>
+                <div className="text-right text-foreground/80">{baseAmt}</div>
+                <div className="text-right text-muted-foreground">{quoteAmt}</div>
+                <div className="text-right text-muted-foreground">{cumulativeBase}</div>
               </div>
             </button>
           </DialogTrigger>
           <DialogContent
-            className="sm:max-w-[640px] !bg-slate-950 border border-white/10 text-white"
-            style={{ backgroundColor: "#020617" }}
+            className="sm:max-w-[640px] !bg-card border border-border text-foreground"
           >
             <DialogHeader>
               <div className="flex items-center gap-2">
@@ -150,10 +149,10 @@ export default function MarketOrderCard(properties) {
                   )}
                 </div>
                 <div>
-                  <DialogTitle className="text-white">
+                  <DialogTitle>
                     {t("MarketOrderCard:proceedLimitOrderDataTitle")}
                   </DialogTitle>
-                  <DialogDescription className="text-white/60">
+                  <DialogDescription className="text-muted-foreground">
                     {t("MarketOrderCard:proceedLimitOrderDataDescription", {
                       cardType: isBuy ? "sell" : "buy",
                     })}
@@ -162,9 +161,9 @@ export default function MarketOrderCard(properties) {
               </div>
             </DialogHeader>
 
-            <div className="mt-3 space-y-3 rounded-lg border border-white/10 bg-white/[0.02] p-4">
+            <div className="mt-3 space-y-3 rounded-lg border border-border bg-accent/20 p-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-white/55">
+                <span className="text-muted-foreground">
                   {t("MarketOrderCard:sellingQuoteForBase", {
                     totalQuote: cumulativeQuote,
                     assetA: isBuy ? assetA : assetB,
@@ -173,8 +172,8 @@ export default function MarketOrderCard(properties) {
                   })}
                 </span>
               </div>
-              <div className="flex items-center justify-between border-t border-white/[0.06] pt-3 text-sm">
-                <span className="text-white/55">
+              <div className="flex items-center justify-between border-t border-border/60 pt-3 text-sm">
+                <span className="text-muted-foreground">
                   {t("MarketOrderCard:pricePerAsset", {
                     price: price,
                     assetB: assetB,
@@ -201,7 +200,7 @@ export default function MarketOrderCard(properties) {
             >
               <Button
                 className={cn(
-                  "mt-4 w-full h-11 gap-2 text-white font-semibold",
+                  "mt-4 w-full h-11 gap-2 text-foreground font-semibold",
                   "bg-gradient-to-r shadow-lg shadow-black/30",
                   accent.gradient,
                   "hover:brightness-110 active:scale-[0.99] transition-all"
@@ -220,10 +219,9 @@ export default function MarketOrderCard(properties) {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl border bg-slate-950/60 backdrop-blur-xl",
+        "relative overflow-hidden rounded-xl border bg-card/60 backdrop-blur-xl",
         accent.border
       )}
-      style={{ backgroundColor: "rgba(2, 6, 23, 0.6)" }}
     >
       <div
         className={cn(
@@ -233,7 +231,7 @@ export default function MarketOrderCard(properties) {
       />
 
       <div className="relative">
-        <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3">
+        <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
           <div className="flex items-center gap-2.5">
             <div
               className={cn(
@@ -253,7 +251,7 @@ export default function MarketOrderCard(properties) {
                   ? t("MarketOrderCard:openBuyLimitOrdersTitle")
                   : t("MarketOrderCard:openSellLimitOrdersTitle")}
               </h3>
-              <p className="text-[11px] text-white/45">
+              <p className="text-[11px] text-muted-foreground/70">
                 {isBuy
                   ? t("MarketOrderCard:buyLimitOrdersDescription", {
                       assetA,
@@ -266,16 +264,16 @@ export default function MarketOrderCard(properties) {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 font-mono text-[10px] tabular-nums text-white/60">
+          <div className="flex items-center gap-1.5 rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] px-2 py-1 font-mono text-[10px] tabular-nums text-muted-foreground">
             <Wallet className="h-3 w-3" />
             <span>{marketOrders?.length || 0}</span>
           </div>
         </div>
 
-        <div className="border-b border-white/[0.06] px-3 py-2">
-          <div className="grid grid-cols-4 gap-2 text-[10px] font-semibold uppercase tracking-wider text-white/40">
+        <div className="border-b border-border/60 px-3 py-2">
+          <div className="grid grid-cols-4 gap-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
             <div className="text-right">
-              Price <span className="text-white/30">({assetB})</span>
+              Price <span className="text-muted-foreground/60">({assetB})</span>
             </div>
             <div className="text-right">
               {isBuy ? assetB : assetA}
@@ -284,7 +282,7 @@ export default function MarketOrderCard(properties) {
               {isBuy ? assetA : assetB}
             </div>
             <div className="text-right">
-              Total <span className="text-white/30">({assetB})</span>
+              Total <span className="text-muted-foreground/60">({assetB})</span>
             </div>
           </div>
         </div>
@@ -301,8 +299,8 @@ export default function MarketOrderCard(properties) {
               />
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center gap-2 py-10 text-white/40">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.02]">
+            <div className="flex flex-col items-center justify-center gap-2 py-10 text-muted-foreground">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-accent/20">
                 <Inbox className="h-5 w-5" />
               </div>
               <p className="text-xs">{t("MarketOrderCard:noOpenOrders")}</p>

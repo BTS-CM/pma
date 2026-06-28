@@ -104,10 +104,10 @@ const SECTION_STYLES = {
     titleKey: "Home:sections.predictionMarkets",
     subtitleKey: "Home:sections.predictionMarketsSubtitle",
     border: "border-indigo-400/20",
-    bg: "from-indigo-500/15 via-slate-900/20 to-fuchsia-500/10",
+    bg: "from-indigo-500/15 dark:via-slate-900/20 via-slate-100/40 to-fuchsia-500/10",
     iconBg: "bg-indigo-500/15",
     iconBorder: "border-indigo-400/25",
-    iconText: "text-indigo-200",
+    iconText: "dark:text-indigo-200 text-indigo-700",
     blobA: "bg-indigo-500/30",
     blobB: "bg-fuchsia-500/20",
     underline: "from-indigo-500/0 via-indigo-400/60 to-fuchsia-500/0",
@@ -117,10 +117,10 @@ const SECTION_STYLES = {
     titleKey: "Home:sections.exchange",
     subtitleKey: "Home:sections.exchangeSubtitle",
     border: "border-cyan-400/20",
-    bg: "from-cyan-500/15 via-slate-900/20 to-blue-500/10",
+    bg: "from-cyan-500/15 dark:via-slate-900/20 via-slate-100/40 to-blue-500/10",
     iconBg: "bg-cyan-500/15",
     iconBorder: "border-cyan-400/25",
-    iconText: "text-cyan-200",
+    iconText: "dark:text-cyan-200 text-cyan-700",
     blobA: "bg-cyan-500/30",
     blobB: "bg-blue-500/20",
     underline: "from-cyan-500/0 via-cyan-400/60 to-blue-500/0",
@@ -130,10 +130,10 @@ const SECTION_STYLES = {
     titleKey: "Home:sections.account",
     subtitleKey: "Home:sections.accountSubtitle",
     border: "border-emerald-400/20",
-    bg: "from-emerald-500/15 via-slate-900/20 to-sky-500/10",
+    bg: "from-emerald-500/15 dark:via-slate-900/20 via-slate-100/40 to-sky-500/10",
     iconBg: "bg-emerald-500/15",
     iconBorder: "border-emerald-400/25",
-    iconText: "text-emerald-200",
+    iconText: "dark:text-emerald-200 text-emerald-700",
     blobA: "bg-emerald-500/30",
     blobB: "bg-sky-500/20",
     underline: "from-emerald-500/0 via-emerald-400/60 to-sky-500/0",
@@ -143,10 +143,10 @@ const SECTION_STYLES = {
     titleKey: "Home:sections.moreTools",
     subtitleKey: "Home:sections.moreToolsSubtitle",
     border: "border-violet-400/20",
-    bg: "from-violet-500/15 via-slate-900/20 to-rose-500/10",
+    bg: "from-violet-500/15 dark:via-slate-900/20 via-slate-100/40 to-rose-500/10",
     iconBg: "bg-violet-500/15",
     iconBorder: "border-violet-400/25",
-    iconText: "text-violet-200",
+    iconText: "dark:text-violet-200 text-violet-700",
     blobA: "bg-violet-500/30",
     blobB: "bg-rose-500/20",
     underline: "from-violet-500/0 via-violet-400/60 to-rose-500/0",
@@ -417,9 +417,9 @@ export default function Home(properties) {
     const Icon = ITEM_ICONS[card.key] || Sparkles;
     const accent = ITEM_ACCENTS[card.key] || {
       bar: "from-white/40 to-white/20",
-      chip: "bg-white/10 text-white/80 border-white/15",
-      glow: "bg-white/10",
-      text: "text-white/80",
+      chip: "bg-accent/30 dark:bg-white/[0.05] text-foreground/80 border-foreground/15",
+      glow: "bg-accent/30 dark:bg-white/[0.05]",
+      text: "text-foreground/80",
     };
     return (
       <HoverCard key={card.key} openDelay={120} closeDelay={80}>
@@ -428,12 +428,12 @@ export default function Home(properties) {
             href={card.href}
             className={cn(
               "group relative overflow-hidden block rounded-2xl",
-              "border border-white/10 bg-white/[0.025]",
+              "border border-border bg-card/30",
               "p-4 sm:p-5",
               "transition-all duration-200 ease-out",
-              "hover:border-white/20 hover:bg-white/[0.05]",
+              "hover:border-border hover:bg-accent/50",
               "hover:-translate-y-0.5",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             )}
           >
             <span
@@ -460,17 +460,17 @@ export default function Home(properties) {
                 <Icon className={cn("h-5 w-5", accent.text)} />
               </span>
               <div className="min-w-0 flex-1">
-                <h3 className="text-sm font-semibold text-white leading-snug">
+                <h3 className="text-sm font-semibold text-foreground leading-snug">
                   {t(card.titleKey)}
                 </h3>
-                <p className="mt-1 text-[12.5px] leading-snug text-white/60 line-clamp-2">
+                <p className="mt-1 text-[12.5px] leading-snug text-muted-foreground line-clamp-2">
                   {t(card.subtitleKey)}
                 </p>
               </div>
               <ArrowUpRight
                 className={cn(
-                  "h-4 w-4 shrink-0 text-white/30 -translate-x-0.5 translate-y-0.5",
-                  "group-hover:text-white/80 group-hover:translate-x-0 group-hover:translate-y-0",
+                  "h-4 w-4 shrink-0 text-muted-foreground/60 -translate-x-0.5 translate-y-0.5",
+                  "group-hover:text-foreground/80 group-hover:translate-x-0 group-hover:translate-y-0",
                   "transition-all duration-200 ease-out"
                 )}
                 aria-hidden="true"
@@ -482,10 +482,9 @@ export default function Home(properties) {
           <HoverCardContent
             sideOffset={10}
             align="center"
-            style={{ backgroundColor: "#020617" }}
             className={cn(
-              "w-80 overflow-hidden rounded-2xl border border-white/10 p-4 text-sm",
-              "!bg-slate-950 text-white/75",
+              "w-80 overflow-hidden rounded-2xl border border-border p-4 text-sm",
+              "!bg-card text-muted-foreground",
               "shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7),0_0_0_1px_rgba(255,255,255,0.04)]"
             )}
           >
@@ -496,7 +495,7 @@ export default function Home(properties) {
                 accent.bar
               )}
             />
-            <ul className="ml-4 list-disc [&>li]:mt-2 marker:text-white/40">
+            <ul className="ml-4 list-disc [&>li]:mt-2 marker:text-muted-foreground">
               {card.hoverKeys.map((hoverKey, index) => (
                 <li key={`${card.key}-hover-${index}`} className="leading-relaxed">
                   {t(hoverKey)}
@@ -553,10 +552,10 @@ export default function Home(properties) {
               <SectionIcon className={cn("h-5 w-5", style.iconText)} />
             </span>
             <div className="min-w-0 flex-1">
-              <h2 className="text-base sm:text-lg font-semibold text-white tracking-tight leading-tight">
+              <h2 className="text-base sm:text-lg font-semibold text-foreground tracking-tight leading-tight">
                 {t(style.titleKey)}
               </h2>
-              <p className="mt-1 text-[13px] sm:text-sm text-white/60 leading-snug">
+              <p className="mt-1 text-[13px] sm:text-sm text-muted-foreground leading-snug">
                 {t(style.subtitleKey)}
               </p>
             </div>
@@ -590,7 +589,7 @@ export default function Home(properties) {
 
       <HowItWorks />
 
-      <Separator className="my-10 sm:my-12 bg-white/10" />
+      <Separator className="my-10 sm:my-12 bg-accent/30 dark:bg-white/[0.05]" />
 
       {renderSection(predictionMarkets, "predictionMarkets")}
       {renderSection(exchangeFunds, "exchange")}

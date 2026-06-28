@@ -83,15 +83,15 @@ function StatBlock({ label, value, mono, accent }) {
     amber: "text-amber-400",
   };
   return (
-    <div className="rounded-lg border border-white/[0.06] bg-white/[0.03] p-2.5">
-      <div className="text-[11px] uppercase tracking-wide text-white/50 mb-1">
+    <div className="rounded-lg border border-border/60 bg-accent/30 dark:bg-white/[0.05] p-2.5">
+      <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">
         {label}
       </div>
       <div
         className={cn(
           "text-sm font-medium break-words",
           mono && "font-mono",
-          accent ? accentColors[accent] || "text-white" : "text-white",
+          accent ? accentColors[accent] || "text-foreground" : "text-foreground",
         )}
       >
         {value}
@@ -114,8 +114,8 @@ function SectionHeader({ label, accent = "white" }) {
   return (
     <div className="flex items-center gap-2.5 mb-3">
       <div className={cn("h-4 w-1 rounded-full", colors[accent] || colors.white)} />
-      <span className="text-[11px] uppercase tracking-widest font-semibold text-white/50">{label}</span>
-      <div className="h-px flex-1 bg-white/[0.06]" />
+      <span className="text-[11px] uppercase tracking-widest font-semibold text-muted-foreground">{label}</span>
+      <div className="h-px flex-1 bg-accent/50" />
     </div>
   );
 }
@@ -127,7 +127,7 @@ function CollapsibleSection({ title, defaultOpen = false, accent = "white", chil
       <button onClick={() => setIsOpen(!isOpen)} className="flex items-center gap-2 w-full text-left group cursor-pointer">
         <SectionHeader label={title} accent={accent} />
         <div className="flex-shrink-0 mb-3">
-          {isOpen ? <ChevronUp className="h-3.5 w-3.5 text-white/30 group-hover:text-white/60 transition-colors" /> : <ChevronDown className="h-3.5 w-3.5 text-white/30 group-hover:text-white/60 transition-colors" />}
+          {isOpen ? <ChevronUp className="h-3.5 w-3.5 text-muted-foreground/60 group-hover:text-muted-foreground transition-colors" /> : <ChevronDown className="h-3.5 w-3.5 text-muted-foreground/60 group-hover:text-muted-foreground transition-colors" />}
         </div>
       </button>
       <div className={cn("transition-all duration-300 overflow-hidden", isOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0")}>
@@ -139,9 +139,9 @@ function CollapsibleSection({ title, defaultOpen = false, accent = "white", chil
 
 function HeroStat({ label, value, mono }) {
   return (
-    <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
-      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-0.5">{label}</div>
-      <div className={cn("text-sm text-white break-words", mono && "font-mono")}>{value}</div>
+    <div className="rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-2.5">
+      <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-0.5">{label}</div>
+      <div className={cn("text-sm text-foreground break-words", mono && "font-mono")}>{value}</div>
     </div>
   );
 }
@@ -160,13 +160,13 @@ function PmoDetailsDialog({ open, onOpenChange, org, t }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[650px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+      <DialogContent className="sm:max-w-[650px] bg-card border-border text-foreground shadow-2xl shadow-black/40">
         <DialogHeader>
-          <DialogTitle className="text-white flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2">
             <ShieldCheck className="h-5 w-5 text-cyan-400" />
             {pmo.identity?.name || org.symbol}
           </DialogTitle>
-          <DialogDescription className="text-white/60 font-mono text-xs">
+          <DialogDescription className="text-muted-foreground font-mono text-xs">
             {org.symbol}
           </DialogDescription>
         </DialogHeader>
@@ -186,21 +186,21 @@ function PmoDetailsDialog({ open, onOpenChange, org, t }) {
               <div className="space-y-2 mb-3">
                 {pmo.governance?.onchain_account ? <HeroStat label={t("Predictions:org.onchainAccount")} value={pmo.governance.onchain_account} mono /> : null}
                 {pmo.governance?.resolution_policy ? (
-                  <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
-                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:org.resolutionPolicy")}</div>
-                    <div className="text-xs text-white/70 whitespace-pre-wrap">{pmo.governance.resolution_policy}</div>
+                  <div className="rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-2.5">
+                    <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">{t("Predictions:org.resolutionPolicy")}</div>
+                    <div className="text-xs text-foreground/70 whitespace-pre-wrap">{pmo.governance.resolution_policy}</div>
                   </div>
                 ) : null}
                 {pmo.governance?.dispute_mechanism ? (
-                  <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
-                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:org.disputeMechanism")}</div>
-                    <div className="text-xs text-white/70 whitespace-pre-wrap">{pmo.governance.dispute_mechanism}</div>
+                  <div className="rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-2.5">
+                    <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">{t("Predictions:org.disputeMechanism")}</div>
+                    <div className="text-xs text-foreground/70 whitespace-pre-wrap">{pmo.governance.dispute_mechanism}</div>
                   </div>
                 ) : null}
                 {pmo.attestation ? (
-                  <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
-                    <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:org.attestation")}</div>
-                    <div className="text-xs text-white/70 whitespace-pre-wrap">{pmo.attestation}</div>
+                  <div className="rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-2.5">
+                    <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">{t("Predictions:org.attestation")}</div>
+                    <div className="text-xs text-foreground/70 whitespace-pre-wrap">{pmo.attestation}</div>
                   </div>
                 ) : null}
               </div>
@@ -214,33 +214,33 @@ function PmoDetailsDialog({ open, onOpenChange, org, t }) {
                   {nft.artist ? <HeroStat label={t("Predictions:nft.artist")} value={nft.artist} /> : null}
                   {nft.type ? (
                     <HeroStat label={t("Predictions:nft.type")} value={
-                      <span className="inline-flex items-center rounded-full bg-white/[0.06] border border-white/[0.08] px-2 py-0.5 text-xs font-medium text-white/70">{nft.type}</span>
+                      <span className="inline-flex items-center rounded-full bg-accent/50 border border-border px-2 py-0.5 text-xs font-medium text-foreground/70">{nft.type}</span>
                     } />
                   ) : null}
                   {nft.encoding ? <HeroStat label={t("Predictions:nft.encoding")} value={<span className="font-mono text-xs">{nft.encoding}</span>} /> : null}
                   {nft.license ? <HeroStat label={t("Predictions:nft.license")} value={nft.license} /> : null}
                   {nft.holder_license ? <HeroStat label={t("Predictions:nft.holderLicense")} value={nft.holder_license} /> : null}
                   {nft.narrative ? (
-                    <div className="col-span-full rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
-                      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:nft.narrative")}</div>
-                      <div className="text-xs text-white/70 whitespace-pre-wrap">{nft.narrative}</div>
+                    <div className="col-span-full rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-2.5">
+                      <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">{t("Predictions:nft.narrative")}</div>
+                      <div className="text-xs text-foreground/70 whitespace-pre-wrap">{nft.narrative}</div>
                     </div>
                   ) : null}
                   {nft.acknowledgements ? (
-                    <div className="col-span-full rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
-                      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:nft.acknowledgements")}</div>
-                      <div className="text-xs text-white/70 whitespace-pre-wrap">{nft.acknowledgements}</div>
+                    <div className="col-span-full rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-2.5">
+                      <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">{t("Predictions:nft.acknowledgements")}</div>
+                      <div className="text-xs text-foreground/70 whitespace-pre-wrap">{nft.acknowledgements}</div>
                     </div>
                   ) : null}
                   {nft.attestation ? (
-                    <div className="col-span-full rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
-                      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:nft.attestation")}</div>
-                      <div className="text-xs text-white/70 whitespace-pre-wrap">{nft.attestation}</div>
+                    <div className="col-span-full rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-2.5">
+                      <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">{t("Predictions:nft.attestation")}</div>
+                      <div className="text-xs text-foreground/70 whitespace-pre-wrap">{nft.attestation}</div>
                     </div>
                   ) : null}
                   {nft.tags ? (
-                    <div className="col-span-full rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
-                      <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:nft.tags")}</div>
+                    <div className="col-span-full rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-2.5">
+                      <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">{t("Predictions:nft.tags")}</div>
                       <div className="flex flex-wrap gap-1">
                         {String(nft.tags).split(",").map((s) => s.trim()).filter(Boolean).map((tag) => (
                           <Badge key={tag} variant="outline" className="text-[10px] py-0">{tag}</Badge>
@@ -253,9 +253,9 @@ function PmoDetailsDialog({ open, onOpenChange, org, t }) {
             ) : null}
 
             {/* Issuer */}
-            <div className="rounded-md border border-white/[0.08] bg-white/[0.03] p-2.5">
-              <div className="text-[10px] uppercase tracking-wide text-white/40 mb-0.5">Issuer</div>
-              <div className="text-sm text-white font-mono">{org.issuer}</div>
+            <div className="rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-2.5">
+              <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-0.5">Issuer</div>
+              <div className="text-sm text-foreground font-mono">{org.issuer}</div>
             </div>
           </div>
         </ScrollArea>
@@ -291,15 +291,15 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
   const [pmoDetailsOpen, setPmoDetailsOpen] = useState(false);
 
   return (
-    <Card className="bg-slate-900/80 border-white/[0.08] shadow-md shadow-black/20 hover:shadow-xl hover:shadow-black/30 transition-all hover:-translate-y-0.5 border-l-4 border-l-cyan-500">
+    <Card className="bg-card/80 border-border shadow-md shadow-black/20 hover:shadow-xl hover:shadow-black/30 transition-all hover:-translate-y-0.5 border-l-4 border-l-cyan-500">
       <CardHeader className="pb-2 pt-3">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <CardTitle className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
+            <CardTitle className="text-base sm:text-lg font-semibold text-foreground flex items-center gap-2">
               <ShieldCheck className="h-5 w-5 text-cyan-400 flex-shrink-0" />
               {pmo.identity?.name || symbol}
             </CardTitle>
-            <CardDescription className="text-xs text-white/50 mt-1 font-mono">
+            <CardDescription className="text-xs text-muted-foreground mt-1 font-mono">
               {symbol}
             </CardDescription>
           </div>
@@ -310,23 +310,23 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
               </Badge>
             ) : null}
             {pmaCounts.expired > 0 ? (
-              <Badge variant="outline" className="text-[10px] border-white/20 text-white/50 bg-white/5">
+              <Badge variant="outline" className="text-[10px] border-white/20 text-muted-foreground bg-accent/30 dark:bg-white/5">
                 {pmaCounts.expired} {t("PredictionsOrganizations:expired")}
               </Badge>
             ) : null}
             <span
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] pl-0.5 pr-2 py-0.5 text-[11px] font-medium"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-accent/40 dark:bg-white/[0.08] pl-0.5 pr-2 py-0.5 text-[11px] font-medium"
               title={issuerAccountId}
             >
               <span className="inline-flex h-5 w-5 overflow-hidden rounded-full ring-1 ring-white/10">
                 <Avatar size={20} name={issuerUsername ?? issuerAccountId} extra="Issuer" expression={{ eye: "normal", mouth: "open" }} colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]} />
               </span>
-              <span className="text-white/60">{issuerUsername ?? issuerAccountId}</span>
+              <span className="text-muted-foreground">{issuerUsername ?? issuerAccountId}</span>
             </span>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="text-sm pb-3 text-white/70">
+      <CardContent className="text-sm pb-3 text-foreground/70">
         <div className="flex flex-wrap gap-2 mt-1">
           <a
             href={`/active-predictions.html?search=${symbol}.&issuer=${org.issuer}`}
@@ -337,7 +337,7 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
           </a>
           <a
             href={`/expired-predictions.html?search=${symbol}.&issuer=${org.issuer}`}
-            className="inline-flex items-center gap-1 text-xs text-white/50 hover:text-white/70 hover:underline"
+            className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground/70 hover:underline"
           >
             <ExternalLink className="h-3 w-3" />
             {t("PredictionsOrganizations:viewExpired")}
@@ -360,16 +360,16 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
                 {t("PredictionsOrganizations:viewJson")}
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-slate-900 border-white/[0.08] shadow-2xl shadow-black/40">
+            <DropdownMenuContent className="bg-card border-border shadow-2xl shadow-black/40">
               <DropdownMenuItem
-                className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
+                className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-accent/40 dark:hover:bg-white/10 text-foreground/70"
                 onClick={() => { setJsonPayload(org); setJsonDialogOpen(true); }}
               >
                 {t("PredictionsOrganizations:json.assetData")}
               </DropdownMenuItem>
               {desc && Object.keys(desc).length > 0 ? (
                 <DropdownMenuItem
-                  className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-white/10 text-white/70"
+                  className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-accent/40 dark:hover:bg-white/10 text-foreground/70"
                   onClick={() => { setJsonPayload(desc); setJsonDialogOpen(true); }}
                 >
                   {t("PredictionsOrganizations:json.descriptionData")}
@@ -398,16 +398,16 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
         </div>
       </CardContent>
       <Dialog open={jsonDialogOpen} onOpenChange={setJsonDialogOpen}>
-        <DialogContent className="sm:max-w-[750px] bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+        <DialogContent className="sm:max-w-[750px] bg-card border-border text-foreground shadow-2xl shadow-black/40">
           <DialogHeader>
-            <DialogTitle className="text-white">{t("PredictionsOrganizations:json.title")}</DialogTitle>
-            <DialogDescription className="text-white/60">{t("PredictionsOrganizations:json.description")}</DialogDescription>
+            <DialogTitle>{t("PredictionsOrganizations:json.title")}</DialogTitle>
+            <DialogDescription className="text-muted-foreground">{t("PredictionsOrganizations:json.description")}</DialogDescription>
           </DialogHeader>
-          <div className="font-mono text-xs bg-white/[0.03] border border-white/[0.08] rounded-md p-3 max-h-[50vh] overflow-auto">
-            <pre className="text-white/80 whitespace-pre-wrap break-words">{JSON.stringify(jsonPayload, null, 2)}</pre>
+          <div className="font-mono text-xs bg-accent/30 dark:bg-white/[0.05] border border-border rounded-md p-3 max-h-[50vh] overflow-auto">
+            <pre className="text-foreground/80 whitespace-pre-wrap break-words">{JSON.stringify(jsonPayload, null, 2)}</pre>
           </div>
           <Button
-            className="w-1/4 mt-2 bg-white/10 hover:bg-white/15 text-white border-white/[0.08]"
+            className="w-1/4 mt-2 bg-accent/40 dark:bg-white/10 hover:bg-accent/50 dark:hover:bg-white/15 text-foreground border-border"
             onClick={() => {
               if (jsonPayload) navigator.clipboard.writeText(JSON.stringify(jsonPayload, null, 2));
             }}
@@ -575,17 +575,17 @@ export default function PredictionsOrganizations(properties) {
   }, [organizations, searchQuery, sortBy, pmaCounts]);
 
   return (
-    <div className="container mx-auto mt-5 mb-5 text-white">
+    <div className="container mx-auto mt-5 mb-5 text-foreground">
       <div className="grid grid-cols-1 gap-3">
-        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm border-l-2 border-l-cyan-500">
+        <Card className="bg-card/60 border-border shadow-lg shadow-black/20 backdrop-blur-sm border-l-2 border-l-cyan-500">
           <CardHeader className="pb-1">
-            <CardTitle className="text-white flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2">
               <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-cyan-500/15">
                 <ShieldCheck className="w-4 h-4 text-cyan-400" />
               </span>
               {t("PredictionsOrganizations:title")}
             </CardTitle>
-            <CardDescription className="text-white/50">
+            <CardDescription className="text-muted-foreground">
               {organizations.length
                 ? t("PredictionsOrganizations:showing", {
                     count: filteredOrgs.length,
@@ -600,7 +600,7 @@ export default function PredictionsOrganizations(properties) {
                 {[0, 1, 2].map((i) => (
                   <Skeleton
                     key={`skeleton-${i}`}
-                    className="h-[120px] w-full bg-white/10"
+                    className="h-[120px] w-full bg-accent/40 dark:bg-white/10"
                   />
                 ))}
               </div>
@@ -610,7 +610,7 @@ export default function PredictionsOrganizations(properties) {
               <div className="grid grid-cols-1 gap-3 mt-3">
                 <div className="flex flex-wrap items-center gap-2">
                   <div className="relative flex-1 min-w-[200px]">
-                    <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-white/40 pointer-events-none" />
+                    <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                     <Input
                       type="text"
                       value={searchInput}
@@ -618,7 +618,7 @@ export default function PredictionsOrganizations(properties) {
                       placeholder={t(
                         "PredictionsOrganizations:searchPlaceholder",
                       )}
-                      className="pl-7 h-8 text-sm bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
+                      className="pl-7 h-8 text-sm bg-accent/30 dark:bg-white/[0.05] border-border text-foreground placeholder:text-muted-foreground/60"
                     />
                     {searchInput ? (
                       <button
@@ -627,7 +627,7 @@ export default function PredictionsOrganizations(properties) {
                           setSearchInput("");
                           setSearchQuery("");
                         }}
-                        className="absolute right-1 top-1/2 -translate-y-1/2 p-1 hover:text-white text-white/40"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 p-1 hover:text-accent-foreground text-muted-foreground"
                         aria-label="Clear"
                       >
                         <XIcon className="h-3.5 w-3.5" />
@@ -635,11 +635,11 @@ export default function PredictionsOrganizations(properties) {
                     ) : null}
                   </div>
                   <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger className="h-8 w-[160px] text-xs bg-white/[0.03] border-white/[0.08] text-white/70">
+                    <SelectTrigger className="h-8 w-[160px] text-xs bg-accent/30 dark:bg-white/[0.05] border-border text-foreground/70">
                       <ArrowUpDown className="mr-1.5 h-3.5 w-3.5" />
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                    <SelectContent className="bg-card border-border shadow-2xl shadow-black/40">
                       <SelectItem value="alpha">
                         {t("PredictionsOrganizations:sort.alpha")}
                       </SelectItem>
@@ -674,7 +674,7 @@ export default function PredictionsOrganizations(properties) {
             ) : null}
 
             {hasLoaded && filteredOrgs && !filteredOrgs.length ? (
-              <Empty className="mt-5 border-white/[0.06]">
+              <Empty className="mt-5 border-border/60">
                 <EmptyHeader>
                   <EmptyMedia
                     variant="icon"
@@ -682,13 +682,13 @@ export default function PredictionsOrganizations(properties) {
                   >
                     <ShieldCheck className="w-6 h-6" />
                   </EmptyMedia>
-                  <EmptyTitle className="text-white/80">
+                  <EmptyTitle className="text-foreground/80">
                     {t("PredictionsOrganizations:empty")}
                   </EmptyTitle>
                 </EmptyHeader>
                 <EmptyContent>
                   <a href="/create_pma_org.html">
-                    <Button className="bg-cyan-600 hover:bg-cyan-500 text-white">
+                    <Button className="bg-cyan-600 hover:bg-cyan-500 text-foreground">
                       {t("PredictionsOrganizations:createOrg")}
                     </Button>
                   </a>

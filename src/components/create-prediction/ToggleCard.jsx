@@ -14,7 +14,7 @@ export default function ToggleCard({ enabled, onToggle, title, description, enab
         "flex items-center justify-between gap-4 rounded-lg border px-4 py-3 transition-colors " +
         (enabled
           ? a.border + " " + a.bg
-          : "border-white/10 bg-white/[0.03] hover:border-white/20")
+          : "border-border bg-accent/30 dark:bg-white/[0.05] hover:border-border")
       }
     >
       <div className="flex items-start gap-3">
@@ -24,22 +24,22 @@ export default function ToggleCard({ enabled, onToggle, title, description, enab
               "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md transition-colors " +
               (enabled
                 ? a.iconBg
-                : "bg-white/5 text-white/40")
+                : "bg-accent/30 dark:bg-white/[0.05] text-muted-foreground")
             }
           >
             <Icon className="h-4 w-4" />
           </div>
         )}
         <div>
-          <div className="text-sm font-medium text-white">{enabled ? (enabledTitle || title) : title}</div>
+          <div className="text-sm font-medium text-foreground">{enabled ? (enabledTitle || title) : title}</div>
           {description && (
-            <div className="mt-0.5 text-xs text-white/50">
+            <div className="mt-0.5 text-xs text-muted-foreground">
               {enabled ? (enabledDescription || description) : description}
             </div>
           )}
         </div>
       </div>
-      <Switch checked={enabled} onCheckedChange={onToggle} className="shrink-0 data-[state=checked]:bg-violet-500 data-[state=unchecked]:bg-white/20 [&>span]:bg-white" />
+      <Switch checked={enabled} onCheckedChange={onToggle} className="shrink-0 data-[state=checked]:bg-violet-500 data-[state=unchecked]:bg-input dark:data-[state=unchecked]:bg-white/[0.12] [&>span]:bg-white" />
     </div>
   );
 }

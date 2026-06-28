@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils"
 
 const VARIANTS = {
   default: {
-    track: "bg-white/10",
-    range: "bg-white/60",
-    thumb: "border-white/50 bg-white shadow",
+    track: "bg-muted",
+    range: "bg-foreground/30",
+    thumb: "border-border bg-background shadow-sm",
   },
   violet: {
     track: "bg-violet-500/20",

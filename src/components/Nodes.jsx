@@ -104,14 +104,14 @@ export default function Nodes(properties) {
           "mx-2 transition-all",
           isTop
             ? "bg-emerald-500/[0.06] border-emerald-500/20"
-            : "bg-slate-900/60 border-white/[0.08] hover:bg-white/[0.03] hover:border-white/[0.12]"
+            : "bg-card/60 border-border hover:bg-accent/30 hover:border-border"
         )}>
           <CardHeader className="pb-0 pt-0 px-4 py-3">
             <CardTitle>
               <div className="grid grid-cols-4 gap-2 items-center">
                 <div className={cn(
                   "col-span-4 md:col-span-3 text-sm font-mono truncate",
-                  isTop ? "text-emerald-400" : "text-white/70"
+                  isTop ? "text-emerald-400" : "text-foreground/70"
                 )}>
                   {isTop && <span className="text-[10px] font-sans font-semibold uppercase tracking-wider text-emerald-400/60 mr-2">Active</span>}
                   {nodeUrl}
@@ -123,7 +123,7 @@ export default function Nodes(properties) {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-white/40 hover:text-emerald-400 hover:bg-emerald-500/10"
+                          className="h-8 w-8 text-muted-foreground hover:text-emerald-400 hover:bg-emerald-500/10"
                           onClick={() => {
                             const updatedNodes = [...nodes[usr.chain]];
                             const [selectedNode] = updatedNodes.splice(index, 1);
@@ -139,30 +139,30 @@ export default function Nodes(properties) {
 
                   <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-white/40 hover:text-cyan-400 hover:bg-cyan-500/10">
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-cyan-400 hover:bg-cyan-500/10">
                         <Wifi className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[420px] bg-slate-950 border-white/[0.1] text-white shadow-2xl shadow-black/40">
+                    <DialogContent className="sm:max-w-[420px]">
                       <DialogHeader>
                         <div className="flex items-center gap-2">
                           <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/15">
                             <Wifi className="h-4 w-4 text-cyan-400" />
                           </div>
                           <div>
-                            <DialogTitle className="text-white">Ping node</DialogTitle>
-                            <DialogDescription className="text-white/50">
+                            <DialogTitle>Ping node</DialogTitle>
+                            <DialogDescription className="text-muted-foreground">
                               Checking reachability for{" "}
-                              <span className="font-mono text-white/70">{nodeUrl}</span>
+                              <span className="font-mono text-foreground/70">{nodeUrl}</span>
                             </DialogDescription>
                           </div>
                         </div>
                       </DialogHeader>
                       <div className="py-4">
                         {pinging ? (
-                          <div className="flex items-center gap-3 rounded-lg border border-white/[0.08] bg-white/[0.03] p-3">
+                          <div className="flex items-center gap-3 rounded-lg border border-border bg-accent/30 dark:bg-white/[0.05] p-3">
                             <Loader2 className="h-4 w-4 animate-spin text-cyan-400" />
-                            <div className="text-white/70 text-sm">Pinging...</div>
+                            <div className="text-foreground/70 text-sm">Pinging...</div>
                           </div>
                         ) : pingResult && pingResult.ok ? (
                           <div className="flex items-center gap-3 rounded-lg border border-emerald-500/20 bg-emerald-500/[0.06] p-3">
@@ -185,7 +185,7 @@ export default function Nodes(properties) {
                               </div>
                             </div>
                             {pingResult && pingResult.error ? (
-                              <div className="text-xs text-white/40 font-mono pl-7">
+                              <div className="text-xs text-muted-foreground font-mono pl-7">
                                 {pingResult.error}
                               </div>
                             ) : null}
@@ -195,7 +195,7 @@ export default function Nodes(properties) {
                       <div className="flex justify-end gap-2">
                         <Button
                           variant="outline"
-                          className="border-white/[0.12] text-white/60 hover:bg-white/[0.08]"
+                          className="border-border text-muted-foreground hover:bg-accent/60"
                           onClick={() => setAttempt((a) => a + 1)}
                           disabled={pinging}
                         >
@@ -203,7 +203,7 @@ export default function Nodes(properties) {
                           Retry
                         </Button>
                         <Button
-                          className="bg-white/10 text-white hover:bg-white/15"
+                          className="bg-accent/40 dark:bg-white/10 text-foreground hover:bg-accent/50 dark:hover:bg-white/15"
                           onClick={() => setOpen(false)}
                         >
                           Close
@@ -218,7 +218,7 @@ export default function Nodes(properties) {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="h-8 w-8 text-white/40 hover:text-rose-400 hover:bg-rose-500/10"
+                          className="h-8 w-8 text-muted-foreground hover:text-rose-400 hover:bg-rose-500/10"
                           onClick={() => {
                             const updatedNodes = [...nodes[usr.chain]];
                             updatedNodes.splice(index, 1);
@@ -241,18 +241,18 @@ export default function Nodes(properties) {
   };
 
   return (
-    <div className="container mx-auto mt-5 mb-5 w-full lg:w-3/4 text-white">
+    <div className="container mx-auto mt-5 mb-5 w-full lg:w-3/4 text-foreground">
       <div className="grid grid-cols-1 gap-3">
-        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm">
+        <Card className="bg-card/60 border-border shadow-lg shadow-black/20 backdrop-blur-sm">
           <div className="h-1 w-full bg-gradient-to-r from-teal-500 to-cyan-500" />
           <CardHeader className="pb-3">
-            <CardTitle className="text-white flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2">
               <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-teal-500/15 flex-shrink-0">
                 <Server className="h-5 w-5 text-teal-400" />
               </span>
               {t("Nodes:cardTitle")}
             </CardTitle>
-            <CardDescription className="text-white/50">
+            <CardDescription className="text-muted-foreground">
               {t("Nodes:cardDescription")}
             </CardDescription>
           </CardHeader>
@@ -280,17 +280,17 @@ export default function Nodes(properties) {
                 </div>
               </>
             ) : (
-              <div className="text-center py-6 text-white/40 text-sm">
+              <div className="text-center py-6 text-muted-foreground text-sm">
                 {t("Nodes:none")}
               </div>
             )}
             <div className="mt-4 space-y-3">
-              <p className="text-sm text-white/50">{t("Nodes:addDescription")}</p>
+              <p className="text-sm text-muted-foreground">{t("Nodes:addDescription")}</p>
               <div className="flex gap-2">
                 <Input
                   name="searchInput"
                   placeholder="wss://url/ws"
-                  className="flex-1 bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
+                  className="flex-1 bg-accent/30 dark:bg-white/[0.05] border-border text-foreground placeholder:text-muted-foreground/60"
                   onChange={(event) => {
                     setInputURL(event.target.value);
                   }}
@@ -313,7 +313,7 @@ export default function Nodes(properties) {
                   }}
                 />
                 <Button
-                  className="bg-teal-600 hover:bg-teal-500 text-white gap-1.5"
+                  className="bg-teal-600 hover:bg-teal-500 text-foreground gap-1.5"
                   onClick={() => {
                     if (
                       !inputURL ||
@@ -336,7 +336,7 @@ export default function Nodes(properties) {
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-white/[0.12] text-white/60 hover:bg-white/[0.08]"
+                  className="border-border text-muted-foreground hover:bg-accent/60"
                   onClick={() =>
                     updateNodes(usr.chain, chains[usr.chain].nodeList)
                   }

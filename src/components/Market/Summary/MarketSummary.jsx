@@ -30,19 +30,19 @@ export default function MarketSummary(properties) {
 
       return (
         <div
-          className="grid grid-cols-4 gap-2 px-3 py-1.5 text-xs font-mono tabular-nums border-b border-white/[0.04] hover:bg-white/[0.03] transition-colors"
+          className="grid grid-cols-4 gap-2 px-3 py-1.5 text-xs font-mono tabular-nums border-b border-border/40 hover:bg-accent/30 transition-colors"
           key={`ms_${index}_${type}`}
         >
           <div className={cn("text-right font-semibold", accent)}>
             {parsedValue}
           </div>
-          <div className="text-right text-white/80">
+          <div className="text-right text-foreground/80">
             {parseFloat(res.amount).toFixed(assetAData.precision)}
           </div>
-          <div className="text-right text-white/55">
+          <div className="text-right text-muted-foreground">
             {getTimeSince(res.date)}
           </div>
-          <div className="text-right text-white/55">{res.value}</div>
+          <div className="text-right text-muted-foreground">{res.value}</div>
         </div>
       );
     });
@@ -53,17 +53,17 @@ export default function MarketSummary(properties) {
   }
 
   return (
-    <div className="rounded-lg border border-white/10 bg-white/[0.02] overflow-hidden">
-      <div className="grid grid-cols-4 gap-2 px-3 py-2 border-b border-white/[0.06] bg-white/[0.02] text-[10px] font-semibold uppercase tracking-wider text-white/40">
+    <div className="rounded-lg border border-border bg-accent/20 overflow-hidden">
+      <div className="grid grid-cols-4 gap-2 px-3 py-2 border-b border-border/60 bg-accent/20 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
         <div className="text-right">
-          Price <span className="text-white/30">({assetAData.symbol}/{assetBData.symbol})</span>
+          Price <span className="text-muted-foreground/60">({assetAData.symbol}/{assetBData.symbol})</span>
         </div>
         <div className="text-right">
-          Amount <span className="text-white/30">({assetAData.symbol})</span>
+          Amount <span className="text-muted-foreground/60">({assetAData.symbol})</span>
         </div>
         <div className="text-right">Date</div>
         <div className="text-right">
-          Total <span className="text-white/30">({assetBData.symbol})</span>
+          Total <span className="text-muted-foreground/60">({assetBData.symbol})</span>
         </div>
       </div>
       <ScrollArea className="h-72 w-full">

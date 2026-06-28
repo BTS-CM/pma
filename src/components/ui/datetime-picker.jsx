@@ -294,12 +294,12 @@ function Calendar({
                   props.onMonthChange?.(newDate);
                 }}
               >
-                <SelectTrigger className="w-fit gap-1 border-none p-0 text-white focus:bg-white/10 focus:text-white">
+                <SelectTrigger className="w-fit gap-1 border-none p-0 text-popover-foreground focus:bg-accent focus:text-accent-foreground">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-900 border-white/10 text-white">
+                <SelectContent>
                   {MONTHS.map((month) => (
-                    <SelectItem key={month.value} value={month.value.toString()} className="text-white focus:bg-violet-500/20 focus:text-white">
+                    <SelectItem key={month.value} value={month.value.toString()}>
                       {month.label}
                     </SelectItem>
                   ))}
@@ -313,12 +313,12 @@ function Calendar({
                   props.onMonthChange?.(newDate);
                 }}
               >
-                <SelectTrigger className="w-fit gap-1 border-none p-0 text-white focus:bg-white/10 focus:text-white">
+                <SelectTrigger className="w-fit gap-1 border-none p-0 text-popover-foreground focus:bg-accent focus:text-accent-foreground">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-900 border-white/10 text-white max-h-[200px]">
+                <SelectContent className="max-h-[200px]">
                   {YEARS.map((year) => (
-                    <SelectItem key={year.value} value={year.value.toString()} className="text-white focus:bg-violet-500/20 focus:text-white">
+                    <SelectItem key={year.value} value={year.value.toString()}>
                       {year.label}
                     </SelectItem>
                   ))}
@@ -653,7 +653,7 @@ const DateTimePicker = React.forwardRef(
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0 bg-slate-950 border-white/10 text-white shadow-2xl shadow-black/40">
+        <PopoverContent className="w-auto p-0">
           <Calendar
             mode="single"
             selected={value}

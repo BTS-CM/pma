@@ -68,7 +68,7 @@ export default function Sparkline({
     return (
       <div
         className={cn(
-          "flex items-center justify-center text-[10px] text-white/30",
+          "flex items-center justify-center text-[10px] text-muted-foreground/60",
           className
         )}
         style={{ width, height }}
@@ -159,10 +159,10 @@ export default function Sparkline({
         {hoverIdx !== null && points[hoverIdx] ? (
           <TooltipContent
             side="top"
-            className="!bg-slate-950 border border-white/10 text-white px-2.5 py-1.5"
+            className="!bg-card border border-border text-foreground px-2.5 py-1.5"
           >
             <div className="flex items-center gap-2 font-mono text-xs">
-              <span className="text-white/55">{points[hoverIdx].label || ""}</span>
+              <span className="text-muted-foreground">{points[hoverIdx].label || ""}</span>
               <span className="font-semibold tabular-nums" style={{ color: stroke }}>
                 {points[hoverIdx].value}
               </span>

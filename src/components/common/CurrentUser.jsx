@@ -80,11 +80,11 @@ export default function CurrentUser(properties) {
                   style={accentStyle}
                   className={cn(
                     "group/user relative overflow-hidden inline-flex w-auto",
-                    "bg-slate-950/55 backdrop-blur-xl",
+                    "bg-card/55 backdrop-blur-xl",
                     "border border-[color:var(--avatar-accent)]/20 hover:border-[color:var(--avatar-accent)]/50",
                     "rounded-2xl",
                     "shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.04)]",
-                    "hover:bg-slate-900/60",
+                    "hover:bg-accent/60",
                     "transition-all duration-200 ease-out",
                     "cursor-pointer"
                   )}
@@ -126,7 +126,7 @@ export default function CurrentUser(properties) {
                     </div>
                   </ItemMedia>
                   <ItemContent>
-                    <ItemTitle className="text-white font-semibold tracking-tight">
+                    <ItemTitle className="text-card-foreground font-semibold tracking-tight">
                       {usr.username}
                     </ItemTitle>
                     <ItemDescription className="text-left">
@@ -135,7 +135,7 @@ export default function CurrentUser(properties) {
                           <BreadcrumbSeparator
                             style={{ color: `${avatarColor}b3` }}
                           />
-                          <BreadcrumbItem className="text-right text-white/60 text-[12px]">
+                          <BreadcrumbItem className="text-right text-muted-foreground text-[12px]">
                             {usr.id}
                           </BreadcrumbItem>
                         </BreadcrumbList>
@@ -146,7 +146,7 @@ export default function CurrentUser(properties) {
                           <BreadcrumbSeparator
                             style={{ color: `${avatarColor}b3` }}
                           />
-                          <BreadcrumbItem className="text-right text-white/60 text-[12px]">
+                          <BreadcrumbItem className="text-right text-muted-foreground text-[12px]">
                             {usr.chain}
                           </BreadcrumbItem>
                         </BreadcrumbList>
@@ -165,9 +165,9 @@ export default function CurrentUser(properties) {
       <DialogContent
         className={cn(
           "sm:max-w-[600px] p-0 gap-0 overflow-hidden",
-          "bg-slate-950/95 backdrop-blur-xl",
-          "border border-white/[0.08]",
-          "shadow-2xl shadow-black/50"
+          "bg-background/95 backdrop-blur-xl",
+          "border border-border",
+          "shadow-2xl dark:shadow-black/50 shadow-black/20"
         )}
       >
         <div className="relative">
@@ -185,10 +185,10 @@ export default function CurrentUser(properties) {
           />
         </div>
         <DialogHeader className="px-6 pt-6 pb-4">
-          <DialogTitle className="text-white text-xl font-semibold tracking-tight">
+          <DialogTitle className="text-foreground text-xl font-semibold tracking-tight">
             {t("CurrentUser:dialogContent.replacingUser")}
           </DialogTitle>
-          <DialogDescription className="text-white/50 text-sm">
+          <DialogDescription className="text-muted-foreground text-sm">
             {t("CurrentUser:dialogContent.selectChainAccount")}
           </DialogDescription>
         </DialogHeader>

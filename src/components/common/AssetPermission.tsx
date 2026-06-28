@@ -51,11 +51,11 @@ export default function AssetPermission({
       <HoverCard>
         <HoverCardTrigger>{children}</HoverCardTrigger>
         <HoverCardPortal>
-          <HoverCardContent className={"w-80 mt-1 bg-slate-950 border-white/10 text-white z-[9999]"} align="start">
+          <HoverCardContent className={"w-80 mt-1 bg-popover text-popover-foreground border-border z-[9999]"} align="start">
             <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
               {t("Predictions:about")}: {id}
             </h4>
-            <p className="leading-6 text-sm text-white/70 [&:not(:first-child)]:mt-1">
+            <p className="leading-6 text-sm text-popover-foreground/70 [&:not(:first-child)]:mt-1">
               {alreadyDisabled || !permission ? disabledInfo : enabledInfo}
             </p>
           </HoverCardContent>
@@ -74,13 +74,13 @@ export default function AssetPermission({
             disabled
           />
         </span>
-        <span className="col-span-10 text-white/70">
+        <span className="col-span-10 text-foreground/70">
           <MakeHover>
             <Label htmlFor={id}>{permission ? allowedText : disabledText}</Label>
           </MakeHover>
         </span>
         <MakeHover>
-          <InfoCircledIcon className="text-white/40" />
+          <InfoCircledIcon className="text-muted-foreground/60" />
         </MakeHover>
       </span>
     );
@@ -102,13 +102,13 @@ export default function AssetPermission({
           checked={permission}
         />
       </span>
-      <span className="col-span-10 text-white/70">
+      <span className="col-span-10 text-foreground/70">
         <MakeHover>
           <Label htmlFor={id}>{permission ? allowedText : disabledText}</Label>
         </MakeHover>
       </span>
       <MakeHover>
-        <InfoCircledIcon className="text-white/40" />
+        <InfoCircledIcon className="text-muted-foreground/60" />
       </MakeHover>
     </span>
   );

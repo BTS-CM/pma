@@ -26,13 +26,13 @@ export default function AuthorityList({
   const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
   return (
     <Field label={title} help={help}>
-      <div className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
+      <div className="overflow-hidden rounded-lg border border-border bg-accent/30 dark:bg-white/[0.05]">
         {list.length > 0 ? (
           <div className="max-h-[210px] divide-y divide-white/10 overflow-auto">
             {list.map((res, i) => (
               <div
                 key={`auth-${title}-${res.id}`}
-                className="flex items-center gap-3 px-3 py-2 hover:bg-white/5"
+                className="flex items-center gap-3 px-3 py-2 hover:bg-accent/30 dark:bg-white/[0.05]"
               >
                 <Avatar
                   size={32}
@@ -48,10 +48,10 @@ export default function AuthorityList({
                   ]}
                 />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium text-white">
+                  <div className="truncate text-sm font-medium text-foreground">
                     {res.name || `#${i + 1}`}
                   </div>
-                  <div className="truncate font-mono text-[10px] text-white/50">
+                  <div className="truncate font-mono text-[10px] text-muted-foreground">
                     {res.id}
                   </div>
                 </div>
@@ -59,7 +59,7 @@ export default function AuthorityList({
                   variant="ghost"
                   size="icon"
                   onClick={() => onRemove(res.id)}
-                  className="text-white/40 hover:text-rose-400"
+                  className="text-muted-foreground hover:text-rose-400"
                 >
                   <X className="h-4 w-4" />
                 </Button>
@@ -68,23 +68,23 @@ export default function AuthorityList({
           </div>
         ) : (
           <div className="px-4 py-8 text-center">
-            <UserCheck className="mx-auto h-6 w-6 text-white/20" />
-            <p className="mt-2 text-sm text-white/40">
+            <UserCheck className="mx-auto h-6 w-6 text-muted-foreground/40" />
+            <p className="mt-2 text-sm text-muted-foreground">
               No accounts added yet
             </p>
           </div>
         )}
-        <div className="border-t border-white/10 p-2">
+        <div className="border-t border-border p-2">
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline" size="sm" className="w-full border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white">
+              <Button variant="outline" size="sm" className="w-full border-border bg-accent/30 dark:bg-white/[0.05] text-foreground/70 hover:bg-accent/40 hover:text-accent-foreground">
                 <Plus className="h-3.5 w-3.5" />
                 {t("Favourites:addUser")}
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-slate-950 backdrop-blur-2xl border-white/10 text-white sm:max-w-[375px]">
+            <DialogContent className="sm:max-w-[375px]">
               <DialogHeader>
-                <DialogTitle className="text-white">
+                <DialogTitle>
                   {!chain ? t("Transfer:bitsharesAccountSearch") : null}
                   {chain === "bitshares"
                     ? t("Transfer:bitsharesAccountSearchBTS")

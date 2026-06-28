@@ -26,7 +26,7 @@ export default function HowItWorks() {
 
   return (
     <section className="mt-12 sm:mt-16" aria-label={t("Home:howItWorks.heading")}>
-      <h2 className="text-lg sm:text-xl font-semibold text-white mb-4 sm:mb-6 text-center">
+      <h2 className="text-lg sm:text-xl font-semibold dark:text-white text-foreground mb-4 sm:mb-6 text-center">
         {t("Home:howItWorks.heading")}
       </h2>
       <ol className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 relative">
@@ -35,20 +35,20 @@ export default function HowItWorks() {
           return (
             <li
               key={s.titleKey}
-              className="relative rounded-xl border border-white/10 bg-white/[0.04] p-4 sm:p-5"
+              className="relative rounded-xl border dark:border-white/10 border-border dark:bg-white/[0.04] bg-accent/40 p-4 sm:p-5"
             >
               <div className="flex items-center gap-3 mb-2">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/15 text-indigo-300">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/15 dark:text-indigo-300 text-indigo-600">
                   <Icon className="h-4 w-4" />
                 </span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                <span className="text-xs font-semibold uppercase tracking-wider dark:text-white/50 text-muted-foreground">
                   {String(idx + 1).padStart(2, "0")}
                 </span>
               </div>
-              <h3 className="text-base font-semibold text-white mb-1">
+              <h3 className="text-base font-semibold dark:text-white text-foreground mb-1">
                 {t(s.titleKey)}
               </h3>
-              <p className="text-sm text-white/70 leading-relaxed">
+              <p className="text-sm dark:text-white/70 text-foreground/70 leading-relaxed">
                 {t(s.bodyKey)}
               </p>
             </li>

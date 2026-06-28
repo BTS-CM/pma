@@ -48,7 +48,7 @@ export default function FeaturedStrip({ liveStats }) {
 
   return (
     <div
-      className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-white/85"
+      className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm dark:text-white/85 text-foreground/85"
       aria-live="polite"
     >
       {items.map((item) => {
@@ -61,10 +61,10 @@ export default function FeaturedStrip({ liveStats }) {
           >
             <span className={`h-1.5 w-1.5 rounded-full ${item.dot} animate-pulse`} />
             <Icon className={`h-3.5 w-3.5 ${item.accent}`} />
-            <span className="font-semibold tabular-nums text-white">
+            <span className="font-semibold tabular-nums dark:text-white text-foreground">
               {item.value.toLocaleString()}
             </span>
-            <span className="text-white/70">{item.label}</span>
+            <span className="dark:text-white/70 text-foreground/70">{item.label}</span>
           </span>
         );
       })}

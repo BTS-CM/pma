@@ -572,7 +572,7 @@ function AssetIssuerActions(props) {
           <button
             key={user.id}
             type="button"
-            className="flex w-full items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-left hover:bg-slate-100"
+            className="flex w-full items-center gap-3 rounded-lg border border-border bg-card px-3 py-2 text-left hover:bg-accent"
             onClick={() => onSelect(user)}
           >
             <Avatar
@@ -582,7 +582,7 @@ function AssetIssuerActions(props) {
               expression={{ eye: "normal", mouth: "open" }}
               colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
             />
-            <span className="text-sm font-medium text-slate-900">
+            <span className="text-sm font-medium text-foreground">
               {user.username} ({user.id})
             </span>
           </button>
@@ -609,7 +609,7 @@ function AssetIssuerActions(props) {
           onClick={() => {
             setPriceFeedPublishersOpen(true);
           }}
-          className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+          className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
         >
           {t(`Predictions:pricefeeder`)}
         </DropdownMenuItem>
@@ -638,7 +638,7 @@ function AssetIssuerActions(props) {
             onClick={() => {
               setDeletePoolOpen(true);
             }}
-            className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+            className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
           >
             {t(`IssuedAssets:deletePool`)}
           </DropdownMenuItem>
@@ -655,7 +655,7 @@ function AssetIssuerActions(props) {
       render: (
         <DropdownMenuItem
           key="fund-fee-pool"
-          className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+          className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
           onClick={() => setFundFeePoolDialogOpen(true)}
         >
           {t("IssuedAssets:fundFeePool")}
@@ -667,7 +667,7 @@ function AssetIssuerActions(props) {
       render: (
         <DropdownMenuItem
           key="claim-fee-pool"
-          className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+          className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
           onClick={() => setClaimFeePoolOpen(true)}
         >
           {t("IssuedAssets:claimFeePool")}
@@ -679,7 +679,7 @@ function AssetIssuerActions(props) {
       render: (
         <DropdownMenuItem
           key="claim-asset-fees"
-          className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+          className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
           onClick={() => setClaimAssetFeesOpen(true)}
         >
           {t("IssuedAssets:claimAssetFees")}
@@ -691,7 +691,7 @@ function AssetIssuerActions(props) {
       render: (
         <DropdownMenuItem
           key="update-issuer"
-          className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+          className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
           onClick={() => setUpdateIssuerOpen(true)}
         >
           {t("IssuedAssets:updateIssuer")}
@@ -717,7 +717,7 @@ function AssetIssuerActions(props) {
         render: (
           <DropdownMenuItem
             key="global-settlement"
-            className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+            className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
             onClick={() => setGlobalSettleOpen(true)}
           >
             {t("IssuedAssets:globalSettlement")}
@@ -734,7 +734,7 @@ function AssetIssuerActions(props) {
         render: (
           <DropdownMenuItem
             key="issue-asset"
-            className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+            className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
             onClick={() => setIssueAssetOpen(true)}
           >
             {t("IssuedAssets:issueAsset")}
@@ -746,7 +746,7 @@ function AssetIssuerActions(props) {
         render: (
           <DropdownMenuItem
             key="reserve-asset"
-            className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+            className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
             onClick={() => setReserveAssetOpen(true)}
           >
             {t("IssuedAssets:reserveAsset")}
@@ -768,7 +768,7 @@ function AssetIssuerActions(props) {
       render: (
         <DropdownMenuItem
           key="override-transfer"
-          className="focus:bg-white/10 text-white/70 hover:bg-white/[0.06]"
+          className="focus:bg-accent text-foreground/70 hover:bg-accent/50"
           onClick={() => setOverrideOpen(true)}
         >
           {t("IssuedAssets:overrideTransfer", {
@@ -803,7 +803,7 @@ function AssetIssuerActions(props) {
           <button
             key={user.id}
             type="button"
-            className="flex w-full items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-left hover:bg-slate-100"
+            className="flex w-full items-center gap-3 rounded-lg border border-border bg-card px-3 py-2 text-left hover:bg-accent"
             onClick={() => onSelect(user)}
           >
             <Avatar
@@ -813,7 +813,7 @@ function AssetIssuerActions(props) {
               expression={{ eye: "normal", mouth: "open" }}
               colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
             />
-            <span className="text-sm font-medium text-slate-900">
+            <span className="text-sm font-medium text-foreground">
               {user.name} ({user.id})
             </span>
           </button>
@@ -834,14 +834,14 @@ function AssetIssuerActions(props) {
             {t("IssuedAssets:issuerActions")}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-slate-950 border-white/[0.08]">
+        <DropdownMenuContent className="bg-card border-border">
           {dropdownItems.map((item) => item.render)}
         </DropdownMenuContent>
       </DropdownMenu>
 
       {deletePoolOpen ? (
         <Dialog open={deletePoolOpen} onOpenChange={setDeletePoolOpen}>
-          <DialogContent className="sm:max-w-[550px] bg-slate-900 border-rose-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[550px] border-rose-500/20">
             <DialogHeader>
               <DialogTitle>
                 {t("IssuedAssets:deletePool")}: {asset?.symbol} (
@@ -896,7 +896,7 @@ function AssetIssuerActions(props) {
           open={fundFeePoolDialogOpen}
           onOpenChange={setFundFeePoolDialogOpen}
         >
-          <DialogContent className="sm:max-w-[550px] bg-slate-900 border-emerald-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[550px] border-emerald-500/20">
             <DialogHeader>
               <DialogTitle>
                 {t("IssuedAssets:fundFeePool")}: {asset?.symbol} ({coreSymbol})
@@ -967,7 +967,7 @@ function AssetIssuerActions(props) {
 
       {claimFeePoolOpen ? (
         <Dialog open={claimFeePoolOpen} onOpenChange={setClaimFeePoolOpen}>
-          <DialogContent className="sm:max-w-[550px] bg-slate-900 border-emerald-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[550px] border-emerald-500/20">
             <DialogHeader>
               <DialogTitle>
                 {t("IssuedAssets:claimFeePool")}: {asset?.symbol} ({coreSymbol})
@@ -1052,7 +1052,7 @@ function AssetIssuerActions(props) {
 
       {claimAssetFeesOpen ? (
         <Dialog open={claimAssetFeesOpen} onOpenChange={setClaimAssetFeesOpen}>
-          <DialogContent className="sm:max-w-[550px] bg-slate-900 border-emerald-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[550px] border-emerald-500/20">
             <DialogHeader>
               <DialogTitle>
                 {t("IssuedAssets:claimAssetFees")}: {asset?.symbol} (
@@ -1144,7 +1144,7 @@ function AssetIssuerActions(props) {
             setPriceFeedPublishersOpen(open);
           }}
         >
-          <DialogContent className="sm:max-w-[600px] bg-slate-900 border-cyan-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[600px] border-cyan-500/20">
             <DialogHeader>
               <DialogTitle>
                 {t(`Predictions:priceFeederDialog.title`)}
@@ -1162,7 +1162,7 @@ function AssetIssuerActions(props) {
                 type="header"
               />
               <div className="grid grid-cols-12 mt-1">
-                <span className="col-span-9 border border-white/[0.08] rounded-lg overflow-hidden">
+                <span className="col-span-9 border border-border rounded-lg overflow-hidden">
                   <div className="w-full max-h-[210px] overflow-auto">
                     <List
                       rowComponent={PriceFeederRow}
@@ -1184,7 +1184,7 @@ function AssetIssuerActions(props) {
                         ➕ {t("Favourites:addUser")}
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                    <DialogContent className="sm:max-w-[375px]">
                       <DialogHeader>
                         <DialogTitle>
                           {!currentUser || !currentUser.chain
@@ -1262,7 +1262,7 @@ function AssetIssuerActions(props) {
 
       {issueAssetOpen ? (
         <Dialog open={issueAssetOpen} onOpenChange={setIssueAssetOpen}>
-          <DialogContent className="sm:max-w-[550px] bg-slate-900 border-violet-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[550px] border-violet-500/20">
             <DialogHeader>
               <DialogTitle>{t("IssuedAssets:issueAsset")}</DialogTitle>
               <DialogDescription>
@@ -1320,7 +1320,7 @@ function AssetIssuerActions(props) {
                       <MagnifyingGlassIcon />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                  <DialogContent className="sm:max-w-[375px]">
                     <DialogHeader>
                       <DialogTitle>
                         {chain === "bitshares"
@@ -1347,7 +1347,7 @@ function AssetIssuerActions(props) {
                       <FaceIcon />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                  <DialogContent className="sm:max-w-[375px]">
                     <DialogHeader>
                       <DialogTitle>{t("Favourites:usersHeader")}</DialogTitle>
                       <DialogDescription>
@@ -1369,7 +1369,7 @@ function AssetIssuerActions(props) {
                       <AvatarIcon />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                  <DialogContent className="sm:max-w-[375px]">
                     <DialogHeader>
                       <DialogTitle>{t("IssuedAssets:contactList")}</DialogTitle>
                       <DialogDescription>
@@ -1452,7 +1452,7 @@ function AssetIssuerActions(props) {
 
       {reserveAssetOpen ? (
         <Dialog open={reserveAssetOpen} onOpenChange={setReserveAssetOpen}>
-          <DialogContent className="sm:max-w-[550px] bg-slate-900 border-amber-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[550px] border-amber-500/20">
             <DialogHeader>
               <DialogTitle>{t("IssuedAssets:reserveAsset")}</DialogTitle>
               <DialogDescription>
@@ -1528,7 +1528,7 @@ function AssetIssuerActions(props) {
             setGlobalSettleOpen(open);
           }}
         >
-          <DialogContent className="sm:max-w-[550px] bg-slate-900 border-rose-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[550px] border-rose-500/20">
             <DialogHeader>
               <DialogTitle>
                 {t("IssuedAssets:updateIssuer")}: {asset.symbol} ({asset.id})
@@ -1679,7 +1679,7 @@ function AssetIssuerActions(props) {
 
       {updateIssuerOpen ? (
         <Dialog open={updateIssuerOpen} onOpenChange={setUpdateIssuerOpen}>
-          <DialogContent className="sm:max-w-[550px] bg-slate-900 border-sky-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[550px] border-sky-500/20">
             <DialogHeader>
               <DialogTitle>
                 {t("IssuedAssets:updateIssuer")}: {asset?.symbol} ({asset?.id})
@@ -1755,7 +1755,7 @@ function AssetIssuerActions(props) {
                         <MagnifyingGlassIcon />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                    <DialogContent className="sm:max-w-[375px]">
                       <DialogHeader>
                         <DialogTitle>
                           {chain === "bitshares"
@@ -1789,7 +1789,7 @@ function AssetIssuerActions(props) {
                         <FaceIcon />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                    <DialogContent className="sm:max-w-[375px]">
                       <DialogHeader>
                         <DialogTitle>{t("Favourites:usersHeader")}</DialogTitle>
                         <DialogDescription>
@@ -1811,7 +1811,7 @@ function AssetIssuerActions(props) {
                         <AvatarIcon />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                    <DialogContent className="sm:max-w-[375px]">
                       <DialogHeader>
                         <DialogTitle>
                           {t("IssuedAssets:contactList")}
@@ -1870,7 +1870,7 @@ function AssetIssuerActions(props) {
 
       {overrideOpen ? (
         <Dialog open={overrideOpen} onOpenChange={setOverrideOpen}>
-          <DialogContent className="sm:max-w-[550px] bg-slate-900 border-rose-500/20 text-white shadow-2xl shadow-black/40">
+          <DialogContent className="sm:max-w-[550px] border-rose-500/20">
             <DialogHeader>
               <DialogTitle>
                 {t("IssuedAssets:overrideTransfer", {
@@ -1939,7 +1939,7 @@ function AssetIssuerActions(props) {
                       <MagnifyingGlassIcon />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                  <DialogContent className="sm:max-w-[375px]">
                     <DialogHeader>
                       <DialogTitle>
                         {chain === "bitshares"
@@ -1970,7 +1970,7 @@ function AssetIssuerActions(props) {
                       <FaceIcon />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                  <DialogContent className="sm:max-w-[375px]">
                     <DialogHeader>
                       <DialogTitle>{t("Favourites:usersHeader")}</DialogTitle>
                       <DialogDescription>
@@ -1993,7 +1993,7 @@ function AssetIssuerActions(props) {
                       <AvatarIcon />
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[375px] bg-slate-900 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                  <DialogContent className="sm:max-w-[375px]">
                     <DialogHeader>
                       <DialogTitle>{t("IssuedAssets:contactList")}</DialogTitle>
                       <DialogDescription>
@@ -2045,7 +2045,7 @@ function AssetIssuerActions(props) {
                   />
                   <Button
                     variant="outline"
-                    className="border-white/[0.12] text-white/60 hover:bg-white/[0.08]"
+                    className="border-border text-muted-foreground hover:bg-accent/60"
                     onClick={() => setOverrideAmount(String(overrideBalance))}
                   >
                     {t("IssuedAssets:useMax", { defaultValue: "Use max" })}

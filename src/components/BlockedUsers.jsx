@@ -66,7 +66,7 @@ function RemoveButton({ onClick, label }) {
             size="icon"
             aria-label={label}
             onClick={onClick}
-            className="h-8 w-8 rounded-full text-white/30 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+            className="h-8 w-8 rounded-full text-muted-foreground/60 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -128,12 +128,12 @@ export default function BlockedUsers() {
   const renderCard = (item, style) => {
     if (!item) return null;
     return (
-      <Card className="mb-2 bg-slate-900/60 border-white/[0.08] hover:bg-white/[0.03] hover:border-white/[0.12] transition-all rounded-xl">
+      <Card className="mb-2 bg-card/60 border-border hover:bg-accent/30 hover:border-border transition-all rounded-xl">
         <CardHeader className="px-4 py-3 flex flex-row items-center justify-between gap-3">
           <div className="space-y-1 min-w-0">
-            <CardTitle className="text-sm text-white truncate">
+            <CardTitle className="text-sm text-foreground truncate">
               <span className="font-semibold">{item.name}</span>
-              <span className="ml-2 text-xs font-mono font-normal text-white/30">
+              <span className="ml-2 text-xs font-mono font-normal text-muted-foreground/60">
                 {item.id}
               </span>
             </CardTitle>
@@ -155,41 +155,41 @@ export default function BlockedUsers() {
   };
 
   return (
-    <div className="container mx-auto mt-5 mb-10 max-w-4xl text-white">
+    <div className="container mx-auto mt-5 mb-10 max-w-4xl text-foreground">
       <div className="grid grid-cols-1 gap-3">
-        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm">
+        <Card className="bg-card/60 border-border shadow-lg shadow-black/20 backdrop-blur-sm">
           <div className="h-1 w-full bg-gradient-to-r from-rose-500 to-red-500" />
           <CardHeader className="pb-3">
-            <CardTitle className="text-white flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2">
               <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-rose-500/15 flex-shrink-0">
                 <ShieldOff className="h-5 w-5 text-rose-400" />
               </span>
               {t("Blocklist:committeeHeader")}
             </CardTitle>
-            <p className="text-xs text-white/50 mt-0.5 ml-11">
+            <p className="text-xs text-muted-foreground mt-0.5 ml-11">
               {t("Blocklist:committeeCount", { count: committeeCount })}
             </p>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-white/50 leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               {t("Blocklist:committeeDescription")}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm">
+        <Card className="bg-card/60 border-border shadow-lg shadow-black/20 backdrop-blur-sm">
           <div className="h-1 w-full bg-gradient-to-r from-rose-500 to-red-500" />
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-white flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2">
                   <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-rose-500/15 flex-shrink-0">
                     <Ban className="h-5 w-5 text-rose-400" />
                   </span>
                   {t("Blocklist:usersHeader")}
                 </CardTitle>
                 {chainUserBlockList && chainUserBlockList.length ? (
-                  <p className="text-xs text-white/50 mt-0.5 ml-11">
+                  <p className="text-xs text-muted-foreground mt-0.5 ml-11">
                     {chainUserBlockList.length}
                   </p>
                 ) : null}
@@ -204,15 +204,15 @@ export default function BlockedUsers() {
                     {t("Blocklist:addUser")}
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[420px] bg-slate-950 border-white/[0.1] text-white shadow-2xl shadow-black/40">
+                <DialogContent className="sm:max-w-[420px]">
                   <DialogHeader>
                     <div className="flex items-center gap-2">
                       <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-rose-500/30 bg-rose-500/15">
                         <UserX className="h-4 w-4 text-rose-400" />
                       </div>
                       <div>
-                        <DialogTitle className="text-white">{t("Blocklist:addUserDialogTitle")}</DialogTitle>
-                        <DialogDescription className="text-white/50">
+                        <DialogTitle>{t("Blocklist:addUserDialogTitle")}</DialogTitle>
+                        <DialogDescription className="text-muted-foreground">
                           {t("Blocklist:addUserDialogDescription")}
                         </DialogDescription>
                       </div>
@@ -249,13 +249,13 @@ export default function BlockedUsers() {
                 </div>
               </>
             ) : (
-              <Empty className="mt-2 border border-white/[0.06] rounded-xl bg-white/[0.02]">
+              <Empty className="mt-2 border border-border/60 rounded-xl bg-accent/20">
                 <EmptyHeader>
                   <EmptyMedia variant="icon" className="bg-rose-500/15 text-rose-400">
                     <Ban className="h-6 w-6" />
                   </EmptyMedia>
-                  <EmptyTitle className="text-white/80">{t("Blocklist:usersEmptyTitle")}</EmptyTitle>
-                  <EmptyDescription className="text-white/40">
+                  <EmptyTitle className="text-foreground/80">{t("Blocklist:usersEmptyTitle")}</EmptyTitle>
+                  <EmptyDescription className="text-muted-foreground">
                     {t("Blocklist:usersEmptyDescription")}
                   </EmptyDescription>
                 </EmptyHeader>

@@ -38,10 +38,9 @@ export default function MarketTradeContents(properties) {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl border bg-slate-950/60 backdrop-blur-xl",
+        "relative overflow-hidden rounded-xl border bg-card/60 backdrop-blur-xl",
         accent.border
       )}
-      style={{ backgroundColor: "rgba(2, 6, 23, 0.6)" }}
     >
       <div
         className={cn(
@@ -50,7 +49,7 @@ export default function MarketTradeContents(properties) {
         )}
       />
       <div className="relative">
-        <div className="flex items-center gap-2.5 border-b border-white/[0.06] px-4 py-3">
+        <div className="flex items-center gap-2.5 border-b border-border/60 px-4 py-3">
           <div
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-lg border",
@@ -69,7 +68,7 @@ export default function MarketTradeContents(properties) {
                 ? t("MarketTradeContents:recentlyCompletedBuyOrdersTitle")
                 : t("MarketTradeContents:recentlyCompletedSellOrdersTitle")}
             </h3>
-            <p className="text-[11px] text-white/45">
+            <p className="text-[11px] text-muted-foreground/70">
               {isBuy
                 ? t("MarketTradeContents:recentlyCompletedBuyOrdersDescription")
                 : t("MarketTradeContents:recentlyCompletedSellOrdersDescription")}
@@ -80,11 +79,11 @@ export default function MarketTradeContents(properties) {
         <div className="p-4 space-y-2">
           {marketHistoryInProgress ? (
             <div className="space-y-2">
-              <Skeleton className="h-8 w-full bg-white/[0.05]" />
-              <Skeleton className="h-8 w-full bg-white/[0.05]" />
-              <Skeleton className="h-8 w-full bg-white/[0.05]" />
-              <Skeleton className="h-8 w-full bg-white/[0.05]" />
-              <Skeleton className="h-8 w-full bg-white/[0.05]" />
+              <Skeleton className="h-8 w-full bg-muted" />
+              <Skeleton className="h-8 w-full bg-muted" />
+              <Skeleton className="h-8 w-full bg-muted" />
+              <Skeleton className="h-8 w-full bg-muted" />
+              <Skeleton className="h-8 w-full bg-muted" />
             </div>
           ) : null}
           {publicMarketHistory && publicMarketHistory.length ? (
@@ -95,8 +94,8 @@ export default function MarketTradeContents(properties) {
               assetBData={assetBData}
             />
           ) : !marketHistoryInProgress ? (
-            <div className="flex flex-col items-center justify-center gap-2 py-6 text-white/40">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.02]">
+            <div className="flex flex-col items-center justify-center gap-2 py-6 text-muted-foreground">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-accent/20">
                 <Inbox className="h-5 w-5" />
               </div>
               <p className="text-xs">

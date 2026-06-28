@@ -73,7 +73,7 @@ function RowHyperlink({
   asset_b_symbol,
 }) {
   return (
-    <div className="grid grid-cols-10 text-white/70">
+    <div className="grid grid-cols-10 text-foreground/70">
       <div className="col-span-1">
         <p>{id}</p>
       </div>
@@ -279,15 +279,15 @@ export default function PortfolioBalances({
 
     return (
       <div style={{ ...style, marginBottom: "8px" }}>
-        <Card className="bg-slate-900/60 border-white/[0.08] hover:bg-emerald-500/[0.03] hover:border-emerald-500/20 transition-all">
+        <Card className="bg-card/60 border-border hover:bg-emerald-500/[0.03] hover:border-emerald-500/20 transition-all">
           <div className="grid grid-cols-6">
             <div className="col-span-4 md:col-span-2 text-left">
               <CardHeader className="pt-3 pb-3">
-                <CardTitle className="text-white flex items-center gap-2" title={`${t("PoolStake:id")}: ${currentAsset.id}`}>
+                <CardTitle className="flex items-center gap-2" title={`${t("PoolStake:id")}: ${currentAsset.id}`}>
                   <span className="font-semibold">{currentAsset.symbol}</span>
-                  <span className="text-xs font-mono font-normal text-white/25">{currentAsset.id}</span>
+                  <span className="text-xs font-mono font-normal text-muted-foreground/50">{currentAsset.id}</span>
                 </CardTitle>
-            <CardDescription className="text-white/50">
+            <CardDescription className="text-muted-foreground">
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={onToggleFavourite}
@@ -298,7 +298,7 @@ export default function PortfolioBalances({
                       {isFavourited ? (
                         <StarFilledIcon className="h-4 w-4 text-yellow-500" />
                       ) : (
-                        <StarIcon className="h-4 w-4 text-white/30" />
+                        <StarIcon className="h-4 w-4 text-muted-foreground/60" />
                       )}
                     </button>
 
@@ -306,7 +306,7 @@ export default function PortfolioBalances({
                       title={t("PortfolioTabs:liquidAmount", {
                         amount: readableBalance,
                       })}
-                      className="text-sm text-white/70"
+                      className="text-sm text-foreground/70"
                     >
                       {readableBalance}
                     </span>
@@ -319,7 +319,7 @@ export default function PortfolioBalances({
                 <DialogTrigger>
                   <Button>{t("HTLC:actionsColumn")}</Button>
                 </DialogTrigger>
-                <DialogContent className="bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40">
+                <DialogContent>
                   <DialogHeader>
                     <DialogTitle>
                       {t("HTLC:actionsColumn")} - {currentAsset.symbol}
@@ -343,25 +343,25 @@ export default function PortfolioBalances({
   };
 
   return (
-    <div className="container mx-auto mt-5 mb-5 text-white">
+    <div className="container mx-auto mt-5 mb-5 text-foreground">
       <div className="grid grid-cols-1 mt-5">
-        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20">
+        <Card className="bg-card/60 border-border shadow-lg shadow-black/20">
           <div className="h-1 w-full bg-gradient-to-r from-emerald-500 to-teal-500" />
           <CardHeader className="pb-3">
-            <CardTitle className="text-white flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2">
               <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-emerald-500/15">
                 <Wallet className="w-4 h-4 text-emerald-400" />
               </span>
               {t("PortfolioTabs:accountBalances", { username: usr?.username })}
             </CardTitle>
-            <CardDescription className="text-white/50">
+            <CardDescription className="text-muted-foreground">
               {t("PortfolioTabs:accountBalancesDescription")}
             </CardDescription>
             <div className="grid grid-cols-3 gap-3 mt-2">
                 <Button
                   onClick={() => handleSortClick("default")}
                   variant={sortType === "default" ? "" : "outline"}
-                  className={sortType === "default" ? "bg-white/10 text-white hover:bg-white/15" : "border-white/[0.08] text-white/60 hover:bg-white/[0.06] hover:text-white"}
+                  className={sortType === "default" ? "bg-accent/40 dark:bg-white/10 text-foreground hover:bg-accent/50 dark:hover:bg-white/15" : "border-border text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground"}
                 >
                   {t("PortfolioTabs:default")}
                   {" (ID) "}
@@ -376,7 +376,7 @@ export default function PortfolioBalances({
                 <Button
                   onClick={() => handleSortClick("alphabetical")}
                   variant={sortType === "alphabetical" ? "" : "outline"}
-                  className={sortType === "alphabetical" ? "bg-white/10 text-white hover:bg-white/15" : "border-white/[0.08] text-white/60 hover:bg-white/[0.06] hover:text-white"}
+                  className={sortType === "alphabetical" ? "bg-accent/40 dark:bg-white/10 text-foreground hover:bg-accent/50 dark:hover:bg-white/15" : "border-border text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground"}
                 >
                   {t("PortfolioTabs:alphabetical")}
                   {sortType === "alphabetical" ? (
@@ -390,7 +390,7 @@ export default function PortfolioBalances({
                 <Button
                   onClick={() => handleSortClick("amount")}
                   variant={sortType === "amount" ? "" : "outline"}
-                  className={sortType === "amount" ? "bg-white/10 text-white hover:bg-white/15" : "border-white/[0.08] text-white/60 hover:bg-white/[0.06] hover:text-white"}
+                  className={sortType === "amount" ? "bg-accent/40 dark:bg-white/10 text-foreground hover:bg-accent/50 dark:hover:bg-white/15" : "border-border text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground"}
                 >
                   {t("PortfolioTabs:amount")}
                   {sortType === "amount" ? (
@@ -403,11 +403,11 @@ export default function PortfolioBalances({
                 </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-2 text-white/70">
+          <CardContent className="space-y-2 text-foreground/70">
             {balancesLoading ? (
-              <div className="flex items-center gap-3 text-white/60">
+              <div className="flex items-center gap-3 text-muted-foreground">
                 <Spinner />
-                <p className="text-white/60">{t("Market:loading")}</p>
+                <p className="text-muted-foreground">{t("Market:loading")}</p>
               </div>
             ) : sortedUserBalances && sortedUserBalances.length ? (
               <div className="gaps-2 max-h-[500px] overflow-auto">
@@ -423,7 +423,7 @@ export default function PortfolioBalances({
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/15 mb-3">
                   <Wallet className="w-6 h-6 text-emerald-400" />
                 </div>
-                <p className="text-white/50 text-sm">{t("PortfolioTabs:noBalancesFound")}</p>
+                <p className="text-muted-foreground text-sm">{t("PortfolioTabs:noBalancesFound")}</p>
               </div>
             )}
           </CardContent>

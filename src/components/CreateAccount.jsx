@@ -191,25 +191,25 @@ const CreateAccount = () => {
     writtenDownChecked;
 
   return (
-    <div className="container mx-auto mt-5 mb-5 w-full lg:w-3/4 text-white">
+    <div className="container mx-auto mt-5 mb-5 w-full lg:w-3/4 text-foreground">
       <div className="grid grid-cols-1 gap-3">
-        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm">
+        <Card className="bg-card/60 border-border shadow-lg shadow-black/20 backdrop-blur-sm">
           <div className="h-1 w-full bg-gradient-to-r from-emerald-500 to-green-500" />
           <CardHeader className="pb-5">
-            <CardTitle className="text-white flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2">
               <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-500/15 flex-shrink-0">
                 <UserPlus className="h-5 w-5 text-emerald-400" />
               </span>
               {t("CreateAccount:createAccount")}
             </CardTitle>
-            <CardDescription className="text-white/50 ml-11">
+            <CardDescription className="text-muted-foreground ml-11">
               {t("CreateAccount:description")}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 gap-4">
               <div>
-                <label className="block text-sm font-medium text-white/70 mb-1.5">
+                <label className="block text-sm font-medium text-foreground/70 mb-1.5">
                   {t("CreateAccount:username")}
                 </label>
                 <Input
@@ -217,7 +217,7 @@ const CreateAccount = () => {
                   onChange={(e) => {
                     setUsername(e.target.value);
                   }}
-                  className="bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
+                  className="bg-accent/30 dark:bg-white/[0.05] border-border text-foreground placeholder:text-muted-foreground/60"
                 />
                 {username &&
                 username.length &&
@@ -242,14 +242,14 @@ const CreateAccount = () => {
                 ) : null}
               </div>
               <div>
-                <label className="text-sm font-medium text-white/70 flex items-center mb-1.5">
+                <label className="text-sm font-medium text-foreground/70 flex items-center mb-1.5">
                   {t("CreateAccount:generatedPassword")}
                   <HoverCard>
                     <HoverCardTrigger asChild>
-                      <QuestionMarkCircledIcon className="ml-2 h-4 w-4 text-white/40 cursor-help" />
+                      <QuestionMarkCircledIcon className="ml-2 h-4 w-4 text-muted-foreground cursor-help" />
                     </HoverCardTrigger>
-                    <HoverCardContent className="w-80 bg-slate-950 border-white/[0.1] text-white text-sm">
-                      <p className="text-white/70">{t("CreateAccount:genPassAbout")}</p>
+                    <HoverCardContent className="w-80 bg-card border-border text-foreground text-sm">
+                      <p className="text-foreground/70">{t("CreateAccount:genPassAbout")}</p>
                     </HoverCardContent>
                   </HoverCard>
                 </label>
@@ -259,14 +259,14 @@ const CreateAccount = () => {
                       type={passMode === "hide" ? "password" : "text"}
                       value={generatedPassword}
                       disabled
-                      className="bg-white/[0.03] border-white/[0.08] text-white disabled:opacity-60"
+                      className="bg-accent/30 dark:bg-white/[0.05] border-border text-foreground disabled:opacity-60"
                     />
                   </div>
                   <div className="col-span-4 md:col-span-1 flex gap-1">
                     <Button
                       variant="outline"
                       size="icon"
-                      className="border-white/[0.12] text-white/60 hover:bg-white/[0.08]"
+                      className="border-border text-muted-foreground hover:bg-accent/60"
                       onClick={() => {
                         setPassMode(passMode === "show" ? "hide" : "show");
                       }}
@@ -280,7 +280,7 @@ const CreateAccount = () => {
                     <Button
                       variant="outline"
                       size="icon"
-                      className="border-white/[0.12] text-white/60 hover:bg-white/[0.08]"
+                      className="border-border text-muted-foreground hover:bg-accent/60"
                       onClick={() => {
                         copyToClipboard(generatedPassword);
                       }}
@@ -290,7 +290,7 @@ const CreateAccount = () => {
                     <Button
                       variant="outline"
                       size="icon"
-                      className="border-white/[0.12] text-white/60 hover:bg-white/[0.08]"
+                      className="border-border text-muted-foreground hover:bg-accent/60"
                       onClick={() => {
                         setItr(itr + 1);
                       }}
@@ -301,33 +301,33 @@ const CreateAccount = () => {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-white/70 mb-1.5">
+                <label className="block text-sm font-medium text-foreground/70 mb-1.5">
                   {t("CreateAccount:confirmPasswordTitle")}
                 </label>
                 <Input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
+                  className="bg-accent/30 dark:bg-white/[0.05] border-border text-foreground placeholder:text-muted-foreground/60"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-white/70 mb-1.5">
+                <label className="block text-sm font-medium text-foreground/70 mb-1.5">
                   {t("CreateAccount:method")}
                 </label>
                 <Select
                   value={method}
                   onValueChange={(value) => setMethod(value)}
                 >
-                  <SelectTrigger className="bg-white/[0.03] border-white/[0.08] text-white/70">
-                    <SelectValue className="text-white/70" />
+                  <SelectTrigger className="bg-accent/30 dark:bg-white/[0.05] border-border text-foreground/70">
+                    <SelectValue className="text-foreground/70" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                  <SelectContent className="bg-card border-border shadow-2xl dark:shadow-black/40 shadow-black/15">
                     <SelectGroup>
-                      <SelectItem value="faucet" className="text-white/70 focus:bg-white/[0.08] focus:text-white">
+                      <SelectItem value="faucet" className="text-foreground/70 focus:bg-accent focus:text-accent-foreground">
                         {t("CreateAccount:faucetMethod")}
                       </SelectItem>
-                      <SelectItem value="ltm" className="text-white/70 focus:bg-white/[0.08] focus:text-white">
+                      <SelectItem value="ltm" className="text-foreground/70 focus:bg-accent focus:text-accent-foreground">
                         {t("CreateAccount:ltmMethod")}
                       </SelectItem>
                     </SelectGroup>
@@ -346,9 +346,9 @@ const CreateAccount = () => {
                       id={id}
                       checked={checked}
                       onClick={() => set(!checked)}
-                      className="border-white/30 data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
+                      className="border-foreground/30 data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
                     />
-                    <label htmlFor={id} className="ml-2 mb-0 text-sm text-white/70">
+                    <label htmlFor={id} className="ml-2 mb-0 text-sm text-foreground/70">
                       {label}
                     </label>
                   </div>
@@ -361,19 +361,19 @@ const CreateAccount = () => {
                     {method === "ltm" && !deeplinkDialog ? (
                       <Button
                         onClick={() => setDeeplinkDialog(true)}
-                        className="bg-emerald-600 hover:bg-emerald-500 text-white"
+                        className="bg-emerald-600 hover:bg-emerald-500 text-foreground"
                       >
                         {t("CreateAccount:generateDeeplink")}
                       </Button>
                     ) : null}
                     {method === "faucet" ? (
-                      <Button onClick={faucetConfirm} className="bg-emerald-600 hover:bg-emerald-500 text-white">
+                      <Button onClick={faucetConfirm} className="bg-emerald-600 hover:bg-emerald-500 text-foreground">
                         {t("CreateAccount:submit")}
                       </Button>
                     ) : null}
                   </>
                 ) : (
-                  <Button className="bg-white/10 text-white/40" disabled>
+                  <Button className="bg-accent/40 text-muted-foreground" disabled>
                     {t("CreateAccount:submit")}
                   </Button>
                 )}
@@ -383,7 +383,7 @@ const CreateAccount = () => {
               <p className="mt-4 text-emerald-400 text-sm">{t("CreateAccount:accountCreated")}</p>
             ) : null}
             {faucetInProgress ? (
-              <p className="mt-4 text-white/50 text-sm">{t("CreateAccount:faucetInProgress")}</p>
+              <p className="mt-4 text-muted-foreground text-sm">{t("CreateAccount:faucetInProgress")}</p>
             ) : null}
           </CardContent>
         </Card>

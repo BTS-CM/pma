@@ -51,7 +51,7 @@ const TYPE_ACCENTS = {
 };
 
 const DIALOG_CLASS =
-  "!bg-slate-950 border border-white/10 text-white/85";
+  "!bg-card border border-border text-foreground/85";
 
 export default function MarketAssetCard(properties) {
   const {
@@ -126,7 +126,7 @@ export default function MarketAssetCard(properties) {
   const typeAccent = TYPE_ACCENTS[type] || TYPE_ACCENTS.buy;
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-xl shadow-black/30">
+    <div className="relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl shadow-xl shadow-black/30">
       <span
         aria-hidden="true"
         className={cn(
@@ -143,25 +143,25 @@ export default function MarketAssetCard(properties) {
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="text-base sm:text-lg font-semibold text-white tracking-tight truncate">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground tracking-tight truncate">
                 {asset}{" "}
-                <span className="text-white/45 font-mono text-xs">
+                <span className="text-muted-foreground/70 font-mono text-xs">
                   {assetData ? `(${assetData.id})` : ""}
                 </span>
               </h3>
             </div>
-            <div className="text-xs text-white/50 mt-0.5 flex items-center gap-2 flex-wrap">
+            <div className="text-xs text-muted-foreground mt-0.5 flex items-center gap-2 flex-wrap">
               {type === "buy" ? (
                 <>
                   <span>{t("MarketAssetCard:quoteAsset")}</span>
-                  <span className="text-white/30">·</span>
+                  <span className="text-muted-foreground/60">·</span>
                   <span>{t("MarketAssetCard:buying")}</span>
                 </>
               ) : null}
               {type === "sell" ? (
                 <>
                   <span>{t("MarketAssetCard:baseAsset")}</span>
-                  <span className="text-white/30">·</span>
+                  <span className="text-muted-foreground/60">·</span>
                   <span>{t("MarketAssetCard:selling")}</span>
                 </>
               ) : null}
@@ -195,7 +195,7 @@ export default function MarketAssetCard(properties) {
                       "inline-flex h-8 w-8 items-center justify-center rounded-lg border transition-colors",
                       isFavourite
                         ? "border-rose-400/40 bg-rose-500/15 text-rose-300 hover:bg-rose-500/25"
-                        : "border-white/[0.08] bg-slate-950/40 text-white/40 hover:text-rose-300 hover:border-rose-400/30 hover:bg-rose-500/10",
+                        : "border-border bg-card/40 text-muted-foreground hover:text-rose-300 hover:border-rose-400/30 hover:bg-rose-500/10",
                     )}
                     aria-label={isFavourite ? "Unfavourite" : "Favourite"}
                   >
@@ -206,7 +206,7 @@ export default function MarketAssetCard(properties) {
                     )}
                   </button>
                 </TooltipTrigger>
-                <TooltipContent className="!bg-slate-950 border border-white/10 text-white/85">
+                <TooltipContent className="!bg-card border border-border text-foreground/85">
                   Favourite
                 </TooltipContent>
               </Tooltip>
@@ -232,21 +232,21 @@ export default function MarketAssetCard(properties) {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="h-8 gap-1.5 border-white/[0.08] bg-slate-950/40 hover:border-cyan-400/40 hover:bg-cyan-500/10 text-white/80 hover:text-white text-xs"
+                className="h-8 gap-1.5 border-border bg-card/40 hover:border-cyan-400/40 hover:bg-cyan-500/10 text-foreground/80 hover:text-accent-foreground text-xs"
               >
                 <Coins className="h-3 w-3 text-cyan-300" />
                 {t("MarketAssetCard:supply")}
               </Button>
             </DialogTrigger>
             <DialogContent
-              style={{ backgroundColor: "#020617" }}
+
               className={cn(DIALOG_CLASS, "sm:max-w-[420px]")}
             >
               <DialogHeader>
-                <DialogTitle className="text-white">
+                <DialogTitle>
                   {asset} {assetData ? `(${assetData.id})` : ""}
                 </DialogTitle>
-                <DialogDescription className="text-white/65">
+                <DialogDescription className="text-muted-foreground/80">
                   {assetDetails && assetDetails.current_supply && assetData ? (
                     <>
                       {humanReadableFloat(
@@ -292,29 +292,29 @@ export default function MarketAssetCard(properties) {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="h-8 gap-1.5 border-white/[0.08] bg-slate-950/40 hover:border-violet-400/40 hover:bg-violet-500/10 text-white/80 hover:text-white text-xs"
+                className="h-8 gap-1.5 border-border bg-card/40 hover:border-violet-400/40 hover:bg-violet-500/10 text-foreground/80 hover:text-accent-foreground text-xs"
               >
                 <ExternalLink className="h-3 w-3 text-violet-300" />
                 {t("MarketAssetCard:links")}
               </Button>
             </DialogTrigger>
             <DialogContent
-              style={{ backgroundColor: "#020617" }}
+
               className={cn(DIALOG_CLASS, "sm:max-w-[620px]")}
             >
               <DialogHeader>
-                <DialogTitle className="text-white">
+                <DialogTitle>
                   {t("MarketAssetCard:externalLinks", { asset: asset })}
                 </DialogTitle>
-                <DialogDescription className="text-white/65">
+                <DialogDescription className="text-muted-foreground/80">
                   {t("MarketAssetCard:externalLinksDescription", {
                     asset: asset,
                   })}
                 </DialogDescription>
               </DialogHeader>
-              <div className="grid grid-cols-1 gap-2 text-white/85">
+              <div className="grid grid-cols-1 gap-2 text-foreground/85">
                 <div>
-                  <b className="text-white">{t("MarketAssetCard:explorers")}</b>
+                  <b className="text-foreground">{t("MarketAssetCard:explorers")}</b>
                 </div>
                 <div>
                   {chain === "bitshares" ? (
@@ -337,7 +337,7 @@ export default function MarketAssetCard(properties) {
                   ) : null}
                 </div>
                 <div>
-                  <b className="text-white">{t("MarketAssetCard:webWallets")}</b>
+                  <b className="text-foreground">{t("MarketAssetCard:webWallets")}</b>
                 </div>
                 <div>
                   <ExternalLinkButton
@@ -362,21 +362,21 @@ export default function MarketAssetCard(properties) {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="h-8 gap-1.5 border-white/[0.08] bg-slate-950/40 hover:border-amber-400/40 hover:bg-amber-500/10 text-white/80 hover:text-white text-xs"
+                className="h-8 gap-1.5 border-border bg-card/40 hover:border-amber-400/40 hover:bg-amber-500/10 text-foreground/80 hover:text-accent-foreground text-xs"
               >
                 <FileJson className="h-3 w-3 text-amber-300" />
                 {t("MarketAssetCard:json")}
               </Button>
             </DialogTrigger>
             <DialogContent
-              style={{ backgroundColor: "#020617" }}
+
               className={cn(DIALOG_CLASS, "sm:max-w-[620px]")}
             >
               <DialogHeader>
-                <DialogTitle className="text-white">
+                <DialogTitle>
                   {t("MarketAssetCard:jsonSummaryData", { asset: asset })}
                 </DialogTitle>
-                <DialogDescription className="text-white/65">
+                <DialogDescription className="text-muted-foreground/80">
                   {t("MarketAssetCard:jsonSummaryDataDescription", {
                     asset: asset,
                   })}
@@ -384,8 +384,8 @@ export default function MarketAssetCard(properties) {
               </DialogHeader>
               <div className="grid grid-cols-1">
                 <div className="col-span-1">
-                  <ScrollArea className="h-72 rounded-md border border-white/10 bg-slate-950/60 text-sm">
-                    <pre className="text-xs text-white/80 p-3 font-mono">
+                  <ScrollArea className="h-72 rounded-md border border-border bg-card/60 text-sm">
+                    <pre className="text-xs text-foreground/80 p-3 font-mono">
                       {JSON.stringify(
                         { assetData, assetDetails, bitassetData },
                         null,
@@ -395,7 +395,7 @@ export default function MarketAssetCard(properties) {
                   </ScrollArea>
                   <Button
                     variant="outline"
-                    className="mt-2 border-white/[0.08] bg-slate-950/40 hover:border-amber-400/40 hover:bg-amber-500/10 text-white/80 hover:text-white"
+                    className="mt-2 border-border bg-card/40 hover:border-amber-400/40 hover:bg-amber-500/10 text-foreground/80 hover:text-accent-foreground"
                     onClick={() => {
                       navigator.clipboard.writeText(
                         JSON.stringify(
@@ -471,7 +471,7 @@ export default function MarketAssetCard(properties) {
               dialogdescription={
                 <>
                   {!bitassetData ? (
-                    <ScrollArea className="h-72 rounded-md border border-white/10 bg-slate-950/60 text-sm">
+                    <ScrollArea className="h-72 rounded-md border border-border bg-card/60 text-sm">
                       <ul className="ml-2 list-disc [&>li]:mt-2 pl-5 pr-5">
                         <li>
                           {t("MarketAssetCard:userIssuedAssetDescription1")}
@@ -496,7 +496,7 @@ export default function MarketAssetCard(properties) {
                   ) : null}
 
                   {bitassetData && bitassetData.is_prediction_market ? (
-                    <ScrollArea className="h-72 rounded-md border border-white/10 bg-slate-950/60 text-sm">
+                    <ScrollArea className="h-72 rounded-md border border-border bg-card/60 text-sm">
                       <ul className="ml-2 list-disc [&>li]:mt-2 pl-5 pr-5">
                         <li>
                           {t("MarketAssetCard:predictionMarketDescription1")}
@@ -518,7 +518,7 @@ export default function MarketAssetCard(properties) {
                   ) : null}
 
                   {bitassetData && !bitassetData.is_prediction_market ? (
-                    <ScrollArea className="h-72 rounded-md border border-white/10 bg-slate-950/60 text-sm">
+                    <ScrollArea className="h-72 rounded-md border border-border bg-card/60 text-sm">
                       <ul className="ml-2 list-disc [&>li]:mt-2 pl-5 pr-5">
                         <li>{t("MarketAssetCard:smartcoinDescription1")}</li>
                         <li>{t("MarketAssetCard:smartcoinDescription2")}</li>
@@ -866,21 +866,21 @@ export default function MarketAssetCard(properties) {
                   <DialogTrigger asChild>
                     <Button
                       variant="outline"
-                      className="h-7 gap-1.5 border-white/[0.08] bg-slate-950/40 hover:border-cyan-400/40 hover:bg-cyan-500/10 text-white/80 hover:text-white text-xs"
+                      className="h-7 gap-1.5 border-border bg-card/40 hover:border-cyan-400/40 hover:bg-cyan-500/10 text-foreground/80 hover:text-accent-foreground text-xs"
                     >
                       <Info className="h-3 w-3" />
                       {t("MarketAssetCard:smartcoinInfoButton")}
                     </Button>
                   </DialogTrigger>
                   <DialogContent
-                    style={{ backgroundColor: "#020617" }}
+      
                     className={cn(DIALOG_CLASS, "sm:max-w-[620px]")}
                   >
                     <DialogHeader>
-                      <DialogTitle className="text-white">
+                      <DialogTitle>
                         {t("MarketAssetCard:additionalBitassetInfoTitle")}
                       </DialogTitle>
-                      <DialogDescription className="text-white/65">
+                      <DialogDescription className="text-muted-foreground/80">
                         {t("MarketAssetCard:additionalBitassetInfoDescription")}
                       </DialogDescription>
                     </DialogHeader>

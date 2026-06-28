@@ -72,13 +72,13 @@ function ColorField({ label, value, onChange }) {
 
   return (
     <div className="space-y-1.5">
-      <Label className="text-sm text-white/70">{label}</Label>
+      <Label className="text-sm text-foreground/70">{label}</Label>
       <div className="flex items-center gap-2">
         <input
           type="color"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="h-9 w-12 cursor-pointer rounded-md border border-white/[0.12] bg-transparent p-0"
+          className="h-9 w-12 cursor-pointer rounded-md border border-border bg-transparent p-0"
           aria-label={label}
         />
         <Input
@@ -93,7 +93,7 @@ function ColorField({ label, value, onChange }) {
           onBlur={() => {
             if (!isValidHex(draft)) setDraft(value);
           }}
-          className="font-mono uppercase bg-white/[0.03] border-white/[0.08] text-white placeholder:text-white/30"
+          className="font-mono uppercase bg-accent/30 dark:bg-white/[0.05] border-border text-foreground placeholder:text-muted-foreground/60"
           maxLength={7}
         />
       </div>
@@ -103,11 +103,11 @@ function ColorField({ label, value, onChange }) {
 
 function SettingRow({ label, description, children }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 items-start py-3 border-b border-white/[0.06] last:border-b-0">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 items-start py-3 border-b border-border/60 last:border-b-0">
       <div className="sm:col-span-1">
-        <Label className="text-sm font-medium text-white/70">{label}</Label>
+        <Label className="text-sm font-medium text-foreground/70">{label}</Label>
         {description ? (
-          <p className="text-xs text-white/40 mt-1">{description}</p>
+          <p className="text-xs text-muted-foreground mt-1">{description}</p>
         ) : null}
       </div>
       <div className="sm:col-span-2">{children}</div>
@@ -148,18 +148,18 @@ export default function ConfigureVisuals() {
     : 0;
 
   return (
-    <div className="container mx-auto mt-5 mb-5 text-white">
+    <div className="container mx-auto mt-5 mb-5 text-foreground">
       <div className="grid grid-cols-1 gap-3">
-        <Card className="bg-slate-900/60 border-white/[0.08] shadow-lg shadow-black/20 backdrop-blur-sm">
+        <Card className="bg-card/60 border-border shadow-lg shadow-black/20 backdrop-blur-sm">
           <div className="h-1 w-full bg-gradient-to-r from-violet-500 to-fuchsia-500" />
           <CardHeader className="pb-3">
-            <CardTitle className="text-white flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2">
               <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-violet-500/15 flex-shrink-0">
                 <Palette className="h-5 w-5 text-violet-400" />
               </span>
               {t("Visuals:pageTitle")}
             </CardTitle>
-            <CardDescription className="text-white/50 ml-11">
+            <CardDescription className="text-muted-foreground ml-11">
               {t("Visuals:pageDescription")}
             </CardDescription>
           </CardHeader>
@@ -178,7 +178,7 @@ export default function ConfigureVisuals() {
                   className="flex-1"
                   variant="violet"
                 />
-                <span className="w-10 text-right text-sm font-mono tabular-nums text-white/70">
+                <span className="w-10 text-right text-sm font-mono tabular-nums text-foreground/70">
                   {safeWaveCount}
                 </span>
               </div>
@@ -200,7 +200,7 @@ export default function ConfigureVisuals() {
                   className="flex-1"
                   variant="cyan"
                 />
-                <span className="w-12 text-right text-sm font-mono tabular-nums text-white/70">
+                <span className="w-12 text-right text-sm font-mono tabular-nums text-foreground/70">
                   {safeWaveSpeed.toFixed(2)}x
                 </span>
               </div>
@@ -222,7 +222,7 @@ export default function ConfigureVisuals() {
                   className="flex-1"
                   variant="emerald"
                 />
-                <span className="w-12 text-right text-sm font-mono tabular-nums text-white/70">
+                <span className="w-12 text-right text-sm font-mono tabular-nums text-foreground/70">
                   {safeWaveThickness.toFixed(2)}x
                 </span>
               </div>
@@ -236,12 +236,12 @@ export default function ConfigureVisuals() {
                 value={wavePalette}
                 onValueChange={(v) => setVisualSetting("wavePalette", v)}
               >
-                <SelectTrigger className="w-full sm:w-64 bg-white/[0.03] border-white/[0.08] text-white/70">
-                  <SelectValue className="text-white/70" />
+                <SelectTrigger className="w-full sm:w-64 bg-accent/30 dark:bg-white/[0.05] border-border text-foreground/70">
+                  <SelectValue className="text-foreground/70" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                <SelectContent className="bg-card border-border ">
                   {PALETTES.map((p) => (
-                    <SelectItem key={p.id} value={p.id} className="text-white/70 focus:bg-white/[0.08] focus:text-white">
+                    <SelectItem key={p.id} value={p.id} className="text-foreground/70 focus:bg-accent focus:text-foreground">
                       {t(p.labelKey)}
                     </SelectItem>
                   ))}
@@ -263,7 +263,7 @@ export default function ConfigureVisuals() {
                     onChange={(v) => setVisualSetting("customColor2", v)}
                   />
                 </div>
-                <p className="text-xs text-white/40">
+                <p className="text-xs text-muted-foreground">
                   {t("Visuals:customColorDesc")}
                 </p>
               </div>
@@ -285,7 +285,7 @@ export default function ConfigureVisuals() {
                   className="flex-1"
                   variant="amber"
                 />
-                <span className="w-12 text-right text-sm font-mono tabular-nums text-white/70">
+                <span className="w-12 text-right text-sm font-mono tabular-nums text-foreground/70">
                   {safeAurora.toFixed(2)}x
                 </span>
               </div>
@@ -307,7 +307,7 @@ export default function ConfigureVisuals() {
                   className="flex-1"
                   variant="rose"
                 />
-                <span className="w-10 text-right text-sm font-mono tabular-nums text-white/70">
+                <span className="w-10 text-right text-sm font-mono tabular-nums text-foreground/70">
                   {safeBlur}
                 </span>
               </div>
@@ -325,7 +325,7 @@ export default function ConfigureVisuals() {
                   }
                   className="data-[state=checked]:bg-violet-500"
                 />
-                <span className="ml-3 text-sm text-white/50">
+                <span className="ml-3 text-sm text-muted-foreground">
                   {particlesEnabled
                     ? t("Visuals:on")
                     : t("Visuals:off")}
@@ -334,10 +334,10 @@ export default function ConfigureVisuals() {
             </SettingRow>
 
             <div className="pt-6 pb-2">
-              <h3 className="text-lg font-semibold tracking-tight text-white">
+              <h3 className="text-lg font-semibold tracking-tight text-foreground">
                 {t("Visuals:externalServices.heading")}
               </h3>
-              <p className="text-xs text-white/40 mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 {t("Visuals:externalServices.description")}
               </p>
             </div>
@@ -350,12 +350,12 @@ export default function ConfigureVisuals() {
                 value={settings.ipfsGateway ?? "https://ipfs.io/ipfs/"}
                 onValueChange={(v) => setVisualSetting("ipfsGateway", v)}
               >
-                <SelectTrigger className="w-full sm:w-64 bg-white/[0.03] border-white/[0.08] text-white/70">
-                  <SelectValue className="text-white/70" />
+                <SelectTrigger className="w-full sm:w-64 bg-accent/30 dark:bg-white/[0.05] border-border text-foreground/70">
+                  <SelectValue className="text-foreground/70" />
                 </SelectTrigger>
-                <SelectContent className="bg-slate-950 border-white/[0.08] shadow-2xl shadow-black/40">
+                <SelectContent className="bg-card border-border ">
                   {IPFS_GATEWAYS.map((gw) => (
-                    <SelectItem key={gw.value} value={gw.value} className="text-white/70 focus:bg-white/[0.08] focus:text-white">
+                    <SelectItem key={gw.value} value={gw.value} className="text-foreground/70 focus:bg-accent focus:text-foreground">
                       {gw.label}
                     </SelectItem>
                   ))}

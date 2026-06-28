@@ -30,7 +30,7 @@ export default function HoverInfo({ header, content, type }: HoverInfoProps) {
             )}
           </span>
           {!type ? (
-            <span className="flex-shrink mr-2 text-gray-400">
+            <span className="flex-shrink mr-2 text-muted-foreground">
               <Label>
                 <InfoCircledIcon className="mt-3" />
               </Label>
@@ -38,7 +38,7 @@ export default function HoverInfo({ header, content, type }: HoverInfoProps) {
           ) : null}
         </span>
       </HoverCardTrigger>
-      <HoverCardContent className={"w-80 mt-1 bg-slate-950 border-white/[0.08] text-white shadow-2xl shadow-black/40 z-[9999]"} align="start">
+      <HoverCardContent className={"w-80 mt-1 bg-popover text-popover-foreground border-border shadow-2xl dark:shadow-black/40 shadow-black/15 z-[9999]"} align="start">
         <h4 className="scroll-m-20 text-md font-semibold tracking-tight">
           <div className="flex items-center">
             <span>{t("Predictions:about")}:</span>

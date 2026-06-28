@@ -56,10 +56,10 @@ function StepIndicator({ currentStep, totalSteps, accentColor, step1Label, step2
               className={cn(
                 "w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-all duration-300",
                 currentStep === step.key
-                  ? "text-white shadow-lg"
+                  ? "text-foreground shadow-lg"
                   : currentStep > step.key
-                  ? "text-white/90"
-                  : "bg-white/[0.06] text-white/30 border border-white/[0.08]"
+                  ? "text-foreground/90"
+                  : "bg-accent/50 text-muted-foreground/60 border border-border"
               )}
               style={
                 currentStep === step.key
@@ -83,7 +83,7 @@ function StepIndicator({ currentStep, totalSteps, accentColor, step1Label, step2
             <span
               className={cn(
                 "text-[10px] font-medium tracking-wide uppercase transition-colors duration-300",
-                currentStep === step.key ? "text-white/80" : "text-white/30"
+                currentStep === step.key ? "text-foreground/80" : "text-muted-foreground/60"
               )}
             >
               {step.label}
@@ -117,8 +117,8 @@ function BlockchainButton({ name, subtitle, onClick, icon, accentColor }) {
       onClick={onClick}
       className={cn(
         "group relative w-full text-left px-5 py-4 rounded-xl",
-        "bg-white/[0.03] border border-white/[0.06]",
-        "hover:bg-white/[0.06] hover:border-white/[0.12]",
+        "bg-accent/30 dark:bg-white/[0.05] border border-border/60",
+        "hover:bg-accent/50 hover:border-border",
         "transition-all duration-200 ease-out",
         "focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:ring-offset-0"
       )}
@@ -134,10 +134,10 @@ function BlockchainButton({ name, subtitle, onClick, icon, accentColor }) {
           {icon}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-white font-medium text-sm">{name}</div>
-          <div className="text-white/40 text-xs mt-0.5">{subtitle}</div>
+          <div className="text-foreground font-medium text-sm">{name}</div>
+          <div className="text-muted-foreground text-xs mt-0.5">{subtitle}</div>
         </div>
-        <ChevronRight className="w-4 h-4 text-white/20 group-hover:text-white/40 group-hover:translate-x-0.5 transition-all" />
+        <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
       </div>
     </button>
   );
@@ -151,8 +151,8 @@ function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain, t }
       onClick={onClick}
       className={cn(
         "group relative w-full text-left px-4 py-3.5 rounded-xl",
-        "bg-white/[0.03] border border-white/[0.06]",
-        "hover:bg-white/[0.06] hover:border-white/[0.12]",
+        "bg-accent/30 dark:bg-white/[0.05] border border-border/60",
+        "hover:bg-accent/50 hover:border-border",
         "transition-all duration-200 ease-out",
         "focus:outline-none focus:ring-2 focus:ring-violet-500/40"
       )}
@@ -175,16 +175,16 @@ function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain, t }
         </div>
         <div className="flex-1 min-w-0">
           <div
-            className="text-white font-medium text-sm truncate"
+            className="text-foreground font-medium text-sm truncate"
             style={{
               textShadow: "0 0 20px rgba(255,255,255,0.1)",
             }}
           >
             {user.username}
           </div>
-          <div className="text-white/35 text-xs font-mono mt-0.5">{user.id}</div>
+          <div className="text-muted-foreground text-xs font-mono mt-0.5">{user.id}</div>
         </div>
-        <ChevronRight className="w-4 h-4 text-white/15 group-hover:text-white/30 transition-colors flex-shrink-0" />
+        <ChevronRight className="w-4 h-4 text-foreground/15 group-hover:text-muted-foreground/60 transition-colors flex-shrink-0" />
       </div>
     </button>
   );
@@ -200,7 +200,7 @@ function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain, t }
           }}
           className={cn(
             "flex items-center justify-center w-10 rounded-xl flex-shrink-0",
-            "bg-white/[0.03] border border-white/[0.06]",
+            "bg-accent/30 dark:bg-white/[0.05] border border-border/60",
             "hover:bg-rose-500/10 hover:border-rose-500/30",
             "transition-all duration-200 group/remove",
             "focus:outline-none focus:ring-2 focus:ring-rose-500/40"
@@ -208,7 +208,7 @@ function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain, t }
           title={t("AccountSelect:removeAccount")}
           aria-label={t("AccountSelect:removeAccountLabel", { username: user.username })}
         >
-          <X className="w-4 h-4 text-white/25 group-hover/remove:text-rose-400 transition-colors" />
+          <X className="w-4 h-4 text-muted-foreground/50 group-hover/remove:text-rose-400 transition-colors" />
         </button>
       </div>
     );
@@ -338,7 +338,7 @@ export default function AccountSelect(properties) {
       {/* Step 1: Network Selection */}
       {!chain ? (
         <div className="space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <div className="text-white/50 text-sm mb-4">
+          <div className="text-muted-foreground text-sm mb-4">
             {t("AccountSelect:noChain.description")}
           </div>
           <BlockchainButton
@@ -361,7 +361,7 @@ export default function AccountSelect(properties) {
       {/* Step 2: Mode Selection */}
       {chain && !mode ? (
         <div className="space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <div className="text-white/50 text-sm mb-4">
+          <div className="text-muted-foreground text-sm mb-4">
             {chain === "bitshares"
               ? t("AccountSelect:noMode.titleBTS")
               : t("AccountSelect:noMode.titleTEST")}
@@ -383,7 +383,7 @@ export default function AccountSelect(properties) {
           <button
             onClick={() => setChain(null)}
             className={cn(
-              "flex items-center gap-2 text-sm text-white/40 hover:text-white/70",
+              "flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground/70",
               "transition-colors duration-200 mt-4 px-2 py-1"
             )}
           >
@@ -396,19 +396,19 @@ export default function AccountSelect(properties) {
       {/* Step 3a: New Account Search */}
       {chain && mode === "new" && !searchResponse ? (
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <div className="text-white/50 text-sm">
+          <div className="text-muted-foreground text-sm">
             {t("AccountSelect:new.initDesc")}
           </div>
           <div className="relative">
             <div className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
-              <User className="w-4 h-4 text-white/25" />
+              <User className="w-4 h-4 text-muted-foreground/50" />
             </div>
             <Input
               value={accountInput}
               placeholder={t("AccountSearch:noSearch.placeholder")}
               className={cn(
-                "pl-10 pr-4 py-6 text-white placeholder:text-white/25",
-                "bg-white/[0.03] border-white/[0.08]",
+                "pl-10 pr-4 py-6 text-foreground placeholder:text-muted-foreground/50",
+                "bg-accent/30 dark:bg-white/[0.05] border-border",
                 "focus-visible:ring-2 focus-visible:ring-offset-0",
                 "transition-all duration-200"
               )}
@@ -448,7 +448,7 @@ export default function AccountSelect(properties) {
                 setErrorMessage(null);
               }}
               className={cn(
-                "flex items-center gap-2 text-sm text-white/40 hover:text-white/70",
+                "flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground/70",
                 "transition-colors duration-200 px-2 py-1"
               )}
             >
@@ -460,7 +460,7 @@ export default function AccountSelect(properties) {
               <Button
                 onClick={() => lookupAccount()}
                 className={cn(
-                  "px-6 py-2 text-white font-medium",
+                  "px-6 py-2 text-foreground font-medium",
                   "shadow-lg transition-all duration-200"
                 )}
                 style={{
@@ -473,7 +473,7 @@ export default function AccountSelect(properties) {
             ) : (
               <Button
                 disabled
-                className="px-6 py-2 bg-white/[0.04] text-white/20 border-white/[0.06]"
+                className="px-6 py-2 bg-accent/40 text-muted-foreground/40 border-border/60"
               >
                 {t("AccountSelect:new.continue")}
               </Button>
@@ -485,7 +485,7 @@ export default function AccountSelect(properties) {
       {/* Step 3a-result: Account Confirmation */}
       {searchResponse ? (
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <div className="text-white/50 text-sm">
+          <div className="text-muted-foreground text-sm">
             {t("AccountSelect:new.description")}
           </div>
 
@@ -527,7 +527,7 @@ export default function AccountSelect(properties) {
               setSearchResponse(null);
             }}
             className={cn(
-              "flex items-center gap-2 text-sm text-white/40 hover:text-white/70",
+              "flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground/70",
               "transition-colors duration-200 px-2 py-1"
             )}
           >
@@ -540,7 +540,7 @@ export default function AccountSelect(properties) {
       {/* Step 3b: Existing Accounts List */}
       {mode === "existing" ? (
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <div className="text-white/50 text-sm">
+          <div className="text-muted-foreground text-sm">
             {t("AccountSelect:existing.description")}
           </div>
 
@@ -564,10 +564,10 @@ export default function AccountSelect(properties) {
                 >
                   <Inbox className="w-6 h-6" style={{ color: `${accentColor}88` }} />
                 </div>
-                <div className="text-white/60 text-sm font-medium mb-1">
+                <div className="text-muted-foreground text-sm font-medium mb-1">
                   {t("AccountSelect:existing.none")}
                 </div>
-                <div className="text-white/30 text-xs text-center max-w-[200px]">
+                <div className="text-muted-foreground/60 text-xs text-center max-w-[200px]">
                   {t("AccountSelect:existing.noneHint")}
                 </div>
               </div>
@@ -577,7 +577,7 @@ export default function AccountSelect(properties) {
           <button
             onClick={() => setMode(null)}
             className={cn(
-              "flex items-center gap-2 text-sm text-white/40 hover:text-white/70",
+              "flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground/70",
               "transition-colors duration-200 px-2 py-1"
             )}
           >

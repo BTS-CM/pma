@@ -33,11 +33,11 @@ import Sparkline from "./Market/Sparkline.jsx";
 import { getTimeSince } from "@/lib/common";
 import { cn } from "@/lib/utils";
 
-function SummaryRow({ icon, label, value, color = "text-white/85" }) {
+function SummaryRow({ icon, label, value, color = "text-foreground/85" }) {
   return (
-    <div className="flex items-center justify-between gap-2 rounded-md border border-white/[0.04] bg-white/[0.015] px-2.5 py-1.5">
-      <div className="flex items-center gap-2 text-[11px] text-white/55">
-        <span className="text-white/40">{icon}</span>
+    <div className="flex items-center justify-between gap-2 rounded-md border border-border/40 bg-white/[0.015] px-2.5 py-1.5">
+      <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+        <span className="text-muted-foreground">{icon}</span>
         <span>{label}</span>
       </div>
       <div className={cn("text-xs font-mono tabular-nums font-semibold truncate", color)}>
@@ -231,12 +231,11 @@ export default function Market(properties) {
 
   const marketSummaryCard = (
     <div
-      className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/60 backdrop-blur-xl"
-      style={{ backgroundColor: "rgba(2, 6, 23, 0.6)" }}
+      className="relative overflow-hidden rounded-xl border border-border bg-card/60 backdrop-blur-xl"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-cyan-500/15 via-cyan-500/3 to-transparent" />
       <div className="relative">
-        <div className="flex items-center gap-2.5 border-b border-white/[0.06] px-4 py-3">
+        <div className="flex items-center gap-2.5 border-b border-border/60 px-4 py-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/10 text-cyan-300">
             <BarChart3 className="h-4 w-4" />
           </div>
@@ -244,7 +243,7 @@ export default function Market(properties) {
             <h3 className="text-sm font-semibold text-cyan-200">
               {t("Market:marketSummary")}
             </h3>
-            <p className="text-[11px] text-white/45 font-mono tabular-nums truncate">
+            <p className="text-[11px] text-muted-foreground/70 font-mono tabular-nums truncate">
               {activeLimitCard === "buy" ? `${assetA}/${assetB}` : `${assetB}/${assetA}`}
             </p>
           </div>
@@ -276,7 +275,7 @@ export default function Market(properties) {
             value={tickerData ? tickerData.percent_change : "?"}
             color={
               !tickerData
-                ? "text-white/55"
+                ? "text-muted-foreground"
                 : isPositiveChange
                 ? "text-emerald-300"
                 : "text-rose-300"
@@ -292,7 +291,7 @@ export default function Market(properties) {
                 ? tickerData.base_volume
                 : tickerData.quote_volume
             }
-            color="text-white/85"
+            color="text-foreground/85"
           />
           <SummaryRow
             icon={<Wallet className="h-3.5 w-3.5" />}
@@ -304,7 +303,7 @@ export default function Market(properties) {
                 ? tickerData.quote_volume
                 : tickerData.base_volume
             }
-            color="text-white/85"
+            color="text-foreground/85"
           />
           <SummaryRow
             icon={<TrendingDown className="h-3.5 w-3.5" />}
@@ -327,15 +326,15 @@ export default function Market(properties) {
             color="text-emerald-300"
           />
           {spreadInfo ? (
-            <div className="flex items-center justify-between gap-2 rounded-md border border-white/[0.06] bg-white/[0.025] px-2.5 py-2 mt-1">
-              <div className="flex items-center gap-2 text-[11px] text-white/55">
-                <span className="text-white/40">
+            <div className="flex items-center justify-between gap-2 rounded-md border border-border/60 bg-white/[0.025] px-2.5 py-2 mt-1">
+              <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                <span className="text-muted-foreground">
                   <Activity className="h-3.5 w-3.5" />
                 </span>
                 <span>Spread</span>
               </div>
               <div className="flex items-center gap-1.5 text-xs font-mono tabular-nums font-semibold">
-                <span className="text-white/85">
+                <span className="text-foreground/85">
                   {spreadInfo.pct.toFixed(3)}%
                 </span>
                 <span
@@ -356,8 +355,8 @@ export default function Market(properties) {
         </div>
 
         {usr.chain === "bitshares" ? (
-          <div className="border-t border-white/[0.06] px-4 py-3">
-            <p className="text-[10px] font-semibold uppercase tracking-wider text-white/40 mb-2">
+          <div className="border-t border-border/60 px-4 py-3">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground mb-2">
               {t("Market:externalMarketLinks")}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -369,7 +368,7 @@ export default function Market(properties) {
                 }
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-2.5 py-1.5 text-xs text-white/80 hover:text-white transition-all"
+                className="inline-flex items-center gap-1.5 rounded-md border border-border bg-accent/40 hover:bg-accent/60 hover:border-accent/50 dark:hover:border-white/20 px-2.5 py-1.5 text-xs text-foreground/80 hover:text-accent-foreground transition-all"
               >
                 <ExternalLinkIcon className="h-3 w-3" />
                 BTS.Exchange
@@ -382,7 +381,7 @@ export default function Market(properties) {
                 }
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 px-2.5 py-1.5 text-xs text-white/80 hover:text-white transition-all"
+                className="inline-flex items-center gap-1.5 rounded-md border border-border bg-accent/40 hover:bg-accent/60 hover:border-accent/50 dark:hover:border-white/20 px-2.5 py-1.5 text-xs text-foreground/80 hover:text-accent-foreground transition-all"
               >
                 <ExternalLinkIcon className="h-3 w-3" />
                 XBTS
@@ -399,9 +398,8 @@ export default function Market(properties) {
       <div className="container mx-auto mt-5 mb-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="col-span-1 space-y-4">
-            <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/60 backdrop-blur-xl"
-              style={{ backgroundColor: "rgba(2, 6, 23, 0.6)" }}
-            >
+            <div className="relative overflow-hidden rounded-xl border border-border bg-card/60 backdrop-blur-xl"
+              >
               <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-cyan-500/15 via-cyan-500/3 to-transparent" />
               <div className="relative flex items-center justify-between gap-2 px-4 py-3">
                 <div className="flex items-center gap-2.5">
@@ -412,7 +410,7 @@ export default function Market(properties) {
                     <h3 className="text-sm font-semibold text-cyan-200">
                       {t("Market:controls")}
                     </h3>
-                    <p className="text-[11px] text-white/45 font-mono">
+                    <p className="text-[11px] text-muted-foreground/70 font-mono">
                       {usr.chain === "bitshares" ? "Bitshares" : "Bitshares (Testnet)"}
                     </p>
                   </div>
@@ -434,10 +432,10 @@ export default function Market(properties) {
                 </div>
                 <a
                   href={`/dex.html?market=${assetB}_${assetA}`}
-                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] hover:bg-cyan-500/10 hover:border-cyan-500/40 transition-all"
+                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-border bg-accent/40 hover:bg-cyan-500/10 hover:border-cyan-500/40 transition-all"
                   title="Swap assets"
                 >
-                  <ArrowLeftRight className="h-4 w-4 text-white/70 group-hover:text-cyan-300 group-hover:rotate-180 transition-all duration-300" />
+                  <ArrowLeftRight className="h-4 w-4 text-foreground/70 group-hover:text-cyan-300 group-hover:rotate-180 transition-all duration-300" />
                 </a>
                 <div className="rounded-lg border border-blue-500/20 bg-blue-500/[0.04] px-3 py-2">
                   <AssetDropDown
@@ -455,7 +453,7 @@ export default function Market(properties) {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-1 rounded-xl border border-white/10 bg-white/[0.02] p-1">
+            <div className="grid grid-cols-2 gap-1 rounded-xl border border-border bg-accent/20 p-1">
               <button
                 type="button"
                 disabled={!assetAData || !assetBData}
@@ -476,7 +474,7 @@ export default function Market(properties) {
                   "flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all",
                   activeLimitCard === "buy"
                     ? "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white shadow-lg shadow-emerald-900/30"
-                    : "text-white/55 hover:text-white/80 hover:bg-white/[0.04]",
+                    : "text-muted-foreground hover:text-foreground/80 hover:bg-accent/40",
                   (!assetAData || !assetBData) && "opacity-50 cursor-not-allowed"
                 )}
               >
@@ -502,7 +500,7 @@ export default function Market(properties) {
                   "flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all",
                   activeLimitCard === "sell"
                     ? "bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 text-white shadow-lg shadow-rose-900/30"
-                    : "text-white/55 hover:text-white/80 hover:bg-white/[0.04]",
+                    : "text-muted-foreground hover:text-foreground/80 hover:bg-accent/40",
                   (!assetAData || !assetBData) && "opacity-50 cursor-not-allowed"
                 )}
               >
@@ -544,25 +542,25 @@ export default function Market(properties) {
                     storeCallback={setAssetA}
                   />
                 ) : (
-                  <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/60 backdrop-blur-xl"
-                    style={{ backgroundColor: "rgba(2, 6, 23, 0.6)" }}
+                  <div className="relative overflow-hidden rounded-xl border border-border bg-card/60 backdrop-blur-xl"
+
                   >
                     <div className="relative p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <div className="text-xs text-white/55">
+                        <div className="text-xs text-muted-foreground">
                           {activeLimitCard === "buy"
                             ? t("Market:quoteAsset")
                             : t("Market:baseAsset")}
                         </div>
-                        <div className="text-[11px] text-white/40">
+                        <div className="text-[11px] text-muted-foreground">
                           {t("Market:loading")}
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Skeleton className="h-4 w-[250px] bg-white/[0.05]" />
-                        <Skeleton className="h-4 w-[200px] bg-white/[0.05]" />
-                        <Skeleton className="h-4 w-[250px] bg-white/[0.05]" />
-                        <Skeleton className="h-4 w-[200px] bg-white/[0.05]" />
+                        <Skeleton className="h-4 w-[250px] bg-accent/30 dark:bg-white/[0.05]" />
+                        <Skeleton className="h-4 w-[200px] bg-accent/30 dark:bg-white/[0.05]" />
+                        <Skeleton className="h-4 w-[250px] bg-accent/30 dark:bg-white/[0.05]" />
+                        <Skeleton className="h-4 w-[200px] bg-accent/30 dark:bg-white/[0.05]" />
                       </div>
                     </div>
                   </div>
@@ -584,25 +582,25 @@ export default function Market(properties) {
                     storeCallback={setAssetB}
                   />
                 ) : (
-                  <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/60 backdrop-blur-xl"
-                    style={{ backgroundColor: "rgba(2, 6, 23, 0.6)" }}
+                  <div className="relative overflow-hidden rounded-xl border border-border bg-card/60 backdrop-blur-xl"
+
                   >
                     <div className="relative p-4">
                       <div className="flex items-center justify-between mb-3">
-                        <div className="text-xs text-white/55">
+                        <div className="text-xs text-muted-foreground">
                           {activeLimitCard === "sell"
                             ? t("Market:baseAsset")
                             : t("Market:quoteAsset")}
                         </div>
-                        <div className="text-[11px] text-white/40">
+                        <div className="text-[11px] text-muted-foreground">
                           {t("Market:loading")}
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Skeleton className="h-4 w-[250px] bg-white/[0.05]" />
-                        <Skeleton className="h-4 w-[200px] bg-white/[0.05]" />
-                        <Skeleton className="h-4 w-[250px] bg-white/[0.05]" />
-                        <Skeleton className="h-4 w-[200px] bg-white/[0.05]" />
+                        <Skeleton className="h-4 w-[250px] bg-accent/30 dark:bg-white/[0.05]" />
+                        <Skeleton className="h-4 w-[200px] bg-accent/30 dark:bg-white/[0.05]" />
+                        <Skeleton className="h-4 w-[250px] bg-accent/30 dark:bg-white/[0.05]" />
+                        <Skeleton className="h-4 w-[200px] bg-accent/30 dark:bg-white/[0.05]" />
                       </div>
                     </div>
                   </div>
@@ -610,12 +608,11 @@ export default function Market(properties) {
               </div>
 
               {tickerData && assetAData && assetBData ? marketSummaryCard : (
-                <div className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/60 backdrop-blur-xl"
-                  style={{ backgroundColor: "rgba(2, 6, 23, 0.6)" }}
+                <div className="relative overflow-hidden rounded-xl border border-border bg-card/60 backdrop-blur-xl"
                 >
                   <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-cyan-500/15 via-cyan-500/3 to-transparent" />
                   <div className="relative">
-                    <div className="flex items-center gap-2.5 border-b border-white/[0.06] px-4 py-3">
+                    <div className="flex items-center gap-2.5 border-b border-border/60 px-4 py-3">
                       <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/10 text-cyan-300">
                         <BarChart3 className="h-4 w-4" />
                       </div>
@@ -623,16 +620,16 @@ export default function Market(properties) {
                         <h3 className="text-sm font-semibold text-cyan-200">
                           {t("Market:marketSummary")}
                         </h3>
-                        <p className="text-[11px] text-white/45 font-mono">❔/❔</p>
+                        <p className="text-[11px] text-muted-foreground/70 font-mono">❔/❔</p>
                       </div>
                     </div>
                     <div className="p-4 space-y-2.5">
-                      <SummaryRow icon={<Activity className="h-3.5 w-3.5" />} label={t("Market:latestPrice")} value="❔" color="text-white/40" />
-                      <SummaryRow icon={<TrendingUp className="h-3.5 w-3.5" />} label={t("Market:24HrChange")} value="❔" color="text-white/40" />
-                      <SummaryRow icon={<Wallet className="h-3.5 w-3.5" />} label={t("Market:24HrBaseVolume")} value="❔" color="text-white/40" />
-                      <SummaryRow icon={<Wallet className="h-3.5 w-3.5" />} label={t("Market:24HrQuoteVolume")} value="❔" color="text-white/40" />
-                      <SummaryRow icon={<TrendingDown className="h-3.5 w-3.5" />} label={t("Market:lowestAsk")} value="❔" color="text-white/40" />
-                      <SummaryRow icon={<TrendingUp className="h-3.5 w-3.5" />} label={t("Market:highestBid")} value="❔" color="text-white/40" />
+                      <SummaryRow icon={<Activity className="h-3.5 w-3.5" />} label={t("Market:latestPrice")} value="❔" color="text-muted-foreground" />
+                      <SummaryRow icon={<TrendingUp className="h-3.5 w-3.5" />} label={t("Market:24HrChange")} value="❔" color="text-muted-foreground" />
+                      <SummaryRow icon={<Wallet className="h-3.5 w-3.5" />} label={t("Market:24HrBaseVolume")} value="❔" color="text-muted-foreground" />
+                      <SummaryRow icon={<Wallet className="h-3.5 w-3.5" />} label={t("Market:24HrQuoteVolume")} value="❔" color="text-muted-foreground" />
+                      <SummaryRow icon={<TrendingDown className="h-3.5 w-3.5" />} label={t("Market:lowestAsk")} value="❔" color="text-muted-foreground" />
+                      <SummaryRow icon={<TrendingUp className="h-3.5 w-3.5" />} label={t("Market:highestBid")} value="❔" color="text-muted-foreground" />
                     </div>
                   </div>
                 </div>

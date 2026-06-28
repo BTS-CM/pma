@@ -13,7 +13,7 @@ function SectionHeader({ label, accent = "amber" }) {
   return (
     <div className="flex items-center gap-2 mb-1.5">
       <div className={cn("h-3 w-1 rounded-full", accentMap[accent])} />
-      <span className="text-[11px] uppercase tracking-wider font-semibold text-white/40">{label}</span>
+      <span className="text-[11px] uppercase tracking-wider font-semibold text-muted-foreground">{label}</span>
     </div>
   );
 }
@@ -31,25 +31,25 @@ export function ClaimDialog({ res, usr, humanReadablePredictionMarketAssetBalanc
         <Button
           onClick={() => setClaimPrompt(true)}
           disabled={!humanReadablePredictionMarketAssetBalance || humanReadablePredictionMarketAssetBalance <= 0 || relevantBitassetData?.outcome !== 1}
-          className="bg-amber-600 hover:bg-amber-700 text-white border-0 shadow-md shadow-amber-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-amber-600 hover:bg-amber-700 text-foreground border-0 shadow-md shadow-amber-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {t("Predictions:winner_claim")}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg-slate-900 ring-1 ring-white/[0.08] border-white/[0.06] text-white shadow-2xl shadow-black/60">
+      <DialogContent className="sm:max-w-[600px] bg-card ring-1 dark:ring-white/[0.08] ring-border border-border/60 text-foreground shadow-2xl dark:shadow-black/60 shadow-black/25">
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/15 ring-1 ring-amber-500/20">
               <CheckCircledIcon className="h-5 w-5 text-amber-400" />
             </div>
             <div>
-              <DialogTitle className="text-base font-semibold text-white">{t("Predictions:winner_claim")}</DialogTitle>
-              <DialogDescription className="text-xs text-white/50">{t("Predictions:winner_content")}</DialogDescription>
+              <DialogTitle className="text-base font-semibold text-foreground">{t("Predictions:winner_claim")}</DialogTitle>
+              <DialogDescription className="text-xs text-muted-foreground">{t("Predictions:winner_content")}</DialogDescription>
             </div>
           </div>
         </DialogHeader>
 
-        <div className="h-px bg-white/[0.06]" />
+        <div className="h-px bg-accent/50" />
 
         <div className="space-y-5">
           {/* Amount Section */}
@@ -70,15 +70,15 @@ export function ClaimDialog({ res, usr, humanReadablePredictionMarketAssetBalanc
                   }}
                 />
                 <Button
-                  className="absolute right-1 top-1/2 -translate-y-1/2 h-6 px-2 text-[10px] border border-white/[0.12] bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-6 px-2 text-[10px] border border-border bg-accent/40 text-muted-foreground hover:bg-accent/60 hover:text-foreground"
                   onClick={() => setClaimAmount(humanReadablePredictionMarketAssetBalance ? humanReadablePredictionMarketAssetBalance : 0)}
                 >
                   MAX
                 </Button>
               </div>
-              <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
+              <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-accent/30 dark:bg-white/[0.05] border-border/60 text-muted-foreground" />
             </div>
-            <div className="text-[11px] text-white/50 mt-1.5">
+            <div className="text-[11px] text-muted-foreground mt-1.5">
               {t("Predictions:claimDialog.balance", { defaultValue: "Balance" })}: {humanReadablePredictionMarketAssetBalance ?? "0"} {res.symbol}
             </div>
 
@@ -96,7 +96,7 @@ export function ClaimDialog({ res, usr, humanReadablePredictionMarketAssetBalanc
           <Button
             onClick={() => setClaimDialog(true)}
             disabled={!claimAmount || Number(claimAmount) <= 0 || exceedsBalance}
-            className="w-full bg-amber-600 hover:bg-amber-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-amber-600 hover:bg-amber-700 text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {t("Predictions:submit")}
           </Button>

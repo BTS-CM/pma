@@ -63,8 +63,8 @@ export default function MyTradeSummary(properties) {
   }, [usrHistory, assetAData, assetBData, isBuy]);
 
   return (
-    <div className="rounded-lg border border-white/10 bg-white/[0.02] overflow-hidden">
-      <div className="grid grid-cols-4 gap-2 px-3 py-2 border-b border-white/[0.06] bg-white/[0.02] text-[10px] font-semibold uppercase tracking-wider text-white/40">
+    <div className="rounded-lg border border-border bg-accent/20 overflow-hidden">
+      <div className="grid grid-cols-4 gap-2 px-3 py-2 border-b border-border/60 bg-accent/20 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
         <div className="text-right">
           {t("MyTradeSummary:priceColumnTitle")}
         </div>
@@ -79,19 +79,19 @@ export default function MyTradeSummary(properties) {
           {filteredMarketHistory.map((res, index) => {
             return (
               <div
-                className="grid grid-cols-4 gap-2 px-3 py-1.5 text-xs font-mono tabular-nums border-b border-white/[0.04] hover:bg-white/[0.04] transition-colors"
+                className="grid grid-cols-4 gap-2 px-3 py-1.5 text-xs font-mono tabular-nums border-b border-border/40 hover:bg-accent/40 transition-colors"
                 key={`mts_${index}_${type}`}
               >
                 <div className={cn("text-right font-semibold", accent)}>
                   {res.price}
                 </div>
-                <div className="text-right text-white/80">
+                <div className="text-right text-foreground/80">
                   {isBuy ? res.baseAmount : res.quoteAmount}
                 </div>
-                <div className="text-right text-white/65">
+                <div className="text-right text-muted-foreground/80">
                   {isBuy ? res.quoteAmount : res.baseAmount}
                 </div>
-                <div className="text-right text-white/55 flex items-center justify-end gap-1">
+                <div className="text-right text-muted-foreground flex items-center justify-end gap-1">
                   <Clock className="h-3 w-3" />
                   <span className="font-sans">{getTimeSince(res.date)}</span>
                 </div>

@@ -8,14 +8,14 @@ export function MarketTab({ res, isExpired, relevantCallOrders, totalBets, settl
   return (
     <div className="grid grid-cols-1 gap-3">
       {!isExpired ? (
-        <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-          <div className="text-[11px] uppercase tracking-wide text-white/60 mb-1.5">{t("Predictions:market.impliedProbability")}</div>
+        <div className="rounded-lg border border-border bg-accent/30 dark:bg-white/5 p-3">
+          <div className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1.5">{t("Predictions:market.impliedProbability")}</div>
           <ProbabilityBar yesPercent={impliedYesPercent} />
-          <div className="mt-1.5 text-[11px] text-white/40">{t("Predictions:market.impliedProbability_help")}</div>
+          <div className="mt-1.5 text-[11px] text-muted-foreground">{t("Predictions:market.impliedProbability_help")}</div>
         </div>
       ) : (
-        <div className="rounded-lg border border-white/10 bg-white/5 p-3 text-sm">
-          <span className="text-white/50">{t("Predictions:market.expiredNote")}</span>
+        <div className="rounded-lg border border-border bg-accent/30 dark:bg-white/5 p-3 text-sm">
+          <span className="text-muted-foreground">{t("Predictions:market.expiredNote")}</span>
         </div>
       )}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">

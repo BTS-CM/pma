@@ -307,7 +307,7 @@ export default function LimitOrderWizard(properties) {
                   ➕
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-white">
+              <DialogContent className="bg-card">
                 <DialogHeader>
                   <DialogTitle>
                     {t("LimitOrderWizard:buyingIntoOpenLimitOrder")}
@@ -319,7 +319,7 @@ export default function LimitOrderWizard(properties) {
                 <div className="grid grid-cols-1 gap-3">
                   <div className="grid grid-cols-2 gap-2">
                     <div className="col-span-2">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-muted-foreground">
                         {t("TFundUser:amountAvailable")}
                       </label>
                     </div>
@@ -330,7 +330,7 @@ export default function LimitOrderWizard(properties) {
                       disabled
                     />
                   </div>
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block text-sm font-medium text-muted-foreground">
                     {t("LimitOrderWizard:buying")}
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -378,7 +378,7 @@ export default function LimitOrderWizard(properties) {
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div className="col-span-2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-muted-foreground">
                       {t("LimitOrderWizard:selling")}
                     </label>
                   </div>
@@ -393,7 +393,7 @@ export default function LimitOrderWizard(properties) {
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div className="col-span-2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-muted-foreground">
                       {t("LimitOrderWizard:price")}
                     </label>
                   </div>
@@ -407,7 +407,7 @@ export default function LimitOrderWizard(properties) {
                 {_quoteFee > 0 ? (
                   <div className="grid grid-cols-2 gap-2">
                     <div className="col-span-2">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-muted-foreground">
                         {t("LimitOrderWizard:marketFee")}
                       </label>
                     </div>
@@ -599,7 +599,7 @@ export default function LimitOrderWizard(properties) {
           ➕
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[1080px] bg-white">
+      <DialogContent className="sm:max-w-[1080px] bg-card">
         <DialogHeader>
           <DialogTitle>{t("LimitOrderWizard:title")}</DialogTitle>
           <DialogDescription>

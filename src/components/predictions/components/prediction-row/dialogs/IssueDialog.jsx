@@ -13,7 +13,7 @@ function SectionHeader({ label, accent = "rose" }) {
   return (
     <div className="flex items-center gap-2 mb-1.5">
       <div className={cn("h-3 w-1 rounded-full", accentMap[accent])} />
-      <span className="text-[11px] uppercase tracking-wider font-semibold text-white/40">{label}</span>
+      <span className="text-[11px] uppercase tracking-wider font-semibold text-muted-foreground">{label}</span>
     </div>
   );
 }
@@ -38,24 +38,24 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
   return (
     <Dialog open={issuePrompt} onOpenChange={setIssuePrompt}>
       <DialogTrigger asChild>
-        <Button type="button" onClick={() => setIssuePrompt(true)} className="bg-rose-600 hover:bg-rose-700 text-white border-0 shadow-md shadow-rose-500/20 w-full">
+        <Button type="button" onClick={() => setIssuePrompt(true)} className="bg-rose-600 hover:bg-rose-700 text-foreground border-0 shadow-md shadow-rose-500/20 w-full">
           {t("Predictions:issue")}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg-slate-900 ring-1 ring-white/[0.08] border-white/[0.06] text-white shadow-2xl shadow-black/60">
+      <DialogContent className="sm:max-w-[600px] bg-card ring-1 dark:ring-white/[0.08] ring-border border-border/60 text-foreground shadow-2xl dark:shadow-black/60 shadow-black/25">
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-500/15 ring-1 ring-rose-500/20">
               <PlusCircledIcon className="h-5 w-5 text-rose-400" />
             </div>
             <div>
-              <DialogTitle className="text-base font-semibold text-white">{t("Predictions:issueDialog.title")}</DialogTitle>
-              <DialogDescription className="text-xs text-white/50">{t("Predictions:issueDialog.description")}</DialogDescription>
+              <DialogTitle className="text-base font-semibold text-foreground">{t("Predictions:issueDialog.title")}</DialogTitle>
+              <DialogDescription className="text-xs text-muted-foreground">{t("Predictions:issueDialog.description")}</DialogDescription>
             </div>
           </div>
         </DialogHeader>
 
-        <div className="h-px bg-white/[0.06]" />
+        <div className="h-px bg-accent/50" />
 
         <div className="space-y-5">
           {/* Amount Section */}
@@ -84,15 +84,15 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
                   }}
                 />
                 <Button
-                  className="absolute right-1 top-1/2 -translate-y-1/2 h-6 px-2 text-[10px] border border-white/[0.12] bg-white/[0.04] text-white/60 hover:bg-white/[0.08] hover:text-white"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-6 px-2 text-[10px] border border-border bg-accent/40 text-muted-foreground hover:bg-accent/60 hover:text-foreground"
                   onClick={() => setIssueAmount(backingAssetBalance ? humanReadableFloat(backingAssetBalance.amount, _backingPrecision) : 0)}
                 >
                   MAX
                 </Button>
               </div>
-              <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-white/[0.03] border-white/[0.06] text-white/50" />
+              <Input type="text" value={`${res.symbol} (${res.id})`} disabled className="bg-accent/30 dark:bg-white/[0.05] border-border/60 text-muted-foreground" />
             </div>
-            <div className="mt-1 text-xs text-white/50">
+            <div className="mt-1 text-xs text-muted-foreground">
               {t("Predictions:issueDialog.available", { defaultValue: "Available" })}: {humanReadableBackingAssetBalance} {res.backingAsset?.symbol}
             </div>
           </section>
@@ -101,13 +101,13 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
           <section>
             <SectionHeader label={t("Predictions:issueDialog.collateralHeader")} accent="amber" />
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
-                <div className="text-[10px] uppercase tracking-wide text-white/40 mb-1">{t("Predictions:issueDialog.existingHeader")}</div>
-                <div className="text-sm font-semibold text-white/80">{existingCollateral} {res.backingAsset.symbol}</div>
+              <div className="rounded-xl border border-border bg-accent/30 dark:bg-white/[0.05] p-3">
+                <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">{t("Predictions:issueDialog.existingHeader")}</div>
+                <div className="text-sm font-semibold text-foreground/80">{existingCollateral} {res.backingAsset.symbol}</div>
               </div>
               <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3">
-                <div className="text-[10px] uppercase tracking-wide text-amber-400/60 mb-1">{t("Predictions:issueDialog.totalHeader")}</div>
-                <div className="text-sm font-semibold text-amber-300">
+                <div className="text-[10px] uppercase tracking-wide dark:text-amber-400/60 text-amber-600/60 mb-1">{t("Predictions:issueDialog.totalHeader")}</div>
+                <div className="text-sm font-semibold dark:text-amber-300 text-amber-700">
                   {humanReadableFloat((Number(existingCollateralRaw || 0) + blockchainFloat(Number(issueAmount || 0), _backingPrecision)), _backingPrecision)} {res.backingAsset.symbol}
                 </div>
               </div>
@@ -115,12 +115,12 @@ export function IssueDialog({ res, usr, backingAssetBalance, humanReadableBackin
           </section>
         </div>
 
-        <div className="h-px bg-white/[0.06]" />
+        <div className="h-px bg-accent/50" />
 
         {/* Submit Section */}
         <div className="flex items-center gap-3">
           <Button
-            className="flex-1 bg-rose-600 hover:bg-rose-700 text-white border-0 shadow-md shadow-rose-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 bg-rose-600 hover:bg-rose-700 text-foreground border-0 shadow-md shadow-rose-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={!canSubmit}
             onClick={() => setIssueDialog(true)}
           >

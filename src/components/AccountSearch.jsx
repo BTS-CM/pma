@@ -87,17 +87,17 @@ export default function AccountSearch(properties) {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-3 text-white">
+      <div className="grid grid-cols-1 gap-3 text-foreground">
         {!searchResponse ? (
           <>
-            <div className="col-span-1 text-sm text-white/70">
+            <div className="col-span-1 text-sm text-foreground/70">
               {t("AccountSearch:noSearch.prompt")}
             </div>
             <div className="col-span-1">
               <Input
                 value={accountInput || ""}
                 placeholder={t("AccountSearch:noSearch.placeholder")}
-                className="bg-slate-950/60 border-white/[0.08] text-white placeholder:text-white/35 focus-visible:ring-violet-400/50"
+                className="bg-card/60 border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-violet-400/50"
                 onKeyDown={(event) => {
                   if (event.key === "Enter" && !inProgress) {
                     setInProgress(true);
@@ -130,7 +130,7 @@ export default function AccountSearch(properties) {
               ) : (
                 <Button
                   disabled
-                  className="border-white/[0.06] text-white/30"
+                  className="border-border/60 text-muted-foreground/60"
                   variant="outline"
                 >
                   {t("AccountSearch:noSearch.continue")}
@@ -141,14 +141,14 @@ export default function AccountSearch(properties) {
         ) : null}
         {searchResponse ? (
           <>
-            <div className="col-span-1 text-sm text-white/70">
+            <div className="col-span-1 text-sm text-foreground/70">
               {chain === "bitshares"
                 ? t("AccountSearch:searchResponse.promptBTS")
                 : t("AccountSearch:searchResponse.promptTEST")}
             </div>
             <div className="col-span-1">
               <div
-                className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-md shadow-black/30 cursor-pointer hover:border-violet-500/30 transition-colors"
+                className="relative overflow-hidden rounded-xl border border-border bg-card/60 backdrop-blur-xl shadow-md shadow-black/30 cursor-pointer hover:border-violet-500/30 transition-colors"
                 onClick={() => {
                   setChosenAccount({
                     name: searchResponse.name,
@@ -178,7 +178,7 @@ export default function AccountSearch(properties) {
                   <div className="col-span-3">
                     <div className="p-4 sm:p-5">
                       <h4
-                        className="font-semibold text-white/90 text-sm tracking-tight"
+                        className="font-semibold text-foreground/90 text-sm tracking-tight"
                         style={{
                           whiteSpace: "nowrap",
                           overflow: "hidden",
@@ -187,7 +187,7 @@ export default function AccountSearch(properties) {
                       >
                         {searchResponse.name}
                       </h4>
-                      <p className="text-xs text-white/45">{searchResponse.id}</p>
+                      <p className="text-xs text-muted-foreground/70">{searchResponse.id}</p>
                     </div>
                   </div>
                 </div>
@@ -198,7 +198,7 @@ export default function AccountSearch(properties) {
                 <div>
                   <Button
                     variant="outline"
-                    className="border-white/[0.08] text-white/70 hover:text-white hover:bg-white/[0.06] w-full"
+                    className="border-border text-foreground/70 hover:text-accent-foreground hover:bg-accent/50 w-full"
                     onClick={() => {
                       setErrorMessage();
                       setSearchResponse();

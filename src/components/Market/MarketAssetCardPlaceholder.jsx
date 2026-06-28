@@ -19,7 +19,7 @@ export default function MarketAssetCard(properties) {
   }[type] || "from-cyan-400/70";
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/60 backdrop-blur-xl shadow-xl shadow-black/30">
+    <div className="relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-xl shadow-xl shadow-black/30">
       <span
         aria-hidden="true"
         className={cn(
@@ -35,22 +35,22 @@ export default function MarketAssetCard(properties) {
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="text-base sm:text-lg font-semibold text-white/40 tracking-tight">
+              <h3 className="text-base sm:text-lg font-semibold text-muted-foreground tracking-tight">
                 1.3.x
               </h3>
             </div>
-            <div className="text-xs text-white/30 mt-0.5">
+            <div className="text-xs text-muted-foreground/60 mt-0.5">
               {type === "buy" ? (
                 <>
                   <span>{t("MarketAssetCard:quoteAsset")}</span>
-                  <span className="text-white/20"> · </span>
+                  <span className="text-muted-foreground/40"> · </span>
                   <span>{t("MarketAssetCard:buying")}</span>
                 </>
               ) : null}
               {type === "sell" ? (
                 <>
                   <span>{t("MarketAssetCard:baseAsset")}</span>
-                  <span className="text-white/20"> · </span>
+                  <span className="text-muted-foreground/40"> · </span>
                   <span>{t("MarketAssetCard:selling")}</span>
                 </>
               ) : null}
@@ -65,7 +65,7 @@ export default function MarketAssetCard(properties) {
           <Button
             variant="outline"
             disabled
-            className="h-8 gap-1.5 border-white/[0.08] bg-slate-950/40 text-white/30 text-xs"
+            className="h-8 gap-1.5 border-border bg-card/40 text-muted-foreground/60 text-xs"
           >
             <Coins className="h-3 w-3 text-cyan-300/50" />
             {t("MarketAssetCard:supply")}
@@ -74,7 +74,7 @@ export default function MarketAssetCard(properties) {
           <Button
             variant="outline"
             disabled
-            className="h-8 gap-1.5 border-white/[0.08] bg-slate-950/40 text-white/30 text-xs"
+            className="h-8 gap-1.5 border-border bg-card/40 text-muted-foreground/60 text-xs"
           >
             <ExternalLink className="h-3 w-3 text-violet-300/50" />
             {t("MarketAssetCard:links")}
@@ -83,7 +83,7 @@ export default function MarketAssetCard(properties) {
           <Button
             variant="outline"
             disabled
-            className="h-8 gap-1.5 border-white/[0.08] bg-slate-950/40 text-white/30 text-xs"
+            className="h-8 gap-1.5 border-border bg-card/40 text-muted-foreground/60 text-xs"
           >
             <FileJson className="h-3 w-3 text-amber-300/50" />
             {t("MarketAssetCard:json")}

@@ -301,19 +301,19 @@ export const PredictionRow = memo(function PredictionRow({
     <>
       <Card
         className={cn(
-          "w-full overflow-hidden border-l-4 rounded-lg ring-1 ring-white/[0.06] shadow-md shadow-black/20 transition-all duration-200 hover:shadow-xl hover:shadow-black/40 hover:translate-x-1 hover:ring-white/[0.15] bg-slate-900/90 border-white/[0.10] backdrop-blur-sm cursor-pointer group",
+          "w-full overflow-hidden border-l-4 rounded-lg ring-1 dark:ring-white/[0.06] ring-border shadow-md shadow-black/20 transition-all duration-200 hover:shadow-xl dark:hover:shadow-black/40 hover:shadow-black/15 hover:translate-x-1 dark:hover:ring-white/[0.15] hover:ring-border bg-card/90 dark:border-white/[0.10] border-border backdrop-blur-sm cursor-pointer group",
           status.border,
         )}
         onClick={() => setDetailOpen(true)}
       >
         <CardHeader className="pb-2 pt-3">
-          <CardTitle className="text-base sm:text-lg font-semibold leading-snug line-clamp-3 text-white">
+          <CardTitle className="text-base sm:text-lg font-semibold leading-snug line-clamp-3 text-foreground">
             {cleanedPrediction || symbol}
           </CardTitle>
-          <div className="mt-1.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs text-white/50">
+          <div className="mt-1.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs text-muted-foreground">
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-              <span className="font-mono font-medium text-white/80">{symbol}</span>
-              <span className="text-white/20">·</span>
+              <span className="font-mono font-medium text-foreground/80">{symbol}</span>
+              <span className="text-muted-foreground/40">·</span>
               <span className="font-mono text-[10px]">{res.id}</span>
               <CopyButton value={res.id} label={t("Predictions:copyAssetId")} />
               <span className={cn("inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide", status.bg, status.text)}>
@@ -325,14 +325,14 @@ export const PredictionRow = memo(function PredictionRow({
             </div>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
               <span
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] pl-0.5 pr-2 py-0.5 text-[11px] font-medium cursor-pointer hover:bg-white/[0.08] transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-accent/40 pl-0.5 pr-2 py-0.5 text-[11px] font-medium cursor-pointer hover:bg-accent/60 transition-colors"
                 onClick={(e) => { e.stopPropagation(); setIssuerFilter(house); }}
                 title={t("Predictions:list.filterByIssuer")}
               >
                 <span className="inline-flex h-5 w-5 overflow-hidden rounded-full ring-1 ring-white/10">
                   <Avatar size={20} name={issuerDisplayName ?? house} extra="Issuer" expression={{ eye: "normal", mouth: "open" }} colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]} />
                 </span>
-                <span className="text-white/60">{issuerDisplayLabel ?? house}</span>
+                <span className="text-muted-foreground">{issuerDisplayLabel ?? house}</span>
               </span>
               {issuerIsLtm ? (
                 <span className="inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-400">LTM</span>
@@ -346,7 +346,7 @@ export const PredictionRow = memo(function PredictionRow({
                         size="icon"
                         className={cn(
                           "h-6 w-6",
-                          userBlockedIDs.has(house) ? "text-red-600 hover:text-red-700" : "text-white/40 hover:text-red-400",
+                          userBlockedIDs.has(house) ? "text-red-600 hover:text-red-700" : "text-muted-foreground hover:text-red-400",
                         )}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -369,7 +369,7 @@ export const PredictionRow = memo(function PredictionRow({
             </div>
           </div>
         </CardHeader>
-        <CardContent className="text-sm pb-3 text-white/70">
+        <CardContent className="text-sm pb-3 text-foreground/70">
           <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
             <StatBlock label={t(`Predictions:${isExpired ? "expired_at" : "expiration"}`)} value={prettifyDate(expiration)} mono />
             <StatBlock label={isExpired ? t("Predictions:timeExpired") : t("Predictions:timeLeft")} value={formatTimeRemaining(expiration)} mono />
@@ -393,7 +393,7 @@ export const PredictionRow = memo(function PredictionRow({
               />
             )}
           </div>
-          <div className="mt-2 flex items-center gap-1 text-[11px] text-white/30 group-hover:text-white/50 transition-colors">
+          <div className="mt-2 flex items-center gap-1 text-[11px] text-muted-foreground/60 group-hover:text-muted-foreground transition-colors">
             <ExternalLinkIcon className="h-3 w-3" />
             {t("Predictions:list.clickToView")}
           </div>
@@ -426,26 +426,26 @@ export const PredictionRow = memo(function PredictionRow({
 
       {usr && usr.id && house && house !== usr.id ? (
         <AlertDialog open={blockConfirmOpen} onOpenChange={setBlockConfirmOpen}>
-          <AlertDialogContent className="bg-slate-900 ring-1 ring-white/[0.08] border-white/[0.06] text-white shadow-2xl shadow-black/60">
+          <AlertDialogContent className="bg-card ring-1 dark:ring-white/[0.08] ring-border border-border/60 text-foreground shadow-2xl dark:shadow-black/60 shadow-black/25">
             <AlertDialogHeader>
               <AlertDialogTitle>{t("Predictions:blockConfirm.title")}</AlertDialogTitle>
               <AlertDialogDescription>{t("Predictions:blockConfirm.description")}</AlertDialogDescription>
             </AlertDialogHeader>
-            <div className="flex items-center gap-3 rounded-md border border-white/[0.08] bg-white/[0.03] p-3">
+            <div className="flex items-center gap-3 rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-3">
               <span className="inline-flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-white/10">
                 <Avatar size={40} name={issuerDisplayName ?? house} extra="BlockConfirm" expression={{ eye: "normal", mouth: "unhappy" }} colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]} />
               </span>
               <div className="min-w-0">
-                <div className="text-sm font-semibold text-white truncate">{issuerDisplayName ?? house}</div>
-                <div className="font-mono text-xs text-white/50">{house}</div>
+                <div className="text-sm font-semibold text-foreground truncate">{issuerDisplayName ?? house}</div>
+                <div className="font-mono text-xs text-muted-foreground">{house}</div>
               </div>
             </div>
             <AlertDialogFooter>
-              <AlertDialogCancel className="bg-white/[0.05] border-white/[0.08] text-white/70 hover:bg-white/10 hover:text-white">
+              <AlertDialogCancel className="bg-accent/30 dark:bg-white/[0.05] border-border text-foreground/70 hover:bg-accent/40 dark:hover:bg-white/10 hover:text-foreground">
                 {t("Predictions:blockConfirm.cancel")}
               </AlertDialogCancel>
               <AlertDialogAction
-                className="bg-red-600 hover:bg-red-700 text-white"
+                className="bg-red-600 hover:bg-red-700 text-foreground"
                 onClick={() => addBlockedUser(usr.chain, { name: issuerDisplayLabel ?? username ?? house, id: house })}
               >
                 {t("Predictions:blockConfirm.confirm")}

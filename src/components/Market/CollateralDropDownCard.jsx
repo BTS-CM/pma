@@ -190,7 +190,7 @@ export default function CollateralDropDownCard(properties) {
       ) : (
         <Label>{t("AssetDropDownCard:missingLendingAsset")}</Label>
       )}
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="sm:max-w-[425px] bg-card">
         <>
           <h3 className="text-2xl font-extrabold tracking-tight">
             {t("AssetDropDownCard:whichCollateral")}

@@ -13,7 +13,7 @@ export default function Field({ label, help, required, htmlFor, children, classN
       <div className="mb-1.5 flex items-center gap-1.5">
         <Label
           htmlFor={htmlFor}
-          className="text-sm font-medium text-white/90"
+          className="text-sm font-medium text-foreground/90"
         >
           {label}
         </Label>
@@ -25,14 +25,14 @@ export default function Field({ label, help, required, htmlFor, children, classN
                 <button
                   type="button"
                   tabIndex={-1}
-                  className="inline-flex items-center justify-center text-white/30 transition-colors hover:text-white/70 focus:outline-none"
+                  className="inline-flex items-center justify-center text-muted-foreground/60 transition-colors hover:text-foreground/70 focus:outline-none"
                 >
                   <HelpCircle className="h-3.5 w-3.5" />
                 </button>
               </TooltipTrigger>
               <TooltipContent
                 side="top"
-                className="max-w-xs text-xs leading-relaxed bg-slate-900 border-white/10 text-white/80"
+                className="max-w-xs text-xs leading-relaxed bg-card border-border text-foreground/80"
               >
                 <p>{help}</p>
               </TooltipContent>

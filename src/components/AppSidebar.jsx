@@ -55,10 +55,10 @@ const SECTION_ICONS = {
 };
 
 const SECTION_ACCENTS = {
-  predictions: "text-indigo-400",
-  exchange: "text-cyan-400",
-  account: "text-emerald-400",
-  settings: "text-violet-400",
+  predictions: { fg: "dark:text-indigo-400 text-indigo-600", bg: "dark:bg-indigo-500/15 bg-indigo-100" },
+  exchange: { fg: "dark:text-cyan-400 text-cyan-600", bg: "dark:bg-cyan-500/15 bg-cyan-100" },
+  account: { fg: "dark:text-emerald-400 text-emerald-600", bg: "dark:bg-emerald-500/15 bg-emerald-100" },
+  settings: { fg: "dark:text-violet-400 text-violet-600", bg: "dark:bg-violet-500/15 bg-violet-100" },
 };
 
 const ITEM_ICONS = {
@@ -85,26 +85,26 @@ const ITEM_ICONS = {
 };
 
 const ITEM_ACCENT_COLORS = {
-  dex: "text-indigo-400",
-  instant_trade: "text-amber-400",
-  simple_asset_swap: "text-blue-400",
-  prediction_markets_active: "text-cyan-400",
-  prediction_markets_expired: "text-sky-400",
-  prediction_markets_mine: "text-emerald-400",
-  prediction_markets_portfolio: "text-fuchsia-400",
-  prediction_markets_margin: "text-amber-400",
-  create_prediction: "text-violet-400",
-  create_pma_org: "text-fuchsia-400",
-  prediction_organizations: "text-cyan-400",
-  transfer: "text-sky-400",
-  portfolio_balances: "text-emerald-400",
-  portfolio_open_orders: "text-cyan-400",
-  favourites: "text-amber-400",
-  about: "text-blue-400",
-  nodes: "text-teal-400",
-  blocked_users: "text-rose-400",
-  create_account: "text-emerald-400",
-  configure_visuals: "text-violet-400",
+  dex: "dark:text-indigo-400 text-indigo-600",
+  instant_trade: "dark:text-amber-400 text-amber-600",
+  simple_asset_swap: "dark:text-blue-400 text-blue-600",
+  prediction_markets_active: "dark:text-cyan-400 text-cyan-600",
+  prediction_markets_expired: "dark:text-sky-400 text-sky-600",
+  prediction_markets_mine: "dark:text-emerald-400 text-emerald-600",
+  prediction_markets_portfolio: "dark:text-fuchsia-400 text-fuchsia-600",
+  prediction_markets_margin: "dark:text-amber-400 text-amber-600",
+  create_prediction: "dark:text-violet-400 text-violet-600",
+  create_pma_org: "dark:text-fuchsia-400 text-fuchsia-600",
+  prediction_organizations: "dark:text-cyan-400 text-cyan-600",
+  transfer: "dark:text-sky-400 text-sky-600",
+  portfolio_balances: "dark:text-emerald-400 text-emerald-600",
+  portfolio_open_orders: "dark:text-cyan-400 text-cyan-600",
+  favourites: "dark:text-amber-400 text-amber-600",
+  about: "dark:text-blue-400 text-blue-600",
+  nodes: "dark:text-teal-400 text-teal-600",
+  blocked_users: "dark:text-rose-400 text-rose-600",
+  create_account: "dark:text-emerald-400 text-emerald-600",
+  configure_visuals: "dark:text-violet-400 text-violet-600",
 };
 
 export default function AppSidebar() {
@@ -175,8 +175,8 @@ export default function AppSidebar() {
   }, [isMobile, openMobile]);
 
   return (
-    <Sidebar className="!bg-slate-950/80 !border-r-white/[0.06]">
-      <SidebarContent className="!bg-slate-950/80">
+    <Sidebar className="dark:!bg-slate-950/80 !bg-card dark:!border-r-white/[0.06] !border-r-border">
+      <SidebarContent className="dark:!bg-slate-950/80 !bg-card">
         <Accordion
           type="single"
           collapsible
@@ -190,28 +190,28 @@ export default function AppSidebar() {
               <AccordionItem
                 key={section.key}
                 value={section.key}
-                className="border-b-white/[0.06]"
+                className="dark:border-b-white/[0.06] border-b-sidebar-border"
               >
                 <AccordionTrigger className="py-2 text-sm hover:no-underline">
                   <SidebarGroupLabel className="px-2 py-0.5 text-[13px]">
-                    <span className={cn("mr-2 inline-flex items-center justify-center w-5 h-5 rounded", SECTION_ACCENTS[section.key]?.replace("text-", "bg-")?.replace("400", "500/15"))}>
-                      <SectionIcon className={cn("h-3 w-3", SECTION_ACCENTS[section.key])} />
+                    <span className={cn("mr-2 inline-flex items-center justify-center w-5 h-5 rounded", SECTION_ACCENTS[section.key]?.bg)}>
+                      <SectionIcon className={cn("h-3 w-3", SECTION_ACCENTS[section.key]?.fg)} />
                     </span>
-                    <span className="text-white/70">{section.label}</span>
+                    <span className="dark:text-white/70 text-sidebar-foreground/70">{section.label}</span>
                   </SidebarGroupLabel>
                 </AccordionTrigger>
                 <AccordionContent>
                   <SidebarGroup>
-                    <SidebarGroupContent className="ml-3 pl-3 border-l border-white/[0.08]">
+                    <SidebarGroupContent className="ml-3 pl-3 border-l dark:border-white/[0.08] border-sidebar-border">
                       <SidebarMenu>
                         {section.items.map((it) => {
                           const ItemIcon = ITEM_ICONS[it.key] || Info;
-                          const itemColor = ITEM_ACCENT_COLORS[it.key] || "text-white/50";
+                          const itemColor = ITEM_ACCENT_COLORS[it.key] || "dark:text-white/50 text-sidebar-foreground/50";
                           return (
                             <SidebarMenuItem key={it.href}>
                               <SidebarMenuButton
                                 asChild
-                                className="!text-white/60 hover:!text-white hover:!bg-white/[0.06] !bg-transparent focus-visible:ring-0"
+                                className="dark:!text-white/60 dark:hover:!text-white dark:hover:!bg-white/[0.06] !text-sidebar-foreground/60 hover:!text-sidebar-foreground hover:!bg-sidebar-accent !bg-transparent focus-visible:ring-0"
                               >
                                 <a href={it.href} className="flex items-center gap-2" onClick={() => { if (isMobile) setOpenMobile(false); else setOpen(false); }}>
                                   <ItemIcon className={cn("h-3.5 w-3.5", itemColor)} />
