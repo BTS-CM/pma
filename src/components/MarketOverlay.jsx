@@ -141,7 +141,6 @@ export default function MarketOverlay(properties) {
 
   useEffect(() => {
     async function parseUrlAssets() {
-      //console.log("Parsing market parameters");
       const urlSearchParams = new URLSearchParams(window.location.search);
       const params = Object.fromEntries(urlSearchParams.entries());
       const market = params.market;
@@ -177,7 +176,6 @@ export default function MarketOverlay(properties) {
             (asset) => asset.id === asset_a || asset.s === asset_a
           );
           if (foundAssetA) {
-            //console.log("Setting asset A.");
             finalAssetA = foundAssetA.s;
           } else {
             console.log("Setting default asset A");

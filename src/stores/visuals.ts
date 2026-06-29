@@ -56,5 +56,4 @@ export {
   $visualSettings,
   setVisualSetting,
   resetVisualSettings,
-  DEFAULTS,
 };

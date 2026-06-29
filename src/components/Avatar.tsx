@@ -304,7 +304,6 @@ export const Avatar = ({
   const [timeoutTimer, setTimeoutTimer] = useState<NodeJS.Timeout | null>(null);
   useEffect(() => {
     function handleIdle() {
-      //console.log("User has gone idle");
       setIsIdle(true);
     }
 
@@ -313,7 +312,6 @@ export const Avatar = ({
         clearTimeout(timeoutTimer);
       }
       if (isIdle) {
-        //console.log("No longer idle");
         setIsIdle(false);
         setActiveEyes(data.eyeType);
         setActiveMouth(data.mouthType);

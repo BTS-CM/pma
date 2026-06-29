@@ -35,7 +35,3 @@ export function setTheme(theme: Theme) {
   $theme.set(theme);
 }
 
-export function toggleTheme() {
-  const current = $theme.get();
-  $theme.set(current === "dark" ? "light" : "dark");
-}

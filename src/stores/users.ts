@@ -48,15 +48,6 @@ function setCurrentUser(
   setCurrentNode(chain);
 }
 
-function eraseCurrentUser() {
-  $currentUser.set({
-    username: "",
-    id: "",
-    chain: "",
-    referrer: "",
-  });
-}
-
 type StoredUsers = {
   users: User[];
   lastAccount: User[];
@@ -102,7 +93,6 @@ function addUser(
   const user = { username, id, referrer, chain };
   $userStorage.setKey("lastAccount", [user]);
   if (users.find((user) => user.id === id)) {
-    //console.log("Using existing user");
     return;
   }
   const newUsers = [...users, user];
@@ -127,7 +117,6 @@ function removeUser(id: string) {
 export {
   $currentUser,
   setCurrentUser,
-  eraseCurrentUser,
   $userStorage,
   addUser,
   removeUser,

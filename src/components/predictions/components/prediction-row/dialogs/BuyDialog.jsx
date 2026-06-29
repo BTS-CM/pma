@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import { format } from "date-fns";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExclamationTriangleIcon, CalendarIcon, PlusIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
+const Calendar = lazy(() => import("@/components/ui/calendar"));
 import { Slider } from "@/components/ui/slider";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import DeepLinkDialog from "@/components/common/DeepLinkDialog.jsx";
@@ -91,34 +91,36 @@ function ExpirySelector({ expiryType, setExpiryType, date, setDate, t, expiratio
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-80 p-0 bg-card border-border" align="start">
-            <Calendar
-              className="w-72"
-              mode="single"
-              selected={date}
-              fromDate={new Date()}
-              toDate={expiration ? new Date(expiration) : undefined}
-              onSelect={(e) => {
-                if (!e) {
-                  return;
-                }
-
-                const selected = new Date(e);
-                const now = new Date();
-                if (selected < now) {
-                  setDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
-                  return;
-                }
-                if (expiration) {
-                  const expDate = new Date(expiration);
-                  if (selected > expDate) {
-                    setDate(expDate);
+            <Suspense fallback={<div className="h-[300px] w-[280px] bg-muted animate-pulse rounded" />}>
+              <Calendar
+                className="w-72"
+                mode="single"
+                selected={date}
+                fromDate={new Date()}
+                toDate={expiration ? new Date(expiration) : undefined}
+                onSelect={(e) => {
+                  if (!e) {
                     return;
                   }
-                }
-                setDate(e);
-              }}
-              initialFocus
-            />
+
+                  const selected = new Date(e);
+                  const now = new Date();
+                  if (selected < now) {
+                    setDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
+                    return;
+                  }
+                  if (expiration) {
+                    const expDate = new Date(expiration);
+                    if (selected > expDate) {
+                      setDate(expDate);
+                      return;
+                    }
+                  }
+                  setDate(e);
+                }}
+                initialFocus
+              />
+            </Suspense>
           </PopoverContent>
         </Popover>
       ) : (

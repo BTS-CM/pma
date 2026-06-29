@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useSyncExternalStore } from "react";
+import React, { useState, useEffect, useSyncExternalStore, lazy, Suspense } from "react";
 
 import { useTranslation } from "react-i18next";
 import { i18n as i18nInstance, locale } from "@/lib/i18n.js";
 
-import LanguageSelector from "./LanguageSelector.jsx";
+const LanguageSelector = lazy(() => import("./LanguageSelector.jsx"));
 import ThemeToggle from "@/components/ui/theme-toggle.jsx";
 
 import {
@@ -273,7 +273,9 @@ export default function PageHeader(properties) {
         <div className="container mx-auto px-3 sm:px-4 relative z-10">
           <div className="grid grid-cols-12 gap-3 items-center min-h-[195px]">
             <div className="col-span-12 md:col-span-3 mt-2 flex items-center gap-2 relative z-10">
-              <LanguageSelector />
+              <Suspense fallback={<div className="h-8 w-24 bg-muted animate-pulse rounded" />}>
+                <LanguageSelector />
+              </Suspense>
               <ThemeToggle />
 
               <Button

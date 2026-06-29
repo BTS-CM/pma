@@ -3,6 +3,8 @@ import React, {
   useEffect,
   useSyncExternalStore,
   useMemo,
+  lazy,
+  Suspense,
 } from "react";
 import { useStore } from "@nanostores/react";
 import { format } from "date-fns";
@@ -21,7 +23,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
+const Calendar = lazy(() => import("@/components/ui/calendar"));
 
 import {
   Avatar as Av,
@@ -54,7 +56,10 @@ import { $currentUser } from "@/stores/users.ts";
 
 import { Avatar } from "../Avatar.tsx";
 import AccountSearch from "../AccountSearch.jsx";
-import { QRCode } from "react-qrcode-logo";
+
+const QRCode = lazy(() =>
+  import("react-qrcode-logo").then((m) => ({ default: m.QRCode }))
+);
 
 const operationNumbers = {
   transfer: 0,
@@ -565,15 +570,17 @@ export default function DeepLinkDialog(properties) {
                   <div className="flex flex-col sm:flex-row gap-6 items-start">
                     <div className="flex items-center justify-center p-2 border border-border rounded-lg bg-card/40">
                       {qrContents ? (
-                        <QRCode
-                          value={JSON.stringify(qrContents)}
-                          ecLevel={qrECL}
-                          size={parseInt(qrSize, 10)}
-                          quietZone={parseInt(qrQZ, 10)}
-                          qrStyle={qrStyle}
-                          bgColor={qrBGC}
-                          fgColor={qrFGC}
-                        />
+                        <Suspense fallback={<div className="w-[128px] h-[128px] bg-muted animate-pulse rounded" />}>
+                          <QRCode
+                            value={JSON.stringify(qrContents)}
+                            ecLevel={qrECL}
+                            size={parseInt(qrSize, 10)}
+                            quietZone={parseInt(qrQZ, 10)}
+                            qrStyle={qrStyle}
+                            bgColor={qrBGC}
+                            fgColor={qrFGC}
+                          />
+                        </Suspense>
                       ) : (
                         <span className="text-sm text-muted-foreground/70">
                           {t("DeepLinkDialog:qr.generating")}
@@ -857,24 +864,26 @@ export default function DeepLinkDialog(properties) {
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0 border border-border bg-card text-foreground" align="start">
-                            <Calendar
-                              mode="single"
-                              selected={date}
-                              onSelect={(e) => {
-                                const parsedDate = new Date(e);
-                                const now = new Date();
-                                if (parsedDate < now) {
-                                  setDate(
-                                    new Date(
-                                      Date.now() + 1 * 24 * 60 * 60 * 1000
-                                    )
-                                  );
-                                  return;
-                                }
-                                setDate(e);
-                              }}
-                              initialFocus
-                            />
+                            <Suspense fallback={<div className="h-[300px] w-[280px] bg-muted animate-pulse rounded" />}>
+                              <Calendar
+                                mode="single"
+                                selected={date}
+                                onSelect={(e) => {
+                                  const parsedDate = new Date(e);
+                                  const now = new Date();
+                                  if (parsedDate < now) {
+                                    setDate(
+                                      new Date(
+                                        Date.now() + 1 * 24 * 60 * 60 * 1000
+                                      )
+                                    );
+                                    return;
+                                  }
+                                  setDate(e);
+                                }}
+                                initialFocus
+                              />
+                            </Suspense>
                           </PopoverContent>
                         </Popover>
                       ) : null}

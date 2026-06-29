@@ -1,4 +1,6 @@
 import React, {
+  lazy,
+  Suspense,
   useState,
   useEffect,
   useSyncExternalStore,
@@ -70,7 +72,7 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calendar } from "@/components/ui/calendar";
+const Calendar = lazy(() => import("@/components/ui/calendar"));
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Toggle } from "@/components/ui/toggle";
 import { Badge } from "@/components/ui/badge";
@@ -1205,28 +1207,28 @@ export default function MarketOrder(properties) {
                                     className="w-auto p-0 !bg-background !border"
                                     align="start"
                                   >
-                                    <Calendar
-                                      mode="single"
-                                      selected={date}
-                                      onSelect={(e) => {
-                                        const parsedDate = new Date(e);
-                                        const now = new Date();
-                                        if (parsedDate < now) {
-                                          //console.log("Not a valid date");
-                                          setDate(
-                                            new Date(
-                                              Date.now() +
-                                                1 * 24 * 60 * 60 * 1000
-                                            )
-                                          );
-                                          return;
-                                        }
-                                        //console.log("Setting expiry date");
-                                        setDate(e);
-                                        form.setValue("expiry", new Date(e));
-                                      }}
-                                      initialFocus
-                                    />
+                                    <Suspense fallback={<div className="h-[300px] w-[280px] bg-muted animate-pulse rounded" />}>
+                                      <Calendar
+                                        mode="single"
+                                        selected={date}
+                                        onSelect={(e) => {
+                                          const parsedDate = new Date(e);
+                                          const now = new Date();
+                                          if (parsedDate < now) {
+                                            setDate(
+                                              new Date(
+                                                Date.now() +
+                                                  1 * 24 * 60 * 60 * 1000
+                                              )
+                                            );
+                                            return;
+                                          }
+                                          setDate(e);
+                                          form.setValue("expiry", new Date(e));
+                                        }}
+                                        initialFocus
+                                      />
+                                    </Suspense>
                                   </PopoverContent>
                                 </Popover>
                               ) : null}

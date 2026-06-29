@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { lazy, Suspense, useState, useEffect, useMemo, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/select";
 
 import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
+const Calendar = lazy(() => import("@/components/ui/calendar"));
 import {
   Popover,
   PopoverContent,
@@ -215,7 +215,6 @@ export default function LimitOrderCard(properties) {
 
   useEffect(() => {
     async function parseURL() {
-      //console.log("Parsing market parameters");
       const urlSearchParams = new URLSearchParams(window.location.search);
       const params = Object.fromEntries(urlSearchParams.entries());
       const _amount = params.amount;
@@ -1087,26 +1086,26 @@ export default function LimitOrderCard(properties) {
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single"
-                              selected={date}
-                              onSelect={(e) => {
-                                const parsedDate = new Date(e);
-                                const now = new Date();
-                                if (parsedDate < now) {
-                                  //console.log("Not a valid date");
-                                  setDate(
-                                    new Date(
-                                      Date.now() + 1 * 24 * 60 * 60 * 1000
-                                    )
-                                  );
-                                  return;
-                                }
-                                //console.log("Setting expiry date");
-                                setDate(e);
-                              }}
-                              initialFocus
-                            />
+                            <Suspense fallback={<div className="h-[300px] w-[280px] bg-muted animate-pulse rounded" />}>
+                              <Calendar
+                                mode="single"
+                                selected={date}
+                                onSelect={(e) => {
+                                  const parsedDate = new Date(e);
+                                  const now = new Date();
+                                  if (parsedDate < now) {
+                                    setDate(
+                                      new Date(
+                                        Date.now() + 1 * 24 * 60 * 60 * 1000
+                                      )
+                                    );
+                                    return;
+                                  }
+                                  setDate(e);
+                                }}
+                                initialFocus
+                              />
+                            </Suspense>
                           </PopoverContent>
                         </Popover>
                       ) : null}
