@@ -538,7 +538,7 @@ export default function MarketAssetCard(properties) {
               title={t("MarketAssetCard:issuer")}
               button={
                 marketSearch
-                  ? marketSearch.find((x) => x.id === assetData.id).u
+                  ? marketSearch.find((x) => x.id === assetData.id)?.u ?? "?"
                   : "?"
               }
               dialogtitle={t("MarketAssetCard:assetIssuer", {

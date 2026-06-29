@@ -291,7 +291,7 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
   const [pmoDetailsOpen, setPmoDetailsOpen] = useState(false);
 
   return (
-    <Card className="bg-card/80 border-border shadow-md shadow-black/20 hover:shadow-xl hover:shadow-black/30 transition-all hover:-translate-y-0.5 border-l-4 border-l-cyan-500">
+    <Card className="bg-card/80 border-border shadow-md shadow-black/20 hover:shadow-xl hover:shadow-black/30 transition-all hover:translate-x-1 border-l-4 border-l-cyan-500">
       <CardHeader className="pb-2 pt-3">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
@@ -303,17 +303,19 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
               {symbol}
             </CardDescription>
           </div>
-          <div className="flex items-center gap-2 flex-shrink-0">
-            {pmaCounts.active > 0 ? (
-              <Badge variant="outline" className="text-[10px] border-emerald-500/30 text-emerald-400 bg-emerald-500/10">
-                {pmaCounts.active} {t("PredictionsOrganizations:active")}
-              </Badge>
-            ) : null}
-            {pmaCounts.expired > 0 ? (
-              <Badge variant="outline" className="text-[10px] border-white/20 text-muted-foreground bg-accent/30 dark:bg-white/5">
-                {pmaCounts.expired} {t("PredictionsOrganizations:expired")}
-              </Badge>
-            ) : null}
+          <div className="flex flex-wrap items-center gap-1.5 flex-shrink-0">
+            <Badge variant="outline" className="text-[10px] border-emerald-500/30 text-emerald-400 bg-emerald-500/10">
+              {pmaCounts.active} {t("PredictionsOrganizations:active")}
+            </Badge>
+            <Badge variant="outline" className="text-[10px] border-amber-500/30 text-amber-400 bg-amber-500/10">
+              {pmaCounts.awaitingResolution} {t("PredictionsOrganizations:awaitingResolution")}
+            </Badge>
+            <Badge variant="outline" className="text-[10px] border-emerald-500/30 text-emerald-400 bg-emerald-500/10">
+              {pmaCounts.resolvedYes} {t("PredictionsOrganizations:resolvedYes")}
+            </Badge>
+            <Badge variant="outline" className="text-[10px] border-rose-500/30 text-rose-400 bg-rose-500/10">
+              {pmaCounts.resolvedNo} {t("PredictionsOrganizations:resolvedNo")}
+            </Badge>
             <span
               className="inline-flex items-center gap-1.5 rounded-full border border-border bg-accent/40 dark:bg-white/[0.08] pl-0.5 pr-2 py-0.5 text-[11px] font-medium"
               title={issuerAccountId}
@@ -450,6 +452,11 @@ export default function PredictionsOrganizations(properties) {
 
   const [combinedAssets, setCombinedAssets] = useState([]);
   useEffect(() => {
+    if (!_chain || !assets?.length || !currentNode) return;
+
+    let cancelled = false;
+    let unsubscribeCombined = null;
+
     async function fetching() {
       const lastAsset = assets.at(-1);
       const requiredStore = createEveryObjectStore([
@@ -460,16 +467,23 @@ export default function PredictionsOrganizations(properties) {
         currentNode.url,
       ]);
 
-      requiredStore.subscribe(({ data, error, loading }) => {
+      unsubscribeCombined = requiredStore.subscribe(({ data, error, loading }) => {
+        if (cancelled) return;
         if (data && !error && !loading) {
           setCombinedAssets(!data.length ? assets : [...assets, ...data]);
         }
       });
     }
 
-    if (_chain && assets && assets.length && currentNode) {
-      fetching();
-    }
+    fetching();
+
+    return () => {
+      cancelled = true;
+      if (unsubscribeCombined) {
+        unsubscribeCombined();
+        unsubscribeCombined = null;
+      }
+    };
   }, [_chain, assets, currentNode]);
 
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -492,37 +506,175 @@ export default function PredictionsOrganizations(properties) {
     });
   }, [combinedAssets]);
 
-  const pmaCounts = useMemo(() => {
-    const counts = {};
-    const pmas = combinedAssets.filter(
+  const predictionMarketAssets = useMemo(() => {
+    if (!_chain || !combinedAssets || !combinedAssets.length) return [];
+    return combinedAssets.filter(
       (x) =>
-        (x.hasOwnProperty("prediction_market") && x.prediction_market === true) ||
+        (x.hasOwnProperty("prediction_market") &&
+          x.prediction_market === true) ||
         (!x.hasOwnProperty("prediction_market") && x.bitasset_data_id),
     );
+  }, [_chain, combinedAssets]);
+
+  const [pmaData, setPmaData] = useState([]);
+  const [hasLoadedPmas, setHasLoadedPmas] = useState(false);
+  useEffect(() => {
+    if (!predictionMarketAssets?.length || !currentNode) {
+      setPmaData([]);
+      setHasLoadedPmas(true);
+      return;
+    }
+
+    let cancelled = false;
+    let unsubscribePma = null;
+
+    async function fetching() {
+      const _store = createObjectStore([
+        _chain,
+        JSON.stringify(predictionMarketAssets.map((x) => x.id)),
+        currentNode.url,
+      ]);
+
+      unsubscribePma = _store.subscribe(({ data, error, loading }) => {
+        if (cancelled) return;
+        if (data && !error && !loading) {
+          const now = new Date();
+          const processedData = data
+            .filter(Boolean)
+            .map((x) => {
+              let description;
+              try {
+                description = JSON.parse(x.options?.description || "{}");
+              } catch {
+                return null;
+              }
+              if (
+                !description ||
+                !description.market ||
+                !description.expiry ||
+                !description.condition
+              ) {
+                return null;
+              }
+              const expiration = new Date(description.expiry);
+              return { ...x, expired: now > expiration };
+            })
+            .filter(Boolean);
+          setPmaData(processedData);
+          setHasLoadedPmas(true);
+        }
+      });
+    }
+
+    fetching();
+
+    return () => {
+      cancelled = true;
+      if (unsubscribePma) {
+        unsubscribePma();
+        unsubscribePma = null;
+      }
+    };
+  }, [predictionMarketAssets, _chain, currentNode]);
+
+  const filteredPMAs = useMemo(() => {
+    return pmaData;
+  }, [pmaData]);
+
+  const [completedBitassets, setCompletedBitassets] = useState([]);
+  useEffect(() => {
+    if (!filteredPMAs?.length) return;
+
+    let cancelled = false;
+    let unsubscribe = null;
+
+    async function fetching() {
+      const uniqueIDs = [
+        ...new Set(filteredPMAs.map((x) => x.bitasset_data_id).filter(Boolean)),
+      ];
+
+      const _store = createObjectStore([
+        _chain,
+        JSON.stringify(uniqueIDs),
+        currentNode ? currentNode.url : null,
+      ]);
+
+      unsubscribe = _store.subscribe(({ data, error, loading }) => {
+        if (cancelled) return;
+        if (data && !error && !loading) {
+          const enriched = data
+            .filter(Boolean)
+            .map((x) => {
+              if (!x.settlement_price) {
+                return { ...x, outcome: undefined };
+              }
+              const baseAmount = parseInt(
+                x.settlement_price.base.amount,
+              );
+              const quoteAmount = parseInt(
+                x.settlement_price.quote.amount,
+              );
+              if (baseAmount === 0) {
+                return { ...x, outcome: -1 };
+              }
+              return { ...x, outcome: quoteAmount > 0 ? 1 : 0 };
+            });
+          setCompletedBitassets(enriched);
+        }
+      });
+    }
+
+    fetching();
+
+    return () => {
+      cancelled = true;
+      if (unsubscribe) {
+        unsubscribe();
+        unsubscribe = null;
+      }
+    };
+  }, [filteredPMAs, _chain, currentNode]);
+
+  const pmaCounts = useMemo(() => {
+    const counts = {};
     for (const org of organizations) {
       const prefix = org.symbol;
       let active = 0;
       let expired = 0;
-      for (const pma of pmas) {
+      let awaitingResolution = 0;
+      let resolvedYes = 0;
+      let resolvedNo = 0;
+      for (const pma of filteredPMAs) {
         if (pma.symbol && pma.symbol.startsWith(prefix + ".")) {
-          const desc = (() => {
-            try {
-              return JSON.parse(pma.options?.description || "{}");
-            } catch {
-              return {};
-            }
-          })();
-          if (desc.expiry && new Date(desc.expiry) <= new Date()) {
-            expired++;
-          } else {
+          if (!pma.expired) {
             active++;
+          } else {
+            expired++;
+            const bitasset = completedBitassets.find(
+              (b) => b.id === pma.bitasset_data_id,
+            );
+            const bitOutcome = bitasset?.outcome;
+            if (bitOutcome === 1) {
+              resolvedYes++;
+            } else if (bitOutcome === 0) {
+              resolvedNo++;
+            } else {
+              awaitingResolution++;
+            }
           }
         }
       }
-      counts[org.symbol] = { active, expired, total: active + expired };
+      counts[org.symbol] = {
+        active,
+        expired,
+        total: active + expired,
+        awaitingResolution,
+        resolvedYes,
+        resolvedNo,
+      };
     }
     return counts;
-  }, [organizations, combinedAssets]);
+  }, [organizations, filteredPMAs, completedBitassets]);
 
   const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
 
@@ -660,7 +812,7 @@ export default function PredictionsOrganizations(properties) {
                       <OrganizationCard
                         key={org.id}
                         org={org}
-                        pmaCounts={pmaCounts[org.symbol] || { active: 0, expired: 0, total: 0 }}
+                        pmaCounts={pmaCounts[org.symbol] || { active: 0, expired: 0, total: 0, awaitingResolution: 0, resolvedYes: 0, resolvedNo: 0 }}
                         t={t}
                         usr={usr}
                         marketSearch={marketSearch}

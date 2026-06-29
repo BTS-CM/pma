@@ -131,6 +131,14 @@ export default function MarketOverlay(properties) {
 
   const [assetA, setAssetA] = useState(!window.location.search ? defaultCoreSymbol : null);
   const [assetB, setAssetB] = useState(!window.location.search ? defaultQuoteSymbol : null);
+
+  useEffect(() => {
+    if (!window.location.search) {
+      setAssetA(defaultCoreSymbol);
+      setAssetB(defaultQuoteSymbol);
+    }
+  }, [_chain]);
+
   useEffect(() => {
     async function parseUrlAssets() {
       //console.log("Parsing market parameters");

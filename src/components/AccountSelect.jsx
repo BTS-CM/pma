@@ -59,7 +59,7 @@ function StepIndicator({ currentStep, totalSteps, accentColor, step1Label, step2
                   ? "text-white shadow-lg"
                   : currentStep > step.key
                   ? "text-white"
-                  : "bg-accent/50 text-muted-foreground border border-border"
+                  : "bg-accent/60 text-muted-foreground border border-border/80"
               )}
               style={
                 currentStep === step.key
@@ -100,7 +100,7 @@ function StepIndicator({ currentStep, totalSteps, accentColor, step1Label, step2
                   background:
                     currentStep > step.key
                       ? `linear-gradient(90deg, ${accentColor}88, ${accentColor}44)`
-                      : "rgba(0,0,0,0.08)",
+                      : "rgba(0,0,0,0.15)",
                 }}
               />
             </div>
@@ -117,8 +117,8 @@ function BlockchainButton({ name, subtitle, onClick, icon, accentColor }) {
       onClick={onClick}
       className={cn(
         "group relative w-full text-left px-5 py-4 rounded-xl",
-        "bg-accent/30 dark:bg-white/[0.05] border border-border/60",
-        "hover:bg-accent/50 hover:border-border",
+        "bg-accent/40 dark:bg-white/[0.05] border border-border/80",
+        "hover:bg-accent/60 hover:border-border",
         "transition-all duration-200 ease-out",
         "focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:ring-offset-0"
       )}
@@ -151,8 +151,8 @@ function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain, t }
       onClick={onClick}
       className={cn(
         "group relative w-full text-left px-4 py-3.5 rounded-xl",
-        "bg-accent/30 dark:bg-white/[0.05] border border-border/60",
-        "hover:bg-accent/50 hover:border-border",
+        "bg-accent/40 dark:bg-white/[0.05] border border-border/80",
+        "hover:bg-accent/60 hover:border-border",
         "transition-all duration-200 ease-out",
         "focus:outline-none focus:ring-2 focus:ring-violet-500/40"
       )}
@@ -200,7 +200,7 @@ function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain, t }
           }}
           className={cn(
             "flex items-center justify-center w-10 rounded-xl flex-shrink-0",
-            "bg-accent/30 dark:bg-white/[0.05] border border-border/60",
+            "bg-accent/40 dark:bg-white/[0.05] border border-border/80",
             "hover:bg-rose-500/10 hover:border-rose-500/30",
             "transition-all duration-200 group/remove",
             "focus:outline-none focus:ring-2 focus:ring-rose-500/40"
@@ -408,7 +408,7 @@ export default function AccountSelect(properties) {
               placeholder={t("AccountSearch:noSearch.placeholder")}
               className={cn(
                 "pl-10 pr-4 py-6 text-foreground placeholder:text-muted-foreground/50",
-                "bg-accent/30 dark:bg-white/[0.05] border-border",
+                "bg-accent/40 dark:bg-white/[0.05] border-border/80",
                 "focus-visible:ring-2 focus-visible:ring-offset-0",
                 "transition-all duration-200"
               )}
@@ -473,7 +473,7 @@ export default function AccountSelect(properties) {
             ) : (
               <Button
                 disabled
-                className="px-6 py-2 bg-accent/40 text-muted-foreground/60 border-border/60"
+                className="px-6 py-2 bg-accent/50 text-muted-foreground/60 border-border/80"
               >
                 {t("AccountSelect:new.continue")}
               </Button>

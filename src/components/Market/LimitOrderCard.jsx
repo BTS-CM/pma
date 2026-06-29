@@ -715,7 +715,7 @@ export default function LimitOrderCard(properties) {
                         <button
                           type="button"
                           onClick={handleMaxAmount}
-                          className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-cyan-200 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-colors active:scale-95"
+                          className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider dark:text-cyan-200 text-cyan-700 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-colors active:scale-95"
                         >
                           MAX
                         </button>
@@ -858,7 +858,7 @@ export default function LimitOrderCard(properties) {
                         <button
                           type="button"
                           onClick={handleMaxTotal}
-                          className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-cyan-200 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-colors active:scale-95"
+                          className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider dark:text-cyan-200 text-cyan-700 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-colors active:scale-95"
                         >
                           MAX
                         </button>
@@ -1149,7 +1149,7 @@ export default function LimitOrderCard(properties) {
                           className={cn(
                             "flex h-7 w-7 shrink-0 items-center justify-center rounded-md border",
                             osoEnabled
-                              ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-300"
+                              ? "border-cyan-500/30 bg-cyan-500/10 dark:text-cyan-300 text-cyan-700"
                               : "border-border bg-accent/40 text-muted-foreground/70"
                           )}
                         >
@@ -1522,8 +1522,8 @@ export default function LimitOrderCard(properties) {
               {!amount || !price || !expiry ? (
                 <div className="mt-2 mb-1 grid grid-cols-2 gap-2">
                   <div className="flex items-center justify-center gap-1.5 h-12 rounded-xl border border-amber-400/20 bg-amber-500/[0.06]">
-                    <Zap className="h-3.5 w-3.5 text-amber-400" strokeWidth={2.5} />
-                    <span className="font-mono text-xs text-amber-400">
+                    <Zap className="h-3.5 w-3.5 dark:text-amber-400 text-amber-700" strokeWidth={2.5} />
+                    <span className="font-mono text-xs dark:text-amber-400 text-amber-700">
                       {fee ? `${fee.toFixed(5)} ${usr.chain === "bitshares" ? "BTS" : "TEST"}` : `0.00000 ${usr.chain === "bitshares" ? "BTS" : "TEST"}`}
                     </span>
                   </div>
@@ -1539,8 +1539,8 @@ export default function LimitOrderCard(properties) {
               ) : (
                 <div className="mt-2 mb-1 grid grid-cols-2 gap-2">
                   <div className="flex items-center justify-center gap-1.5 h-12 rounded-xl border border-amber-400/20 bg-amber-500/[0.06]">
-                    <Zap className="h-3.5 w-3.5 text-amber-400" strokeWidth={2.5} />
-                    <span className="font-mono text-xs text-amber-400">
+                    <Zap className="h-3.5 w-3.5 dark:text-amber-400 text-amber-700" strokeWidth={2.5} />
+                    <span className="font-mono text-xs dark:text-amber-400 text-amber-700">
                       {fee ? `${fee.toFixed(5)} ${usr.chain === "bitshares" ? "BTS" : "TEST"}` : `0.00000 ${usr.chain === "bitshares" ? "BTS" : "TEST"}`}
                     </span>
                   </div>

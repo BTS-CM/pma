@@ -185,8 +185,18 @@ export default function InstantTrade(properties) {
     [marketSearch]
   );
 
-  const [assetA, setAssetA] = useState(!window.location.search ? "HONEST.USD" : null);
-  const [assetB, setAssetB] = useState(!window.location.search ? "BTS" : null);
+  const defaultCoreSymbol = _chain === "bitshares" ? "BTS" : "TEST";
+  const defaultQuoteSymbol = _chain === "bitshares" ? "HONEST.USD" : "TESTPMA";
+
+  const [assetA, setAssetA] = useState(!window.location.search ? defaultQuoteSymbol : null);
+  const [assetB, setAssetB] = useState(!window.location.search ? defaultCoreSymbol : null);
+
+  useEffect(() => {
+    if (!window.location.search) {
+      setAssetA(defaultQuoteSymbol);
+      setAssetB(defaultCoreSymbol);
+    }
+  }, [_chain]);
 
   useEffect(() => {
     async function parseUrlAssets() {
@@ -201,14 +211,14 @@ export default function InstantTrade(properties) {
       if (!market || !market.length) {
         console.log("No market parameters found.");
         finalAssetA = "1.3.0";
-        finalAssetB = "HONEST.USD";
+        finalAssetB = defaultQuoteSymbol;
       } else {
         let asset_a = market.split("_")[0].toUpperCase();
         let asset_b = market.split("_")[1].toUpperCase();
 
         if (asset_a && asset_b && asset_b.length && asset_a === asset_b) {
           // Avoid invalid duplicate asset market pairs
-          asset_b = asset_a === "BTS" ? "HONEST.USD" : "1.3.0";
+          asset_b = asset_a === defaultCoreSymbol ? defaultQuoteSymbol : "1.3.0";
           console.log("Invalid market parameters - replaced quote asset.");
         }
 
@@ -240,7 +250,7 @@ export default function InstantTrade(properties) {
           (!searchSymbols.includes(asset_b) && !searchIds.includes(asset_b))
         ) {
           console.log("Asset B replaced with default.");
-          finalAssetB = finalAssetA !== "HONEST.USD" ? "HONEST.USD" : "1.3.0";
+          finalAssetB = finalAssetA !== defaultQuoteSymbol ? defaultQuoteSymbol : "1.3.0";
         }
 
         if (!finalAssetB) {
@@ -252,7 +262,7 @@ export default function InstantTrade(properties) {
           } else {
             console.log("Setting default asset B");
             finalAssetB =
-              asset_a !== "BTS" && asset_a !== "1.3.0" ? "1.3.0" : "HONEST.USD";
+              asset_a !== defaultCoreSymbol && asset_a !== "1.3.0" ? "1.3.0" : defaultQuoteSymbol;
           }
         }
       }
@@ -732,7 +742,7 @@ export default function InstantTrade(properties) {
             className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-400/70 to-transparent"
           />
           <div className="flex flex-col items-center gap-3">
-            <Spinner className="size-6 text-amber-300" />
+            <Spinner className="size-6 dark:text-amber-300 text-amber-700" />
             <p className="text-foreground/70 text-sm">
               {t("MarketPlaceholder:loadingAssetDescription")}
             </p>
@@ -789,7 +799,7 @@ export default function InstantTrade(properties) {
               <DialogTrigger asChild>
                 <button
                   type="button"
-                  className="text-[11px] font-mono text-amber-200/70 hover:text-amber-100 hover:underline underline-offset-2"
+                  className="text-[11px] font-mono dark:text-amber-200/70 text-amber-600/80 dark:hover:text-amber-100 hover:text-amber-800 hover:underline underline-offset-2"
                 >
                   #{order.id}
                 </button>
@@ -886,7 +896,7 @@ export default function InstantTrade(properties) {
           <div className="col-span-1 pl-3 font-mono text-right tabular-nums text-foreground/85">
             {quote.toFixed(assetAData.precision)}
           </div>
-          <div className="col-span-1 pl-3 font-mono text-right tabular-nums text-amber-200/90">
+          <div className="col-span-1 pl-3 font-mono text-right tabular-nums dark:text-amber-200/90 text-amber-700">
             {price}
           </div>
           <div className="col-span-1 pl-3 font-mono text-right tabular-nums text-muted-foreground">
@@ -915,7 +925,7 @@ export default function InstantTrade(properties) {
           />
           <div className="relative p-5 sm:p-6">
             <div className="flex items-center gap-3 mb-4">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-amber-400/30 bg-gradient-to-br from-amber-500/20 to-orange-500/20 text-amber-200">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-amber-400/30 bg-gradient-to-br from-amber-500/20 to-orange-500/20 dark:text-amber-200 text-amber-700">
                 <Zap className="h-4.5 w-4.5" strokeWidth={2.25} />
               </span>
               <div>
@@ -953,7 +963,7 @@ export default function InstantTrade(properties) {
                 aria-label="Swap pair"
                 title="Swap pair"
               >
-                <span className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-border bg-card/80 text-amber-200 hover:text-amber-100 hover:border-amber-400/50 hover:bg-card/80 hover:shadow-[0_0_24px_-6px_rgba(251,191,36,0.55)] transition-all group">
+                <span className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-border bg-card/80 dark:text-amber-200 text-amber-700 dark:hover:text-amber-100 hover:text-amber-800 hover:border-amber-400/50 hover:bg-card/80 hover:shadow-[0_0_24px_-6px_rgba(251,191,36,0.55)] transition-all group">
                   {clicked ? (
                     <ReloadIcon className="h-4 w-4 animate-spin" />
                   ) : (
@@ -1007,8 +1017,8 @@ export default function InstantTrade(properties) {
                             className="text-xs"
                           >
                             <FieldLabel className="text-foreground/80">
-                              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-amber-200/90">
-                                <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-200">
+                              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider dark:text-amber-200/90 text-amber-700">
+                                <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-amber-500/15 border border-amber-400/30 dark:text-amber-200 text-amber-700">
                                   <ArrowUp className="h-3 w-3" strokeWidth={2.5} />
                                 </span>
                                 {t(
@@ -1030,7 +1040,7 @@ export default function InstantTrade(properties) {
                               <button
                                 type="button"
                                 onClick={setMaxA}
-                                className="inline-flex items-center rounded-md border border-amber-400/30 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-200 hover:bg-amber-500/20 hover:border-amber-400/50 transition-colors"
+                                className="inline-flex items-center rounded-md border border-amber-400/30 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider dark:text-amber-200 text-amber-700 hover:bg-amber-500/20 hover:border-amber-400/50 transition-colors"
                               >
                                 MAX
                               </button>
@@ -1066,8 +1076,8 @@ export default function InstantTrade(properties) {
                             className="text-xs"
                           >
                             <FieldLabel className="text-foreground/80">
-                              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-blue-200/90">
-                                <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-blue-500/15 border border-blue-400/30 text-blue-200">
+                              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider dark:text-blue-200/90 text-blue-700">
+                                <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-blue-500/15 border border-blue-400/30 dark:text-blue-200 text-blue-700">
                                   <ArrowDown
                                     className="h-3 w-3"
                                     strokeWidth={2.5}
@@ -1088,7 +1098,7 @@ export default function InstantTrade(properties) {
                               <button
                                 type="button"
                                 onClick={setMaxB}
-                                className="inline-flex items-center rounded-md border border-blue-400/30 bg-blue-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-blue-200 hover:bg-blue-500/20 hover:border-blue-400/50 transition-colors"
+                                className="inline-flex items-center rounded-md border border-blue-400/30 bg-blue-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider dark:text-blue-200 text-blue-700 hover:bg-blue-500/20 hover:border-blue-400/50 transition-colors"
                               >
                                 MAX
                               </button>
@@ -1154,14 +1164,14 @@ export default function InstantTrade(properties) {
                       control={form.control}
                       render={() => (
                         <div className="rounded-xl border border-amber-400/15 bg-card/40 p-3">
-                          <div className="text-[10px] font-medium uppercase tracking-wider text-amber-200/70 mb-1 inline-flex items-center gap-1">
+                          <div className="text-[10px] font-medium uppercase tracking-wider dark:text-amber-200/70 text-amber-600/80 mb-1 inline-flex items-center gap-1">
                             <TrendingUp className="h-3 w-3" strokeWidth={2.5} />
                             {t("InstantTrade:effective_average_price", {
                               assetB,
                               assetA,
                             })}
                           </div>
-                          <div className="font-mono text-sm tabular-nums text-amber-100/90">
+                          <div className="font-mono text-sm tabular-nums dark:text-amber-100/90 text-amber-700">
                             {avgPrice || "—"}
                           </div>
                         </div>
@@ -1214,11 +1224,11 @@ export default function InstantTrade(properties) {
                       control={form.control}
                       render={() => (
                         <div className="rounded-xl border border-amber-400/20 bg-amber-500/[0.05] p-3">
-                          <div className="text-[10px] font-medium uppercase tracking-wider text-amber-200/80 mb-1 inline-flex items-center gap-1">
+                          <div className="text-[10px] font-medium uppercase tracking-wider dark:text-amber-200/80 text-amber-700 mb-1 inline-flex items-center gap-1">
                             <Zap className="h-3 w-3" strokeWidth={2.5} />
                             {t("InstantTrade:networkFee")}
                           </div>
-                          <div className="flex items-center gap-1 font-mono text-sm tabular-nums text-amber-400">
+                          <div className="flex items-center gap-1 font-mono text-sm tabular-nums dark:text-amber-400 text-amber-700">
                             <Zap className="h-3.5 w-3.5" strokeWidth={2.5} />
                             {limitOrderFee ? limitOrderFee.toFixed(5) : "0.00000"}
                             <span className="text-muted-foreground">BTS</span>
@@ -1273,7 +1283,7 @@ export default function InstantTrade(properties) {
                             className={cn(
                               "px-3 py-1.5 text-xs font-medium rounded-lg transition-all",
                               active
-                                ? "bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-100 border border-amber-400/40 shadow-[0_0_18px_-8px_rgba(251,191,36,0.6)]"
+                                ? "bg-gradient-to-r from-amber-500/20 to-orange-500/20 dark:text-amber-100 text-amber-700 border border-amber-400/40 shadow-[0_0_18px_-8px_rgba(251,191,36,0.6)]"
                                 : "text-muted-foreground hover:text-accent-foreground/90 hover:bg-accent/40 border border-transparent"
                             )}
                           >
@@ -1315,7 +1325,7 @@ export default function InstantTrade(properties) {
                           <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                             {t("InstantTrade:networkFee")}
                           </span>
-                          <span className="flex items-center gap-1.5 font-mono text-amber-400 text-sm">
+                          <span className="flex items-center gap-1.5 font-mono dark:text-amber-400 text-amber-700 text-sm">
                             <Zap className="h-3.5 w-3.5" strokeWidth={2.5} />
                             {limitOrderFee.toFixed(5)} BTS
                           </span>
@@ -1358,7 +1368,7 @@ export default function InstantTrade(properties) {
               <AccordionTrigger className="px-5 sm:px-6 py-4 hover:no-underline hover:bg-accent/20">
                 <div className="flex-1 text-left">
                   <div className="flex items-center gap-2 text-base sm:text-lg font-semibold text-foreground">
-                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-amber-400/30 bg-amber-500/10 text-amber-200">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-amber-400/30 bg-amber-500/10 dark:text-amber-200 text-amber-700">
                       <TrendingUp className="h-3.5 w-3.5" strokeWidth={2.5} />
                     </span>
                     {t("MarketOrderCard:openBuyLimitOrdersTitle")}
@@ -1401,7 +1411,7 @@ export default function InstantTrade(properties) {
                       <div className="col-span-1 text-right">
                         {t("InstantTrade:amount_assetA", { assetA })}
                       </div>
-                      <div className="col-span-1 text-right text-amber-200/70">
+                      <div className="col-span-1 text-right dark:text-amber-200/70 text-amber-600/80">
                         {t("InstantTrade:price_assetB_assetA", {
                           assetB,
                           assetA,
@@ -1422,7 +1432,7 @@ export default function InstantTrade(properties) {
                         />
                       ) : (
                         <div className="flex items-center justify-center h-full">
-                          <Spinner className="size-6 text-amber-300" />
+                          <Spinner className="size-6 dark:text-amber-300 text-amber-700" />
                         </div>
                       )}
                     </div>
@@ -1455,7 +1465,7 @@ export default function InstantTrade(properties) {
           />
           <div className="relative p-5 sm:p-6">
             <div className="flex items-start gap-3 mb-4">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-amber-400/30 bg-gradient-to-br from-amber-500/20 to-orange-500/20 text-amber-200">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-amber-400/30 bg-gradient-to-br from-amber-500/20 to-orange-500/20 dark:text-amber-200 text-amber-700">
                 <Wallet className="h-4 w-4" strokeWidth={2.25} />
               </span>
               <div className="flex-1 min-w-0">
@@ -1495,7 +1505,7 @@ export default function InstantTrade(properties) {
                   <div className="col-span-1 text-right">
                     {t("InstantTrade:amount_assetA", { assetA })}
                   </div>
-                  <div className="col-span-1 text-right text-amber-200/70">
+                  <div className="col-span-1 text-right dark:text-amber-200/70 text-amber-600/80">
                     {t("InstantTrade:price_assetB_assetA", {
                       assetB,
                       assetA,
