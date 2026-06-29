@@ -83,7 +83,7 @@ export default function CurrentUser(properties) {
                     "bg-card/55 backdrop-blur-xl",
                     "border border-[color:var(--avatar-accent)]/20 hover:border-[color:var(--avatar-accent)]/50",
                     "rounded-2xl",
-                    "shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.04)]",
+                    "shadow-[0_4px_16px_-4px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)]",
                     "hover:bg-accent/60",
                     "transition-all duration-200 ease-out",
                     "cursor-pointer"
@@ -180,12 +180,12 @@ export default function CurrentUser(properties) {
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 h-40 w-[300px] rounded-full blur-3xl opacity-20"
+            className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 h-40 w-[300px] rounded-full blur-3xl opacity-10 dark:opacity-20"
             style={{ background: avatarColor }}
           />
         </div>
         <DialogHeader className="px-6 pt-6 pb-4">
-          <DialogTitle className="text-foreground text-xl font-semibold tracking-tight">
+          <DialogTitle className="text-foreground dark:text-foreground text-xl font-bold tracking-tight">
             {t("CurrentUser:dialogContent.replacingUser")}
           </DialogTitle>
           <DialogDescription className="text-muted-foreground text-sm">

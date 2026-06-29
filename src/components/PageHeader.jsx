@@ -234,7 +234,7 @@ export default function PageHeader(properties) {
       label: "PageHeader:settingsHeading",
       icon: SlidersHorizontal,
       items: [
-        { slug: "about", title: "Home:about.title", description: "Home:about.subtitle", href: "/docs/" },
+        { slug: "about", title: "Home:about.title", description: "Home:about.subtitle", href: "/docs/docs-index.html" },
         { slug: "nodes", title: "Home:nodes.title", description: "Home:nodes.subtitle", href: "/nodes.html" },
         { slug: "blocked_users", title: "Home:blocked_users.title", description: "Home:blocked_users.subtitle", href: "/blocked-users.html" },
         { slug: "create_account", title: "Home:create_account.title", description: "Home:create_account.subtitle", href: "/create_account.html" },
@@ -266,7 +266,7 @@ export default function PageHeader(properties) {
     <div key={`header`}>
       <div className="mb-3 relative min-h-[195px]">
         <div
-          className="absolute inset-0 overflow-hidden rounded-lg border border-border dark:border-white/[0.06]"
+          className="absolute inset-0 overflow-hidden rounded-lg border border-border dark:border-white/[0.06] bg-gradient-to-br from-indigo-50/80 via-sky-50/60 to-fuchsia-50/50 dark:from-transparent dark:via-transparent dark:to-transparent"
         >
           <WaveBackground />
         </div>
@@ -301,7 +301,7 @@ export default function PageHeader(properties) {
 
             <div className="col-span-12 md:col-span-6 text-center relative z-10">
               <div className="relative">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-foreground dark:text-white [text-shadow:_0_1px_2px_rgba(0,0,0,0.9),_0_2px_12px_rgba(0,0,0,0.7),_0_0_24px_rgba(0,0,0,0.5)] dark:[text-shadow:_0_1px_2px_rgba(0,0,0,0.9),_0_2px_12px_rgba(0,0,0,0.7),_0_0_24px_rgba(0,0,0,0.5)]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-foreground dark:text-white dark:[text-shadow:_0_1px_2px_rgba(0,0,0,0.9),_0_2px_12px_rgba(0,0,0,0.7),_0_0_24px_rgba(0,0,0,0.5)]">
                   <a href="/">
                     {page && page === "index"
                       ? t("PageHeader:welcomeMessage")
@@ -337,7 +337,7 @@ export default function PageHeader(properties) {
       </div>
       <div className="container mx-auto mb-4 px-3 sm:px-4 hidden lg:flex justify-center">
         <div
-          className="inline-flex w-auto max-w-full items-center gap-1 rounded-2xl dark:border-white/10 border-border dark:bg-slate-950/55 bg-card/55 backdrop-blur-xl p-1.5 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.04)]"
+          className="inline-flex w-auto max-w-full items-center gap-1 rounded-2xl dark:border-white/10 border-border dark:bg-slate-950/55 bg-card/80 backdrop-blur-xl p-1.5 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.1),inset_0_1px_0_0_rgba(255,255,255,0.04)] dark:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.04)]"
         >
           {NAV_SECTIONS.map((section) => {
             const SectionIcon = section.icon;

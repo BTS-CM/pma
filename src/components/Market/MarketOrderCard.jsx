@@ -31,8 +31,8 @@ export default function MarketOrderCard(properties) {
   const isBuy = cardType === "buy";
   const accent = isBuy
     ? {
-        text: "text-emerald-400",
-        textBright: "text-emerald-300",
+        text: "dark:text-emerald-400 text-emerald-700",
+        textBright: "dark:text-emerald-300 text-emerald-700",
         bg: "bg-emerald-500/[0.06]",
         bgHover: "hover:bg-emerald-500/[0.12]",
         bgDepth: "bg-emerald-500/[0.08]",
@@ -40,11 +40,11 @@ export default function MarketOrderCard(properties) {
         glow: "from-emerald-500/20 via-emerald-500/5 to-transparent",
         gradient: "from-emerald-500 via-teal-500 to-cyan-500",
         ring: "ring-emerald-500/30",
-        chip: "bg-emerald-500/10 border-emerald-500/30 text-emerald-300",
+        chip: "bg-emerald-500/10 border-emerald-500/30 dark:text-emerald-300 text-emerald-700",
       }
     : {
-        text: "text-rose-400",
-        textBright: "text-rose-300",
+        text: "dark:text-rose-400 text-rose-700",
+        textBright: "dark:text-rose-300 text-rose-700",
         bg: "bg-rose-500/[0.06]",
         bgHover: "hover:bg-rose-500/[0.12]",
         bgDepth: "bg-rose-500/[0.08]",
@@ -52,7 +52,7 @@ export default function MarketOrderCard(properties) {
         glow: "from-rose-500/20 via-rose-500/5 to-transparent",
         gradient: "from-rose-500 via-orange-500 to-amber-500",
         ring: "ring-rose-500/30",
-        chip: "bg-rose-500/10 border-rose-500/30 text-rose-300",
+        chip: "bg-rose-500/10 border-rose-500/30 dark:text-rose-300 text-rose-700",
       };
 
   const totalBase = useMemo(() => {

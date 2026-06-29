@@ -61,7 +61,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 
 import { $currentUser } from "@/stores/users.ts";
@@ -596,13 +596,11 @@ export default function PredictionsOrganizations(properties) {
           </CardHeader>
           <CardContent>
             {!hasLoaded ? (
-              <div className="grid grid-cols-1 gap-2 mt-3">
-                {[0, 1, 2].map((i) => (
-                  <Skeleton
-                    key={`skeleton-${i}`}
-                    className="h-[120px] w-full bg-accent/40 dark:bg-white/10"
-                  />
-                ))}
+              <div className="flex flex-col items-center justify-center py-12 gap-3">
+                <Spinner className="size-6 text-muted-foreground" />
+                <div className="text-sm text-muted-foreground">
+                  {t("PredictionsOrganizations:loading")}
+                </div>
               </div>
             ) : null}
 

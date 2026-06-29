@@ -36,7 +36,7 @@ export default function MyOrderSummary(properties) {
   );
 
   const isBuy = type === "buy";
-  const accent = isBuy ? "text-emerald-300" : "text-rose-300";
+  const accent = isBuy ? "dark:text-emerald-300 text-emerald-700" : "dark:text-rose-300 text-rose-700";
 
   const filteredUsrLimitOrders = useMemo(
     () =>

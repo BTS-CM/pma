@@ -3,6 +3,7 @@
   "description": "Gennemse forudsigelsesmarkedsorganisationer og deres aktive forudsigelser.",
   "showing": "Viser {{count}} af {{total}} organisationer",
   "searchPlaceholder": "Søg efter symbol eller navn…",
+  "loading": "Indlæser organisationer…",
   "empty": "Ingen forudsigelsesmarkedsorganisationer fundet.",
   "createOrg": "Opret en organisation",
   "active": "aktive",

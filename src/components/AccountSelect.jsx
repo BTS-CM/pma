@@ -56,10 +56,10 @@ function StepIndicator({ currentStep, totalSteps, accentColor, step1Label, step2
               className={cn(
                 "w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-all duration-300",
                 currentStep === step.key
-                  ? "text-foreground shadow-lg"
+                  ? "text-white shadow-lg"
                   : currentStep > step.key
-                  ? "text-foreground/90"
-                  : "bg-accent/50 text-muted-foreground/60 border border-border"
+                  ? "text-white"
+                  : "bg-accent/50 text-muted-foreground border border-border"
               )}
               style={
                 currentStep === step.key
@@ -83,7 +83,7 @@ function StepIndicator({ currentStep, totalSteps, accentColor, step1Label, step2
             <span
               className={cn(
                 "text-[10px] font-medium tracking-wide uppercase transition-colors duration-300",
-                currentStep === step.key ? "text-foreground/80" : "text-muted-foreground/60"
+                currentStep === step.key ? "text-foreground/80 font-semibold" : "text-muted-foreground/60"
               )}
             >
               {step.label}
@@ -100,7 +100,7 @@ function StepIndicator({ currentStep, totalSteps, accentColor, step1Label, step2
                   background:
                     currentStep > step.key
                       ? `linear-gradient(90deg, ${accentColor}88, ${accentColor}44)`
-                      : "rgba(255,255,255,0.08)",
+                      : "rgba(0,0,0,0.08)",
                 }}
               />
             </div>
@@ -137,7 +137,7 @@ function BlockchainButton({ name, subtitle, onClick, icon, accentColor }) {
           <div className="text-foreground font-medium text-sm">{name}</div>
           <div className="text-muted-foreground text-xs mt-0.5">{subtitle}</div>
         </div>
-        <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all" />
+        <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-foreground/70 group-hover:translate-x-0.5 transition-all" />
       </div>
     </button>
   );
@@ -177,14 +177,14 @@ function AccountCard({ user, onClick, onRemove, accentColor, isCurrentChain, t }
           <div
             className="text-foreground font-medium text-sm truncate"
             style={{
-              textShadow: "0 0 20px rgba(255,255,255,0.1)",
+              textShadow: "0 0 20px rgba(0,0,0,0.03)",
             }}
           >
             {user.username}
           </div>
           <div className="text-muted-foreground text-xs font-mono mt-0.5">{user.id}</div>
         </div>
-        <ChevronRight className="w-4 h-4 text-foreground/15 group-hover:text-muted-foreground/60 transition-colors flex-shrink-0" />
+        <ChevronRight className="w-4 h-4 text-foreground/20 group-hover:text-muted-foreground transition-colors flex-shrink-0" />
       </div>
     </button>
   );
@@ -434,7 +434,7 @@ export default function AccountSelect(properties) {
           </div>
 
           {errorMessage ? (
-            <div className="flex items-center gap-2 text-rose-400 text-xs">
+            <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400 text-xs">
               <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
               <span>{errorMessage}</span>
             </div>
@@ -473,7 +473,7 @@ export default function AccountSelect(properties) {
             ) : (
               <Button
                 disabled
-                className="px-6 py-2 bg-accent/40 text-muted-foreground/40 border-border/60"
+                className="px-6 py-2 bg-accent/40 text-muted-foreground/60 border-border/60"
               >
                 {t("AccountSelect:new.continue")}
               </Button>
@@ -562,12 +562,12 @@ export default function AccountSelect(properties) {
                     border: `1px solid ${accentColor}20`,
                   }}
                 >
-                  <Inbox className="w-6 h-6" style={{ color: `${accentColor}88` }} />
+                  <Inbox className="w-6 h-6 dark:text-muted-foreground/50 text-muted-foreground/70" />
                 </div>
                 <div className="text-muted-foreground text-sm font-medium mb-1">
                   {t("AccountSelect:existing.none")}
                 </div>
-                <div className="text-muted-foreground/60 text-xs text-center max-w-[200px]">
+                <div className="text-muted-foreground/60 text-xs text-center max-w-[200px] dark:text-muted-foreground/50 text-muted-foreground/70">
                   {t("AccountSelect:existing.noneHint")}
                 </div>
               </div>

@@ -169,9 +169,9 @@ function ActionLabelLink({
 }
 
 const expiryColor = {
-  healthy: "text-emerald-400",
-  soon: "text-amber-400",
-  imminent: "text-rose-400",
+  healthy: "dark:text-emerald-400 text-emerald-700",
+  soon: "dark:text-amber-400 text-amber-700",
+  imminent: "dark:text-rose-400 text-rose-700",
   expired: "text-muted-foreground/60 line-through",
 };
 
@@ -245,7 +245,7 @@ const OpenOrdersRow = memo(function OpenOrdersRow({ index, style, sortedOpenOrde
               <CopyIdButton orderId={orderId} t={t} />
             </div>
             <div className="text-right flex-shrink-0">
-              <div className="text-sm font-semibold text-cyan-400">
+              <div className="text-sm font-semibold dark:text-cyan-400 text-cyan-700">
                 {priceDisplay}
               </div>
               <div className="text-xs text-muted-foreground">
@@ -310,7 +310,7 @@ const OpenOrdersRow = memo(function OpenOrdersRow({ index, style, sortedOpenOrde
               <CopyIdButton orderId={orderId} t={t} />
             </div>
             <div className="min-w-0">
-              <div className="text-sm font-semibold text-cyan-400">
+              <div className="text-sm font-semibold dark:text-cyan-400 text-cyan-700">
                 {priceDisplay}
               </div>
               <div className="text-xs text-muted-foreground">

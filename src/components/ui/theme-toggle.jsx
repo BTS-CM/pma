@@ -25,14 +25,20 @@ export default function ThemeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 rounded-lg transition-colors hover:bg-accent hover:text-accent-foreground"
+          variant="outline"
+          className="relative h-12 w-12 bg-card/55 backdrop-blur-xl dark:text-white text-foreground border border-border hover:border-cyan-400/50 hover:bg-card/60 transition-all duration-200 rounded-2xl shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6),inset_0_1px_0_0_rgba(255,255,255,0.04)]"
           aria-label="Toggle theme"
         >
-          {theme === "light" && <Sun className="h-4 w-4" />}
-          {theme === "dark" && <Moon className="h-4 w-4" />}
-          {theme === "system" && <Monitor className="h-4 w-4" />}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-2 top-0 h-px"
+            style={{
+              background: "linear-gradient(90deg, transparent, #22d3eecc, transparent)",
+            }}
+          />
+          {theme === "light" && <Sun className="h-5 w-5" />}
+          {theme === "dark" && <Moon className="h-5 w-5" />}
+          {theme === "system" && <Monitor className="h-5 w-5" />}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">

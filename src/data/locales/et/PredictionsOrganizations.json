@@ -3,6 +3,7 @@
   "description": "Sirvige ennustusturu organisatsioone ja nende aktiivseid ennustusi.",
   "showing": "Näitan {{count}} / {{total}} organisatsioonist",
   "searchPlaceholder": "Otsige sümboli või nime järgi…",
+  "loading": "Organisatsioonide laadimine…",
   "empty": "Ennustusturu organisatsioone ei leitud.",
   "createOrg": "Loo organisatsioon",
   "active": "aktiivne",

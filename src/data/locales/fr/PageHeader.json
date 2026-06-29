@@ -86,6 +86,7 @@
     "my_predictions": "Consultez les actifs de marché de prédiction que vous avez créés ou avec lesquels vous avez interagi.",
     "prediction_portfolio": "Consultez les actifs de marché de prédiction actuellement détenus sur le solde de votre compte.",
     "prediction_margin": "Consultez les actifs de marché de prédiction où vous avez une position de marge (achat) ouverte.",
+    "prediction_organizations": "Parcourez les organisations de marché de prédiction qui émettent des sous-actifs sous une seule marque.",
     "tfunds": "Recherchez, créez, mettez à jour ou supprimez des fonds Same-T ci-dessous !",
     "create_vesting": "Utilisez ce formulaire pour créer un solde d'acquisition pour n'importe quel compte !",
     "uia": "Créez votre propre actif émis par l'utilisateur avec le formulaire ci-dessous !",

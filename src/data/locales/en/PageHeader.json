@@ -86,6 +86,7 @@
     "my_predictions": "View prediction market assets you've created or interacted with.",
     "prediction_portfolio": "View prediction market assets currently held in your account balance.",
     "prediction_margin": "View prediction market assets where you have an open margin (call) position.",
+    "prediction_organizations": "Browse prediction market organizations that issue sub-assets under a unified brand name.",
     "tfunds": "Find, create, update or delete Same-T funds below!",
     "create_vesting": "Use this form to create a vesting balance for any account!",
     "uia": "Create your own user issued asset with the form below!",

@@ -3,6 +3,7 @@
   "description": "Durchsuchen Sie Vorhersagemarkt-Organisationen und deren aktive Vorhersagen.",
   "showing": "{{count}} von {{total}} Organisationen",
   "searchPlaceholder": "Nach Symbol oder Name suchen…",
+  "loading": "Organisationen werden geladen…",
   "empty": "Keine Vorhersagemarkt-Organisationen gefunden.",
   "createOrg": "Organisation erstellen",
   "active": "aktiv",

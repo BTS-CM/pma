@@ -3,6 +3,7 @@
   "description": "예측 시장 조직과 활성 예측을 살펴보세요.",
   "showing": "{{total}}개 중 {{count}}개 조직 표시",
   "searchPlaceholder": "심볼 또는 이름으로 검색…",
+  "loading": "조직 불러오는 중…",
   "empty": "예측 시장 조직을 찾을 수 없습니다.",
   "createOrg": "조직 만들기",
   "active": "활성",

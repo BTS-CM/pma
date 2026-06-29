@@ -3,6 +3,7 @@
   "description": "Browse prediction market organizations and their active predictions.",
   "showing": "Showing {{count}} of {{total}} organizations",
   "searchPlaceholder": "Search by symbol or name…",
+  "loading": "Loading organizations…",
   "empty": "No prediction market organizations found.",
   "createOrg": "Create an Organization",
   "active": "active",

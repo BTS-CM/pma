@@ -86,6 +86,7 @@
     "my_predictions": "Vaadake ennustusturu varasid, olete loonud või millega olete suhelnud.",
     "prediction_portfolio": "Vaadake ennustusturu varasid, mis praegu teie kontojäägis on.",
     "prediction_margin": "Vaadake ennustusturu varasid, kus teil on avatud marginaal (ostu) positsioon.",
+    "prediction_organizations": "Sirvige ennustusturu organisatsioone, mis väljastavad alamvarasid ühe kaubamärgi all.",
     "tfunds": "Otsige, looge, värskendage või kustutage Same-T fonde allpool!",
     "create_vesting": "Kasutage seda vormi mis tahes konto omandisaldo loomiseks!",
     "uia": "Looge alloleva vormi abil oma kasutaja väljastatud vara!",

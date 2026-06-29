@@ -3,6 +3,7 @@
   "description": "Sfoglia le organizzazioni di mercato previsionale e le loro previsioni attive.",
   "showing": "Visualizzazione di {{count}} su {{total}} organizzazioni",
   "searchPlaceholder": "Cerca per simbolo o nome…",
+  "loading": "Caricamento organizzazioni…",
   "empty": "Nessuna organizzazione di mercato previsionale trovata.",
   "createOrg": "Crea un'organizzazione",
   "active": "attive",

@@ -301,7 +301,7 @@ export const PredictionRow = memo(function PredictionRow({
     <>
       <Card
         className={cn(
-          "w-full overflow-hidden border-l-4 rounded-lg ring-1 dark:ring-white/[0.06] ring-border shadow-md shadow-black/20 transition-all duration-200 hover:shadow-xl dark:hover:shadow-black/40 hover:shadow-black/15 hover:translate-x-1 dark:hover:ring-white/[0.15] hover:ring-border bg-card/90 dark:border-white/[0.10] border-border backdrop-blur-sm cursor-pointer group",
+          "w-full overflow-hidden border-l-4 rounded-lg ring-1 dark:ring-white/[0.06] ring-border shadow-md shadow-black/20 transition-all duration-200 hover:shadow-xl dark:hover:shadow-black/40 hover:shadow-black/15 hover:translate-x-1 dark:hover:ring-white/[0.15] hover:ring-border bg-card/90 dark:border-t-white/[0.10] dark:border-r-white/[0.10] dark:border-b-white/[0.10] border-border backdrop-blur-sm cursor-pointer group",
           status.border,
         )}
         onClick={() => setDetailOpen(true)}

@@ -3,6 +3,7 @@
   "description": "Explore organizações de mercado de previsão e suas previsões ativas.",
   "showing": "Mostrando {{count}} de {{total}} organizações",
   "searchPlaceholder": "Pesquisar por símbolo ou nome…",
+  "loading": "Carregando organizações…",
   "empty": "Nenhuma organização de mercado de previsão encontrada.",
   "createOrg": "Criar uma organização",
   "active": "ativas",

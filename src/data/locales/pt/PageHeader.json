@@ -86,6 +86,7 @@
     "my_predictions": "Visualize os ativos de mercado de previsão que você criou ou interagiu.",
     "prediction_portfolio": "Visualize os ativos de mercado de previsão atualmente detidos no saldo da sua conta.",
     "prediction_margin": "Visualize os ativos de mercado de previsão onde você tem uma posição de margem (chamada) aberta.",
+    "prediction_organizations": "Navegue pelas organizações de mercado de previsão que emitem sub-ativos sob uma única marca.",
     "tfunds": "Encontre, crie, atualize ou exclua fundos Same-T abaixo!",
     "create_vesting": "Use este formulário para criar um saldo de aquisição para qualquer conta!",
     "uia": "Crie seu próprio ativo emitido pelo usuário com o formulário abaixo!",

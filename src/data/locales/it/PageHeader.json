@@ -86,6 +86,7 @@
     "my_predictions": "Visualizza gli asset di mercato previsionali che hai creato o con cui hai interagito.",
     "prediction_portfolio": "Visualizza gli asset di mercato previsionali attualmente detenuti nel saldo del tuo account.",
     "prediction_margin": "Visualizza gli asset di mercato previsionali dove hai una posizione marginale (call) aperta.",
+    "prediction_organizations": "Sfoglia le organizzazioni di mercato previsionale che emettono sotto-asset sotto un unico marchio.",
     "tfunds": "Trova, crea, aggiorna o elimina i fondi Same-T qui sotto!",
     "create_vesting": "Utilizza questo modulo per creare un saldo di maturazione per qualsiasi account!",
     "uia": "Crea la tua risorsa emessa dall'utente con il modulo sottostante!",

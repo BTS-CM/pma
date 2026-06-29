@@ -3,6 +3,7 @@
   "description": "予測市場組織とそのアクティブな予測を閲覧します。",
   "showing": "{{total}}件中{{count}}件の組織を表示",
   "searchPlaceholder": "シンボルまたは名前で検索…",
+  "loading": "組織を読み込み中…",
   "empty": "予測市場組織が見つかりません。",
   "createOrg": "組織を作成",
   "active": "アクティブ",

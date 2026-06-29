@@ -1480,16 +1480,16 @@ export default function MarketOrder(properties) {
                     <FieldLabel className="text-foreground/80">{t("MarketOrder:networkFeeLabel")}</FieldLabel>
                     <FieldContent>
                       <div className="rounded-xl border border-amber-400/20 bg-amber-500/[0.06] p-3">
-                        <div className="text-[10px] font-medium uppercase tracking-wider text-amber-200/80 mb-1 inline-flex items-center gap-1">
+                        <div className="text-[10px] font-medium uppercase tracking-wider dark:text-amber-200/80 text-amber-700 mb-1 inline-flex items-center gap-1">
                           <Zap className="h-3 w-3" strokeWidth={2.5} />
                           {t("MarketOrder:networkFeeLabel")}
                         </div>
-                        <div className="flex items-center gap-1 font-mono text-sm tabular-nums text-amber-400">
+                        <div className="flex items-center gap-1 font-mono text-sm tabular-nums dark:text-amber-400 text-amber-700">
                           <Zap className="h-3.5 w-3.5" strokeWidth={2.5} />
                           {fee ? fee.toFixed(5) : "0.00000"} {usr.chain === "bitshares" ? "BTS" : "TEST"}
                         </div>
                         {usr.id === usr.referrer ? (
-                          <div className="text-xs text-amber-400/60 mt-1">
+                          <div className="text-xs dark:text-amber-400/60 text-amber-600/80 mt-1">
                             {t("MarketOrder:rebateMessage", { rebate: trimPrice(fee * 0.8, 5) })}
                           </div>
                         ) : null}
@@ -1568,7 +1568,7 @@ export default function MarketOrder(properties) {
               >
                 <Card className="!bg-background/60 !backdrop-blur-xl !border-sky-400/20 hover:!border-sky-400/40 transition-colors">
                   <CardHeader>
-                    <CardTitle className="text-sky-200">{t("MarketOrder:tradeOnDexTitle")}</CardTitle>
+                    <CardTitle className="dark:text-sky-200 text-sky-700">{t("MarketOrder:tradeOnDexTitle")}</CardTitle>
                     <CardDescription className="text-muted-foreground">
                       {t("MarketOrder:market")}{" "}
                       {quoteAsset ? quoteAsset.symbol : "?"}/

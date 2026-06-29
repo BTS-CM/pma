@@ -86,6 +86,7 @@
     "my_predictions": "Se forudsigelsesmarkedaktiver, du har oprettet eller interageret med.",
     "prediction_portfolio": "Se forudsigelsesmarkedaktiver, der aktuelt er på din kontosaldo.",
     "prediction_margin": "Se forudsigelsesmarkedaktiver, hvor du har en åben margin (call) position.",
+    "prediction_organizations": "Gennemse forudsigelsesmarkedorganisationer, der udsteder underaktiver under ét enkelt brandnavn.",
     "tfunds": "Find, opret, opdater eller slet Same-T-midler nedenfor!",
     "create_vesting": "Brug denne formular til at oprette en optjeningssaldo for enhver konto!",
     "uia": "Opret dit eget brugerudstedte aktiv med formularen nedenfor!",

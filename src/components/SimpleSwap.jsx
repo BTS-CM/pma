@@ -655,7 +655,7 @@ export default function SimpleSwap(properties) {
               <div>
                 <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-foreground flex items-center gap-2">
                   <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500/30 to-blue-500/30 border border-cyan-400/40 shadow-[0_0_18px_-2px_rgba(34,211,238,0.4)]">
-                    <Sparkles className="h-4 w-4 text-cyan-100" />
+                    <Sparkles className="h-4 w-4 dark:text-cyan-100 text-cyan-700" />
                   </span>
                   {t("SimpleSwap:title")}
                 </h2>
@@ -697,9 +697,9 @@ export default function SimpleSwap(properties) {
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
                             <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-cyan-500/20 border border-cyan-400/40">
-                              <ArrowUp className="h-3.5 w-3.5 text-cyan-200" />
+                              <ArrowUp className="h-3.5 w-3.5 dark:text-cyan-200 text-cyan-700" />
                             </span>
-                            <span className="text-[11px] font-semibold uppercase tracking-wider text-cyan-200/80">
+                            <span className="text-[11px] font-semibold uppercase tracking-wider dark:text-cyan-200/80 text-cyan-700">
                               {t("SimpleSwap:amountToSwap")}
                             </span>
                             <TooltipProvider delayDuration={200}>
@@ -707,7 +707,7 @@ export default function SimpleSwap(properties) {
                                 <TooltipTrigger asChild>
                                   <button
                                     type="button"
-                                    className="text-cyan-300/60 hover:text-cyan-200 transition-colors"
+                                    className="dark:text-cyan-300/60 dark:hover:text-cyan-200 text-cyan-600/80 hover:text-cyan-800 transition-colors"
                                     aria-label="More info"
                                   >
                                     <Info className="h-3.5 w-3.5" />
@@ -740,7 +740,7 @@ export default function SimpleSwap(properties) {
                                   <button
                                     type="button"
                                     onClick={setMaxBalance}
-                                    className="px-1.5 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wider bg-cyan-500/20 border border-cyan-400/40 text-cyan-100 hover:bg-cyan-500/30 hover:border-cyan-300/60 transition-colors"
+                                    className="px-1.5 py-0.5 rounded-md text-[10px] font-semibold uppercase tracking-wider bg-cyan-500/20 border border-cyan-400/40 dark:text-cyan-100 text-cyan-700 hover:bg-cyan-500/30 hover:border-cyan-300/60 transition-colors"
                                   >
                                     MAX
                                   </button>
@@ -802,7 +802,7 @@ export default function SimpleSwap(properties) {
                                     className="h-16 px-4 min-w-[140px] bg-card/60 border-border hover:bg-card/80 hover:border-cyan-400/40 text-foreground text-lg font-semibold justify-between gap-2"
                                   >
                                     <span className="flex items-center gap-2">
-                                      <Coins className="h-4 w-4 text-cyan-300" />
+                                      <Coins className="h-4 w-4 dark:text-cyan-300 text-cyan-700" />
                                       {selectedAssetASymbol || t(
                                         "SimpleSwap:sendAsset"
                                       )}
@@ -851,12 +851,12 @@ export default function SimpleSwap(properties) {
                                               className="cursor-pointer text-foreground/85 data-[selected=true]:!bg-cyan-500/15 data-[selected=true]:!text-foreground aria-selected:bg-cyan-500/15"
                                             >
                                               <span className="flex items-center gap-2">
-                                                <Coins className="h-3.5 w-3.5 text-cyan-300/70" />
+                                                  <Coins className="h-3.5 w-3.5 dark:text-cyan-300/70 text-cyan-600/80" />
                                                 {assetSymbol}
                                               </span>
                                               {selectedAssetASymbol ===
                                                 assetSymbol && (
-                                                <Check className="ml-auto h-4 w-4 text-cyan-300" />
+                                                <Check className="ml-auto h-4 w-4 dark:text-cyan-300 text-cyan-700" />
                                               )}
                                             </CommandItem>
                                           ))
@@ -897,7 +897,7 @@ export default function SimpleSwap(properties) {
                         "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-border"
                       )}
                     >
-                      <ArrowDownUp className="h-4 w-4 text-foreground group-hover:text-cyan-200 group-hover:rotate-180 transition-all duration-300" />
+                      <ArrowDownUp className="h-4 w-4 text-foreground dark:group-hover:text-cyan-200 group-hover:text-cyan-800 group-hover:rotate-180 transition-all duration-300" />
                     </button>
                   </div>
 
@@ -905,9 +905,9 @@ export default function SimpleSwap(properties) {
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-blue-500/20 border border-blue-400/40">
-                          <ArrowDown className="h-3.5 w-3.5 text-blue-200" />
+                          <ArrowDown className="h-3.5 w-3.5 dark:text-blue-200 text-blue-700" />
                         </span>
-                        <span className="text-[11px] font-semibold uppercase tracking-wider text-blue-200/80">
+                        <span className="text-[11px] font-semibold uppercase tracking-wider dark:text-blue-200/80 text-blue-700">
                           {t("SimpleSwap:totalAmount")}
                         </span>
                         <TooltipProvider delayDuration={200}>
@@ -915,7 +915,7 @@ export default function SimpleSwap(properties) {
                             <TooltipTrigger asChild>
                               <button
                                 type="button"
-                                className="text-blue-300/60 hover:text-blue-200 transition-colors"
+                                className="dark:text-blue-300/60 dark:hover:text-blue-200 text-blue-600/80 hover:text-blue-800 transition-colors"
                                 aria-label="More info"
                               >
                                 <Info className="h-3.5 w-3.5" />
@@ -936,7 +936,7 @@ export default function SimpleSwap(properties) {
                         selectedAssetASymbol &&
                         selectedAssetBSymbol && (
                           <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                            <TrendingUp className="h-3 w-3 text-blue-300/70" />
+                            <TrendingUp className="h-3 w-3 dark:text-blue-300/70 text-blue-600/80" />
                             <span className="font-mono">
                               1 {selectedAssetASymbol} ={" "}
                               {exchangeRate.toLocaleString(undefined, {
@@ -965,7 +965,7 @@ export default function SimpleSwap(properties) {
                                   })
                                 : "0.0"
                             }
-                            className="h-16 text-3xl sm:text-4xl font-semibold bg-card/60 border-border text-blue-100 placeholder:text-muted-foreground/40 px-4"
+                            className="h-16 text-3xl sm:text-4xl font-semibold bg-card/60 border-border dark:text-blue-100 text-foreground placeholder:text-muted-foreground/40 px-4"
                           />
                         </FieldContent>
                       </Field>
@@ -1000,7 +1000,7 @@ export default function SimpleSwap(properties) {
                                     className="h-16 px-4 min-w-[140px] bg-card/60 border-border hover:bg-card/80 hover:border-blue-400/40 text-foreground text-lg font-semibold justify-between gap-2 disabled:opacity-50"
                                   >
                                     <span className="flex items-center gap-2">
-                                      <Coins className="h-4 w-4 text-blue-300" />
+                                      <Coins className="h-4 w-4 dark:text-blue-300 text-blue-700" />
                                       {selectedAssetBSymbol || t(
                                         "SimpleSwap:sendAsset"
                                       )}
@@ -1046,12 +1046,12 @@ export default function SimpleSwap(properties) {
                                                 className="cursor-pointer text-foreground/85 data-[selected=true]:!bg-blue-500/15 data-[selected=true]:!text-foreground aria-selected:bg-blue-500/15"
                                               >
                                                 <span className="flex items-center gap-2">
-                                                  <Coins className="h-3.5 w-3.5 text-blue-300/70" />
+                                                  <Coins className="h-3.5 w-3.5 dark:text-blue-300/70 text-blue-600/80" />
                                                   {assetSymbol}
                                                 </span>
                                                 {selectedAssetBSymbol ===
                                                   assetSymbol && (
-                                                  <Check className="ml-auto h-4 w-4 text-blue-300" />
+                                                  <Check className="ml-auto h-4 w-4 dark:text-blue-300 text-blue-700" />
                                                 )}
                                               </CommandItem>
                                             )
@@ -1107,7 +1107,7 @@ export default function SimpleSwap(properties) {
                             <TooltipTrigger asChild>
                               <button
                                 type="button"
-                                className="text-muted-foreground hover:text-cyan-200 transition-colors"
+                                className="text-muted-foreground dark:hover:text-cyan-200 hover:text-cyan-800 transition-colors"
                                 aria-label="More info"
                               >
                                 <Info className="h-3 w-3" />
@@ -1165,7 +1165,7 @@ export default function SimpleSwap(properties) {
                               <div className="flex items-center gap-2">
                                 {isSelected ? (
                                   <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-cyan-400/30 border border-cyan-300/60">
-                                    <Check className="h-2.5 w-2.5 text-cyan-100" />
+                                      <Check className="h-2.5 w-2.5 dark:text-cyan-100 text-cyan-700" />
                                   </span>
                                 ) : (
                                   <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-border dark:border-white/15" />
@@ -1173,7 +1173,7 @@ export default function SimpleSwap(properties) {
                                 <span
                                   className={cn(
                                     "text-xs font-mono font-semibold tracking-wider",
-                                    isSelected ? "text-cyan-100" : "text-foreground/70"
+                                    isSelected ? "dark:text-cyan-100 text-cyan-700" : "text-foreground/70"
                                   )}
                                 >
                                   #{p.id.split(".")[2]}
@@ -1182,7 +1182,7 @@ export default function SimpleSwap(properties) {
                                   className={cn(
                                     "text-[10px] px-1.5 py-0.5 rounded-md border font-semibold",
                                     isSelected
-                                      ? "bg-cyan-400/15 border-cyan-300/40 text-cyan-100"
+                                      ? "bg-cyan-400/15 border-cyan-300/40 dark:text-cyan-100 text-cyan-700"
                                       : "bg-accent/40 border-border text-muted-foreground"
                                   )}
                                 >
@@ -1223,12 +1223,12 @@ export default function SimpleSwap(properties) {
                     <div className="rounded-xl border border-border/60 bg-card/40 px-4 py-3 space-y-2 text-sm">
                       <div className="flex items-center justify-between">
                         <span className="inline-flex items-center gap-2 text-muted-foreground">
-                          <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-cyan-400/30 bg-cyan-500/10 text-cyan-200">
+                           <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-cyan-400/30 bg-cyan-500/10 dark:text-cyan-200 text-cyan-700">
                             <Percent className="h-3 w-3" strokeWidth={2.5} />
                           </span>
                           {t("SimpleSwap:poolFee")}
                         </span>
-                        <span className="font-mono tabular-nums text-cyan-100">
+                        <span className="font-mono tabular-nums dark:text-cyan-100 text-cyan-700">
                           {((foundPool.taker_fee_percent ?? 0) / 100).toFixed(2)}%
                         </span>
                       </div>
@@ -1479,8 +1479,8 @@ const ACTION_ACCENTS = {
   },
   amber: {
     bar: "from-amber-400/80 via-orange-400/80 to-rose-400/80",
-    chip: "bg-amber-500/20 border-amber-400/40 text-amber-100",
-    icon: "text-amber-200",
+    chip: "bg-amber-500/20 border-amber-400/40 dark:text-amber-100 text-amber-700",
+    icon: "dark:text-amber-200 text-amber-700",
     border: "hover:border-amber-400/40",
     glow: "bg-amber-500/15",
   },

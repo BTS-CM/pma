@@ -3,6 +3,7 @@
   "description": "Explore organizaciones de mercado de predicción y sus predicciones activas.",
   "showing": "Mostrando {{count}} de {{total}} organizaciones",
   "searchPlaceholder": "Buscar por símbolo o nombre…",
+  "loading": "Cargando organizaciones…",
   "empty": "No se encontraron organizaciones de mercado de predicción.",
   "createOrg": "Crear una organización",
   "active": "activas",
