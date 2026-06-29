@@ -97,7 +97,7 @@ const [createEveryObjectStore] = nanoquery({
 
       const maxObjectID = parseInt(nextObjectId.split(".")[2]);
 
-      if (last_known_id === maxObjectID) {
+      if (last_known_id >= maxObjectID) {
         return []; // nothing to fetch...
       }
 

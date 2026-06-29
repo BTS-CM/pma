@@ -213,7 +213,11 @@ export default function Predictions(properties) {
     let unsubscribeCombined = null;
 
     async function fetching() {
-      const lastAsset = assets.at(-1);
+      const lastAsset = assets.reduce((max, x) => {
+        const n = parseInt(x.id.split(".")[2], 10);
+        const m = parseInt(max.id.split(".")[2], 10);
+        return n > m ? x : max;
+      });
       const requiredStore = createEveryObjectStore([
         _chain,
         parseInt(lastAsset.id.split(".")[0]),
