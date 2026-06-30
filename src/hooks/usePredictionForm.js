@@ -102,7 +102,13 @@ export default function usePredictionForm(properties) {
   useEffect(() => {
     async function fetching() {
       if (!assets || !assets.length || !currentNode) return;
-      const lastAsset = assets.at(-1);
+      
+      const lastAsset = assets.reduce((max, x) => {
+        const n = parseInt(x.id.split(".")[2], 10);
+        const m = parseInt(max.id.split(".")[2], 10);
+        return n > m ? x : max;
+      });
+
       if (!lastAsset || !lastAsset.id) return;
       const requiredStore = createEveryObjectStore([
         _chain,
