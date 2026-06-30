@@ -72,11 +72,22 @@ import { useInitCache } from "@/nanoeffects/Init.ts";
 import { createAssetExistsStore } from "@/nanoeffects/AssetExists.ts";
 import { createUserBalancesStore } from "@/nanoeffects/UserBalances.ts";
 import { createEveryObjectStore } from "@/nanoeffects/Objects.ts";
+import { createFullAssetFromSymbolStore } from "@/nanoeffects/Assets.ts";
 
 import { $currentUser } from "@/stores/users.ts";
 import { $currentNode } from "@/stores/node.ts";
 import { blockchainFloat } from "@/bts/common";
 import { debounce } from "@/lib/common.js";
+
+function hasCompleteAssetDetails(asset) {
+  return !!(
+    asset?.options &&
+    typeof asset.options === "object" &&
+    "description" in asset.options &&
+    "issuer_permissions" in asset.options &&
+    "flags" in asset.options
+  );
+}
 
 function getImages(nft_object) {
   if (!nft_object) return [];
@@ -214,6 +225,9 @@ export default function CreatePMAOrg(properties) {
 
   const [combinedAssets, setCombinedAssets] = useState([]);
   useEffect(() => {
+    let cancelled = false;
+    let unsubscribe = null;
+
     async function fetching() {
       if (!assets || !assets.length || !currentNode) return;
       
@@ -231,7 +245,8 @@ export default function CreatePMAOrg(properties) {
         parseInt(lastAsset.id.split(".")[2]),
         currentNode.url,
       ]);
-      requiredStore.subscribe(({ data, error, loading }) => {
+      unsubscribe = requiredStore.subscribe(({ data, error, loading }) => {
+        if (cancelled) return;
         if (data && !error && !loading) {
           setCombinedAssets(!data.length ? assets : [...assets, ...data]);
         }
@@ -240,6 +255,10 @@ export default function CreatePMAOrg(properties) {
     if (_chain && assets && assets.length && currentNode) {
       fetching();
     }
+    return () => {
+      cancelled = true;
+      if (unsubscribe) unsubscribe();
+    };
   }, [_chain, assets, currentNode]);
 
   // Asset fields
@@ -273,6 +292,41 @@ export default function CreatePMAOrg(properties) {
     if (!source || !source.length) return null;
     return source.find((a) => a.symbol === updateSymbol) || null;
   }, [updateSymbol, combinedAssets, assets]);
+
+  const [fetchedExistingAsset, setFetchedExistingAsset] = useState(null);
+
+  const shouldFetchExistingAsset =
+    !!isEditMode &&
+    !!updateSymbol &&
+    !!currentNode?.url &&
+    !hasCompleteAssetDetails(existingAsset);
+
+  const effectiveExistingAsset = useMemo(() => {
+    if (!updateSymbol) return null;
+    if (hasCompleteAssetDetails(existingAsset)) return existingAsset;
+    return fetchedExistingAsset ?? existingAsset;
+  }, [updateSymbol, existingAsset, fetchedExistingAsset]);
+
+  useEffect(() => {
+    if (!shouldFetchExistingAsset) {
+      setFetchedExistingAsset(null);
+      return;
+    }
+    const store = createFullAssetFromSymbolStore([
+      _chain,
+      updateSymbol,
+      currentNode.url,
+    ]);
+    return store.subscribe(({ data, error, loading }) => {
+      if (error) {
+        setFetchedExistingAsset(null);
+        return;
+      }
+      if (!loading && data) {
+        setFetchedExistingAsset(data);
+      }
+    });
+  }, [shouldFetchExistingAsset, _chain, updateSymbol, currentNode]);
 
   // Fee schedule: operation 10 (asset_create) or 11 (asset_update)
   const feeSchedule = useMemo(() => {
@@ -382,10 +436,10 @@ export default function CreatePMAOrg(properties) {
 
   // Pre-fill form when in edit mode
   useEffect(() => {
-    if (!existingAsset || !isEditMode) return;
-    setSymbol(existingAsset.symbol);
+    if (!effectiveExistingAsset || !isEditMode) return;
+    setSymbol(effectiveExistingAsset.symbol);
     try {
-      const d = JSON.parse(existingAsset.options?.description || "{}");
+      const d = JSON.parse(effectiveExistingAsset.options?.description || "{}");
       setDesc(d.main || "");
       if (d.nft_object) {
         setEnabledNFT(true);
@@ -416,8 +470,10 @@ export default function CreatePMAOrg(properties) {
         setPmoOnchainAccount(pmo.governance?.onchain_account || "");
         setPmoAttestation(pmo.attestation || "");
       }
-    } catch {}
-  }, [existingAsset, isEditMode]);
+    } catch (e) {
+      console.error("[CreatePMAOrg] Pre-fill failed:", e, effectiveExistingAsset);
+    }
+  }, [effectiveExistingAsset, isEditMode]);
 
   const description = useMemo(() => {
     let _description = { main: desc,         short_name: symbol, market };

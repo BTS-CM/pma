@@ -155,8 +155,23 @@ export default function Predictions(properties) {
     const params = new URLSearchParams(window.location.search);
     return params.get("issuer") || null;
   });
+
+
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  /*
+  const [searchInput, setSearchInput] = useState(() => {
+    if (typeof window === "undefined") return "";
+    const params = new URLSearchParams(window.location.search);
+    return params.get("search") || "";
+  });
+  const [searchQuery, setSearchQuery] = useState(() => {
+    if (typeof window === "undefined") return "";
+    const params = new URLSearchParams(window.location.search);
+    return params.get("search") || "";
+  });
+  */
+
   const setSearchQueryDebounced = useCallback(
     debounce((v) => setSearchQuery(v), 200),
     [],
@@ -250,12 +265,7 @@ export default function Predictions(properties) {
       return [];
     }
 
-    let _predictionMarketAssets = combinedAssets.filter(
-      (x) =>
-        (x.hasOwnProperty("prediction_market") &&
-          x.prediction_market === true) ||
-        (!x.hasOwnProperty("prediction_market") && x.bitasset_data_id),
-    );
+    let _predictionMarketAssets = combinedAssets.filter((x) => x.bitasset_data_id);
 
     if (_chain === "bitshares" && _predictionMarketAssets.length) {
       _predictionMarketAssets = _predictionMarketAssets.filter(
@@ -297,23 +307,13 @@ export default function Predictions(properties) {
             const now = new Date();
             const processedData = data
               .map((x) => {
-                const plainDescription = x.options.description;
-                if (
-                  !plainDescription ||
-                  !plainDescription.length ||
-                  !plainDescription.includes("market") ||
-                  !plainDescription.includes("expiry") ||
-                  !plainDescription.includes("condition")
-                ) {
-                  return;
-                }
-
                 let description;
                 try {
-                  description = JSON.parse(x.options.description);
+                  description = JSON.parse(x.options?.description || "{}");
                 } catch {
                   return;
                 }
+
                 if (
                   !description ||
                   !description.market ||

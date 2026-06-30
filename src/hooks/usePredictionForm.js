@@ -29,8 +29,6 @@ function hasCompleteAssetDetails(asset) {
     asset?.options &&
     typeof asset.options === "object" &&
     "description" in asset.options &&
-    "max_supply" in asset.options &&
-    "market_fee_percent" in asset.options &&
     "issuer_permissions" in asset.options &&
     "flags" in asset.options
   );

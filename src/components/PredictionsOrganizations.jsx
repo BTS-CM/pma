@@ -1,5 +1,4 @@
 import React, {
-  useSyncExternalStore,
   useMemo,
   useEffect,
   useState,
@@ -71,8 +70,9 @@ import {
   createEveryObjectStore,
   createObjectStore,
 } from "@/nanoeffects/Objects.ts";
+import { createFullAssetFromSymbolStore } from "@/nanoeffects/Assets.ts";
 
-import { humanReadableFloat, debounce } from "@/lib/common.js";
+import { debounce } from "@/lib/common.js";
 import { Avatar } from "./Avatar.tsx";
 
 function StatBlock({ label, value, mono, accent }) {
@@ -264,18 +264,42 @@ function PmoDetailsDialog({ open, onOpenChange, org, t }) {
   );
 }
 
-function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
+function OrganizationCard({ org, pmaCount, t, usr, marketSearch }) {
+  const currentNode = useStore($currentNode);
+  const _chain = useMemo(() => {
+    if (usr && usr.chain) return usr.chain;
+    return "bitshares";
+  }, [usr]);
+
   const symbol = org.symbol;
   const isOwner = usr && usr.id && org.issuer === usr.id;
+
+  const [fullOrgAsset, setFullOrgAsset] = useState(null);
+  useEffect(() => {
+    if (!symbol || !currentNode?.url) return;
+    let cancelled = false;
+    const store = createFullAssetFromSymbolStore([_chain, symbol, currentNode.url]);
+    const unsub = store.subscribe(({ data, error, loading }) => {
+      if (cancelled) return;
+      if (!loading && data) {
+        setFullOrgAsset(data);
+      }
+    });
+    return () => {
+      cancelled = true;
+      if (unsub) unsub();
+    };
+  }, [_chain, symbol, currentNode]);
+
+  const source = fullOrgAsset || org;
   const desc = (() => {
     try {
-      return JSON.parse(org.options?.description || "{}");
+      return JSON.parse(source.options?.description || "{}");
     } catch {
       return {};
     }
   })();
   const pmo = desc.pmo_object;
-  if (!pmo) return null;
 
   const issuerAccountId = org.issuer;
   let issuerUsername = null;
@@ -297,24 +321,15 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
           <div className="min-w-0">
             <CardTitle className="text-base sm:text-lg font-semibold text-foreground flex items-center gap-2">
               <ShieldCheck className="h-5 w-5 text-cyan-400 flex-shrink-0" />
-              {pmo.identity?.name || symbol}
+              {pmo?.identity?.name || symbol}
             </CardTitle>
             <CardDescription className="text-xs text-muted-foreground mt-1 font-mono">
               {symbol}
             </CardDescription>
           </div>
           <div className="flex flex-wrap items-center gap-1.5 flex-shrink-0">
-            <Badge variant="outline" className="text-[10px] border-emerald-500/30 text-emerald-400 bg-emerald-500/10">
-              {pmaCounts.active} {t("PredictionsOrganizations:active")}
-            </Badge>
-            <Badge variant="outline" className="text-[10px] border-amber-500/30 text-amber-400 bg-amber-500/10">
-              {pmaCounts.awaitingResolution} {t("PredictionsOrganizations:awaitingResolution")}
-            </Badge>
-            <Badge variant="outline" className="text-[10px] border-emerald-500/30 text-emerald-400 bg-emerald-500/10">
-              {pmaCounts.resolvedYes} {t("PredictionsOrganizations:resolvedYes")}
-            </Badge>
-            <Badge variant="outline" className="text-[10px] border-rose-500/30 text-rose-400 bg-rose-500/10">
-              {pmaCounts.resolvedNo} {t("PredictionsOrganizations:resolvedNo")}
+            <Badge variant="outline" className="text-[10px] border-cyan-500/30 text-cyan-400 bg-cyan-500/10">
+              {pmaCount} PMAs
             </Badge>
             <span
               className="inline-flex items-center gap-1.5 rounded-full border border-border bg-accent/40 dark:bg-white/[0.08] pl-0.5 pr-2 py-0.5 text-[11px] font-medium"
@@ -331,27 +346,29 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
       <CardContent className="text-sm pb-3 text-foreground/70">
         <div className="flex flex-wrap gap-2 mt-1">
           <a
-            href={`/active-predictions.html?search=${symbol}.&issuer=${org.issuer}`}
+            href={`/active-predictions.html?search=${symbol}`}
             className="inline-flex items-center gap-1 text-xs text-cyan-400 hover:underline"
           >
             <ExternalLink className="h-3 w-3" />
             {t("PredictionsOrganizations:viewActive")}
           </a>
           <a
-            href={`/expired-predictions.html?search=${symbol}.&issuer=${org.issuer}`}
+            href={`/expired-predictions.html?search=${symbol}`}
             className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground/70 hover:underline"
           >
             <ExternalLink className="h-3 w-3" />
             {t("PredictionsOrganizations:viewExpired")}
           </a>
-          <button
-            type="button"
-            onClick={() => setPmoDetailsOpen(true)}
-            className="inline-flex items-center gap-1 text-xs text-violet-400 hover:underline"
-          >
-            <Eye className="h-3 w-3" />
-            {t("PredictionsOrganizations:viewPmoDetails")}
-          </button>
+          {pmo ? (
+            <button
+              type="button"
+              onClick={() => setPmoDetailsOpen(true)}
+              className="inline-flex items-center gap-1 text-xs text-violet-400 hover:underline"
+            >
+              <Eye className="h-3 w-3" />
+              {t("PredictionsOrganizations:viewPmoDetails")}
+            </button>
+          ) : null}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
@@ -365,7 +382,7 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
             <DropdownMenuContent className="bg-card border-border shadow-2xl shadow-black/40">
               <DropdownMenuItem
                 className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-accent/40 dark:hover:bg-white/10 text-foreground/70"
-                onClick={() => { setJsonPayload(org); setJsonDialogOpen(true); }}
+                onClick={() => { setJsonPayload(source); setJsonDialogOpen(true); }}
               >
                 {t("PredictionsOrganizations:json.assetData")}
               </DropdownMenuItem>
@@ -418,7 +435,7 @@ function OrganizationCard({ org, pmaCounts, t, usr, marketSearch }) {
           </Button>
         </DialogContent>
       </Dialog>
-      <PmoDetailsDialog open={pmoDetailsOpen} onOpenChange={setPmoDetailsOpen} org={org} t={t} />
+      <PmoDetailsDialog open={pmoDetailsOpen} onOpenChange={setPmoDetailsOpen} org={source} t={t} />
     </Card>
   );
 }
@@ -463,6 +480,7 @@ export default function PredictionsOrganizations(properties) {
         const m = parseInt(max.id.split(".")[2], 10);
         return n > m ? x : max;
       });
+
       const requiredStore = createEveryObjectStore([
         _chain,
         parseInt(lastAsset.id.split(".")[0]),
@@ -474,6 +492,7 @@ export default function PredictionsOrganizations(properties) {
       unsubscribeCombined = requiredStore.subscribe(({ data, error, loading }) => {
         if (cancelled) return;
         if (data && !error && !loading) {
+          console.log({data, lastAsset});
           setCombinedAssets(!data.length ? assets : [...assets, ...data]);
         }
       });
@@ -497,27 +516,10 @@ export default function PredictionsOrganizations(properties) {
     }
   }, [combinedAssets]);
 
-  const organizations = useMemo(() => {
-    if (!combinedAssets || !combinedAssets.length) return [];
-    return combinedAssets.filter((a) => {
-      if (!a?.options?.description) return false;
-      try {
-        const d = JSON.parse(a.options.description);
-        return d && d.pmo_object;
-      } catch {
-        return false;
-      }
-    });
-  }, [combinedAssets]);
-
   const predictionMarketAssets = useMemo(() => {
     if (!_chain || !combinedAssets || !combinedAssets.length) return [];
-    return combinedAssets.filter(
-      (x) =>
-        (x.hasOwnProperty("prediction_market") &&
-          x.prediction_market === true) ||
-        (!x.hasOwnProperty("prediction_market") && x.bitasset_data_id),
-    );
+
+    return combinedAssets.filter((x) => x.bitasset_data_id);
   }, [_chain, combinedAssets]);
 
   const [pmaData, setPmaData] = useState([]);
@@ -552,14 +554,17 @@ export default function PredictionsOrganizations(properties) {
               } catch {
                 return null;
               }
+
               if (
                 !description ||
                 !description.market ||
                 !description.expiry ||
                 !description.condition
               ) {
+                // Invalid PMA
                 return null;
               }
+              
               const expiration = new Date(description.expiry);
               return { ...x, expired: now > expiration };
             })
@@ -581,104 +586,42 @@ export default function PredictionsOrganizations(properties) {
     };
   }, [predictionMarketAssets, _chain, currentNode]);
 
-  const filteredPMAs = useMemo(() => {
-    return pmaData;
-  }, [pmaData]);
+  const organizations = useMemo(() => {
+    if (!pmaData || !pmaData.length) return [];
 
-  const [completedBitassets, setCompletedBitassets] = useState([]);
-  useEffect(() => {
-    if (!filteredPMAs?.length) return;
-
-    let cancelled = false;
-    let unsubscribe = null;
-
-    async function fetching() {
-      const uniqueIDs = [
-        ...new Set(filteredPMAs.map((x) => x.bitasset_data_id).filter(Boolean)),
-      ];
-
-      const _store = createObjectStore([
-        _chain,
-        JSON.stringify(uniqueIDs),
-        currentNode ? currentNode.url : null,
-      ]);
-
-      unsubscribe = _store.subscribe(({ data, error, loading }) => {
-        if (cancelled) return;
-        if (data && !error && !loading) {
-          const enriched = data
-            .filter(Boolean)
-            .map((x) => {
-              if (!x.settlement_price) {
-                return { ...x, outcome: undefined };
-              }
-              const baseAmount = parseInt(
-                x.settlement_price.base.amount,
-              );
-              const quoteAmount = parseInt(
-                x.settlement_price.quote.amount,
-              );
-              if (baseAmount === 0) {
-                return { ...x, outcome: -1 };
-              }
-              return { ...x, outcome: quoteAmount > 0 ? 1 : 0 };
-            });
-          setCompletedBitassets(enriched);
-        }
-      });
-    }
-
-    fetching();
-
-    return () => {
-      cancelled = true;
-      if (unsubscribe) {
-        unsubscribe();
-        unsubscribe = null;
-      }
-    };
-  }, [filteredPMAs, _chain, currentNode]);
-
-  const pmaCounts = useMemo(() => {
-    const counts = {};
-    for (const org of organizations) {
-      const prefix = org.symbol;
-      let active = 0;
-      let expired = 0;
-      let awaitingResolution = 0;
-      let resolvedYes = 0;
-      let resolvedNo = 0;
-      for (const pma of filteredPMAs) {
-        if (pma.symbol && pma.symbol.startsWith(prefix + ".")) {
-          if (!pma.expired) {
-            active++;
-          } else {
-            expired++;
-            const bitasset = completedBitassets.find(
-              (b) => b.id === pma.bitasset_data_id,
-            );
-            const bitOutcome = bitasset?.outcome;
-            if (bitOutcome === 1) {
-              resolvedYes++;
-            } else if (bitOutcome === 0) {
-              resolvedNo++;
-            } else {
-              awaitingResolution++;
-            }
+    let _orgs = [];
+    pmaData.forEach((pma) => {
+      if (pma.symbol && pma.symbol.includes(".")) {
+        const prefix = pma.symbol.split(".")[0];
+        if (!_orgs.find((o) => o.symbol === prefix)) {
+          const orgAsset = combinedAssets.find((a) => a.symbol === prefix);
+          if (orgAsset) {
+            _orgs.push(orgAsset);
           }
         }
       }
-      counts[org.symbol] = {
-        active,
-        expired,
-        total: active + expired,
-        awaitingResolution,
-        resolvedYes,
-        resolvedNo,
-      };
+    });
+
+    console.log({_orgs})
+    return _orgs;
+  }, [pmaData, combinedAssets]);
+
+  const totalPmaCounts = useMemo(() => {
+    if (!organizations || !organizations.length || !pmaData || !pmaData.length) return {};
+    const counts = {};
+    for (const org of organizations) {
+      const prefix = org.symbol;
+      let total = 0;
+      for (const pma of pmaData) {
+        if (pma.symbol.includes(prefix + ".")) {
+          total++;
+        }
+      }
+      counts[org.symbol] = total;
     }
+
     return counts;
-  }, [organizations, filteredPMAs, completedBitassets]);
+  }, [organizations, pmaData]);
 
   const { t } = useTranslation(locale.get(), { i18n: i18nInstance });
 
@@ -715,10 +658,10 @@ export default function PredictionsOrganizations(properties) {
     }
 
     result = [...result].sort((a, b) => {
-      const aCounts = pmaCounts[a.symbol] || { total: 0 };
-      const bCounts = pmaCounts[b.symbol] || { total: 0 };
+      const aCount = totalPmaCounts[a.symbol] || 0;
+      const bCount = totalPmaCounts[b.symbol] || 0;
       if (sortBy === "alpha") return a.symbol.localeCompare(b.symbol);
-      if (sortBy === "pmaCount") return bCounts.total - aCounts.total;
+      if (sortBy === "pmaCount") return bCount - aCount;
       if (sortBy === "newest") {
         return (
           new Date(b.creation_time || 0) - new Date(a.creation_time || 0)
@@ -728,7 +671,7 @@ export default function PredictionsOrganizations(properties) {
     });
 
     return result;
-  }, [organizations, searchQuery, sortBy, pmaCounts]);
+  }, [organizations, searchQuery, sortBy, totalPmaCounts]);
 
   return (
     <div className="container mx-auto mt-5 mb-5 text-foreground">
@@ -816,7 +759,7 @@ export default function PredictionsOrganizations(properties) {
                       <OrganizationCard
                         key={org.id}
                         org={org}
-                        pmaCounts={pmaCounts[org.symbol] || { active: 0, expired: 0, total: 0, awaitingResolution: 0, resolvedYes: 0, resolvedNo: 0 }}
+                        pmaCount={totalPmaCounts[org.symbol] || 0}
                         t={t}
                         usr={usr}
                         marketSearch={marketSearch}
