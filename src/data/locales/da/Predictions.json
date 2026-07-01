@@ -264,6 +264,8 @@
     "assetData": "Aktivdata",
     "bitassetData": "Bitasset-data",
     "descriptionData": "Beskrivelsesdata",
+    "nftData": "NFT-data",
+    "orgData": "Organisationsdata",
     "copy": "Kopiér",
     "copied": "Kopieret!",
     "blockIssuer": "Bloker denne udsteder",

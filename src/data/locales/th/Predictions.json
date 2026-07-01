@@ -264,6 +264,8 @@
     "assetData": "ข้อมูลสินทรัพย์",
     "bitassetData": "ข้อมูล Bitasset",
     "descriptionData": "ข้อมูลคำอธิบาย",
+    "nftData": "ข้อมูล NFT",
+    "orgData": "ข้อมูลองค์กร",
     "copy": "คัดลอก",
     "copied": "คัดลอกแล้ว!",
     "blockIssuer": "บล็อกผู้ออกนี้",

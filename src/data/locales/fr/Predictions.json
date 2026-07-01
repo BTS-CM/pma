@@ -275,6 +275,8 @@
     "assetData": "Données de l'actif",
     "bitassetData": "Données Bitasset",
     "descriptionData": "Données de description",
+    "nftData": "Données NFT",
+    "orgData": "Données de l'organisation",
     "copy": "Copier",
     "copied": "Copié !",
     "blockIssuer": "Bloquer cet émetteur",

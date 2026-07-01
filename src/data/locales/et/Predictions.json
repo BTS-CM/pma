@@ -264,6 +264,8 @@
     "assetData": "Vara andmed",
     "bitassetData": "Bitasset andmed",
     "descriptionData": "Kirjelduse andmed",
+    "nftData": "NFT andmed",
+    "orgData": "Organisatsiooni andmed",
     "copy": "Kopeeri",
     "copied": "Kopeeritud!",
     "blockIssuer": "Blokeeri see väljaandja",

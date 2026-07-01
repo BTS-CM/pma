@@ -275,6 +275,8 @@
     "assetData": "資産データ",
     "bitassetData": "ビット資産データ",
     "descriptionData": "説明データ",
+    "nftData": "NFTデータ",
+    "orgData": "組織データ",
     "copy": "コピー",
     "copied": "コピー済み！",
     "blockIssuer": "この発行者をブロック",

@@ -275,6 +275,8 @@
     "assetData": "Asset Data",
     "bitassetData": "Bitasset Data",
     "descriptionData": "Description Data",
+    "nftData": "NFT Data",
+    "orgData": "Organization Data",
     "copy": "Copy",
     "copied": "Copied!",
     "blockIssuer": "Block this issuer",

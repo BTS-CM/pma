@@ -157,20 +157,20 @@ export default function Predictions(properties) {
   });
 
 
-  const [searchInput, setSearchInput] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-  /*
+  //const [searchInput, setSearchInput] = useState("");
+  //const [searchQuery, setSearchQuery] = useState("");
+
   const [searchInput, setSearchInput] = useState(() => {
     if (typeof window === "undefined") return "";
     const params = new URLSearchParams(window.location.search);
     return params.get("search") || "";
   });
+
   const [searchQuery, setSearchQuery] = useState(() => {
     if (typeof window === "undefined") return "";
     const params = new URLSearchParams(window.location.search);
     return params.get("search") || "";
   });
-  */
 
   const setSearchQueryDebounced = useCallback(
     debounce((v) => setSearchQuery(v), 200),
@@ -359,6 +359,48 @@ export default function Predictions(properties) {
       setFetchingPmas(false);
     }
   }, [predictionMarketAssetsCount, currentNodeReady, assetsCount]);
+
+  const [parentOrgAssets, setParentOrgAssets] = useState({});
+  useEffect(() => {
+    if (!pmaProcessedData?.length || !combinedAssets?.length || !currentNode?.url) return;
+
+    const uniquePrefixes = [...new Set(
+      pmaProcessedData
+        .map((pma) => pma.symbol?.split(".")[0])
+        .filter(Boolean)
+    )];
+
+    const orgIDs = combinedAssets
+      .filter((a) => uniquePrefixes.includes(a.symbol))
+      .map((a) => a.id);
+
+    if (!orgIDs.length) return;
+
+    let cancelled = false;
+    let unsubscribe = null;
+
+    const store = createObjectStore([
+      _chain,
+      JSON.stringify(orgIDs),
+      currentNode.url,
+    ]);
+
+    unsubscribe = store.subscribe(({ data, error, loading }) => {
+      if (cancelled) return;
+      if (data && !error && !loading) {
+        const map = {};
+        for (const asset of data) {
+          if (asset?.symbol) map[asset.symbol] = asset;
+        }
+        setParentOrgAssets(map);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+      if (unsubscribe) unsubscribe();
+    };
+  }, [pmaProcessedData, combinedAssets, _chain, currentNode]);
 
   useEffect(() => {
     if (!_chain || !currentNodeReady || !pmaProcessedData?.length) {
@@ -776,7 +818,7 @@ export default function Predictions(properties) {
 
   const listContainerRef = useRef(null);
 
-  const PredictionRowItem = useCallback(({ index, style, items, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, expiredPMAs, userBlockedIDs, ipfsGateway, view, now, setIssuerFilter, t, dynamicAssetDataById }) => {
+  const PredictionRowItem = useCallback(({ index, style, items, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, parentOrgAssets, expiredPMAs, userBlockedIDs, ipfsGateway, view, now, setIssuerFilter, t, dynamicAssetDataById }) => {
     const item = items[index];
     if (!item) return null;
     return (
@@ -789,6 +831,7 @@ export default function Predictions(properties) {
           usr={usr}
           marketSearch={marketSearch}
           combinedAssets={combinedAssets}
+          parentOrgAssets={parentOrgAssets}
           expiredPMAs={expiredPMAs}
           userBlockedIDs={userBlockedIDs}
           ipfsGateway={ipfsGateway}
@@ -810,6 +853,7 @@ export default function Predictions(properties) {
     usr,
     marketSearch,
     combinedAssets,
+    parentOrgAssets,
     expiredPMAs,
     userBlockedIDs,
     ipfsGateway,
@@ -818,7 +862,7 @@ export default function Predictions(properties) {
     now,
     setIssuerFilter,
     t,
-  }), [sortedFilteredPMAs, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, expiredPMAs, userBlockedIDs, ipfsGateway, dynamicAssetDataById, view, now, setIssuerFilter, t]);
+  }), [sortedFilteredPMAs, completedPMAs, callOrders, usrBalances, usr, marketSearch, combinedAssets, parentOrgAssets, expiredPMAs, userBlockedIDs, ipfsGateway, dynamicAssetDataById, view, now, setIssuerFilter, t]);
 
   return (
     <div className="container mx-auto mt-5 mb-5 text-foreground">

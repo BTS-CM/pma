@@ -179,6 +179,7 @@ export const Avatar = ({
   title,
   square,
   expression,
+  disableTracking,
   ...props
 }: AvatarProps & Omit<HTMLProps<SVGSVGElement>, keyof AvatarProps>) => {
   const data = useMemo(
@@ -205,12 +206,13 @@ export const Avatar = ({
   };
 
   useEffect(() => {
+    if (disableTracking) return;
     window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [disableTracking]);
 
   const [direction, setDirection] = useState<"left" | "right" | undefined>(
     undefined
@@ -219,6 +221,7 @@ export const Avatar = ({
   const [distance, setDistance] = useState(0);
 
   useEffect(() => {
+    if (disableTracking) return;
     function calculate() {
       const avatar = document.querySelector(
         `#avatar${extra}_${name ? name.replaceAll(".", "") : ""}`
@@ -260,10 +263,11 @@ export const Avatar = ({
     }
 
     calculate();
-  }, [mousePosition]);
+  }, [mousePosition, disableTracking]);
 
   const [adjustedDegrees, setAdjustedDegrees] = useState(1);
   useEffect(() => {
+    if (disableTracking) return;
     if (!angle) {
       setAdjustedDegrees(15);
     } else if (angle >= 0 && angle <= 15) {
@@ -279,12 +283,13 @@ export const Avatar = ({
     } else if (angle >= 345 && angle <= 360) {
       setAdjustedDegrees(345);
     }
-  }, [direction, distance, angle]);
+  }, [direction, distance, angle, disableTracking]);
 
   const [isIdle, setIsIdle] = useState(false);
   const [activeMouth, setActiveMouth] = useState(data.mouthType);
   const [activeEyes, setActiveEyes] = useState(data.eyeType);
   useEffect(() => {
+    if (disableTracking) return;
     const interval = setInterval(() => {
       if (isIdle) {
         setActiveEyes("sleepy");
@@ -299,10 +304,11 @@ export const Avatar = ({
       }, Math.max(100, Math.random() * 500));
     }, Math.max(3000, Math.random() * 10000));
     return () => clearInterval(interval);
-  }, [isIdle]);
+  }, [isIdle, disableTracking]);
 
   const [timeoutTimer, setTimeoutTimer] = useState<NodeJS.Timeout | null>(null);
   useEffect(() => {
+    if (disableTracking) return;
     function handleIdle() {
       setIsIdle(true);
     }
@@ -328,7 +334,7 @@ export const Avatar = ({
         clearTimeout(timeoutTimer);
       }
     };
-  }, [mousePosition]);
+  }, [mousePosition, disableTracking]);
 
   return (
     <svg
@@ -419,6 +425,7 @@ type AvatarProps = {
   title?: string;
   square?: boolean;
   expression?: ExpressionProps;
+  disableTracking?: boolean;
 };
 
 type AvatarData = {

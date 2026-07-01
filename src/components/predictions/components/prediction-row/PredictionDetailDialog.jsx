@@ -49,6 +49,12 @@ import { ResolveDialog } from "./dialogs/ResolveDialog";
 import { PricefeederDialog } from "./dialogs/PricefeederDialog";
 import { FeedPriceDialog } from "./dialogs/FeedPriceDialog";
 
+const AVATAR_COLORS = ["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"];
+const AVATAR_EYES_OPEN = { eye: "normal", mouth: "open" };
+const AVATAR_EYES_UNHAPPY = { eye: "normal", mouth: "unhappy" };
+
+const MemoizedHeroStat = React.memo(HeroStat);
+
 function HeroStat({ label, value, accent, mono, help }) {
   const accents = {
     amber: "border-amber-500/20 bg-amber-500/[0.07] text-amber-400",
@@ -175,7 +181,7 @@ function CollapsibleSection({ title, defaultOpen = false, accent = "white", chil
           {isOpen ? <ChevronUp className="h-3.5 w-3.5 text-muted-foreground/60 group-hover:text-muted-foreground transition-colors" /> : <ChevronDown className="h-3.5 w-3.5 text-muted-foreground/60 group-hover:text-muted-foreground transition-colors" />}
         </div>
       </button>
-      <div className={cn("transition-all duration-300 overflow-hidden", isOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0")}>
+      <div className={cn("transition-[max-height,opacity] duration-300 overflow-hidden", isOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0")}>
         {children}
       </div>
     </section>
@@ -217,7 +223,7 @@ function OutcomeBanner({ outcome, statusKey, t }) {
   );
 }
 
-export function PredictionDetailDialog({
+export const PredictionDetailDialog = React.memo(function PredictionDetailDialog({
   open,
   onOpenChange,
   tabProps,
@@ -238,6 +244,10 @@ export function PredictionDetailDialog({
   issuerDisplayName,
   username,
   issuerIsLtm,
+  now,
+  isExpired,
+  expirationHours,
+  currentNode,
   t,
 }) {
   const [detailJsonDialogOpen, setDetailJsonDialogOpen] = useState(false);
@@ -248,7 +258,7 @@ export function PredictionDetailDialog({
   const {
     nftImages, heroIndex, setHeroIndex, ipfsGateway,
     relevantCallOrders, openInterestRaw, settlementFundRaw, prizePoolRaw, impliedYesPercent,
-    isExpired, expiration, expirationHours, now, market, cleanedDescription,
+    expiration, market, cleanedDescription,
     _backingAssetID, _backingPrecision, _issuer_permissions, _flags,
     backingAssetBalance, humanReadableBackingAssetBalance,
     humanReadablePredictionMarketAssetBalance, existingCollateral, existingCollateralRaw,
@@ -298,11 +308,19 @@ export function PredictionDetailDialog({
     }
   }, [expiration]);
 
+  const sanitizedNarrative = useMemo(() => _desc?.nft_object?.narrative ? DOMPurify.sanitize(_desc.nft_object.narrative) : null, [_desc?.nft_object?.narrative]);
+  const sanitizedAcknowledgements = useMemo(() => _desc?.nft_object?.acknowledgements ? DOMPurify.sanitize(_desc.nft_object.acknowledgements) : null, [_desc?.nft_object?.acknowledgements]);
+  const sanitizedNftAttestation = useMemo(() => _desc?.nft_object?.attestation ? DOMPurify.sanitize(_desc.nft_object.attestation) : null, [_desc?.nft_object?.attestation]);
+  const sanitizedResolutionPolicy = useMemo(() => normalizedPmo?.governance?.resolution_policy ? DOMPurify.sanitize(normalizedPmo.governance.resolution_policy) : null, [normalizedPmo?.governance?.resolution_policy]);
+  const sanitizedDisputeMechanism = useMemo(() => normalizedPmo?.governance?.dispute_mechanism ? DOMPurify.sanitize(normalizedPmo.governance.dispute_mechanism) : null, [normalizedPmo?.governance?.dispute_mechanism]);
+  const sanitizedOrgAttestation = useMemo(() => normalizedPmo?.attestation ? DOMPurify.sanitize(normalizedPmo.attestation) : null, [normalizedPmo?.attestation]);
+
 
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="w-[calc(100vw-1rem)] sm:max-w-[900px] max-h-[90vh] overflow-hidden flex flex-col bg-card ring-1 dark:ring-white/[0.08] ring-border border-border/60 text-foreground shadow-2xl dark:shadow-black/60 shadow-black/25">
+          <TooltipProvider delayDuration={200}>
           {/* ─── HEADER ─── */}
           <DialogHeader className="pb-3 border-b border-border/60">
             <DialogTitle className="text-base sm:text-lg font-semibold leading-snug line-clamp-2 text-foreground">
@@ -324,22 +342,20 @@ export function PredictionDetailDialog({
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-accent/40 pl-0.5 pr-2 py-0.5 text-[11px] font-medium">
                   <span className="inline-flex h-5 w-5 overflow-hidden rounded-full ring-1 ring-white/10">
-                    <Avatar size={20} name={issuerDisplayName ?? house} extra="Issuer" expression={{ eye: "normal", mouth: "open" }} colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]} />
+                    <Avatar size={20} name={issuerDisplayName ?? house} extra="Issuer" expression={AVATAR_EYES_OPEN} colors={AVATAR_COLORS} disableTracking />
                   </span>
                   <span className="text-muted-foreground">{issuerDisplayLabel ?? house}</span>
                 </span>
                 {issuerIsLtm ? <span className="inline-flex items-center rounded-full bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-amber-400">LTM</span> : null}
                 {usr && usr.id && house && house !== usr.id ? (
-                  <TooltipProvider delayDuration={200}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button variant="ghost" size="icon" className={cn("h-6 w-6", userBlockedIDs.has(house) ? "text-red-600 hover:text-red-700" : "text-muted-foreground hover:text-red-400")} onClick={() => { userBlockedIDs.has(house) ? removeBlockedUser(usr.chain, { name: issuerDisplayLabel ?? username ?? house, id: house }) : setDetailBlockConfirmOpen(true); }}>
-                          <Ban className="h-3.5 w-3.5" />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent side="top">{userBlockedIDs.has(house) ? t("Predictions:json.unblockIssuer") : t("Predictions:json.blockIssuer")}</TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" className={cn("h-6 w-6", userBlockedIDs.has(house) ? "text-red-600 hover:text-red-700" : "text-muted-foreground hover:text-red-400")} onClick={() => { userBlockedIDs.has(house) ? removeBlockedUser(usr.chain, { name: issuerDisplayLabel ?? username ?? house, id: house }) : setDetailBlockConfirmOpen(true); }}>
+                        <Ban className="h-3.5 w-3.5" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="top">{userBlockedIDs.has(house) ? t("Predictions:json.unblockIssuer") : t("Predictions:json.blockIssuer")}</TooltipContent>
+                  </Tooltip>
                 ) : null}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -349,6 +365,8 @@ export function PredictionDetailDialog({
                     <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-accent/40 dark:hover:bg-white/10 text-foreground/70" onClick={() => { setDetailJsonPayload(res); setDetailJsonDialogTitle(t("Predictions:json.assetData")); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.assetData")}</DropdownMenuItem>
                     {relevantBitassetData ? <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-accent/40 dark:hover:bg-white/10 text-foreground/70" onClick={() => { setDetailJsonPayload(relevantBitassetData); setDetailJsonDialogTitle(t("Predictions:json.bitassetData")); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.bitassetData")}</DropdownMenuItem> : null}
                     {_desc ? <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-accent/40 dark:hover:bg-white/10 text-foreground/70" onClick={() => { setDetailJsonPayload(_desc); setDetailJsonDialogTitle(t("Predictions:json.descriptionData")); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.descriptionData")}</DropdownMenuItem> : null}
+                    {nftObject ? <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-accent/40 dark:hover:bg-white/10 text-foreground/70" onClick={() => { setDetailJsonPayload(nftObject); setDetailJsonDialogTitle(t("Predictions:json.nftData")); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.nftData")}</DropdownMenuItem> : null}
+                    {parentPmoObject ? <DropdownMenuItem className="focus:bg-violet-500/20 focus:text-violet-200 hover:bg-accent/40 dark:hover:bg-white/10 text-foreground/70" onClick={() => { setDetailJsonPayload(parentPmoObject); setDetailJsonDialogTitle(t("Predictions:json.orgData")); setDetailJsonDialogOpen(true); }}>{t("Predictions:json.orgData")}</DropdownMenuItem> : null}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -416,20 +434,20 @@ export function PredictionDetailDialog({
               <CollapsibleSection title={t("Predictions:tab.overview")} accent="emerald" defaultOpen>
                 {!isExpired ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-                    <HeroStat
+                    <MemoizedHeroStat
                       label={t("Predictions:openInterest")}
                       value={`${humanReadableFloat(openInterestRaw, res.precision)} ${res.symbol}`}
                       accent="amber"
                       mono
                       help={t("Predictions:market.openInterestSupply_help", { defaultValue: "Current PMA token supply outstanding in the market." })}
                     />
-                    <HeroStat
+                    <MemoizedHeroStat
                       label={t("Predictions:market.limitOrderBuyers", { defaultValue: "Limit order buyers" })}
                       value={marketStats?.buyOrderCount ?? 0}
                       accent="emerald"
                       mono
                     />
-                    <HeroStat
+                    <MemoizedHeroStat
                       label={t("Predictions:market.limitOrderSellers", { defaultValue: "Limit order sellers" })}
                       value={marketStats?.sellOrderCount ?? 0}
                       accent="cyan"
@@ -438,9 +456,9 @@ export function PredictionDetailDialog({
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-                    <HeroStat label={t("Predictions:prize_pool")} value={prizePoolRaw > 0 ? `${humanReadableFloat(prizePoolRaw, _backingPrecision)} ${market}` : `0 ${market}`} accent="amber" mono />
-                    <HeroStat label={t("Predictions:winner.yourPmaBalance")} value={`${humanReadablePredictionMarketAssetBalance} ${symbol}`} accent="violet" mono />
-                    <HeroStat label={isExpired ? t("Predictions:timeExpired") : t("Predictions:timeLeft")} value={formatTimeRemaining(expiration)} accent="blue" mono />
+                    <MemoizedHeroStat label={t("Predictions:prize_pool")} value={prizePoolRaw > 0 ? `${humanReadableFloat(prizePoolRaw, _backingPrecision)} ${market}` : `0 ${market}`} accent="amber" mono />
+                    <MemoizedHeroStat label={t("Predictions:winner.yourPmaBalance")} value={`${humanReadablePredictionMarketAssetBalance} ${symbol}`} accent="violet" mono />
+                    <MemoizedHeroStat label={isExpired ? t("Predictions:timeExpired") : t("Predictions:timeLeft")} value={formatTimeRemaining(expiration)} accent="blue" mono />
                   </div>
                 )}
               </CollapsibleSection>
@@ -448,14 +466,14 @@ export function PredictionDetailDialog({
               {/* ── MARKET DETAILS ── */}
               <CollapsibleSection title={t("Predictions:tab.market")} accent="blue" defaultOpen>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-                  <HeroStat label={t("Predictions:market.commission")} value={res.options?.market_fee_percent ? `${(res.options.market_fee_percent / 100).toFixed(2)}%` : "0%"} accent="violet" mono help={t("Predictions:market.commission_help")} />
-                  <HeroStat
+                  <MemoizedHeroStat label={t("Predictions:market.commission")} value={res.options?.market_fee_percent ? `${(res.options.market_fee_percent / 100).toFixed(2)}%` : "0%"} accent="violet" mono help={t("Predictions:market.commission_help")} />
+                  <MemoizedHeroStat
                     label={t("Predictions:market.yesPrice", { defaultValue: "YES price" })}
                     value={marketStats?.formattedPrice != null ? `${marketStats.formattedPrice} ${market}` : "-"}
                     accent="emerald"
                     mono
                   />
-                  <HeroStat
+                  <MemoizedHeroStat
                     label={t("Predictions:market.sellPrice", { defaultValue: "Sell price" })}
                     value={marketStats?.bestAsk != null ? `${Number(marketStats.bestAsk).toFixed(Math.min(_backingPrecision || 5, 5))} ${market}` : "-"}
                     accent="cyan"
@@ -482,12 +500,12 @@ export function PredictionDetailDialog({
                       </div>
                     )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {_desc.nft_object.title ? <HeroStat label={t("Predictions:nft.title")} value={_desc.nft_object.title} /> : null}
-                      {_desc.nft_object.artist ? <HeroStat label={t("Predictions:nft.artist")} value={_desc.nft_object.artist} /> : null}
-                      {_desc.nft_object.type ? <HeroStat label={t("Predictions:nft.type")} value={_desc.nft_object.type} /> : null}
-                      {_desc.nft_object.encoding ? <HeroStat label={t("Predictions:nft.encoding")} value={_desc.nft_object.encoding} mono /> : null}
-                      {_desc.nft_object.license ? <HeroStat label={t("Predictions:nft.license")} value={_desc.nft_object.license} /> : null}
-                      {_desc.nft_object.holder_license ? <HeroStat label={t("Predictions:nft.holderLicense")} value={_desc.nft_object.holder_license} /> : null}
+                      {_desc.nft_object.title ? <MemoizedHeroStat label={t("Predictions:nft.title")} value={_desc.nft_object.title} /> : null}
+                      {_desc.nft_object.artist ? <MemoizedHeroStat label={t("Predictions:nft.artist")} value={_desc.nft_object.artist} /> : null}
+                      {_desc.nft_object.type ? <MemoizedHeroStat label={t("Predictions:nft.type")} value={_desc.nft_object.type} /> : null}
+                      {_desc.nft_object.encoding ? <MemoizedHeroStat label={t("Predictions:nft.encoding")} value={_desc.nft_object.encoding} mono /> : null}
+                      {_desc.nft_object.license ? <MemoizedHeroStat label={t("Predictions:nft.license")} value={_desc.nft_object.license} /> : null}
+                      {_desc.nft_object.holder_license ? <MemoizedHeroStat label={t("Predictions:nft.holderLicense")} value={_desc.nft_object.holder_license} /> : null}
                     </div>
                     {_desc.nft_object.tags ? (
                       <div>
@@ -499,9 +517,9 @@ export function PredictionDetailDialog({
                         </div>
                       </div>
                     ) : null}
-                    {_desc.nft_object.narrative ? <LongText label={t("Predictions:nft.narrative")} value={DOMPurify.sanitize(_desc.nft_object.narrative)} /> : null}
-                    {_desc.nft_object.acknowledgements ? <LongText label={t("Predictions:nft.acknowledgements")} value={DOMPurify.sanitize(_desc.nft_object.acknowledgements)} /> : null}
-                    {_desc.nft_object.attestation ? <LongText label={t("Predictions:nft.attestation")} value={DOMPurify.sanitize(_desc.nft_object.attestation)} /> : null}
+                    {sanitizedNarrative ? <LongText label={t("Predictions:nft.narrative")} value={sanitizedNarrative} /> : null}
+                    {sanitizedAcknowledgements ? <LongText label={t("Predictions:nft.acknowledgements")} value={sanitizedAcknowledgements} /> : null}
+                    {sanitizedNftAttestation ? <LongText label={t("Predictions:nft.attestation")} value={sanitizedNftAttestation} /> : null}
                     <MediaUrlList title="Media URLs" entries={pmaNonPreviewableMedia} />
                     {nftImages.length ? (
                       <div className="rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-3">
@@ -535,12 +553,12 @@ export function PredictionDetailDialog({
                     <div className="space-y-3">
                       <SubsectionLabel>Organization Identity</SubsectionLabel>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {normalizedPmo.identity.name ? <HeroStat label={t("Predictions:org.name")} value={normalizedPmo.identity.name} /> : null}
+                        {normalizedPmo.identity.name ? <MemoizedHeroStat label={t("Predictions:org.name")} value={normalizedPmo.identity.name} /> : null}
                         {normalizedPmo.identity.website ? (
-                          <HeroStat label={t("Predictions:org.website")} value={<a href={normalizedPmo.identity.website} target="_blank" rel="noopener noreferrer" className="break-all text-cyan-400 hover:underline text-sm">{normalizedPmo.identity.website}</a>} />
+                          <MemoizedHeroStat label={t("Predictions:org.website")} value={normalizedPmo.identity.website} mono />
                         ) : null}
                         {normalizedPmo.identity.manifest ? (
-                          <HeroStat label={t("Predictions:org.manifest")} value={<a href={normalizedPmo.identity.manifest} target="_blank" rel="noopener noreferrer" className="break-all text-cyan-400 hover:underline text-sm">{normalizedPmo.identity.manifest}</a>} />
+                          <MemoizedHeroStat label={t("Predictions:org.manifest")} value={<a href={normalizedPmo.identity.manifest} target="_blank" rel="noopener noreferrer" className="break-all text-cyan-400 hover:underline text-sm">{normalizedPmo.identity.manifest}</a>} />
                         ) : null}
                       </div>
                     </div>
@@ -548,11 +566,11 @@ export function PredictionDetailDialog({
                     <div className="space-y-3">
                       <SubsectionLabel>Organization Profile</SubsectionLabel>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {normalizedPmo.governance.onchain_account ? <HeroStat label={t("Predictions:org.onchainAccount")} value={normalizedPmo.governance.onchain_account} mono /> : null}
+                        {normalizedPmo.governance.onchain_account ? <MemoizedHeroStat label={t("Predictions:org.onchainAccount")} value={normalizedPmo.governance.onchain_account} mono /> : null}
                       </div>
-                      {normalizedPmo.governance.resolution_policy ? <LongText label={t("Predictions:org.resolutionPolicy")} value={DOMPurify.sanitize(normalizedPmo.governance.resolution_policy)} /> : null}
-                      {normalizedPmo.governance.dispute_mechanism ? <LongText label={t("Predictions:org.disputeMechanism")} value={DOMPurify.sanitize(normalizedPmo.governance.dispute_mechanism)} /> : null}
-                      {normalizedPmo.attestation ? <LongText label={t("Predictions:org.attestation")} value={DOMPurify.sanitize(normalizedPmo.attestation)} /> : null}
+                      {sanitizedResolutionPolicy ? <LongText label={t("Predictions:org.resolutionPolicy")} value={sanitizedResolutionPolicy} /> : null}
+                      {sanitizedDisputeMechanism ? <LongText label={t("Predictions:org.disputeMechanism")} value={sanitizedDisputeMechanism} /> : null}
+                      {sanitizedOrgAttestation ? <LongText label={t("Predictions:org.attestation")} value={sanitizedOrgAttestation} /> : null}
                     </div>
 
                     {normalizedPmo.pmo_signature ? (
@@ -569,7 +587,7 @@ export function PredictionDetailDialog({
               <CollapsibleSection title={t("Predictions:tab.details")} accent="indigo">
                 <div className="grid grid-cols-1 gap-2">
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
-                    <HeroStat label={t("Predictions:permissions")} value={Object.keys(_issuer_permissions).length > 0 ? (
+                    <MemoizedHeroStat label={t("Predictions:permissions")} value={Object.keys(_issuer_permissions).length > 0 ? (
                       <HoverCard>
                         <HoverCardTrigger>
                           <span className="inline-flex items-center gap-1">{Object.keys(_issuer_permissions).length}<QuestionMarkCircledIcon className="h-3 w-3" /></span>
@@ -577,7 +595,7 @@ export function PredictionDetailDialog({
                         <HoverCardContent className="w-80 mt-1 bg-card border-border text-foreground z-[9999]" align="start">{Object.keys(_issuer_permissions).join(", ")}</HoverCardContent>
                       </HoverCard>
                     ) : "0"} />
-                    <HeroStat label={t("Predictions:flags")} value={Object.keys(_flags).length > 0 ? (
+                    <MemoizedHeroStat label={t("Predictions:flags")} value={Object.keys(_flags).length > 0 ? (
                       <HoverCard>
                         <HoverCardTrigger>
                           <span className="inline-flex items-center gap-1">{Object.keys(_flags).length}<QuestionMarkCircledIcon className="h-3 w-3" /></span>
@@ -585,8 +603,8 @@ export function PredictionDetailDialog({
                         <HoverCardContent className="w-80 mt-1 bg-card border-border text-foreground z-[9999]" align="start">{Object.keys(_flags).join(", ")}</HoverCardContent>
                       </HoverCard>
                     ) : "0"} />
-                    <HeroStat label={t("Predictions:details.precision")} value={res.precision} mono />
-                    <HeroStat label={t("Predictions:details.maxSupply")} value={humanReadableFloat(res.options.max_supply, res.precision)} mono />
+                    <MemoizedHeroStat label={t("Predictions:details.precision")} value={res.precision} mono />
+                    <MemoizedHeroStat label={t("Predictions:details.maxSupply")} value={humanReadableFloat(res.options.max_supply, res.precision)} mono />
                   </div>
                   <div className="rounded-xl border border-border bg-accent/30 dark:bg-white/[0.05] p-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -652,6 +670,7 @@ export function PredictionDetailDialog({
               </div>
             </div>
           </div>
+          </TooltipProvider>
         </DialogContent>
       </Dialog>
 
@@ -666,7 +685,7 @@ export function PredictionDetailDialog({
             </AlertDialogHeader>
             <div className="flex items-center gap-3 rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-3">
               <span className="inline-flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-white/10">
-                <Avatar size={40} name={issuerDisplayName ?? house} extra="BlockConfirm" expression={{ eye: "normal", mouth: "unhappy" }} colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]} />
+                <Avatar size={40} name={issuerDisplayName ?? house} extra="BlockConfirm" expression={AVATAR_EYES_UNHAPPY} colors={AVATAR_COLORS} disableTracking />
               </span>
               <div className="min-w-0">
                 <div className="text-sm font-semibold text-foreground truncate">{issuerDisplayName ?? house}</div>
@@ -682,4 +701,4 @@ export function PredictionDetailDialog({
       ) : null}
     </>
   );
-}
+});

@@ -275,6 +275,8 @@
     "assetData": "자산 데이터",
     "bitassetData": "비트자산 데이터",
     "descriptionData": "설명 데이터",
+    "nftData": "NFT 데이터",
+    "orgData": "조직 데이터",
     "copy": "복사",
     "copied": "복사됨!",
     "blockIssuer": "이 발행자 차단",

@@ -45,6 +45,10 @@ const STATUS_STYLES = {
   expired: { border: "border-l-indigo-500", bg: "bg-indigo-500/15", text: "text-indigo-400", i18nKey: "Predictions:status.expired" },
 };
 
+const AVATAR_COLORS = ["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"];
+const AVATAR_EYES_OPEN = { eye: "normal", mouth: "open" };
+const AVATAR_EYES_UNHAPPY = { eye: "normal", mouth: "unhappy" };
+
 export const PredictionRow = memo(function PredictionRow({
   res,
   completedPMAs,
@@ -53,6 +57,7 @@ export const PredictionRow = memo(function PredictionRow({
   usr,
   marketSearch,
   combinedAssets,
+  parentOrgAssets,
   expiredPMAs,
   userBlockedIDs,
   ipfsGateway,
@@ -80,7 +85,7 @@ export const PredictionRow = memo(function PredictionRow({
     } catch (_) { return []; }
   }, [res?.id]);
 
-  const relevantBitassetData = res ? completedPMAs.find((x) => x.id === res.bitasset_data_id) : null;
+  const relevantBitassetData = useMemo(() => res ? completedPMAs.find((x) => x.id === res.bitasset_data_id) : null, [res?.bitasset_data_id, completedPMAs]);
 
   const _desc = useMemo(() => {
     if (!res?.options?.description) return null;
@@ -98,10 +103,10 @@ export const PredictionRow = memo(function PredictionRow({
     if (!sym || !sym.includes(".")) return null;
     const prefix = sym.split(".")[0];
     if (!prefix) return null;
-    const parent = combinedAssets.find((a) => a.symbol === prefix);
+    const parent = parentOrgAssets?.[prefix] || combinedAssets.find((a) => a.symbol === prefix);
     if (!parent?.options?.description) return null;
     try { return JSON.parse(parent.options.description); } catch { return null; }
-  }, [res?.id, combinedAssets, _desc]);
+  }, [res?.id, parentOrgAssets, combinedAssets, _desc]);
 
   const parentPmoObject = parentPmoDescription?.pmo_object || null;
 
@@ -250,13 +255,13 @@ export const PredictionRow = memo(function PredictionRow({
   const tabProps = useMemo(() => ({
     res, usr, _desc, relevantBitassetData, relevantCallOrders, openInterestRaw, settlementFundRaw, prizePoolRaw,
     impliedYesPercent: marketStats.impliedYesPercent,
-    isExpired, expiration: _desc?.expiry, expirationHours, now, market: _desc?.market, view, t,
+    expiration: _desc?.expiry, market: _desc?.market, view, t,
     cleanedPrediction, cleanedDescription, hasNft: !!(res?.options && _desc && _desc.nft_object), hasPmo: !!parentPmoObject, parentPmoObject, nftImages,
     heroIndex, setHeroIndex, ipfsGateway, backingAssetBalance, humanReadableBackingAssetBalance,
     humanReadablePredictionMarketAssetBalance, existingCollateral, existingCollateralRaw, _backingAssetID, _backingPrecision,
     _issuer_permissions, _flags, expiredPMAs, house: res?.issuer, marketStats,
   }), [res?.id, usr?.id, _desc, relevantBitassetData, relevantCallOrders, openInterestRaw, settlementFundRaw, prizePoolRaw,
-    isExpired, expirationHours, now, view, t,
+    view, t,
     cleanedPrediction, cleanedDescription, nftImages,
     heroIndex, ipfsGateway, backingAssetBalance, humanReadableBackingAssetBalance,
     humanReadablePredictionMarketAssetBalance, existingCollateral, existingCollateralRaw, _backingAssetID, _backingPrecision,
@@ -330,7 +335,7 @@ export const PredictionRow = memo(function PredictionRow({
                 title={t("Predictions:list.filterByIssuer")}
               >
                 <span className="inline-flex h-5 w-5 overflow-hidden rounded-full ring-1 ring-white/10">
-                  <Avatar size={20} name={issuerDisplayName ?? house} extra="Issuer" expression={{ eye: "normal", mouth: "open" }} colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]} />
+                  <Avatar size={20} name={issuerDisplayName ?? house} extra="Issuer" expression={AVATAR_EYES_OPEN} colors={AVATAR_COLORS} disableTracking />
                 </span>
                 <span className="text-muted-foreground">{issuerDisplayLabel ?? house}</span>
               </span>
@@ -421,6 +426,10 @@ export const PredictionRow = memo(function PredictionRow({
         issuerDisplayName={issuerDisplayName}
         username={username}
         issuerIsLtm={issuerIsLtm}
+        now={now}
+        isExpired={isExpired}
+        expirationHours={expirationHours}
+        currentNode={currentNode}
         t={t}
       />
 
@@ -433,7 +442,7 @@ export const PredictionRow = memo(function PredictionRow({
             </AlertDialogHeader>
             <div className="flex items-center gap-3 rounded-md border border-border bg-accent/30 dark:bg-white/[0.05] p-3">
               <span className="inline-flex h-10 w-10 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-white/10">
-                <Avatar size={40} name={issuerDisplayName ?? house} extra="BlockConfirm" expression={{ eye: "normal", mouth: "unhappy" }} colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]} />
+                <Avatar size={40} name={issuerDisplayName ?? house} extra="BlockConfirm" expression={AVATAR_EYES_UNHAPPY} colors={AVATAR_COLORS} disableTracking />
               </span>
               <div className="min-w-0">
                 <div className="text-sm font-semibold text-foreground truncate">{issuerDisplayName ?? house}</div>
