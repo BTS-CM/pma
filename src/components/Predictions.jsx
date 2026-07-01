@@ -51,6 +51,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { CATEGORY_KEYS } from "@/components/predictions/constants/classification";
+
 import { $currentUser } from "@/stores/users.ts";
 import {
   $blockList,
@@ -156,6 +158,12 @@ export default function Predictions(properties) {
     if (typeof window === "undefined") return null;
     const params = new URLSearchParams(window.location.search);
     return params.get("issuer") || null;
+  });
+
+  const [categoryFilter, setCategoryFilter] = useState(() => {
+    if (typeof window === "undefined") return "all";
+    const params = new URLSearchParams(window.location.search);
+    return params.get("category") || "all";
   });
 
   const [searchInput, setSearchInput] = useState(() => {
@@ -751,6 +759,17 @@ export default function Predictions(properties) {
       });
     }
 
+    if (categoryFilter !== "all") {
+      result = result.filter((p) => {
+        try {
+          const d = JSON.parse(p.options.description || "{}");
+          return d.category === categoryFilter;
+        } catch (_) {
+          return false;
+        }
+      });
+    }
+
     if (filterBy === "closing-soon" && view === "active") {
       result = result.filter((p) => {
         const ms = new Date(p.expiry).getTime() - now;
@@ -807,6 +826,7 @@ export default function Predictions(properties) {
     searchQuery,
     filterBy,
     issuerFilter,
+    categoryFilter,
     sortBy,
     now,
     callOrders,
@@ -986,6 +1006,22 @@ export default function Predictions(properties) {
                       </SelectContent>
                     </Select>
                   ) : null}
+                  <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                    <SelectTrigger className="h-8 w-[160px] text-xs bg-accent/30 dark:bg-white/[0.05] border-border text-foreground/70">
+                      <Filter className="mr-1.5 h-3.5 w-3.5" />
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-card border-border shadow-2xl shadow-black/40">
+                      <SelectItem value="all">
+                        {t("Predictions:list.filter.allCategories")}
+                      </SelectItem>
+                      {CATEGORY_KEYS.map((cat) => (
+                        <SelectItem key={cat} value={cat}>
+                          {t("Predictions:categories." + cat)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {sortedFilteredPMAs && sortedFilteredPMAs.length ? (

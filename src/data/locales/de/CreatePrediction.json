@@ -38,6 +38,10 @@
     "authorization": {
       "title": "Autorisierung",
       "description": "Optional. Whitelisten und Blacklisten Sie Konten, die mit diesem Asset interagieren dürfen."
+    },
+    "classification": {
+      "title": "Category & sub category",
+      "description": "Optionally classify your prediction market for easier discovery."
     }
   },
   "summary": {
@@ -54,6 +58,8 @@
     "maxSupply": "Maximales Angebot",
     "commission": "Provision",
     "resolution": "Auflösungsdatum",
+    "category": "Category",
+    "subcategory": "Sub category",
     "expiryHint": "Löst auf in",
     "days_one": "1 Tag",
     "days_other": "{{count}} Tage",
@@ -91,6 +97,20 @@
     "resolution": {
       "header": "Datum und Uhrzeit der Vorhersageauflösung",
       "header_content": "Das Auflösungsdatum und die Auflösungsuhrzeit sind das Datum und die Uhrzeit, an dem das prognostizierte Marktvermögenswert aufgelöst wird. Dies ist das Datum und die Uhrzeit, an dem das prognostizierte Marktvermögenswert bewertet wird und die Gewinner ausgezahlt werden."
+    }
+  },
+  "classification": {
+    "category": {
+      "header": "Category",
+      "header_content": "Select a category that best describes your prediction market.",
+      "placeholder": "Select a category"
+    },
+    "subcategory": {
+      "header": "Sub category",
+      "header_content": "Optionally narrow down the classification within the chosen category.",
+      "placeholder": "Select a sub category",
+      "selectCategory": "Select a category first",
+      "noneAvailable": "No sub categories available"
     }
   },
   "fee": {

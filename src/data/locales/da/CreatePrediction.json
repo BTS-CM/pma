@@ -38,6 +38,10 @@
     "authorization": {
       "title": "Autorisation",
       "description": "Valgfrit. Hvidlist og sortlist konti der kan interagere med dette aktiv."
+    },
+    "classification": {
+      "title": "Category & sub category",
+      "description": "Optionally classify your prediction market for easier discovery."
     }
   },
   "summary": {
@@ -54,6 +58,8 @@
     "maxSupply": "Maksimal udbud",
     "commission": "Provision",
     "resolution": "Løsningsdato",
+    "category": "Category",
+    "subcategory": "Sub category",
     "expiryHint": "Løser om",
     "days_one": "1 dag",
     "days_other": "{{count}} dage",
@@ -91,6 +97,20 @@
     "resolution": {
       "header": "Forudsigelsesopløsning dato og klokkeslæt",
       "header_content": "Opløsningsdatoen og -tidspunktet er den dato og det tidspunkt, hvor forudsigelsesmarkedsaktivet vil blive løst. Dette er datoen og tidspunktet, hvor forudsigelsesmarkedsaktivet vil blive evalueret, og vinderne vil blive udbetalt."
+    }
+  },
+  "classification": {
+    "category": {
+      "header": "Category",
+      "header_content": "Select a category that best describes your prediction market.",
+      "placeholder": "Select a category"
+    },
+    "subcategory": {
+      "header": "Sub category",
+      "header_content": "Optionally narrow down the classification within the chosen category.",
+      "placeholder": "Select a sub category",
+      "selectCategory": "Select a category first",
+      "noneAvailable": "No sub categories available"
     }
   },
   "fee": {

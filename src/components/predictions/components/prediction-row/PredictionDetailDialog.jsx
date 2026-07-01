@@ -430,6 +430,18 @@ export const PredictionDetailDialog = React.memo(function PredictionDetailDialog
                 </CollapsibleSection>
               ) : null}
 
+              {/* ── CLASSIFICATION ── */}
+              {_desc?.category ? (
+                <CollapsibleSection title={t("Predictions:tab.classification", { defaultValue: "Classification" })} accent="orange">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <MemoizedHeroStat label={t("Predictions:classification.category", { defaultValue: "Category" })} value={t("Predictions:categories." + _desc.category)} accent="orange" />
+                    {_desc.subcategory ? (
+                      <MemoizedHeroStat label={t("Predictions:classification.subcategory", { defaultValue: "Sub category" })} value={t("Predictions:subcategories." + _desc.subcategory)} accent="orange" />
+                    ) : null}
+                  </div>
+                </CollapsibleSection>
+              ) : null}
+
               {/* ── KEY STATS ROW ── */}
               <CollapsibleSection title={t("Predictions:tab.overview")} accent="emerald" defaultOpen>
                 {!isExpired ? (

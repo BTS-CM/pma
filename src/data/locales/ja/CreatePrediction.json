@@ -38,6 +38,10 @@
     "authorization": {
       "title": "認証",
       "description": "オプション。このアセットと対話できるアカウントをホワイトリストおよびブラックリストに追加します。"
+    },
+    "classification": {
+      "title": "Category & sub category",
+      "description": "Optionally classify your prediction market for easier discovery."
     }
   },
   "summary": {
@@ -54,6 +58,8 @@
     "maxSupply": "最大供給量",
     "commission": "手数料",
     "resolution": "解決日",
+    "category": "Category",
+    "subcategory": "Sub category",
     "expiryHint": "解決まで",
     "days_one": "1日",
     "days_other": "{{count}}日",
@@ -91,6 +97,20 @@
     "resolution": {
       "header": "予測解決日時",
       "header_content": "解決日時は、予測市場資産が解決される日時です。これは、予測市場資産が評価され、勝者に支払いが行われる日時です。"
+    }
+  },
+  "classification": {
+    "category": {
+      "header": "Category",
+      "header_content": "Select a category that best describes your prediction market.",
+      "placeholder": "Select a category"
+    },
+    "subcategory": {
+      "header": "Sub category",
+      "header_content": "Optionally narrow down the classification within the chosen category.",
+      "placeholder": "Select a sub category",
+      "selectCategory": "Select a category first",
+      "noneAvailable": "No sub categories available"
     }
   },
   "fee": {

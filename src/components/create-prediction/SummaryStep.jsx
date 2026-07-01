@@ -44,6 +44,8 @@ export default function SummaryStep({
   commissionNum,
   date,
   daysUntil,
+  category,
+  subcategory,
   isFormValid,
   estimatedFee,
   feeCalculating,
@@ -126,6 +128,16 @@ export default function SummaryStep({
                     )}`
                   : null
               }
+            />
+            <SummaryRow
+              icon={Tag}
+              label={t("CreatePrediction:summary.category")}
+              value={category ? t("Predictions:categories." + category) : null}
+            />
+            <SummaryRow
+              icon={Tag}
+              label={t("CreatePrediction:summary.subcategory")}
+              value={subcategory ? t("Predictions:subcategories." + subcategory) : null}
             />
           </div>
         </div>

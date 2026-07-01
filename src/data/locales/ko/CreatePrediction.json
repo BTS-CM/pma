@@ -38,6 +38,10 @@
     "authorization": {
       "title": "인증",
       "description": "선택사항. 이 자산과 상호작용할 수 있는 계정을 화이트리스트 및 블랙리스트에 추가합니다."
+    },
+    "classification": {
+      "title": "Category & sub category",
+      "description": "Optionally classify your prediction market for easier discovery."
     }
   },
   "summary": {
@@ -54,6 +58,8 @@
     "maxSupply": "최대 공급량",
     "commission": "수수료",
     "resolution": "해결일",
+    "category": "Category",
+    "subcategory": "Sub category",
     "expiryHint": "해결까지",
     "days_one": "1일",
     "days_other": "{{count}}일",
@@ -91,6 +97,20 @@
     "resolution": {
       "header": "예측 해결 날짜 및 시간",
       "header_content": "해결일시란 예측시장 자산이 해결되는 날짜와 시간으로, 예측시장 자산이 평가되어 승자에게 지급되는 날짜와 시간입니다."
+    }
+  },
+  "classification": {
+    "category": {
+      "header": "Category",
+      "header_content": "Select a category that best describes your prediction market.",
+      "placeholder": "Select a category"
+    },
+    "subcategory": {
+      "header": "Sub category",
+      "header_content": "Optionally narrow down the classification within the chosen category.",
+      "placeholder": "Select a sub category",
+      "selectCategory": "Select a category first",
+      "noneAvailable": "No sub categories available"
     }
   },
   "fee": {

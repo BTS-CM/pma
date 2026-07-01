@@ -358,6 +358,10 @@ export default function usePredictionForm(properties) {
   const [commission, setCommission] = useState("0");
   const commissionNum = parseFloat(commission) || 0;
 
+  // Classification
+  const [category, setCategory] = useState("");
+  const [subcategory, setSubcategory] = useState("");
+
   const backingAssetData = useMemo(() => {
     if (assets && backingAsset) {
       return assets.find((asset) => asset.symbol === backingAsset);
@@ -533,6 +537,8 @@ export default function usePredictionForm(properties) {
         originalExpiryRef.current = expiryDate.getTime();
         setDate(expiryDate);
       }
+      if (d.category) setCategory(d.category);
+      if (d.subcategory) setSubcategory(d.subcategory);
       if (d.nft_object) {
         setEnabledNFT(true);
         setAcknowledgements(d.nft_object.acknowledgements || "");
@@ -736,6 +742,8 @@ export default function usePredictionForm(properties) {
       condition: condition,
       short_name: shortName,
       expiry: date ? date.toISOString() : "",
+      category: category,
+      subcategory: subcategory,
     };
 
     if (enabledNFT) {
@@ -784,6 +792,8 @@ export default function usePredictionForm(properties) {
     backingAsset,
     shortName,
     date,
+    category,
+    subcategory,
     enabledNFT,
     acknowledgements,
     artist,
@@ -971,6 +981,8 @@ export default function usePredictionForm(properties) {
         condition: condition,
         short_name: shortName,
         expiry: date ? date.toISOString() : "",
+        category: category,
+        subcategory: subcategory,
         ...(enabledNFT && {
           nft_object: {
             acknowledgements,
@@ -1009,6 +1021,8 @@ export default function usePredictionForm(properties) {
       condition,
       shortName,
       date,
+      category,
+      subcategory,
       enabledNFT,
       acknowledgements,
       artist,
@@ -1200,6 +1214,12 @@ export default function usePredictionForm(properties) {
     setCommission,
     commissionNum,
     backingAssetData,
+
+    // Classification
+    category,
+    setCategory,
+    subcategory,
+    setSubcategory,
 
     // Permissions
     permChargeMarketFee, setPermChargeMarketFee,

@@ -60,6 +60,10 @@ export default function Prediction(properties) {
     setDate,
     isExpiredInEditMode,
     isResolvedInEditMode,
+    category,
+    setCategory,
+    subcategory,
+    setSubcategory,
     enabledNFT,
     setEnabledNFT,
     nftMedia,
@@ -205,6 +209,10 @@ export default function Prediction(properties) {
           isExpiredInEditMode={isExpiredInEditMode}
           isResolvedInEditMode={isResolvedInEditMode}
           commissionError={commissionError}
+          category={category}
+          setCategory={setCategory}
+          subcategory={subcategory}
+          setSubcategory={setSubcategory}
         />
 
         <NFTSection
@@ -311,6 +319,8 @@ export default function Prediction(properties) {
           commissionNum={commissionNum}
           date={date}
           daysUntil={daysUntil}
+          category={category}
+          subcategory={subcategory}
           isFormValid={isFormValid}
           estimatedFee={estimatedFee}
           feeCalculating={feeCalculating}

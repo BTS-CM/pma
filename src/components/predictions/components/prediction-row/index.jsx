@@ -327,6 +327,7 @@ export const PredictionRow = memo(function PredictionRow({
               </span>
               {hasNft ? <span className="inline-flex items-center rounded-full bg-violet-500/10 border border-violet-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-violet-400">NFT</span> : null}
               {hasPmo ? <span className="inline-flex items-center rounded-full bg-cyan-500/10 border border-cyan-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-cyan-400">ORG</span> : null}
+              {_desc?.category ? <span className="inline-flex items-center rounded-full bg-orange-500/10 border border-orange-500/20 px-1.5 py-0.5 text-[10px] font-semibold text-orange-400">{t("Predictions:categories." + _desc.category)}</span> : null}
             </div>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
               <span

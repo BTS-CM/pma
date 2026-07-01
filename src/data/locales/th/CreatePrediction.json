@@ -38,6 +38,10 @@
     "authorization": {
       "title": "การอนุมัติ",
       "description": "ไม่บังคับ บัญชีที่อยู่ในบัญชีดำและบัญชีขาวที่สามารถโต้ตอบกับสินทรัพย์นี้"
+    },
+    "classification": {
+      "title": "Category & sub category",
+      "description": "Optionally classify your prediction market for easier discovery."
     }
   },
   "summary": {
@@ -54,6 +58,8 @@
     "maxSupply": "ปริมาณสูงสุด",
     "commission": "ค่าคอมมิชชั่น",
     "resolution": "วันที่แก้ไข",
+    "category": "Category",
+    "subcategory": "Sub category",
     "expiryHint": "แก้ไขใน",
     "days_one": "1 วัน",
     "days_other": "{{count}} วัน",
@@ -91,6 +97,20 @@
     "resolution": {
       "header": "วันที่และเวลาการแก้ไขการคาดการณ์",
       "header_content": "วันที่และเวลาที่แก้ไขคือวันที่และเวลาที่สินทรัพย์ในตลาดการคาดการณ์จะได้รับการแก้ไข นี่คือวันที่และเวลาที่สินทรัพย์ในตลาดการคาดการณ์จะได้รับการประเมิน และผู้ชนะจะได้รับการจ่ายเงิน"
+    }
+  },
+  "classification": {
+    "category": {
+      "header": "Category",
+      "header_content": "Select a category that best describes your prediction market.",
+      "placeholder": "Select a category"
+    },
+    "subcategory": {
+      "header": "Sub category",
+      "header_content": "Optionally narrow down the classification within the chosen category.",
+      "placeholder": "Select a sub category",
+      "selectCategory": "Select a category first",
+      "noneAvailable": "No sub categories available"
     }
   },
   "fee": {

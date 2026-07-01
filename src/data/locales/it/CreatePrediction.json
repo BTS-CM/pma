@@ -38,6 +38,10 @@
     "authorization": {
       "title": "Autorizzazione",
       "description": "Opzionale. Inserisci nella whitelist e nella blacklist gli account che possono interagire con questo asset."
+    },
+    "classification": {
+      "title": "Category & sub category",
+      "description": "Optionally classify your prediction market for easier discovery."
     }
   },
   "summary": {
@@ -54,6 +58,8 @@
     "maxSupply": "Offerta massima",
     "commission": "Commissione",
     "resolution": "Data di risoluzione",
+    "category": "Category",
+    "subcategory": "Sub category",
     "expiryHint": "Risolve tra",
     "days_one": "1 giorno",
     "days_other": "{{count}} giorni",
@@ -91,6 +97,20 @@
     "resolution": {
       "header": "Data e ora di risoluzione della previsione",
       "header_content": "La data e l'ora di risoluzione sono la data e l'ora in cui l'asset del mercato di previsione verrà risolto. Questa è la data e l'ora in cui l'asset del mercato di previsione verrà valutato e i vincitori verranno pagati."
+    }
+  },
+  "classification": {
+    "category": {
+      "header": "Category",
+      "header_content": "Select a category that best describes your prediction market.",
+      "placeholder": "Select a category"
+    },
+    "subcategory": {
+      "header": "Sub category",
+      "header_content": "Optionally narrow down the classification within the chosen category.",
+      "placeholder": "Select a sub category",
+      "selectCategory": "Select a category first",
+      "noneAvailable": "No sub categories available"
     }
   },
   "fee": {

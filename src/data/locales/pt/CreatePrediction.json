@@ -38,6 +38,10 @@
     "authorization": {
       "title": "Autorização",
       "description": "Opcional. Adicione em lista branca e lista negra contas que podem interagir com este ativo."
+    },
+    "classification": {
+      "title": "Category & sub category",
+      "description": "Optionally classify your prediction market for easier discovery."
     }
   },
   "summary": {
@@ -54,6 +58,8 @@
     "maxSupply": "Oferta máxima",
     "commission": "Comissão",
     "resolution": "Data de resolução",
+    "category": "Category",
+    "subcategory": "Sub category",
     "expiryHint": "Resolve em",
     "days_one": "1 dia",
     "days_other": "{{count}} dias",
@@ -91,6 +97,20 @@
     "resolution": {
       "header": "Data e hora da resolução da previsão",
       "header_content": "A data e hora de resolução é a data e hora em que o ativo do mercado de previsão será resolvido. Esta é a data e hora em que o ativo do mercado de previsão será avaliado e os vencedores serão pagos."
+    }
+  },
+  "classification": {
+    "category": {
+      "header": "Category",
+      "header_content": "Select a category that best describes your prediction market.",
+      "placeholder": "Select a category"
+    },
+    "subcategory": {
+      "header": "Sub category",
+      "header_content": "Optionally narrow down the classification within the chosen category.",
+      "placeholder": "Select a sub category",
+      "selectCategory": "Select a category first",
+      "noneAvailable": "No sub categories available"
     }
   },
   "fee": {
