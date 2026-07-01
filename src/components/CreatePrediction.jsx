@@ -44,7 +44,7 @@ export default function Prediction(properties) {
     sanitizeMaxSupply,
     fullSymbol,
     maxSubAssetLength,
-    userOrgs,
+    effectiveUserOrgs: userOrgs,
     desc,
     setDesc,
     condition,

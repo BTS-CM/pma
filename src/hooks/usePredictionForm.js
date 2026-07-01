@@ -240,22 +240,57 @@ export default function usePredictionForm(properties) {
     });
   }, [combinedAssets, assets, usr]);
 
+  // When URL has ?org=SYMBOL, fetch the full org asset from the chain
+  // (cached assets lack options.description so userOrgs is always empty)
+  const [fetchedUrlOrg, setFetchedUrlOrg] = useState(null);
+  useEffect(() => {
+    if (!urlOrgSymbol || !currentNode?.url) return;
+    let cancelled = false;
+    const store = createFullAssetFromSymbolStore([_chain, urlOrgSymbol, currentNode.url]);
+    const unsub = store.subscribe(({ data, error, loading }) => {
+      if (cancelled) return;
+      if (!loading && data) {
+        setFetchedUrlOrg(data);
+      }
+    });
+    return () => {
+      cancelled = true;
+      if (unsub) unsub();
+    };
+  }, [urlOrgSymbol, _chain, currentNode]);
+
+  // Effective user orgs: merge chain-fetched URL org into userOrgs if it's a PMO owned by the user
+  const effectiveUserOrgs = useMemo(() => {
+    if (!fetchedUrlOrg || !usr?.id) return userOrgs;
+    if (fetchedUrlOrg.issuer !== usr.id) return userOrgs;
+    if (fetchedUrlOrg.symbol?.includes(".")) return userOrgs;
+    if (!fetchedUrlOrg.options?.description) return userOrgs;
+    try {
+      const d = JSON.parse(fetchedUrlOrg.options.description);
+      if (!d || !d.pmo_object) return userOrgs;
+    } catch {
+      return userOrgs;
+    }
+    if (userOrgs.some((o) => o.symbol === fetchedUrlOrg.symbol)) return userOrgs;
+    return [...userOrgs, fetchedUrlOrg];
+  }, [fetchedUrlOrg, userOrgs, usr]);
+
   // Default to organization mode when user owns PMO assets (skip in edit mode)
   useEffect(() => {
-    if (!isEditMode && userOrgs.length > 0 && creationMode === "manual") {
+    if (!isEditMode && effectiveUserOrgs.length > 0 && creationMode === "manual") {
       setCreationMode("organization");
     }
-  }, [userOrgs, isEditMode]);
+  }, [effectiveUserOrgs, isEditMode]);
 
   // Pre-select org from URL param
   useEffect(() => {
-    if (urlOrgSymbol && userOrgs.length > 0 && creationMode === "organization" && !selectedOrg) {
-      const org = userOrgs.find((o) => o.symbol === urlOrgSymbol);
+    if (urlOrgSymbol && effectiveUserOrgs.length > 0 && creationMode === "organization" && !selectedOrg) {
+      const org = effectiveUserOrgs.find((o) => o.symbol === urlOrgSymbol);
       if (org) {
         setSelectedOrg(org);
       }
     }
-  }, [urlOrgSymbol, userOrgs, creationMode, selectedOrg]);
+  }, [urlOrgSymbol, effectiveUserOrgs, creationMode, selectedOrg]);
 
   // In org mode, shortName auto-fills from the sub-asset name
   useEffect(() => {
@@ -455,8 +490,21 @@ export default function usePredictionForm(properties) {
       const parts = existingAsset.symbol.split(".");
       const orgSymbol = parts.slice(0, -1).join(".");
       const source = combinedAssets && combinedAssets.length ? combinedAssets : assets;
-      const matchingOrg = source?.find((a) => a.symbol === orgSymbol && a.issuer === usr?.id);
-      if (matchingOrg) {
+      let matchingOrg = source?.find((a) => a.symbol === orgSymbol && a.issuer === usr?.id);
+      // If parent org not found in cache (missing options.description), fetch from chain
+      if (!matchingOrg && currentNode?.url) {
+        const orgStore = createFullAssetFromSymbolStore([_chain, orgSymbol, currentNode.url]);
+        orgStore.subscribe(({ data, error, loading }) => {
+          if (!loading && !error && data && data.issuer === usr?.id) {
+            setCreationMode("organization");
+            setSelectedOrg(data);
+          }
+        });
+        isOrgMode = true;
+        const subName = parts[parts.length - 1];
+        setSubAssetName(subName);
+        setShortName(subName);
+      } else if (matchingOrg) {
         isOrgMode = true;
         setCreationMode("organization");
         setSelectedOrg(matchingOrg);
@@ -1137,7 +1185,7 @@ export default function usePredictionForm(properties) {
     setSubAssetName,
     fullSymbol,
     maxSubAssetLength,
-    userOrgs,
+    effectiveUserOrgs,
     urlOrgSymbol,
 
     // Prediction market info
