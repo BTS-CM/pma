@@ -13,16 +13,20 @@ export const CATEGORIES = {
     "policy",
     "government",
     "geopolitics",
+    "supreme_court",
+    "legal_and_trials",
     "other",
   ],
   "culture": [
     "movies",
+    "box_office",
     "music",
     "awards",
     "collectibles",
     "people",
     "television",
     "video_games",
+    "publishing",
     "other",
   ],
   "sports": [
@@ -40,14 +44,18 @@ export const CATEGORIES = {
     "motorsport",
     "olympics",
     "esports",
+    "drafts_and_trades",
     "other",
   ],
   "crypto": [
     "bitcoin",
     "ethereum",
+    "solana",
     "bitshares",
     "defi",
     "nfts",
+    "stablecoins",
+    "airdrops",
     "altcoins",
     "regulation",
     "other",
@@ -62,15 +70,27 @@ export const CATEGORIES = {
     "jobs_economy",
     "stocks",
     "bonds",
-    "commodities",
     "forex",
+    "mergers_acquisitions",
+    "ipos",
+    "executive_moves",
     "other",
   ],
-  "commodities": {
-    "oil_and_gas": ["brent_crude", "gasoline", "natural_gas", "wti_crude"],
-    "metals": ["copper", "gold", "silver", "platinum"],
-    "agriculture": ["corn", "soybeans", "wheat", "coffee"],
-  },
+  "commodities": [
+    "brent_crude",
+    "gasoline",
+    "natural_gas",
+    "wti_crude",
+    "copper",
+    "gold",
+    "silver",
+    "platinum",
+    "corn",
+    "soybeans",
+    "wheat",
+    "coffee",
+    "other",
+  ],
   "science_and_technology": [
     "ai",
     "machine_learning",
@@ -88,6 +108,27 @@ export const CATEGORIES = {
     "blockchain",
     "semiconductors",
     "telecom",
+    "consumer_tech",
+    "fda_approvals",
+    "tech_regulation",
+    "other",
+  ],
+  "business_and_corporations": [
+    "ceo_departures",
+    "mergers_acquisitions",
+    "antitrust",
+    "product_launches",
+    "earnings",
+    "layoffs",
+    "other",
+  ],
+  "internet_and_trends": [
+    "social_media",
+    "creator_economy",
+    "streaming",
+    "viral_trends",
+    "platform_policy",
+    "subscriber_milestones",
     "other",
   ],
   "weather": [
@@ -113,14 +154,7 @@ export const CATEGORY_KEYS = Object.keys(CATEGORIES);
 
 /**
  * Returns the subcategory list for a given category key.
- * Commodities uses a nested structure, so flatten its values.
  */
 export function getSubcategories(category) {
-  const val = CATEGORIES[category];
-  if (!val) return [];
-  if (Array.isArray(val)) return val;
-  if (typeof val === "object") {
-    return Object.values(val).flat();
-  }
-  return [];
+  return CATEGORIES[category] || [];
 }
