@@ -24,6 +24,8 @@
   },
   "editOrg": "組織を編集",
   "createPrediction": "予測を作成",
+  "favourite": "お気に入り",
+  "unfavourite": "解除",
   "json": {
     "title": "アセットJSONデータ",
     "description": "この組織アセットのブロックチェーン生データ。",

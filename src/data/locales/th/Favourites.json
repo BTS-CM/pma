@@ -24,5 +24,10 @@
   "clear": "ชัดเจน",
   "transfer": "โอนย้าย",
   "timedTransfer": "การโอนแบบกำหนดเวลา",
-  "vestAssets": "ทรัพย์สินเสื้อกั๊ก"
+  "vestAssets": "ทรัพย์สินเสื้อกั๊ก",
+  "orgsHeader": "องค์กรที่ชื่นชอบ",
+  "orgsEmptyTitle": "ไม่มีองค์กรที่ชื่นชอบ",
+  "orgsEmptyDescription": "ติดตามองค์กรที่คุณสนใจโดยเพิ่มได้ที่นี่",
+  "viewActive": "ใช้งาน",
+  "viewExpired": "หมดอายุ"
 }

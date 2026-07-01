@@ -24,5 +24,10 @@
   "clear": "Selge",
   "transfer": "Ülekanne",
   "timedTransfer": "Ajastatud ülekanne",
-  "vestAssets": "Vesti varad"
+  "vestAssets": "Vesti varad",
+  "orgsHeader": "Lemmikorganisatsioonid",
+  "orgsEmptyTitle": "Lemmikorganisatsioone pole",
+  "orgsEmptyDescription": "Jälgige teile olulisi organisatsioone, lisades need siia.",
+  "viewActive": "Aktiivne",
+  "viewExpired": "Aegunud"
 }

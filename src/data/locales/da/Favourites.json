@@ -24,5 +24,10 @@
   "clear": "Klar",
   "transfer": "Overførsel",
   "timedTransfer": "Tidsbestemt overførsel",
-  "vestAssets": "Vest Aktiver"
+  "vestAssets": "Vest Aktiver",
+  "orgsHeader": "Yndlingsorganisationer",
+  "orgsEmptyTitle": "Ingen favoritorganisationer",
+  "orgsEmptyDescription": "Følg de organisationer, du holder af, ved at tilføje dem her.",
+  "viewActive": "Aktiv",
+  "viewExpired": "Udløbet"
 }

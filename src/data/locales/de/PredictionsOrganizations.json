@@ -24,6 +24,8 @@
   },
   "editOrg": "Organisation bearbeiten",
   "createPrediction": "Vorhersage erstellen",
+  "favourite": "Favorit",
+  "unfavourite": "Entfernen",
   "json": {
     "title": "Asset-JSON-Daten",
     "description": "Rohblockchain-Daten für dieses Organisations-Asset.",

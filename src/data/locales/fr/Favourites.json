@@ -24,5 +24,10 @@
   "clear": "Clair",
   "transfer": "Transfert",
   "timedTransfer": "Transfert chronométré",
-  "vestAssets": "Actifs acquis"
+  "vestAssets": "Actifs acquis",
+  "orgsHeader": "Organisations favorites",
+  "orgsEmptyTitle": "Aucune organisation favorite",
+  "orgsEmptyDescription": "Suivez les organisations qui vous intéressent en les ajoutant ici.",
+  "viewActive": "Actif",
+  "viewExpired": "Expiré"
 }

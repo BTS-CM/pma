@@ -24,6 +24,8 @@
   },
   "editOrg": "조직 편집",
   "createPrediction": "예측 생성",
+  "favourite": "즐겨찾기",
+  "unfavourite": "해제",
   "json": {
     "title": "자산 JSON 데이터",
     "description": "이 조직 자산의 블록체인 원시 데이터.",

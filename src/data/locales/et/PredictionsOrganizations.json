@@ -24,6 +24,8 @@
   },
   "editOrg": "Redigeeri organisatsiooni",
   "createPrediction": "Loo ennustus",
+  "favourite": "Lemmik",
+  "unfavourite": "Eemalda",
   "json": {
     "title": "Vara JSON andmed",
     "description": "Selle organisatsiooni vara blokeeringu tooandmed.",

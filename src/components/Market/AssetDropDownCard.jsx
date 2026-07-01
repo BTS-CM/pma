@@ -311,7 +311,7 @@ export default function AssetDropDown(properties) {
               onClick={() => setMode("search")}
               className={
                 mode === "search"
-                  ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/20 hover:text-cyan-100"
+                  ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-600 hover:bg-cyan-500/20 hover:text-cyan-500 dark:text-cyan-300 dark:hover:text-cyan-200"
                   : "text-muted-foreground hover:text-accent-foreground hover:bg-accent/40 border border-transparent"
               }
             >
@@ -324,7 +324,7 @@ export default function AssetDropDown(properties) {
                 onClick={() => setMode("balances")}
                 className={
                   mode === "balances"
-                    ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/20 hover:text-cyan-100"
+                    ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-600 hover:bg-cyan-500/20 hover:text-cyan-500 dark:text-cyan-300 dark:hover:text-cyan-200"
                     : "text-muted-foreground hover:text-accent-foreground hover:bg-accent/40 border border-transparent"
                 }
               >
@@ -337,7 +337,7 @@ export default function AssetDropDown(properties) {
               onClick={() => setMode("featured")}
               className={
                 mode === "featured"
-                  ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/20 hover:text-cyan-100"
+                  ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-600 hover:bg-cyan-500/20 hover:text-cyan-500 dark:text-cyan-300 dark:hover:text-cyan-200"
                   : "text-muted-foreground hover:text-accent-foreground hover:bg-accent/40 border border-transparent"
               }
             >
@@ -349,7 +349,7 @@ export default function AssetDropDown(properties) {
               onClick={() => setMode("favourites")}
               className={
                 mode === "favourites"
-                  ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-200 hover:bg-cyan-500/20 hover:text-cyan-100"
+                  ? "bg-cyan-500/15 border border-cyan-500/30 text-cyan-600 hover:bg-cyan-500/20 hover:text-cyan-500 dark:text-cyan-300 dark:hover:text-cyan-200"
                   : "text-muted-foreground hover:text-accent-foreground hover:bg-accent/40 border border-transparent"
               }
             >

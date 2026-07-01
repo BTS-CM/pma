@@ -24,5 +24,10 @@
   "clear": "Chiaro",
   "transfer": "Trasferire",
   "timedTransfer": "Trasferimento a tempo",
-  "vestAssets": "Vestire le risorse"
+  "vestAssets": "Vestire le risorse",
+  "orgsHeader": "Organizzazioni preferite",
+  "orgsEmptyTitle": "Nessuna organizzazione preferita",
+  "orgsEmptyDescription": "Segui le organizzazioni che ti interessano aggiungendole qui.",
+  "viewActive": "Attivo",
+  "viewExpired": "Scaduto"
 }

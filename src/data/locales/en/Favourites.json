@@ -24,5 +24,10 @@
   "clear": "Clear",
   "transfer": "Transfer",
   "timedTransfer": "Timed Transfer",
-  "vestAssets": "Vest Assets"
+  "vestAssets": "Vest Assets",
+  "orgsHeader": "Favourite Organisations",
+  "orgsEmptyTitle": "No favourite organisations",
+  "orgsEmptyDescription": "Follow prediction market organisations you care about by adding them here.",
+  "viewActive": "Active",
+  "viewExpired": "Expired"
 }

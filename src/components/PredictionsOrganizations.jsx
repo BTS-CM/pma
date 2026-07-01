@@ -22,6 +22,12 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+
+import {
+  StarIcon,
+  StarFilledIcon,
+} from "@radix-ui/react-icons";
+
 import {
   Card,
   CardContent,
@@ -57,6 +63,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -65,6 +77,11 @@ import { cn } from "@/lib/utils";
 
 import { $currentUser } from "@/stores/users.ts";
 import { $currentNode } from "@/stores/node.ts";
+import {
+  $favouriteOrganisations,
+  addFavouriteOrganisation,
+  removeFavouriteOrganisation,
+} from "@/stores/favourites.ts";
 import { useInitCache } from "@/nanoeffects/Init.ts";
 import {
   createEveryObjectStore,
@@ -314,6 +331,21 @@ function OrganizationCard({ org, pmaCount, t, usr, marketSearch }) {
   const [jsonPayload, setJsonPayload] = useState(null);
   const [pmoDetailsOpen, setPmoDetailsOpen] = useState(false);
 
+  const favouriteOrganisations = useStore($favouriteOrganisations);
+  const isFavourited = useMemo(() => {
+    if (!favouriteOrganisations) return false;
+    const chainOrgs = favouriteOrganisations[_chain] ?? [];
+    return chainOrgs.some((o) => o.symbol === symbol);
+  }, [favouriteOrganisations, _chain, symbol]);
+
+  const onToggleFavourite = () => {
+    if (isFavourited) {
+      removeFavouriteOrganisation(_chain, { symbol, id: org.id, issuer: org.issuer });
+    } else {
+      addFavouriteOrganisation(_chain, { symbol, id: org.id, issuer: org.issuer });
+    }
+  };
+
   return (
     <Card className="bg-card/80 border-border shadow-md shadow-black/20 hover:shadow-xl hover:shadow-black/30 transition-all hover:translate-x-1 border-l-4 border-l-cyan-500">
       <CardHeader className="pb-2 pt-3">
@@ -331,6 +363,28 @@ function OrganizationCard({ org, pmaCount, t, usr, marketSearch }) {
             <Badge variant="outline" className="text-[10px] border-cyan-500/30 text-cyan-400 bg-cyan-500/10">
               {pmaCount} PMAs
             </Badge>
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    onClick={onToggleFavourite}
+                    className="inline-flex items-center justify-center h-6 w-6 rounded-md hover:bg-accent/40 dark:hover:bg-white/10 transition-colors"
+                    aria-label={isFavourited ? "Unfavourite" : "Favourite"}
+                    title={isFavourited ? "Unfavourite" : "Favourite"}
+                  >
+                    {isFavourited ? (
+                      <StarFilledIcon className="h-4 w-4 text-amber-400" />
+                    ) : (
+                      <StarIcon className="h-4 w-4 text-muted-foreground/60 hover:text-amber-400" />
+                    )}
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {isFavourited ? t("PredictionsOrganizations:unfavourite") : t("PredictionsOrganizations:favourite")}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <span
               className="inline-flex items-center gap-1.5 rounded-full border border-border bg-accent/40 dark:bg-white/[0.08] pl-0.5 pr-2 py-0.5 text-[11px] font-medium"
               title={issuerAccountId}

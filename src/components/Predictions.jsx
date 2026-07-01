@@ -142,6 +142,7 @@ export default function Predictions(properties) {
       ? s
       : "newest";
   });
+  
   const [filterBy, setFilterBy] = useState(() => {
     if (typeof window === "undefined") return "all";
     const params = new URLSearchParams(window.location.search);
@@ -150,15 +151,12 @@ export default function Predictions(properties) {
       ? f
       : "all";
   });
+
   const [issuerFilter, setIssuerFilter] = useState(() => {
     if (typeof window === "undefined") return null;
     const params = new URLSearchParams(window.location.search);
     return params.get("issuer") || null;
   });
-
-
-  //const [searchInput, setSearchInput] = useState("");
-  //const [searchQuery, setSearchQuery] = useState("");
 
   const [searchInput, setSearchInput] = useState(() => {
     if (typeof window === "undefined") return "";

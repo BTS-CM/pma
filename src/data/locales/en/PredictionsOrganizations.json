@@ -24,6 +24,8 @@
   },
   "editOrg": "Edit Organization",
   "createPrediction": "Create Prediction",
+  "favourite": "Favourite",
+  "unfavourite": "Unfavourite",
   "json": {
     "title": "Asset JSON Data",
     "description": "Raw blockchain data for this organization asset.",

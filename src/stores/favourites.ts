@@ -13,6 +13,12 @@ type User = {
 
 type MarketPair = string; // e.g. "BTS_CNY"
 
+type Organisation = {
+  symbol: string;
+  id: string;
+  issuer: string;
+};
+
 type StoredAssets = {
   bitshares: Asset[] | [];
   bitshares_testnet: Asset[] | [];
@@ -26,6 +32,11 @@ type StoredUsers = {
 type StoredPairs = {
   bitshares: MarketPair[] | [];
   bitshares_testnet: MarketPair[] | [];
+};
+
+type StoredOrganisations = {
+  bitshares: Organisation[] | [];
+  bitshares_testnet: Organisation[] | [];
 };
 
 const $favouriteAssets = persistentMap<StoredAssets>(
@@ -72,6 +83,27 @@ const $favouriteUsers = persistentMap<StoredUsers>(
 
 const $favouritePairs = persistentMap<StoredPairs>(
   "favouritePairs",
+  {
+    bitshares: [],
+    bitshares_testnet: [],
+  },
+  {
+    encode(value) {
+      return JSON.stringify(value);
+    },
+    decode(value) {
+      try {
+        return JSON.parse(value);
+      } catch (e) {
+        console.log(e);
+        return value;
+      }
+    },
+  }
+);
+
+const $favouriteOrganisations = persistentMap<StoredOrganisations>(
+  "favouriteOrganisations",
   {
     bitshares: [],
     bitshares_testnet: [],
@@ -147,14 +179,36 @@ function removeFavouritePair(chain: string, pair: MarketPair) {
   $favouritePairs.set({ ...$favouritePairs.get(), [chain]: pairs });
 }
 
+function addFavouriteOrganisation(chain: string, org: Organisation) {
+  const orgs = $favouriteOrganisations.get()[chain];
+  if (orgs.find((o) => o.id === org.id)) {
+    return; // already exists
+  }
+  orgs.push(org);
+  $favouriteOrganisations.set({ ...$favouriteOrganisations.get(), [chain]: orgs });
+}
+
+function removeFavouriteOrganisation(chain: string, org: Organisation) {
+  const orgs = $favouriteOrganisations.get()[chain];
+  const index = orgs.findIndex((o) => o.id === org.id);
+  if (index === -1) {
+    return; // not found
+  }
+  orgs.splice(index, 1);
+  $favouriteOrganisations.set({ ...$favouriteOrganisations.get(), [chain]: orgs });
+}
+
 export {
   $favouriteAssets,
   $favouriteUsers,
   $favouritePairs,
+  $favouriteOrganisations,
   addFavouriteAsset,
   addFavouriteUser,
   addFavouritePair,
+  addFavouriteOrganisation,
   removeFavouriteAsset,
   removeFavouriteUser,
   removeFavouritePair,
+  removeFavouriteOrganisation,
 };

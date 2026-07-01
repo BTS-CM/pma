@@ -51,6 +51,7 @@ import {
   Send,
   Trash2,
   Star,
+  ShieldCheck,
 } from "lucide-react";
 
 import {
@@ -63,6 +64,8 @@ import {
   $favouritePairs,
   addFavouritePair,
   removeFavouritePair,
+  $favouriteOrganisations,
+  removeFavouriteOrganisation,
 } from "@/stores/favourites.ts";
 
 import { $currentNode } from "@/stores/node.ts";
@@ -136,6 +139,7 @@ export default function Favourites(properties) {
   const favourites = useStore($favouriteAssets);
   const favouriteUsers = useStore($favouriteUsers);
   const favouritePairs = useStore($favouritePairs);
+  const favouriteOrganisations = useStore($favouriteOrganisations);
 
   const currentUser = useSyncExternalStore(
     $currentUser.subscribe,
@@ -316,6 +320,11 @@ export default function Favourites(properties) {
   const [pairBaseSelection, setPairBaseSelection] = useState();
   const [pairQuoteSelection, setPairQuoteSelection] = useState();
 
+  const chainOrgs = useMemo(() => {
+    if (!favouriteOrganisations) return [];
+    return favouriteOrganisations[_chain] ?? [];
+  }, [favouriteOrganisations, _chain]);
+
   // When a new symbol is chosen from the AssetDropDown, look up its details and add to favourites
   useEffect(() => {
     if (!addSelection) return;
@@ -328,7 +337,6 @@ export default function Favourites(properties) {
         issuer: found.issuer,
       });
     }
-    // reset selection to avoid re-adding
     setAddSelection(undefined);
   }, [addSelection, assets, _chain]);
 
@@ -465,11 +473,7 @@ export default function Favourites(properties) {
               <CardTitle className="text-xl font-bold tracking-tight text-foreground">
                 {t("Favourites:assetsHeader")}
               </CardTitle>
-              {chainFavourites && chainFavourites.length ? (
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {chainFavourites.length}
-                </p>
-              ) : null}
+
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -551,11 +555,7 @@ export default function Favourites(properties) {
               <CardTitle className="text-xl font-bold tracking-tight text-foreground">
                 {t("Favourites:pairsHeader")}
               </CardTitle>
-              {chainPairs && chainPairs.length ? (
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {chainPairs.length}
-                </p>
-              ) : null}
+
             </div>
           </div>
           <Dialog
@@ -758,7 +758,7 @@ export default function Favourites(properties) {
         </CardContent>
       </Card>
 
-      <Card className="rounded-xl overflow-hidden bg-card/60 border-border">
+      <Card className="mb-8 rounded-xl overflow-hidden bg-card/60 border-border">
         <div className="h-1 w-full bg-gradient-to-r from-sky-500 to-blue-500" />
         <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-accent/30 dark:bg-white/[0.05] border-b border-border/60">
           <div className="flex items-center gap-3">
@@ -769,11 +769,7 @@ export default function Favourites(properties) {
               <CardTitle className="text-xl font-bold tracking-tight text-foreground">
                 {t("Favourites:usersHeader")}
               </CardTitle>
-              {favouriteUsers && (favouriteUsers[_chain] ?? []).length ? (
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {favouriteUsers[_chain].length}
-                </p>
-              ) : null}
+
             </div>
           </div>
           <Dialog
@@ -904,6 +900,138 @@ export default function Favourites(properties) {
                 <EmptyTitle className="text-foreground/80">{t("Favourites:usersEmptyTitle")}</EmptyTitle>
                 <EmptyDescription className="text-muted-foreground">
                   {t("Favourites:usersEmptyDescription")}
+                </EmptyDescription>
+              </EmptyHeader>
+            </Empty>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card className="mb-8 rounded-xl overflow-hidden bg-card/60 border-border">
+        <div className="h-1 w-full bg-gradient-to-r from-violet-500 to-purple-500" />
+        <CardHeader className="px-5 py-4 flex flex-row items-center justify-between bg-accent/30 dark:bg-white/[0.05] border-b border-border/60">
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-lg bg-violet-500/15 border border-violet-500/25 flex items-center justify-center">
+              <ShieldCheck className="h-4 w-4 text-violet-400" />
+            </div>
+            <div>
+              <CardTitle className="text-xl font-bold tracking-tight text-foreground">
+                {t("Favourites:orgsHeader")}
+              </CardTitle>
+
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4">
+          {chainOrgs && chainOrgs.length ? (
+            <>
+              <div className="w-full max-h-[420px] overflow-auto block md:hidden">
+                <List
+                  rowComponent={({ index, style }) => {
+                    const org = chainOrgs[index];
+                    if (!org) return null;
+                    return (
+                      <div style={{ ...style, paddingRight: "10px" }}>
+                        <Card className="mb-3 group bg-card/60 border border-violet-500/15 hover:border-violet-500/30 hover:bg-violet-500/[0.03] hover:shadow-md transition-all rounded-xl">
+                          <CardHeader className="px-4 py-4">
+                            <div className="space-y-1 min-w-0">
+                              <CardTitle className="text-base text-foreground truncate">
+                                <span className="font-semibold">{org.symbol}</span>
+                                <span className="ml-2 text-xs font-mono font-normal text-muted-foreground/60">
+                                  {org.id}
+                                </span>
+                              </CardTitle>
+                            </div>
+                            <div className="mt-3 flex items-center gap-2 flex-wrap">
+                              <ActionPill
+                                href={`/active-predictions.html?search=${encodeURIComponent(org.symbol)}`}
+                                icon={ArrowLeftRight}
+                                accent="emerald"
+                              >
+                                {t("Favourites:viewActive")}
+                              </ActionPill>
+                              <ActionPill
+                                href={`/expired-predictions.html?search=${encodeURIComponent(org.symbol)}`}
+                                icon={ArrowLeftRight}
+                                accent="slate"
+                              >
+                                {t("Favourites:viewExpired")}
+                              </ActionPill>
+                              <div className="ml-auto">
+                                <RemoveButton
+                                  onClick={() => removeFavouriteOrganisation(_chain, org)}
+                                  label={t("Favourites:remove")}
+                                />
+                              </div>
+                            </div>
+                          </CardHeader>
+                        </Card>
+                      </div>
+                    );
+                  }}
+                  rowCount={chainOrgs.length}
+                  rowHeight={120}
+                  rowProps={{}}
+                />
+              </div>
+
+              <div className="w-full max-h-[420px] overflow-auto hidden md:block">
+                <List
+                  rowComponent={({ index, style }) => {
+                    const org = chainOrgs[index];
+                    if (!org) return null;
+                    return (
+                      <div style={{ ...style, paddingRight: "10px" }}>
+                        <Card className="mb-3 group bg-card/60 border border-violet-500/15 hover:border-violet-500/30 hover:bg-violet-500/[0.03] hover:shadow-md transition-all rounded-xl">
+                          <CardHeader className="px-4 py-4 flex flex-row items-center justify-between gap-3">
+                            <div className="space-y-1 min-w-0">
+                              <CardTitle className="text-base text-foreground truncate">
+                                <span className="font-semibold">{org.symbol}</span>
+                                <span className="ml-2 text-xs font-mono font-normal text-muted-foreground/60">
+                                  {org.id}
+                                </span>
+                              </CardTitle>
+                            </div>
+                            <div className="flex items-center gap-2 flex-shrink-0">
+                              <ActionPill
+                                href={`/active-predictions.html?search=${encodeURIComponent(org.symbol)}`}
+                                icon={ArrowLeftRight}
+                                accent="emerald"
+                              >
+                                {t("Favourites:viewActive")}
+                              </ActionPill>
+                              <ActionPill
+                                href={`/expired-predictions.html?search=${encodeURIComponent(org.symbol)}`}
+                                icon={ArrowLeftRight}
+                                accent="slate"
+                              >
+                                {t("Favourites:viewExpired")}
+                              </ActionPill>
+                              <div className="ml-1">
+                                <RemoveButton
+                                  onClick={() => removeFavouriteOrganisation(_chain, org)}
+                                  label={t("Favourites:remove")}
+                                />
+                              </div>
+                            </div>
+                          </CardHeader>
+                        </Card>
+                      </div>
+                    );
+                  }}
+                  rowCount={chainOrgs.length}
+                  rowHeight={88}
+                  rowProps={{}}
+                />
+              </div>
+            </>
+          ) : (
+            <Empty className="mt-2 border border-dashed border-violet-500/20 rounded-xl bg-violet-500/[0.03]">
+              <EmptyHeader>
+                <EmptyMedia variant="icon" className="bg-violet-500/15 text-violet-400"><ShieldCheck className="w-6 h-6" /></EmptyMedia>
+                <EmptyTitle className="text-foreground/80">{t("Favourites:orgsEmptyTitle")}</EmptyTitle>
+                <EmptyDescription className="text-muted-foreground">
+                  {t("Favourites:orgsEmptyDescription")}
                 </EmptyDescription>
               </EmptyHeader>
             </Empty>

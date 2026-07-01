@@ -24,6 +24,8 @@
   },
   "editOrg": "Editar organização",
   "createPrediction": "Criar previsão",
+  "favourite": "Favorito",
+  "unfavourite": "Remover",
   "json": {
     "title": "Dados JSON do ativo",
     "description": "Dados brutos da blockchain para este ativo de organização.",

@@ -24,5 +24,10 @@
   "clear": "Claro",
   "transfer": "Transferir",
   "timedTransfer": "Transferencia programada",
-  "vestAssets": "Activos de chaleco"
+  "vestAssets": "Activos de chaleco",
+  "orgsHeader": "Organizaciones favoritas",
+  "orgsEmptyTitle": "No hay organizaciones favoritas",
+  "orgsEmptyDescription": "Siga las organizaciones que le interesan agregándolas aquí.",
+  "viewActive": "Activo",
+  "viewExpired": "Expirado"
 }

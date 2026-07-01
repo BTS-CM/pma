@@ -24,6 +24,8 @@
   },
   "editOrg": "Rediger organisation",
   "createPrediction": "Opret forudsigelse",
+  "favourite": "Favorit",
+  "unfavourite": "Fjern",
   "json": {
     "title": "Asset JSON-data",
     "description": "Rå blockchain-data for denne organisations-asset.",

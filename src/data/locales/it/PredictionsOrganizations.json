@@ -24,6 +24,8 @@
   },
   "editOrg": "Modifica organizzazione",
   "createPrediction": "Crea previsione",
+  "favourite": "Preferito",
+  "unfavourite": "Rimuovi",
   "json": {
     "title": "Dati JSON dell'asset",
     "description": "Dati blockchain grezzi per questo asset organizzazione.",

@@ -24,5 +24,10 @@
   "clear": "Klar",
   "transfer": "Überweisen",
   "timedTransfer": "Zeitgesteuerte Übertragung",
-  "vestAssets": "Vest-Vermögen"
+  "vestAssets": "Vest-Vermögen",
+  "orgsHeader": "Lieblingsorganisationen",
+  "orgsEmptyTitle": "Keine bevorzugten Organisationen",
+  "orgsEmptyDescription": "Fügen Sie Organisationen hinzu, die Ihnen wichtig sind, um sie hier zu verfolgen.",
+  "viewActive": "Aktiv",
+  "viewExpired": "Abgelaufen"
 }

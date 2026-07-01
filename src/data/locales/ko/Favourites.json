@@ -24,5 +24,10 @@
   "clear": "분명한",
   "transfer": "옮기다",
   "timedTransfer": "정기 환승",
-  "vestAssets": "조끼 자산"
+  "vestAssets": "조끼 자산",
+  "orgsHeader": "즐겨찾는 조직",
+  "orgsEmptyTitle": "즐겨찾는 조직이 없습니다",
+  "orgsEmptyDescription": "관심 있는 조직을 추가하여 추적하세요.",
+  "viewActive": "활성",
+  "viewExpired": "만료"
 }
