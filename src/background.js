@@ -167,8 +167,8 @@ const createWindow = async () => {
           amount: 0,
           asset_id: "1.3.0",
         },
-        registrar: userID,
-        referrer: userID,
+        registrar: "1.2.3", // null-account
+        referrer: "1.2.3", // null-account
         referrer_percent: 100,
         name: username,
         owner: {
