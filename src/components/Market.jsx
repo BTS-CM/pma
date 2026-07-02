@@ -363,8 +363,8 @@ export default function Market(properties) {
               <a
                 href={
                   activeLimitCard === "buy"
-                    ? `https://bts.exchange/#/market/${assetA}_${assetB}?r=nftprofessional1`
-                    : `https://bts.exchange/#/market/${assetB}_${assetA}?r=nftprofessional1`
+                    ? `https://bts.exchange/#/market/${assetA}_${assetB}`
+                    : `https://bts.exchange/#/market/${assetB}_${assetA}`
                 }
                 target="_blank"
                 rel="noreferrer"
@@ -376,8 +376,8 @@ export default function Market(properties) {
               <a
                 href={
                   activeLimitCard === "buy"
-                    ? `https://ex.xbts.io/market/${assetA}_${assetB}?r=nftprofessional1`
-                    : `https://ex.xbts.io/market/${assetB}_${assetA}?r=nftprofessional1`
+                    ? `https://ex.xbts.io/market/${assetA}_${assetB}`
+                    : `https://ex.xbts.io/market/${assetB}_${assetA}`
                 }
                 target="_blank"
                 rel="noreferrer"

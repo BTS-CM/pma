@@ -345,14 +345,14 @@ export default function MarketAssetCard(properties) {
                     variant="outline"
                     type="button"
                     text={`BTS.exchange`}
-                    hyperlink={`https://bts.exchange/#/asset/${asset}?r=nftprofessional1`}
+                    hyperlink={`https://bts.exchange/#/asset/${asset}`}
                   />
                   <ExternalLinkButton
                     classnamecontents="ml-2"
                     variant="outline"
                     type="button"
                     text={`XBTS.io`}
-                    hyperlink={`https://ex.xbts.io/#/asset/${asset}?r=nftprofessional1`}
+                    hyperlink={`https://ex.xbts.io/#/asset/${asset}`}
                   />
                 </div>
               </div>
