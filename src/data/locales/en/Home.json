@@ -268,7 +268,7 @@
     "title": "Create PMA Organization",
     "subtitle": "Register a top-level name for issuing prediction market sub-assets",
     "hover1": "Register a brand name under which all your prediction market assets will be issued.",
-    "hover2": "Sub-assets (e.g. GAMBLE.0001) are created at a significant discount compared to standalone assets.",
+    "hover2": "Sub-assets (e.g. ASSET.0001) are created at a significant discount compared to standalone assets.",
     "hover3": "Builds brand recognition — investors instantly know which organization issued a prediction market asset."
   },
   "create_uia": {
@@ -492,7 +492,7 @@
     "title": "Prediction Market Organizations",
     "subtitle": "Browse organizations issuing prediction market assets",
     "hover1": "View all registered prediction market organizations and their active predictions.",
-    "hover2": "Each organization issues sub-assets (e.g. GAMBLE.0001) at a discount under a unified brand.",
+    "hover2": "Each organization issues sub-assets (e.g. ASSET.0001) at a discount under a unified brand.",
     "hover3": "Filter predictions by organization to find all assets from a single issuer."
   }
 }

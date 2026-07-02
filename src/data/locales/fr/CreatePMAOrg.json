@@ -6,7 +6,7 @@
   },
   "card": {
     "title": "Créer une Organisation de Marché de Prédiction",
-    "description": "Enregistrez un nom d'actif de niveau supérieur qui servira de parent pour vos sous-actifs de marché de prédiction. Les sous-actifs émis sous cette organisation (par exemple GAMBLE.0001) bénéficient de frais de création réduits et d'une reconnaissance instantanée de la marque.",
+    "description": "Enregistrez un nom d'actif de niveau supérieur qui servira de parent pour vos sous-actifs de marché de prédiction. Les sous-actifs émis sous cette organisation (par exemple ASSET.0001) bénéficient de frais de création réduits et d'une reconnaissance instantanée de la marque.",
     "updateTitle": "Modifier l'organisation de marché de prédiction",
     "updateDescription": "Mettez à jour les détails d'identité, de gouvernance et d'attestation de votre organisation."
   },
@@ -27,7 +27,7 @@
   "symbol": {
     "label": "Symbole de l'Organisation",
     "help": "Le symbole d'actif de niveau supérieur pour votre organisation de marché de prédiction. Les sous-actifs seront émis sous la forme SYMBOL.0001, SYMBOL.0002, etc. Ne peut pas contenir de point.",
-    "placeholder": "ex. GAMBLE"
+    "placeholder": "ex. ASSET"
   },
   "shortName": {
     "label": "Nom Court",
@@ -50,7 +50,7 @@
       "name": {
         "label": "Nom de l'Organisation",
         "help": "Le nom officiel de votre organisation de marché de prédiction.",
-        "placeholder": "ex. GambleDAO"
+        "placeholder": "ex. ASSETDAO"
       },
       "website": {
         "label": "Site Web",
@@ -103,7 +103,7 @@
   "fieldsRequired": "Veuillez entrer un symbole d'organisation pour continuer.",
   "tips": {
     "title": "À propos des Organisations PMA",
-    "hint": "La création d'une organisation de marché de prédiction enregistre un nom d'actif de niveau supérieur sous lequel vous pouvez émettre des sous-actifs à tarif réduit. Par exemple, enregistrer 'GAMBLE' vous permet de créer GAMBLE.0001, GAMBLE.0002, etc. — chacun à des frais inférieurs à la création d'un actif indépendant. Les investisseurs reconnaîtront ces sous-actifs comme appartenant à votre organisation."
+    "hint": "La création d'une organisation de marché de prédiction enregistre un nom d'actif de niveau supérieur sous lequel vous pouvez émettre des sous-actifs à tarif réduit. Par exemple, enregistrer 'ASSET' vous permet de créer ASSET.0001, ASSET.0002, etc. — chacun à des frais inférieurs à la création d'un actif indépendant. Les investisseurs reconnaîtront ces sous-actifs comme appartenant à votre organisation."
   },
   "buttons": {
     "submit": "Créer l'Organisation",

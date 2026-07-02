@@ -226,7 +226,7 @@
     "title": "Crea Organizzazione PMA",
     "subtitle": "Registra un nome di livello superiore per emettere sotto-asset di mercato di previsione",
     "hover1": "Registra un nome marchio sotto il quale tutti i tuoi asset di mercato di previsione saranno emessi.",
-    "hover2": "I sotto-asset (es. GAMBLE.0001) sono creati con una sconto significativo rispetto agli asset indipendenti.",
+    "hover2": "I sotto-asset (es. ASSET.0001) sono creati con una sconto significativo rispetto agli asset indipendenti.",
     "hover3": "Rafforza il riconoscimento del marchio — gli investitori sanno istantaneamente quale organizzazione ha emesso un asset di mercato di previsione."
   },
   "create_uia": {
@@ -492,7 +492,7 @@
     "title": "Organizzazioni di Mercato Previsionale",
     "subtitle": "Sfoglia le organizzazioni che emettono asset di mercato previsionale",
     "hover1": "Visualizza tutte le organizzazioni di mercato previsionale registrate e le loro previsioni attive.",
-    "hover2": "Ogni organizzazione emette sotto-asset (es. GAMBLE.0001) con sconto sotto un marchio unificato.",
+    "hover2": "Ogni organizzazione emette sotto-asset (es. ASSET.0001) con sconto sotto un marchio unificato.",
     "hover3": "Filtra le previsioni per organizzazione per trovare tutti gli asset di un singolo emittente."
   }
 }

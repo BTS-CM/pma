@@ -46,7 +46,8 @@ const pages = [
   "SimpleSwap",
   "InstantTrade",
   "CreatePMAOrg",
-  "PredictionsOrganizations"
+  "PredictionsOrganizations",
+  "Disclaimer"
 ];
 
 const locale = persistentAtom("locale", "en");

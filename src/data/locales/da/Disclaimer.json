@@ -1,0 +1,22 @@
+{
+  "title": "Open-Source Software & Juridisk Risikoansvarsfraskrivelse",
+  "readCarefully": "Læs venligst denne juridiske meddelelse omhyggeligt, før du fortsætter.",
+  "intro": "Anvendelsen pma er en gratis, open-source, klientgrafisk brugerflade (GUI) distribueret under MIT-licensen. Den fungerer udelukkende som et lokaliseret værktøj, der giver brugere mulighed for at interagere direkte med decentrale blockchain-protokoller.",
+  "acknowledge": "Ved at anerkende denne ansvarsfraskrivelse og fortsætte accepterer og bekræfter du følgende:",
+  "section1Title": "Ingen Central Operatør eller Komerciel Hensigt",
+  "section1Content": "Denne software vedligeholdes strengt af uafhængige open-source-bidragydere, ikke en virksomhed eller et kommercielt foretagende. Udviklerne driver ikke en platform, børs eller mæglervirksomhed. Vi driver ikke backend-infrastruktur, opkræver ikke handelsgebyrer, udbytter ikke overskud eller sporer brugerdata.",
+  "section2Title": "Ingen Aktivoprettelse eller Markedsafgørelse",
+  "section2Content": "Bidragyderne til dette projekt opretter ikke forudsigelsesmarkedsaktiver, fastsætter ikke kontraktregler, fungerer ikke som data-orakler og afgør ikke markedsudfald. Alle markeder oprettes, kapitaliseres og afgøres udelukkende af autonome tredjeparts-blockchain-deltagere. Denne grænseflade læser og formaterer blot offentligt tilgængelige blockchain-data.",
+  "section3Title": "Juridiske Variationer & Restriktioner",
+  "section3Content": "Den regulatoriske og juridiske status for decentrale forudsigelsesmarkedsaktiver varierer betydeligt på tværs af globale jurisdiktioner. I visse regioner kan interaktion med disse protokoller være begrænset, betragtes som regulerede finansielle derivater eller klassificeres som en form for væddemål, der kræver specifik lokal licensering. Tilsvarende er denne grænseflade ikke beregnet til brug, download eller eksekvering af personer, der bor i jurisdiktioner, hvor sådanne decentrale aktiviteter er begrænset eller uautoriserede, herunder:",
+  "section4Title": "Antagelse af Risiko & Aktivforvaltning",
+  "section4Content": "Denne software kører udelukkende på din lokale maskine. Bidragydere har aldrig forvaltning af dine kryptografiske nøgler eller midler. Interaktion med forudsigelsesaktiver indebærer en ekstrem risiko for totalt kapitaltab. Softwaren stilles til rådighed \"SOM DEN ER\", uden nogen form for garantier.",
+  "jurisdictionUK": "Storbritannien (Storbritannien & Nordirland)",
+  "jurisdictionEU": "Begrænsede EU-medlemsstater (herunder men ikke begrænset til Frankrig, Tyskland, Spanien, Belgien, Nederlandene, Italien, Portugal og Polen)",
+  "jurisdictionOther": "Schweiz, Australien, Singapore, Indonesien, Indien, Taiwan, Brasilien og Argentina",
+  "jurisdictionSanctions": "Enhver jurisdiktion, der er underlagt omfattende internationale sanktioner (såsom OFAC-restriktede nationer)",
+  "section5Title": "Brugercertificering",
+  "checkboxLabel": "Jeg bekræfter, at jeg ikke er bosiddende eller statsborger i Storbritannien, Amerikas Forenede Stater eller nogen anden begrænset jurisdiktion angivet ovenfor. Jeg påtager mig alle overholdelsesansvar og juridiske risici forbundet med mine lokale love, og jeg fritager open-source-bidragyderne for ethvert og alt juridisk eller økonomisk ansvar.",
+  "proceed": "Fortsæt",
+  "jurisdictionUSA": "Forenede Stater"
+}

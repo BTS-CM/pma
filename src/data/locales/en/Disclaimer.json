@@ -1,0 +1,22 @@
+{
+  "title": "Open-Source Software & Jurisdictional Risk Disclaimer",
+  "readCarefully": "Please read this legal notice carefully before proceeding.",
+  "intro": "The pma application is a free, open-source, client-side graphical user interface (GUI) distributed under the MIT License. It acts solely as a localized tool to allow users to interact directly with decentralized blockchain protocols.",
+  "acknowledge": "By acknowledging this disclaimer and proceeding, you agree to and confirm the following:",
+  "section1Title": "No Central Operator or Commercial Intent",
+  "section1Content": "This software is maintained strictly by independent open-source contributors, not a corporate entity or commercial venture. The developers do not operate a platform, exchange, or brokerage. We do not host backend infrastructure, collect trading fees, extract profits, or track user data.",
+  "section2Title": "No Asset Creation or Market Resolution",
+  "section2Content": "The contributors of this project do not create prediction market assets, establish contract rules, act as data oracles, or resolve market outcomes. All markets are created, capitalized, and resolved entirely by autonomous third-party blockchain participants. This interface simply reads and formats publicly available blockchain data.",
+  "section3Title": "Jurisdictional Variations & Restrictions",
+  "section3Content": "The regulatory and legal status of decentralized prediction market assets varies significantly across global jurisdictions. In certain regions, interacting with these protocols may be restricted, treated as regulated financial derivatives, or classified as a form of wagering that requires specific local licensing. Accordingly, this interface is not intended for use, download, or execution by individuals residing in jurisdictions where such decentralized activities are restricted or unauthorized, including:",
+  "section4Title": "Assumption of Risk & Asset Custody",
+  "section4Content": "This software runs exclusively on your local machine. Contributors never hold custody of your cryptographic keys or funds. Interacting with prediction assets involves an extreme risk of complete financial loss. The software is provided \"AS IS\", without warranties of any kind.",
+  "jurisdictionUSA": "The United States of America",
+  "jurisdictionUK": "The United Kingdom (Great Britain & Northern Ireland)",
+  "jurisdictionEU": "Restricted European Union Member States (including but not limited to France, Germany, Spain, Belgium, the Netherlands, Italy, Portugal, and Poland)",
+  "jurisdictionOther": "Switzerland, Australia, Singapore, Indonesia, India, Taiwan, Brazil, and Argentina",
+  "jurisdictionSanctions": "Any jurisdiction subject to comprehensive international sanctions (such as OFAC-restricted nations)",
+  "section5Title": "User Certification",
+  "checkboxLabel": "I certify that I am not a resident or citizen of the United Kingdom, the United States, or any other restricted jurisdiction listed above. I assume all compliance responsibilities and legal risks associated with my local laws, and I release the open-source contributors from any and all legal or financial liability.",
+  "proceed": "Proceed"
+}

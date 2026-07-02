@@ -226,7 +226,7 @@
     "title": "Criar Organização PMA",
     "subtitle": "Registre um nome de nível superior para emitir sub-ativos de mercado de previsão",
     "hover1": "Registre um nome de marca sob o qual todos os seus ativos de mercado de previsão serão emitidos.",
-    "hover2": "Sub-ativos (ex. GAMBLE.0001) são criados com desconto significativo em comparação com ativos independentes.",
+    "hover2": "Sub-ativos (ex. ASSET.0001) são criados com desconto significativo em comparação com ativos independentes.",
     "hover3": "Fortalece o reconhecimento da marca — os investidores sabem instantaneamente qual organização emitiu um ativo de mercado de previsão."
   },
   "create_uia": {
@@ -492,7 +492,7 @@
     "title": "Organizações de Mercado de Previsão",
     "subtitle": "Explore organizações que emitem ativos de mercado de previsão",
     "hover1": "Veja todas as organizações de mercado de previsão registradas e suas previsões ativas.",
-    "hover2": "Cada organização emite sub-ativos (ex. GAMBLE.0001) com desconto sob uma marca unificada.",
+    "hover2": "Cada organização emite sub-ativos (ex. ASSET.0001) com desconto sob uma marca unificada.",
     "hover3": "Filtre previsões por organização para encontrar todos os ativos de um único emissor."
   }
 }

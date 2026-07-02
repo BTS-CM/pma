@@ -226,7 +226,7 @@
     "title": "Loo PMA organisatsioon",
     "subtitle": "Registreerige tipptaseme nimi ennustusturu tütvarade väljaandmiseks",
     "hover1": "Registreerige brändi nimi, mille alla kõik teie ennustusturu varad välja antakse.",
-    "hover2": "Tütarvarad (nt GAMBLE.0001) luuakse oluliselt soodsama hinnaga kui iseseisvad varad.",
+    "hover2": "Tütarvarad (nt ASSET.0001) luuakse oluliselt soodsama hinnaga kui iseseisvad varad.",
     "hover3": "Ehitab brändi tuntust — investorid teavad kohe, milline organisatsioon ennustusturu vara välja andis."
   },
   "create_uia": {
@@ -492,7 +492,7 @@
     "title": "Ennustusturu organisatsioonid",
     "subtitle": "Sirvige organisatsioone, mis väljastavad ennustusturu varasid",
     "hover1": "Vaadake kõiki registreeritud ennustusturu organisatsioone ja nende aktiivseid ennustusi.",
-    "hover2": "Iga organisatsioon väljastab tütarvarasid (nt GAMBLE.0001) soodushinnaga ühtse brändi all.",
+    "hover2": "Iga organisatsioon väljastab tütarvarasid (nt ASSET.0001) soodushinnaga ühtse brändi all.",
     "hover3": "Filtreerige ennustusi organisatsiooni järgi, et leida kõik ühe väljaandja varad."
   }
 }

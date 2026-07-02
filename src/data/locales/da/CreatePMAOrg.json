@@ -6,7 +6,7 @@
   },
   "card": {
     "title": "Opret Prediction Market Organisation",
-    "description": "Registrer et top-level aktivnavn, der vil tjene som overordnet for dine prediction market-underaktiver. Underaktiver udstedt under denne organisation (f.eks. GAMBLE.0001) drager fordel af reducerede oprettelsesgebyrer og øjeblikkelig genkendelse af brandnavnet.",
+    "description": "Registrer et top-level aktivnavn, der vil tjene som overordnet for dine prediction market-underaktiver. Underaktiver udstedt under denne organisation (f.eks. ASSET.0001) drager fordel af reducerede oprettelsesgebyrer og øjeblikkelig genkendelse af brandnavnet.",
     "updateTitle": "Rediger prediktionsmarkedsorganisation",
     "updateDescription": "Opdater din organisations identitets-, ledelses- og attesteringsdetaljer."
   },
@@ -27,7 +27,7 @@
   "symbol": {
     "label": "Organisationssymbol",
     "help": "Det overordnede aktivsymbol for din prediction market-organisation. Underaktiver vil blive udstedt som SYMBOL.0001, SYMBOL.0002 osv. Kan ikke indeholde et punktum.",
-    "placeholder": "f.eks. GAMBLE"
+    "placeholder": "f.eks. ASSET"
   },
   "shortName": {
     "label": "Kort navn",
@@ -50,7 +50,7 @@
       "name": {
         "label": "Organisationsnavn",
         "help": "Det officielle navn på din prediction market-organisation.",
-        "placeholder": "f.eks. GambleDAO"
+        "placeholder": "f.eks. ASSETDAO"
       },
       "website": {
         "label": "Hjemmeside",
@@ -103,7 +103,7 @@
   "fieldsRequired": "Indtast venligst et organisationssymbol for at fortsætte.",
   "tips": {
     "title": "Om PMA-organisationer",
-    "hint": "Oprettelse af en prediction market-organisation registrerer et top-level aktivnavn, under hvilket du kan udstede underaktiver til en betydelig rabat. For eksempel gør registrering af 'GAMBLE' det muligt at oprette GAMBLE.0001, GAMBLE.0002 osv. — hver til en lavere pris end at oprette et selvstændigt aktiv. Investorer vil genkende disse underaktiver som tilhørende din organisation."
+    "hint": "Oprettelse af en prediction market-organisation registrerer et top-level aktivnavn, under hvilket du kan udstede underaktiver til en betydelig rabat. For eksempel gør registrering af 'ASSET' det muligt at oprette ASSET.0001, ASSET.0002 osv. — hver til en lavere pris end at oprette et selvstændigt aktiv. Investorer vil genkende disse underaktiver som tilhørende din organisation."
   },
   "buttons": {
     "submit": "Opret organisation",

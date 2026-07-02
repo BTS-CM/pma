@@ -1,0 +1,22 @@
+{
+  "title": "Open-Source-Software & Haftungsausschluss bezüglich jurisdictioneller Risiken",
+  "readCarefully": "Bitte lesen Sie diesen rechtlichen Hinweis sorgfältig durch, bevor Sie fortfahren.",
+  "intro": "Die Anwendung pma ist eine kostenlose, Open-Source,客户端-gestützte grafische Benutzeroberfläche (GUI), die unter der MIT-Lizenz verteilt wird. Sie dient ausschließlich als lokalisiertes Werkzeug, das es Benutzern ermöglicht, direkt mit dezentralen Blockchain-Protokollen zu interagieren.",
+  "acknowledge": "Durch die Anerkennung dieses Haftungsausschlusses und das Fortfahren stimmen Sie Folgendem zu und bestätigen dies:",
+  "section1Title": "Kein zentraler Betreiber oder kommerzieller Zweck",
+  "section1Content": "Diese Software wird ausschließlich von unabhängigen Open-Source-Mitwirkenden gepflegt, nicht von einem Unternehmen oder kommerziellen Vorhaben. Die Entwickler betreiben keine Plattform, keinen Handelsplatz oder Maklerdienste. Wir betreiben keine Backend-Infrastruktur, erheben keine Handelsgebühren, nehmen keine Gewinne und verfolgen keine Benutzerdaten.",
+  "section2Title": "Keine Vermögenswert-Erstellung oder Markt-Aufösung",
+  "section2Content": "Die Mitwirkenden dieses Projekts erstellen keine Prognosemarkt-Wertpapiere, legen keine Vertragsbedingungen fest, fungieren nicht als Daten-Orakel und lösen keine Marktergebnisse. Alle Märkte werden ausschließlich von autonomen Drittanbietern über Blockchain erstellt, finanziert und aufgelöst. Diese Oberfläche liest und formatiert lediglich öffentlich verfügbare Blockchain-Daten.",
+  "section3Title": "Jurisdictionelle Variationen & Einschränkungen",
+  "section3Content": "Der regulatorische und rechtliche Status dezentraler Prognosemarkt-Wertpapiere variiert erheblich weltweit. In bestimmten Regionen kann die Interaktion mit diesen Protokollen eingeschränkt, als regulierte Finanzderivate behandelt oder als eine Form des Wettens klassifiziert werden, die eine spezielle lokale Lizenzierung erfordert. Accordingly ist diese Oberfläche nicht für die Nutzung, den Download oder die Ausführung durch Personen bestimmt, die in Jurisdiktionen ansässig sind, in denen solche dezentralen Aktivitäten eingeschränkt oder nicht autorisiert sind, einschließlich:",
+  "section4Title": "Übernahme des Risikos & Vermögenswert-Verwahrung",
+  "section4Content": "Diese Software läuft ausschließlich auf Ihrem lokalen Rechner. Die Mitwirkenden übernehmen niemals die Verwahrung Ihrer kryptografischen Schlüssel oder Gelder. Die Interaktion mit Prognosemarkt-Wertpapieren beinhaltet ein extremes Risiko des vollständigen Kapitalverlusts. Die Software wird \"WIE SIE IST\" bereitgestellt, ohne jegliche Art von Garantien.",
+  "jurisdictionUK": "Das Vereinigte Königreich (Großbritannien & Nordirland)",
+  "jurisdictionEU": "Eingeschränkte EU-Mitgliedstaaten (einschließlich, aber nicht beschränkt auf Frankreich, Deutschland, Spanien, Belgien, die Niederlande, Italien, Portugal und Polen)",
+  "jurisdictionOther": "Schweiz, Australien, Singapur, Indonesien, Indien, Taiwan, Brasilien und Argentinien",
+  "jurisdictionSanctions": "Jede Jurisdiktion, die umfassenden internationalen Sanktionen unterliegt (wie OFAC-eingeschränkte Nationen)",
+  "section5Title": "Benutzer-Zertifizierung",
+  "checkboxLabel": "Ich bestätige, dass ich kein Einwohner oder Staatsbürger des Vereinigten Königreichs, der Vereinigten Staaten von Amerika oder einer anderen eingeschränkten Jurisdiktion oben bin. Ich übernehme alle Compliance-Verantwortlichkeiten und rechtlichen Risiken, die mit meinen lokalen Gesetzen verbunden sind, und befreie die Open-Source-Mitwirkenden von jeglicher rechtlicher oder finanzieller Haftung.",
+  "proceed": "Fortfahren",
+  "jurisdictionUSA": "Vereinigte Staaten von Amerika"
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Avatud lähtekoodiga tarkvara ja jurisdiktsiooniriski lahtiütlus",
+  "readCarefully": "Palun lugege seda õiguslikku teadet hoolikalt enne jätkamist.",
+  "intro": "Rakendus pma on tasuta, avatud lähtekoodiga, kliendipoolne graafiline kasutajaliides (GUI), mis on litsentseeritud MIT litsentsi alusel. See toimib ainult lokaliseeritud tööriistana, mis võimaldab kasutajatel otseselt suhelda detsentraliseeritud plokkahelaprotokollidega.",
+  "acknowledge": "Selle lahtiütluse tunnustamisega ja jätkamisega nõustute ja kinnitate järgmist:",
+  "section1Title": "Kesksüsteemi haldajat ega ärihuvi pole",
+  "section1Content": "Seda tarkvara hooldavad ranged sõltumatud avatud lähtekoodiga arendajad, mitte äriühing või äriettevõte. Arendajad ei halda platvormi, börsi ega vahendusteenust. Me ei hosti tuginfrastruktuuri, ei kogu kauplemistasusid, ei võta kasumit ega jälgi kasutajate andmeid.",
+  "section2Title": "Varade loomist ega turu lahendamist ei toimu",
+  "section2Content": "Selle projekti panustajad ei loo ennustusturuvarasid, sea lepingutingimusi, tegutse andmekogujate rollis ega lahenda turu tulemusi. Kõik turud on loodud, rahastatud ja lahendatud täielikult autonoomsete kolmanda poole plokkahela osalejate poolt. See liides lihtsalt loeb ja vormindab avalikult kättesaadavat plokkahela andmeid.",
+  "section3Title": "Jurisdiktsioonilised erinevused ja piirangud",
+  "section3Content": "Detsentraliseeritud ennustusturuvarade regulatiivne ja õiguslik staatus varieerub oluliselt ülemaailmsetes jurisdiktsioonides. Teatud piirkondades võib nende protokollidega suhtlemine olla piiratud, käsitleda reguleeritud finantsderivaatidena või liigitada teatud liiki panustena, mis nõuavad kohalikku litsentsi. Seetõttu ei ole see mõeldud kasutamiseks, allalaadimiseks ega käivitamiseks isikute poolt, kes elavad jurisdiktsioonides, kus sellised detsentraliseeritud tegevused on piiratud või volitamata, sealhulgas:",
+  "section4Title": "Riski võtmine ja varade hoiustamine",
+  "section4Content": "See tarkvara töötab ainult teie kohalikus arvutis. Panustajad ei võta kunagi vastutust teie krüptograafiliste võtmete või vahendite üle. Ennustusvaradega suhtlemine hõlmab äärmist riski kogu kapitali kaotamiseks. Tarkvara pakutakse \"NAGU SEE ON\", ilma igasuguste garantiideta.",
+  "jurisdictionUK": "Ühendkuningriik (Suurbritannia ja Põhja-Iirimaa)",
+  "jurisdictionEU": "Piiratud Euroopa Liidu liikmesriigid (sealhulgas, kuid mitte ainult Prantsusmaa, Saksamaa, Hispaania, Belgia, Madalmaad, Itaalia, Portugal ja Poola)",
+  "jurisdictionOther": "Šveits, Austraalia, Singapur, Indoneesia, India, Taiwan, Brasiilia ja Argentina",
+  "jurisdictionSanctions": "Mõni jurisdiktsioon, millele kehtivad ulatuslikud rahvusvahelised sanktsioonid (nagu OFAC piirangute all olevad riigid)",
+  "section5Title": "Kasutaja sertifitseerimine",
+  "checkboxLabel": "Ma kinnitan, et ma ei ole Ühendkuningriigi, Ameerika Ühendriikide ega muu ülalnimetatud piiratud jurisdiktsiooni elanik ega kodanik. Ma võtan endale kõik vastavuskohustused ja õiguslikud riskid, mis on seotud minu kohalike seadustega, ja vabastan avatud lähtekoodiga panustajad kõigist õiguslikest ja rahalistest vastutustest.",
+  "proceed": "Jätka",
+  "jurisdictionUSA": "Ameerika Ühendriigid"
+}

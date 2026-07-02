@@ -6,7 +6,7 @@
   },
   "card": {
     "title": "Crea Organizzazione di Mercato di Previsione",
-    "description": "Registra un nome asset di livello superiore che fungerà da genitore per i tuoi sotto-asset di mercato di previsione. I sotto-asset emessi sotto questa organizzazione (es. GAMBLE.0001) beneficiano di tariffe di creazione ridotte e riconoscimento istantaneo del marchio.",
+    "description": "Registra un nome asset di livello superiore che fungerà da genitore per i tuoi sotto-asset di mercato di previsione. I sotto-asset emessi sotto questa organizzazione (es. ASSET.0001) beneficiano di tariffe di creazione ridotte e riconoscimento istantaneo del marchio.",
     "updateTitle": "Modifica organizzazione di mercato previsionale",
     "updateDescription": "Aggiorna i dettagli di identità, governance e attestazione della tua organizzazione."
   },
@@ -27,7 +27,7 @@
   "symbol": {
     "label": "Simbolo dell'Organizzazione",
     "help": "Il simbolo asset di livello superiore per la tua organizzazione di mercato di previsione. I sotto-asset saranno emessi come SYMBOL.0001, SYMBOL.0002, ecc. Non può contenere un punto.",
-    "placeholder": "es. GAMBLE"
+    "placeholder": "es. ASSET"
   },
   "shortName": {
     "label": "Nome Breve",
@@ -50,7 +50,7 @@
       "name": {
         "label": "Nome dell'Organizzazione",
         "help": "Il nome ufficiale della tua organizzazione di mercato di previsione.",
-        "placeholder": "es. GambleDAO"
+        "placeholder": "es. ASSETDAO"
       },
       "website": {
         "label": "Sito Web",
@@ -103,7 +103,7 @@
   "fieldsRequired": "Inserisci un simbolo dell'organizzazione per continuare.",
   "tips": {
     "title": " sulle Organizzazioni PMA",
-    "hint": "La creazione di un'organizzazione di mercato di previsione registra un nome asset di livello superiore sotto il quale puoi emettere sotto-asset a tariffe notevolmente ridotte. Ad esempio, registrare 'GAMBLE' ti permette di creare GAMBLE.0001, GAMBLE.0002, ecc. — ciascuno a tariffe inferiori rispetto alla creazione di un asset indipendente. Gli investitori riconosceranno questi sotto-asset come appartenenti alla tua organizzazione."
+    "hint": "La creazione di un'organizzazione di mercato di previsione registra un nome asset di livello superiore sotto il quale puoi emettere sotto-asset a tariffe notevolmente ridotte. Ad esempio, registrare 'ASSET' ti permette di creare ASSET.0001, ASSET.0002, ecc. — ciascuno a tariffe inferiori rispetto alla creazione di un asset indipendente. Gli investitori riconosceranno questi sotto-asset come appartenenti alla tua organizzazione."
   },
   "buttons": {
     "submit": "Crea Organizzazione",

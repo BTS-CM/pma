@@ -226,7 +226,7 @@
     "title": "PMA-Organisation erstellen",
     "subtitle": "Registrieren Sie einen Top-Level-Namen für die Ausgabe von Prediction Market-Unteractiven",
     "hover1": "Registrieren Sie einen Markennamen, unter dem alle Ihre Prediction Market-Aktive ausgegeben werden.",
-    "hover2": "Unteractiven (z.B. GAMBLE.0001) werden mit erheblichem Rabatt im Vergleich zu eigenständigen Activien erstellt.",
+    "hover2": "Unteractiven (z.B. ASSET.0001) werden mit erheblichem Rabatt im Vergleich zu eigenständigen Activien erstellt.",
     "hover3": "Stärkt die Markenerkennung — Investoren wissen sofort, welche Organisation ein Prediction Market-Asset ausgegeben hat."
   },
   "create_uia": {
@@ -492,7 +492,7 @@
     "title": "Vorhersagemarkt-Organisationen",
     "subtitle": "Durchsuchen Sie Organisationen, die Vorhersagemarkt-Ausgaben ausgeben",
     "hover1": "Sehen Sie sich alle registrierten Vorhersagemarkt-Organisationen und deren aktive Vorhersagen an.",
-    "hover2": "Jede Organisation gibt Sub-Assets (z.B. GAMBLE.0001) mit Rabatt unter einer einheitlichen Marke aus.",
+    "hover2": "Jede Organisation gibt Sub-Assets (z.B. ASSET.0001) mit Rabatt unter einer einheitlichen Marke aus.",
     "hover3": "Filtern Sie Vorhersagen nach Organisation, um alle Assets eines einzelnen Emittenten zu finden."
   }
 }

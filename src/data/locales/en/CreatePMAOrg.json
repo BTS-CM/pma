@@ -6,7 +6,7 @@
   },
   "card": {
     "title": "Create Prediction Market Organization",
-    "description": "Register a top-level asset name that will serve as the parent for your prediction market sub-assets. Sub-assets issued under this organization (e.g. GAMBLE.0001) benefit from reduced creation fees and instant brand recognition.",
+    "description": "Register a top-level asset name that will serve as the parent for your prediction market sub-assets. Sub-assets issued under this organization (e.g. ASSET.0001) benefit from reduced creation fees and instant brand recognition.",
     "updateTitle": "Edit Prediction Market Organization",
     "updateDescription": "Update your organization's identity, governance, and attestation details."
   },
@@ -27,7 +27,7 @@
   "symbol": {
     "label": "Organization Symbol",
     "help": "The top-level asset symbol for your prediction market organization. Sub-assets will be issued as SYMBOL.0001, SYMBOL.0002, etc. Cannot contain a dot.",
-    "placeholder": "e.g. GAMBLE"
+    "placeholder": "e.g. ASSET"
   },
   "shortName": {
     "label": "Short Name",
@@ -50,7 +50,7 @@
       "name": {
         "label": "Organization Name",
         "help": "The official name of your prediction market organization.",
-        "placeholder": "e.g. GambleDAO"
+        "placeholder": "e.g. ASSETDAO"
       },
       "website": {
         "label": "Website",
@@ -103,7 +103,7 @@
   "fieldsRequired": "Please enter an organization symbol to continue.",
   "tips": {
     "title": "About PMA Organizations",
-    "hint": "Creating a prediction market organization registers a top-level asset name under which you can issue sub-assets at a significant discount. For example, registering 'GAMBLE' allows you to later create GAMBLE.0001, GAMBLE.0002, etc. — each at a lower fee than creating a standalone asset. Investors will recognize these sub-assets as belonging to your organization."
+    "hint": "Creating a prediction market organization registers a top-level asset name under which you can issue sub-assets at a significant discount. For example, registering 'ASSET' allows you to later create ASSET.0001, ASSET.0002, etc. — each at a lower fee than creating a standalone asset. Investors will recognize these sub-assets as belonging to your organization."
   },
   "buttons": {
     "submit": "Create Organization",

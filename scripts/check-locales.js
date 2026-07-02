@@ -171,8 +171,6 @@ for (const fileBasename of allFileBasenames) {
           refVal.length > 10 &&
           !/^[A-Z][a-z]+(\s[A-Z][a-z]+)*$/.test(refVal) && // not Title Case names
           !refVal.includes(".") && // not URLs
-          !refVal.includes("GAMBLE") &&
-          !refVal.includes("0001")
         ) {
           untranslatedKeys.push(key);
         }

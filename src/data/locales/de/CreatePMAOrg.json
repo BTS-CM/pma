@@ -6,7 +6,7 @@
   },
   "card": {
     "title": "Prediction Market Organisation erstellen",
-    "description": "Registrieren Sie einen Top-Level-Aktivnamen, der als übergeordnetes Element für Ihre Prediction Market-Unteractiven dient. Unteractiven, die unter dieser Organisation ausgegeben werden (z.B. GAMBLE.0001), profitieren von reduzierten Erstellungsgebühren und sofortiger Markenerkennung.",
+    "description": "Registrieren Sie einen Top-Level-Aktivnamen, der als übergeordnetes Element für Ihre Prediction Market-Unteractiven dient. Unteractiven, die unter dieser Organisation ausgegeben werden (z.B. ASSET.0001), profitieren von reduzierten Erstellungsgebühren und sofortiger Markenerkennung.",
     "updateTitle": "Vorhersagemarkt-Organisation bearbeiten",
     "updateDescription": "Aktualisieren Sie die Identitäts-, Governance- und Attestierungsdetails Ihrer Organisation."
   },
@@ -27,7 +27,7 @@
   "symbol": {
     "label": "Organisationssymbol",
     "help": "Das übergeordnete Aktivsymbol für Ihre Prediction Market-Organisation. Unteractiven werden als SYMBOL.0001, SYMBOL.0002 usw. ausgegeben. Darf keinen Punkt enthalten.",
-    "placeholder": "z.B. GAMBLE"
+    "placeholder": "z.B. ASSET"
   },
   "shortName": {
     "label": "Kurzname",
@@ -50,7 +50,7 @@
       "name": {
         "label": "Organisationsname",
         "help": "Der offizielle Name Ihrer Prediction Market-Organisation.",
-        "placeholder": "z.B. GambleDAO"
+        "placeholder": "z.B. ASSETDAO"
       },
       "website": {
         "label": "Webseite",
@@ -103,7 +103,7 @@
   "fieldsRequired": "Bitte geben Sie ein Organisationssymbol ein, um fortzufahren.",
   "tips": {
     "title": "Über PMA-Organisationen",
-    "hint": "Durch die Erstellung einer Prediction Market-Organisation wird ein Top-Level-Aktivname registriert, unter dem Sie Unteractiven mit erheblichem Rabatt ausgeben können. Wenn Sie beispielsweise 'GAMBLE' registrieren, können Sie GAMBLE.0001, GAMBLE.0002 usw. erstellen — jeweils zu geringeren Gebühren als ein eigenständiges Asset. Investoren erkennen diese Unteractiven sofort als Teil Ihrer Organisation."
+    "hint": "Durch die Erstellung einer Prediction Market-Organisation wird ein Top-Level-Aktivname registriert, unter dem Sie Unteractiven mit erheblichem Rabatt ausgeben können. Wenn Sie beispielsweise 'ASSET' registrieren, können Sie ASSET.0001, ASSET.0002 usw. erstellen — jeweils zu geringeren Gebühren als ein eigenständiges Asset. Investoren erkennen diese Unteractiven sofort als Teil Ihrer Organisation."
   },
   "buttons": {
     "submit": "Organisation erstellen",

@@ -1,0 +1,22 @@
+{
+  "title": "Logiciel Open Source & Avertissement Concernant les Risques Juridictionnels",
+  "readCarefully": "Veuillez lire attentivement cet avis juridique avant de continuer.",
+  "intro": "L'application pma est une interface graphique utilisateur (GUI) gratuite et open source, distribuée sous la licence MIT. Elle agit uniquement comme un outil localisé permettant aux utilisateurs d'interagir directement avec des protocoles blockchain décentralisés.",
+  "acknowledge": "En reconnaissant cet avertissement et en continuant, vous acceptez et confirmez ce qui suit :",
+  "section1Title": "Aucun Opérateur Central ou Intention Commerciale",
+  "section1Content": "Ce logiciel est maintenu exclusivement par des contributeurs open source indépendants, pas par une entité commerciale ou une activité commerciale. Les développeurs n'exploitent pas de plateforme, de bourse ou de courtage. Nous n'hébergeons pas d'infrastructure backend, ne percevons pas de frais de transaction, ne retirons pas de profits et ne suivons pas les données des utilisateurs.",
+  "section2Title": "Aucune Création d'Actifs ou Résolution de Marché",
+  "section2Content": "Les contributeurs de ce projet ne créent pas d'actifs de marchés de prévision, n'établissent pas de règles de contrat, n'agissent pas en tant qu'oracles de données et ne résolvent pas les résultats des marchés. Tous les marchés sont créés, capitalisés et résolus entièrement par des participants blockchain tiers autonomes. Cette interface lit et formate simplement les données blockchain accessibles au public.",
+  "section3Title": "Variations & Restrictions Juridictionnelles",
+  "section3Content": "Le statut réglementaire et juridique des actifs de marchés de prévision décentralisés varie considérablement selon les juridictions mondiales. Dans certaines régions, l'interaction avec ces protocoles peut être restreinte, traitée comme des dérivés financiers réglementés ou classée comme une forme de pari nécessitant une licence locale spécifique. En conséquence, cette interface n'est pas destinée à être utilisée, téléchargée ou exécutée par des personnes résidant dans des juridictions où ces activités décentralisées sont restreintes ou non autorisées, y compris :",
+  "section4Title": "Acceptation du Risque & Garde des Actifs",
+  "section4Content": "Ce logiciel s'exécute exclusivement sur votre machine locale. Les contributeurs ne prennent jamais la garde de vos clés cryptographiques ou fonds. L'interaction avec des actifs de prévision comporte un risque extrême de perte totale de capital. Le logiciel est fourni \"EN L'ÉTAT\", sans garantie d'aucune sorte.",
+  "jurisdictionUK": "Le Royaume-Uni (Grande-Bretagne et Irlande du Nord)",
+  "jurisdictionEU": "États membres restreints de l'Union européenne (y compris mais sans s'y limiter la France, l'Allemagne, l'Espagne, la Belgique, les Pays-Bas, l'Italie, le Portugal et la Pologne)",
+  "jurisdictionOther": "La Suisse, l'Australie, Singapour, l'Indonésie, l'Inde, Taïwan, le Brésil et l'Argentine",
+  "jurisdictionSanctions": "Toute juridiction soumise à des sanctions internationales complètes (telles que les nations restreintes par l'OFAC)",
+  "section5Title": "Certification de l'Utilisateur",
+  "checkboxLabel": "Je certifie que je ne suis pas résident ou citoyen du Royaume-Uni, des États-Unis d'Amérique ou de toute autre juridiction restreinte mentionnée ci-dessus. J'assume toutes les responsabilités de conformité et les risques juridiques associés à mes lois locales, et je libère les contributeurs open source de toute responsabilité légale ou financière.",
+  "proceed": "Continuer",
+  "jurisdictionUSA": "Les États-Unis d'Amérique"
+}

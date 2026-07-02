@@ -226,7 +226,7 @@
     "title": "Opret PMA-organisation",
     "subtitle": "Registrer et top-level navn til udstedelse af predictions market-underaktiver",
     "hover1": "Registrer et brandnavn, under hvilket alle dine predictions market-aktiver vil blive udstedt.",
-    "hover2": "Underaktiver (f.eks. GAMBLE.0001) oprettes til en betydelig rabat sammenlignet med selvstændige aktiver.",
+    "hover2": "Underaktiver (f.eks. ASSET.0001) oprettes til en betydelig rabat sammenlignet med selvstændige aktiver.",
     "hover3": "Opbygger genkendelse af brandnavnet — investorer ved øjeblikkeligt, hvilken organisation der har udstedt et predictions market-aktiv."
   },
   "create_uia": {
@@ -492,7 +492,7 @@
     "title": "Forudsigelsesmarkedsorganisationer",
     "subtitle": "Gennemse organisationer der udsteder forudsigelsesmarkedsaktiver",
     "hover1": "Se alle registrerede forudsigelsesmarkedsorganisationer og deres aktive forudsigelser.",
-    "hover2": "Hver organisation udsteder underaktiver (f.eks. GAMBLE.0001) med rabat under et ensartet brand.",
+    "hover2": "Hver organisation udsteder underaktiver (f.eks. ASSET.0001) med rabat under et ensartet brand.",
     "hover3": "Filtrer forudsigelser efter organisation for at finde alle aktiver fra en enkelt udsteder."
   }
 }

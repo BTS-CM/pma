@@ -6,7 +6,7 @@
   },
   "card": {
     "title": "Criar Organização de Mercado de Previsão",
-    "description": "Registre um nome de ativo de nível superior que servirá como pai para seus sub-ativos de mercado de previsão. Os sub-ativos emitidos sob esta organização (por exemplo, GAMBLE.0001) se beneficiam de taxas de criação reduzidas e reconhecimento instantâneo da marca.",
+    "description": "Registre um nome de ativo de nível superior que servirá como pai para seus sub-ativos de mercado de previsão. Os sub-ativos emitidos sob esta organização (por exemplo, ASSET.0001) se beneficiam de taxas de criação reduzidas e reconhecimento instantâneo da marca.",
     "updateTitle": "Editar organização de mercado de previsão",
     "updateDescription": "Atualize os detalhes de identidade, governança e attestação da sua organização."
   },
@@ -27,7 +27,7 @@
   "symbol": {
     "label": "Símbolo da Organização",
     "help": "O símbolo de ativo de nível superior para sua organização de mercado de previsão. Os sub-ativos serão emitidos como SYMBOL.0001, SYMBOL.0002, etc. Não pode conter um ponto.",
-    "placeholder": "ex. GAMBLE"
+    "placeholder": "ex. ASSET"
   },
   "shortName": {
     "label": "Nome Curto",
@@ -50,7 +50,7 @@
       "name": {
         "label": "Nome da Organização",
         "help": "O nome oficial da sua organização de mercado de previsão.",
-        "placeholder": "ex. GambleDAO"
+        "placeholder": "ex. ASSETDAO"
       },
       "website": {
         "label": "Site",
@@ -103,7 +103,7 @@
   "fieldsRequired": "Por favor, insira um símbolo de organização para continuar.",
   "tips": {
     "title": "Sobre Organizações PMA",
-    "hint": "Criar uma organização de mercado de previsão registra um nome de ativo de nível superior sob o qual você pode emitir sub-ativos com desconto significativo. Por exemplo, registrar 'GAMBLE' permite criar GAMBLE.0001, GAMBLE.0002, etc. — cada um com taxas menores do que a criação de um ativo independente. Os investidores reconhecerão esses sub-ativos como pertencentes à sua organização."
+    "hint": "Criar uma organização de mercado de previsão registra um nome de ativo de nível superior sob o qual você pode emitir sub-ativos com desconto significativo. Por exemplo, registrar 'ASSET' permite criar ASSET.0001, ASSET.0002, etc. — cada um com taxas menores do que a criação de um ativo independente. Os investidores reconhecerão esses sub-ativos como pertencentes à sua organização."
   },
   "buttons": {
     "submit": "Criar Organização",

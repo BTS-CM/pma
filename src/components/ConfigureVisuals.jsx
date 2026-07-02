@@ -8,6 +8,7 @@ import {
   setVisualSetting,
   resetVisualSettings,
 } from "@/stores/visuals.ts";
+import { resetDisclaimer } from "@/stores/disclaimer.ts";
 
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -29,7 +30,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { Palette, RotateCcw } from "lucide-react";
+import { Palette, RotateCcw, AlertTriangle } from "lucide-react";
 
 const PALETTES = [
   { id: "rainbow", labelKey: "Visuals:palettes.rainbow" },
@@ -362,6 +363,27 @@ export default function ConfigureVisuals() {
                 </SelectContent>
               </Select>
             </SettingRow>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-card/60 border-border shadow-lg shadow-black/20 backdrop-blur-sm">
+          <CardContent className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-3">
+              <AlertTriangle className="h-4 w-4 text-amber-500" />
+              <div>
+                <p className="text-sm font-medium text-foreground">Jurisdictional Risk Disclaimer</p>
+                <p className="text-xs text-muted-foreground">Review the terms you agreed to on first launch</p>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={resetDisclaimer}
+              className="border-amber-500/30 text-amber-400 hover:bg-amber-500/10 gap-1.5"
+            >
+              <AlertTriangle className="h-3.5 w-3.5" />
+              Review
+            </Button>
           </CardContent>
         </Card>
 

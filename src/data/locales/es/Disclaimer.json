@@ -1,0 +1,22 @@
+{
+  "title": "Software de Código Abierto y Exención de Responsabilidad por Riesgos Jurisdiccionales",
+  "readCarefully": "Por favor, lea atentamente este aviso legal antes de continuar.",
+  "intro": "La aplicación pma es una interfaz gráfica de usuario (GUI) de código abierto y gratuita, distribuida bajo la licencia MIT. Actúa únicamente como una herramienta localizada que permite a los usuarios interactuar directamente con protocolos descentralizados de blockchain.",
+  "acknowledge": "Al reconocer esta exención de responsabilidad y continuar, usted acepta y confirma lo siguiente:",
+  "section1Title": "Sin Operador Central o Intención Comercial",
+  "section1Content": "Este software es mantenido estrictamente por colaboradores independientes de código abierto, no por una entidad corporativa o venture comercial. Los desarrolladores no operan una plataforma, bolsa o corretaje. No alojamos infraestructura backend, no cobramos comisiones de trading, no extraemos beneficios ni rastreamos datos de usuarios.",
+  "section2Title": "Sin Creación de Activos o Resolución de Mercados",
+  "section2Content": "Los colaboradores de este proyecto no crean activos de mercados de predicción, no establecen reglas de contratos, no actúan como oráculos de datos ni resuelven resultados de mercados. Todos los mercados son creados, capitalizados y resueltos enteramente por participantes autónomos de blockchain de terceros. Esta interfaz simplemente lee y formatea datos de blockchain disponibles públicamente.",
+  "section3Title": "Variaciones y Restricciones Jurisdiccionales",
+  "section3Content": "El estado regulatorio y legal de los activos de mercados de predicción descentralizados varía significativamente entre las jurisdicciones globales. En ciertas regiones, interactuar con estos protocolos puede estar restringido, tratarse como derivados financieros regulados o clasificarse como una forma de apuesta que requiere una licencia local específica. En consecuencia, esta interfaz no está destinada a ser utilizada, descargada o ejecutada por individuos que residan en jurisdicciones donde tales actividades descentralizadas estén restringidas o no autorizadas, incluyendo:",
+  "section4Title": "Asunción de Riesgo y Custodia de Activos",
+  "section4Content": "Este software se ejecuta exclusivamente en su máquina local. Los colaboradores nunca mantienen la custodia de sus claves criptográficas o fondos. La interacción con activos de predicción implica un riesgo extremo de pérdida total de capital. El software se proporcion \"TAL CUAL\", sin garantías de ningún tipo.",
+  "jurisdictionUK": "El Reino Unido (Gran Bretaña e Irlanda del Norte)",
+  "jurisdictionEU": "Estados miembros restringidos de la Unión Europea (incluyendo pero no limitado a Francia, Alemania, España, Bélgica, los Países Bajos, Italia, Portugal y Polonia)",
+  "jurisdictionOther": "Suiza, Australia, Singapur, Indonesia, India, Taiwán, Brasil y Argentina",
+  "jurisdictionSanctions": "Cualquier jurisdicción sujeta a sanciones internacionales integrales (como naciones restringidas por OFAC)",
+  "section5Title": "Certificación del Usuario",
+  "checkboxLabel": "Certifico que no soy residente ni ciudadano del Reino Unido, los Estados Unidos de América o cualquier otra jurisdicción restringida mencionada anteriormente. Asumo todas las responsabilidades de cumplimiento y los riesgos legales asociados con mis leyes locales, y libero a los colaboradores de código abierto de toda responsabilidad legal o financiera.",
+  "proceed": "Continuar",
+  "jurisdictionUSA": "Estados Unidos de América"
+}

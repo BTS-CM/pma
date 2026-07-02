@@ -6,7 +6,7 @@
   },
   "card": {
     "title": "Loo ennustusturu organisatsioon",
-    "description": "Registreeri ülemine vara nimi, mis toimib teie ennustusturu alamvarade ülaemana. Selle organisatsiooni all väljastatud alamvarad (nt GAMBLE.0001) saavad madalama loomistasu ja kohese brändi tunnustamise.",
+    "description": "Registreeri ülemine vara nimi, mis toimib teie ennustusturu alamvarade ülaemana. Selle organisatsiooni all väljastatud alamvarad (nt ASSET.0001) saavad madalama loomistasu ja kohese brändi tunnustamise.",
     "updateTitle": "Redigeeri ennustusturu organisatsiooni",
     "updateDescription": "Uuendage oma organisatsiooni identiteedi, juhtimise ja kinnituse üksikasju."
   },
@@ -27,7 +27,7 @@
   "symbol": {
     "label": "Organisatsiooni sümbol",
     "help": "Teie ennustusturu organisatsiooni ülemine vara sümbol. Alamvarad väljastatakse kujul SYMBOL.0001, SYMBOL.0002 jne. Ei tohi sisaldada punkti.",
-    "placeholder": "nt GAMBLE"
+    "placeholder": "nt ASSET"
   },
   "shortName": {
     "label": "Lühinimi",
@@ -50,7 +50,7 @@
       "name": {
         "label": "Organisatsiooni nimi",
         "help": "Teie ennustusturu organisatsiooni ametlik nimi.",
-        "placeholder": "nt GambleDAO"
+        "placeholder": "nt ASSETDAO"
       },
       "website": {
         "label": "Veebisait",
@@ -103,7 +103,7 @@
   "fieldsRequired": "Palun sisestage organisatsiooni sümbol, et jätkata.",
   "tips": {
     "title": "PMA organisatsioonide kohta",
-    "hint": "Ennustusturu organisatsiooni loomine registreerib ülemise varanime, mille all saate väljastada alamvarasid oluliselt soodsama hinnaga. Näiteks 'GAMBLE' registreerimine võimaldab hiljem luua GAMBLE.0001, GAMBLE.0002 jne. — igaüks madalama tasuga kui iseseisva vara loomine. Investorid tunnevad need alamvarad oma organisatsiooni kuuluvatena."
+    "hint": "Ennustusturu organisatsiooni loomine registreerib ülemise varanime, mille all saate väljastada alamvarasid oluliselt soodsama hinnaga. Näiteks 'ASSET' registreerimine võimaldab hiljem luua ASSET.0001, ASSET.0002 jne. — igaüks madalama tasuga kui iseseisva vara loomine. Investorid tunnevad need alamvarad oma organisatsiooni kuuluvatena."
   },
   "buttons": {
     "submit": "Loo organisatsioon",
