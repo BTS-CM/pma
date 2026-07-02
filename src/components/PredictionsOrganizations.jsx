@@ -351,13 +351,11 @@ function OrganizationCard({ org, pmaCount, t, usr, marketSearch }) {
       <CardHeader className="pb-2 pt-3">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <CardTitle className="text-base sm:text-lg font-semibold text-foreground flex items-center gap-2">
+            <CardTitle className="text-base sm:text-lg font-semibold text-foreground flex items-center gap-2 flex-wrap">
               <ShieldCheck className="h-5 w-5 text-cyan-400 flex-shrink-0" />
-              {pmo?.identity?.name || symbol}
+              <span>{pmo?.identity?.name || symbol}</span>
+              <span className="text-xs font-mono text-muted-foreground/70 font-normal">- {symbol} ({source.id})</span>
             </CardTitle>
-            <CardDescription className="text-xs text-muted-foreground mt-1 font-mono">
-              {symbol}
-            </CardDescription>
           </div>
           <div className="flex flex-wrap items-center gap-1.5 flex-shrink-0">
             <Badge variant="outline" className="text-[10px] border-cyan-500/30 text-cyan-400 bg-cyan-500/10">
@@ -398,40 +396,50 @@ function OrganizationCard({ org, pmaCount, t, usr, marketSearch }) {
         </div>
       </CardHeader>
       <CardContent className="text-sm pb-3 text-foreground/70">
-        <div className="flex flex-wrap gap-2 mt-1">
-          <a
-            href={`/active-predictions.html?search=${symbol}`}
-            className="inline-flex items-center gap-1 text-xs text-cyan-400 hover:underline"
+        <div className="flex flex-wrap gap-1.5 mt-1">
+          <Button
+            variant="outline"
+            size="sm"
+            asChild
+            className="h-7 px-2.5 py-1 text-xs border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/15 hover:border-cyan-400/60 hover:text-cyan-300 hover:shadow-[0_0_12px_-3px_rgba(34,211,238,0.4)] active:scale-[0.97] transition-all duration-200 backdrop-blur-sm"
           >
-            <ExternalLink className="h-3 w-3" />
-            {t("PredictionsOrganizations:viewActive")}
-          </a>
-          <a
-            href={`/expired-predictions.html?search=${symbol}`}
-            className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground/70 hover:underline"
+            <a href={`/active-predictions.html?search=${symbol}`}>
+              <ExternalLink className="h-3.5 w-3.5" />
+              {t("PredictionsOrganizations:viewActive")}
+            </a>
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            asChild
+            className="h-7 px-2.5 py-1 text-xs border-border text-muted-foreground hover:bg-accent/50 hover:border-muted-foreground/50 hover:text-foreground/80 hover:shadow-md active:scale-[0.97] transition-all duration-200 backdrop-blur-sm"
           >
-            <ExternalLink className="h-3 w-3" />
-            {t("PredictionsOrganizations:viewExpired")}
-          </a>
+            <a href={`/expired-predictions.html?search=${symbol}`}>
+              <ExternalLink className="h-3.5 w-3.5" />
+              {t("PredictionsOrganizations:viewExpired")}
+            </a>
+          </Button>
           {pmo ? (
-            <button
-              type="button"
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => setPmoDetailsOpen(true)}
-              className="inline-flex items-center gap-1 text-xs text-violet-400 hover:underline"
+              className="h-7 px-2.5 py-1 text-xs border-violet-500/30 text-violet-400 hover:bg-violet-500/15 hover:border-violet-400/60 hover:text-violet-300 hover:shadow-[0_0_12px_-3px_rgba(167,139,250,0.4)] active:scale-[0.97] transition-all duration-200 backdrop-blur-sm"
             >
-              <Eye className="h-3 w-3" />
+              <Eye className="h-3.5 w-3.5" />
               {t("PredictionsOrganizations:viewPmoDetails")}
-            </button>
+            </Button>
           ) : null}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline"
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-7 px-2.5 py-1 text-xs border-amber-500/30 text-amber-400 hover:bg-amber-500/15 hover:border-amber-400/60 hover:text-amber-300 hover:shadow-[0_0_12px_-3px_rgba(251,191,36,0.4)] active:scale-[0.97] transition-all duration-200 backdrop-blur-sm"
               >
-                <FileJson className="h-3 w-3" />
+                <FileJson className="h-3.5 w-3.5" />
                 {t("PredictionsOrganizations:viewJson")}
-              </button>
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-card border-border shadow-2xl shadow-black/40">
               <DropdownMenuItem
@@ -452,20 +460,30 @@ function OrganizationCard({ org, pmaCount, t, usr, marketSearch }) {
           </DropdownMenu>
           {isOwner ? (
             <>
-              <a
-                href={`/create_pma_org.html?asset_update=${symbol}`}
-                className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline"
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+                className="h-7 px-2.5 py-1 text-xs border-amber-500/30 text-amber-400 hover:bg-amber-500/15 hover:border-amber-400/60 hover:text-amber-300 hover:shadow-[0_0_12px_-3px_rgba(251,191,36,0.4)] active:scale-[0.97] transition-all duration-200 backdrop-blur-sm"
               >
-                <Pen className="h-3 w-3" />
-                {t("PredictionsOrganizations:editOrg")}
-              </a>
-              <a
-                href={`/create_prediction.html?org=${symbol}`}
-                className="inline-flex items-center gap-1 text-xs text-fuchsia-400 hover:underline"
-              >
-                <Plus className="h-3 w-3" />
-                {t("PredictionsOrganizations:createPrediction")}
-              </a>
+                <a href={`/create_pma_org.html?asset_update=${symbol}`}>
+                  <Pen className="h-3.5 w-3.5" />
+                  {t("PredictionsOrganizations:editOrg")}
+                </a>
+              </Button>
+              {pmo ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="h-7 px-2.5 py-1 text-xs border-fuchsia-500/30 text-fuchsia-400 hover:bg-fuchsia-500/15 hover:border-fuchsia-400/60 hover:text-fuchsia-300 hover:shadow-[0_0_12px_-3px_rgba(217,70,239,0.4)] active:scale-[0.97] transition-all duration-200 backdrop-blur-sm"
+                >
+                  <a href={`/create_prediction.html?org=${symbol}`}>
+                    <Plus className="h-3.5 w-3.5" />
+                    {t("PredictionsOrganizations:createPrediction")}
+                  </a>
+                </Button>
+              ) : null}
             </>
           ) : null}
         </div>

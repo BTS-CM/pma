@@ -13,6 +13,7 @@ import { createFullAssetFromSymbolStore } from "@/nanoeffects/Assets.ts";
 import { createAssetExistsStore } from "@/nanoeffects/AssetExists.ts";
 import { createUserBalancesStore } from "@/nanoeffects/UserBalances.ts";
 import { createEveryObjectStore } from "@/nanoeffects/Objects.ts";
+import { acquireConnection, releaseConnection } from "@/nanoeffects/src/ConnectionPool";
 
 import { $currentUser } from "@/stores/users.ts";
 import { $currentNode } from "@/stores/node.ts";
@@ -240,6 +241,58 @@ export default function usePredictionForm(properties) {
     });
   }, [combinedAssets, assets, usr]);
 
+  // Fetch user's issued assets from chain to find PMOs (cached data lacks options.description)
+  const [fetchedUserOrgs, setFetchedUserOrgs] = useState([]);
+  useEffect(() => {
+    if (!usr || !usr.id || !currentNode?.url || isEditMode) return;
+    let cancelled = false;
+    (async () => {
+      let api;
+      try {
+        api = await acquireConnection(currentNode.url);
+        const allAssets = [];
+        let start = "1.3.0";
+        // Paginate through all assets issued by this user
+        while (!cancelled) {
+          const result = await api.db_api().exec("get_assets_by_issuer", [usr.id, start, 100]);
+          if (!result || !result.length) break;
+          allAssets.push(...result);
+          if (result.length < 100) break;
+          start = result[result.length - 1].id;
+        }
+        if (cancelled) return;
+        const pmos = allAssets.filter((a) => {
+          if (a.symbol && a.symbol.includes(".")) return false;
+          if (!a.options || !a.options.description) return false;
+          try {
+            const d = JSON.parse(a.options.description);
+            return d && d.pmo_object;
+          } catch {
+            return false;
+          }
+        });
+        setFetchedUserOrgs(pmos);
+      } catch (err) {
+        console.warn("[CreatePrediction] Failed to fetch user PMOs:", err);
+      } finally {
+        if (api) releaseConnection(currentNode.url, api);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [usr?.id, currentNode?.url, isEditMode]);
+
+  // Merge chain-fetched user orgs with cached userOrgs
+  const allUserOrgs = useMemo(() => {
+    if (!fetchedUserOrgs.length) return userOrgs;
+    const merged = [...userOrgs];
+    for (const org of fetchedUserOrgs) {
+      if (!merged.some((o) => o.symbol === org.symbol)) {
+        merged.push(org);
+      }
+    }
+    return merged;
+  }, [userOrgs, fetchedUserOrgs]);
+
   // When URL has ?org=SYMBOL, fetch the full org asset from the chain
   // (cached assets lack options.description so userOrgs is always empty)
   const [fetchedUrlOrg, setFetchedUrlOrg] = useState(null);
@@ -259,21 +312,21 @@ export default function usePredictionForm(properties) {
     };
   }, [urlOrgSymbol, _chain, currentNode]);
 
-  // Effective user orgs: merge chain-fetched URL org into userOrgs if it's a PMO owned by the user
+  // Effective user orgs: merge chain-fetched URL org into allUserOrgs if it's a PMO owned by the user
   const effectiveUserOrgs = useMemo(() => {
-    if (!fetchedUrlOrg || !usr?.id) return userOrgs;
-    if (fetchedUrlOrg.issuer !== usr.id) return userOrgs;
-    if (fetchedUrlOrg.symbol?.includes(".")) return userOrgs;
-    if (!fetchedUrlOrg.options?.description) return userOrgs;
+    if (!fetchedUrlOrg || !usr?.id) return allUserOrgs;
+    if (fetchedUrlOrg.issuer !== usr.id) return allUserOrgs;
+    if (fetchedUrlOrg.symbol?.includes(".")) return allUserOrgs;
+    if (!fetchedUrlOrg.options?.description) return allUserOrgs;
     try {
       const d = JSON.parse(fetchedUrlOrg.options.description);
-      if (!d || !d.pmo_object) return userOrgs;
+      if (!d || !d.pmo_object) return allUserOrgs;
     } catch {
-      return userOrgs;
+      return allUserOrgs;
     }
-    if (userOrgs.some((o) => o.symbol === fetchedUrlOrg.symbol)) return userOrgs;
-    return [...userOrgs, fetchedUrlOrg];
-  }, [fetchedUrlOrg, userOrgs, usr]);
+    if (allUserOrgs.some((o) => o.symbol === fetchedUrlOrg.symbol)) return allUserOrgs;
+    return [...allUserOrgs, fetchedUrlOrg];
+  }, [fetchedUrlOrg, allUserOrgs, usr]);
 
   // Default to organization mode when user owns PMO assets (skip in edit mode)
   useEffect(() => {
